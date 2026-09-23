@@ -29,9 +29,11 @@
 5. **En attente** : envoi mail Crédit Municipal · dates des finals prérequis (Excel/Accounting/CorpFin = 100% final confirmé, dates inconnues) · syllabi manquants restants (Capital Budgeting, Sustainable, Treasury, Power BI, Applied Research, Python, Responsible Leadership) · réponse Marino/bon de commande · réponse CM · enregistrement officiel semestre Belo (Rodrigues) + confirmation iCIMS 67 (Blas) · compteur ECTS sur YEP · trouver/emprunter une **TI BA II Plus physique** avant le 5/10 (examen Money/Banking) · choisir l'entreprise cotée pour le projet Valuation (sem. du 28/09).
 6. **Repères lointains verrouillés** : e-learning Salary Negotiation avant 24/11 · quiz Career 1-2/12 · double exams probables 19/11 et 9/12 · rattrapages 23-26/02/2027 · titre de séjour expire 30/01/2027 (renouvellement dépend du certificat S5).
 
-## Règles d'usage (méthode)
+## Note sur le lot de fichiers cours (merge main 23/09)
 
-- Tout document de fond vit dans ce repo, en markdown, daté, avec ligne `MAJ`.
+- **Matière pour les replays** : exos + corrigés Accounting (`Ex 1;2`, `Ex 4;5;6`, `Ex 6 7`, `Correction Accounting prerequisites`), CFP (`CFP Exercises 1 2 3`, `8 9`, `CFP Solutions`), PPT 2026 des 2 prérequis, **pack FRA S1 + corrigé + 6 readings**, fichiers xlsx Excel/TVM/Financial market notions, slides intro, syllabi PDF (CVM, CFP, FRA, Money/Banking).
+- `EMPLOI DU TEMPS VALIDE.pdf` = **hors périmètre** (Université de Lille, Licence Éco-Gestion — autre personne ; l'EDT de référence SKEMA reste le calendrier K2).
+- Les 2 PDF à nom GUID = guides bourse CROUS/Erasmus+ et guide OneStop (DSE/DOSI) — documentation annexes utiles pour aides financières.
 - On ne supprime pas, on corrige/remplace en datant.
 - Hypothèse d'évaluation : contrôle continu, exam au dernier cours (comme Belo) — **en cours de vérification syllabus par syllabus**.
 
