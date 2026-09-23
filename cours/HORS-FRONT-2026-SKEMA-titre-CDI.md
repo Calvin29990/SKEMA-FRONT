@@ -10,7 +10,8 @@
 * **Adresse :** la courante est **51 rue de Tournai** ; le 47 rue de Vantroyen (ancienne mention) a été quitté après **infestation de punaises** — d'où les deux adresses qui circulent. **Harmoniser partout sur 51 Tournai** (préfecture, Crédit Municipal, CROUS, Mission Locale, SKEMA).
 * **CSS sans participation 01/07/2026 → 30/06/2027 + ALD 100%** — attestation de droits CPAM Lille-Douai **valable 24/06/2026 → 23/06/2027**, protocole ALD **16/04/2026 → 16/04/2029** (100% des soins du protocole), nom d'usage « Blanchard » (cf. mail perso `blanchardminang00@gmail.com`). **La CSS sans participation est une preuve officielle de ressources faibles** : pièce maîtresse du CASU/FAJeM et de la condition <300€/mois de l'allocation ponctuelle (§8). — hospitalisation **avril → mi-août 2026 à Belo Horizonte** (examens passés depuis le lit d'hôpital, soutien dir. campus Gustavo Hoffmann, +55 31 9878-73232).
 * **Parcours :** Concours BCE 2022 n°21446 / Ecricome 502358 → L3 → S3 fictif (anglais B2) 2023 → césure janv-déc 2024 → M1 2025 (McDonald's Mantes, contrat interrompu car SKEMA impose le semestre à l'étranger) → **M2 S6 Belo Horizonte janv. 2026 → M2 S5 Lille sept→déc 2026 → fin de scolarité décembre 2026 → jury début 2027.** Diplôme = levée d'opposabilité ≥1,5 SMIC ou carte recherche d'emploi L422-10 (12 mois, travail sans limite).
-* **Emplois :** McDo Mantes 2025 (bulletins à récupérer via mesdroitssociaux.gouv.fr si besoin) + **BPCE depuis 2024 (produits)** — levier prêt collaborateur / avance / CE non encore activé.
+* **Emplois :** **stage BPCE 2024 (produits)** — stagiaire ≠ salarié : levier prêt collaborateur / avance / CE **probablement inaccessible, déclassé** ; **job étudiant McDo Mantes-la-Jolie 2025** (contrat en main, bulletins via mesdroitssociaux.gouv.fr) ; **zéro emploi en 2026** (Brésil, hospitalisation ALD) → **zéro revenu 2026**, visible sur tous les comptes (BNP -166€, Bourso 0€, Revolut 0€).
+* **Fiscal :** **avis de non-imposition 2025 (revenus 2024) : RFR 0€, 1 part** — n° fiscal 30 59 777 442 400, réf. avis 25 78 A613102 20. La preuve officielle de ressources nulles la plus forte, en binôme avec la CSS. ⚠️ Adresse fiscale encore **108 rue Maurice Braunstein, 78200 Mantes-la-Jolie** → changement d'adresse vers 51 rue de Tournai à faire sur impots.gouv.fr (cohérence chaîne §5).
 * **Drive source :** https://drive.google.com/drive/folders/1NdzR22hAIUB3o-92rcAsyRItUtse6eBz — 100% du Drive, 61 fichiers catalogués dans `02-catalogue-drive.md`.
 
 ---
@@ -41,7 +42,7 @@
 | **Caisse d'Épargne** | PEGE | ❌ | nationalité |
 | **Crédit Agricole Nord** | étudiant | ❌ | caution |
 | **Société Générale** | PEGE | ❌ | nationalité |
-| **CIC Lille** (partenaire SKEMA, RDV 23/09) | PEGE FR/UE | ❌ **dit non le 23/09** | garant UE |
+| **CIC Lille** (partenaire SKEMA) | PEGE FR/UE | ❌ **dit non le 22/09** | garant UE |
 | **BNP** | étudiant | ❌ | — |
 | **Crédit Coopératif** 0 800 171 819 (TAEG 1,92% jusqu'au 30/09) | 1 500-60k€ | ❌ | 5 ans résidence |
 | **PEGE Bpifrance** | PEGE | ❌ | 2 ans résidence |
@@ -53,6 +54,8 @@
 | **Crédit Municipal Lille 81 rue Gantois** | **microcrédit 300-8 000€, 1,5-4%, 6-84 mois, 0 frais** | **⏳ mail 22/09 + mail n°2 avec 7 pièces le 23/09 (`cours/MAIL-CREDIT-MUNICIPAL-23-09.md`) — demander 7 500€, pas 20 000€** | exige ressource + 3 relevés + avis d'imposition. Prescripteur : Mission Locale, CCAS, Croix-Rouge. Fonds versés direct au créancier sous 2 semaines. Prêt sur gage possible en 1h |
 
 **Règle :** un refus n'est jamais sur la solvabilité. Le microcrédit se joue sur **ressource régulière** → job étudiant 10-15h/sem (McDo Lille) = déclencheur (430-650€/mois) → crédibilise l'échéancier. **APL : seulement si loyer déclaré** — hébergé gratuitement chez ta sœur = pas d'APL ; ne compter ce levier que si un bail ou une participation au loyer déclarée existe. Le levier « ressources faibles » officiel, lui, existe déjà : **la CSS** (§1).
+
+**Confirmé le 23/09 : zéro revenu 2026** (Brésil, ALD) et **levier APL abandonné** (hébergé gratuit, CAF hors jeu). Conséquence : le job McDo Lille n'est plus un « déclencheur », c'est **la seule ressource régulière accessible** — tant qu'il n'est pas signé, le dossier microcrédit tient sur le statut social de l'établissement + le prescripteur + la garantie (diplôme) + l'échéancier janvier 2027. C'est exactement ainsi que le mail n°2 le présente.
 
 **Le Crédit Municipal n'est pas une banque — et c'est exactement pour ça qu'il faut y aller.** Établissement public municipal : (1) **prêt sur gage** (objet de valeur → cash en ~1h, récupérable en remboursant : bridge trésorerie si urgence, sans aucune condition de revenu ni de nationalité) ; (2) **microcrédit accompagné 300-8 000€** sur prescripteur social — le canal des 7 500€ vers SKEMA. Il n'applique **aucun** des critères qui ont produit les 13 refus (nationalité, garant UE, parents clients, résidence). Le mail envoyé le 22/09 = bonne trace écrite ; **le RDV physique avec le kit reste supérieur** : le microcrédit accompagné se décide sur pièces et sur présence. Statut officiel (site, page Contact) : **« Établissement Public communal de crédit et d'aide sociale »** — l'aide sociale est dans le statut, ce n'est pas une banque. Contact : `contact@credit-municipal-lille.fr` · 03 20 18 04 00 · 9h-12h / 13h30-17h · expertises gage gratuites **le mardi 14h-17h sans RDV**. **Mail n°2 avec 6 pièces jointes : `cours/MAIL-CREDIT-MUNICIPAL-23-09.md`** — prêt à envoyer le 23/09 depuis le mail perso.
 
@@ -108,7 +111,7 @@ Contexte juin 2026 : FICC atone, equity prime explose (DB FIC +16% 2 614M€, BN
 
 | Levier | Ce que ça paie | Condition |
 |---|---|---|
-| **PACEA** (contrat d'accompagnement) | ouvre l'**allocation ponctuelle** : 566,17€/mois max, 3 397,02€ sur 12 mois glissants | **< 300€ nets de ressources le mois aidé** — la CSS sans participation est une présomption forte de ressources faibles ; vérifier ce que verse BPCE avant d'y compter |
+| **PACEA** (contrat d'accompagnement) | ouvre l'**allocation ponctuelle** : 566,17€/mois max, 3 397,02€ sur 12 mois glissants | **< 300€ nets de ressources le mois aidé** — **condition remplie : zéro revenu 2026** (BPCE = stage 2024 terminé, McDo = job 2025 terminé) ; CSS sans participation + avis de non-imposition RFR 0€ = double preuve |
 | **Dossier FAJeM monté par le conseiller** | règlement 2025 Lille Métropole : **1 000€/an** max (aides individuelles, formation comprise ; établissement privé OK si qualification reconnue), 5% à ta charge si revenus > RSA isolé | accompagnement ouvert + épuisement des voies de droit commun prouvé |
 | **Statut de prescripteur** | Mission Locale = prescripteur du **microcrédit Crédit Municipal** (avec CCAS, Croix-Rouge) | attestation de suivi à demander au RDV, à joindre au dossier gage/microcrédit |
 | **Preuve de suivi social** | sécurise la chaîne fragile du §5 (préfecture, CROUS, Marino) | compte rendu / lettre du conseiller |
@@ -119,7 +122,7 @@ Contexte juin 2026 : FICC atone, equity prime explose (DB FIC +16% 2 614M€, BN
 
 **Kit RDV conseiller (à décrocher par téléphone sous 48h, `03 20 14 85 50`, créneau avant le 30/09) :**
 
-* **Pièces :** 3 relevés BNP · **attestation de droits CSS/ALD (CPAM Lille-Douai, valable 24/06/2026→23/06/2027, protocole ALD 16/04/2026→16/04/2029)** · attestation Belloni 21/09 · contrat + bulletins BPCE · proposition Marino 300€×25 · **table des 13 refus (§4)** · récap Airtable de préinscription · mail équipe FAJeM.
+* **Pièces :** relevés des 3 comptes (BNP -166€, Bourso 0€, Revolut 0€) · **attestation de droits CSS/ALD (CPAM Lille-Douai, valable 24/06/2026→23/06/2027, protocole ALD 16/04/2026→16/04/2029)** · **avis de non-imposition 2025 (RFR 0€, 1 part)** · **ATTESTATION DE FRAIS A PAYER Belloni 21/09** (15 000€, 4×3 750€, mention d'inscription sur les listes, IBAN SKEMA = créancier) · contrat stage BPCE 2024 + contrat job McDo 2025 · proposition Marino 300€×25 (fil du 22/09) · **table des 13 refus (§4)** · récap Airtable de préinscription · mail équipe FAJeM.
 * **Dire :** « en fin de formation » (jamais « étudiant »), 24 ans, Lille Centre, échéance SKEMA 30/09 = risque d'exclusion, demande = **PACEA + montage FAJeM + attestation de suivi pour le Crédit Municipal**.
 * **Ne pas demander « une aide »** : demander **un accompagnement avec calendrier**. La commission FAJeM statue sur des situations accompagnées, pas sur des demandes sèches.
 
@@ -128,4 +131,4 @@ Contexte juin 2026 : FICC atone, equity prime explose (DB FIC +16% 2 614M€, BN
 * **Adresse :** courante = **51 rue de Tournai, 59800 Lille** (hébergé chez ta sœur) ; 47 rue de Vantroyen = ancienne adresse quittée après **infestation de punaises**. Une seule adresse circule désormais : 51 Tournai.
 * **Domiciliation :** réalité = **hébergé chez ta sœur, qui fait fonction de parent** — ni « chez tes parents » ni logement autonome. Faire écrire « hébergé chez un proche (sœur) » sur le dossier Mission Locale au RDV, et préciser **si tu participes financièrement au ménage** : ça change le calcul CASU/FAJeM (charges du foyer d'accueil) et la lecture du <300€/mois.
 
-*Dernière MAJ : 23/09/2026 (3e passage) — contact Crédit Municipal vérifié sur le site officiel (`contact@credit-municipal-lille.fr`, 03 20 18 04 00), statut « Établissement Public communal de crédit et d'aide sociale », mail n°2 + 7 pièces prêt à envoyer (`cours/MAIL-CREDIT-MUNICIPAL-23-09.md`), protocole de relance 48h. Prochains faits déclencheurs : envoi effectif du mail n°2, réponse Crédit Municipal, date RDV conseiller Mission Locale.*
+*Dernière MAJ : 23/09/2026 (4e passage) — historique emplois corrigé (BPCE = stage 2024, McDo = job 2025, zéro emploi 2026 → zéro revenu), avis de non-imposition 2025 (RFR 0€) intégré + adresse fiscale Mantes à changer, ATTESTATION DE FRAIS A PAYER Belloni nommée exactement (scolarité + échéancier + IBAN créancier en une pièce), CIC re-daté 22/09, pièces du mail n°2 et du kit RDV alignées sur les documents réels, levier APL abandonné, condition <300€ de l'allocation ponctuelle confirmée remplie. Prochains faits déclencheurs : envoi effectif du mail n°2, réponse Crédit Municipal, date RDV conseiller Mission Locale, signature job McDo Lille.*
