@@ -22,9 +22,9 @@
 
 ## À faire — ordre d'urgence (état au 23/09 soir)
 
-1. **Ce soir** : choisir le groupe Capital Structure sur K2 (Group Choice, viser un 4/5 : Groupe 4, 6 ou 7) · replays FRA#1 + Sustainable#1.
-2. **Jeu 24/09 matin** : retirer la carte étudiante au **Front Desk dès l'ouverture** (mail reçu 22/09 15h56) → 9h45 Valuation S2 · 15h Capital Structure S2 (Bond Valuation) · se présenter aux 2 profs (scripts dans `S5-JUSTIFICATION-...`).
-3. **Jeu 24/09** : répondre à Cécile (Student Experience) pour router la justification officielle d'assiduité (script A).
+1. ~~Ce soir~~ **FAIT 23/09** : groupe Capital Structure = **Group 7 (5/5 complet)** ✅ choix enregistré K2 · mail CM **envoyé 23/09 ~12h** (demande microcrédit 7 500€ + pièces, ouverture RDV) ✅ · **carte étudiante retirée** ✅.
+2. **Jeu 24/09** : 9h45 Valuation S2 · 15h Capital Structure S2 (Bond Valuation) · se présenter aux 2 profs (scripts dans `S5-JUSTIFICATION-...`).
+3. **À faire (assiduité)** : réponse à Cécile (Student Experience) pour router la justification officielle (script A) — pas urgent mais avant fin de semaine.
 4. **Ven 25/09 14h45** : Career Management "Review My Project" — présence = **20% de la note**.
 5. **En attente** : envoi mail Crédit Municipal · dates des finals prérequis (Excel/Accounting/CorpFin = 100% final confirmé, dates inconnues) · syllabi manquants restants (Capital Budgeting, Sustainable, Treasury, Power BI, Applied Research, Python, Responsible Leadership) · réponse Marino/bon de commande · réponse CM · enregistrement officiel semestre Belo (Rodrigues) + confirmation iCIMS 67 (Blas) · compteur ECTS sur YEP · trouver/emprunter une **TI BA II Plus physique** avant le 5/10 (examen Money/Banking) · choisir l'entreprise cotée pour le projet Valuation (sem. du 28/09).
 6. **Repères lointains verrouillés** : e-learning Salary Negotiation avant 24/11 · quiz Career 1-2/12 · double exams probables 19/11 et 9/12 · rattrapages 23-26/02/2027 · titre de séjour expire 30/01/2027 (renouvellement dépend du certificat S5).
