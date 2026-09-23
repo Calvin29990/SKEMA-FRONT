@@ -92,3 +92,16 @@ Sources : skema.edu (fiche Saidane) ; theconversation.com (profil Saidane) ; jst
 6. **Caler dès maintenant** : e-learning Salary Negotiation → deadline 24/11 ; quiz Career → 1-2/12.
 
 *MAJ 23/09/2026 ~15h — batch K2 n°2 intégré. Prochaine MAJ : syllabus Valuation + Capital Budgeting + dates finals prérequis.*
+
+---
+
+## Complément v2 (23/09 aprem) — 4 nouveaux syllabus extraits du push main
+
+| Matière | Prof (campus) | Assessment | Points d'action |
+|---|---|---|---|
+| **Corporate Valuation Methods** | SOMMER Torben (Lille/Paris, mail `-ext` = probable praticien) | **50% continu / 50% final** | Continu = **projet individuel d'analyse d'une société cotée** : cap > 1 Md$, FCF yield > 3%, pas d'émergents/frontier, 5 ans d'historique, modèle Excel fourni + rapport ~10 pages. **Choisir la boîte cette semaine.** Daily FT/WSJ exigé. Références : Wahlen/Baginski/Bradshaw, Damodaran, vernimmen.net. |
+| **Money, Banking & Financial Markets** | SAIDANE Dhafer (Lille) / GEROULANOS Petros (Paris) | **100% final** | Contenu = matière à desk : money markets, **Spot/Forward FX, FX Swaps**, bonds (duration/convexité), futures, options, **Greeks, Black-Scholes, put-call parity, structured products**. 7 sessions (S1+S7 full cohort, S2-S6 en groupes). ⚠️ **Examen : calculatrice physique TI BA II Plus obligatoire** (pas l'appli — modèle CFA). → Trouver/emprunter une TI BA II Plus avant le 5/10. |
+| **Financial Reporting & Analysis** | RAKOTOVOLOLONA Heritiana (Lille/Paris, `-ext`) | **40% continu / 60% final** | 8 sessions IFRS (IAS 1/2/7/8/16/36/37, IFRS 8/13/15/16…). Matériel S1 + **corrigés F2026** déjà dans le repo. |
+| **Corporate Finance Prerequisites** | IYIDOGAN Engin (Paris) — **Distanciel** | **100% final (0% continu)** | 6h : TVM, PV, discount rates, firm/equity value. Ross ch. 1-4. **Confirme : les 3 prérequis = 100% final.** Dates des finals toujours à trouver. |
+
+**Restent manquants** : syllabi Capital Budgeting (lundi !), Sustainable Finance & Impact, Corporate Treasury, Power BI, Applied Research, Python, Responsible Leadership + **dates des finals des 3 prérequis**.
