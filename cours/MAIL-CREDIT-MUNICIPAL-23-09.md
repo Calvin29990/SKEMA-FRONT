@@ -5,6 +5,7 @@
 > **Envoyer depuis :** `blanchardminang00@gmail.com` (mail perso, pérenne)
 > **Pièces à joindre :** les 7 PDF listés plus bas. Un seul PDF par pièce, noms de fichiers ci-dessous.
 > **Statut :** PRÊT À ENVOYER — copier-coller le corps tel quel.
+> **Version v2 (23/09) :** job étudiant retiré du dossier — impossible (fin de scolarité déc. 2026 ; les employeurs d'emplois étudiants recrutent L3/M1, idéalement sans diplôme proche). Capacité de remboursement = gratification de stage janv. 2027 + emploi post-jury, filet CEJ. Premier versement proposé : janvier 2027, pas avant.
 
 ---
 
@@ -18,12 +19,15 @@ Madame, Monsieur,
 
 Je fais suite à mon message du 22 septembre et vous adresse mon dossier de demande de microcrédit personnel accompagné, d'un montant de 7 500 €, destiné à régler mon solde de scolarité envers SKEMA Business School (échéance du 30 septembre 2026 ; à défaut, exclusion de l'école). Je demande que les fonds soient versés directement au créancier.
 
-Ma situation, en trois lignes :
+Ma situation, point par point :
 
-* 24 ans, domicilié à Lille (51 rue de Tournai), en dernière année de Master à SKEMA Business School (MSc Corporate Financial Management, campus de Lille), fin de scolarité décembre 2026 ;
-* **aucun revenu en 2026** (hospitalisation en ALD au Brésil d'avril à mi-août 2026) ; historique de revenus : stage BPCE en 2024, emploi étudiant en 2025 ; revenu fiscal de référence 2024 : **0 €** (avis de non-imposition 2025) ; ma capacité de remboursement démarre en janvier 2027, aux premiers revenus de mon stage de fin d'études — c'est l'échéancier que je propose (pièce 5) ;
+* 24 ans, domicilié à Lille (51 rue de Tournai), en dernière année de Master à SKEMA Business School (MSc Corporate Financial Management, campus de Lille) : fin de scolarité décembre 2026, jury début 2027 ;
+* **aucun revenu en 2026** (hospitalisation en ALD au Brésil d'avril à mi-août 2026) ; historique : stage BPCE en 2024, emploi étudiant en 2025 ; revenu fiscal de référence 2024 : **0 €** (avis de non-imposition 2025) ;
+* **je ne sollicite aucun job étudiant et n'en promets aucun** : mon cursus s'achève dans trois mois et les employeurs d'emplois étudiants recrutent des profils L3/M1, idéalement sans diplôme proche — un tel revenu ne serait ni crédible ni garanti. Ma capacité de remboursement repose sur des revenus contractuels et diplômants : **gratification de mon stage de fin d'études à compter de janvier 2027** (recherche en cours dans mon secteur, la finance de marché), puis **emploi dès le jury obtenu**, où les rémunérations d'entrée de mon domaine dépassent 1,5 SMIC ; à défaut, l'allocation du Contrat d'Engagement Jeune de la Mission Locale, à laquelle ma fin de scolarité me rendra éligible ;
 * ressources faibles documentées : Complémentaire santé solidaire sans participation financière (CPAM Lille-Douai, droits valables jusqu'au 23/06/2027), protocole d'affection de longue durée ;
 * treize demandes de prêt bancaire refusées pour des motifs sans lien avec la solvabilité (nationalité, exigence d'un garant européen) — tableau récapitulatif disponible sur demande.
+
+C'est pourquoi je propose un **premier versement en janvier 2027, et non avant** : 300 € par mois pendant 25 mois, mon diplôme et mes relevés étant retenus en garantie jusqu'au solde (pièce 5).
 
 Vous trouverez en pièces jointes :
 
