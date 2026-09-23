@@ -28,3 +28,35 @@
 - Relance dans le fil du ticket si "Non Attribué" au-delà du 26/09 → et stocker le numéro comme preuve datée (utile y compris vis-à-vis compta/préfecture).
 
 *MAJ 23/09 17h — à updater dès réponse CM/Coop/Vanderdonckt ou résultat CIC.*
+
+---
+
+## Suivi v2 (23/09 soir) — résultats du jour
+
+| Piste | État |
+|---|---|
+| **CIC Lille** | ❌ **Mort** — RDV décommandé : la conseillère pense que la BPI (prêt garanti par l'État) est la bonne piste pour ce profil. Cohérent avec la demande Bpifrance à poser à Coop + BNP vendredi. |
+| **Marino (compta SKEMA)** | Mail "3 étapes + reconnaissance de dette" envoyé **22/09 23h** (reconnaissance 7 500€ signée, 300€/mois dès janv. 2027 ×25, diplôme/relevés retenus en garantie, contre certificat S5 ; preuve virement 10€ jointe ; demande du modèle de reco). **Attente réponse → relance planifiée le 26/09.** |
+| Crédit Municipal | Mail envoyé 23/09 ~12h — attente RDV |
+| Crédit Coopératif | Réponse reçue (caution ? durée ? différé ?) — mail de réponse rédigé, à envoyer ce soir |
+| BNP Lambersart | Appel proposé par Vanderdonckt — mail de réponse rédigé, créneau ven. 9h30-10h30 |
+
+## Brouillon de la relance Marino du 26/09 (à adapter selon l'actualité)
+
+> **Objet : RE: Reconnaissance de dette 7 500 € — point d'étape avant le 30/09 (0305476)**
+>
+> Madame Marino,
+>
+> Point d'étape avant l'échéance du 30/09, comme promis dans mon message du 22/09.
+>
+> Trois pistes instruites se sont concrétisées depuis : (1) le Crédit Municipal de Lille — dossier complet envoyé le 23/09 (microcrédit 7 500 €, fonds versés directement à SKEMA ; votre échéancier officiel joint fait foi), (2) le Crédit Coopératif Lille Centre — conseillère en contact direct, discussion structurante sur un prêt étudiant garanti par l'État, (3) BNP Paribas (directeur d'agence, Lambersart) — échange planifié cette semaine. Le CIC a décliné le rendez-vous et m'a explicitement orienté vers le dispositif Bpifrance.
+>
+> Le déblocage matériel prendra probablement quelques jours après le 30/09 — d'où l'importance de votre retour sur ma proposition dès que possible : **reconnaissance de dette de 7 500 €, 300 €/mois dès janvier 2027 (25 mensualités), diplôme et relevés retenus en garantie, contre délivrance du certificat S5.**
+>
+> Deux demandes concrètes : (1) votre modèle de reconnaissance de dette (retour signé dans la journée) ; (2) le cas échéant, une attestation de votre service confirmant le solde et l'échéancier — certains financeurs l'exigent pour verser les fonds à l'école.
+>
+> Bien cordialement,
+> Calvin MINANG — 0305476 — 07 52 97 58 09
+
+**Règle : envoyer le 26/09 seulement si Marino n'a pas répondu d'ici là. Si elle répond avant : répondre dans son fil sans ce mail.**
+*MAJ 23/09 18h30*
