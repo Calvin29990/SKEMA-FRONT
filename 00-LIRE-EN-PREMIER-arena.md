@@ -18,7 +18,7 @@
 | `S5-PLAN-de-bataille-23-09-au-19-12.md` | Plan semaine par semaine jusqu'au 19/12, 5 phases, rétro-planning des 7 exams probables | 23/09 |
 | `S5-AUDIT-syllabus-et-profs-2026-09-23.md` | Audit syllabus : prérequis=100% final, Capital Structure 60/40 + groupe, Career=50% présence ; classement front/culture G/validation ; radar profs | 23/09 |
 | `S5-JUSTIFICATION-absence-et-preuves.md` | Chaîne de preuves de l'absence + scripts profs (EN), admin (FR), élèves | 23/09 |
-| `S5-DIPLOME-criteres-et-these.md` | Audit des 5 critères du diplôme : anglais ✅ (iCIMS 67), international ✅ (Belo, à enregistrer via Rodrigues), entreprise ✅ (16 mois validés ≥ 12), ECTS 🟡 (compteur YEP), thèse ⏳ (contact déc/janv, jury juillet 2027 probable → titre à couvrir). Contacts admin (Panchout Lille, Rodrigues Paris, Blas, Cécile) | 23/09 |
+| `S5-DIPLOME-criteres-et-these.md` | Audit des 5 critères du diplôme : anglais ✅ (iCIMS 67), international ✅ (Belo, à enregistrer via Rodrigues), entreprise ✅ (16 mois validés ≥ 12), ECTS 🟢 (141/180, les 39 restants = S5), thèse ⏳ (contact déc/janv, jury juillet 2027 probable → titre à couvrir). Contacts admin (Panchout Lille, Rodrigues Paris, Blas, Cécile) | 23/09 |
 
 ## À faire — ordre d'urgence (état au 23/09 soir)
 

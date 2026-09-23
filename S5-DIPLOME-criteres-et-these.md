@@ -6,7 +6,7 @@
 
 | # | Critère (intégration L3) | Requis | Statut | Preuve / Action |
 |---|---|---|---|---|
-| 1 | **ECTS** | 180 | 🟡 Sur les rails | L3 (60) + M1 (60) + M2 S6 Belo validé + S5 en cours → à confirmer sur compteur YEP |
+| 1 | **ECTS** | 180 | 🟢 **141/180 validés — 39 outstanding = exactement le S5 en cours** | Relevé `Notes global skema 2026 2025 M2.pdf` (non officiel) : L3 60/60 · M1 60/60 · **M2 Belo 21/21 crd (moy. 74, dont Quant Analysis 79, Risk Mgmt & Inv Mgmt 79, Fin Modeling II 78, Sust & Climate Risk 89)**. Le diplôme ne dépend plus que de la validation du S5. ⚠️ Section "Graduation Criterias" du relevé = **vide (0/0)** et TOEFL = 0.00 → les critères 2/3/4 doivent être **inscrits au système** sinon un jury les lit à 0. |
 | 2 | **Expérience internationale** | **1 semestre** (au lieu de 2, en tant qu'étranger — mail Rodrigues Correia 03/03/2025 ; le Gabon ne compte pas) | ✅ Rempli (Belo janv-août 2026) | **À faire ENREGISTRER** : relancer sandra.rodriguescorreia@skema.edu avec preuve des exams Belo validés |
 | 3 | **Missions en entreprise** | 12 mois | ✅ **16 mois validés** | 4 conventions statut "VALIDÉE SKEMA - DOC RECU" (tableau ci-dessous) |
 | 4 | **Score anglais** | iCIMS ≥ 67 (ou TOEFL 570 / TOEIC 870 / IELTS 7 / Duolingo 125 / Cambridge 185) | ✅ iCIMS **67** (18/10/2023) | Mail M. Blas 30/09/2025 : "valid for the graduation". ⚠️ Page = "Self-Reported" → demander confirmation d'enregistrement officiel. TOEFL ITP 440 = insuffisant, ignoré. **Pas de TOEIC payant.** |
@@ -42,3 +42,13 @@
 | PGE@skema.edu | Boîte générique PGE | — | Questions diplôme |
 
 *MAJ 23/09/2026 ~16h — 4/5 critères objectivés, 1 en attente calendaire (thèse). Prochaine MAJ : retour YEP compteur ECTS + réponse Rodrigues.*
+
+---
+
+## Complément v2 — relevé de notes (uploadé 23/09, "not an official Transcript")
+
+- **141/180 ECTS validés · 39 outstanding = le S5 Lille** (ni plus, ni moins). Aucun crédit manquant hors semestre en cours.
+- M2 Belo : 21 crd, moy. 74/100 — rich sit : FI1171 Valuation & Risk Models 75, FI1165 Quantitative Analysis 79, FI1172 Risk Mgmt & Inv Mgmt 79, FI1120 Fin Modeling II 78, FI1240 Sust & Climate Risk 89, FI1285 Climate & Impact 81, FI1173 Credit Risk 70. Bas : FI1350 Fin Risk Mgmt Training II 59 (validé quand même).
+- **Prereqs Belo (FI1184 CFP, FI1119 Excel) : 0 crd, result 0** → réinscrits en Fall 2026, à revalider mais à 0 ECTS.
+- Section **"PGE - Graduation Criterias" : 0/0/0** + champ TOEFL 0.00 → confirme qu'anglais/international/entreprise ne sont pas encore inscrits au système : mails Rodrigues (international) et Blas (iCIMS) à convertir en enregistrement officiel. Sinon risque de lecture "critère = 0" au jury.
+- MAJ 23/09 16h45 — source : `Notes global skema 2026 2025 M2.pdf`.
