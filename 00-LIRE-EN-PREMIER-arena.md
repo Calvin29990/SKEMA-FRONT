@@ -2,9 +2,13 @@
 
 > **Si une nouvelle session Arena démarre sans contexte : lis ce fichier en entier, puis `cours/HORS-FRONT-2026-SKEMA-titre-CDI.md` à l'intérieur du zip. Tu auras 95% du contexte.**
 
-## Qui / Où on en est (23/09/2026)
+## Qui / Où on en est (MAJ 24/09/2026)
 
-- Calvin Minang, M2 MSc CFM SKEMA Lille, rentrée décalée de 2,5 semaines (hospitalisation à l'étranger avril→août 2026). Reprise des cours **jeudi 24/09 matin**.
+- **⚑ DÉLAI PERSONNEL : 31/11/2026 = contrat de stage/signé.** Sinon PHASE 4 « élargissement » 01→15/12 (baisse de standard acceptée : back/middle/ops, 3-4 mois, autres villes, 10 cand/jour). Raison : titre 30/01/2027 + aucun revenu → contrat signé = début janv/février + revenu + preuve d'activité.
+- **Fiches trader Christian Buciuilca reçues (Mega)** : pricing/grecques/taux — tri 26/09 14h-16h → mapping fiche→desk = base des boxes J-7 (pas encore tout uploadé dans le repo).
+- **Compte BNP non régularisé** malgré relances + venue en physique (-106,90 €) → **décision bancaire 15/10** (plan écrit BNP, sinon BoursoBank ; ne pas fermer BNP avant le 20/10).
+- **Repo → passage en privé décidé** (GitHub → repo → Settings → Danger Zone → Change visibility).
+- Calvin Minang, M2 MSc CFM SKEMA Lille, rentrée décalée de 2,5 semaines (hospitalisation à l'étranger avril→août 2026). Reprise des cours **jeudi 24/09 matin** (CVM 9h45-13h Amphi C 301 + CS 15h-18h15 Room D 117/118).
 - Dette SKEMA 7 500€ exigible 30/09 — proposition 300€×25 dès janv. 2027 envoyée à Beatrice Marino (fil en cours). Virement de bonne foi 10€ fait le 22/09.
 - Dossier microcrédit Crédit Municipal Lille : mail rédigé (`MAIL-credit-municipal-lille.md`), **reste à envoyer**.
 
@@ -31,6 +35,7 @@
 5. **En attente** : envoi mail Crédit Municipal · dates des finals prérequis (Excel/Accounting/CorpFin = 100% final confirmé, dates inconnues) · syllabi manquants restants (Capital Budgeting, Sustainable, Treasury, Power BI, Applied Research, Python, Responsible Leadership) · réponse Marino (relance planifiée 26/09 si silence — brouillon dans FRONT-banques-suivi) · réponse CM · enregistrement officiel semestre Belo (Rodrigues) + confirmation iCIMS 67 (Blas) · compteur ECTS sur YEP · trouver/emprunter une **TI BA II Plus physique** avant le 5/10 (examen Money/Banking) · choisir l'entreprise cotée pour le projet Valuation (sem. du 28/09).
 6. **Repères lointains verrouillés** : e-learning Salary Negotiation avant 24/11 · quiz Career 1-2/12 · double exams probables 19/11 et 9/12 · rattrapages 23-26/02/2027 · titre de séjour expire 30/01/2027 (renouvellement dépend du certificat S5).
 7. **Entretiens octobre 2026 (BNP, CIC, etc.)** : préparation = `MASTERCLASS-IB-4-BANQUES-FR-2026-09-23.md` (données 5 banques FY2025 + pitch + 5 questions tranchantes). Avant chaque entretien : relire la section banque + 1 actualité récente (dernier communiqué de résultats).
+8. **⚑ 31/11/2026 DÉLAI CONTRAT** : signé → PHASE 5 (admin) · non signé → **PHASE 4** (back/middle, 3-4 mois, autres villes, 10 cand/jour, vague froide 2 dès 06/12, réactivation des chauds). Planning complet = `PROMPT-GLOBAL-GEMINI-calendrier-reseaux-2026-09-24.md`.
 
 ## Note sur le lot de fichiers cours (merge main 23/09)
 
