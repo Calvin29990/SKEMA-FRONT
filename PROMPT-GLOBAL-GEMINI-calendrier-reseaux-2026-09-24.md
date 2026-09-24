@@ -20,7 +20,7 @@ Tu es mon scheduler, connecté à mon **Google Calendar (Examens)** et à mes **
 - **Dette SKEMA** : 7 500 € exigibles **30/09** (2×3 750 € le 20/10 et le 20/12). Proposition envoyée 22/09 à Beatrice Marino : **300 €/mois × 25 dès janv. 2027** + diplôme retenu contre certificat S5 → **NE RIEN PAYER sans d'abord vérifier le statut** de la proposition.
 - **⚑ DÉLAI PERSONNEL : 31/11/2026 = CONTRAT SIGNÉ.** Si rien de signé au 31/11 → **PHASE 4 « ÉLARGISSEMENT »** du 01/12 au 15/12 (baisse de standard acceptée par Calvin : back/middle/ops, stages 3-4 mois, autres villes, 10 candidatures/jour). Pourquoi cette date : **titre de séjour expire le 30/01/2027** (renouvellement dépend du certificat S5, ~février) + **aucun revenu** → un contrat signé avant 31/11 = début janv/février + revenu + preuve d'activité pour le renouvellement.
 - **Banque** : compte BNP ****6696 non régularisé malgré relances + venue en physique (solde -106,90 €) → **décision bancaire le 15/10** (voir impératif 2). Compte BoursoBank (10,08 €) = backup, déjà ouvert (sans revenu, ouvrir un autre compte neuf est difficile).
-- **Ressources trader** : fiches de préparation (pricing, grecques, taux) reçues de **Christian Buciuilca** (trader, Mega) → **tri le 26/09 14h-16h** → chaque fiche mapée sur un desk = la base des boxes J-7.
+- **Ressources trader** : fiches de préparation (pricing, grecques, taux) de **Christian Buciuilca** (trader) — **déjà téléchargées et en main (24/09)** → le 26/09 14h-16h : **synthèse + mapping fiche → desk** (mapping de base déjà posé dans les boxes ci-dessous) = la base des J-7.
 - **Jours protégés (ZÉRO créneau, aucun réseau/admin) : DIM 18/10 (blanc CFM) · DIM 08/11 (blanc CFM) · DIM 22/11 (blanc FMI).**
 - **2 semaines de prépa sanctuarisées : 28/09→04/10 et 28/10→03/11** (études seules ; SEULE exception : relance Pogarsky du 03/11 à 08:00, en fin de semaine, fenêtre de publication novembre).
 - **Départ global de la prépa : lundi 28/09.** FMI sanctuarisé 1h30/jour à partir du 28/09.
@@ -54,7 +54,7 @@ Tu es mon scheduler, connecté à mon **Google Calendar (Examens)** et à mes **
 |---|---|
 | **24/09 (jeu) 08:00** | BNP ****6696 : vérifier le +60 € reçu — **subordonné à la situation globale du compte** (non régularisé : voir décision 15/10). |
 | **25/09 (ven) 08:00** | **FNAU** : dépôt du dossier **3 071 €** sur dae.lescours.fr **si pas encore fait**. |
-| **26/09 (sam) 08:00** | **Marino (SKEMA)** : pas de réponse depuis le 22/09 23h → **relance** (téléphone uniquement le ven 8h-10h30 ou le sam, via le téléphone de ma sœur — appels entrants + WhatsApp seulement). · **14:00-16:00 : TRI des fiches Christian Buciuilca (Mega)** → mapping fiche → desk (pricing/grecques/taux) = la base des boxes J-7. |
+| **26/09 (sam) 08:00** | **Marino (SKEMA)** : pas de réponse depuis le 22/09 23h → **relance** (téléphone uniquement le ven 8h-10h30 ou le sam, via le téléphone de ma sœur — appels entrants + WhatsApp seulement). · **14:00-16:00 : SYNTHÈSE des fiches Christian Buciuilca (déjà en main)** → mapping fiche → desk (pricing/grecques/taux) = la base des boxes J-7. |
 | **29/09 (mar) 08:00** | **CROUS (Ingrid Bricout)** : J+7 sans réponse → relance mail. |
 | **30/09 (mer) 08:00** | ① **ÉCHÉANCE SKEMA 7 500 €** : vérifier statut de la proposition avant TOUT paiement · ② **Crédit Municipal Lille** : relance si pas de réponse depuis le 23/09 · ③ poser l'alarme du **26/10** (comité bourse d'urgence CROUS, fin octobre). |
 | **15/10 (jeu) 08:00** | **SKEMA** : vérifier le 20/10 (3 750 €) — ne RIEN payer (proposition = janv. 2027). |
@@ -146,7 +146,7 @@ Tu es mon scheduler, connecté à mon **Google Calendar (Examens)** et à mes **
 |---|---|---|---|---|---|---|
 | 24/09 | jeu | ADM | BNP ****6696 | Vérifier +60 € reçu (subordonné à la situation compte) | — | — |
 | 25/09 | ven | ADM | FNAU | Dépôt 3 071 € si non fait | — | dae.lescours.fr |
-| 26/09 | sam | ADM + RÉSEAU | Marino (SKEMA) · fiches Christian | Relance si silence depuis 22/09 · **14h-16h TRI fiches Mega → mapping fiche → desk** | fiches = base des boxes J-7 | tel via sœur |
+| 26/09 | sam | ADM + RÉSEAU | Marino (SKEMA) · fiches Christian | Relance si silence depuis 22/09 · **14h-16h SYNTHÈSE fiches (déjà en main) → mapping fiche → desk** | fiches = base des boxes J-7 | tel via sœur |
 | 28/09 | lun | ACADEMIQUE | Prépa + K2 | **Départ prépa** + check K2 #1 + 3 matins prérequis | — | — |
 | 28/09 | lun | A | Fauchere-Collin | **J-7** : prépa exotics BNP | vol smile/skew, VRP, barriers, TRS + ROTE 13 % 2028 | LinkedIn (envoi 05/10) |
 | 29/09 | mar | ADM | CROUS Bricout | Relance si silence (J+7) | — | Mail |
@@ -187,4 +187,4 @@ Tu es mon scheduler, connecté à mon **Google Calendar (Examens)** et à mes **
 | 31/12 | jeu | ADM | Titre 9103181806 | Démarre renouvellement (expire 30/01/2027 ; plus facile avec contrat signé) | — | — |
 | 23→26/02/27 | — | ACADEMIQUE | Rattrapages | Session rattrapage | — | — |
 
-*Généré le 24/09/2026 (v2 : + délai personnel 31/11, PHASE 4, décision bancaire 15/10, tri fiches Christian 26/09) — données banques : communiqués FY2025 (fév. 2026) + BNP S1 2026 (18/09/2026) + plan SG (21/09/2026).*
+*Généré le 24/09/2026 — **v3 (version PDF prête à uploader dans Gemini)** : fiches Christian déjà en main (synthèse 26/09) · délai personnel 31/11 · PHASE 4 · décision bancaire 15/10. Données banques : communiqués FY2025 (fév. 2026) + BNP S1 2026 (18/09/2026) + plan SG (21/09/2026).*
