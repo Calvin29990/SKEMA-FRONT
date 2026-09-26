@@ -109,3 +109,25 @@ Phrase unique pour toute démarche (compta, banque, aide) — **ne jamais entrer
 
 - **EGN — « Les Sambas de l'étudiant gabonais de Lille »** (asso gabonaise Hauts-de-France) : aide concrète sur titres de séjour / OQTF, logement, **jobs étudiants**, stages. Porte utile pour la préfecture et l'emploi. (Tsang'Actu, 24/09/2024)
 - **FEGAF** (Fédération des étudiants gabonais de France, Paris 18e, via gabonaisdefrance.org) : pont officiel vers **ANBG**, Campus France et ambassade → canal propre pour réactiver l'attestation ANBG (utile compta + préfecture).
+
+## 5. VERSION v3 — plan "pont familial + échéancier continu" (26/09 soir)
+
+> Évolution : pont familial ~1 000 € (en cours de confirmation) réparti en 3 mensualités oct.-déc. (≈300 €), puis relais 300 €/mois par le stage dès janvier. **Discipline : ne promettre à la compta que ce qui est acquis ; la partie familiale est annoncée "en cours de confirmation chiffrée au 10/10".**
+> Si le mail v1 d'aujourd'hui est déjà parti → envoyer celle-ci lundi 28/09 en "précisions". Sinon envoyer directement v3.
+
+**Objet : MINANG Calvin — 0305476 — Précisions : mensualités dès octobre**
+
+Bonjour Madame Marino,
+
+En complément de mon précédent message, je vous précise la structure de règlement que je peux mettre en place dès maintenant, de manière continue :
+
+1. **Dès octobre** : versement de l'ordre de 300 €/mois (octobre, novembre, décembre), rendu possible par un appui familial ponctuel. Dans un souci d'honnêteté, cet appui étant en cours de confirmation, je vous adresserai le montant et le calendrier exacts au plus tard le 10 octobre.
+2. **Dès janvier 2027** : je prends personnellement le relais sur la même assiette de 300 €/mois, financée par mon stage de fin d'études (attestation disponible) puis par mon emploi, jusqu'à soldement des 7 500 € — soit environ 25 mensualités au total.
+3. Je signe la reconnaissance de dette correspondante, et SKEMA conserve mon diplôme et mes relevés de notes en garantie jusqu'à soldement.
+
+En contrepartie, je sollicite l'émission de mon certificat de scolarité du semestre 5 dès la signature de la reconnaissance de dette et l'encaissement du premier versement — ce document conditionne le renouvellement de mon titre de séjour (échéance 30/01/2027) et l'achèvement de ma scolarité en décembre.
+
+Je reste à votre disposition pour tout échange téléphonique et tout justificatif.
+
+Bien cordialement,
+Calvin MINANG — n° 0305476 — M2 PGE MSc CFM Lille — 07 52 97 58 09
