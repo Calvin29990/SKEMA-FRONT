@@ -4,7 +4,41 @@
 
 ---
 
-## 1. UPDATE COMPTA SKEMA — à envoyer en réponse au fil Beatrice Marino (beatrice.marino@skema.edu, cc studentaccountingoffice@skema.edu)
+## 0. VERSION COURTE — À ENVOYER À MARINO AUJOURD'HUI (samedi 26/09)
+
+> Décision terrain : pas de garant personnel (famille exclue, contact pro = à protéger). Plan A = accord SKEMA. Le mail long (section 1) reste disponible pour lundi si détails demandés.
+
+**Objet : MINANG Calvin — 0305476 — Point avant le 30/09, proposition maintenue**
+
+Bonjour Madame Marino,
+
+Un point bref en amont du 30 septembre.
+
+Mes démarches de financement avancent : après de nombreux refus bancaires (liés à l'exigence d'un garant solvable en France, non à ma solvabilité), le directeur d'une agence bancaire lilloise a accepté le principe de monter un dossier de financement — montage en cours. En parallèle : rendez-vous effectué au Crédit Municipal de Lille, dossier d'aide d'urgence CROUS (FNAU/DAE) en cours de dépôt, et candidature à la bourse d'urgence SKEMA pour le comité de fin octobre.
+
+Ces pistes ne déboucheront pas avant le 30/09. Je vous confirme donc ma proposition du 22/09 : reconnaissance de dette de 7 500 € + échéancier de 300 €/mois sur 25 mois à compter de janvier 2027, diplôme et relevés conservés par SKEMA en garantie, contre l'émission de mon certificat de scolarité S5 — indispensable au renouvellement de mon titre de séjour (30/01/2027) et à l'achèvement de ma scolarité en décembre.
+
+Puis-je compter sur une réponse écrite en début de semaine ? Je peux vous transmettre tout justificatif complémentaire.
+
+Bien cordialement,
+Calvin MINANG — n° 0305476 — M2 PGE MSc CFM Lille — 07 52 97 58 09
+
+## 0bis. Message Robin CHARPENTIER (bourse d'urgence SKEMA) — à envoyer lundi 28/09
+
+**Objet : Demande bourse d'urgence — dossier MINANG 0305476 (M2 CFM Lille)**
+
+Bonjour Monsieur Charpentier,
+
+Je me permets de vous contacter directement : étudiant en M2 MSc Corporate Financial Management à Lille (n° 0305476), je fais face à une situation financière aiguë — un solde de scolarité de 7 500 € bloque mon certificat de scolarité, dont dépend le renouvellement de mon titre de séjour avant le 30/01/2027.
+
+Ma demande de bourse d'urgence sera présentée au comité de fin octobre. Puis-je vous solliciter pour un bref échange (téléphone ou visio) afin de vérifier que mon dossier est complet et de comprendre les critères d'attribution ? Je souhaiterais aussi savoir si le comité peut émettre un avis ou une attestation intermédiaire utile auprès du service comptable.
+
+Je peux fournir tout justificatif (démarches bancaires, Crédit Municipal, FNAU, attestation de scolarité du 21/09).
+
+Bien cordialement,
+Calvin MINANG — 07 52 97 58 09 — calvin.minang@skema.edu
+
+## 1. UPDATE COMPTA SKEMA — version longue de réserve (si Marino demande le détail)
 
 **Objet : MINANG Calvin — 0305476 — Point sur le montage de financement et confirmation de ma proposition**
 
