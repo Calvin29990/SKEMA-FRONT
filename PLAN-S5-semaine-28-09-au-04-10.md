@@ -55,7 +55,9 @@
 * **Capital Structure & Dividend** : rachat d'actions financé par dette (cas NOVA de l'activity) → programmes de buybacks réels avec overlays d'options ; signaux payout/levier → skew et dividende implicite des options.
 * **Capital Budgeting** : corporates qui couvrent coûts d'intrants via futures matières premières (kerosene compagnies aériennes) et taux via STIR futures → le desk est leur côté "flow listé".
 
-**Questions à préparer pour elle :** quotidien sales listés vs OTC ; part du flow Eurex vs Euronext ; comment le desk gère l'électronification (RFQ, ICE/Eurex EnLight) ; conseils pour un stage desk listés depuis SKEMA.
+**CONTEXTE RÉEL (26/09) : relation 1er niveau LinkedIn.** Échange juillet : elle a répondu — *"On recrutera très certainement quelqu'un en janvier 27 mais ça fait un peu loin pour nous ; recontacte-moi en octobre !"* → **pas de mail "froid" ce week-end** : relance dans le même fil LinkedIn **jeudi 01/10 matin** (ou lun 05/10 au plus tard), ton "tu", en montrant le delta depuis juillet (Hull en cours, Money Banking options/grecques/binomial, dashboard cross-asset). Objectif de l'échange : process de recrutement janv. 2027 (RH vs référencement desk) + ce qui distingue un bon stagiaire listés.
+
+**Questions à préparer pour l'échange (20 min) :** quotidien sales listés vs OTC ; part du flow Eurex vs Euronext ; électronification (RFQ, Eurex EnLight) ; compétences clés pour un stagiaire listés ; comment se passe le recrutement janvier dans son équipe.
 
 ---
 
