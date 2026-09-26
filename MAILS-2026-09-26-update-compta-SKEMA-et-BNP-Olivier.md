@@ -100,4 +100,12 @@ Calvin MINANG — 07 52 97 58 09 — calvin.minang@skema.edu
 - [ ] Marino : envoyer **en réponse au fil existant** (pas de nouveau fil), **lundi 28/09 9h-10h**.
 - [ ] Cocher/enlever la phrase de l'appui familial (1 400 €) — la garder montre l'effort, la retirer garde la négociation simple. Mon avis : **la garder**.
 - [ ] Olivier : envoyer en email + texto bref sur sa ligne directe ("Bonjour M. Vanderdonckt, Calvin Minang — je vous ai écrit par mail pour cadrer le dossier, merci encore pour votre appel").
-- [ ] Ticket OneStop en parallèle : demander si **SKEMA / sa fondation dispose d'un dispositif de caution ou de garantie** pour les prêts étudiants (certaines écoles ou fondations le font).
+## Rappel cadre institutionnel (à réutiliser partout)
+
+Phrase unique pour toute démarche (compta, banque, aide) — **ne jamais entrer dans la vie familiale/sociale** :
+> « Étudiant international non boursier, famille résidant au Gabon sans capacité de caution en France, je finance ma scolarité par mes propres moyens et mon travail. »
+
+## Relais diaspora identifiés (26/09) — contacts formels uniquement, rien à raconter de personnel
+
+- **EGN — « Les Sambas de l'étudiant gabonais de Lille »** (asso gabonaise Hauts-de-France) : aide concrète sur titres de séjour / OQTF, logement, **jobs étudiants**, stages. Porte utile pour la préfecture et l'emploi. (Tsang'Actu, 24/09/2024)
+- **FEGAF** (Fédération des étudiants gabonais de France, Paris 18e, via gabonaisdefrance.org) : pont officiel vers **ANBG**, Campus France et ambassade → canal propre pour réactiver l'attestation ANBG (utile compta + préfecture).
