@@ -1,6 +1,35 @@
 # LIENS DE CANDIDATURE — BARCLAYS 2027 (vérifiés le 29/09/2026)
 
-> Toutes les offres ci-dessous ont été vérifiées sur le portail officiel Barclays (search.jobs.barclays / Workday). Le recrutement Barclays fonctionne en **rolling** : les postes se ferment au fur et à mesure. **Postule dans les 48 h.**
+> Toutes les offres ci-dessous ont été vérifiées sur le portail officiel Barclays (search.jobs.barclays / Workday). Le recrutement Barclays fonctionne en **rolling** : les postes se ferment au fur et à mesure.
+
+---
+
+## 🟢 STATUT RÉEL DU COMPTE WORKDAY (relevé le 29/09/2026 au soir)
+
+### Active (2)
+
+| Poste | Réq. | Statut | Soumis le |
+|---|---|---|---|
+| **Banking Graduate Programme 2027 Paris** | `JR-0000124686` | 🟢 **Under Consideration** | **29/09/2026** |
+| Sales, Trading and Structuring Off Cycle 2027 Paris | `JR-0000124763` | ⚪ **Not Submitted** (brouillon) | — |
+
+### Inactive (2)
+
+| Poste | Réq. | Statut | Soumis le |
+|---|---|---|---|
+| Banking Off Cycle 2027 **Madrid** | `JR-0000124446` | 🔴 Not Selected | 02/09/2026 |
+| Banking Summer Internship 2027 **London** | `JR-0000123942` | 🔴 Not Selected | 22/08/2026 |
+
+### ➡️ DÉCISION ARRÊTÉE
+
+**ON NE SOUMET PAS le brouillon Off-Cycle ST&S.**
+
+1. **Le Graduate est VIVANT** (Under Consideration) → c'est la candidature Barclays de la saison. Ne pas la perturber.
+2. Soumettre le Off-Cycle en 2ᵉ position = *« only your first application will be considered »* (FAQ) → **il ne serait pas lu**, et la case « first application » cochée serait **fausse**.
+3. **On ne retire JAMAIS le Graduate vivant** pour un brouillon.
+4. Le brouillon **reste tel quel** dans Workday (aucun mal, aucune action).
+
+**➡️ Conséquence : l'offre Off-Cycle ST&S Paris est fermée pour cette saison.** Le stage de janvier-juin 2027 doit donc se trouver **hors Barclays**, et vite.
 
 ---
 
@@ -23,7 +52,9 @@ Texte officiel, FAQ Barclays (`search.jobs.barclays/faqs`) :
 
 ---
 
-## 🥇 PRIORITÉ 1 — SALES, TRADING & STRUCTURING OFF CYCLE 2027 PARIS
+## 🥇 SALES, TRADING & STRUCTURING OFF CYCLE 2027 PARIS
+
+> ⚠️ **FERMÉ POUR CETTE SAISON (29/09/2026).** Référence gardée pour mémoire : `JR-0000124763`. Le brouillon existe mais **ne doit pas être soumis** — voir « STATUT RÉEL DU COMPTE WORKDAY ».
 
 ### 🔗 [POSTULER — clique ici](https://barclays.wd3.myworkdayjobs.com/en-US/External_Career_Site_Barclays/job/Sales--Trading-and-Structuring-Off-Cycle-Internship-Programme-2027-Paris_JR-0000124763)
 
@@ -113,16 +144,46 @@ C'est une info majeure pour ton profil. Paris exige « work authorization for Fr
 
 ---
 
-## 📋 ORDRE D'EXÉCUTION — UNE SEULE CANDIDATURE
+## 📋 PLAN — 3 FRONTS
 
-| # | Quoi | Quand |
-|---|---|---|
-| 1 | **Vérifier dans Workday si le Banking Graduate a réellement été SOUMIS** (email de confirmation ? statut ?) | **maintenant** |
-| 2 | Si **non soumis** → envoyer **ST&S Off-Cycle 2027 Paris** (JR-0000124763) uniquement. Si **soumis** → mail au recruteur avant tout envoi | **aujourd'hui** |
-| 3 | Mail à M. Moser (après la candidature) | cette semaine |
-| 4 | Préparer le HireVue **à voix haute, en anglais** | dès maintenant |
+| # | Front | Action | Quand |
+|---|---|---|---|
+| 1 | **Graduate (vivant)** | Préparer **tests cognitifs** puis **HireVue** — l'étape suivante arrive en général sous 1 à 2 semaines | dès maintenant |
+| 2 | **Conformité** | Mail **neutre** au recruteur : le Off-Cycle et le Graduate sont-ils la **même saison** ? | avant fin de semaine |
+| 3 | **⭐ Le vrai objectif : stage janv.-juin 2027** | ⚠️ **Barclays est fermé** → construire une liste de cibles **hors Barclays** (banques, AM, courtage, trésorerie, fintech) et postuler en masse | **cette semaine** |
 
-⛔ **À NE PAS FAIRE :** envoyer le Graduate **et** le Off-Cycle · envoyer Paris **et** Londres · cocher « Yes, first application » si ce n'est pas exact · retirer soi-même sa candidature Workday **avant** confirmation écrite du recruteur.
+⛔ **À NE PAS FAIRE :** soumettre le brouillon Off-Cycle · retirer le Graduate · ré-envoyer une candidature Early Careers Barclays · dire au recruteur que tu préfères le Off-Cycle (ça fragilise le Graduate vivant).
+
+### 📧 Mail de conformité (neutre — ne révèle aucune préférence)
+
+```
+Subject: JR-0000124686 / JR-0000124763 - clarification on the
+one-application rule (Early Careers)
+
+Dear Early Careers Team,
+
+I have a live application for the Banking Graduate Programme 2027
+Paris (JR-0000124686) and I would like to confirm one point of
+process before doing anything else.
+
+Your FAQ states that candidates may apply to one graduate or
+internship role globally each year, and that only the first
+application submitted is considered.
+
+Could you confirm whether the Sales, Trading and Structuring
+Off-Cycle Internship Programme 2027 Paris (JR-0000124763), which
+runs its intake from January to June 2027, is treated as part of
+the same recruitment season as the Banking Graduate Programme
+2027, which starts in September 2027?
+
+I want to be certain I am fully compliant with your process before
+taking any further step.
+
+Thank you for your time.
+
+Kind regards,
+Calvin MINANG
+```
 
 
 ---
@@ -153,7 +214,10 @@ Online application → **tests cognitifs interactifs** → **HireVue** (4-6 ques
 
 ---
 
-## ⚖️ POURQUOI LE OFF-CYCLE ST&S, PAS LE GRADUATE
+## ⚖️ OFF-CYCLE ST&S OU GRADUATE ? — LA QUESTION EST TRANCHÉE PAR LES FAITS
+
+**Le débat n'a plus lieu d'être : le Graduate est soumis et vivant, le Off-Cycle n'est qu'un brouillon.**
+Avec la règle « one application per year, first one considered », **c'est le Graduate qui porte la saison**. Le tableau ci-dessous garde sa valeur pour comprendre *pourquoi* le Graduate est un pari différent — et pour préparer les entretiens.
 
 | Critère | **ST&S Off-Cycle 2027** | Banking Graduate 2027 |
 |---|---|---|
