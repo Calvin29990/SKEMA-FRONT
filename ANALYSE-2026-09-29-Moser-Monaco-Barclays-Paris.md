@@ -5,23 +5,39 @@
 
 ---
 
-## 1. QUI EST OLIVIER MOSER
+## 1. QUI EST OLIVIER MOSER — parcours reconstitué
 
-| Élément | Détail |
+| Période | Poste | Société |
+|---|---|---|
+| **2020 → aujourd'hui** | **Sales Manager** | **Barclays Private Bank — Monaco** |
+| 2020 | Risk Advisor | Barclays |
+| 2018 → 2020 | Control Officer — Global Investments and Solutions | HSBC |
+| 2015 → 2017 | Business Manager — Investment Services and Product Solution | HSBC |
+| 2013 → 2015 | **Securities Department — Risk Controller** | HSBC |
+| 2008 → 2013 | **Securities Department — Funds and Derivatives** | HSBC |
+| **Formation** | Master 1 Finance | **ESPEME Business School Nice** (groupe EDHEC), 2002-2006 |
+
+**12 ans chez HSBC (2008-2020), puis Barclays Monaco depuis 2020.**
+
+### 🔑 La lecture qui compte : ce n'est PAS un commercial de naissance
+
+Regarde la trajectoire : **Funds and Derivatives → Risk Controller → Business Manager → Control Officer → puis, à 38 ans, Sales Manager.**
+
+C'est un **profil risque / contrôle / securities services devenu commercial**. Ce n'est pas un vendeur de salle de marché.
+
+**Ce que ça implique concrètement pour toi :**
+
+| Trait | Conséquence pour ton approche |
 |---|---|
-| **Poste actuel** | **Sales Manager — Barclays Private Bank** |
-| **Localisation** | **Monaco** |
-| **Parcours** | Barclays Private Bank ← **HSBC** |
-| **Formation** | Master 1 Finance, **ESPEME Business School Nice** (groupe EDHEC), 2002-2006 |
+| **Il a fait 5 ans en Risk Control** | Il **comprend** une contrainte administrative. Il n'y verra pas une excuse, mais un fait à traiter. |
+| **Il a travaillé sur "Funds and Derivatives"** | Le vocabulaire des dérivés ne lui est **pas étranger**. Ton profil FX n'est pas hors sujet avec lui. |
+| **Il aime les dossiers propres et datés** | Un mail **factuel, sans drame, qui pose le problème et la solution** — c'est exactement son langage. |
+| **12 ans dans la même maison** | Profil **loyal et méthodique**. Il apprécie qu'on **boucle les boucles** (revenir dire ce qu'on a fait = rare et remarqué). |
+| **Son réseau = HSBC + securities services** | Pas markets sales. Son levier direct est **Monaco** ; son levier indirect est **HSBC**. |
 
-**Ce que ça change pour toi :**
+➡️ **Le point décisif** : un profil Risk-Control **respectera que tu identifies toi-même le blocage Monaco** avant qu'il ait à te le dire. C'est précisément le réflexe qu'il a eu pendant 12 ans. **Ce mail-là le fera te prendre au sérieux** — alors qu'une relance insistante pour Monaco le ferait reculer.
 
-- Il est en **Private Banking / Sales** — pas en Markets, pas en FX. Son réseau est la clientèle privée, pas les salles de marché.
-- Il est **basé à Monaco**. Son lien RH est le RH Monaco.
-- Il a fait une **école post-bac** (ESPEME, groupe EDHEC), pas une grande parisienne. Il n'est pas dans une logique de caste.
-- C'est un **commercial**. Les commerciaux lisent les gens pour vivre : ils valorisent la clarté, la concision, et **détestent qu'on leur fasse perdre du temps**.
-
-➡️ **Conclusion** : c'est un homme bienveillant et utile, mais **son levier réel est Monaco**. Pas Paris.
+➡️ **Et il n'est pas dans une logique de caste** : ESPEME (post-bac, groupe EDHEC), pas une grande parisienne. Il te jugera sur la clarté, pas sur l'étiquette.
 
 ---
 
