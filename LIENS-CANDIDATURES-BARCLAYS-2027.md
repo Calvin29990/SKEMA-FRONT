@@ -4,6 +4,25 @@
 
 ---
 
+## ⛔ RÈGLE N°1 — UNE SEULE CANDIDATURE, DANS LE MONDE ENTIER
+
+Texte officiel, FAQ Barclays (`search.jobs.barclays/faqs`) :
+
+> **« Can I apply to more than one area/role within the Barclays Group? »**
+> *« You can only apply to **one full-time graduate or internship role globally each year**. We encourage you to research the opportunities available so you can make the right decision during the application process. **If you submit multiple applications, only your first application will be considered.** »*
+>
+> *« We accept **one application per candidate per year** for our graduate and internship programmes. »*
+
+**Conséquences :**
+- Graduate + Off-Cycle = **interdit**. La 2ᵉ candidature est **jetée**, pas sanctionnée : c'est la **première soumise** qui compte.
+- Paris + **Londres** = **interdit aussi** (« globally »). ⚠️ **Ce document disait le contraire — erreur corrigée le 29/09.**
+- Un stage off-cycle est bien un *internship programme* → la règle s'applique.
+- Donc : **UN SEUL envoi**, et le choix se joue avant de cliquer sur Submit.
+
+**➡️ Le choix arrêté : Sales, Trading & Structuring Off-Cycle 2027 Paris.** Raisons en bas de page.
+
+---
+
 ## 🥇 PRIORITÉ 1 — SALES, TRADING & STRUCTURING OFF CYCLE 2027 PARIS
 
 ### 🔗 [POSTULER — clique ici](https://barclays.wd3.myworkdayjobs.com/en-US/External_Career_Site_Barclays/job/Sales--Trading-and-Structuring-Off-Cycle-Internship-Programme-2027-Paris_JR-0000124763)
@@ -94,16 +113,17 @@ C'est une info majeure pour ton profil. Paris exige « work authorization for Fr
 
 ---
 
-## 📋 ORDRE D'EXÉCUTION
+## 📋 ORDRE D'EXÉCUTION — UNE SEULE CANDIDATURE
 
 | # | Quoi | Quand |
 |---|---|---|
-| 1 | **ST&S Off Cycle 2027 Paris** (JR-0000124763) | **aujourd'hui** |
-| 2 | **Banking Off Cycle 2027 Paris** (JR-0000124856) | aujourd'hui |
-| 3 | **ST&S Off Cycle 2027 London** (visa sponsorisé) | demain |
-| 4 | **Banking Graduate 2027 Paris** | demain |
-| 5 | International Corporate Banking Off Cycle Paris | cette semaine |
-| 6 | **Mail à M. Moser** | après les candidatures |
+| 1 | **Vérifier dans Workday si le Banking Graduate a réellement été SOUMIS** (email de confirmation ? statut ?) | **maintenant** |
+| 2 | Si **non soumis** → envoyer **ST&S Off-Cycle 2027 Paris** (JR-0000124763) uniquement. Si **soumis** → mail au recruteur avant tout envoi | **aujourd'hui** |
+| 3 | Mail à M. Moser (après la candidature) | cette semaine |
+| 4 | Préparer le HireVue **à voix haute, en anglais** | dès maintenant |
+
+⛔ **À NE PAS FAIRE :** envoyer le Graduate **et** le Off-Cycle · envoyer Paris **et** Londres · cocher « Yes, first application » si ce n'est pas exact · retirer soi-même sa candidature Workday **avant** confirmation écrite du recruteur.
+
 
 ---
 
@@ -130,3 +150,25 @@ Online application → **tests cognitifs interactifs** → **HireVue** (4-6 ques
 ---
 
 *Vérifié le 29/09/2026 sur search.jobs.barclays et barclays.wd3.myworkdayjobs.com. Le recrutement est en rolling : ces liens peuvent se fermer sans préavis.*
+
+---
+
+## ⚖️ POURQUOI LE OFF-CYCLE ST&S, PAS LE GRADUATE
+
+| Critère | **ST&S Off-Cycle 2027** | Banking Graduate 2027 |
+|---|---|---|
+| Métier | **Sales, Trading & Structuring** = ton objectif exact | Investment Banking / Corporate Banking |
+| Ton CV | « GLOBAL MARKETS SALES » — il crie cette offre | il faudrait le réécrire |
+| Tes preuves | BPCE (FX, taux, crédit, Bloomberg, €STR/SOFR) | 0 deal, 0 M&A, 0 LBO |
+| Ta valeur ajoutée n°1 | **natif français** (offre : « desirable ») | exigé, mais non différenciant |
+| Format | Off-cycle → suit ton cursus, démarrage flexible | Graduate = **CDI**, à traiter après le diplôme |
+| Concurrence | faible (offre de niche, peu vue) | très forte (toute la promo la voit) |
+
+⚠️ **Le Graduate ne s'envole pas** : il se joue **en septembre 2027**, une fois le diplôme en poche. La règle c'est *une candidature par saison* — pas une candidature par vie.
+
+### 🔄 Si tu es déjà pris et que tu veux changer de prog
+1. **N'envoie rien d'autre.**
+2. Écris au recruteur : demande le **transfert** de ta candidature Graduate vers le Off-Cycle ST&S.
+3. Le retrait est un **geste commercial** — ils te l'accorderont d'autant plus que tu arrives tôt dans la campagne.
+4. ⚠️ **N'annule jamais toi-même depuis Workday avant d'avoir une confirmation écrite.** Un retrait met ton profil dans un état que personne ne sait débloquer côté recruteur.
+
