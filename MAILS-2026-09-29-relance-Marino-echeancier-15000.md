@@ -17,7 +17,29 @@
 | **Solde intégral** | **août 2029** | **15 000 €** | 100 % |
 
 ➡️ **Si SKEMA conditionne le certificat à un paiement en espèces, le dossier est perdu d'avance** : la moitié n'est atteinte qu'en **mai 2028**, soit **16 mois après** l'expiration du titre.
-➡️ **La contrepartie doit donc être un ENGAGEMENT JURIDIQUE** (reconnaissance de dette + diplôme et relevés en garantie), pas du cash.
+➡️ **La contrepartie doit donc être un ENGAGEMENT JURIDIQUE** (reconnaissance de dette + diplôme retenu en garantie), pas du cash.
+
+---
+
+## 🔑 HIÉRARCHIE DES DOCUMENTS — le vrai enjeu
+
+| Document | Ce qu'il prouve | Qui l'exige | Urgence |
+|---|---|---|---|
+| **Certificat de scolarité S5** | l'**inscription** | Préfecture (renouvellement du titre étudiant) | 🔴 **30/01/2027** |
+| **Attestation de réussite** (post-jury) | la **réussite** | Préfecture (dépôt du changement de statut) **+ employeur** | 🟠 févr. 2027 |
+| **Relevés de notes** | le **cursus** | Certaines préfectures (complément) | 🟡 |
+| **Diplôme physique** | tout, définitivement | Remise finale du titre | 🟢 (≈6 mois après) |
+
+**Le certificat de scolarité est le point de défaillance unique.** Sans titre de séjour valide, **on ne peut même pas déposer un changement de statut** — le dossier est irrecevable. Le diplôme, lui, n'est exigé que pour **finaliser** la procédure, plusieurs mois plus tard.
+
+➡️ **Demande de négociation recalibrée** : SKEMA **conserve le diplôme** (sa vraie garantie, celle qui a de la valeur) et délivre les **trois documents qui ne lui coûtent rien** — certificat de scolarité, attestation de réussite, relevés. C'est une demande **beaucoup plus facile à accepter** que « rendez-moi mon diplôme », et elle débloque tout.
+
+**⚠️ Ne PAS demander à SKEMA de « communiquer avec les RH ».** Trois raisons :
+1. **Inutile** : une attestation de réussite suffit à l'employeur — c'est la norme, le diplôme physique n'arrive que des mois après.
+2. **Risqué** : cela révèle votre **dette** à votre futur employeur. En finance, les vérifications de diplôme (background check) sont courantes — un « diplôme retenu pour impayés » est au mieux gênant, au pire disqualifiant.
+3. **Non opposable** : une promesse de « communiquer » n'est pas un document. Une attestation, si.
+
+➡️ **Demandez un PAPIER, pas une conversation.** L'attestation de réussite ne mentionne pas la dette — elle dit seulement que le diplôme est obtenu. Elle donne à l'employeur tout ce qu'il demande, sans rien exposer.
 
 ---
 
@@ -65,11 +87,17 @@ Je précise que cette proposition porte sur la totalité du solde de 15 000 €,
 
 4. CE QUE JE SOLLICITE EN CONTREPARTIE
 
-L'émission de mon certificat de scolarité du semestre 5, indispensable au dépôt de mon renouvellement de titre de séjour avant le 30 janvier 2027 et à l'achèvement de ma scolarité en décembre 2026.
-
 Je souhaite être transparent sur un point : comme le montre l'échéancier ci-dessus, les versements ne peuvent mécaniquement pas atteindre la moitié du solde avant l'échéance de mon titre de séjour. La contrepartie que je propose n'est donc pas un paiement en espèces, mais un engagement juridique formalisé de ma part.
 
-À cet effet, je suis prêt à signer dès aujourd'hui une reconnaissance de dette reprenant cet échéancier, et j'accepte que SKEMA conserve mon diplôme et mes relevés de notes en garantie jusqu'au soldement complet.
+À cet effet, je suis prêt à signer dès aujourd'hui une reconnaissance de dette reprenant cet échéancier. J'accepte que SKEMA conserve mon DIPLOME en garantie jusqu'au soldement complet : ce document est votre véritable garantie et je le laisse volontairement entre vos mains.
+
+En contrepartie, je sollicite la délivrance de trois documents qui n'ont pas la valeur de garantie du diplôme, mais dont l'absence bloque toute ma situation :
+
+- le certificat de scolarité du semestre 5, nécessaire au renouvellement de mon titre de séjour avant le 30 janvier 2027 ;
+- une attestation de réussite (ou de diplomation) délivrée après la tenue du jury, indispensable pour le dépôt de mon changement de statut et pour mon employeur ;
+- mes relevés de notes du cursus.
+
+Ces documents attestent uniquement de ma scolarité et de ma réussite. Ils ne se substituent pas au diplôme, que vous conservez, et ne réduisent à aucun moment votre garantie.
 
 5. DEMANDES DE CONFIRMATION
 
