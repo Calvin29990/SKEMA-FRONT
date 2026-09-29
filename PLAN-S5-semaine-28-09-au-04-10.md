@@ -45,6 +45,14 @@
 * **Money, Banking & FM** (Saidane) : final 100 %. Pas à l'EDT cette semaine (sessions "in groups"). **TI BA II Plus physique obligatoire à l'examen.**
 * **Capital Budgeting / Sustainable Finance / Capital Structure** : pas de syllabus dans le repo → **vérifier pondérations + dates d'examen sur YEP/K2 semaine 39** (cours en bloc = examens potentiellement fin octobre).
 
+> **✅ MAJ 29/09 — Capital Budgeting : dates annoncées en cours (transcription audio `Capital budgeting.docx`, séance du 28/09).**
+> * **MIDTERM : mardi 27 octobre 2026** — 45 min, **30 QCM** (+1 si juste, **0 si faux / pas de réponse**), **40 %**, sur **K2 + Safe Exam Browser**, **calculatrice physique à apporter**. 30 pts = 20/20 ; 20 pts = 13,3/20.
+> * **FINAL : mardi 10 novembre 2026, début d'après-midi** — 90 min, **questions de cours + exercices chiffrés**, **60 %**, K2.
+> * ⚠️ Le prof a prévenu que **le programme du lundi matin peut tomber au test du mardi** → le cours du **lundi 26/10 fait partie du périmètre**. Essai SEB à faire dès qu'il le propose (sinon version papier en secours).
+> * ⚠️ Examen possiblement **conceptuel** : il a insisté sur « *que représente le 27,9 % ?* » → savoir **interpréter** un tableau, pas seulement recalculer.
+> * Périmètre couvert à date : **Step 1 (FCF/NPV, ch. 8)** + **Step 2 (règles de décision, ch. 7)**. Steps 3-5 en cours de dépôt sur K2.
+> * ➡️ Support de révision : **`FICHE-EXAM-CAPITAL-BUDGETING.md`** (fiche complète + formulaire + 20 pièges QCM + 8 exercices corrigés).
+
 ## 4. Prépa entretien — Manon Giorgi (BNP Paribas, Cross-Asset Sales Listed Derivatives, Paris)
 
 *Son desk en 3 lignes :* vente de dérivés **listés** multi-actifs (futures/options indices actions, options sur actions, futures de taux courts type Euribor/STIR, futures obligataires Bund/OAT, futures de change, dividend futures, dérivés ESG listés) auprès de gérants, assureurs, corporates — compensation Eurex/Euronext/LCH. Elle y est entrée par un stage de fin d'études EDHEC → graduate program (le chemin exact que tu vises).
