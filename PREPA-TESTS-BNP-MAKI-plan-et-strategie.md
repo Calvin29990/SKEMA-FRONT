@@ -1,180 +1,167 @@
-# 🎯 PRÉPA TESTS BNP — PLAN & STRATÉGIE
-## Ton test Maki est **éliminatoire**. C'est le seul obstacle entre toi et un entretien.
+# 🎯 PRÉPA TEST BNP / MAKI — VERSION CORRIGÉE
+## ⚠️ Ton mail officiel change deux choses importantes. Bonne nouvelle dans les deux cas.
+
+*Document mis à jour le 29/09/2026 après réception du mail d'invitation BNP Paribas.*
 
 ---
 
-## ⚠️ 1. D'ABORD, LA VÉRITÉ SUR TES ÉCHECS
+## ✅ CE QUE DIT TON MAIL OFFICIEL (la seule source qui compte)
 
-Tu as raté des tests chez Nomura, JPMorgan, SG, des banques US. Tu penses que c'est toi. **Ce n'est pas toi. C'est la préparation.**
-
-**Ces tests ne mesurent pas ton intelligence. Ils mesurent ta familiarité avec leur format.**
-
-Ce sont des exercices **chronométrés à la seconde**. Un candidat brillant qui découvre le format le jour J **échoue**. Un candidat moyen qui a fait 200 questions d'entraînement **passe**. C'est aussi bête que ça.
-
-**Regarde les chiffres réels du test BNP :**
-
-| Épreuve | Questions | Temps | **Secondes par question** |
-|---|---|---|---|
-| Maîtrise du français | 21 | 6 min | **17 s** |
-| Raisonnement numérique | 9 | 10 min | 66 s |
-| Anglais (niveau C1) | 16 | 5 min | **19 s** |
-| Attention aux détails | 10 | 12 min | 72 s |
-| Raisonnement logique | 13 | 8 min | **37 s** |
-| Résolution de problèmes | 10 | 10 min | 60 s |
-| Jugement situationnel | variable | ~24 min | — |
-
-**17 secondes par question en français. 19 secondes en anglais.**
-
-➡️ **Personne ne termine ces tests. Le but n'est pas de tout faire. Le but est de faire juste, vite, et de passer à la suivante.**
-
-**C'est exactement ce que tu n'as jamais appris à faire.** Et ça s'apprend en deux soirées.
-
----
-
-## 🧠 2. LES 5 RÈGLES QUI CHANGENT TOUT
-
-**RÈGLE 1 — Une question = un temps maximum. Puis tu passes.**
-Tu décides AVANT de commencer : « si je bloque plus de 30 secondes, je coche au hasard et j'avance. » Une question non répondue = 0. Une question répondue au hasard = 25 %. **Ne laisse jamais une case vide.**
-
-**RÈGLE 2 — Tu ne cherches pas la perfection. Tu cherches le volume.**
-Ces tests sont notés au **nombre de bonnes réponses**, pas au pourcentage de justesse. **10 réponses dont 6 justes battent 5 réponses dont 5 justes.**
-
-**RÈGLE 3 — Papier et stylo. Toujours.**
-Les entreprises sérieuses fournissent un brouillon. Sers-t'en. **Le calcul mental pur est un piège** : 70 % des erreurs en raisonnement numérique sont des erreurs de calcul, pas de logique.
-
-**RÈGLE 4 — Lis la question AVANT le texte.**
-En compréhension verbale, en attention aux détails et en résolution de problèmes : si tu lis d'abord le texte, tu perds 40 secondes. **Lis la question, puis va chercher l'info.**
-
-**RÈGLE 5 — Le jour J, on s'arrête.**
-Le cerveau a un temps de réaction mesurable. Après 45-60 minutes d'effort intense, tes temps augmentent de 30 %. **Fais les épreuves dans l'ordre, sans pause, mais fais-le reposé — pas à minuit après une journée de stress.**
-
----
-
-## ⚡ 3. LE TEST MAKI — CE QUI T'ATTEND EXACTEMENT
-
-BNP Paribas utilise **Maki** (nouvelle plateforme, en remplacement progressif d'Aon/cut-e). Durée totale : **60 à 90 minutes.**
-
-### Les 9 blocs
-
-| # | Bloc | Ce que ça teste | Piège |
-|---|---|---|---|
-| 1 | **Maîtrise du français** (21 Q / 6 min) | grammaire, orthographe, syntaxe, vocabulaire, conjugaison | Le chrono. 17 s/question. |
-| 2 | **Jugement situationnel (SJT)** | tes réflexes professionnels | Les réponses « héroïques » ou « extrêmes » |
-| 3 | **Raisonnement numérique** (9 Q / 10 min) | tableaux, %, ratios, graphiques | Le calcul à la main |
-| 4 | **Anglais C1** (16 Q / 5 min) | vocabulaire, grammaire, temps, idiomes | Plus dur que tu ne crois |
-| 5 | **Mise en situation** | décision dans un cas pro | Idem SJT |
-| 6 | **Attention aux détails** (10 Q / 12 min) | écarts entre listes, dates, montants | Lire trop vite = rater |
-| 7 | **Raisonnement logique** (13 Q / 8 min) | suites, figures, relations | Chercher trop compliqué |
-| 8 | **Résolution de problèmes** (10 Q / 10 min) | raisonnement + organisation + calcul | Prioriser |
-| 9 | **Personnalité** | profil, pas de note | Se contredire |
-
-### 🎯 Le bloc qui élimine vraiment
-
-**Le raisonnement numérique.** C'est le test éliminatoire chez BNP — et le rythme est brutal. **Entraîne-toi intensivement là-dessus.**
-
----
-
-## 🎭 4. LE SJT & LA PERSONNALITÉ — LE PIÈGE SILENCIEUX
-
-Le SJT, ce n'est pas un test de compétence. **C'est un test de conformité à la culture de la banque.**
-
-### 🔑 La clé : BNP Paribas est une banque **obsédée par le risque**
-
-Chez BNP, la conformité primait sur la performance. Donc **tes réponses doivent toujours pencher d'un côté précis** :
-
-| Ce que tu privilégies | Ce que tu évites |
+| Point | Ce que dit BNP |
 |---|---|
-| **Signaler / escalader** dès qu'il y a un doute | Régler le problème seul « pour ne pas déranger » |
-| **Le travail en équipe** | Faire cavalier seul |
-| **Vérifier avant d'agir** | Agir vite sans confirmer |
-| **Demander à ton responsable** | Décider au-delà de ton périmètre |
-| **Le client, mais dans les règles** | Satisfaire le client en contournant une procédure |
-| **Assumer et corriger l'erreur** | Cacher une erreur |
-
-### ❌ Les 3 pièges classiques
-
-**① La réponse héroïque.** « Je travaille toute la nuit pour tout finir seul. » → **Mauvais.** Un junior qui ne prévient pas qu'il est en difficulté est un risque.
-
-**② La réponse extrême.** « Je refuse catégoriquement », « j'en parle immédiatement au directeur général ». → **Mauvais.** Les scores trop hauts ou trop bas sont pénalisés.
-
-**③ La réponse qui contourne la règle.** « Le client est pressé, je lance l'opération et je régularise lundi. » → **Rédhibitoire dans une banque.**
-
-### ✅ La bonne réponse, c'est presque toujours
-> **« Je vérifie, je consulte mon responsable, et j'agis dans mon périmètre. »**
-
-### 🧬 La personnalité — la seule règle
-
-**Sois cohérent. Ne cherche pas à être parfait.**
-
-Ces tests ont des « questions miroir » : la même question posée autrement 20 questions plus loin. Si tu joues un rôle, **tu seras détecté** — et éliminé pour incohérence, ce qui est bien plus grave qu'un trait de caractère imparfait.
-
-➡️ **Réponds vrai, mais vise haut dans les dimensions qui comptent** : rigueur, organisation, travail en équipe, résistance au stress, curiosité, sens du client.
+| **Durée** | **20 minutes** au total |
+| **Composition** | **2 exercices** (2 activités) |
+| **Délai** | **15 jours** à réception du lien ← *énorme* |
+| **Langue** | Au choix : **français (par défaut) ou anglais** — via l'icône 🌐 en haut à droite |
+| **Pauses** | *« N'hésitez pas à faire des pauses entre chaque activité »* ← **le mail t'y encourage** |
+| **Matériel** | **Ordinateur** obligatoire |
+| **Nature** | Test **sélectif** |
 
 ---
 
-## 📅 5. TON PROTOCOLE — 2 SOIRÉES, ET C'EST RÉGLÉ
+## 🙏 MA CORRECTION — je m'étais trompé, et dans le mauvais sens
 
-### 🗓️ Ce soir — **NE PAS PASSER LE TEST**
-Tu es stressé, il est tard, tu viens d'encaisser une mauvaise nouvelle. **Le test est éliminatoire : tu ne le brûles pas dans ces conditions.**
+**Ce que je t'ai annoncé hier soir :** 9 blocs, 66 minutes, jusqu'à 60 secondes par question.
 
-**Ce soir tu fais :**
-1. **Choisis ton créneau** — demain matin entre 9 h et 11 h, ou entre 14 h et 16 h. **Jamais après 18 h.**
-2. **Fais 30 questions d'entraînement** (fichier `PREPA-TESTS-BNP-MAKI-60-questions-corrigees.md`). **Chronomètre en main.** Tu vas rater les premières. C'est normal.
-3. **Bois de l'eau. Coupe ton téléphone.** Dors.
+**Ce que dit ton mail :** 20 minutes, 2 exercices.
 
-### 🗓️ Demain matin — **LE TEST**
-1. **Chambre calme, porte fermée, téléphone en avion, notifications coupées.** Pas de musique.
-2. **Papier + stylo + calculatrice** (si autorisée — vérifie les consignes Maki).
-3. **Écran chargé, batterie branchée.** Une déconnexion en plein test, ça ne se rattrape pas.
-4. **Passe les blocs dans l'ordre.** Applique la **RÈGLE 1** sans exception.
-5. **Si un bloc se passe mal, tu continues.** Le score est global, pas par bloc. **Beaucoup de candidats abandonnent mentalement après un mauvais bloc et ratent tout le reste.**
+**D'où venait mon erreur :** je me suis appuyé sur les sites de préparation (psychotechniquetest.fr, test-banque.fr), qui décrivent la **batterie Aon/cut-e** utilisée par BNP sur d'autres postes — et qui mélangent les formats. **Ton mail officiel prime sur tout ça.** Message reçu : j'aurais dû te dire « attends le mail » avant de te faire une montagne d'un marathon de 66 minutes.
+
+**Ce que ça change :** un test de **20 minutes avec 2 exercices**, ce n'est **pas** un marathon. C'est **deux sprints**. Et c'est beaucoup plus jouable que ce que tu crains.
 
 ---
 
-## 💪 6. CE QUI VA SE PASSER — SOIS PRÊT
+## ⛔ CORRECTION IMPORTANTE N°2 — MA RÈGLE « JAMAIS DE CASE VIDE » EST FAUSSE
 
-**C'est normal de trouver ça très dur.** Les tests Maki sont calibrés pour que la moyenne soit basse. Sur un forum Glassdoor, un stagiaire BNP Paris rapporte **76 %** aux tests Maki (résolution de problème, numérique, verbal) — et il attendait toujours la réponse des recruteurs.
+Une source de préparation (site spécialisé, **non officielle — à confirmer**) indique que le test Maki utilisé en banque française applique un **scoring négatif : −0,5 point par erreur**.
 
-**Tu ne verras PAS ton score à la fin.** Maki envoie un rapport personnel. Tu ne sauras qu'à la réponse de BNP.
+**Si c'est vrai, alors deviner au hasard te fait PERDRE des points :**
 
-➡️ **Donc : ne cherche pas à savoir si tu as réussi. Fais-le, envoie-le, et passe à autre chose.**
+| Situation | Calcul | Résultat |
+|---|---|---|
+| 4 options, je devine au hasard | 1/4 × 1 + 3/4 × (−0,5) | **−0,125** ❌ |
+| 3 options restantes (j'en ai éliminé 1) | 1/3 × 1 + 2/3 × (−0,5) | **0,00** ➖ |
+| 2 options restantes (j'en ai éliminé 2) | 1/2 × 1 + 1/2 × (−0,5) | **+0,25** ✅ |
 
----
+### ✅ LA NOUVELLE RÈGLE — celle qui marche dans les deux cas
 
-## ✅ 7. CHECKLIST AVANT DE LANCER
+> **Tu ne réponds QUE si tu peux éliminer au moins 2 options sur 4.**
+> **Sinon : tu passes à la question suivante, sans rien cocher.**
 
-- [ ] J'ai choisi mon créneau : **matin ou début d'après-midi**
-- [ ] J'ai fait **au moins 30 questions d'entraînement chronométrées**
-- [ ] Je connais la **RÈGLE 1** : pas plus de 30 s sur une question, je passe
-- [ ] Je ne laisse **jamais** de case vide
-- [ ] J'ai **papier + stylo**
-- [ ] Téléphone en **avion**, pièce **calme**, ordi **branché**
-- [ ] Je sais que **BNP privilégie conformité et esprit d'équipe** dans le SJT
-- [ ] Je serai **cohérent** dans le test de personnalité
-- [ ] Si un bloc se passe mal, **je continue quand même**
+**Pourquoi cette règle est la bonne même si le −0,5 n'existe pas :**
+- Si le −0,5 existe → tu protèges ton score.
+- Si le −0,5 n'existe pas → tu ne perds rien : **la question que tu aurais devinée t'aurait coûté 40 secondes** que tu réinvestis dans les questions suivantes.
 
----
-
-## 🧭 8. ET LE RESTE DE TES ÉCHECS
-
-Tu m'as dit : *« j'ai eu beaucoup de tests Nomura, Hire JP Morgan, SG, banques US — tous échec. »*
-
-**Une fois que tu auras passé ce test BNP, tu sauras faire les suivants.** Parce que **tous les fournisseurs testent la même chose** : numérique, logique, verbal, SJT. Aon/cut-e, SHL, Kenexa, Pymetrics, HireVue, Maki — **mêmes compétences, habillage différent.**
-
-**Donc ce test n'est pas juste une porte BNP. C'est ton entraînement pour les 18 prochaines candidatures.**
-
-**C'est le meilleur investissement de ta semaine.** Meilleur que n'importe quelle candidature supplémentaire : tu peux postuler à 50 offres, si tu tombes à chaque test, tu obtiendras zéro entretien.
+**Dans les deux mondes, cette règle est optimale.** Applique-la.
 
 ---
 
-## 🔗 9. RESSOURCES
+## 🗣️ LA LANGUE : FAIS-LE EN FRANÇAIS
 
-**Gratuit :**
-- Cherche `Maki People test démo` → la plateforme Maki propose souvent une démo d'interface
-- `jobtestprep` / `assessmentday` → tests blancs gratuits en anglais (numérique, logique)
-- YouTube : `cut-e numerical reasoning practice` — même logique que Maki
-- Le fichier **`PREPA-TESTS-BNP-MAKI-60-questions-corrigees.md`** que j'ai préparé
+Le mail te donne le choix (icône 🌐). **Prends le français.** Trois raisons :
 
-**Payant (si tu veux vraiment mettre le paquet) :**
-- Packs de préparation BNP/Maki chez `tests.careers` ou `psychotechniquetest.fr` — **~70-80 €** pour un pack complet avec simulations.
-- ⚠️ **Ne les achète pas maintenant** : tu es à découvert et ce n'est pas indispensable. **Fais d'abord les 60 questions gratuites que je t'ai préparées.** Si tu vois que le numérique est vraiment ton point noir, alors on en reparlera.
+**① Le test est sélectif et noté.** Tu es jugé sur ton **score**, pas sur la langue choisie.
+**② Tu es natif.** En numérique, logique et mises en situation, la moitié de la difficulté est **la lecture de l'énoncé**. Chaque seconde gagnée en compréhension est une seconde en plus pour calculer.
+**③ L'exigence d'anglais, tu la prouveras ailleurs** : ton CV (SKEMA, MSc, projets en anglais), ton stage BPCE avec Bloomberg, et **surtout l'entretien** — où tu parleras anglais directement.
+
+⚠️ **Attention** : tu as **15 jours** pour t'entraîner. Profites-en pour vérifier une chose sur la page de démarrage Maki : **si le test contient un exercice d'anglais**, alors la question ne se pose plus — il sera en anglais, et c'est normal.
+
+---
+
+## 🎯 LES 2 EXERCICES — CE QU'IL FAUT ATTENDRE
+
+Les activités Maki durent en général **5 à 15 minutes chacune**. Pour un stage d'analyste en finance, les modules les plus probables sont :
+
+| Probabilité | Module | Ce que c'est |
+|---|---|---|
+| 🔴 **Très probable** | **Raisonnement numérique** | Tableaux, graphiques, %, ratios. **Le plus discriminant.** |
+| 🔴 **Très probable** | **Raisonnement logique** | Suites, figures, relations, déduction |
+| 🟡 Possible | **Jugement situationnel (SJT)** | Mises en situation professionnelles |
+| 🟡 Possible | **Attention aux détails** | Comparaison de listes, dates, montants |
+| 🟢 Peu probable | Personnalité / verbal | — |
+
+**➡️ Entraîne-toi en priorité sur : BLOC 1 (numérique) et BLOC 2 (logique)** de ton fichier de questions.
+**Le BLOC 5 (SJT) est ton assurance** : si un des deux exercices est une mise en situation, tu dois avoir les bons réflexes.
+
+---
+
+## 📅 TON CALENDRIER RÉEL — tu as 15 JOURS, pas une nuit
+
+**❌ Ce que tu ne fais PAS ce soir :** passer le test.
+**❌ Ce que tu ne fais PAS demain à 7 h du matin :** passer le test.
+
+### Le plan
+
+| Quand | Quoi |
+|---|---|
+| **Ce soir (mardi)** | **Bloc 1 (numérique) + Bloc 2 (logique)** du fichier de questions. Chrono en main. Tu vas en rater — **c'est le but**. Puis tu fermes l'ordinateur. |
+| **Mercredi soir** | **Bloc 5 (SJT)** + relecture des 5 règles. Tu refais les questions que tu as ratées. |
+| **Jeudi matin, 9 h 30** | ⭐ **TU PASSES LE TEST.** Reposé, calme, dans une pièce fermée. |
+| *(si tu ne te sens pas prêt)* | Vendredi ou lundi matin — **tu as jusqu'à mi-octobre**. |
+
+**Règles de timing absolues :**
+- **Jamais après 18 h** — le cerveau n'est plus au niveau.
+- **Jamais juste après un cours ou une engueulade.**
+- **Jamais deux exercices de suite sans respirer** : le mail dit que tu peux faire une pause entre les deux. **Prends 2 minutes.** Bois de l'eau. Respire. Puis repars.
+
+---
+
+## 🧠 LES 5 RÈGLES (mises à jour)
+
+**RÈGLE 1 — Tu réponds seulement si tu élimines 2 options sur 4.** Sinon tu passes. *(voir le calcul plus haut)*
+**RÈGLE 2 — 45 secondes maximum par question.** Au-delà : tu coches si tu as éliminé 2 options, sinon tu passes.
+**RÈGLE 3 — Papier + stylo + calculatrice.** Le calcul mental est un piège : 70 % des erreurs sont des erreurs de calcul, pas de logique.
+**RÈGLE 4 — Lis l'énoncé en entier, une fois, lentement.** Un test de 20 minutes se perd en lisant mal, pas en calculant mal.
+**RÈGLE 5 — Le score est global.** Si le premier exercice se passe mal, **le second compte pareil**. Beaucoup de candidats abandonnent mentalement après 5 mauvaises minutes et ruinent tout le reste.
+
+---
+
+## 🎭 SI UN EXERCICE EST UNE MISE EN SITUATION
+
+Les règles Maki/BNP sont toujours les mêmes :
+
+> **Conformité > performance. Équipe > solo. Escalade > bricolage.**
+
+⚠️ Les 3 réponses qui éliminent :
+- ❌ **La réponse héroïque** — « je reste toute la nuit pour tout finir seul ». Un junior qui ne signale pas qu'il est en difficulté **est un risque**.
+- ❌ **La réponse extrême** — « je refuse catégoriquement », « j'en parle au directeur général ».
+- ❌ **Contourner une procédure** — « le client est pressé, je régularise lundi ». **Rédhibitoire en banque.**
+
+✅ **La bonne réponse est presque toujours :** *« Je vérifie, je préviens mon responsable, et j'agis dans mon périmètre. »*
+
+---
+
+## ✅ CHECKLIST JOUR J
+
+- [ ] Créneau choisi : **matin ou début d'après-midi**, jamais le soir
+- [ ] Pièce **calme**, porte fermée
+- [ ] **Téléphone en mode avion** — notifications coupées
+- [ ] Sur **ordinateur** (obligatoire), **branché** sur secteur
+- [ ] **Papier, stylo, calculatrice** à côté
+- [ ] Test **en français** (ou en anglais si un exercice est un test d'anglais)
+- [ ] Je sais que **je peux faire une pause** entre les 2 exercices
+- [ ] Je connais la **RÈGLE 1** : je ne réponds que si j'élimine 2 options
+- [ ] Si le 1er exercice se passe mal → **je continue à fond sur le 2ᵉ**
+- [ ] J'ai le lien sous la main : celui du mail BNP (il reste actif tant que l'évaluation est ouverte)
+- [ ] Numéros utiles notés : `candidates@makipeople.com` (technique) · `france_rhg_inforecrutement@bnpparibas.com` (process)
+
+---
+
+## 🎯 ET MAINTENANT, LE CALME
+
+Tu avais peur. Voilà les faits, relus froidement :
+
+| Ce que tu craignais | La réalité |
+|---|---|
+| « Un marathon de tests » | **20 minutes.** Une pause autorisée au milieu. |
+| « Je dois le faire maintenant, stressé » | **15 jours.** Tu choisis ton moment. |
+| « Je l'ai déjà raté plein de fois » | Tu n'avais **jamais** été entraîné à ces formats. Maintenant, tu l'es. |
+| « Je vais encore tout perdre » | C'est un test de **20 minutes**, pas un jugement sur ta vie. |
+
+**Et rappelle-toi : ton test d'hier, tu m'as dit « j'ai raté des dizaines de tests ». Aujourd'hui, tu as 54 questions d'entraînement corrigées, une méthode, et une date.**
+
+**C'est la première fois que tu arrives à un test préparé. Ça change tout.**
+
+---
+
+*⚠️ Sources : le mail d'invitation BNP Paribas du 29/09/2026 (source primaire) et des sites de préparation spécialisés pour le format Maki (psychotechniquetest.fr, test-banque.fr, aptitudetests.org) — **sources secondaires, non confirmées par BNP ni par Maki**. La durée, le nombre d'exercices, le délai de 15 jours et l'option de langue viennent du mail officiel : ce sont les seules données certaines.*
