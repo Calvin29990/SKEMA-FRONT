@@ -59,20 +59,41 @@ The difference between these two scenarios, for SKEMA, is EUR 15,000.
 
 I am not asking for my debt to be cancelled. I am asking for time to pay it.
 
-4. WHAT I PROPOSE
+4. THE SCHEDULE I PROPOSE
 
-- A signed acknowledgment of debt covering the entire outstanding balance;
-- a repayment schedule beginning when my income begins (paid internship, then
-  permanent contract) and running to full settlement;
-- the voluntary surrender of my diploma and transcripts to SKEMA, to be held until
-  payment in full.
+Allow me to set it out precisely. These figures are not a request for a discount. They
+are the fastest schedule I am able to honour given the date on which my income begins.
+
+- Already paid (22 and 29 September 2026): EUR 160
+- October to December 2026: 3 monthly payments of EUR 150 — cumulative EUR 610
+- January to June 2027 (paid end-of-studies internship): 6 monthly payments of
+  EUR 300 — cumulative EUR 2,410
+- From July 2027 (permanent contract): monthly payments of EUR 500, with final
+  settlement in August 2029
+
+To give SKEMA the protection to which it is entitled, I am willing to have the
+acknowledgment of debt include:
+
+- an acceleration clause: a single missed or late payment renders the entire balance
+  immediately due;
+- the retention of my diploma and my transcripts by SKEMA until full settlement;
+- my undertaking to inform SKEMA of any change in my circumstances within 15 days,
+  including the signature of my employment contract.
+
+In other words, SKEMA would hold a commitment that is legally enforceable from the
+first month, and a security it physically holds.
 
 5. WHAT I AM ASKING FOR
 
-1. Approval of a repayment schedule covering the full balance, including beyond
-   January 2027 for the part I cannot finance by that date;
+I am aware that this schedule does not meet the deadline of 30 September 2026, and I
+will not pretend otherwise. I am therefore not asking you to waive a deadline. I am
+asking you to replace a deadline that I cannot meet with an enforceable commitment
+that I can.
+
+1. Approval of the repayment schedule set out above, covering the full balance;
 2. the issue of my Semester 5 certificate of enrolment, required to file my residence
-   permit renewal before 30 January 2027;
+   permit renewal before 30 January 2027, and without which my position — and
+   therefore my ability to repay — collapses entirely;
 3. a written decision from you, whatever it may be.
 
 6. A PERSONAL WORD

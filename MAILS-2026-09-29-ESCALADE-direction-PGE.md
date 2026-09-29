@@ -143,18 +143,41 @@ Je ne demande pas l'annulation de ma dette. Je demande le temps de la payer.
 
 4. CE QUE JE PROPOSE
 
-- Une reconnaissance de dette signée, portant sur l'intégralité du solde ;
-- un échéancier commençant à l'entrée de mes revenus (stage rémunéré, puis CDI) et se
-  poursuivant jusqu'au soldement complet ;
-- la remise volontaire de mon diplôme et de mes relevés de notes à SKEMA, qui les
-  conservera jusqu'au paiement intégral.
+Je le chiffre précisément. Ces montants ne sont pas une demande de remise : ils
+constituent l'échéancier le plus rapide que je puisse honorer compte tenu de la date à
+laquelle mes revenus commencent.
+
+- Déjà versé (22 et 29 septembre 2026) : 160 €
+- Octobre à décembre 2026 : 3 versements de 150 € — cumul 610 €
+- Janvier à juin 2027 (stage de fin d'études rémunéré) : 6 versements de 300 € —
+  cumul 2 410 €
+- À compter de juillet 2027 (contrat à durée indéterminée) : versements de 500 €,
+  avec soldement complet en août 2029
+
+Pour donner à SKEMA la protection à laquelle elle a droit, j'accepte que la
+reconnaissance de dette comporte :
+
+- une clause de déchéance du terme : un seul versement manqué ou en retard rend la
+  totalité du solde immédiatement exigible ;
+- la conservation de mon diplôme et de mes relevés de notes par SKEMA jusqu'au
+  paiement intégral ;
+- mon engagement à informer SKEMA de toute évolution de ma situation sous 15 jours,
+  y compris la signature de mon contrat de travail.
+
+Autrement dit, SKEMA détiendrait un engagement juridiquement exécutoire dès le premier
+mois, assorti d'une garantie qu'elle détient physiquement.
 
 5. CE QUE JE DEMANDE
 
-1. La validation d'un échéancier sur l'intégralité du solde, y compris au-delà de
-   janvier 2027 pour la part que je ne peux pas financer à cette date ;
-2. l'émission du certificat de scolarité du semestre 5, nécessaire au dépôt de mon
-   renouvellement de titre de séjour avant le 30 janvier 2027 ;
+Je suis conscient que cet échéancier ne respecte pas la date du 30 septembre 2026, et je
+ne prétendrai pas le contraire. Je ne demande donc pas une renonciation à une échéance.
+Je demande de remplacer une échéance que je ne peux pas tenir par un engagement
+exécutoire que je peux tenir.
+
+1. La validation de l'échéancier exposé ci-dessus, portant sur l'intégralité du solde ;
+2. l'émission de mon certificat de scolarité du semestre 5, nécessaire au dépôt de mon
+   renouvellement de titre de séjour avant le 30 janvier 2027, et sans lequel ma
+   situation — donc ma capacité de remboursement — s'effondre entièrement ;
 3. une décision écrite de votre part, quelle qu'elle soit.
 
 6. UN MOT PERSONNEL
