@@ -12,12 +12,14 @@
 - LinkedIn cabinet (offres clients fintech/FX) : https://www.linkedin.com/company/rocket-4-sales
 - **Action cette semaine : demander à Naël la présentation à son agent.** Puis candidater sur site avec CV "corporate FX sales".
 
-## 🥇 PRIORITÉ 1 — Ebury Paris (CDI juniors ouverts MAINTENANT)
+## 🥇 PRIORITÉ 1 — Ebury Paris (cible court et moyen terme ; pas de recrutement confirmé actuellement)
 
-- **Offres live (26/09)** : Junior FX Business Developer (CDI, Paris — ligne du 22/09 sur eFinancialCareers) · FX Sales Associate / Graduate Business Developer (CDI, commission déplafonnée) · Business Developer Marseille (CDI, formation 6 mois à Paris puis implantation Marseille) · équivalent Stage (1 000 €/mois, CDI possible) en secours.
-- Liens : https://www.efinancialcareers.fr/emploi-France-Paris-Junior_FX_Business_Developer.id22713740 · careers https://www.ebury.com/careers/ · agrégat : https://fr.bebee.com/company/ebury
-- Exigences lues : école de commerce/univ finance · **exp. commerciale B2B "de préférence"** → Finstart + BPCE = case cochée · FR maternel + anglais.
-- Salaire junior réel : ~35-40 k fixe + variable déplafonné.
+- **Signal direct reçu de Charlotte Grudé, Head of Desk (échange partagé le 28/09/2026)** : « nous ne recrutons pas en ce moment », reprise attendue « dans quelques mois » sans date ferme ; le poste Junior FX Sales décrit est « 100% de prospection au téléphone » et l’équipe recherche surtout des profils commerciaux.
+- **Statut à retenir :** Ebury est une cible prioritaire à préparer et à suivre, mais **aucune ouverture actuelle n’est confirmée** par cet échange. Les annonces repérées sur des agrégateurs (dont eFinancialCareers) ne doivent pas être présentées comme des postes ouverts sans confirmation sur le portail officiel ou auprès du desk.
+- **Court terme :** préparer un pitch de prospection, les cas d’usage FX d’une PME, le vocabulaire spot / forward / swap, et une démonstration concrète de l’expérience Finstart + SKEMA Job Service ; ne pas relancer Charlotte immédiatement après les messages déjà échangés.
+- **Moyen terme :** reprendre contact dans environ 6–8 semaines ou selon le calendrier qu’elle précisera ; surveiller régulièrement le [job board officiel Ebury](https://ebury.com/company/careers/job-board) et vérifier directement le statut d’une annonce avant candidature. Le délai de relance est une recommandation, pas une date de reprise annoncée par Ebury.
+- Liens de veille : [carrières Ebury](https://ebury.com/company/careers/job-board) · [ancienne annonce indexée sur eFinancialCareers](https://www.efinancialcareers.fr/emploi-France-Paris-Junior_FX_Business_Developer.id22713740) (**signal historique/agrégateur, statut actuel non confirmé**).
+- **À demander au prochain échange :** périmètre exact derrière « 100% prospection », KPI, accompagnement/formation produit, passage du rendez-vous à la vente et calendrier réel de recrutement. Disponibilité annoncée par Calvin : à partir du 20 décembre 2026 ; à reconfirmer selon contrat et calendrier du poste.
 
 ## 🥈 PRIORITÉ 2 — iBanFirst Paris
 
