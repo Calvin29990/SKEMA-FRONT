@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sensitive
+*.key
+*.pem
+.env
+.env.local
+
+# Temp
+*.tmp
+*.temp
+*.log
+
+# Archives (sauf si explicitement ajoutées)
+*.zip
+*.rar
+*.7z
+
+# Node (pour bnp-training si besoin)
+node_modules/
