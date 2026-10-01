@@ -9,9 +9,8 @@ Personal study and interview-practice workspace. The public repository contains 
 
 ## Study and preparation materials
 
-- [`cours/S2_CapitalStructure/Orion-Foods-Capital-Structure-Report-EN.pdf`](cours/S2_CapitalStructure/Orion-Foods-Capital-Structure-Report-EN.pdf) — polished English corporate-finance case analysis for class discussion.
+- [`cours/S2_CapitalStructure/Orion-Foods-Capital-Structure-Report-EN.pdf`](cours/S2_CapitalStructure/Orion-Foods-Capital-Structure-Report-EN.pdf) — English case analysis recommending a Goal Seek–based Option D with a 5.0× recession-coverage target; assumptions are stated in the report.
 - [`cours/S2_CapitalStructure/Orion-Foods-Capital-Structure-Report-EN.md`](cours/S2_CapitalStructure/Orion-Foods-Capital-Structure-Report-EN.md) — editable source for the English report.
-- [`cours/S2_CapitalStructure/Orion-Foods-Capital-Structure.pdf`](cours/S2_CapitalStructure/Orion-Foods-Capital-Structure.pdf) — bilingual study brief and English presentation draft.
 - `cours/` — course notes, syllabi, readings and class materials.
 - `exercices/` — finance, accounting, Excel and prerequisite exercises.
 - `entretien/` — interview prompts and preparation notes.
