@@ -22,6 +22,10 @@ This repository is public. Do not add personal emails, application credentials o
 
 A local-only `private-handoff/` folder may be present in the working tree. It holds sensitive cross-conversation working context and must not be added, committed or pushed to the public repository. At the beginning of a follow-up Arena conversation in the same workspace, read `private-handoff/00-START-HERE.md`, then open only the topic file relevant to the task. Update the appropriate topic file and the start page whenever a consequential decision or status changes; record facts, dates, source and uncertainty rather than copying the full chat transcript.
 
+## Arena continuity
+
+At the start of work, inspect the current branch and working tree, read the relevant handoff notes if they exist, and compare with the remote session branch before assuming the checkout is current. Preserve local changes; never reset them to recover from a stale checkout. Keep work on the branch assigned to the Arena session—do not create parallel branches. Do not use `git add .` in this workspace; stage only the intended public-safe deliverables.
+
 ## General rule
 
 Practice content here is for preparation only. Complete employer assessments independently and follow the employer's official instructions and deadlines.
