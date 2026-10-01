@@ -2,9 +2,9 @@
 
 Personal study and interview-practice workspace. The public repository contains study materials and independent practice tools; it is **not an official assessment platform** and is not affiliated with any bank or test provider.
 
-## Practice tools
+## Preparation materials
 
-- [`morgan-stanley-practice/index.html`](morgan-stanley-practice/index.html) — independent, English-language practice for numerical reasoning, inductive reasoning, and situational judgement. Original questions; answers save locally in the browser.
+- [`morgan-stanley-practice/README.md`](morgan-stanley-practice/README.md) — English quick-reference memo for numerical reasoning, inductive reasoning and situational judgement. Not an official assessment or answer key.
 - [`bnp-training/index.html`](bnp-training/index.html) — BNP Maki-style practice tool.
 
 ## Study and preparation materials
