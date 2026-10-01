@@ -9,6 +9,8 @@ Personal study and interview-practice workspace. The public repository contains 
 
 ## Study and preparation materials
 
+- [`cours/S2_CapitalStructure/Orion-Foods-Capital-Structure.pdf`](cours/S2_CapitalStructure/Orion-Foods-Capital-Structure.pdf) — Orion Foods capital-structure calculations and an English group-presentation draft; independent study aid.
+- [`cours/S2_CapitalStructure/Orion-Foods-Capital-Structure.md`](cours/S2_CapitalStructure/Orion-Foods-Capital-Structure.md) — editable source for the study brief.
 - `cours/` — course notes, syllabi, readings and class materials.
 - `exercices/` — finance, accounting, Excel and prerequisite exercises.
 - `entretien/` — interview prompts and preparation notes.
