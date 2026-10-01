@@ -4,7 +4,7 @@ Personal study and interview-practice workspace. The public repository contains 
 
 ## Preparation materials
 
-- [`morgan-stanley-practice/README.md`](morgan-stanley-practice/README.md) — English quick-reference memo for numerical reasoning, inductive reasoning and situational judgement. Not an official assessment or answer key.
+- [`morgan-stanley-practice/README.md`](morgan-stanley-practice/README.md) — French-English preparation memo with formulas, English keywords and general reasoning/judgement guidance. Not an official assessment or answer key.
 - [`bnp-training/index.html`](bnp-training/index.html) — BNP Maki-style practice tool.
 
 ## Study and preparation materials
