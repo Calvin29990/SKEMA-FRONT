@@ -17,8 +17,8 @@ const CORE = (() => {
     { id: 'deductive',     home: 'Pensée logique déductive',                  head: 'Deductive-logical Thinking',            min: 9,  kind: 'latin',    timed: 360 },
     { id: 'inductive',     home: 'Raisonnement Inductif',                     head: 'Inductive Reasoning',                   min: 9,  kind: 'pick2',    timed: 360 },
     { id: 'concentration', home: 'Capacité de Concentration',                 head: 'Ability to Concentrate',                min: 5,  kind: 'edots',    timed: 120, exTime: 30 },
-    { id: 'multitask',     home: 'Capacité multi-tâches',                     head: 'Multi-tasking',                         min: 8,  kind: 'mt',       timed: 480, noDetail: true },
-    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem',  timed: 360 },
+    { id: 'multitask',     home: 'Capacité multi-tâches',                     head: 'Multi-tasking',                         min: 8,  kind: 'mt',       timed: 300, noDetail: true },
+    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem',  timed: 300 },
     { id: 'info',          home: 'Traitement de l’information',          head: 'Information Handling',                  min: 18, kind: 'inbox',    timed: 900 },
     { id: 'english',       home: 'Compétences Linguistiques - Anglais',  head: 'Competences Linguistiques - Anglais',  min: 13, kind: 'lang',     lang: 'en' },
     { id: 'french',        home: 'Compétences Linguistiques - Français', head: 'Compétences Linguistiques - Français', min: 13, kind: 'lang',     lang: 'fr' },
@@ -500,7 +500,7 @@ const CORE = (() => {
   function leShowStep() {
     const view = document.getElementById('view');
     if (S.leIdx >= 12) { S.lePhase = 'place'; S.secEnd = Date.now() + 30000; S.placed = Array(12).fill(null); S.pool = shuffle12(S.items[S.leSec].order); return renderLE(view); }
-    S.leIdx++; S.showNext = Date.now() + 1200;
+    S.leIdx++; S.showNext = Date.now() + 1000;
     renderLE(view);
   }
   const shuffle12 = (order) => { const a = order.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };

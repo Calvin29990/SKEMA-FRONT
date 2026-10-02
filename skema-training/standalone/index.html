@@ -1352,10 +1352,10 @@ const BANK = (() => {
         '<p>You have now completed the example and should be sure that you have understood the structure and handling of the task. Please note:</p><ul><li>The test requires fast and accurate working.</li><li>React as quickly as possible by pressing “CORRECT” or “INCORRECT”, or “D” / “A” if you use a keyboard.</li><li>The whole test will take 2 minutes to complete.</li><li>Make absolutely sure that the mouse connected to your computer is working properly.</li><li>The time measurement starts automatically with the appearance of the first object on your screen.</li></ul>')
     ],
     multitask: [
-      I('<p>Ce module mesure votre capacité à maintenir deux tâches en parallèle. Il dure 8 minutes.</p><p>Un stimulus central affiche une lettre et un chiffre. Une consigne indique quelle dimension juger : juger la LETTRE (voyelle ou consonne) ou juger le CHIFFRE (pair ou impair). La consigne change par blocs : adaptez-vous immédiatement.</p><p>Répondez avec les deux boutons proposés. La rapidité et la précision comptent autant l’une que l’autre.</p><p>Les pages suivantes expliquent le fonctionnement, avec un exemple non noté.</p>',
-        '<p>This module measures your ability to keep two tasks running in parallel. It takes 8 minutes.</p><p>A central stimulus shows a letter and a digit. A cue tells you which dimension to judge: judge the LETTER (vowel or consonant) or judge the DIGIT (odd or even). The cue changes between blocks: adapt immediately.</p><p>Answer with the two buttons offered. Speed and accuracy both count.</p><p>The following pages explain the handling, with an unscored example.</p>'),
-      I('<p>Veuillez noter :</p><ul><li>Le test exige rapidité et précision.</li><li>La consigne active est rappelée au-dessus du stimulus.</li><li>Le test dure 8 minutes et ne peut pas être interrompu.</li><li>Le chronométrage démarre avec le premier stimulus.</li></ul>',
-        '<p>Please note:</p><ul><li>The test requires fast and accurate working.</li><li>The active cue is displayed above the stimulus.</li><li>The test lasts 8 minutes and cannot be interrupted.</li><li>Time measurement starts with the first stimulus.</li></ul>')
+      I('<p>Ce module mesure votre capacité à maintenir deux tâches en parallèle. Il dure 5 minutes.</p><p>Un stimulus central affiche une lettre et un chiffre. Une consigne indique quelle dimension juger : juger la LETTRE (voyelle ou consonne) ou juger le CHIFFRE (pair ou impair). La consigne change par blocs : adaptez-vous immédiatement.</p><p>Répondez avec les deux boutons proposés. La rapidité et la précision comptent autant l’une que l’autre.</p><p>Les pages suivantes expliquent le fonctionnement, avec un exemple non noté.</p>',
+        '<p>This module measures your ability to keep two tasks running in parallel. It takes 5 minutes.</p><p>A central stimulus shows a letter and a digit. A cue tells you which dimension to judge: judge the LETTER (vowel or consonant) or judge the DIGIT (odd or even). The cue changes between blocks: adapt immediately.</p><p>Answer with the two buttons offered. Speed and accuracy both count.</p><p>The following pages explain the handling, with an unscored example.</p>'),
+      I('<p>Veuillez noter :</p><ul><li>Le test exige rapidité et précision.</li><li>La consigne active est rappelée au-dessus du stimulus.</li><li>Le test dure 5 minutes et ne peut pas être interrompu.</li><li>Le chronométrage démarre avec le premier stimulus.</li></ul>',
+        '<p>Please note:</p><ul><li>The test requires fast and accurate working.</li><li>The active cue is displayed above the stimulus.</li><li>The test lasts 5 minutes and cannot be interrupted.</li><li>Time measurement starts with the first stimulus.</li></ul>')
     ],
     learning: [
       I('<p>Ce test mesure votre capacité à mémoriser des objets présentés dans un ordre donné, ainsi que votre aptitude à apprendre. Le test dure environ 5 minutes.</p><p>Les pages suivantes expliquent la structure et le maniement du test. Un exemple non noté vous familiarise ensuite avec la tâche.</p><p>Assurez-vous de ne pas être dérangé ou distrait pendant le test.</p>',
@@ -1912,8 +1912,8 @@ const CORE = (() => {
     { id: 'deductive',     home: 'Pensée logique déductive',                  head: 'Deductive-logical Thinking',            min: 9,  kind: 'latin',    timed: 360 },
     { id: 'inductive',     home: 'Raisonnement Inductif',                     head: 'Inductive Reasoning',                   min: 9,  kind: 'pick2',    timed: 360 },
     { id: 'concentration', home: 'Capacité de Concentration',                 head: 'Ability to Concentrate',                min: 5,  kind: 'edots',    timed: 120, exTime: 30 },
-    { id: 'multitask',     home: 'Capacité multi-tâches',                     head: 'Multi-tasking',                         min: 8,  kind: 'mt',       timed: 480, noDetail: true },
-    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem',  timed: 360 },
+    { id: 'multitask',     home: 'Capacité multi-tâches',                     head: 'Multi-tasking',                         min: 8,  kind: 'mt',       timed: 300, noDetail: true },
+    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem',  timed: 300 },
     { id: 'info',          home: 'Traitement de l’information',          head: 'Information Handling',                  min: 18, kind: 'inbox',    timed: 900 },
     { id: 'english',       home: 'Compétences Linguistiques - Anglais',  head: 'Competences Linguistiques - Anglais',  min: 13, kind: 'lang',     lang: 'en' },
     { id: 'french',        home: 'Compétences Linguistiques - Français', head: 'Compétences Linguistiques - Français', min: 13, kind: 'lang',     lang: 'fr' },
@@ -2395,7 +2395,7 @@ const CORE = (() => {
   function leShowStep() {
     const view = document.getElementById('view');
     if (S.leIdx >= 12) { S.lePhase = 'place'; S.secEnd = Date.now() + 30000; S.placed = Array(12).fill(null); S.pool = shuffle12(S.items[S.leSec].order); return renderLE(view); }
-    S.leIdx++; S.showNext = Date.now() + 1200;
+    S.leIdx++; S.showNext = Date.now() + 1000;
     renderLE(view);
   }
   const shuffle12 = (order) => { const a = order.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };

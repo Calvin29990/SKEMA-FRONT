@@ -163,13 +163,28 @@ function serve(dir) {
   ok(seen.deductive.timer === '06:00', 'déductif : 6:00 global', seen.deductive.timer);
   ok(seen.inductive.timer === '06:00', 'inductif : 6:00 global', seen.inductive.timer);
   ok(seen.concentration.timer === '00:30', 'concentration : exemple chronométré 30 s', seen.concentration.timer);
-  ok(seen.multitask.timer === '08:00', 'multi-tâches : 8:00', seen.multitask.timer);
+  ok(seen.multitask.timer === '05:00', 'multi-tâches : 5:00 (scales mt officiel)', seen.multitask.timer);
   ok(seen.learning.kind === 'seqmem', 'apprentissage : épreuve de type seqmem', seen.learning.kind);
+  ok(seen.behaviour.timer === '' && seen.motivation.timer === '', 'comportements / motivations : sans chrono (personnalité)', { be: seen.behaviour.timer, mo: seen.motivation.timer });
   ok(seen.info.timer === '15:00', 'traitement info : 15:00', seen.info.timer);
   ok(seen.mechanical.items === 24 && seen.mechanical.timer === '15:00', 'mécanique : 24 questions / 15:00', seen.mechanical);
   ok(seen.switch.timer === '06:00', 'switch : 6:00', seen.switch.timer);
   const btabs = await page.evaluate(() => { const S = CORE.SECTIONS; return S.length; });
   ok(btabs === 14, 'registre : 14 épreuves', btabs);
+
+  /* chronomètres officiels : durées des tests (sources Aon / cut-e) */
+  group('Chronomètres officiels des épreuves');
+  const OFF = {
+    numerical: 720, verbal: 720, deductive: 360, inductive: 360, concentration: 120,
+    multitask: 300, learning: 300, info: 900, english: null, french: null, mechanical: 900, switch: 360
+  };
+  const tim = await page.evaluate(() => { const o = {}; CORE.SECTIONS.forEach(x => o[x.id] = x.timed === undefined ? null : x.timed); return o; });
+  Object.keys(OFF).forEach(id => ok(tim[id] === OFF[id], 'chrono ' + id + ' = ' + (OFF[id] === null ? 'sous-sections' : OFF[id] + ' s'), tim[id]));
+  ok(tim.behaviour === null && tim.motivation === null, 'comportements / motivations : aucun chrono', { be: tim.behaviour, mo: tim.motivation });
+  ok(tim.english === null && tim.french === null, 'langues : chrono par sous-section (4:00 / 4:00 / 2:00)', { en: tim.english, fr: tim.french });
+  /* les durées affichées sur l'accueil (document) restent inchangées */
+  const homeMin = await page.evaluate(() => CORE.SECTIONS.map(s2 => s2.home + ':' + s2.min).join('|'));
+  ok(homeMin.indexOf('Capacité multi-tâches:8') >= 0 && homeMin.indexOf('Capacité d’apprentissage:9') >= 0, 'les durées « document » de l’accueil sont conservées (8 min / 9 min)', homeMin);
 
   /* ── 4. comportements : 48 blocs × 3 énoncés × 6 pastilles, pas de chrono ── */
   group('Comportements / Motivations');
@@ -248,7 +263,7 @@ function serve(dir) {
   await page.evaluate(() => document.getElementById('leOk').click());
   await wait(150);
   const le3 = await page.evaluate(() => ({ phase: CORE.current.phase, lePhase: CORE.current.lePhase, timer: document.getElementById('skTimer').textContent }));
-  ok(le3.phase === 'run' && le3.lePhase === 'break' && /^0[56]:\d\d$/.test(le3.timer), 'test réel : chrono global affiché (6:00) pendant la pause de 6 s', le3);
+  ok(le3.phase === 'run' && le3.lePhase === 'break' && le3.timer === '05:00', 'test réel : chrono global 5:00 pendant la pause de 6 s', le3);
   const le3b = await page.evaluate(() => ({ pause: (document.querySelector('.le-break') || {}).innerText || '' }));
   ok(/00:0\d/.test(le3b.pause), 'la pause de 6 s est décomptée dans la page', le3b);
   await page.evaluate(() => { CORE.current.secEnd = Date.now() - 1; });
@@ -264,8 +279,9 @@ function serve(dir) {
   ok(le6.lePhase === 'place' && le6.fields === 12 && le6.pool === 12, 'rappel : 12 positions + 12 objets mélangés', le6);
   for (let i = 0; i < 12; i++) await page.evaluate(() => { const b = document.querySelector('.le-p'); b && b.click(); });
   await wait(100);
-  const le7 = await page.evaluate(() => ({ filled: document.querySelectorAll('.le-f.filled').length, disabled: document.getElementById('leNext').disabled }));
+  const le7 = await page.evaluate(() => ({ filled: document.querySelectorAll('.le-f.filled').length, disabled: document.getElementById('leNext').disabled, title: document.querySelector('.qtitle').innerText }));
   ok(le7.filled === 12 && le7.disabled === false, 'les 12 positions remplies activent « › »', le7);
+  ok(/0[0-9]:\d\d/.test(le7.title), 'le temps restant de la section est affiché pendant la restitution', le7.title);
   await page.evaluate(() => CORE.destroy());
 
   /* ── 9. traitement de l'information : 15 mails + 3 en retard, guide ── */

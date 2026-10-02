@@ -6,6 +6,13 @@ raisonnement numérique, verbal, déductif, inductif et mécanique, concentratio
 multi-tâches, capacité d'apprentissage, traitement de l'information, compétences
 linguistiques anglais et français, switch challenge.
 
+## Chronomètres
+
+Durées de test officielles des formats Aon / cut-e : numérique 12:00 (37 tâches), verbal 12:00
+(49 tâches), déductif 6:00, inductif 6:00, concentration 2:00 (exemple 30 s), multi-tâches 5:00,
+apprentissage 5:00 (6 sections), traitement de l'information 15:00, langues 4:00 + 4:00 + 2:00,
+mécanique 15:00 (24 tâches), switchChallenge 6:00 ; comportements et motivations sans limite.
+
 ## Utilisation
 
 Barre d'onglets Tâches / Progression / Feedback / Aide & réglages ; feedback en français
