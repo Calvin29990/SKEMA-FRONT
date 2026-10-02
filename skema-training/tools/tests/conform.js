@@ -100,7 +100,7 @@ function serve(dir) {
   async function enterRun(id, maxClicks = 24) {
     await page.evaluate(() => { location.hash = '#/'; });
     await page.waitForSelector('.task[data-id="' + id + '"] .tk-start');
-    await page.click('.task[data-id="' + id + '"] .tk-start');
+    await page.evaluate(s => document.querySelector(s).click(), '.task[data-id="' + id + '"] .tk-start');
     await wait(120);
     for (let i = 0; i < maxClicks; i++) {
       const st = await page.evaluate(() => { const S = CORE.current; return S ? { phase: S.phase, kind: S.sec.kind } : null; });
@@ -714,6 +714,219 @@ function serve(dir) {
   await page.evaluate(() => { const i = document.getElementById('stCode'); i.value = 'CM2026'; i.dispatchEvent(new Event('change')); });
   await page.evaluate(() => { location.hash = '#/'; });
   await wait(200);
+
+  /* ── 19bis. retour immédiat v4.3 : juste/faux + pourquoi + figures sur les 14 épreuves ── */
+  group('Retour immédiat (juste/faux + pourquoi + figures)');
+  ok(await page.evaluate(() => CORE.P.instantFb() === true), 'retour immédiat activé par défaut');
+
+  /* Numérique : chiffres du dossier + feuille de données + Continuer */
+  await enterRun('numerical');
+  await page.evaluate(() => { CORE.current.tab = 'outlook'; CORE.current.tabUser = true; document.querySelectorAll('.tfbtn')[0].click(); });
+  await wait(120);
+  const ifbNum = await page.evaluate(() => {
+    const el = document.querySelector('.ifb');
+    return el ? { txt: el.innerText, sheetBtn: !!document.getElementById('ifbSheet'), nextBtn: !!document.getElementById('ifbNext'), itemTab: CORE.current.items[0].tab } : null;
+  });
+  ok(ifbNum && /POURQUOI/i.test(ifbNum.txt) && /Feuille de données/.test(ifbNum.txt) && ifbNum.sheetBtn, 'numérique : retour immédiat avec explication chiffrée et bouton de feuille de données', ifbNum && ifbNum.txt.slice(0, 90));
+  const ifbNumAct = await page.evaluate(() => {
+    document.getElementById('ifbSheet').click();
+    const tabAfterSheet = CORE.current.tab;
+    const itemTab = CORE.current.items[0].tab;
+    document.getElementById('ifbNext').click();
+    return { tabAfterSheet, itemTab, i: CORE.current.i, ans: Object.keys(CORE.current.answers).length };
+  });
+  ok(ifbNumAct.tabAfterSheet === ifbNumAct.itemTab && ifbNumAct.i === 1 && ifbNumAct.ans === 1, 'numérique : le bouton ouvre la bonne feuille et « Continuer › » passe immédiatement à la question suivante', ifbNumAct);
+  await page.evaluate(() => CORE.destroy());
+
+  /* Verbal : justification + fiche de texte */
+  await enterRun('verbal');
+  await page.evaluate(() => { document.querySelectorAll('.tfbtn')[0].click(); });
+  await wait(120);
+  const ifbVer = await page.evaluate(() => { const el = document.querySelector('.ifb'); return el ? el.innerText : ''; });
+  ok(/POURQUOI/i.test(ifbVer) && /Fiche de texte/.test(ifbVer), 'verbal : retour immédiat avec justification et fiche de texte concernée', ifbVer.slice(0, 90));
+  await page.evaluate(() => CORE.destroy());
+
+  /* Déductif : ligne/colonne + bonne option en vert + verrou anti-double-clic */
+  await enterRun('deductive');
+  const ifbDed = await page.evaluate(() => {
+    document.querySelectorAll('.ded-opt')[0].click();
+    const el = document.querySelector('.ifb');
+    const lock = CORE.current.fbLock;
+    const log1 = CORE.current.log.length;
+    document.querySelectorAll('.ded-opt')[1].click(); /* ignoré grâce au verrou */
+    const log2 = CORE.current.log.length;
+    return { txt: el ? el.innerText : '', greenOpt: !!document.querySelector('.ded-opt.ok'), holeOk: !!document.querySelector('.ded-tile.hole.ok svg'), fig: !!document.querySelector('.ifb-dedfig svg'), lock, log1, log2 };
+  });
+  ok(ifbDed.greenOpt && ifbDed.holeOk && ifbDed.fig && /Ligne \d+/.test(ifbDed.txt) && /colonne \d+/.test(ifbDed.txt), 'déductif : explication ligne/colonne + forme attendue affichée dans la case « ? » et surlignée en vert', ifbDed.txt.slice(0, 90));
+  await page.evaluate(() => { document.getElementById('ifbNext').click(); });
+  const dedNextOk = await page.evaluate(() => ({ lock: CORE.current.fbLock, ifb: !!document.querySelector('.ifb') }));
+  ok(ifbDed.lock && ifbDed.log1 === ifbDed.log2 && !dedNextOk.ifb, 'déductif : verrou anti-double-réponse actif puis levé au clic sur « Continuer › »', { ifbDed, dedNextOk });
+  await page.evaluate(() => CORE.destroy());
+
+  /* Inductif : règle en clair + les 2 bonnes grilles encadrées en vert */
+  await enterRun('inductive');
+  const ifbInd = await page.evaluate(() => {
+    const c = document.querySelectorAll('.cand'); c[0].click(); c[1].click();
+    document.getElementById('indGo').click();
+    const el = document.querySelector('.ifb');
+    return { txt: el ? el.innerText : '', greenCands: document.querySelectorAll('.cand.ok').length };
+  });
+  ok(ifbInd.greenCands === 2 && /Règle commune aux 2 grilles de gauche/.test(ifbInd.txt), 'inductif : règle formulée en clair + les 2 grilles valides encadrées en vert', ifbInd);
+  await page.evaluate(() => { document.getElementById('ifbNext').click(); });
+  ok(await page.evaluate(() => !document.querySelector('.ifb')), 'inductif : « Continuer › » passe à l’item suivant', null);
+  await page.evaluate(() => CORE.destroy());
+
+  /* Switch : permutation pas à pas + figure entrée → code → sortie */
+  await enterRun('switch');
+  const ifbSw = await page.evaluate(() => {
+    const S = CORE.current, it = S.items[S.i];
+    const wrongIdx = it.codes.findIndex((_, k) => k !== it.ans);
+    document.querySelectorAll('.sw-codeopt')[wrongIdx].click();
+    const el = document.querySelector('.ifb');
+    return {
+      txt: el ? el.innerText : '',
+      fig: !!document.querySelector('.ifb-swfig'),
+      tiles: document.querySelectorAll('.ifb-swtile svg').length,
+      codeOk: !!document.querySelector('.ifb-swcode.ok'),
+      codeKo: !!document.querySelector('.ifb-swcode.ko')
+    };
+  });
+  ok(/pos\. 1→\d/.test(ifbSw.txt) && /pos\. 4→\d/.test(ifbSw.txt), 'switch : permutation expliquée pas à pas (pos. 1→… à pos. 4→…)', ifbSw.txt.slice(0, 90));
+  ok(ifbSw.fig && ifbSw.tiles === 8 && ifbSw.codeOk && ifbSw.codeKo, 'switch : figure entrée → code → sortie (mauvais code barré en rouge, bon code en vert)', ifbSw);
+  await page.evaluate(() => CORE.destroy());
+
+  /* Concentration : nature de la forme + nombre exact de points + figure comparative */
+  await enterRun('concentration');
+  await page.evaluate(() => { CORE.current.deadline = Date.now() - 1; });
+  await wait(350);
+  const ifbConc = await page.evaluate(() => {
+    document.querySelector('.conc-btn').click();
+    const el = document.querySelector('.ifb');
+    return { txt: el ? el.innerText : '', fig: document.querySelectorAll('.ifb-concfig .ifb-conccard svg').length };
+  });
+  ok(/E|barre|retourné/.test(ifbConc.txt) && /point/.test(ifbConc.txt), 'concentration : explique si la forme est un vrai E et combien de points elle porte', ifbConc.txt.slice(0, 90));
+  ok(ifbConc.fig === 2, 'concentration : figure comparative (objet affiché vs cible E + 3 points)', ifbConc.fig);
+  await page.evaluate(() => CORE.destroy());
+
+  /* Multi-tâches : dimension jugée + règle */
+  await enterRun('multitask');
+  const ifbMt = await page.evaluate(() => {
+    document.querySelector('.mt-btn').click();
+    const el = document.querySelector('.ifb');
+    return el ? el.innerText : '';
+  });
+  ok(/La consigne porte sur/.test(ifbMt) && /(voyelle|consonne|pair|impair)/.test(ifbMt), 'multi-tâches : rappelle la dimension jugée (lettre ou chiffre) et la justification', ifbMt.slice(0, 90));
+  await page.evaluate(() => CORE.destroy());
+
+  /* Apprentissage : fin de section → comparaison en figures des 12 objets */
+  await enterRun('learning');
+  await page.evaluate(() => { CORE.current.demoIdx = 6; });
+  await wait(1500);
+  await page.evaluate(() => { for (let i = 0; i < 6; i++) { const b = document.querySelector('.le-p'); if (b) b.click(); } });
+  await wait(100);
+  await page.evaluate(() => { document.getElementById('leOk').click(); });
+  await wait(150);
+  await page.evaluate(() => { CORE.current.secEnd = Date.now() - 1; });
+  await wait(350);
+  for (let i = 0; i < 24 && (await page.evaluate(() => CORE.current.lePhase)) === 'show'; i++) { await page.evaluate(() => { CORE.current.showNext = Date.now() - 1; }); await wait(280); }
+  await page.evaluate(() => { for (let i = 0; i < 12; i++) { const b = document.querySelector('.le-p'); if (b) b.click(); } document.getElementById('leNext').click(); });
+  await wait(150);
+  const ifbLe = await page.evaluate(() => {
+    const el = document.querySelector('.ifb');
+    return { txt: el ? el.innerText : '', cells: document.querySelectorAll('.ifb-lefig .ifb-lecell svg').length };
+  });
+  ok(/Section 1/.test(ifbLe.txt) && ifbLe.cells === 24, 'apprentissage : fin de section avec comparaison en figures (12 placés vs 12 attendus)', { cells: ifbLe.cells, txt: ifbLe.txt.slice(0, 80) });
+  await page.evaluate(() => CORE.destroy());
+
+  /* Boîte de réception : règle du guide appliquée au mail + bouton E-mail suivant */
+  await enterRun('info');
+  const ifbInfo = await page.evaluate(() => {
+    const p = document.getElementById('mPrio'), a = document.getElementById('mAct');
+    p.value = '0'; p.dispatchEvent(new Event('change'));
+    a.value = '0'; a.dispatchEvent(new Event('change'));
+    const el = document.querySelector('#ibFb .ifb');
+    return { txt: el ? el.innerText : '', next: !!document.querySelector('#ibFb #ifbNext') };
+  });
+  ok(/Priorité (HIGH|MEDIUM|LOW)/.test(ifbInfo.txt) && /Action :/.test(ifbInfo.txt) && ifbInfo.next, 'boîte de réception : affiche la règle du guide (priorité + action attendue)', ifbInfo.txt.slice(0, 100));
+  const infoNextMail = await page.evaluate(() => { document.querySelector('#ibFb #ifbNext').click(); return CORE.current.mail; });
+  ok(infoNextMail === 1, 'boîte de réception : « E-mail suivant › » sélectionne le message suivant', infoNextMail);
+  await page.evaluate(() => CORE.destroy());
+
+  /* Mécanique : explication physique + surlignage vert/rouge + Continuer */
+  await enterRun('mechanical');
+  const ifbMech = await page.evaluate(() => {
+    document.querySelectorAll('.optrow')[0].click();
+    const el = document.querySelector('.ifb');
+    return { txt: el ? el.innerText : '', okOpt: !!document.querySelector('.optrow.ok'), next: !!document.getElementById('ifbNext') };
+  });
+  ok(ifbMech.okOpt && ifbMech.next && /POURQUOI/i.test(ifbMech.txt) && ifbMech.txt.length > 40, 'mécanique : explication du phénomène de transmission + bonne option en vert', ifbMech.txt.slice(0, 90));
+  const mechNext = await page.evaluate(() => { document.getElementById('ifbNext').click(); return CORE.current.i; });
+  ok(mechNext === 1, 'mécanique : « Continuer › » passe à la question suivante', mechNext);
+  await page.evaluate(() => CORE.destroy());
+
+  /* Langues (anglais & français) : retour immédiat + « ? » neutre */
+  await enterRun('english');
+  const ifbEn = await page.evaluate(() => {
+    document.querySelectorAll('.optrow')[0].click();
+    const el = document.querySelector('.ifb');
+    return { txt: el ? el.innerText : '', okOpt: !!document.querySelector('.optrow.ok') };
+  });
+  ok(ifbEn.okOpt && /POURQUOI/i.test(ifbEn.txt), 'anglais : retour immédiat dès le clic sur une option', ifbEn.txt.slice(0, 90));
+  const ifbEnUnk = await page.evaluate(() => {
+    document.querySelector('.optrow[data-i="99"]').click();
+    const el = document.querySelector('.ifb');
+    return el ? el.innerText : '';
+  });
+  ok(/Neutre/.test(ifbEnUnk), 'anglais : l’option « ? » affiche un retour neutre non pénalisé', ifbEnUnk.slice(0, 80));
+  await page.evaluate(() => CORE.destroy());
+
+  await enterRun('french');
+  const ifbFr = await page.evaluate(() => {
+    document.querySelectorAll('.optrow')[0].click();
+    const el = document.querySelector('.ifb');
+    return el ? el.innerText : '';
+  });
+  ok(/POURQUOI/i.test(ifbFr), 'français : retour immédiat sur la réponse choisie', ifbFr.slice(0, 90));
+  await page.evaluate(() => CORE.destroy());
+
+  /* Comportements & Motivations : bandeau de synthèse + Continuer */
+  await enterRun('behaviour');
+  const ifbBeh = await page.evaluate(() => {
+    const el = document.querySelector('.ifb');
+    document.getElementById('ifbNext').click();
+    return { hadFb: !!el, i: CORE.current.i };
+  });
+  ok(ifbBeh.hadFb && ifbBeh.i === 1, 'comportements : panneau de retour immédiat et bouton « Continuer › »', ifbBeh);
+  await page.evaluate(() => CORE.destroy());
+
+  await enterRun('motivation');
+  const ifbMot = await page.evaluate(() => {
+    const el = document.querySelector('.ifb');
+    document.getElementById('ifbNext').click();
+    return { hadFb: !!el, i: CORE.current.i };
+  });
+  ok(ifbMot.hadFb && ifbMot.i === 1, 'motivations : panneau de retour immédiat et bouton « Continuer › »', ifbMot);
+  await page.evaluate(() => CORE.destroy());
+
+  /* Aide & réglages : interrupteur « Retour immédiat » */
+  await page.evaluate(() => { location.hash = '#/reglages'; });
+  await wait(200);
+  const stInst = await page.evaluate(() => {
+    const cb = document.getElementById('stInstant');
+    if (!cb) return null;
+    const initial = cb.checked;
+    cb.checked = false; cb.dispatchEvent(new Event('change'));
+    const afterOff = CORE.P.instantFb();
+    return { initial, afterOff };
+  });
+  ok(stInst && stInst.initial === true && stInst.afterOff === false, 'réglages : case « Retour immédiat » cochée par défaut et désactivable', stInst);
+  await enterRun('deductive');
+  const noIfb = await page.evaluate(() => {
+    document.querySelector('.ded-opt').click();
+    return !document.querySelector('.ifb');
+  });
+  await page.evaluate(() => { CORE.P.setInstantFb(true); CORE.destroy(); });
+  ok(noIfb && (await page.evaluate(() => CORE.P.instantFb() === true)), 'mode cadence d’examen : décocher « Retour immédiat » masque le panneau en direct', noIfb);
 
   /* ── 16. réseau : aucune requête externe ── */
   group('Confidentialité / réseau');

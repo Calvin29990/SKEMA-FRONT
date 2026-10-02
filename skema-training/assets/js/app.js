@@ -156,14 +156,16 @@
       '<p class="tiny">Par défaut, toute l’épreuve s’affiche en anglais (la langue du test réel) ; l’habillage — accueil, progression, feedback, aide — reste en français. Les deux tests de langues conservent leur langue de contenu : le réglage ne change que l’affichage de leurs consignes.</p>' +
       CORE.SECTIONS.map(s => '<div class="setrow"><span>' + esc(s.home) + '</span><select class="langsel" id="lg-' + s.id + '" data-sec="' + s.id + '"><option value="fr">Français</option><option value="en">English</option></select></div>').join('') +
       '<h2>Interface</h2>' +
+      '<div class="setrow"><span>Retour immédiat (juste/faux + pourquoi après chaque réponse)</span><input type="checkbox" id="stInstant"></div>' +
       '<div class="setrow"><span>Sons (retours sonores)</span><input type="checkbox" id="stSound"></div>' +
       '<div class="setrow"><span>Raccourcis clavier (1-4, D/A…)</span><input type="checkbox" id="stKeys"></div>' +
       '<div class="setrow"><span>Code d’accès du profil</span><input class="inp sm" id="stCode" maxlength="12"></div>' +
       '<h2>Données</h2><p class="tiny">Tout est stocké localement dans ce navigateur (localStorage), par profil. L’export JSON contient l’historique et le détail question par question.</p>' +
       '<div class="row"><button class="btn" id="stExport">Exporter (JSON)</button><button class="btn" id="stImport">Importer</button><button class="btn danger" id="stPurge">Supprimer ce profil</button></div></div>' +
-      '<h2>Aide</h2><div class="setbox tiny"><p>• Accueil → « Début » lance le test réel (consignes + exemples + chrono).</p><p>• Pendant un test : le menu ≡ reste accessible ; « ›/‹ » et « ▦ » naviguent entre questions quand le test réel le permet.</p><p>• Tests chronométrés : le temps restant s’affiche en haut à droite ; à 0, la session se termine et les questions non répondues comptent comme incorrectes.</p><p>• Comportements / Motivations : répartissez jusqu’à 6 points par bloc (1-6), sans obligation de tout distribuer.</p><p>• Concentration : touches D = correct, A = incorrect.</p></div>';
+      '<h2>Aide</h2><div class="setbox tiny"><p>• Accueil → « Début » lance le test réel (consignes + exemples + chrono).</p><p>• Retour immédiat : un panneau sous la question indique juste/faux, la réponse attendue et pourquoi (décochez-le dans Interface pour vous entraîner en conditions réelles).</p><p>• Pendant un test : le menu ≡ reste accessible ; « ›/‹ » et « ▦ » naviguent entre questions quand le test réel le permet.</p><p>• Tests chronométrés : le temps restant s’affiche en haut à droite ; à 0, la session se termine et les questions non répondues comptent comme incorrectes.</p><p>• Comportements / Motivations : répartissez jusqu’à 6 points par bloc (1-6), sans obligation de tout distribuer.</p><p>• Concentration : touches D = correct, A = incorrect.</p></div>';
     v.querySelectorAll('select.langsel').forEach(s => { s.value = P.lang(s.dataset.sec); s.onchange = (e) => { P.setLang(s.dataset.sec, e.target.value); U.toast('Langue enregistrée : ' + s.dataset.sec + ' → ' + (e.target.value === 'fr' ? 'français' : 'anglais')); }; });
-    $('#stSound').checked = !!st.sound; $('#stKeys').checked = st.keyboard !== false; $('#stCode').value = st.code || 'CM2026';
+    $('#stInstant').checked = st.instantFb !== false; $('#stSound').checked = !!st.sound; $('#stKeys').checked = st.keyboard !== false; $('#stCode').value = st.code || 'CM2026';
+    $('#stInstant').onchange = (e) => { st.instantFb = e.target.checked; P.saveSettings(st); U.toast(e.target.checked ? 'Retour immédiat activé' : 'Retour immédiat désactivé (conditions réelles)'); };
     $('#stSound').onchange = (e) => { st.sound = e.target.checked; P.saveSettings(st); };
     $('#stKeys').onchange = (e) => { st.keyboard = e.target.checked; P.saveSettings(st); };
     $('#stCode').onchange = (e) => { st.code = (e.target.value || 'CM2026').trim().toUpperCase(); P.saveSettings(st); U.toast('Code mis à jour'); };
@@ -201,7 +203,12 @@
           d.attempts.forEach(a => { if (a && a.id && !seen.has(a.id)) { att.push(a); seen.add(a.id); n++; } });
           U.store.set(P.key('attempts'), att.slice(-800));
           if (d.details && typeof d.details === 'object') { Object.keys(d.details).forEach(k => { if (!det[k]) { det[k] = d.details[k]; n++; } }); U.store.set(P.key('details'), det); }
-          if (d.settings && d.settings.langs) { const s = P.settings(); s.langs = Object.assign({}, s.langs, d.settings.langs); P.saveSettings(s); }
+          if (d.settings) {
+            const s = P.settings();
+            if (d.settings.langs) s.langs = Object.assign({}, s.langs, d.settings.langs);
+            if (typeof d.settings.instantFb === 'boolean') s.instantFb = d.settings.instantFb;
+            P.saveSettings(s);
+          }
           U.closeModal(); U.toast('Import terminé : ' + n + ' élément(s) ajouté(s) au profil courant'); route();
         } catch (e) { U.toast('Fichier invalide', 'err'); }
       };
@@ -224,7 +231,7 @@
   }
 
   /* ═══════════════ Démarrage ═══════════════ */
-  $('#footMeta').textContent = 'Assessment Trainer v4.2 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
+  $('#footMeta').textContent = 'Assessment Trainer v4.3 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
   ensureUser();
   route();
 })();

@@ -39,8 +39,10 @@ const CORE = (() => {
     key(k) { return k + '::' + (PROFILES.current() || 'Invité'); },
     attempts() { return U.store.get(this.key('attempts'), []); },
     details() { return U.store.get(this.key('details'), {}); },
-    settings() { return U.store.get('settings', { sound: false, keyboard: true, code: 'CM2026', langs: {} }); },
+    settings() { return U.store.get('settings', { sound: false, keyboard: true, instantFb: true, code: 'CM2026', langs: {} }); },
     saveSettings(s) { U.store.set('settings', s); },
+    instantFb() { return this.settings().instantFb !== false; },
+    setInstantFb(v) { const s = this.settings(); s.instantFb = !!v; this.saveSettings(s); },
     code() { return String(this.settings().code || 'CM2026').trim().toUpperCase(); },
     lang(sec) {
       const id = sec && sec.id ? sec.id : sec;
@@ -89,11 +91,124 @@ const CORE = (() => {
     }
   };
 
-  /* ═══════════════ Aides ═══════════════ */
+  /* ═══════════════ Aides & moteur de retour immédiat ═══════════════ */
   const STR = (sec) => BANK.STR[P.lang(sec.id || sec)] || BANK.STR.fr;
   const mmss = (s) => { s = Math.max(0, Math.ceil(s)); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); };
   const esc = U.esc;
   const symSVG = (spec, size) => U.shape(spec.kind, spec.color, { sw: 9 });
+
+  const SYM_NAMES_DED = ['carré rouge', 'rond vert', 'triangle bleu', 'croix bleue'];
+  const SYM_NAMES_SW  = ['triangle jaune', 'croix bleue', 'rond vert', 'carré rouge'];
+  const IND_RULE_WHY = {
+    corners: 'les 4 coins de la grille portent le même symbole',
+    row:     'une ligne entière porte le même symbole',
+    col:     'une colonne entière porte le même symbole',
+    mirror:  'chaque ligne est symétrique gauche ↔ droite (1re et 3e colonnes identiques)',
+    ring:    'les 8 cases du pourtour portent le même symbole'
+  };
+
+  function dedWhy(it) {
+    const hr = it.hole[0], hc = it.hole[1];
+    const ansSym = it.options[it.ans];
+    const rowShown = [0, 1, 2, 3].filter(x => x !== hc && it.shown[hr + ',' + x] != null).length;
+    const colShown = [0, 1, 2, 3].filter(y => y !== hr && it.shown[y + ',' + hc] != null).length;
+    const others = [0, 1, 2, 3].filter(k => k !== ansSym).map(k => SYM_NAMES_DED[k]).join(', ');
+    return 'Ligne ' + (hr + 1) + ', colonne ' + (hc + 1) + ' — la ligne du ? en montre déjà ' + Math.max(rowShown, 3) + ' et la colonne ' + colShown + ' (' + others + ') : une seule forme reste possible → ' + SYM_NAMES_DED[ansSym] + ' (option ' + (it.ans + 1) + ').';
+  }
+  function indWhy(it) {
+    const ruleTxt = IND_RULE_WHY[it.rule] || 'les deux grilles d’exemple partagent la même règle de position';
+    const pairTxt = it.good.map(x => x + 1).join(' et ');
+    return 'Règle commune aux 2 grilles de gauche : ' + ruleTxt + ' — seules les grilles ' + pairTxt + ' (encadrées en vert) la respectent.';
+  }
+  function swWhy(it) {
+    const code = it.codes[it.ans];
+    const ord = n => n === 1 ? '1ᵉ' : n + 'ᵉ';
+    const steps = code.map((d, p) => 'pos. ' + (p + 1) + '→' + d + ' (la ' + ord(d) + ' forme, ' + SYM_NAMES_SW[it.input[d - 1]] + ', passe en position ' + (p + 1) + ')').join(', ');
+    return 'Permutation pas à pas : ' + steps + ' → code ' + code.join(' ') + '.';
+  }
+  function swFigHTML(it, givenIdx) {
+    const good = it.codes[it.ans];
+    const bad = (givenIdx != null && givenIdx !== it.ans && it.codes[givenIdx]) ? it.codes[givenIdx] : null;
+    const inRow = '<div class="ifb-swrow"><span class="ifb-swlbl">Entrée</span>' +
+      it.input.map((k, idx) => '<div class="ifb-swtile"><i>' + (idx + 1) + '</i>' + symSVG(BANK.SYM_SW[k]) + '</div>').join('') + '</div>';
+    const midRow = '<div class="ifb-swmid">' +
+      (bad ? '<span class="ifb-swcode ko" title="Code choisi">' + bad.join(' ') + '</span><span class="ifb-swarr">→</span>' : '') +
+      '<span class="ifb-swcode ok" title="Bon code">' + good.join(' ') + '</span></div>';
+    const outRow = '<div class="ifb-swrow"><span class="ifb-swlbl">Sortie</span>' +
+      it.output.map((k, idx) => '<div class="ifb-swtile"><i>←' + good[idx] + '</i>' + symSVG(BANK.SYM_SW[k]) + '</div>').join('') + '</div>';
+    return '<div class="ifb-swfig">' + inRow + midRow + outRow + '</div>';
+  }
+  function concWhy(it) {
+    const n = it.dots.length;
+    const pts = n + ' point' + (n > 1 ? 's' : '') + (n > 1 ? ' l’entourent' : ' l’entoure');
+    if (it.shape === 'E' && n === 3) {
+      return 'C’est bien un E complet (3 barres horizontales) et exactement 3 points l’entourent → réponse attendue : CORRECT.';
+    }
+    if (it.shape === 'E') {
+      return 'C’est bien un E, mais ' + pts + ' — il en faudrait exactement 3 → réponse attendue : INCORRECT.';
+    }
+    const shapeWhy = it.shape === 'nomiddle'
+      ? 'ce n’est pas un E (il manque la barre du milieu)'
+      : it.shape === 'F'
+        ? 'ce n’est pas un E (c’est un F : il manque la barre du bas)'
+        : 'ce n’est pas un E (E inversé en miroir)';
+    if (n === 3) {
+      return 'Ici, ' + shapeWhy + ' malgré les 3 points — il faut un vrai E ET exactement 3 points → réponse attendue : INCORRECT.';
+    }
+    return 'Ici, ' + shapeWhy + ' et ' + pts + ' — il en faudrait exactement 3 → réponse attendue : INCORRECT.';
+  }
+  function mtWhy(it) {
+    if (it.cue === 'letter') {
+      return 'La consigne porte sur la LETTRE (on ignore le chiffre ' + it.digit + ') — lettre ' + it.letter + ' = ' + (it.ans === 'vowel' ? 'voyelle (A, E, I, O, U)' : 'consonne') + '.';
+    }
+    return 'La consigne porte sur le CHIFFRE (on ignore la lettre ' + it.letter + ') — chiffre ' + it.digit + ' = ' + (it.ans === 'even' ? 'pair (divisible par 2)' : 'impair') + '.';
+  }
+  function leFigHTML(placed, order) {
+    const row = (lbl, arr, cmp) => '<div class="ifb-lerow"><span class="ifb-lelbl">' + esc(lbl) + '</span><div class="ifb-lecells">' +
+      Array.from({ length: 12 }, (_, i) => {
+        const k = arr[i];
+        const cls = cmp ? (k === order[i] ? 'ok' : 'ko') : 'ok';
+        return '<div class="ifb-lecell ' + cls + '"><i>' + (i + 1) + '</i>' + (k != null ? '<svg viewBox="0 0 100 100">' + BANK.leObjs[k] + '</svg>' : '<span>—</span>') + '</div>';
+      }).join('') + '</div></div>';
+    return '<div class="ifb-lefig">' + row('Ton ordre', placed, true) + row('Ordre correct', order, false) + '</div>';
+  }
+  function ifbHTML(opts) {
+    const st = opts.ok === true ? 'ok' : opts.ok === false ? 'ko' : 'neutral';
+    const cls = st + (opts.extraClass ? ' ' + opts.extraClass : '');
+    const badge = opts.badge || (opts.ok === true ? '✔ Correct' : opts.ok === false ? '✘ Incorrect' : '● Neutre');
+    return '<div class="ifb ' + cls + '" id="ifbPanel">' +
+      '<div class="ifb-head">' +
+        '<span class="ifb-badge ' + st + '">' + esc(badge) + '</span>' +
+        '<span class="ifb-ans">' +
+          (opts.given != null ? 'Votre réponse : <b>' + esc(opts.given) + '</b>' : '') +
+          (opts.given != null && opts.expected != null ? ' · ' : '') +
+          (opts.expected != null ? 'Réponse attendue : <b>' + esc(opts.expected) + '</b>' : '') +
+        '</span>' +
+        (opts.nextLabel !== false ? '<button type="button" class="ifb-next" id="ifbNext">' + esc(opts.nextLabel || 'Continuer ›') + '</button>' : '') +
+      '</div>' +
+      '<div class="ifb-why"><span class="ifb-k">POURQUOI</span> <span class="ifb-txt">' + esc(opts.why || '') + '</span>' + (opts.extra || '') + '</div>' +
+      (opts.fig ? '<div class="ifb-fig">' + opts.fig + '</div>' : '') +
+    '</div>';
+  }
+  function showInstantFb(host, opts, onNext, autoMs = 4200) {
+    const old = document.getElementById('ifbPanel');
+    if (old) old.remove();
+    const wrap = document.createElement('div');
+    wrap.innerHTML = ifbHTML(opts);
+    const el = wrap.firstElementChild;
+    host.appendChild(el);
+    clearTimeout(S.fbTimer);
+    const go = () => {
+      if (!S || S.done) return;
+      clearTimeout(S.fbTimer);
+      S.fbLock = false;
+      if (onNext) onNext();
+    };
+    const btn = el.querySelector('#ifbNext');
+    if (btn) btn.onclick = go;
+    if (autoMs && onNext) S.fbTimer = setTimeout(go, autoMs);
+    return el;
+  }
 
   /* ═══════════════ Moteur de session ═══════════════ */
   let S = null, tick = null;
@@ -101,7 +216,7 @@ const CORE = (() => {
   function destroy() {
     if (tick) { clearInterval(tick); tick = null; }
     if (S && S.clockId) clearInterval(S.clockId);
-    if (S) { clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); }
+    if (S) { clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer); clearTimeout(S.exTimer); }
     S = null;
     document.body.classList.remove('running');
     const ng = document.getElementById('navGrid'); if (ng) ng.classList.remove('on');
@@ -112,7 +227,7 @@ const CORE = (() => {
   function start(id) {
     destroy();
     const sec = byId(id);
-    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false };
+    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false, fbLock: false };
     buildItems();
     document.body.classList.add('running');
     tick = setInterval(onTick, 250);
@@ -144,7 +259,7 @@ const CORE = (() => {
       case 'seqmem': S.items = Array.from({ length: 6 }, (_, s2) => ({ sec: s2, order: DRILL.leOrder(seed, s2) })); S.demo = { order: DRILL.leOrder(seed, 90) }; break;
       case 'inbox': S.seed = seed; S.mails = BANK.infoMails.map((m, i) => Object.assign({ id: i, prio: null, act: null, arrived: 0 }, m)); S.lateAt = [180, 330, 480, 630]; break;
       case 'lang': S.items = []; S.seed = seed; break;   /* géré par sous-phases */
-      case 'mech': S.items = BANK.mech.map(x => Object.assign({}, x)); S.examples = [Object.assign({}, BANK.mech[0])]; break;
+      case 'mech': S.items = BANK.mech.map(x => Object.assign({ why: x.w || '' }, x)); S.examples = [Object.assign({ why: BANK.mech[0].w || '' }, BANK.mech[0])]; break;
       case 'switchcode': S.items = []; S.seed = seed; break;
     }
   }
@@ -280,6 +395,8 @@ const CORE = (() => {
     if (sec.kind === 'pick2') return pick2ItemView(view, it, true);
   }
   function exampleDone(ok) {
+    if (!S) return;
+    const curS = S;
     const fr = P.lang(S.sec.id) === 'fr', v = document.getElementById('view');
     const d = document.createElement('div');
     d.className = 'exfb ' + (ok ? 'ok' : 'ko');
@@ -288,7 +405,7 @@ const CORE = (() => {
       : (fr ? 'Ce n’est pas la bonne réponse : la solution correcte est mise en évidence.' : 'That was not correct: the right answer is highlighted.');
     if (v) v.appendChild(d);
     /* 1,2 s : le flux consignes → exemples → test reste lisible sans ralentir le passage au chrono. */
-    setTimeout(() => { if (!S || S.phase !== 'example') return; S.i++; if (S.i >= (S.examples || []).length) beginRun(); else render(); }, 1200);
+    S.exTimer = setTimeout(() => { if (S !== curS || S.phase !== 'example') return; S.i++; if (S.i >= (S.examples || []).length) beginRun(); else render(); }, 1200);
   }
 
   function beginRun() {
@@ -310,9 +427,18 @@ const CORE = (() => {
     const title = S.sec.id === 'behaviour' ? T.blkBeh : T.blkMot;
     view.className = 'sk-main';
     const spent = S.sel.reduce((a, b) => a + b, 0);
+    const fb = P.instantFb() ? ifbHTML({
+      ok: null,
+      badge: '● Profil enregistré',
+      given: S.sel.join(' / ') + ' (' + spent + '/6 pts)',
+      expected: 'Aucune bonne réponse (personnalité)',
+      why: 'Ce questionnaire mesure vos préférences relatives entre les 3 affirmations (jusqu’à 6 points par bloc, sans obligation de tout distribuer) — gardez une répartition cohérente avec votre style réel.',
+      nextLabel: 'Continuer ›'
+    }) : '';
     view.innerHTML = '<div class="blk-head"><h2>' + esc(title) + '</h2><p>' + esc(T.blkSub) + '</p></div>' +
       '<div class="blk">' + it.stmts.map((s, r) => '<div class="blk-row"><div class="blk-t">' + esc(s) + '</div>' +
         '<div class="blk-d">' + [1, 2, 3, 4, 5, 6].map(v => '<span class="dot' + (S.sel[r] === v ? ' on' : '') + ((spent - S.sel[r] + v > 6) ? ' off' : '') + '" data-r="' + r + '" data-v="' + v + '"></span>').join('') + '</div></div>').join('') + '</div>' +
+      fb +
       '<div class="blk-foot"><button class="blk-next" id="blkNext">›</button></div>' +
       '<div class="blk-rest" id="blkRest">' + (6 - spent) + '</div>';
     view.querySelectorAll('.dot:not(.off)').forEach(d => d.onclick = () => {
@@ -320,12 +446,15 @@ const CORE = (() => {
       S.sel[r] = (S.sel[r] === v) ? 0 : v;
       renderBlocks(view);
     });
-    document.getElementById('blkNext').onclick = () => {
-      S.log.push({ n: S.i + 1, q: 'Bloc ' + (S.i + 1), given: S.sel.join('/'), ok: null, ms: Date.now() - S.qStart, section: S.sec.id });
+    const goNext = () => {
+      S.log.push({ n: S.i + 1, q: 'Bloc ' + (S.i + 1), given: S.sel.join('/'), ok: null, ms: Date.now() - S.qStart, section: S.sec.id, why: 'Questionnaire de personnalité (sans bonne ni mauvaise réponse).' });
       S.sel = [0, 0, 0]; S.qStart = Date.now(); S.i++;
       if (S.i >= S.items.length) return finish();
       render();
     };
+    document.getElementById('blkNext').onclick = goNext;
+    const ifbN = document.getElementById('ifbNext');
+    if (ifbN) ifbN.onclick = goNext;
     chrome();
   }
 
@@ -358,10 +487,14 @@ const CORE = (() => {
     view.querySelectorAll('.nv-tab').forEach(b => b.onclick = () => { S.tab = b.dataset.t; S.tabUser = true; if (S.nvAns != null) S.sel = S.nvAns; nvItem(view, it, isEx); });
     view.querySelectorAll('.tfbtn').forEach(b => b.onclick = () => {
       const v = +b.dataset.v;
-      if (isEx) { S.sel = v; view.querySelectorAll('.tfbtn').forEach(x => x.classList.remove('sel', 'ok', 'ko')); b.classList.add(it.a === v ? 'ok' : 'ko'); setTimeout(() => exampleDone(it.a === v), 600); return; }
+      if (isEx) { const curS = S; S.sel = v; view.querySelectorAll('.tfbtn').forEach(x => x.classList.remove('sel', 'ok', 'ko')); b.classList.add(it.a === v ? 'ok' : 'ko'); S.exTimer = setTimeout(() => { if (S === curS) exampleDone(it.a === v); }, 600); return; }
       S.nvAns = v;
       view.querySelectorAll('.tfbtn').forEach(x => { x.classList.remove('ok', 'ko'); x.classList.toggle('sel', x === b); });
       b.classList.add(v === it.a ? 'ok' : 'ko');
+      if (P.instantFb() && v !== it.a) {
+        const gBtn = view.querySelector('.tfbtn[data-v="' + it.a + '"]');
+        if (gBtn) gBtn.classList.add('ok');
+      }
       nvSchedule(view, it);
     });
     bindNav(view, isEx);
@@ -369,25 +502,57 @@ const CORE = (() => {
   }
   function renderNumVerb(view) { const it = S.items[S.i]; S.sel = S.answers[S.i] == null ? null : S.answers[S.i]; S.nvAns = null; nvItem(view, it, false); }
   const tfText = (it, idx) => (it.o ? it.o[idx] : STR(S.sec).tf[idx]);
+  function nvCommitAndAdvance() {
+    if (!S || S.done || S.phase !== 'run' || S.nvAns == null) return;
+    clearTimeout(S.nvTimer);
+    clearTimeout(S.fbTimer);
+    S.nvInfo = S.nvInfo || {};
+    S.nvInfo[S.i] = { ms: Date.now() - S.qStart };
+    S.answers[S.i] = S.nvAns;
+    S.nvAns = null; S.nvText = null; S.qStart = Date.now();
+    S.i = Math.min(S.items.length - 1, S.i + 1);
+    render();
+  }
   function nvSchedule(view, it) {
     clearTimeout(S.nvTimer);
+    clearTimeout(S.fbTimer);
+    const oldSlide = view.querySelector('.nv-slide');
+    if (oldSlide) oldSlide.remove();
+    const ok = S.nvAns === it.a;
+    if (P.instantFb()) {
+      const tabs = nvTabs();
+      const shObj = tabs.find(t => t.id === it.tab);
+      const shName = shObj ? shObj.name : it.tab;
+      const shKind = S.sec.src === 'num' ? 'Feuille de données' : 'Fiche de texte';
+      const whyTxt = (it.why ? it.why + ' ' : '') + shKind + ' : ' + shName + '.';
+      const side = view.querySelector('.nv-side') || view;
+      const el = showInstantFb(side, {
+        ok,
+        given: tfText(it, S.nvAns),
+        expected: tfText(it, it.a),
+        why: whyTxt,
+        extra: ' <button type="button" class="ifb-sheet" id="ifbSheet" data-t="' + esc(it.tab) + '">Ouvrir la feuille « ' + esc(shName) + ' »</button>',
+        extraClass: 'nv-slide on'
+      }, nvCommitAndAdvance, 4400);
+      const shBtn = el.querySelector('#ifbSheet');
+      if (shBtn) shBtn.onclick = () => {
+        S.tab = it.tab; S.tabUser = true;
+        view.querySelectorAll('.nv-tab').forEach(t => t.classList.toggle('on', t.dataset.t === S.tab));
+        const fig = S.sec.src === 'num' ? DRILL.NV.figures[S.tab]() : BANK.verbalSheets.find(s => s.id === S.tab).html;
+        const box = view.querySelector('.nv-fig .nvtext');
+        if (box) box.innerHTML = fig;
+      };
+      S.nvTimer = S.fbTimer;
+      return;
+    }
     S.nvTimer = setTimeout(() => {
       if (!S || S.done || S.phase !== 'run') return;
-      const ok = S.nvAns === it.a;
       const el = document.createElement('div');
       el.className = 'nv-slide';
       el.innerHTML = '<span class="ic ' + (ok ? 'ok' : 'ko') + '">' + (ok ? '✔' : '✘') + '</span><span>' + esc(S.nvText || (ok ? (P.lang(S.sec.id) === 'fr' ? 'Réponse correcte.' : 'Correct answer.') : (P.lang(S.sec.id) === 'fr' ? 'Réponse incorrecte.' : 'Wrong answer.'))) + '</span>';
       view.appendChild(el);
       requestAnimationFrame(() => el.classList.add('on'));
-      S.nvTimer = setTimeout(() => {
-        if (!S || S.done || S.phase !== 'run' || S.nvAns == null) return;
-        S.nvInfo = S.nvInfo || {};
-        S.nvInfo[S.i] = { ms: Date.now() - S.qStart };
-        S.answers[S.i] = S.nvAns;
-        S.nvAns = null; S.nvText = null; S.qStart = Date.now();
-        S.i = Math.min(S.items.length - 1, S.i + 1);
-        render();
-      }, 4000);
+      S.nvTimer = setTimeout(nvCommitAndAdvance, 4000);
     }, 800);
   }
 
@@ -401,7 +566,7 @@ const CORE = (() => {
     const p = document.getElementById('nvPrev'), n = document.getElementById('nvNext'), g = document.getElementById('nvGrid');
     if (isEx) { p.style.visibility = n.style.visibility = g.style.visibility = 'hidden'; return; }
     const e = document.getElementById('nvEnd'); if (e) e.onclick = () => finish();
-    const stopNv = () => { if (S.sec.kind === 'numverb') { clearTimeout(S.nvTimer); S.nvAns = null; } };
+    const stopNv = () => { if (S.sec.kind === 'numverb') { clearTimeout(S.nvTimer); clearTimeout(S.fbTimer); S.nvAns = null; } };
     p.onclick = () => { if (S.i > 0) { stopNv(); S.i--; render(); } };
     n.onclick = () => { stopNv(); S.i = Math.min(S.items.length - 1, S.i + 1); render(); };
     g.onclick = () => toggleNav();
@@ -417,6 +582,7 @@ const CORE = (() => {
   /* ═══════════════ DÉDUCTIF ═══════════════ */
   function latinItem(view, it, isEx) {
     const T = STR(S.sec);
+    S.fbLock = false;
     view.className = 'sk-main narrow';
     view.innerHTML = '<div class="ded-wrap"><div class="qtitle">' + esc(T.chooseCorrect) + '</div><div class="ded-grid">' +
       it.grid.map((row, y) => row.map((v, x) => {
@@ -427,12 +593,29 @@ const CORE = (() => {
       it.options.map((k, i) => '<button class="ded-opt" data-i="' + i + '">' + symSVG(BANK.SYM_DED[k]) + '</button>').join('') + '</div>' +
       '<div class="qsub" style="margin-top:14px">' + esc(T.dedNote) + '</div>' + (isEx ? exNoteHTML() : '') + '</div>';
     view.querySelectorAll('.ded-opt').forEach(b => b.onclick = () => {
+      if (S.fbLock) return;
       const i = +b.dataset.i, ok = i === it.ans;
-      if (isEx) { b.classList.add(ok ? 'ok' : 'ko'); setTimeout(() => exampleDone(ok), 550); return; }
+      if (isEx) { const curS = S; b.classList.add(ok ? 'ok' : 'ko'); S.exTimer = setTimeout(() => { if (S === curS) exampleDone(ok); }, 550); return; }
+      S.fbLock = true;
       b.classList.add(ok ? 'ok' : 'ko');
-      S.log.push({ n: S.log.length + 1, q: 'Grille 4×4 — case « ? »', given: String(i + 1), correct: String(it.ans + 1), ok, ms: Date.now() - S.qStart, section: S.sec.id, why: T.dedNote });
+      const goodBtn = view.querySelectorAll('.ded-opt')[it.ans];
+      if (goodBtn) goodBtn.classList.add('ok');
+      const hole = view.querySelector('.ded-tile.hole');
+      if (hole) { hole.classList.add('ok'); hole.innerHTML = symSVG(BANK.SYM_DED[it.options[it.ans]]); }
+      const why = dedWhy(it);
+      S.log.push({ n: S.log.length + 1, q: 'Grille 4×4 — case « ? »', given: String(i + 1), correct: String(it.ans + 1), ok, ms: Date.now() - S.qStart, section: S.sec.id, why });
       S.qStart = Date.now(); S.i++;
-      setTimeout(() => { if (S && S.phase === 'run') render(); }, 420);
+      if (!P.instantFb()) {
+        S.fbTimer = setTimeout(() => { if (S && S.phase === 'run') { S.fbLock = false; render(); } }, 420);
+        return;
+      }
+      showInstantFb(view.querySelector('.ded-wrap') || view, {
+        ok,
+        given: 'Option ' + (i + 1) + ' (' + SYM_NAMES_DED[it.options[i]] + ')',
+        expected: 'Option ' + (it.ans + 1) + ' (' + SYM_NAMES_DED[it.options[it.ans]] + ')',
+        why,
+        fig: '<div class="ifb-dedfig"><span class="ifb-mini">' + symSVG(BANK.SYM_DED[it.options[it.ans]]) + '</span><span>Forme attendue dans la case « ? » (ligne ' + (it.hole[0] + 1) + ', col. ' + (it.hole[1] + 1) + ')</span></div>'
+      }, () => { if (S && S.phase === 'run') render(); }, 4200);
     });
     chrome();
   }
@@ -441,6 +624,7 @@ const CORE = (() => {
   /* ═══════════════ INDUCTIF ═══════════════ */
   function pick2ItemView(view, it, isEx) {
     const T = STR(S.sec);
+    S.fbLock = false;
     const g3 = g => '<div class="g3">' + g.map(k => '<div class="c">' + symSVG(BANK.SYM_IND[k]) + '</div>').join('') + '</div>';
     view.className = 'sk-main';
     view.innerHTML = '<div class="ind-wrap"><div class="ind-side"><div class="ind-t">' + esc(T.indLeft) + '</div><div class="ind-ex">' + it.examples.map(g3).join('') + '</div></div>' +
@@ -448,17 +632,33 @@ const CORE = (() => {
       (isEx ? exNoteHTML() : '') +
       '<div class="ind-go"><button id="indGo" title="Valider">▶▶</button></div>';
     view.querySelectorAll('.cand').forEach(c => c.onclick = () => {
+      if (S.fbLock) return;
       const i = +c.dataset.i;
       if (S.pick.has(i)) S.pick.delete(i); else { if (S.pick.size >= 2) return; S.pick.add(i); }
       view.querySelectorAll('.cand').forEach(x => x.classList.toggle('sel', S.pick.has(+x.dataset.i)));
     });
     document.getElementById('indGo').onclick = () => {
+      if (S.fbLock) return;
       if (S.pick.size === 1) return U.toast(T.indSel, 'err', 1400);
-      const sel = S.pick.size ? [...S.pick].sort().join(',') : '', ok = S.pick.size === 2 && sel === it.good.slice().sort().join(',');
+      const pickedArr = [...S.pick].sort();
+      const sel = pickedArr.length ? pickedArr.join(',') : '';
+      const ok = pickedArr.length === 2 && sel === it.good.slice().sort().join(',');
       if (isEx) { S.pick = new Set(); exampleDone(ok); return; }
-      S.log.push({ n: S.log.length + 1, q: 'Quelles deux grilles suivent la même règle ?', given: sel, correct: it.good.slice().sort().join(','), ok, ms: Date.now() - S.qStart, section: S.sec.id });
+      S.fbLock = true;
+      const why = indWhy(it);
+      view.querySelectorAll('.cand').forEach((c, idx) => {
+        if (it.good.includes(idx)) c.classList.add('ok');
+        else if (S.pick.has(idx)) c.classList.add('ko');
+      });
+      S.log.push({ n: S.log.length + 1, q: 'Quelles deux grilles suivent la même règle ?', given: sel, correct: it.good.slice().sort().join(','), ok, ms: Date.now() - S.qStart, section: S.sec.id, why });
       S.pick = new Set(); S.qStart = Date.now(); S.i++;
-      render();
+      if (!P.instantFb()) { S.fbLock = false; return render(); }
+      showInstantFb(view, {
+        ok,
+        given: pickedArr.length ? 'Grilles ' + pickedArr.map(x => x + 1).join(' et ') : 'Aucune (question passée)',
+        expected: 'Grilles ' + it.good.map(x => x + 1).join(' et '),
+        why
+      }, () => { if (S && S.phase === 'run') render(); }, 4500);
     };
     chrome();
   }
@@ -467,24 +667,43 @@ const CORE = (() => {
   /* ═══════════════ CONCENTRATION ═══════════════ */
   function renderEdots(view) {
     const T = STR(S.sec);
+    S.fbLock = false;
     while (S.items.length <= S.i) S.items.push(DRILL.concItem(S.seed + S.items.length * 3571, S.items.length));
     const it = S.items[S.i];
     view.className = 'sk-main narrow';
     view.innerHTML = '<div class="conc-q">' + esc(T.concQ) + '</div><div class="conc-box">' + DRILL.concSVG(it.shape, it.dots) + '</div>' +
       '<div class="conc-btns"><button class="conc-btn" data-v="0">incorrect</button><button class="conc-btn" data-v="1">correct</button></div>';
     const answer = (v) => {
+      if (S.fbLock) return;
       const ok = (v === 1) === it.correct;
       if (S.exMode) { S.i++; return render(); }
-      S.log.push({ n: S.log.length + 1, q: 'E + 3 points ?', given: v === 1 ? 'correct' : 'incorrect', correct: it.correct ? 'correct' : 'incorrect', ok, ms: Date.now() - S.qStart, section: S.sec.id });
-      S.qStart = Date.now(); S.i++; render();
+      S.fbLock = true;
+      const why = concWhy(it);
+      const btn = view.querySelector('.conc-btn[data-v="' + v + '"]'); if (btn) btn.classList.add(ok ? 'ok' : 'ko');
+      const goodBtn = view.querySelector('.conc-btn[data-v="' + (it.correct ? 1 : 0) + '"]'); if (goodBtn) goodBtn.classList.add('ok');
+      S.log.push({ n: S.log.length + 1, q: 'E + 3 points ?', given: v === 1 ? 'correct' : 'incorrect', correct: it.correct ? 'correct' : 'incorrect', ok, ms: Date.now() - S.qStart, section: S.sec.id, why });
+      S.qStart = Date.now(); S.i++;
+      if (!P.instantFb()) { S.fbLock = false; return render(); }
+      showInstantFb(view, {
+        ok,
+        given: v === 1 ? 'correct' : 'incorrect',
+        expected: it.correct ? 'correct' : 'incorrect',
+        why,
+        fig: '<div class="ifb-concfig"><div class="ifb-conccard">' + DRILL.concSVG(it.shape, it.dots) + '<span>Objet affiché (' + it.dots.length + ' pt' + (it.dots.length > 1 ? 's' : '') + ')</span></div><div class="ifb-conccard ref">' + DRILL.concSVG('E', [[26, 22], [74, 22], [26, 88]]) + '<span>Cible : vrai E + 3 pts</span></div></div>'
+      }, () => { if (S && S.phase === 'run') render(); }, 3800);
     };
     view.querySelectorAll('.conc-btn').forEach(b => b.onclick = () => answer(+b.dataset.v));
-    S.keyHandler = (e) => { if (e.key === 'd' || e.key === 'D') answer(1); if (e.key === 'a' || e.key === 'A') answer(0); };
+    S.keyHandler = (e) => {
+      if (S.fbLock) { if (e.key === 'Enter' || e.key === ' ') { const n = document.getElementById('ifbNext'); if (n) n.click(); } return; }
+      if (e.key === 'd' || e.key === 'D') answer(1);
+      if (e.key === 'a' || e.key === 'A') answer(0);
+    };
     chrome();
   }
 
   /* ═══════════════ MULTI-TÂCHES ═══════════════ */
   function renderMT(view) {
+    S.fbLock = false;
     while (S.items.length <= S.i) S.items.push(DRILL.mtItem(S.seed + S.items.length * 7717, S.items.length));
     const it = S.items[S.i];
     const lang = P.lang(S.sec.id);
@@ -495,9 +714,21 @@ const CORE = (() => {
     view.innerHTML = '<div class="mt-cue">' + esc(cue) + '</div><div class="mt-stim"><div class="ch">' + it.letter + '</div><div class="ch">' + it.digit + '</div></div>' +
       '<div class="mt-btns">' + opts.map((o, i) => '<button class="mt-btn" data-i="' + i + '">' + esc(o) + '</button>').join('') + '</div>';
     view.querySelectorAll('.mt-btn').forEach(b => b.onclick = () => {
-      const ok = +b.dataset.i === good;
-      S.log.push({ n: S.log.length + 1, q: cue + ' (' + it.letter + it.digit + ')', given: opts[+b.dataset.i], correct: opts[good], ok, ms: Date.now() - S.qStart, section: S.sec.id });
-      S.qStart = Date.now(); S.i++; render();
+      if (S.fbLock) return;
+      S.fbLock = true;
+      const idx = +b.dataset.i, ok = idx === good;
+      b.classList.add(ok ? 'ok' : 'ko');
+      const goodBtn = view.querySelectorAll('.mt-btn')[good]; if (goodBtn) goodBtn.classList.add('ok');
+      const why = mtWhy(it);
+      S.log.push({ n: S.log.length + 1, q: cue + ' (' + it.letter + it.digit + ')', given: opts[idx], correct: opts[good], ok, ms: Date.now() - S.qStart, section: S.sec.id, why });
+      S.qStart = Date.now(); S.i++;
+      if (!P.instantFb()) { S.fbLock = false; return render(); }
+      showInstantFb(view, {
+        ok,
+        given: opts[idx],
+        expected: opts[good],
+        why
+      }, () => { if (S && S.phase === 'run') render(); }, 3400);
     });
     chrome();
   }
@@ -535,7 +766,20 @@ const CORE = (() => {
   function renderLE(view) {
     const T = STR(S.sec);
     view.className = 'sk-main narrow';
-    if (S.lePhase === 'break') { view.innerHTML = '<div class="le-break">' + esc(T.leBreak) + ' <b>' + mmss(Math.max(0, (S.secEnd - Date.now()) / 1000)) + '</b></div>'; return chrome(); }
+    if (S.lePhase === 'break') {
+      const fb = (S.leLast && P.instantFb()) ? ifbHTML({
+        ok: S.leLast.ok === 12,
+        given: S.leLast.ok + ' / 12 positions correctes',
+        expected: '12 / 12 dans l’ordre exact',
+        why: 'Section ' + S.leLast.sec + ' : ton ordre vs l’ordre correct, objet par objet en figures (vert = bonne position, rouge = position erronée).',
+        fig: leFigHTML(S.leLast.placed, S.leLast.order),
+        nextLabel: 'Continuer ›'
+      }) : '';
+      view.innerHTML = '<div class="le-break">' + esc(T.leBreak) + ' <b>' + mmss(Math.max(0, (S.secEnd - Date.now()) / 1000)) + '</b></div>' + fb;
+      const ifbN = document.getElementById('ifbNext');
+      if (ifbN) ifbN.onclick = () => { S.lePhase = 'show'; S.leIdx = 0; S.secEnd = 0; S.showNext = Date.now() + 1200; render(); };
+      return chrome();
+    }
     if (S.lePhase === 'show') {
       const o = S.leIdx < 12 ? S.items[S.leSec].order[S.leIdx] : null;
       view.innerHTML = '<div class="qtitle">' + esc(T.leShow) + ' (' + (S.leSec + 1) + '/6)</div><div class="le-seq">' + (o != null ? '<div class="le-obj"><svg viewBox="0 0 100 100">' + BANK.leObjs[o] + '</svg></div>' : '') + '</div>';
@@ -557,8 +801,10 @@ const CORE = (() => {
   function leNextSection(auto) {
     const ord = S.items[S.leSec].order;
     const ok = S.placed.filter((k, i) => k === ord[i]).length;
+    const why = 'Section ' + (S.leSec + 1) + ' : ' + ok + ' / 12 objets placés à la bonne position.';
+    S.leLast = { sec: S.leSec + 1, placed: S.placed.slice(), order: ord.slice(), ok, why };
     S.lePos = (S.lePos || 0) + ok;
-    S.log.push({ n: S.leSec + 1, q: 'Section ' + (S.leSec + 1) + ' — ordre des 12 objets', given: ok + '/12 positions correctes', correct: '12/12', ok: ok === 12, ms: 30000, section: S.sec.id });
+    S.log.push({ n: S.leSec + 1, q: 'Section ' + (S.leSec + 1) + ' — ordre des 12 objets', given: ok + '/12 positions correctes', correct: '12/12', ok: ok === 12, ms: 30000, section: S.sec.id, why });
     S.leSec++;
     if (S.leSec >= 6) return finish();
     startBreak();
@@ -575,6 +821,23 @@ const CORE = (() => {
     let act;
     if (m.tag === 'atlas') act = 0; else if (m.tag === 'boreal') act = 1; else if (m.to === R.support) act = 2; else if (m.tag === 'cascade') act = 3; else if (m.crit) act = 4; else act = -1;
     return { prio, act };
+  }
+  function explainMail(m) {
+    const R = BANK.infoRules, e = expectedMail(m);
+    const prioName = ['HIGH', 'MEDIUM', 'LOW'][e.prio];
+    let prioRule;
+    if (m.tag === 'atlas' && m.d > 2) prioRule = 'related to project ATLAS and sent more than 2 days ago (' + m.d + ' j)';
+    else if (m.tag === 'boreal' && m.to === R.me && m.d > 5) prioRule = 'sent directly to Mr. Martin about project BOREAL more than 5 days ago (' + m.d + ' j)';
+    else if (m.tag === 'cascade') prioRule = 'related to project CASCADE';
+    else if (m.tag === 'atlas' && m.d <= 2) prioRule = 'referring to project ATLAS and sent in the last 2 days (' + m.d + ' j)';
+    else if (m.tag === 'boreal' && m.to === R.me && m.d <= 5) prioRule = 'sent directly to Mr. Martin about BOREAL in the last 5 days (' + m.d + ' j)';
+    else if (m.to === R.support) prioRule = 'addressed to ' + R.support;
+    else prioRule = 'all other e-mails (hors critères HIGH/MEDIUM)';
+    const actLabels = BANK.STR.fr.actV;
+    const actName = e.act >= 0 ? actLabels[e.act] : 'Aucune action';
+    const actRule = e.act >= 0 ? R.actions[e.act] : 'no action required';
+    const why = 'Priorité ' + prioName + ' — ' + prioRule + ' · Action : ' + actName + ' (' + actRule + ').';
+    return { prio: e.prio, act: e.act, prioName, actName, prioRule, actRule, why };
   }
   function renderInbox(view) {
     const T = STR(S.sec), R = BANK.infoRules;
@@ -608,6 +871,28 @@ const CORE = (() => {
       '<div class="m2">' + esc(m.subj) + '</div><div class="m3">' + mailDate(m.d, m.arrived) + '</div><i class="flag">⚑</i></div>').join('');
     el.querySelectorAll('.mail').forEach(x => x.onclick = () => { S.mail = +x.dataset.i; S.mails[S.mail].isNew = false; S.mails[S.mail].read = true; paintInboxList(); paintMail(); });
   }
+  function paintInboxFb(m) {
+    const box = document.getElementById('ibFb');
+    if (!box) return;
+    if (!P.instantFb() || (m.prio == null && m.act == null)) { box.innerHTML = ''; return; }
+    const T = STR(S.sec), ex = explainMail(m);
+    const pOk = m.prio === ex.prio, aOk = (m.act == null ? -1 : m.act) === ex.act;
+    const given = (m.prio != null ? T.prioV[m.prio] : '—') + ' / ' + (m.act != null && m.act >= 0 ? T.actV[m.act] : T.noAction);
+    const expected = T.prioV[ex.prio] + ' / ' + (ex.act >= 0 ? T.actV[ex.act] : T.noAction);
+    box.innerHTML = ifbHTML({
+      ok: pOk && aOk,
+      given,
+      expected,
+      why: ex.why,
+      nextLabel: S.mail < S.mails.length - 1 ? 'E-mail suivant ›' : false
+    });
+    const nx = box.querySelector('#ifbNext');
+    if (nx) nx.onclick = () => {
+      S.mail = (S.mail + 1) % S.mails.length;
+      S.mails[S.mail].isNew = false; S.mails[S.mail].read = true;
+      paintInboxList(); paintMail();
+    };
+  }
   function paintMail() {
     const T = STR(S.sec), m = S.mails[S.mail], el = document.getElementById('ibView'); if (!el || !m) return;
     el.innerHTML = '<div class="row"><span class="k">From</span><span>' + esc(m.from) + '</span></div>' +
@@ -616,9 +901,11 @@ const CORE = (() => {
       '<div class="row"><span class="k">Subject</span><span><b>' + esc(m.subj) + '</b></span></div>' +
       '<div class="body">' + esc(m.body) + '</div>' +
       '<div class="mail-ctl"><label>' + esc(T.prio) + '</label><select id="mPrio"><option value="">—</option>' + T.prioV.map((p, i) => '<option value="' + i + '"' + (m.prio === i ? ' selected' : '') + '>' + p + '</option>').join('') + '</select>' +
-      '<label>' + esc(T.action) + '</label><select id="mAct"><option value="-1">' + esc(T.noAction) + '</option>' + T.actV.map((p, i) => '<option value="' + i + '"' + (m.act === i ? ' selected' : '') + '>' + esc(p) + '</option>').join('') + '</select></div>';
-    document.getElementById('mPrio').onchange = (e) => { m.prio = e.target.value === '' ? null : +e.target.value; paintInboxList(); };
-    document.getElementById('mAct').onchange = (e) => { m.act = +e.target.value; };
+      '<label>' + esc(T.action) + '</label><select id="mAct"><option value="-1">' + esc(T.noAction) + '</option>' + T.actV.map((p, i) => '<option value="' + i + '"' + (m.act === i ? ' selected' : '') + '>' + esc(p) + '</option>').join('') + '</select></div>' +
+      '<div id="ibFb"></div>';
+    document.getElementById('mPrio').onchange = (e) => { m.prio = e.target.value === '' ? null : +e.target.value; paintInboxList(); paintInboxFb(m); };
+    document.getElementById('mAct').onchange = (e) => { m.act = +e.target.value; paintInboxFb(m); };
+    paintInboxFb(m);
   }
 
   /* ═══════════════ LANGUES (anglais / français) ═══════════════ */
@@ -632,12 +919,11 @@ const CORE = (() => {
     const T = STR(S.sec), q = S.cur.at(S.langIdx);
     view.className = 'sk-main';
     view.innerHTML = '<div class="qinstr">EXEMPLE — ' + esc(instrFor(S.cur.type)) + '</div>' + langItemHTML(q) ;
-    bindLangOpts(view, (i) => { view.querySelectorAll('.optrow').forEach((x, k) => { if (k === q.a) x.classList.add('ok'); else if (k === i) x.classList.add('ko'); }); setTimeout(() => { S.langIdx++; if (S.langIdx >= 2) S.langPhase = 'ready'; render(); }, 800); });
+    bindLangOpts(view, (i) => { const curS = S; view.querySelectorAll('.optrow').forEach((x, k) => { if (k === q.a) x.classList.add('ok'); else if (k === i) x.classList.add('ko'); }); S.exTimer = setTimeout(() => { if (S !== curS) return; S.langIdx++; if (S.langIdx >= 2) S.langPhase = 'ready'; render(); }, 800); });
     chrome();
   }
   const instrFor = (t) => STR(S.sec).langInstr[t];
   function langItemHTML(q) {
-    const opts = q.o ? q.o.slice() : q.o;
     const list = (q.o || []).slice();
     return '<div class="stmtcard">' + esc(q.s) + '</div><div class="optrows">' + list.map((o, i) => '<button class="optrow" data-i="' + i + '">' + esc(o) + '</button>').join('') +
       '<button class="optrow" data-i="99">?</button></div>';
@@ -673,6 +959,7 @@ const CORE = (() => {
     view.innerHTML = '<div class="qinstr">' + esc(instrFor(S.cur.type)) + '</div>' + langItemHTML(q) +
       '<div class="langnext"><button class="langchev" id="lgNext" disabled title="' + esc(T.next) + '">›</button></div>';
     const advance = () => {
+      clearTimeout(S.lgTimer); clearTimeout(S.fbTimer);
       const i = S.langSel == null ? 99 : S.langSel, qq = S.cur.at(S.langIdx);
       const unk = i === 99, ok = unk ? null : (i === qq.a);
       S.log.push({ n: S.log.length + 1, q: qq.s, given: unk ? '?' : qq.o[i], correct: qq.o[qq.a], ok, ms: Date.now() - S.qStart, section: S.sec.id, why: qq.w || '' });
@@ -681,16 +968,36 @@ const CORE = (() => {
     };
     bindLangOpts(view, (i) => {
       S.langSel = i;
-      view.querySelectorAll('.optrow').forEach((x, k) => x.classList.toggle('sel', k === i));
+      view.querySelectorAll('.optrow').forEach(x => {
+        const ki = +x.dataset.i;
+        x.classList.remove('sel', 'ok', 'ko');
+        if (ki === i) x.classList.add('sel');
+        if (P.instantFb()) {
+          if (ki === q.a) x.classList.add('ok');
+          else if (ki === i && i !== 99) x.classList.add('ko');
+        }
+      });
       const nx = document.getElementById('lgNext'); nx.disabled = false;
-      if (S.cur.type !== 'flu') { clearTimeout(S.lgTimer); S.lgTimer = setTimeout(() => { if (S && S.phase === 'run' && S.langPhase === 'run' && S.langSel === i) advance(); }, 420); }
+      if (P.instantFb()) {
+        const unk = i === 99, ok = unk ? null : (i === q.a);
+        showInstantFb(view, {
+          ok,
+          badge: unk ? '● Neutre (?)' : undefined,
+          given: unk ? '? (neutre)' : q.o[i],
+          expected: q.o[q.a],
+          why: q.w || ('Réponse attendue : ' + q.o[q.a])
+        }, advance, S.cur.type !== 'flu' ? 3200 : 0);
+      } else if (S.cur.type !== 'flu') {
+        clearTimeout(S.lgTimer);
+        S.lgTimer = setTimeout(() => { if (S && S.phase === 'run' && S.langPhase === 'run' && S.langSel === i) advance(); }, 420);
+      }
     });
     document.getElementById('lgNext').onclick = advance;
     chrome();
   }
   function langNextSection(auto) {
     S.secEnd = 0;                       /* évite la re-déclenche de la fin de section */
-    clearTimeout(S.lgTimer);
+    clearTimeout(S.lgTimer); clearTimeout(S.fbTimer);
     if (auto) { U.toast(S.sec.lang === 'en' ? 'Time is up for this section' : 'Le temps de cette section est écoulé', '', 2200); }
     if (S.sub < 2) { S.langPhase = 'inter'; S.phase = 'example'; render(); } else finish();
   }
@@ -698,14 +1005,35 @@ const CORE = (() => {
   /* ═══════════════ MÉCANIQUE ═══════════════ */
   function mechItem(view, it, isEx) {
     view.className = 'sk-main';
+    const hasAns = !isEx && S.sel != null;
+    const showFb = hasAns && P.instantFb();
     view.innerHTML = '<div class="qwrap"><div class="qtitle" style="font-size:15px;font-weight:600;text-align:left">' + (isEx ? 'EXAMPLE — ' : '') + esc(it.q) + '</div>' + (isEx ? exNoteHTML() : '') +
-      '<div class="optrows">' + it.o.map((o, i) => '<button class="optrow' + (S.sel === i ? ' sel' : '') + '" data-i="' + i + '">' + esc(o) + '</button>').join('') + '</div>' +
+      '<div class="optrows">' + it.o.map((o, i) => {
+        let cls = S.sel === i ? ' sel' : '';
+        if (showFb) { if (i === it.a) cls += ' ok'; else if (i === S.sel) cls += ' ko'; }
+        return '<button class="optrow' + cls + '" data-i="' + i + '">' + esc(o) + '</button>';
+      }).join('') + '</div>' +
+      (showFb ? ifbHTML({
+        ok: S.sel === it.a,
+        given: it.o[S.sel],
+        expected: it.o[it.a],
+        why: it.why || it.w || '',
+        nextLabel: S.i < S.items.length - 1 ? 'Continuer ›' : 'Terminer ›'
+      }) : '') +
       '<div class="panel-gray" style="margin-top:18px">' + sceneSVG(it.sc) + '</div></div>' + navPadHTML();
     view.querySelectorAll('.optrow').forEach(b => b.onclick = () => {
       S.sel = +b.dataset.i;
-      if (isEx) { view.querySelectorAll('.optrow').forEach((x, k) => { if (k === it.a) x.classList.add('ok'); else if (k === S.sel) x.classList.add('ko'); }); setTimeout(() => exampleDone(it.a === S.sel), 700); return; }
-      S.answers[S.i] = S.sel; mechItem(view, it, false);
+      if (isEx) { const curS = S; view.querySelectorAll('.optrow').forEach((x, k) => { if (k === it.a) x.classList.add('ok'); else if (k === S.sel) x.classList.add('ko'); }); S.exTimer = setTimeout(() => { if (S === curS) exampleDone(it.a === S.sel); }, 700); return; }
+      S.nvInfo = S.nvInfo || {};
+      S.nvInfo[S.i] = { ms: Date.now() - S.qStart };
+      S.answers[S.i] = S.sel;
+      mechItem(view, it, false);
     });
+    const ifbN = document.getElementById('ifbNext');
+    if (ifbN) ifbN.onclick = () => {
+      if (S.i < S.items.length - 1) { S.i++; S.qStart = Date.now(); render(); }
+      else finish();
+    };
     bindNav(view, isEx);
     chrome();
   }
@@ -737,6 +1065,7 @@ const CORE = (() => {
 
   /* ═══════════════ SWITCH CHALLENGE ═══════════════ */
   function renderSwitch(view) {
+    S.fbLock = false;
     while (S.items.length <= S.i) S.items.push(DRILL.swItem(S.seed + S.items.length * 977, S.items.length));
     const it = S.items[S.i];
     view.className = 'sk-main narrow';
@@ -744,11 +1073,26 @@ const CORE = (() => {
       machineHTML('<div style="display:flex;gap:14px">' + it.codes.map((c, i) => '<button class="sw-codeopt" data-i="' + i + '">' + c.join(' ') + '</button>').join('') + '</div>') +
       '<div class="sw-row">' + it.output.map(k => '<div class="sw-tile">' + symSVG(BANK.SYM_SW[k]) + '</div>').join('') + '</div></div>';
     view.querySelectorAll('.sw-codeopt').forEach(b => b.onclick = () => {
+      if (S.fbLock) return;
+      S.fbLock = true;
       const i = +b.dataset.i, ok = i === it.ans;
       b.classList.add(ok ? 'ok' : 'ko');
-      S.log.push({ n: S.log.length + 1, q: 'Code appliqué : entrée → sortie', given: it.codes[i].join(''), correct: it.codes[it.ans].join(''), ok, ms: Date.now() - S.qStart, section: S.sec.id });
+      const goodBtn = view.querySelectorAll('.sw-codeopt')[it.ans];
+      if (goodBtn) goodBtn.classList.add('ok');
+      const why = swWhy(it);
+      S.log.push({ n: S.log.length + 1, q: 'Code appliqué : entrée → sortie', given: it.codes[i].join(''), correct: it.codes[it.ans].join(''), ok, ms: Date.now() - S.qStart, section: S.sec.id, why });
       S.qStart = Date.now(); S.i++;
-      setTimeout(() => { if (S && S.phase === 'run') render(); }, 380);
+      if (!P.instantFb()) {
+        S.fbTimer = setTimeout(() => { if (S && S.phase === 'run') { S.fbLock = false; render(); } }, 380);
+        return;
+      }
+      showInstantFb(view.querySelector('.sw-wrap') || view, {
+        ok,
+        given: it.codes[i].join(' '),
+        expected: it.codes[it.ans].join(' '),
+        why,
+        fig: swFigHTML(it, i)
+      }, () => { if (S && S.phase === 'run') render(); }, 4800);
     });
     chrome();
   }
@@ -758,12 +1102,14 @@ const CORE = (() => {
     if (!S || S.done) return;
     S.done = true;
     if (tick) { clearInterval(tick); tick = null; }
+    clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer);
     const sec = S.sec;
     let correct = 0, graded = 0, answered = 0;
     if (sec.kind === 'numverb' || sec.kind === 'mech') {
+      if (sec.kind === 'numverb' && S.nvAns != null && S.answers[S.i] == null) S.answers[S.i] = S.nvAns;
       S.items.forEach((it, i) => {
         const a = S.answers[i], info = (S.nvInfo && S.nvInfo[i]) || {};
-        S.log.push({ n: i + 1, q: it.q, given: a == null ? '—' : tfText(it, a), correct: tfText(it, it.a), ok: a != null && a === it.a, ms: info.ms || 0, section: sec.id, why: it.why || '' });
+        S.log.push({ n: i + 1, q: it.q, given: a == null ? '—' : tfText(it, a), correct: tfText(it, it.a), ok: a != null && a === it.a, ms: info.ms || 0, section: sec.id, why: it.why || it.w || '' });
       });
       graded = S.items.length; answered = Object.keys(S.answers).length;
       correct = S.log.filter(r => r.ok === true).length;
@@ -774,7 +1120,7 @@ const CORE = (() => {
     } else if (sec.kind === 'blocks') { graded = 0; answered = S.log.length; }
     else if (sec.kind === 'seqmem') { correct = S.lePos || 0; graded = 72; answered = 72; }
     else if (sec.kind === 'inbox') {
-      S.mails.forEach((m, i) => { const e = expectedMail(m); const pOk = m.prio === e.prio, aOk = (m.act == null ? -1 : m.act) === e.act; if (pOk) correct++; if (aOk) correct++; graded += 2; answered += 2; S.log.push({ n: i + 1, q: m.subj, given: (m.prio != null ? ['HIGH', 'MEDIUM', 'LOW'][m.prio] : '—') + ' / ' + (m.act != null ? m.act + 1 : '—'), correct: ['HIGH', 'MEDIUM', 'LOW'][e.prio] + ' / ' + (e.act + 1), ok: pOk && aOk, ms: 0, section: sec.id, why: '' }); });
+      S.mails.forEach((m, i) => { const ex = explainMail(m); const pOk = m.prio === ex.prio, aOk = (m.act == null ? -1 : m.act) === ex.act; if (pOk) correct++; if (aOk) correct++; graded += 2; answered += 2; S.log.push({ n: i + 1, q: m.subj, given: (m.prio != null ? ['HIGH', 'MEDIUM', 'LOW'][m.prio] : '—') + ' / ' + (m.act != null ? m.act + 1 : '—'), correct: ['HIGH', 'MEDIUM', 'LOW'][ex.prio] + ' / ' + (ex.act + 1), ok: pOk && aOk, ms: 0, section: sec.id, why: ex.why }); });
     } else { correct = S.log.filter(r => r.ok === true).length; graded = S.log.filter(r => r.ok !== null && r.ok !== undefined).length; answered = S.log.length; }
     const behavioural = graded === 0;
     const attempt = {
@@ -812,6 +1158,8 @@ const CORE = (() => {
     if (S.keyHandler && (S.sec.kind === 'edots')) return S.keyHandler(e);
     if (S.phase !== 'run') return;
     const k = e.key;
+    if (S.fbLock && (k === 'Enter' || k === ' ')) { const n = document.getElementById('ifbNext'); if (n) { e.preventDefault(); n.click(); } return; }
+    if (S.fbLock) return;
     if (S.sec.kind === 'latin' && k >= '1' && k <= '4') { const b = document.querySelectorAll('.ded-opt')[+k - 1]; if (b) b.click(); }
     if (S.sec.kind === 'switchcode' && k >= '1' && k <= '3') { const b = document.querySelectorAll('.sw-codeopt')[+k - 1]; if (b) b.click(); }
     if (S.sec.kind === 'mech' && k >= '1' && k <= '3') { const b = document.querySelectorAll('.optrow')[+k - 1]; if (b) b.click(); }
@@ -819,7 +1167,7 @@ const CORE = (() => {
     if (S.sec.kind === 'lang' && k >= '1' && k <= '5') { const b = document.querySelectorAll('.optrow')[+k - 1]; if (b) b.click(); }
   });
 
-  return { SECTIONS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, get current() { return S; } };
+  return { SECTIONS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, explainMail, get current() { return S; } };
 })();
 
 if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CORE;
