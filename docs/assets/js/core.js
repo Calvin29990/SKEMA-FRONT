@@ -1022,6 +1022,8 @@ const CORE = (() => {
     const reveal = S.feedback === 'immediate' && ans != null;
     const solved = Object.keys(nv.answers).length;
     const UIx = NV_UI();
+    /* verbal : l'onglet est un texte du dossier -> mise en page à deux colonnes */
+    const isTexte = NUMVERB.kindOf(nv.view) === 'text';
 
     view.className = 'view';
     view.innerHTML =
@@ -1038,17 +1040,27 @@ const CORE = (() => {
         '<div class="nv-tabs" id="nvTabs">' + NUMVERB.TABS.map(t =>
           '<button class="nvt' + (t.id === nv.view ? ' on' : '') + (nvFlash && t.id === nv.view ? ' flash' : '') +
           '" data-tab="' + t.id + '">' + U.esc(t.short) + '</button>').join('') + '</div>' +
-        '<div class="nv-fig" id="nvFig">' + NUMVERB.figure(nv.view) + '</div>' +
-        '<div class="nv-qrow">' +
-          '<div class="nv-stmt"><div class="nv-qno">' + UIx.question + ' ' + (S.i + 1) + ' / ' + S.items.length + '</div>' +
-            U.esc(it.q) + '</div>' +
-          '<div class="nv-ans">' + NV_LABEL.map((l, i) =>
-            '<button class="nvbtn' + (ans === i ? ' sel' : '') +
-            (reveal ? (i === it.ans ? ' good' : (ans === i ? ' bad' : '')) : '') +
-            '" data-v="' + i + '">' + l + '</button>').join('') +
-            '<div class="nv-help">' + UIx.help + '</div>' +
-          '</div>' +
-        '</div>' +
+        (isTexte
+          ? '<div class="nv-cols"><div class="nv-fig" id="nvFig">' + NUMVERB.figure(nv.view) + '</div>' +
+              '<div><div class="nv-stmt"><div class="nv-qno">' + UIx.question + ' ' + (S.i + 1) + ' / ' + S.items.length + '</div>' +
+                U.esc(it.q) + '</div>' +
+              '<div class="nv-ans">' + NV_LABEL.map((l, i) =>
+                '<button class="nvbtn' + (ans === i ? ' sel' : '') +
+                (reveal ? (i === it.ans ? ' good' : (ans === i ? ' bad' : '')) : '') +
+                '" data-v="' + i + '">' + l + '</button>').join('') +
+                '<div class="nv-help">' + UIx.help + '</div>' +
+              '</div></div></div>'
+          : '<div class="nv-fig" id="nvFig">' + NUMVERB.figure(nv.view) + '</div>' +
+            '<div class="nv-qrow">' +
+              '<div class="nv-stmt"><div class="nv-qno">' + UIx.question + ' ' + (S.i + 1) + ' / ' + S.items.length + '</div>' +
+                U.esc(it.q) + '</div>' +
+              '<div class="nv-ans">' + NV_LABEL.map((l, i) =>
+                '<button class="nvbtn' + (ans === i ? ' sel' : '') +
+                (reveal ? (i === it.ans ? ' good' : (ans === i ? ' bad' : '')) : '') +
+                '" data-v="' + i + '">' + l + '</button>').join('') +
+                '<div class="nv-help">' + UIx.help + '</div>' +
+              '</div>' +
+            '</div>') +
         (reveal ? '<div class="fb ' + (ans === it.ans ? 'ok' : 'ko') + '">' + (ans === it.ans ? T().right : T().wrong) +
           ' — ' + U.esc(it.why) + '</div>' : '') +
         '<div class="nv-nav">' +

@@ -155,6 +155,12 @@ const NUMVERB = (() => {
       '<div class="nvlegend">' + legendBox(d.series.map(s => ({ color: s.color, n: s.color, name: s.name })), 16) + '</div>';
   }
 
+  /* ── panneaux de texte (verbal reasoning) : blocs « nom : corps » ── */
+  function textPanel(d) {
+    return '<div class="nvtext">' + (d.blocks || []).map(b =>
+      '<p>' + (b.name ? '<b>' + esc(b.name) + ':</b> ' : '') + esc(b.body) + '</p>').join('') + '</div>';
+  }
+
   const FIG = {
     income: () => table({ head: ["", "Year 7", "Year 6", "Year 5"], rows: [["Revenues", 41260, 37480, 34910], ["Costs", 33008, 30732, 29118], ["Gross profit", 8252, 6748, 5792], ["Other costs", 2314, 1906, 1388], ["Operating income", 5938, 4842, 4404], ["Skin care products", 4148, 3762, 3508], ["Personal care products", 4902, 4128, 3946], ["Fragrances", 1206, 918, 806], ["Revenues from selected product lines", 10256, 8808, 8260], ["Profit/loss share from corporate investments", 486, 214, -298], ["Total revenues", 22402, 19978, 18138]], note: "All amounts stated in million euros", strong: ["Revenues", "Gross profit", "Operating income", "Total revenues"] }),
     costs: () => table({ head: ["", "Year 7", "Year 6", "Year 5"], rows: [["Personnel costs", 12486, 11902, 11340], ["Material costs", 1208, 1142, 1004], ["Energy costs", 384, 312, 268], ["Depreciation of production facilities", 2214, 2086, 1998], ["Costs of external services", 742, 806, 918], ["General administrative costs", 688, 702, 664], ["Research and development costs", 1246, 1388, 1502], ["Marketing and distribution costs", 3104, 2988, 2862], ["EDP expenditures", 96, 78, 64], ["Restructuring costs", 214, 128, 96], ["Total costs", 22382, 21532, 20716]], note: "All amounts stated in million euros", strong: ["Total costs"] }),
@@ -178,11 +184,11 @@ const NUMVERB = (() => {
   };
   let D = BUILTIN, SOURCE = 'builtin', LABEL = '';
 
-  const FIGTYPES = ['table', 'pie', 'stacked', 'lines', 'hbars'];
+  const FIGTYPES = ['table', 'pie', 'stacked', 'lines', 'hbars', 'text'];
   const renderFig = (spec) => {
     if (typeof spec === 'function') return spec();
     if (!spec || FIGTYPES.indexOf(spec.type) < 0) return '';
-    return ({ table: table, pie: pie, stacked: stacked, lines: lines, hbars: hbars })[spec.type](spec);
+    return ({ table: table, pie: pie, stacked: stacked, lines: lines, hbars: hbars, text: textPanel })[spec.type](spec);
   };
 
   /* validation stricte : un fichier incomplet est refusé avec la liste des erreurs */
@@ -206,7 +212,8 @@ const NUMVERB = (() => {
       if (FIGTYPES.indexOf(f.type) < 0) { push('figures.' + id + '.type', 'doit être : ' + FIGTYPES.join(' | ') + '.'); return; }
       if (f.type === 'table' && !(Array.isArray(f.rows) && f.rows.length)) push('figures.' + id + '.rows', 'tableau sans lignes.');
       if (f.type === 'pie' && !(Array.isArray(f.slices) && f.slices.length)) push('figures.' + id + '.slices', 'camembert sans parts.');
-      if (f.type !== 'table' && f.type !== 'pie' && !(Array.isArray(f.series) && f.series.length)) push('figures.' + id + '.series', 'séries manquantes.');
+      if (f.type === 'text' && !(Array.isArray(f.blocks) && f.blocks.length && f.blocks.every(b => b && typeof b.body === 'string'))) push('figures.' + id + '.blocks', 'panneau de texte sans blocs (nom + texte).');
+      if (['stacked', 'lines', 'hbars'].indexOf(f.type) >= 0 && !(Array.isArray(f.series) && f.series.length)) push('figures.' + id + '.series', 'séries manquantes.');
     });
     const items = data.items;
     if (!Array.isArray(items) || !items.length) push('items', 'au moins un énoncé est requis.');
@@ -239,6 +246,7 @@ const NUMVERB = (() => {
     const t = BUILTIN.tabs.map(x => ({ id: x.id, short: x.short, fr: x.fr }));
     const fig = {};
     t.forEach(x => { fig[x.id] = { type: 'table', head: ['', 'Year 7'], rows: [['Exemple', 0]], note: '' }; });
+    fig[t[0].id] = { type: 'table', head: ['', 'Year 7', 'Year 6'], rows: [['Exemple', 120, 150]], note: '' };
     return {
       title: 'Numerical Reasoning — mon fichier',
       totalSec: 720,
@@ -264,6 +272,7 @@ const NUMVERB = (() => {
     get label() { return LABEL; },
     isPerso: () => SOURCE === 'perso',
     figure: (id) => renderFig(D.figures[id]),
+    kindOf: (id) => (D.figures[id] && D.figures[id].type) || '',
     tabOf: (id) => D.tabs.filter(t => t.id === id)[0] || D.tabs[0],
     validate: validate,
     template: template,

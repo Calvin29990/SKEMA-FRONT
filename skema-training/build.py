@@ -104,6 +104,30 @@ open(os.path.join(DOCS, 'README.md'), 'w', encoding='utf-8').write(
 print('docs/ : %d fichiers' % sum(len(f) for _, _, f in os.walk(DOCS)))
 
 # ── 4bis. contrôle anti-fuite : aucune phrase du contenu perso dans les livrables ──
+#     Sont ignorées les tournures déjà présentes dans la banque intégrée (sources du dépôt) :
+#     seules les phrases absentes du contenu de base comptent comme une fuite.
+TEXTES = ('.json', '.md', '.txt', '.tsv', '.csv', '.html', '.js')
+builtin = ''
+# liste blanche = sources écrites à la main, telles que COMMITÉES (une injection locale ne peut
+# donc pas se blanchir elle-même) ; standalone/ et docs/ sont exclus : ce sont des livrables.
+import subprocess
+try:
+    suivis = subprocess.run(['git', '-C', REPO, 'ls-files'], capture_output=True, text=True).stdout.split()
+except Exception:
+    suivis = []
+for rel in suivis:
+    if not os.path.exists(os.path.join(REPO, rel)):   # supprimé du dépôt -> hors liste blanche
+        continue
+    if os.path.basename(rel).startswith('verbal-reel'):
+        continue
+    if not rel.endswith(TEXTES) or rel.startswith(('standalone/', 'docs/')):
+        continue
+    try:
+        builtin += subprocess.run(['git', '-C', REPO, 'show', 'HEAD:' + rel],
+                                  capture_output=True, text=True).stdout
+    except Exception:
+        pass
+
 def leaks_in(path):
     try:
         txt = open(path, encoding='utf-8').read()
@@ -113,15 +137,17 @@ def leaks_in(path):
 
 needles = []
 for f in priv_files:
+    if not f.endswith(TEXTES):
+        continue
     try:
         raw = open(f, encoding='utf-8').read()
     except Exception:
         continue
-    for m in re.finditer(r'"((?:[^"\\]|\\.){30,})"', raw):
-        s_ = m.group(1).strip()
-        if s_ and s_ not in needles:
-            needles.append(s_)
-    needles.append(os.path.basename(f))
+    noms = [m.group(1).strip() for m in re.finditer(r'"((?:[^"\\]|\\.){24,})"', raw)]
+    noms += [l.strip() for l in raw.splitlines() if len(l.strip()) > 40 and not l.strip().startswith(('#', '|', '-'))]
+    for n in noms:
+        if n and n not in needles and n not in builtin:   # absent de la banque intégrée
+            needles.append(n)
 
 if not priv_files:
     print('anti-fuite : rien à contrôler (perso/ vide)')
@@ -133,7 +159,7 @@ else:
     refs = [n for n in needles if any(n in open(c, encoding='utf-8', errors='ignore').read() for c in cibles)]
     if fuites or refs:
         raise SystemExit('ARRÊT : contenu perso détecté dans un livrable public -> %s' % (fuites or refs[:3]))
-    print('anti-fuite : %d marqueur(s) perso vérifiés, aucun dans standalone/ ni docs/ ✔' % len(needles))
+    print('anti-fuite : %d phrase(s) propre(s) au contenu perso vérifiée(s), aucune dans standalone/ ni docs/ ✔' % len(needles))
 
 # ── 5. archive hors-ligne ──────────────────────────────────────────────
 zip_path = '/home/user/Assessment-Trainer-Calvin.zip'
