@@ -17,7 +17,7 @@ REPO = os.path.dirname(ROOT)
 DOCS = os.path.join(REPO, 'docs')
 STANDALONE = os.path.join(ROOT, 'standalone')
 PUB = '/tmp/skema-pub'          # copie publique temporaire
-JS = ['util.js', 'banks.js', 'drills.js', 'numverb.js', 'core.js', 'i18n.js', 'app.js']
+JS = ['util.js', 'banks.js', 'bank-plus.js', 'drills.js', 'numverb.js', 'core.js', 'i18n.js', 'app.js']
 PRIVATE = os.path.join(ROOT, 'perso')   # contenu personnel importé : JAMAIS publié
 
 # ── 0. garde-fou : recenser le contenu personnel avant toute copie ─────

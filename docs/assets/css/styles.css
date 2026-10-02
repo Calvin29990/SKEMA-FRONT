@@ -602,3 +602,23 @@ html[data-theme="dark"] .pill.good,html[data-theme="dark"] .pill.hit{border-colo
 .runner.nv .nv-cols{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}
 .runner.nv .nv-cols .nv-stmt{margin-bottom:12px}
 @media (max-width:980px){ .runner.nv .nv-cols{grid-template-columns:1fr} .nvtext{max-height:none} }
+
+/* ── anglais : bandeau « EXEMPLE », option « ? » et intertitre de section ── */
+.qex{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--amb);background:var(--amb-bg);border:1px solid #f0dcb4;border-radius:var(--r);padding:3px 9px;margin-bottom:10px}
+.opt.skip{border-style:dashed;background:var(--card2)}
+.opt.skip span:not(.mk):not(.keys){font-size:17px;font-weight:700;color:var(--tx2)}
+.inter{border:1px solid var(--line2);border-radius:var(--r2);background:var(--card);padding:22px 24px;margin-bottom:14px}
+.inter-k{font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--blu);margin-bottom:10px}
+
+/* ── motivation : blocs de 3 affirmations, 6 points à répartir ── */
+.blk{display:flex;flex-direction:column;gap:14px;margin:14px 0}
+.blk-row{border:1px solid var(--line);border-radius:var(--r2);background:var(--card);padding:12px 14px}
+.blk-t{font-size:14.5px;line-height:1.5;color:var(--tx);margin-bottom:10px}
+.blk-d{display:flex;gap:8px;flex-wrap:wrap}
+.blk .dot{width:34px;height:34px;border-radius:50%;border:1px solid var(--line2);background:var(--card2);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--tx2);
+  cursor:pointer;user-select:none}
+.blk .dot:hover{border-color:var(--pur)}
+.blk .dot.on{background:var(--pur);border-color:var(--pur);color:#fff}
+.blk .dot.dim{opacity:.35;cursor:not-allowed}

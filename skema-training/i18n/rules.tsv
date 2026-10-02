@@ -113,3 +113,6 @@ pt|^(\d+) question\(s\)$|$1 pergunta(s)
 pt|^meilleur (.+)$|melhor $1
 pt|^Test cible \(BNP Paribas\) : du 7 au 9 octobre — J−(\d+)$|Teste alvo: de 7 a 9 de outubro — D−$1
 pt|^à lancer lorsque chaque section est déjà réussie à ≥ 85 %\. Aucun retour en arrière, aucune pause\.$|a lançar quando cada secção já estiver superada em ≥ 85 %. Sem retroceder, sem pausa.
+en|^2 exemples, puis (\d+) phrases à compléter$|2 examples, then $1 sentence-completion items
+es|^2 exemples, puis (\d+) phrases à compléter$|2 ejemplos, luego $1 frases para completar
+pt|^2 exemples, puis (\d+) phrases à compléter$|2 exemplos, depois $1 frases para completar

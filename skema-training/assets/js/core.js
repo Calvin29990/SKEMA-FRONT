@@ -142,11 +142,18 @@ const CORE = (() => {
       need: 'Banque figée : 36 affirmations.'
     },
     {
-      id: 'motivation', name: 'Motivation & intérêts', fr: 'Centres d’intérêt professionnels', icon: '🎯', family: 'behavioural',
-      mode: 'likert', source: 'fixed', items: 30, dur: 6, perItem: 12, color: 'pur',
-      desc: '« À quel point souhaitez-vous… » sur une échelle de 4 points. Mesure l’adéquation au poste, pas une performance.',
-      hint: 'Répondre en fonction du poste visé (marché/trading/sales), pas de manière générique.',
-      need: 'Banque figée : 30 items.'
+      id: 'motivation', name: 'Motivation & intérêts', fr: 'Work-related interests and motives', icon: '🎯', family: 'behavioural',
+      mode: 'block', source: 'fixed', items: 36, dur: 15, perItem: 0, color: 'pur',
+      desc: 'Format réel : 36 blocs de 3 affirmations, 6 points à répartir par bloc. Aucune limite de temps (~15 min), aucun retour en arrière possible.',
+      hint: 'Répartissez les points selon l’environnement de travail idéal pour vous, pas selon ce qui « fait bonne impression ».',
+      need: '36 blocs · 6 points par bloc · aucun retour.'
+    },
+    {
+      id: 'english', name: 'Compétences linguistiques — Anglais', fr: 'Language skills — English', icon: '🔤', family: 'cognitive',
+      mode: 'mc', source: 'fixed', items: 30, dur: 10, perItem: 20, color: 'blu', groups: 3, examples: 2, skipQ: true,
+      desc: 'Format réel : 3 sections de 10 phrases à compléter (4 options + « ? » si vous ne savez pas), 2 exemples avant chaque section, 10 minutes au total.',
+      hint: 'Vocabulaire banque / finance. Si vous ne savez pas, cliquez « ? » : ne perdez jamais 30 s sur une phrase.',
+      need: '3 sections · 30 items · 10 min.'
     }
   ];
   const byId = (id) => SECTIONS.find(s => s.id === id);
@@ -201,10 +208,50 @@ const CORE = (() => {
       case 'mech': return U.shuffle(U.rng(cfg.seed), BANK.mech.map(x => ({ id: x.id, kind: 'mc', q: x.q, options: x.opts, ans: x.ans, why: x.why, scene: x.scene, tag: 'mécanique', time: section.perItem }))).slice(0, n);
       case 'workBehaviour': return U.shuffle(U.rng(cfg.seed), BANK.workBehaviour).slice(0, n)
         .map((s, i) => ({ id: 'WB' + i, kind: 'likert', q: s, scale: BANK.WB_SCALE, time: section.perItem }));
-      case 'motivation': return U.shuffle(U.rng(cfg.seed), BANK.motivation).slice(0, n)
-        .map((s, i) => ({ id: 'MO' + i, kind: 'likert', q: s, scale: BANK.MOT_SCALE, time: section.perItem }));
+      case 'motivation': return buildMotivBlocks(cfg, section);
+      case 'english': return buildEnglish(cfg, section);
       default: return [];
     }
+  }
+
+  /* — banques complémentaires (navigateur : window ; tests node : globalThis) — */
+  const PLUS = (typeof window !== 'undefined') ? window : globalThis;
+
+  /* — Anglais : 3 sections, 2 exemples puis 10 phrases à compléter — */
+  function buildEnglish(cfg, section) {
+    const n = Math.max(9, cfg.count || section.items || 30);
+    const per = Math.round(n / 3);
+    const rnd = U.rng(cfg.seed);
+    const pool = U.shuffle(rnd, (PLUS.ENGLISH_BANK || []).slice());
+    let k = 0;
+    const out = [];
+    for (let g = 0; g < 3; g++) {
+      out.push({ id: 'EN-S' + (g + 1), kind: 'inter', title: 'Section ' + (g + 1) + ' / 3',
+                 line: '2 exemples, puis ' + per + ' phrases à compléter', time: section.perItem });
+      for (let e = 0; e < 2; e++) {
+        const q = pool[k++ % pool.length];
+        out.push({ id: 'ENX' + g + e, kind: 'mc', q: q.s, options: q.o, ans: q.a, why: q.why,
+                   skipQ: true, example: true, time: section.perItem });
+      }
+      for (let j = 0; j < per; j++) {
+        const q = pool[k++ % pool.length];
+        out.push({ id: 'EN' + g + '-' + j, kind: 'mc', q: q.s, options: q.o, ans: q.a, why: q.why,
+                   skipQ: true, time: section.perItem });
+      }
+    }
+    return out;
+  }
+
+  /* — Motivation : 36 blocs de 3 affirmations, 6 points à répartir — */
+  function buildMotivBlocks(cfg, section) {
+    const n = Math.max(3, cfg.count || section.items || 36);
+    const rnd = U.rng(cfg.seed);
+    const pool = (PLUS.MOTIV_POOL || []).slice();
+    const out = [];
+    for (let b = 0; b < n; b++) {
+      out.push({ id: 'MO' + b, kind: 'block', max: 6, stmts: U.shuffle(rnd, pool.slice()).slice(0, 3) });
+    }
+    return out;
   }
 
   /** Simulation complète : échantillon de toutes les sections. */
@@ -461,12 +508,14 @@ const CORE = (() => {
       if (e.key === 'g' || e.key === 'G') { nvGrid(); return; }
       return;
     }
-    if (e.key >= '1' && e.key <= '4') {
+    const itK = S.items[S.i];
+    const maxK = (itK && itK.skipQ) ? '5' : '4';
+    if (e.key >= '1' && e.key <= maxK) {
       const it = S.items[S.i], idx = parseInt(e.key, 10) - 1;
       if (it.kind === 'likert') { if (idx < it.scale.length) pick(idx); return; }
       if (it.kind === 'pair') { if (idx < 2) pick(idx); return; }
       if (it.kind === 'grid' || it.kind === 'switch') { pick(idx); return; }
-      if (it.kind === 'mc') { if (it.multi) toggleMulti(idx); else pick(idx); return; }
+      if (it.kind === 'mc') { if (it.multi) toggleMulti(idx); else if (it.skipQ && idx === it.options.length) pick(idx); else if (idx < it.options.length) pick(idx); return; }
       if (it.kind === 'mcfig') { pick(idx); return; }
     }
     if (e.key === 'Enter') { S.pending ? submit() : next(); }
@@ -519,7 +568,8 @@ const CORE = (() => {
     hud.classList.add('on');
     const total = S.totalQ || S.items.length;
     const nvMode = S.sec.mode === 'numverb' && S.nv;
-    const answered = nvMode ? Object.keys(S.nv.answers).length : S.log.filter(r => r.ok !== null).length;
+    const answered = nvMode ? Object.keys(S.nv.answers).length
+      : S.log.filter(r => r.ok !== null || r.answered || r.example).length;
     const good = nvMode ? S.items.filter((it, i) => S.nv.answers[i] === it.ans).length : S.log.filter(r => r.ok === true).length;
     const bad = nvMode ? S.items.filter((it, i) => S.nv.answers[i] != null && S.nv.answers[i] !== it.ans).length : S.log.filter(r => r.ok === false).length;
     hud.innerHTML =
@@ -576,6 +626,8 @@ const CORE = (() => {
     if (it.kind === 'pair') return renderPair(it, b, f);
     if (it.kind === 'grid') return renderGridPhase(it, b, f);
     if (it.kind === 'switch') return renderSwitch(it, b, f);
+    if (it.kind === 'block') return renderBlock(it, b, f);
+    if (it.kind === 'inter') return renderInter(it, b, f);
     b.innerHTML = '<div class="fb ko">Item non pris en charge (kind = ' + U.esc(String(it.kind)) + ')</div>';
   }
 
@@ -588,9 +640,12 @@ const CORE = (() => {
         it.rows.map(r => '<tr>' + r.map((c, i) => '<td class="' + (typeof c === 'number' ? 'num' : '') + '">' + U.esc(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table>';
     }
     if (it.scene) html += '<div class="figbox">' + DRILL.mechScene(it.scene) + '</div>';
+    if (it.example) html += '<div class="qex">EXEMPLE — ne compte pas dans le score</div>';
     html += '<div class="qtext ' + (it.small ? 'sm' : '') + '">' + U.esc(it.q) + '</div>';
-    html += '<div class="opts" id="opts">' + it.options.map((o, i) =>
-      '<div class="opt" data-i="' + i + '"><span class="mk">✓</span><span>' + U.esc(o) + '</span><span class="keys">' + (i + 1) + '</span></div>').join('') + '</div>';
+    const rows = it.options.map((o, i) =>
+      '<div class="opt" data-i="' + i + '"><span class="mk">✓</span><span>' + U.esc(o) + '</span><span class="keys">' + (i + 1) + '</span></div>');
+    if (it.skipQ) rows.push('<div class="opt skip" data-i="' + it.options.length + '"><span class="mk">✓</span><span>?</span><span class="keys">5</span></div>');
+    html += '<div class="opts" id="opts">' + rows.join('') + '</div>';
     b.innerHTML = html;
     f.innerHTML = '<span class="tiny dim">' + (it.tag ? 'Thème : ' + U.esc(it.tag) + ' · ' : '') + T().hint + '</span><button class="btn pri" id="okBtn" disabled>' + T().validate + '</button>';
     U.$$('#opts .opt').forEach(o => o.onclick = () => pick(+o.dataset.i));
@@ -625,6 +680,49 @@ const CORE = (() => {
         '<div class="opt" data-i="' + i + '"><span class="mk">✓</span><span>' + U.esc(o) + '</span><span class="keys">' + (i + 1) + '</span></div>').join('') + '</div>';
     f.innerHTML = '<span class="tiny dim">' + T().pickLk + '</span>';
     U.$$('#opts .opt').forEach(o => o.onclick = () => { pick(+o.dataset.i); setTimeout(() => submit(), 130); });
+  }
+
+  /* — Motivation (format réel) : 3 affirmations, 6 points à répartir — */
+  let blockSel = [0, 0, 0];
+  function renderBlock(it, b, f) {
+    blockSel = [0, 0, 0];
+    const total = () => blockSel.reduce((a, x) => a + x, 0);
+    b.innerHTML =
+      '<div class="qtext sm">Répartissez <b>6 points</b> entre les trois affirmations : plus une affirmation correspond à ' +
+      'l’environnement de travail qui vous convient, plus vous lui donnez de points. Vous n’êtes pas obligé de distribuer les six points.</div>' +
+      '<div class="blk" id="blk">' + it.stmts.map((s2, i) =>
+        '<div class="blk-row"><div class="blk-t">' + U.esc(s2) + '</div><div class="blk-d">' +
+        [0, 1, 2, 3, 4, 5, 6].map(v => '<span class="dot" data-i="' + i + '" data-v="' + v + '">' + v + '</span>').join('') +
+        '</div></div>').join('') + '</div>';
+    f.innerHTML = '<span class="tiny dim">Points restants : <b id="blkRest">6</b> · aucun retour en arrière</span>' +
+      '<button class="btn pri" id="okBtn" disabled>Bloc suivant</button>';
+    const paint = () => {
+      U.$$('#blk .dot').forEach(d => {
+        const i = +d.dataset.i, v = +d.dataset.v;
+        d.classList.toggle('on', blockSel[i] === v);
+        d.classList.toggle('dim', (total() - blockSel[i] + v) > it.max);
+      });
+      U.$('#blkRest').textContent = it.max - total();
+      U.$('#okBtn').disabled = total() === 0;
+    };
+    U.$$('#blk .dot').forEach(d => d.onclick = () => {
+      const i = +d.dataset.i, v = +d.dataset.v;
+      if ((total() - blockSel[i] + v) > it.max) return;
+      blockSel[i] = (blockSel[i] === v) ? 0 : v;   /* re-cliquer annule */
+      paint();
+    });
+    U.$('#okBtn').onclick = () => submit();
+    paint();
+  }
+
+  /* — Intertitre de section (test d'anglais) — */
+  function renderInter(it, b, f) {
+    b.innerHTML = '<div class="inter"><div class="inter-k">' + U.esc(it.title || 'Section') + '</div>' +
+      '<div class="qtext">' + U.esc(it.line || '') + '</div>' +
+      '<div class="tiny dim">Les exemples qui suivent ne comptent pas dans le score. Cliquez sur « Commencer » quand vous êtes prêt.</div></div>';
+    f.innerHTML = '<span class="tiny dim">Le chrono du test tourne depuis le début de la session.</span>' +
+      '<button class="btn pri" id="goSec">Commencer</button>';
+    U.$('#goSec').onclick = () => next();
   }
 
   /* — Paires de concentration — */
@@ -739,6 +837,7 @@ const CORE = (() => {
   /** Libellé affichable d'une option (gère les options objets du switch). */
   function label(it, idx) {
     if (idx == null) return 'non répondu';
+    if (it.skipQ && idx === it.options.length) return '? (je ne sais pas)';
     if (it.options) { const o = it.options[idx]; return (o && typeof o === 'object') ? (o.label || ('Option ' + (idx + 1))) : o; }
     if (it.opts) { const o = it.opts[idx]; return (o && typeof o === 'object') ? ('Figure ' + (idx + 1)) : ('Figure ' + (idx + 1)); }
     return String(idx + 1);
@@ -755,10 +854,31 @@ const CORE = (() => {
     const dt = Date.now() - (S.qStart || Date.now());
     S.times.push(dt);
 
+    /* — Exemples du test d'anglais : ne comptent pas dans le score — */
+    if (it.example) {
+      const ix = multiSel && multiSel.size ? [...multiSel][0] : null;
+      const oke = ix !== null && ix === it.ans;
+      pushLog({ id: it.id, q: it.q, given: label(it, ix), correct: ansLabel(it), ok: null, answered: true,
+                example: true, ms: dt, section: S.sec.id, why: it.why });
+      S.results.push({ ok: null });
+      if (S.feedback === 'immediate') showFeedback(it, oke, dt, it.why, ansLabel(it), false);
+      else next();
+      return;
+    }
+
+    /* — Motivation : répartition de points, pas de bonne réponse — */
+    if (it.kind === 'block') {
+      pushLog({ id: it.id, q: 'Bloc — ' + it.stmts.map((x, i) => '« ' + x + ' » : ' + blockSel[i] + ' pt').join(' · '),
+                given: blockSel.join(' / ') + ' (total ' + blockSel.reduce((a, x) => a + x, 0) + '/6)',
+                correct: null, ok: null, answered: true, ms: dt, section: S.sec.id });
+      S.results.push({ ok: null });
+      next(); return;
+    }
+
     /* — Likert : pas de bonne réponse — */
     if (it.kind === 'likert') {
       const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
-      pushLog({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, ms: dt, section: S.sec.id });
+      pushLog({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, answered: true, ms: dt, section: S.sec.id });
       S.results.push({ ok: null });
       next(); return;
     }
@@ -888,6 +1008,14 @@ const CORE = (() => {
   function startTimer(it) {
     if (tick) clearInterval(tick);
     const st = P.settings();
+    if (it.kind === 'block' || it.kind === 'inter') {
+      /* pas de limite de temps : on n'affiche que le temps écoulé */
+      const q0 = U.$('#qTimer'), b0 = U.$('#tbar');
+      if (b0) { b0.style.width = '100%'; b0.className = ''; }
+      if (q0) q0.textContent = '—';
+      S.qStart = Date.now();
+      return;
+    }
     S.qStart = Date.now();
     const limit = (it.time || S.sec.perItem) * 1000;
     if (!st.showTimer && S.strict) { U.$('#qTimer').textContent = '—'; }
