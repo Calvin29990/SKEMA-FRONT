@@ -260,7 +260,16 @@ const CORE = (() => {
     add(name) { const l = this.list(); if (name && l.indexOf(name) < 0) { l.push(name); U.store.set('users', l); } return name; },
     set(name) { const c = normalizeName(name); this.add(c); U.store.set('user', c); return c; },
     logout() { U.store.del('user'); },
-    reset(name) { const l = this.list().filter(x => x !== name); U.store.set('users', l); }
+    reset(name) { const l = this.list().filter(x => x !== name); U.store.set('users', l); },
+    /* efface un profil ET tout ce qu'il a produit sur cet appareil */
+    purge(name) {
+      const l = this.list().filter(x => x !== name);
+      U.store.set('users', l);
+      U.store.del('attempts::' + name);
+      U.store.del('details::' + name);
+      if (this.current() === name) U.store.del('user');
+      return l;
+    }
   };
 
   const dFr = (iso) => iso ? new Date(iso).toLocaleDateString('fr-FR') : '—';
@@ -910,7 +919,8 @@ const CORE = (() => {
   function NV_UI() {
     const tr = (x) => (typeof I18N !== 'undefined' ? I18N.tr(x) : x);
     return {
-      subtitle: tr('format réel · 6 onglets · 12 min'),
+      subtitle: tr('format réel') + ' · ' + NUMVERB.TABS.length + ' ' + tr('onglets').toLowerCase() + ' · ' +
+        Math.round(NUMVERB.totalSec / 60) + ' min' + (NUMVERB.isPerso() ? ' · ' + tr('fichier perso') : ''),
       question: tr('Question'),
       help: tr('true = vrai · false = faux · cannot say = l’information ne figure pas dans les figures'),
       prev: tr('Question précédente'), next: tr('Question suivante'),
@@ -919,6 +929,66 @@ const CORE = (() => {
       close: tr('Fermer'), all: tr('Toutes les questions'), done: tr('répondue'), todo: tr('sans réponse')
     };
   }
+
+  /* ── chargeur « perso » : le fichier choisi par l'utilisateur reste sur son appareil ──
+     Lecture locale (FileReader), aucune requête réseau, aucune copie dans le stockage :
+     le jeu de données ne vit qu'en mémoire pour la session en cours. */
+  const NVFILE = (() => {
+    const subs = [];
+    let lastName = '';
+    const notify = (r) => subs.forEach(f => { try { f(r); } catch (e) {} });
+    function open(inputEl) {
+      const inp = inputEl || document.createElement('input');
+      if (!inputEl) {
+        inp.type = 'file';
+        inp.accept = '.json,application/json';
+        inp.style.position = 'fixed';
+        inp.style.left = '-9999px';
+        document.body.appendChild(inp);
+      }
+      inp.onchange = () => {
+        const f = inp.files && inp.files[0];
+        if (f) load(f);
+        if (!inputEl) setTimeout(() => inp.remove(), 0);
+      };
+      if (!inputEl) inp.click();
+      return inp;
+    }
+    function load(f) {
+      if (f.size > 4 * 1024 * 1024) {
+        return notify({ ok: false, errors: ['Fichier trop volumineux (limite 4 Mo).'], name: f.name });
+      }
+      const fr = new FileReader();
+      fr.onerror = () => notify({ ok: false, errors: ['Lecture impossible du fichier.'], name: f.name });
+      fr.onload = () => {
+        let data;
+        try { data = JSON.parse(String(fr.result)); }
+        catch (e) { return notify({ ok: false, errors: ['JSON invalide : ' + e.message], name: f.name }); }
+        const r = NUMVERB.load(data, f.name);
+        r.name = f.name;
+        if (r.ok) lastName = f.name;
+        notify(r);
+      };
+      fr.readAsText(f, 'utf-8');
+    }
+    function reset() { NUMVERB.reset(); notify({ ok: true, reset: true }); }
+    function download() {
+      const blob = new Blob([JSON.stringify(NUMVERB.template(), null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'numerical-perso-modele.json';
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    return {
+      open: open, load: load, reset: reset, download: download,
+      onChange(f) { subs.push(f); },
+      status() {
+        return NUMVERB.isPerso()
+          ? { perso: true, name: lastName, items: NUMVERB.ITEMS.length, tabs: NUMVERB.TABS.length, totalSec: NUMVERB.totalSec }
+          : { perso: false, items: NUMVERB.ITEMS.length, tabs: NUMVERB.TABS.length, totalSec: NUMVERB.totalSec };
+      }
+    };
+  })();
 
   /** Journal complet du test : une ligne par question, dans l'ordre. */
   function nvLog() {
@@ -1100,7 +1170,8 @@ const CORE = (() => {
       accuracy: behavioural ? null : correct / scored,
       avgMs: Math.round((graded.length ? graded : S.log).reduce((s, r) => s + r.ms, 0) / ((graded.length ? graded : S.log).length || 1)),
       ms: Date.now() - S.t0,
-      paper: S.cfg.paper || null, mode: S.feedback
+      paper: S.cfg.paper || null, mode: S.feedback,
+      content: (S.sec.mode === 'numverb') ? (NUMVERB.isPerso() ? 'perso' : 'integre') : null
     };
     P.add(attempt, S.log.map(r => Object.assign({}, r)));
     renderSummary(attempt);
@@ -1233,6 +1304,6 @@ const CORE = (() => {
     return idb.put({ name: file.name || 'capture', type: file.type || 'image/png', note: note || '', at: new Date().toISOString(), data: dataUrl });
   }
 
-  return { SECTIONS, byId, mount, destroy, P, PROFILES, dFr, hFr, detailTable, feedbackReport, idb, addShot, buildItems, buildMixed, DL,
+  return { SECTIONS, byId, mount, destroy, P, PROFILES, dFr, hFr, detailTable, feedbackReport, idb, addShot, buildItems, buildMixed, DL, NVFILE,
            get current() { return S; } };
 })();

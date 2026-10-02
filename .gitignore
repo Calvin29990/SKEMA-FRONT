@@ -27,3 +27,9 @@ desktop.ini
 
 # Node (pour bnp-training si besoin)
 node_modules/
+
+# Contenu personnel importé dans la plateforme (jamais publié)
+perso/
+**/perso/
+skema-training/perso-*.json
+*.perso.json

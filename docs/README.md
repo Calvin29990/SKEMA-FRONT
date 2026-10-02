@@ -7,7 +7,13 @@ questionnaires de comportement professionnel et de motivation.
 
 ## Accès
 
-Code d'accès + prénom. Chaque prénom crée un profil séparé (historique horodaté, progression, feedback).
+Code d'accès + prénom. Historique horodaté, progression et feedback detaille, conserves
+uniquement dans le navigateur de l'appareil.
+
+## Contenu personnel
+
+La tache Numerical Reasoning accepte un fichier JSON local (bouton
+« Ouvrir mon fichier ») : il est lu sur l'appareil, jamais envoye ni publie.
 
 ## Langues
 

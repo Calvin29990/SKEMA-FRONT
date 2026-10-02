@@ -1,0 +1,30 @@
+{
+  "title": "Numerical Reasoning — fichier de test",
+  "totalSec": 300,
+  "tabs": [
+    { "id": "a", "short": "Ventes", "fr": "Ventes" },
+    { "id": "b", "short": "Couts", "fr": "Coûts" },
+    { "id": "c", "short": "Parts", "fr": "Parts" },
+    { "id": "d", "short": "Equipes", "fr": "Effectifs" },
+    { "id": "e", "short": "Rentab", "fr": "Rentabilité" },
+    { "id": "f", "short": "Perspectives", "fr": "Perspectives" }
+  ],
+  "figures": {
+    "a": { "type": "table", "head": ["", "An 1", "An 2"], "rows": [["CA", 120, 150], ["Resultat", 12, 18]], "note": "en millions", "strong": ["CA"] },
+    "b": { "type": "table", "head": ["", "An 1"], "rows": [["Salaires", 40]], "note": "" },
+    "c": { "type": "pie", "title": "Parts", "slices": [{ "label": "T1", "pct": 60, "color": 1 }, { "label": "T2", "pct": 40, "color": 2 }], "total": "Total 100" },
+    "d": { "type": "stacked", "series": [{ "name": "Nord", "color": 1, "values": [10, 12] }], "xlabels": ["1", "2"], "xaxis": "Annee", "yaxis": "Effectifs", "ymax": 20 },
+    "e": { "type": "lines", "series": [{ "name": "Marge", "color": 2, "values": [1.2, 1.6] }], "xlabels": ["1", "2"], "xaxis": "Annee", "yaxis": "%", "ymax": 2 },
+    "f": { "type": "hbars", "title": "Previsions", "series": [{ "name": "P1", "color": 1, "values": [10, 12] }], "xlabels": ["A1", "A2"], "xaxis": "%", "xmax": 20 }
+  },
+  "items": [
+    { "id": "Q1", "tab": "a", "q": "Le chiffre d'affaires a augmente de An 1 a An 2.", "ans": 0, "why": "120 -> 150." },
+    { "id": "Q2", "tab": "a", "q": "Le resultat a baisse.", "ans": 1, "why": "12 -> 18, il monte." },
+    { "id": "Q3", "tab": "b", "q": "Les salaires representent 40 millions.", "ans": 0, "why": "Ligne Salaires = 40." },
+    { "id": "Q4", "tab": "c", "q": "T1 detient plus de la moitie.", "ans": 0, "why": "60%." },
+    { "id": "Q5", "tab": "d", "q": "Les effectifs ont diminue.", "ans": 1, "why": "10 -> 12." },
+    { "id": "Q6", "tab": "e", "q": "La marge de l'an 3 est indiquee.", "ans": 2, "why": "Pas de donnee An 3." },
+    { "id": "Q7", "tab": "f", "q": "P1 depasse 15% en A2.", "ans": 1, "why": "12%." },
+    { "id": "Q8", "tab": "a", "q": "Le tableau donne des montants en euros par action.", "ans": 2, "why": "La note dit « en millions »." }
+  ]
+}

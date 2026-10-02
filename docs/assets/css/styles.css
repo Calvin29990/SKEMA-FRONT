@@ -4,6 +4,7 @@
    Crédit Agricole CIB / cut-e). Thème sombre disponible en option.
    ═══════════════════════════════════════════════════════════════ */
 
+/* aucune police ni ressource externe : tout est servi en local */
 :root{
   --bg:#eef1f3; --bg2:#f7f9fa;
   --card:#ffffff; --card2:#f4f6f8;

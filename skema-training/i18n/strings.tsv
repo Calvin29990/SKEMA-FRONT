@@ -399,3 +399,47 @@ Format réel du test : 6 onglets de figures (Income, Costs, Market shares, Emplo
 La difficulté est le rythme : ~19 s par énoncé, 6 onglets à balayer. Lisez la figure de l’onglet courant, vérifiez l’énoncé, tranchez — ne relisez pas tout.|The difficulty is the pace: ~19 s per statement, 6 tabs to scan. Read the current tab's figure, check the statement, decide — do not reread everything.|La dificultad es el ritmo: ~19 s por afirmación, 6 pestañas que recorrer. Lea la figura de la pestaña actual, compruebe la afirmación y decida: no lo relea todo.|A dificuldade é o ritmo: ~19 s por afirmação, 6 separadores para percorrer. Leia a figura do separador atual, verifique a afirmação e decida — não releia tudo.
 37 questions · 12 min · 6 onglets — conditions réelles.|37 questions · 12 min · 6 tabs — real conditions.|37 preguntas · 12 min · 6 pestañas — condiciones reales.|37 perguntas · 12 min · 6 separadores — condições reais.
 Variante d’entraînement : tableaux de données + questions à choix multiples. Paper A = 48 items, Paper B = 37 items (extrait), calculateur autorisée.|Training variant: data tables + multiple-choice questions. Paper A = 48 items, Paper B = 37 items (extract), calculator allowed.|Variante de entrenamiento: tablas de datos + preguntas de opción múltiple. Paper A = 48 ítems, Paper B = 37 ítems (extracto), calculadora permitida.|Variante de treino: tabelas de dados + perguntas de escolha múltipla. Paper A = 48 itens, Paper B = 37 itens (excerto), calculadora permitida.
+Contenu|Content|Contenido|Conteúdo
+Ouvrir mon fichier (JSON)|Open my file (JSON)|Abrir mi archivo (JSON)|Abrir o meu ficheiro (JSON)
+Gabarit|Template|Plantilla|Modelo
+Chrono global : 12 minutes par défaut, ~19 s par énoncé|Global timer: 12 minutes by default, ~19 s per statement|Cronómetro global: 12 minutos por defecto, ~19 s por afirmación|Cronómetro global: 12 minutos por defeito, ~19 s por afirmação
+Banque intégrée (démonstration). Ouvrez votre fichier : il reste sur cet appareil.|Built-in bank (demo). Open your file: it stays on this device.|Banco integrado (demostración). Abra su archivo: permanece en este dispositivo.|Banco integrado (demonstração). Abra o seu ficheiro: permanece neste dispositivo.
+Fichier perso chargé|Personal file loaded|Archivo personal cargado|Ficheiro pessoal carregado
+Lu sur cet appareil uniquement : rien n’est publié ni envoyé.|Read on this device only: nothing is published or sent.|Leído solo en este dispositivo: nada se publica ni se envía.|Lido apenas neste dispositivo: nada é publicado nem enviado.
+Revenir à la banque intégrée|Back to the built-in bank|Volver al banco integrado|Voltar ao banco integrado
+Banque intégrée restaurée|Built-in bank restored|Banco integrado restaurado|Banco integrado restaurado
+Fichier chargé|File loaded|Archivo cargado|Ficheiro carregado
+Fichier refusé.|File rejected.|Archivo rechazado.|Ficheiro recusado.
+énoncé(s)|statement(s)|afirmación(es)|afirmação(ões)
+onglet(s)|tab(s)|pestaña(s)|separador(es)
+Fichier trop volumineux (limite 4 Mo).|File too large (4 MB limit).|Archivo demasiado grande (límite 4 MB).|Ficheiro demasiado grande (limite 4 MB).
+Lecture impossible du fichier.|Could not read the file.|No se pudo leer el archivo.|Não foi possível ler o ficheiro.
+JSON invalide|Invalid JSON|JSON no válido|JSON inválido
+Fichier illisible : un objet JSON est attendu.|Unreadable file: a JSON object is expected.|Archivo ilegible: se espera un objeto JSON.|Ficheiro ilegível: é esperado um objeto JSON.
+au moins un onglet est requis.|at least one tab is required.|se requiere al menos una pestaña.|é necessário pelo menos um separador.
+au moins un énoncé est requis.|at least one statement is required.|se requiere al menos una afirmación.|é necessário pelo menos uma afirmação.
+identifiant manquant.|missing identifier.|identificador ausente.|identificador em falta.
+libellé d’onglet manquant.|missing tab label.|falta la etiqueta de la pestaña.|falta o rótulo do separador.
+objet attendu, avec une figure par onglet.|object expected, with one figure per tab.|se espera un objeto, con una figura por pestaña.|é esperado um objeto, com uma figura por separador.
+figure manquante pour cet onglet.|missing figure for this tab.|falta la figura de esta pestaña.|figura em falta para este separador.
+tableau sans lignes.|table without rows.|tabla sin filas.|tabela sem linhas.
+camembert sans parts.|pie chart without slices.|gráfico circular sin porciones.|gráfico circular sem fatias.
+séries manquantes.|missing series.|faltan series.|séries em falta.
+texte de l’énoncé manquant.|missing statement text.|falta el texto de la afirmación.|texto da afirmação em falta.
+doit être un des onglets|must be one of the tabs|debe ser una de las pestañas|deve ser um dos separadores
+doit valoir 0 (true), 1 (false) ou 2 (cannot say).|must be 0 (true), 1 (false) or 2 (cannot say).|debe ser 0 (true), 1 (false) o 2 (cannot say).|deve ser 0 (true), 1 (false) ou 2 (cannot say).
+durée invalide (au moins 30 secondes).|invalid duration (at least 30 seconds).|duración no válida (mínimo 30 segundos).|duração inválida (mínimo 30 segundos).
+format réel|real format|formato real|formato real
+onglets|tabs|pestañas|separadores
+fichier perso|personal file|archivo personal|ficheiro pessoal
+Télécharger un gabarit vierge|Download a blank template|Descargar una plantilla en blanco|Descarregar um modelo em branco
+contenu perso ·|personal content ·|contenido personal ·|conteúdo pessoal ·
+énoncés|statements|afirmaciones|afirmações
+Ouvrir|Open|Abrir|Abrir
+actif|active|activo|ativo
+Profils sur cet appareil|Profiles on this device|Perfiles en este dispositivo|Perfis neste dispositivo
+tentative(s) enregistrée(s)|recorded attempt(s)|intento(s) registrado(s)|tentativa(s) registada(s)
+Supprimer ce profil et tout son historique ?|Delete this profile and its whole history?|¿Eliminar este perfil y todo su historial?|Eliminar este perfil e todo o seu histórico?
+Profil supprimé|Profile deleted|Perfil eliminado|Perfil eliminado
+Espace personnel : chaque profil garde son propre historique (tentatives horodatées, progression, feedback). Supprimez ici tout profil dont vous ne voulez plus.|Personal space: each profile keeps its own history (time-stamped attempts, progress, feedback). Delete here any profile you no longer want.|Espacio personal: cada perfil conserva su propio historial (intentos con fecha y hora, progreso, feedback). Elimine aquí cualquier perfil que ya no quiera.|Espaço pessoal: cada perfil mantém o seu próprio histórico (tentativas com data e hora, progresso, feedback). Elimine aqui qualquer perfil que já não queira.
+Uniquement si nécessaire — entrez un prénom puis validez|Only if needed — enter a first name and confirm|Solo si es necesario: introduzca un nombre y confirme|Apenas se necessário — introduza um nome e confirme

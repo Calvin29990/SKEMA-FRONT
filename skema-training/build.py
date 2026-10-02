@@ -10,7 +10,7 @@ build.py — régénère les deux livrables publiés depuis les sources de skema
 
 Usage :  python3 skema-training/build.py
 """
-import os, re, shutil, zipfile
+import json, os, re, shutil, zipfile
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(ROOT)
@@ -18,11 +18,20 @@ DOCS = os.path.join(REPO, 'docs')
 STANDALONE = os.path.join(ROOT, 'standalone')
 PUB = '/tmp/skema-pub'          # copie publique temporaire
 JS = ['util.js', 'banks.js', 'drills.js', 'numverb.js', 'core.js', 'i18n.js', 'app.js']
+PRIVATE = os.path.join(ROOT, 'perso')   # contenu personnel importé : JAMAIS publié
+
+# ── 0. garde-fou : recenser le contenu personnel avant toute copie ─────
+priv_files = []
+if os.path.isdir(PRIVATE):
+    for base, _dirs, files in os.walk(PRIVATE):
+        priv_files += [os.path.join(base, f) for f in files if not f.startswith('.')]
+print('contenu perso : %d fichier(s) dans perso/ (exclu des livrables)' % len(priv_files))
 
 # ── 1. copie de travail ────────────────────────────────────────────────
 if os.path.exists(PUB):
     shutil.rmtree(PUB)
-shutil.copytree(ROOT, PUB, ignore=shutil.ignore_patterns('standalone', '.git', 'build.py', 'i18n', 'tools'))
+shutil.copytree(ROOT, PUB, ignore=shutil.ignore_patterns('standalone', '.git', 'build.py', 'i18n', 'tools',
+                                                         'perso', 'perso-*', '*.perso.json'))
 
 # ── 2. assainissement pour la version publique ─────────────────────────
 def edit(path, pairs):
@@ -81,7 +90,10 @@ open(os.path.join(DOCS, 'README.md'), 'w', encoding='utf-8').write(
     "raisonnement numérique et verbal, déductif et inductif, switch challenge, concentration, efficacité\n"
     "d'apprentissage, mémoire de travail, traitement de l'information, raisonnement mécanique,\n"
     "questionnaires de comportement professionnel et de motivation.\n\n"
-    "## Accès\n\nCode d'accès + prénom. Chaque prénom crée un profil séparé (historique horodaté, progression, feedback).\n\n"
+    "## Accès\n\nCode d'accès + prénom. Historique horodaté, progression et feedback detaille, conserves\n"
+    "uniquement dans le navigateur de l'appareil.\n\n"
+    "## Contenu personnel\n\nLa tache Numerical Reasoning accepte un fichier JSON local (bouton\n"
+    "« Ouvrir mon fichier ») : il est lu sur l'appareil, jamais envoye ni publie.\n\n"
     "## Langues\n\nInterface et feedback en **français, anglais, espagnol et portugais** (sélecteur en haut à droite).\n\n"
     "## Contenu\n\n- 13 sections + 1 simulation complète en conditions d'examen\n"
     "- Banques figées (mêmes items à chaque session) et batterie anglaise illimitée\n"
@@ -91,13 +103,45 @@ open(os.path.join(DOCS, 'README.md'), 'w', encoding='utf-8').write(
     "---\n\n*Espace personnel d'entraînement.*\n")
 print('docs/ : %d fichiers' % sum(len(f) for _, _, f in os.walk(DOCS)))
 
+# ── 4bis. contrôle anti-fuite : aucune phrase du contenu perso dans les livrables ──
+def leaks_in(path):
+    try:
+        txt = open(path, encoding='utf-8').read()
+    except Exception:
+        return []
+    return [n for n in needles if n in txt]
+
+needles = []
+for f in priv_files:
+    try:
+        raw = open(f, encoding='utf-8').read()
+    except Exception:
+        continue
+    for m in re.finditer(r'"((?:[^"\\]|\\.){30,})"', raw):
+        s_ = m.group(1).strip()
+        if s_ and s_ not in needles:
+            needles.append(s_)
+    needles.append(os.path.basename(f))
+
+if not priv_files:
+    print('anti-fuite : rien à contrôler (perso/ vide)')
+else:
+    cibles = [os.path.join(STANDALONE, 'index.html'), os.path.join(DOCS, 'index.html')]
+    cibles += [os.path.join(DOCS, 'assets', 'js', f) for f in JS]
+    fuites = {c: leaks_in(c) for c in cibles}
+    fuites = {c: v for c, v in fuites.items() if v}
+    refs = [n for n in needles if any(n in open(c, encoding='utf-8', errors='ignore').read() for c in cibles)]
+    if fuites or refs:
+        raise SystemExit('ARRÊT : contenu perso détecté dans un livrable public -> %s' % (fuites or refs[:3]))
+    print('anti-fuite : %d marqueur(s) perso vérifiés, aucun dans standalone/ ni docs/ ✔' % len(needles))
+
 # ── 5. archive hors-ligne ──────────────────────────────────────────────
 zip_path = '/home/user/Assessment-Trainer-Calvin.zip'
 if os.path.exists(zip_path):
     os.remove(zip_path)
 with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as z:
     for base, dirs, files in os.walk(ROOT):
-        dirs[:] = [d for d in dirs if d != '.git']
+        dirs[:] = [d for d in dirs if d not in ('.git', 'perso')]
         for f in files:
             p = os.path.join(base, f)
             z.write(p, os.path.join('Assessment-Trainer', os.path.relpath(p, ROOT)))

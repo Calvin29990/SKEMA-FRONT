@@ -124,14 +124,20 @@
   function userMenu() {
     const cur = CORE.PROFILES.current() || '';
     const others = CORE.PROFILES.list().filter(x => x !== cur);
+    const tous = CORE.PROFILES.list();
     U.modal(
       '<h3 style="margin-bottom:6px">Profil : ' + U.esc(cur) + '</h3>' +
-      '<div class="small dim" style="margin-bottom:16px">Chaque profil possède son propre historique (tentatives horodatées, progression, feedback). ' +
-        'Pratique si vous prêtez la plateforme : les résultats restent séparés.</div>' +
-      '<div class="card-t">Changer de profil</div>' +
-      (others.length ? '<div class="row" style="margin-bottom:14px">' + others.map(n => '<button class="btn sm" data-sw="' + U.esc(n) + '">' + U.esc(n) + '</button>').join('') + '</div>'
-        : '<div class="small dim" style="margin-bottom:14px">Aucun autre profil enregistré.</div>') +
-      '<div class="setrow"><div><div class="t">Nouveau profil</div><div class="d">Entrez un prénom puis validez</div></div>' +
+      '<div class="small dim" style="margin-bottom:16px">Espace personnel : chaque profil garde son propre historique ' +
+        '(tentatives horodatées, progression, feedback). Supprimez ici tout profil dont vous ne voulez plus.</div>' +
+      '<div class="card-t">Profils sur cet appareil</div>' +
+      (tous.length
+        ? '<div style="margin-bottom:14px">' + tous.map(n => '<div class="setrow"><div><div class="t">' + U.esc(n) +
+            (n === cur ? ' <span class="tag">actif</span>' : '') + '</div><div class="d">' + (U.store.get('attempts::' + n, []) || []).length + ' tentative(s) enregistrée(s)' +
+            '</div></div><span class="row" style="gap:6px">' +
+            (n === cur ? '' : '<button class="btn sm" data-sw="' + U.esc(n) + '">Ouvrir</button>') +
+            '<button class="btn sm danger" data-del="' + U.esc(n) + '">Supprimer</button></span></div>').join('') + '</div>'
+        : '<div class="small dim" style="margin-bottom:14px">Aucun profil enregistré.</div>') +
+      '<div class="setrow"><div><div class="t">Nouveau profil</div><div class="d">Uniquement si nécessaire — entrez un prénom puis validez</div></div>' +
         '<input id="umName" placeholder="Prénom" style="width:150px"></div>' +
       '<div class="setrow"><div><div class="t">Code d’accès du site</div><div class="d">Modifiable — à communiquer aux personnes autorisées</div></div>' +
         '<input id="umCode" value="' + U.esc(CORE.P.code()) + '" style="width:150px;text-transform:uppercase"></div>' +
@@ -142,6 +148,15 @@
       CORE.PROFILES.set(b.dataset.sw); CORE.P.migrate();
       U.closeModal(); paintUser(); routeAndBind();
       U.toast('Profil « ' + CORE.PROFILES.current() + ' »');
+    });
+    U.$$('[data-del]').forEach(b => b.onclick = () => {
+      const n = b.dataset.del;
+      const ask = (typeof I18N !== 'undefined' ? I18N.tr('Supprimer ce profil et tout son historique ?') : 'Supprimer ce profil et tout son historique ?');
+      if (!confirm(ask + '\n\n' + n)) return;
+      CORE.PROFILES.purge(n);
+      U.closeModal();
+      if (CORE.PROFILES.current()) { paintUser(); routeAndBind(); U.toast('Profil supprimé'); }
+      else { location.reload(); }
     });
     U.$('#umSave').onclick = () => {
       const nm = U.$('#umName').value.trim();
@@ -243,7 +258,10 @@
           (s.mode === 'numverb' ? ' <a href="#/run/numericalMCQ" style="color:var(--grn)">Variante QCM classique →</a>' : '') + '</div>' +
         '<div class="stats"><span class="tag">' + s.items + ' items disponibles</span><span class="tag">' + s.perItem + ' s / item</span>' +
           (s.source === 'infinite' ? '<span class="tag amb">banque illimitée</span>' : '<span class="tag">banque figée</span>') +
-          (s.mode === 'numverb' ? '<span class="tag amb">6 onglets · true / false / cannot say</span><span class="tag blu">12 min · 37 questions</span>' : '') +
+          (s.mode === 'numverb' ? '<span class="tag amb">' + NUMVERB.TABS.length + ' onglets · true / false / cannot say</span>' +
+            '<span class="tag blu">' + Math.round(NUMVERB.totalSec / 60) + ' min · ' + NUMVERB.ITEMS.length + ' questions</span>' : '') +
+          (s.mode === 'numverb' && typeof NUMVERB !== 'undefined' && NUMVERB.isPerso()
+            ? '<span class="tag grn">contenu perso · ' + NUMVERB.ITEMS.length + ' énoncés</span>' : '') +
           (st ? '<span class="tag blu">' + st.n + ' session(s)</span><span class="tag ' + (st.best >= .85 ? 'grn' : 'amb') + '">meilleur ' + U.pct(st.best) + '</span>' : '<span class="tag">jamais faite</span>') +
         '</div>' +
       '</div>';
@@ -286,8 +304,8 @@
         '<h1>' + U.esc(s.name) + ' <span class="tiny dim">' + U.esc(s.fr) + '</span></h1>' +
         '<p class="intro">' + U.esc(s.desc) + '<br><b>Méthode :</b> ' + U.esc(s.hint) + '</p>' +
         '<div class="row" style="margin-bottom:18px">' +
-          '<span class="tag">' + s.items + ' items disponibles</span>' +
-          '<span class="tag">' + s.perItem + ' s par item</span>' +
+          '<span class="tag">' + (isNV ? NUMVERB.ITEMS.length : s.items) + ' items disponibles</span>' +
+          '<span class="tag">' + (isNV ? (NUMVERB.totalSec / NUMVERB.ITEMS.length).toFixed(1) : s.perItem) + ' s par item</span>' +
           '<span class="tag">~ ' + s.dur + ' min</span>' +
           (st ? '<span class="tag blu">' + st.n + ' session(s)</span><span class="tag ' + (st.best >= .85 ? 'grn' : 'amb') + '">meilleur ' + U.pct(st.best) + '</span>' +
                 '<span class="tag">temps moyen ' + U.ms(st.avgMs) + '</span>' : '<span class="tag">jamais faite</span>') +
@@ -297,7 +315,10 @@
           '<div><div class="card-t">Configuration</div>' +
             (isNV
               ? '<div class="setrow"><div><div class="t">Format du test réel</div><div class="d">6 onglets de figures (Income, Costs, Market shares, Employees, Return on equity, Outlook) — 37 énoncés true / false / cannot say</div></div><span class="tag amb">Figé</span></div>' +
-                '<div class="setrow"><div><div class="t">Durée imposée</div><div class="d">12 minutes, chrono global — ~19 s par énoncé</div></div><span class="tag blu">12:00</span></div>'
+                '<div class="setrow"><div><div class="t">Durée imposée</div><div class="d">Chrono global : 12 minutes par défaut, ~19 s par énoncé</div></div><span class="tag blu">' + Math.round(CORE.NVFILE.status().totalSec / 60) + ':00</span></div>' +
+                '<div class="setrow"><div><div class="t">Contenu</div><div class="d" id="nvFileStatus"></div></div>' +
+                  '<span class="row" style="gap:6px"><button class="btn sm" id="nvFileOpen">Ouvrir mon fichier (JSON)</button>' +
+                  '<button class="btn sm ghost" id="nvFileTpl" title="Télécharger un gabarit vierge">Gabarit</button></span></div>'
               : (isNum
               ? '<div class="setrow"><div><div class="t">Nombre de questions</div><div class="d">Imposé par le paper (37 ou 48) — contenu figé, identique à chaque session</div></div><span class="tag amb">Figé</span></div>'
               : '<div class="setrow"><div><div class="t">Nombre d’items</div><div class="d">Banque disponible : ' + s.items + ' items</div></div>' +
@@ -330,6 +351,30 @@
       if (isNum) cfg.paper = U.$('#cfgPaper').value;
       startRun(id, cfg);
     };
+    /* chargeur « perso » : le fichier choisi reste sur l'appareil, rien n'est publié */
+    const fRow = U.$('#nvFileStatus');
+    const fPaint = () => {
+      if (!fRow) return;
+      const st = CORE.NVFILE.status();
+      fRow.innerHTML = st.perso
+        ? '<b>Fichier perso chargé</b> — ' + U.esc(st.name || 'sans nom') + ' · ' + st.items + ' énoncé(s) · ' +
+          st.tabs + ' onglet(s) · ' + Math.round(st.totalSec / 60) + ' min<br>' +
+          '<span class="tiny dim">Lu sur cet appareil uniquement : rien n’est publié ni envoyé.</span> ' +
+          '<a href="#" id="nvFileReset" style="color:var(--grn)">Revenir à la banque intégrée</a>'
+        : 'Banque intégrée (démonstration). Ouvrez votre fichier : il reste sur cet appareil.';
+      const rst = U.$('#nvFileReset');
+      if (rst) rst.onclick = (e) => { e.preventDefault(); CORE.NVFILE.reset(); fPaint(); };
+    };
+    if (U.$('#nvFileOpen')) {
+      fPaint();
+      U.$('#nvFileOpen').onclick = () => CORE.NVFILE.open();
+      U.$('#nvFileTpl').onclick = () => CORE.NVFILE.download();
+      CORE.NVFILE.onChange(r => {
+        fPaint();
+        if (r.ok) U.toast(r.reset ? 'Banque intégrée restaurée' : 'Fichier chargé : ' + r.count + ' énoncé(s)');
+        else alert('Fichier refusé.\n\n' + (r.errors || []).join('\n') + (r.more ? '\n… et ' + r.more + ' autre(s).' : ''));
+      });
+    }
   }
 
   function startRun(sectionId, cfg) {
