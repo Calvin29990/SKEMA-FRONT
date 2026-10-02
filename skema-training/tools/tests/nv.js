@@ -20,7 +20,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   await page.reload({ waitUntil: 'networkidle2' });
   await page.type('#lgCode', 'CM2026'); await page.type('#lgName', 'Calvin'); await page.click('#lgGo'); await wait(700);
 
-  ok('15 tâches affichées', (await page.$$('.trow')).length === 15);
+  ok('16 tâches affichées', (await page.$$('.trow')).length === 16);
   const rowTxt = await page.evaluate(() => [...document.querySelectorAll('.trow')].find(r => r.dataset.id === 'numerical').textContent);
   ok('ligne numerical : 6 onglets + true/false/cannot say', /6 onglets/.test(rowTxt) && /true \/ false \/ cannot say/.test(rowTxt), rowTxt.replace(/\s+/g, ' ').slice(0, 80));
 

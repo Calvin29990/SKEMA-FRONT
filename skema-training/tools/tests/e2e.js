@@ -33,7 +33,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     profil: (document.querySelector('#userName') || {}).textContent || '',
   }));
   ok('accès CM2026 accepté, profils séparés', acc.gone && acc.profil.trim() === 'Calvin', 'profil « ' + acc.profil.trim() + ' »');
-  ok('accueil : 15 tâches', acc.rows === 15, acc.rows + ' lignes');
+  ok('accueil : 16 tâches', acc.rows === 16, acc.rows + ' lignes');
   ok('variante QCM masquée de l’accueil (format réel imposé)', !acc.mcq);
 
   /* ── bug gris : jamais de voile modal bloquant ── */
@@ -158,7 +158,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     n: CORE.P.attempts().length,
     profil: (document.querySelector('#userName') || {}).textContent || '',
   }));
-  ok('rechargement : profil + historique conservés', persist.gate && persist.rows === 15 && persist.n >= 1, persist.profil + ' · ' + persist.n + ' tentative(s)');
+  ok('rechargement : profil + historique conservés', persist.gate && persist.rows === 16 && persist.n >= 1, persist.profil + ' · ' + persist.n + ' tentative(s)');
 
   /* ── profils : plateforme pour une seule personne, suppression complète ── */
   const profils = await page.evaluate(async () => {

@@ -268,6 +268,28 @@ const CORE = (() => {
     return U.shuffle(U.rng(cfg.seed), items);
   }
 
+  /* — Examen blanc : 3 épreuves tirées au hasard, enchaînées — */
+  const EXAM_POOL = [
+    ['numericalMCQ', 12], ['verbalX', 12], ['english', 30], ['motivation', 36],
+    ['deductive', 10], ['inductive', 12], ['switch', 12], ['concentration', 20],
+    ['learning', 6], ['info', 10], ['mech', 12], ['workBehaviour', 20]
+  ];
+  function buildExam3(cfg) {
+    const rnd = U.rng(cfg.seed);
+    const tirage = U.shuffle(rnd, EXAM_POOL.slice()).slice(0, 3);
+    let items = [];
+    tirage.forEach(([sid, k], i) => {
+      const sec = byId(sid);
+      items.push({ id: 'EX' + i, kind: 'inter', ex: true, title: 'ÉPREUVE ' + (i + 1) + ' / 3 — ' + sec.name,
+                   line: 'Épreuve ' + (i + 1) + ' sur 3 · environ ' + sec.dur + ' minute(s) · correction à la fin seulement',
+                   secId: sid, secName: sec.name, time: 60 });
+      const lot = buildItems(sec, { count: k, seed: cfg.seed + i * 613, paper: 'A' });
+      lot.forEach(it => { it.secId = sid; it.secName = sec.name; });
+      items = items.concat(lot);
+    });
+    return items;
+  }
+
   /* ═══════════════════════════════════════════════════════════
      STOCKAGE DES CAPTURES (IndexedDB)
      ═══════════════════════════════════════════════════════════ */
@@ -537,7 +559,7 @@ const CORE = (() => {
     const sec = byId(sectionId) || { id: sectionId, name: 'Simulation complète', icon: '🎯', mode: 'mc', perItem: 60 };
     cfg = Object.assign({ count: sec.items || 20, paper: 'A', timed: true, seed: Date.now() % 100000, mix: false }, cfg || {});
     const st = P.settings();
-    const items = cfg.mix ? buildMixed(cfg) : buildItems(sec, cfg);
+    const items = cfg.mix ? buildMixed(cfg) : (cfg.exam3 ? buildExam3(cfg) : buildItems(sec, cfg));
 
     const totalQ = items.reduce((a, it) => a + (it.multi ? it.sub.length : (it.sub ? it.sub.length : 1)), 0);
     const stLang = P.settings().lang || {};
@@ -572,8 +594,9 @@ const CORE = (() => {
       : S.log.filter(r => r.ok !== null || r.answered || r.example).length;
     const good = nvMode ? S.items.filter((it, i) => S.nv.answers[i] === it.ans).length : S.log.filter(r => r.ok === true).length;
     const bad = nvMode ? S.items.filter((it, i) => S.nv.answers[i] != null && S.nv.answers[i] !== it.ans).length : S.log.filter(r => r.ok === false).length;
+    const nomSec = (S.items[S.i] && S.items[S.i].secName) || S.sec.name;
     hud.innerHTML =
-      '<span class="pill"><span class="k">Section</span>' + U.esc(S.sec.name) + '</span>' +
+      '<span class="pill"><span class="k">Section</span>' + U.esc(nomSec) + '</span>' +
       '<span class="pill mono"><span class="k">Item</span>' + (nvMode ? Math.min(S.i + 1, total) : Math.min(answered + 1, total)) + '/' + total + '</span>' +
       '<span class="pill hit mono">✔ ' + good + '</span>' +
       '<span class="pill miss mono">✘ ' + bad + '</span>' +
@@ -859,7 +882,7 @@ const CORE = (() => {
       const ix = multiSel && multiSel.size ? [...multiSel][0] : null;
       const oke = ix !== null && ix === it.ans;
       pushLog({ id: it.id, q: it.q, given: label(it, ix), correct: ansLabel(it), ok: null, answered: true,
-                example: true, ms: dt, section: S.sec.id, why: it.why });
+                example: true, ms: dt, section: (it.secId || S.sec.id), why: it.why });
       S.results.push({ ok: null });
       if (S.feedback === 'immediate') showFeedback(it, oke, dt, it.why, ansLabel(it), false);
       else next();
@@ -870,7 +893,7 @@ const CORE = (() => {
     if (it.kind === 'block') {
       pushLog({ id: it.id, q: 'Bloc — ' + it.stmts.map((x, i) => '« ' + x + ' » : ' + blockSel[i] + ' pt').join(' · '),
                 given: blockSel.join(' / ') + ' (total ' + blockSel.reduce((a, x) => a + x, 0) + '/6)',
-                correct: null, ok: null, answered: true, ms: dt, section: S.sec.id });
+                correct: null, ok: null, answered: true, ms: dt, section: (it.secId || S.sec.id) });
       S.results.push({ ok: null });
       next(); return;
     }
@@ -878,7 +901,7 @@ const CORE = (() => {
     /* — Likert : pas de bonne réponse — */
     if (it.kind === 'likert') {
       const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
-      pushLog({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, answered: true, ms: dt, section: S.sec.id });
+      pushLog({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, answered: true, ms: dt, section: (it.secId || S.sec.id) });
       S.results.push({ ok: null });
       next(); return;
     }
@@ -890,7 +913,7 @@ const CORE = (() => {
       const hit = clicked.filter(c => target.includes(c)).length;
       const ok = hit === target.length && clicked.length === target.length;
       pushLog({ id: it.id, q: 'Grille ' + it.size + '×' + it.size + ' — mémoriser et reproduire ' + target.length + ' cases',
-        given: clicked.length + ' cases (' + hit + ' correctes)', correct: target.length + ' cases', ok, ms: dt, section: S.sec.id });
+        given: clicked.length + ' cases (' + hit + ' correctes)', correct: target.length + ' cases', ok, ms: dt, section: (it.secId || S.sec.id) });
       S.results.push({ ok });
       if (S.feedback === 'immediate') showFeedback(it, ok, dt, ok ? 'Placement exact.' : 'Comparez avec la position des cases vertes.', target.length + ' cases', false);
       else next();
@@ -904,7 +927,7 @@ const CORE = (() => {
       const ok = idx !== null && idx === good;
       pushLog({ id: it.id, q: 'Deux figures — identiques ou différentes ?',
         given: idx === 0 ? 'identiques' : (idx === 1 ? 'différentes' : 'non répondu'),
-        correct: it.same ? 'identiques' : 'différentes', ok, ms: dt, section: S.sec.id });
+        correct: it.same ? 'identiques' : 'différentes', ok, ms: dt, section: (it.secId || S.sec.id) });
       S.results.push({ ok });
       if (S.feedback === 'immediate' && !skip) showFeedback(it, ok, dt, it.same ? 'Les deux figures étaient identiques.' : 'Une forme ou une couleur différait.', it.same ? 'Identiques' : 'Différentes', false);
       else next();
@@ -918,7 +941,7 @@ const CORE = (() => {
       const sub = it.sub[si];
       const ansl = VX_LABEL[sub.a];
       const ok = idx !== null && it.options[idx] === ansl;
-      pushLog({ id: it.id + '-' + (si + 1), q: sub.t, given: idx == null ? 'non répondu' : it.options[idx], correct: ansl, ok, ms: dt, section: S.sec.id, why: sub.w });
+      pushLog({ id: it.id + '-' + (si + 1), q: sub.t, given: idx == null ? 'non répondu' : it.options[idx], correct: ansl, ok, ms: dt, section: (it.secId || S.sec.id), why: sub.w });
       S.results.push({ ok });
       S.lastSub = si;
       S.subIndex = si + 1;
@@ -930,7 +953,7 @@ const CORE = (() => {
     /* — QCM standard (numérique, information, mécanique, figures) — */
     const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
     const ok = idx !== null && idx === it.ans;
-    pushLog({ id: it.id, q: it.q, given: label(it, idx), correct: ansLabel(it), ok, ms: dt, section: S.sec.id, why: it.why, okFlag: ok });
+    pushLog({ id: it.id, q: it.q, given: label(it, idx), correct: ansLabel(it), ok, ms: dt, section: (it.secId || S.sec.id), why: it.why, okFlag: ok });
     S.results.push({ ok });
     if (S.feedback === 'immediate') showFeedback(it, ok, dt, it.why, ansLabel(it), false);
     else next();
@@ -1444,6 +1467,6 @@ const CORE = (() => {
     return idb.put({ name: file.name || 'capture', type: file.type || 'image/png', note: note || '', at: new Date().toISOString(), data: dataUrl });
   }
 
-  return { SECTIONS, byId, mount, destroy, P, PROFILES, dFr, hFr, detailTable, feedbackReport, idb, addShot, buildItems, buildMixed, DL, NVFILE,
+  return { SECTIONS, byId, mount, destroy, P, PROFILES, dFr, hFr, detailTable, feedbackReport, idb, addShot, buildItems, buildMixed, buildExam3, EXAM_POOL, DL, NVFILE,
            get current() { return S; } };
 })();

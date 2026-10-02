@@ -201,7 +201,7 @@
           '</div>' +
         '</div>' +
 
-        '<div class="tasktable">' + plan.map(taskRow).join('') + simRow() + '</div>' +
+        '<div class="tasktable">' + plan.map(taskRow).join('') + examRow() + simRow() + '</div>' +
 
         '<div class="legend">' + LEGEND.map(([k, l]) =>
           '<div class="li">' + I[k] + '<span>' + l + '</span></div>').join('') + '</div>' +
@@ -222,7 +222,12 @@
     U.$$('.trow').forEach(r => {
       const id = r.dataset.id;
       const start = r.querySelector('.tstart');
-      if (start) start.onclick = (e) => { e.stopPropagation(); startRun(id === '_mix' ? 'mixed' : id, id === '_mix' ? { mix: '1', strict: '1', mode: 'end' } : {}); };
+      if (start) start.onclick = (e) => {
+        e.stopPropagation();
+        if (id === '_mix') return startRun('mixed', { mix: '1', strict: '1', mode: 'end' });
+        if (id === '_exam3') return startRun('exam3', { exam3: '1', strict: '1', mode: 'end' });
+        startRun(id, {});
+      };
       r.querySelector('.tchev').onclick = (e) => { e.stopPropagation(); r.classList.toggle('open'); };
       const sel = r.querySelector('.tlang');
       if (sel) sel.onchange = () => setLang(sel.value);
@@ -264,6 +269,29 @@
             ? '<span class="tag grn">contenu perso · ' + NUMVERB.ITEMS.length + ' énoncés</span>' : '') +
           (st ? '<span class="tag blu">' + st.n + ' session(s)</span><span class="tag ' + (st.best >= .85 ? 'grn' : 'amb') + '">meilleur ' + U.pct(st.best) + '</span>' : '<span class="tag">jamais faite</span>') +
         '</div>' +
+      '</div>';
+  }
+
+  function examRow() {
+    const st = CORE.P.statsFor('exam3');
+    return '' +
+      '<div class="trow" data-id="_exam3" style="border-color:var(--amb)">' +
+        '<span class="tico">🎲</span>' +
+        '<span class="tname"><span>Examen blanc — 3 épreuves tirées au hasard</span>' +
+          '<span class="tfmt">comme le jour J : tirage aléatoire, enchaînement sans pause</span>' +
+          '<span class="tchev" title="Détails">▼</span></span>' +
+        '<span class="tdur">' + I.clock + '~ 35 minute(s)</span>' +
+        I18N.selectHTML('tlang') +
+        '<button class="tstart">Début</button>' +
+      '</div>' +
+      '<div class="tdetails">' +
+        '<div class="d">Trois épreuves tirées au hasard parmi : numérique, verbal, anglais, motivation, ' +
+          'déductif, inductif, switch, concentration, apprentissage, information, mécanique, comportement professionnel. ' +
+          'L’épreuve suivante s’enchaîne automatiquement, sans correction intermédiaire.</div>' +
+        '<div class="hint"><b>Méthode :</b> conditions d’examen — pas de retour en arrière, résultat global à la fin. ' +
+          'À lancer chaque jour ; le tirage change à chaque session.</div>' +
+        '<div class="stats"><span class="tag amb">3 épreuves au hasard</span><span class="tag">mode examen</span>' +
+          (st ? '<span class="tag blu">' + st.n + ' session(s)</span>' : '<span class="tag">jamais faite</span>') + '</div>' +
       '</div>';
   }
 
@@ -391,7 +419,8 @@
       strict: params.strict === '1',
       feedback: params.mode || CORE.P.settings().feedback,
       seed: Date.now() % 99991,
-      mix: params.mix === '1'
+      mix: params.mix === '1',
+      exam3: params.exam3 === '1'
     };
     CORE.mount(view, id, cfg);
   }
