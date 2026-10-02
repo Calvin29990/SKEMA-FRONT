@@ -213,7 +213,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     locaux: [...document.querySelectorAll('script[src],link[rel=stylesheet]')].filter(e => /^(assets|\.\.?\/)/.test(e.getAttribute('src') || e.getAttribute('href') || '')).length,
     externes: [...document.querySelectorAll('link[href^="http"],script[src^="http"]')].length,
   }));
-  ok('version standalone : fichier unique, aucune ressource externe', st.app === 15 && st.scripts === 0 && st.locaux === 0 && st.externes === 0, st.app + ' tâches · ' + st.scripts + ' script externe · ' + st.externes + ' ressource externe');
+  ok('version standalone : fichier unique, aucune ressource externe', st.app === 16 && st.scripts === 0 && st.locaux === 0 && st.externes === 0, st.app + ' tâches · ' + st.scripts + ' script externe · ' + st.externes + ' ressource externe');
   const docs = await ctx.newPage();
   await docs.goto('file:///home/user/SKEMA-FRONT/docs/index.html', { waitUntil: 'networkidle2' });
   await wait(800);
