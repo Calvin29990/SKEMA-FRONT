@@ -54,7 +54,17 @@
     if (p === 'reglages') return settingsView();
     return landing();
   }
-  function routeAndBind() { route(); bindSwitches(); }
+  function routeAndBind() { route(); bindSwitches(); bindLang(); if (typeof I18N !== 'undefined') I18N.apply(view); }
+
+  /* ═══════════════════ LANGUE (FR / EN / ES / PT) ═══════════════════ */
+  function setLang(v) {
+    I18N.set(v);
+    U.$$('[data-lang-sel],#langSel').forEach(el => { el.value = v; });
+    U.toast('Langue : ' + I18N.label(v));
+  }
+  function bindLang() {
+    U.$$('[data-lang-sel],#langSel').forEach(el => { el.onchange = () => setLang(el.value); el.value = I18N.current(); });
+  }
 
   /* ═══════════════════ ÉCRAN D'ACCÈS (code + prénom) ═══════════════════ */
   function showLogin() {
@@ -79,6 +89,7 @@
           '<div class="lg-users">' + known.map(n => '<button data-name="' + U.esc(n) + '">' + U.esc(n) + '</button>').join('') + '</div>' : '') +
         '<div class="lg-foot">Accès réservé — reproduction et diffusion interdites.<br>' +
           'Données stockées uniquement dans ce navigateur.</div>' +
+        '<div class="lg-lang">' + I18N.selectHTML('langsel') + '</div>' +
       '</div>';
     document.body.appendChild(ov);
 
@@ -97,6 +108,8 @@
       U.toast('Profil « ' + CORE.PROFILES.current() + ' » — historique séparé');
     }
     U.$('#lgGo').onclick = () => go();
+    const lgSel = ov.querySelector('[data-lang-sel]');
+    if (lgSel) lgSel.onchange = () => { I18N.set(lgSel.value); U.$$('[data-lang-sel],#langSel').forEach(x => { x.value = lgSel.value; }); };
     U.$$('#loginOverlay .lg-users button').forEach(b => b.onclick = () => { name.value = b.dataset.name; go(); });
     ov.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
     setTimeout(() => code.focus(), 80);
@@ -197,7 +210,7 @@
       if (start) start.onclick = (e) => { e.stopPropagation(); startRun(id === '_mix' ? 'mixed' : id, id === '_mix' ? { mix: '1', strict: '1', mode: 'end' } : {}); };
       r.querySelector('.tchev').onclick = (e) => { e.stopPropagation(); r.classList.toggle('open'); };
       const sel = r.querySelector('.tlang');
-      if (sel) sel.onchange = () => { const s2 = CORE.P.settings(); s2.lang = s2.lang || {}; s2.lang[id] = sel.value; CORE.P.saveSettings(s2); U.toast('Langue des consignes : ' + (sel.value === 'en' ? 'English' : 'Français')); };
+      if (sel) sel.onchange = () => setLang(sel.value);
     });
   }
 
@@ -213,17 +226,14 @@
     const state = !st ? 'none' : (st.best != null && st.best >= 0.85 ? 'done' : 'prog');
     const icon = state === 'done' ? I.check : (state === 'prog' ? I.gear : I.hourglass);
     const cls = state === 'done' ? 'st-done' : (state === 'prog' ? 'st-prog' : '');
-    const lg = (CORE.P.settings().lang || {})[s.id] || (s.id === 'verbal' || s.id === 'verbalX' ? 'en' : 'fr');
+    const lg = I18N.current();
     return '' +
       '<div class="trow ' + cls + '" data-id="' + s.id + '">' +
         '<span class="tico">' + icon + '</span>' +
         '<span class="tname"><span>' + U.esc(s.name) + (s.source === 'infinite' ? ' ∞' : '') + '</span>' +
           '<span class="tchev" title="Détails">▼</span></span>' +
         '<span class="tdur">' + I.clock + '~ ' + s.dur + ' minute(s)</span>' +
-        '<select class="tlang">' +
-          '<option value="fr"' + (lg === 'fr' ? ' selected' : '') + '>Français (UE)</option>' +
-          '<option value="en"' + (lg === 'en' ? ' selected' : '') + '>English (UK)</option>' +
-        '</select>' +
+        I18N.selectHTML('tlang') +
         '<button class="tstart">Début</button>' +
       '</div>' +
       '<div class="tdetails">' +
@@ -244,7 +254,7 @@
         '<span class="tico">' + (done ? I.check : I.gear) + '</span>' +
         '<span class="tname"><span>Simulation complète — conditions d’examen</span><span class="tchev" title="Détails">▼</span></span>' +
         '<span class="tdur">' + I.clock + '~ 49 minute(s)</span>' +
-        '<select class="tlang"><option selected>Français (UE)</option><option>English (UK)</option></select>' +
+        I18N.selectHTML('tlang') +
         '<button class="tstart">Début</button>' +
       '</div>' +
       '<div class="tdetails">' +
@@ -718,8 +728,8 @@
   /* sélecteur de langue global (défaut des consignes) */
   const ls = U.$('#langSel');
   const st0 = CORE.P.settings();
-  ls.value = st0.langUI || 'fr';
-  ls.onchange = () => { const s2 = CORE.P.settings(); s2.langUI = ls.value; CORE.P.saveSettings(s2); U.toast('Langue des consignes : ' + (ls.value === 'en' ? 'English' : 'Français')); };
+  ls.value = I18N.current();
+  ls.onchange = () => setLang(ls.value);
 
   /* interrupteur de thème de l'en-tête */
   const themeSw = U.$('#themeSw');
@@ -731,6 +741,18 @@
   /* pastille utilisateur */
   if (U.$('#userBtn')) U.$('#userBtn').onclick = () => userMenu();
   paintUser();
+
+  /* langue de l'interface (FR par défaut, mémorisée par profil/navigateur) */
+  if (typeof I18N !== 'undefined') {
+    I18N.init();
+    I18N.onChange(() => {
+      /* pendant une session en cours on ne relance pas l'exercice : on retraduit l'écran */
+      if (location.hash.indexOf('#/run/') === 0 || location.hash.indexOf('#/session/') === 0) {
+        I18N.apply(document.body);
+        const v = U.$('#view'); if (v) I18N.apply(v);
+      } else routeAndBind();
+    });
+  }
 
   /* accès : profil mémorisé -> application ; sinon écran d'accès (code + prénom) */
   CORE.P.migrate();

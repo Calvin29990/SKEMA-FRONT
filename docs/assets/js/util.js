@@ -81,12 +81,16 @@ const U = (() => {
   /* ─────────── Modale ─────────── */
   function modal(html) {
     const back = $('#modalBack'), box = $('#modalBox');
-    box.innerHTML = html; back.hidden = false;
+    box.innerHTML = html; back.hidden = false; back.style.display = 'flex';
     back.onclick = (e) => { if (e.target === back) closeModal(); };
     document.addEventListener('keydown', escClose);
   }
   function escClose(e) { if (e.key === 'Escape') closeModal(); }
-  function closeModal() { const b = $('#modalBack'); if (b) b.hidden = true; document.removeEventListener('keydown', escClose); }
+  function closeModal() {
+    const b = $('#modalBack');
+    if (b) { b.hidden = true; b.style.display = 'none'; }
+    document.removeEventListener('keydown', escClose);
+  }
 
   /* ─────────── Sons (bips WebAudio, sans fichier externe) ─────────── */
   let actx = null;

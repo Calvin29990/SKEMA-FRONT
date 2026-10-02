@@ -15,14 +15,34 @@ const CORE = (() => {
           hint:'Raccourcis 1-4 puis Entrée', right:'✔ Correct', wrong:'✘ Incorrect', answer:'Réponse',
           pickFig:'Cliquez la figure qui complète la suite (1-3)', pickLk:'Pas de bonne réponse — choisissez vite, restez cohérent.',
           same:'Identiques', diff:'Différentes', itemNext:'Item suivant', affirm:'Affirmation',
-          memor:'Mémorisez les cases', reproduce:'Reproduisez les cases', selection:'Sélection' },
+          memor:'Mémorisez les cases', reproduce:'Reproduisez les cases', selection:'Sélection',
+          memoryNote:'Les cases vont disparaître — reproduisez-les de mémoire.',
+          cellsNote:'Cliquez les cases puis validez.', swapNote:'Un échange s’applique de gauche à droite.' },
     en: { validate:'Submit', skip:'Skip', quit:'Quit', next:'Next', nextSub:'Next statement',
           hint:'Keys 1-4 then Enter', right:'✔ Correct', wrong:'✘ Incorrect', answer:'Answer',
           pickFig:'Click the figure that completes the series (1-3)', pickLk:'No right answer — answer quickly and stay consistent.',
           same:'Identical', diff:'Different', itemNext:'Next item', affirm:'Statement',
-          memor:'Memorise the highlighted cells', reproduce:'Reproduce the cells', selection:'Selection' }
+          memor:'Memorise the highlighted cells', reproduce:'Reproduce the cells', selection:'Selection',
+          memoryNote:'The cells will disappear — reproduce them from memory.',
+          cellsNote:'Click the cells, then submit.', swapNote:'A swap is applied from left to right.' },
+    es: { validate:'Validar', skip:'Pasar', quit:'Salir', next:'Siguiente', nextSub:'Siguiente afirmación',
+          hint:'Teclas 1-4 y Enter', right:'✔ Correcta', wrong:'✘ Incorrecta', answer:'Respuesta',
+          pickFig:'Haga clic en la figura que completa la serie (1-3)', pickLk:'No hay respuesta correcta — responda rápido y mantenga la coherencia.',
+          same:'Iguales', diff:'Diferentes', itemNext:'Siguiente ítem', affirm:'Afirmación',
+          memor:'Memorice las casillas', reproduce:'Reproduzca las casillas', selection:'Selección',
+          memoryNote:'Las casillas van a desaparecer — reprodúzcalas de memoria.',
+          cellsNote:'Haga clic en las casillas y valide.', swapNote:'Un intercambio se aplica de izquierda a derecha.' },
+    pt: { validate:'Validar', skip:'Passar', quit:'Sair', next:'Seguinte', nextSub:'Afirmação seguinte',
+          hint:'Teclas 1-4 e Enter', right:'✔ Correta', wrong:'✘ Incorreta', answer:'Resposta',
+          pickFig:'Clique na figura que completa a série (1-3)', pickLk:'Não há resposta certa — responda depressa e mantenha a coerência.',
+          same:'Iguais', diff:'Diferentes', itemNext:'Item seguinte', affirm:'Afirmação',
+          memor:'Memorize as células', reproduce:'Reproduza as células', selection:'Seleção',
+          memoryNote:'As células vão desaparecer — reproduza-as de memória.',
+          cellsNote:'Clique nas células e valide.', swapNote:'Uma troca aplica-se da esquerda para a direita.' }
   };
-  const T = () => LANG[(S && S.lang) === 'en' ? 'en' : 'fr'];
+  const T = () => LANG[(S && S.lang)] || LANG.fr;
+  /* traduction ponctuelle (exports CSV, impressions) */
+  const TT = (x) => (typeof I18N !== 'undefined' ? I18N.tr(x) : x);
 
   /* ═══════════════════════════════════════════════════════════
      REGISTRE DES SECTIONS
@@ -289,13 +309,15 @@ const CORE = (() => {
       const head = ['Profil', 'Session', 'Date', 'Heure', 'Section', 'N°', 'Question', 'Réponse donnée',
         'Réponse correcte', 'Résultat', 'Temps (ms)', 'Explication'];
       const secName = (sid) => (byId(sid) ? byId(sid).name : (sid || ''));
+      const headT = head.map(csvc).join(';');
+      const res = { 'true': TT('Correcte'), 'false': TT('Réponse incorrecte'), 'null': TT('Sans bonne réponse') };
       const rows = log.map((r, i) => [
         PROFILES.current() || '', id, dFr(a.at), hFr(a.at), secName(r.section), (r.n || i + 1),
         csvc(r.q), csvc(r.given), csvc(r.correct),
-        r.ok === true ? 'correct' : (r.ok === false ? 'incorrect' : 'sans bonne reponse'),
+        csvc(res[String(r.ok)] || ''),
         r.ms == null ? '' : r.ms, csvc(r.why)
       ]);
-      const csv = [head.map(csvc).join(';')].concat(rows.map(r => r.join(';'))).join('\r\n');
+      const csv = [headT].concat(rows.map(r => r.join(';'))).join('\r\n');
       const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const lk = document.createElement('a');
@@ -445,8 +467,7 @@ const CORE = (() => {
 
     const totalQ = items.reduce((a, it) => a + (it.multi ? it.sub.length : (it.sub ? it.sub.length : 1)), 0);
     const stLang = P.settings().lang || {};
-    const lang = cfg.lang || stLang[sectionId] ||
-      ((sectionId === 'verbal' || sectionId === 'verbalX') ? 'en' : (P.settings().langUI || 'fr'));
+    const lang = cfg.lang || P.settings().langUI || (typeof stLang === 'string' ? stLang : 'fr');
     S = {
       sec, cfg, items, i: 0, done: false, locked: false, pending: false, subIndex: 0, totalQ, lang,
       t0: Date.now(), qStart: 0, phase: 'question',
@@ -605,7 +626,7 @@ const CORE = (() => {
       const on = it2.cells.includes(c);
       html += '<div class="gm ' + (on ? (color === 'grn' ? 'blue' : color) + ' spark' : 'blank edge') + '">' + (on ? '●' : '') + '</div>';
     }
-    html += '</div><div class="tiny dim">' + (S.lang === 'en' ? 'The cells will disappear — reproduce them from memory.' : 'Les cases vont disparaître — reproduisez-les de mémoire.') + '</div></div>';
+    html += '</div><div class="tiny dim">' + T().memoryNote + '</div></div>';
     U.$('#qbody').innerHTML = html;
     U.$('#qfoot').innerHTML = '<button class="btn pri" id="okBtn" disabled>Valider</button>';
     U.$('#okBtn').onclick = () => submit();
@@ -632,7 +653,7 @@ const CORE = (() => {
     for (let c = 0; c < size * size; c++) html += '<div class="gm blank edge" data-c="' + c + '"></div>';
     html += '</div></div>';
     U.$('#qbody').innerHTML = html;
-    U.$('#qfoot').innerHTML = '<span class="tiny dim">' + (S.lang === 'en' ? 'Click the cells, then submit.' : 'Cliquez les cases puis validez.') + '</span><button class="btn pri" id="okBtn">' + T().validate + '</button>';
+    U.$('#qfoot').innerHTML = '<span class="tiny dim">' + T().cellsNote + '</span><button class="btn pri" id="okBtn">' + T().validate + '</button>';
     gridSel = new Set();
     U.$$('#qbody .gm').forEach(g => g.onclick = () => {
       const c = +g.dataset.c;
@@ -658,7 +679,7 @@ const CORE = (() => {
       '<div class="center small dim" style="margin-top:22px">Quelle combinaison d’échanges produit ce résultat ?</div>' +
       '<div class="dnd-ops" id="opts">' + it.options.map((o, i) =>
         '<button class="dnd-op" data-i="' + i + '">' + U.esc(o.label) + '<small>' + (i + 1) + '</small></button>').join('') + '</div>';
-    f.innerHTML = '<span class="tiny dim">' + (S.lang === 'en' ? 'A swap is applied from left to right.' : 'Un échange s’applique de gauche à droite.') + '</span><button class="btn pri" id="okBtn" disabled>' + T().validate + '</button>';
+    f.innerHTML = '<span class="tiny dim">' + T().swapNote + '</span><button class="btn pri" id="okBtn" disabled>' + T().validate + '</button>';
     U.$$('.dnd-op').forEach(o => o.onclick = () => pick(+o.dataset.i));
     U.$('#okBtn').onclick = () => submit();
   }
