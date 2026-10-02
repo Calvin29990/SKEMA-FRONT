@@ -5,10 +5,10 @@
 (function (global) {
   'use strict';
   const ENGLISH_BANK = [
-    { s: "Thanks to the high standards of service we offer our customers, we have been able to establish an excellent ___.", o: ["reputable", "reputation", "reputedly", "repute"], a: 1, why: "« an excellent reputation » : nom après l'adjectif." },
-    { s: "I can honestly say I haven't had such a ___ meal for ages.", o: ["delight", "delightful", "delighted", "delighting"], a: 1, why: "« a delightful meal » : adjectif épithète." },
-    { s: "I want to ___ to Nutfield Avenue.", o: ["find", "get", "fetch", "come"], a: 1, why: "« get to » = se rendre à." },
-    { s: "They went ___ business shortly after their children had left home.", o: ["into", "on", "in", "out"], a: 0, why: "« go into business » = se lancer en affaires." },
+    { s: "The audit revealed that several invoices had been issued ___ any purchase order.", o: ["without", "unless", "apart", "besides"], a: 0, why: "« issued without a purchase order » : sans bon de commande." },
+    { s: "The file has been ___ by our relationship manager since March.", o: ["handled", "dealing", "handling", "handle"], a: 0, why: "Voix passive : « has been handled » (participe passé)." },
+    { s: "Please ___ the attached schedule before the call on Thursday.", o: ["look", "review", "watch", "see"], a: 1, why: "« review a schedule » = passer en revue un planning." },
+    { s: "She ___ in charge of the client portfolio since 2023.", o: ["is", "has been", "was", "were"], a: 1, why: "« since 2023 » impose le present perfect : « has been »." },
     { s: "The board decided to ___ the launch of the new fund until the market settled.", o: ["postpone", "delay", "defer", "All three are possible"], a: 3, why: "Les trois verbes conviennent ici : postpose/delay/defer = reporter." },
     { s: "Our analysts ___ a gradual recovery in emerging-market debt over the next two quarters.", o: ["foresee", "foretell", "foresight", "forecast"], a: 0, why: "« foresee » = prévoir (verbe) ; « forecast » conviendrait aussi, mais la forme attendue ici est le verbe au présent simple." },
     { s: "The client asked us to ___ the figures before the meeting.", o: ["run into", "run through", "run out", "run over"], a: 1, why: "« run through » = parcourir rapidement." },
