@@ -35,6 +35,9 @@
     if (!h.startsWith('#/run/') && CORE.current) CORE.destroy();
     if (h.startsWith('#/run/')) { const id = h.slice(6); if (CORE.byId(id)) { if (!CORE.current || CORE.current.sec.id !== id) CORE.start(id); return; } location.hash = '#/'; return; }
     document.getElementById('navGrid').classList.remove('on');
+    const tab = h === '#/progression' ? 'progression' : h === '#/feedback' ? 'feedback' : h === '#/reglages' ? 'reglages' : 'home';
+    const tabs = document.getElementById('skTabs');
+    if (tabs) tabs.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab));
     if (h === '#/progression') return pageProgress();
     if (h === '#/feedback') return pageFeedback();
     if (h === '#/reglages') return pageSettings();
@@ -96,22 +99,51 @@
 
   function sessModal(id) {
     const a = P.sessionOf(id), log = P.sessionLog(id);
-    U.modal('<h2>' + esc((a && a.sectionName) || 'Session') + '</h2><p class="tiny">' + esc((a && a.date) || '') + ' ' + esc((a && a.time) || '') + (a && a.accuracy != null ? ' — précision ' + U.pct(a.accuracy) : '') + '</p>' +
-      '<div class="logbox">' + (log.length ? log.map((r, i) => '<div class="logrow ' + (r.ok === true ? 'ok' : r.ok === false ? 'ko' : '') + '"><b>' + (r.n || i + 1) + '.</b> ' + esc(r.q) + '<br><span class="tiny">Donnée : ' + esc(r.given) + ' · Correcte : ' + esc(r.correct) + (r.why ? ' · ' + esc(r.why) : '') + '</span></div>').join('') : '<p class="tiny">Aucun détail enregistré pour cette session.</p>') + '</div>' +
-      '<div class="row end"><button class="btn" id="smClose">Fermer</button><button class="btn primary" id="smCsv">Exporter le CSV</button></div>');
+    const sec = a && CORE.byId(a.section);
+    U.modal('<h2>' + esc((a && a.sectionName) || 'Session') + '</h2>' +
+      '<p class="tiny">' + esc((a && a.date) || '') + ' ' + esc((a && a.time) || '') +
+      (a && a.accuracy != null ? ' — score ' + a.correct + '/' + a.items + ' (' + U.pct(a.accuracy) + ')' : '') +
+      (a && a.ms ? ' — durée ' + Math.round(a.ms / 60000) + ' min' : '') + '</p>' +
+      '<div class="fbbox">' + (log.length ? log.map((r, i) => '<div class="logrow ' + (r.ok === true ? 'ok' : r.ok === false ? 'ko' : '') + '"><b>Question ' + (r.n || i + 1) + '</b> — ' + esc(r.q) +
+        '<br><span class="tiny">Votre réponse : <b>' + esc(r.given) + '</b> · Bonne réponse : <b>' + esc(r.correct) + '</b>' + (r.ms ? ' · ' + U.ms(r.ms) : '') +
+        (r.why ? '<br>Explication : ' + esc(r.why) : '') + '</span></div>').join('') : '<p class="tiny">Aucun détail enregistré pour cette session.</p>') + '</div>' +
+      '<div class="row end"><button class="btn" id="smClose">Fermer</button>' +
+      (sec ? '<button class="btn primary" id="smRedo">Refaire cette épreuve</button>' : '') +
+      '<button class="btn" id="smCsv">Exporter en CSV</button></div>');
     $('#smClose').onclick = U.closeModal;
     $('#smCsv').onclick = () => P.csv(id);
+    if (sec) $('#smRedo').onclick = () => { U.closeModal(); location.hash = '#/run/' + sec.id; };
   }
 
-  /* ═══════════════ FEEDBACK DÉTAILLÉ ═══════════════ */
+  /* ═══════════════ FEEDBACK ═══════════════ */
   function pageFeedback() {
-    document.getElementById('skTitle').textContent = 'Feedback détaillé';
+    document.getElementById('skTitle').textContent = 'Feedback';
     const v = view(); v.className = 'sk-main page';
-    const wrongs = P.wrongs(60), att = P.attempts().slice().reverse();
-    v.innerHTML = '<h1>Feedback détaillé</h1>' +
-      '<h2>Revoir une session</h2><div class="sesslist">' + (att.length ? att.slice(0, 40).map(a => '<button class="btn xs" data-sess="' + a.id + '">' + esc(a.sectionName || a.section) + ' · ' + esc(a.date || '') + ' ' + esc(a.time || '') + '</button>').join('') : '<p class="tiny">Aucune session.</p>') + '</div>' +
-      '<h2>Dernières erreurs</h2>' + (wrongs.length ? '<div class="logbox">' + wrongs.map(r => '<div class="logrow ko"><b>' + esc(r.q) + '</b><br><span class="tiny">Donnée : ' + esc(r.given) + ' · Correcte : ' + esc(r.correct) + (r.why ? ' · ' + esc(r.why) : '') + '</span></div>').join('') + '</div>' : '<p class="tiny">Aucune erreur enregistrée — bravo.</p>');
-    v.querySelectorAll('[data-sess]').forEach(b => b.onclick = () => sessModal(b.dataset.sess));
+    const o = P.overall(), att = P.attempts().slice().reverse(), wrongs = P.wrongs(80);
+    v.innerHTML = '<h1>Feedback</h1>' +
+      '<p class="tiny">Relecture en français de vos sessions : épreuve, question, réponse donnée, bonne réponse et explication. Tout reste dans ce navigateur.</p>' +
+      '<div class="cards">' + card('Sessions enregistrées', o.n) + card('Réponses correctes', o.correct + ' / ' + o.items) + card('Précision globale', U.pct(o.accuracy)) + card('Temps cumulé', Math.round(o.minutes) + ' min') + '</div>' +
+      '<div class="setbox"><h2>Revoir une session</h2>' +
+      '<div class="setrow"><span>Filtrer par épreuve</span><select id="fbSel"><option value="">Toutes les épreuves</option>' +
+      CORE.SECTIONS.map(s2 => '<option value="' + s2.id + '">' + esc(s2.home) + '</option>').join('') + '</select></div>' +
+      '<div class="sesslist" id="fbList"></div></div>' +
+      '<h2>Dernières erreurs</h2>' +
+      (wrongs.length
+        ? '<p class="tiny">Chaque ligne indique la question, votre réponse, la bonne réponse et l’explication.</p>' +
+          '<div class="logbox">' + wrongs.map(r => '<div class="logrow ko"><b>' + esc(r.q) + '</b><br><span class="tiny">' +
+            (r.sectionName ? esc(r.sectionName) + ' · ' : '') + 'Votre réponse : <b>' + esc(r.given) + '</b> · Bonne réponse : <b>' + esc(r.correct) + '</b>' +
+            (r.why ? ' · ' + esc(r.why) : '') + '</span></div>').join('') + '</div>'
+        : '<p class="tiny">Aucune erreur enregistrée pour l’instant — bravo.</p>');
+    const paint = () => {
+      const id = $('#fbSel').value, list = att.filter(a => !id || a.section === id);
+      $('#fbList').innerHTML = list.length ? list.slice(0, 60).map(a =>
+        '<button class="btn xs" data-sess="' + a.id + '">' + esc(a.sectionName || a.section) + ' · ' + esc(a.date || '') + ' ' + esc(a.time || '') +
+        (a.accuracy == null ? '' : ' · ' + U.pct(a.accuracy)) + '</button>').join('')
+        : '<p class="tiny">Aucune session pour ce filtre.</p>';
+      $('#fbList').querySelectorAll('[data-sess]').forEach(b => b.onclick = () => sessModal(b.dataset.sess));
+    };
+    $('#fbSel').onchange = paint;
+    paint();
   }
 
   /* ═══════════════ RÉGLAGES ═══════════════ */
@@ -194,7 +226,7 @@
   }
 
   /* ═══════════════ Démarrage ═══════════════ */
-  $('#footMeta').textContent = 'Assessment Trainer v4.0 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
+  $('#footMeta').textContent = 'Assessment Trainer v4.1 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
   ensureUser();
   route();
 })();

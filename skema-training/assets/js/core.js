@@ -18,7 +18,7 @@ const CORE = (() => {
     { id: 'inductive',     home: 'Raisonnement Inductif',                     head: 'Inductive Reasoning',                   min: 9,  kind: 'pick2',    timed: 360 },
     { id: 'concentration', home: 'Capacité de Concentration',                 head: 'Ability to Concentrate',                min: 5,  kind: 'edots',    timed: 120, exTime: 30 },
     { id: 'multitask',     home: 'Capacité multi-tâches',                     head: 'Multi-tasking',                         min: 8,  kind: 'mt',       timed: 480, noDetail: true },
-    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem' },
+    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem',  timed: 360 },
     { id: 'info',          home: 'Traitement de l’information',          head: 'Information Handling',                  min: 18, kind: 'inbox',    timed: 900 },
     { id: 'english',       home: 'Compétences Linguistiques - Anglais',  head: 'Competences Linguistiques - Anglais',  min: 13, kind: 'lang',     lang: 'en' },
     { id: 'french',        home: 'Compétences Linguistiques - Français', head: 'Compétences Linguistiques - Français', min: 13, kind: 'lang',     lang: 'fr' },
@@ -63,7 +63,9 @@ const CORE = (() => {
     },
     wrongs(limit = 40) {
       const d = this.details(), out = [];
-      Object.keys(d).sort().reverse().forEach(k => (d[k] || []).forEach(it => { if (it && it.ok === false) out.push(Object.assign({ sess: k }, it)); }));
+      Object.keys(d).sort().reverse().forEach(k => (d[k] || []).forEach(it => {
+        if (it && it.ok === false) out.push(Object.assign({ sess: k }, it, { sectionName: (byId(it.section) || {}).home || it.section }));
+      }));
       return out.slice(0, limit);
     },
     PROFILES,                       /* alias : P.PROFILES.current() */
@@ -95,6 +97,8 @@ const CORE = (() => {
     S = null;
     document.body.classList.remove('running');
     const ng = document.getElementById('navGrid'); if (ng) ng.classList.remove('on');
+    ['skTimer', 'skCount', 'skLvl'].forEach(id => { const n = document.getElementById(id); if (n) { n.textContent = ''; if (id === 'skLvl') n.hidden = true; } });
+    const bk = document.getElementById('skBook'); if (bk) bk.hidden = true;
   }
 
   function start(id) {
@@ -126,8 +130,8 @@ const CORE = (() => {
       case 'edots': S.items = []; S.seed = seed; break;
       case 'mt': S.items = []; S.seed = seed; break;
       case 'seqmem': S.items = Array.from({ length: 6 }, (_, s2) => ({ sec: s2, order: DRILL.leOrder(seed, s2) })); S.demo = { order: DRILL.leOrder(seed, 90) }; break;
-      case 'inbox': S.mails = BANK.infoMails.map((m, i) => Object.assign({ id: i, prio: null, act: null, arrived: 0 }, m)); S.lateAt = [240, 480, 720]; break;
-      case 'lang': S.items = []; break;   /* géré par sous-phases */
+      case 'inbox': S.seed = seed; S.mails = BANK.infoMails.map((m, i) => Object.assign({ id: i, prio: null, act: null, arrived: 0 }, m)); S.lateAt = [180, 330, 480, 630]; break;
+      case 'lang': S.items = []; S.seed = seed; break;   /* géré par sous-phases */
       case 'mech': S.items = BANK.mech.map(x => Object.assign({}, x)); S.examples = [Object.assign({}, BANK.mech[0])]; break;
       case 'switchcode': S.items = []; S.seed = seed; break;
     }
@@ -152,10 +156,13 @@ const CORE = (() => {
       } else if (S.secEnd && now >= S.secEnd) {
         if (S.sec.kind === 'lang') return langNextSection(true);
       }
-      if (S.sec.kind === 'inbox' && S.lateAt && S.lateAt.length && (now - S.t0) / 1000 >= S.lateAt[0]) {
+      if (S.sec.kind === 'inbox' && (now - S.t0) / 1000 >= S.lateAt[0]) {
         S.lateAt.shift();
-        const m = BANK.infoMailsLate[S.late++];
+        const i = S.late++;
+        const m = BANK.infoMailsLate[i] || DRILL.infoMail(i - BANK.infoMailsLate.length);
         if (m) { S.mails.push(Object.assign({ id: S.mails.length, prio: null, act: null, arrived: now, isNew: true }, m)); if (S.phase === 'run') paintInboxList(); }
+        const next = Math.max((S.lateAt.length ? S.lateAt[S.lateAt.length - 1] : 0) + 150, (now - S.t0) / 1000 + 150);
+        if (S.deadline && (S.t0 + next * 1000) < (S.deadline - 20000)) S.lateAt.push(next);   /* toujours de nouveaux mails */
       }
     }
     chrome();
@@ -170,7 +177,7 @@ const CORE = (() => {
     const now = Date.now();
     let t = '';
     if (S.sec.kind === 'lang') t = (S.langPhase === 'run' && S.secEnd) ? mmss((S.secEnd - now) / 1000) : '';
-    else if (S.sec.kind === 'seqmem') t = S.lePhase === 'place' && S.secEnd ? mmss((S.secEnd - now) / 1000) : (S.lePhase === 'break' ? mmss((S.secEnd - now) / 1000) : '');
+    else if (S.sec.kind === 'seqmem') t = S.deadline ? mmss((S.deadline - now) / 1000) : '';
     else if (S.sec.timed) t = mmss((S.deadline - now) / 1000);
     T.textContent = t;
     T.classList.toggle('warn', !!t && (S.sec.timed ? (S.deadline - now) < 60000 : (S.secEnd - now) < 30000));
@@ -274,7 +281,7 @@ const CORE = (() => {
   function beginRun() {
     S.phase = 'run'; S.t0 = Date.now(); S.qStart = Date.now(); S.i = 0;
     const sec = S.sec;
-    if (sec.timed && sec.kind !== 'seqmem') S.deadline = S.t0 + sec.timed * 1000;
+    if (sec.timed) S.deadline = S.t0 + sec.timed * 1000;
     if (sec.kind === 'blocks') S.sel = [0, 0, 0];
     if (sec.kind === 'numverb') { S.i = 0; S.tab = (sec.src === 'num' ? DRILL.NV.tabs[0].id : BANK.verbalSheets[0].id); }
     if (sec.kind === 'mech') S.i = 0;
@@ -316,12 +323,12 @@ const CORE = (() => {
     const tabs = nvTabs();
     const fig = S.sec.src === 'num' ? DRILL.NV.figures[it.tab]() : BANK.verbalSheets.find(s => s.id === it.tab).html;
     view.className = 'sk-main';
-    view.innerHTML = '<div class="nv-tabs">' + tabs.map(t => '<button class="nv-tab' + (t.id === S.tab ? ' on' : '') + '" data-t="' + t.id + '">' + esc(t.name) + '</button>').join('') + '</div>' +
+    view.innerHTML = '<div class="nv-sheets"><span class="nv-sheets-l">' + esc(T.sheets) + '</span><div class="nv-tabs">' + tabs.map(t => '<button class="nv-tab' + (t.id === S.tab ? ' on' : '') + '" data-t="' + t.id + '" title="' + esc(T.sheetGo) + '">' + esc(t.name) + '</button>').join('') + '</div><span class="nv-sheets-h">' + esc(T.sheetsHint) + '</span></div>' +
       '<div class="nv-cols"><div class="nv-fig"><div class="nvtext">' + fig + '</div></div>' +
       '<div class="nv-side"><div class="nv-stmt">' + (isEx ? '<b>EXAMPLE</b> ' : '') + esc(it.q) + '</div>' +
       '<div class="tfbtns">' + T.tf.map((l, i) => '<button class="tfbtn' + (S.sel === i ? ' sel' : '') + '" data-v="' + i + '">' + l + '</button>').join('') + '</div></div></div>' +
       navPadHTML();
-    view.querySelectorAll('.nv-tab').forEach(b => b.onclick = () => { S.tab = b.dataset.t; nvItem(view, it, isEx); });
+    view.querySelectorAll('.nv-tab').forEach(b => b.onclick = () => { S.tab = b.dataset.t; if (S.nvAns != null) S.sel = S.nvAns; nvItem(view, it, isEx); });
     view.querySelectorAll('.tfbtn').forEach(b => b.onclick = () => {
       const v = +b.dataset.v;
       if (isEx) { S.sel = v; view.querySelectorAll('.tfbtn').forEach(x => x.classList.remove('sel', 'ok', 'ko')); b.classList.add(it.a === v ? 'ok' : 'ko'); setTimeout(() => exampleDone(it.a === v), 700); return; }
@@ -333,7 +340,7 @@ const CORE = (() => {
     bindNav(view, isEx);
     chrome();
   }
-  function renderNumVerb(view) { const it = S.items[S.i]; S.sel = S.answers[S.i] == null ? null : S.answers[S.i]; S.tab = it.tab; S.nvAns = null; nvItem(view, it, false); }
+  function renderNumVerb(view) { const it = S.items[S.i]; S.sel = S.answers[S.i] == null ? null : S.answers[S.i]; S.nvAns = null; nvItem(view, it, false); }
   const tfText = (it, idx) => (it.o ? it.o[idx] : STR(S.sec).tf[idx]);
   function nvSchedule(view, it) {
     clearTimeout(S.nvTimer);
@@ -358,10 +365,15 @@ const CORE = (() => {
   }
 
   /* ═══════════════ Navigation ‹ ▦ › ══════════════ */
-  function navPadHTML() { return '<div class="navpad"><button id="nvPrev">‹</button><button id="nvGrid">▦</button><button id="nvNext">›</button></div>'; }
+  function navPadHTML() {
+    const done = S && S.items && Object.keys(S.answers || {}).length >= S.items.length;
+    return '<div class="navpad"><button id="nvPrev">‹</button><button id="nvGrid">▦</button><button id="nvNext">›</button>' +
+      (done ? '<button class="navpad-end" id="nvEnd">' + esc(STR(S.sec).finish) + '</button>' : '') + '</div>';
+  }
   function bindNav(view, isEx) {
     const p = document.getElementById('nvPrev'), n = document.getElementById('nvNext'), g = document.getElementById('nvGrid');
     if (isEx) { p.style.visibility = n.style.visibility = g.style.visibility = 'hidden'; return; }
+    const e = document.getElementById('nvEnd'); if (e) e.onclick = () => finish();
     const stopNv = () => { if (S.sec.kind === 'numverb') { clearTimeout(S.nvTimer); S.nvAns = null; } };
     p.onclick = () => { if (S.i > 0) { stopNv(); S.i--; render(); } };
     n.onclick = () => { stopNv(); S.i = Math.min(S.items.length - 1, S.i + 1); render(); };
@@ -503,7 +515,8 @@ const CORE = (() => {
     }
     /* place */
     const filled = S.placed.filter(x => x != null).length;
-    view.innerHTML = '<div class="qtitle">' + esc(T.lePlace) + ' (' + (S.leSec + 1) + '/6)</div>' +
+    const left = S.secEnd ? mmss(Math.max(0, (S.secEnd - Date.now()) / 1000)) : '';
+    view.innerHTML = '<div class="qtitle">' + esc(T.lePlace) + ' (' + (S.leSec + 1) + '/6)' + (left ? ' — ' + left : '') + '</div>' +
       '<div class="le-pool">' + S.pool.filter(k => !S.placed.includes(k)).map(k => '<button class="le-p" data-k="' + k + '"><svg viewBox="0 0 100 100">' + BANK.leObjs[k] + '</svg></button>').join('') + '</div>' +
       '<div class="le-fields">' + Array.from({ length: 12 }, (_, i) => '<div class="le-f' + (S.placed[i] != null ? ' filled' : '') + '" data-f="' + i + '">' + (S.placed[i] != null ? '<svg viewBox="0 0 100 100">' + BANK.leObjs[S.placed[i]] + '</svg>' : '<i>' + (i + 1) + '</i>') + '</div>').join('') + '</div>' +
       '<div class="le-bar"><i style="width:' + Math.round(filled / 12 * 100) + '%"></i></div>' +
@@ -582,12 +595,13 @@ const CORE = (() => {
 
   /* ═══════════════ LANGUES (anglais / français) ═══════════════ */
   function langBank() {
-    if (S.sec.lang === 'en') return [{ type: 'flu', items: BANK.enFluency, sec: 240 }, { type: 'voc', items: BANK.enVocab, sec: 240 }, { type: 'spe', items: BANK.enSpell, sec: 120 }];
-    return [{ type: 'flu', items: BANK.frFluency, sec: 240 }, { type: 'voc', items: BANK.frVocab, sec: 240 }, { type: 'spe', items: BANK.frSpell, sec: 120 }];
+    const lang = S.sec.lang === 'en' ? 'en' : 'fr';
+    return [{ type: 'flu', sec: 240 }, { type: 'voc', sec: 240 }, { type: 'spe', sec: 120 }]
+      .map((x, k) => Object.assign({ sec: x.sec }, DRILL.langSection(lang, x.type, (S.seed || 1) + k * 977)));
   }
   function langBuildSection() { S.cur = langBank()[S.sub]; S.langIdx = 0; S.langPhase = 'examples'; S.langDone = 0; S.langCount = S.cur.items.length; }
   function langExample(view) {
-    const T = STR(S.sec), q = S.cur.items[S.langIdx];
+    const T = STR(S.sec), q = S.cur.at(S.langIdx);
     view.className = 'sk-main';
     view.innerHTML = '<div class="qinstr">EXEMPLE — ' + esc(instrFor(S.cur.type)) + '</div>' + langItemHTML(q) ;
     bindLangOpts(view, (i) => { view.querySelectorAll('.optrow').forEach((x, k) => { if (k === q.a) x.classList.add('ok'); else if (k === i) x.classList.add('ko'); }); setTimeout(() => { S.langIdx++; if (S.langIdx >= 2) S.langPhase = 'ready'; render(); }, 800); });
@@ -626,17 +640,16 @@ const CORE = (() => {
       document.getElementById('lgNext').onclick = () => { S.sub = nxt; langBuildSection(); S.langPhase = 'examples'; S.phase = 'example'; S.secEnd = 0; render(); };
       return chrome();
     }
-    const q = S.cur.items[S.langIdx];
+    const q = S.cur.at(S.langIdx);
     view.className = 'sk-main';
     view.innerHTML = '<div class="qinstr">' + esc(instrFor(S.cur.type)) + '</div>' + langItemHTML(q) +
       '<div class="langnext"><button class="langchev" id="lgNext" disabled title="' + esc(T.next) + '">›</button></div>';
     const advance = () => {
-      const i = S.langSel == null ? 99 : S.langSel, qq = S.cur.items[S.langIdx];
+      const i = S.langSel == null ? 99 : S.langSel, qq = S.cur.at(S.langIdx);
       const unk = i === 99, ok = unk ? null : (i === qq.a);
       S.log.push({ n: S.log.length + 1, q: qq.s, given: unk ? '?' : qq.o[i], correct: qq.o[qq.a], ok, ms: Date.now() - S.qStart, section: S.sec.id, why: qq.w || '' });
       S.qStart = Date.now(); S.langSel = null; S.langDone++; S.langIdx++;
-      if (S.langIdx >= S.cur.items.length) return langNextSection(false);
-      render();
+      render();                                  /* la section ne s'épuise jamais : le générateur prend le relais */
     };
     bindLangOpts(view, (i) => {
       S.langSel = i;
@@ -750,12 +763,14 @@ const CORE = (() => {
     document.getElementById('navGrid').classList.remove('on');
     render();
   }
+  const COREmmss = mmss;
   function renderEnd(view) {
     const a = S.attempt, lang = P.lang(S.sec.id);
     view.className = 'sk-main narrow';
     view.innerHTML = '<div class="intro-page"><p class="k">' + (lang === 'fr' ? 'Test terminé.' : 'Test finished.') + '</p>' +
       (a.behavioural ? '<p>' + (lang === 'fr' ? 'Vos réponses ont été enregistrées : ce questionnaire ne comporte pas de bonne réponse.' : 'Your answers have been recorded: this questionnaire has no right or wrong answers.') + '</p>'
         : '<p>' + (lang === 'fr' ? 'Score : ' : 'Score: ') + '<b>' + a.correct + ' / ' + a.items + '</b> (' + U.pct(a.accuracy) + ')</p>') +
+      '<p class="tiny">' + (lang === 'fr' ? 'Durée : ' : 'Time: ') + COREmmss(a.ms / 1000) + '</p>' +
       '<p class="tiny" style="color:var(--tx3)">' + (lang === 'fr' ? 'Le détail question par question est disponible dans le menu ≡ → Feedback détaillé.' : 'The question-by-question detail is available in the ≡ menu → Feedback.') + '</p>' +
       '<div class="intro-nav"><button class="btn-intro" id="endHome">‹ ' + (lang === 'fr' ? 'Tâches' : 'Tasks') + '</button><button class="btn-next" id="endFb">' + (lang === 'fr' ? 'Feedback' : 'Feedback') + ' ›</button></div></div>';
     document.getElementById('endHome').onclick = () => { destroy(); location.hash = '#/'; };

@@ -173,6 +173,80 @@ const DRILL = (() => {
   /* ══════════════════ LEARNING — ordres de sections ══════════════════ */
   function leOrder(seed, sec) { return shuffle(rng(seed + sec * 104729), Array.from({ length: 12 }, (_, i) => i)); }
 
+  /* ══════════════════ LANGUES — sections inépuisables ══════════════════
+     Les items des captures passent en premier (banque), puis le générateur
+     produit des questions similaires à l'infini : jamais de section vide. */
+  function spMutate(word, r) {
+    const how = ['double', 'drop', 'swap', 'accent'];
+    for (let e = 0; e < 60; e++) {
+      const w = word.split('');
+      const h = pick(r, how);
+      if (h === 'double') {
+        const cand = w.map((_, i) => i).filter(i => i > 0 && i < w.length - 1 &&
+          /[bcdfglmnprstvz]/.test(w[i]) && w[i] !== w[i - 1] && w[i] !== w[i + 1]);
+        if (!cand.length) continue;
+        const i = pick(r, cand); w.splice(i, 0, w[i]);
+      } else if (h === 'drop') {
+        if (w.length < 5) continue;
+        const cand = w.map((_, i) => i).filter(i => i > 0 && /[a-zà-ü]/i.test(w[i]));
+        w.splice(pick(r, cand), 1);
+      } else if (h === 'swap') {
+        const i = int(r, 1, w.length - 3); const t = w[i]; w[i] = w[i + 1]; w[i + 1] = t;
+      } else {
+        const map = { 'é': 'e', 'è': 'e', 'à': 'a', 'î': 'i', 'ô': 'o', 'û': 'u', 'e': 'é', 'a': 'à' };
+        const cand = w.map((_, i) => i).filter(i => map[w[i]] != null);
+        if (!cand.length) continue;
+        const i = pick(r, cand); w[i] = map[w[i]];
+      }
+      const out = w.join('');
+      if (out !== word && out.length > 2) return out;
+    }
+    return word + word.slice(-1);                     /* filet : jamais identique */
+  }
+  const LANG_KEY = { en: { flu: 'enFluency', voc: 'enVocab', spe: 'enSpell' }, fr: { flu: 'frFluency', voc: 'frVocab', spe: 'frSpell' } };
+  function langSection(lang, type, seed) {
+    const r = U.rng((seed >>> 0) + U.hash(lang + type));
+    const key = LANG_KEY[lang] || LANG_KEY.fr;
+    const bank = (BANK[key[type]] || []).map(x => ({ s: x.s, o: (x.o || []).slice(), a: x.a, w: x.w || '' }));
+    const items = shuffle(r, bank);                    /* ordre différent à chaque session */
+    const extraFlu = (BANK[key.flu] || []).concat(BANK[lang + 'FluencyExtra'] || []);
+    const vocPool = (BANK[key.voc] || []).concat(BANK[lang + 'VocabExtra'] || [])
+      .map(x => ({ w: x.o[x.a], s: x.s })).filter(x => x.w);
+    const spellPool = (BANK[key.spe] || []).map(x => x.o[x.a])
+      .concat((BANK[lang + 'SpellPairs'] || []).map(p => p[0])).filter(Boolean);
+    let n = 0;
+    const gen = () => {
+      n++;
+      if (type === 'flu') {
+        const base = extraFlu[(n - 1) % extraFlu.length];
+        const opts = shuffle(r, base.o.map((t, i) => ({ t, ok: i === base.a })));
+        return { s: base.s, o: opts.map(x => x.t), a: opts.findIndex(x => x.ok), w: base.w || '' };
+      }
+      if (type === 'voc') {
+        const target = vocPool[(n * 11 + 5) % vocPool.length];
+        const others = shuffle(r, vocPool.filter(x => x.w !== target.w)).slice(0, 3).map(x => x.w);
+        const opts = shuffle(r, [target.w].concat(others));
+        return { s: target.s, o: opts, a: opts.indexOf(target.w), w: 'Mot attendu : ' + target.w };
+      }
+      const good = spellPool[(n * 7 + 3) % spellPool.length];
+      const bad = spMutate(good, r);
+      const opts = shuffle(r, [good, bad]);
+      return { s: '', o: opts, a: opts.indexOf(good), w: 'Orthographe correcte : ' + good };
+    };
+    return { type, items, at: (i) => { while (items.length <= i) items.push(gen()); return items[i]; } };
+  }
+
+  /* ══════════════════ TRAITEMENT DE L'INFORMATION — e-mails générés ══════════════════ */
+  function infoMail(i) {
+    const tags = ['atlas', 'boreal', 'cascade', 'support', 'other'];
+    const tag = tags[i % tags.length];
+    const tpl = (BANK.infoMailTpl[tag] || BANK.infoMailTpl.other);
+    const t = tpl[Math.floor(i / tags.length) % tpl.length];
+    const r = U.rng(90210 + i * 7919);
+    const d = tag === 'boreal' ? int(r, 0, 9) : int(r, 0, 8);
+    return { from: t.from, to: tag === 'support' ? BANK.infoRules.support : BANK.infoRules.me, d, tag, subj: t.subj, body: t.body, crit: !!t.crit };
+  }
+
   /* ══════════════════ NUMÉRIQUE — 6 feuilles + 37 énoncés ══════════════════ */
   const esc = U.esc;
   function table(t) {
@@ -349,7 +423,8 @@ const DRILL = (() => {
     ].map((x, i) => Object.assign({ id: 'NV' + (i + 1), kind: 'numverb' }, x))
   };
 
-  return { dedItem, indItem, concItem, concSVG, swItem, applyCode, mtItem, leOrder, NV, table, pie, stacked, lines, hbars };
+  return { dedItem, indItem, concItem, concSVG, swItem, applyCode, mtItem, leOrder, NV, table, pie, stacked, lines, hbars,
+           langSection, spMutate, infoMail };
 })();
 
 if (typeof window !== 'undefined') window.DRILL = DRILL; else globalThis.DRILL = DRILL;

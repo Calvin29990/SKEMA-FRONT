@@ -248,7 +248,9 @@ function serve(dir) {
   await page.evaluate(() => document.getElementById('leOk').click());
   await wait(150);
   const le3 = await page.evaluate(() => ({ phase: CORE.current.phase, lePhase: CORE.current.lePhase, timer: document.getElementById('skTimer').textContent }));
-  ok(le3.phase === 'run' && le3.lePhase === 'break' && /^00:0\d$/.test(le3.timer), 'test réel : pause de 6 s avant chaque section', le3);
+  ok(le3.phase === 'run' && le3.lePhase === 'break' && /^0[56]:\d\d$/.test(le3.timer), 'test réel : chrono global affiché (6:00) pendant la pause de 6 s', le3);
+  const le3b = await page.evaluate(() => ({ pause: (document.querySelector('.le-break') || {}).innerText || '' }));
+  ok(/00:0\d/.test(le3b.pause), 'la pause de 6 s est décomptée dans la page', le3b);
   await page.evaluate(() => { CORE.current.secEnd = Date.now() - 1; });
   await wait(400);
   const le4 = await page.evaluate(() => ({ lePhase: CORE.current.lePhase, obj: !!document.querySelector('.le-seq .le-obj svg') }));
@@ -277,6 +279,10 @@ function serve(dir) {
   await wait(400);
   const inf2 = await page.evaluate(() => ({ mails: document.querySelectorAll('#ibList .mail').length }));
   ok(inf2.mails > 12, 'des mails arrivent en cours de test', inf2);
+  await page.evaluate(() => { CORE.current.t0 = Date.now() - 1000000; CORE.current.late = 30; });
+  await wait(500);
+  const inf4 = await page.evaluate(() => ({ mails: document.querySelectorAll('#ibList .mail').length }));
+  ok(inf4.mails > inf2.mails, 'au-delà de la banque, la boîte continue de recevoir des e-mails', { avant: inf2.mails, apres: inf4.mails });
   await page.evaluate(() => document.getElementById('ibGuide').click());
   const inf3 = await page.evaluate(() => ({ on: document.getElementById('guidePanel').classList.contains('on'), h: document.getElementById('guidePanel').innerText.length }));
   ok(inf3.on && inf3.h > 200, 'le guide des consignes s’ouvre', inf3);
@@ -310,6 +316,30 @@ function serve(dir) {
   ok(lgAdv === 1, '« suivant » enregistre la réponse et passe à la question', lgAdv);
   const lgUnk = await page.evaluate(() => { document.querySelector('.optrow[data-i="99"]').click(); document.getElementById('lgNext').click(); return CORE.current.log.slice(-1)[0]; });
   ok(lgUnk.ok === null && lgUnk.given === '?', '« ? » = réponse neutre non pénalisée', lgUnk);
+  /* la section ne s'épuise jamais : au-delà de la banque, le générateur produit des questions similaires */
+  const lgPool = await page.evaluate(() => {
+    const S2 = CORE.current, out = { bank: S2.cur.items.length, types: {} };
+    [40, 220, 900].forEach(i => { const it = S2.cur.at(i); out.types[i] = !!(it && it.o && it.o.length >= 2 && it.a >= 0 && it.a < it.o.length && new Set(it.o).size === it.o.length); });
+    return out;
+  });
+  ok(lgPool.types[40] && lgPool.types[220] && lgPool.types[900], 'aisance : questions similaires générées sans fin (index 40 / 220 / 900)', lgPool);
+  const lgFar = await page.evaluate(() => {
+    const S2 = CORE.current; S2.langIdx = 400;
+    document.querySelector('.optrow').click(); document.getElementById('lgNext').click();
+    const last = S2.log.slice(-1)[0];
+    return { n: S2.langIdx, q: last && last.q, ok: !!(last && last.correct && last.q) };
+  });
+  ok(lgFar.ok && String(lgFar.q).length > 5, 'une réponse est enregistrée au-delà de l’index 400 (aucune pénurie)', lgFar);
+  const lgFr = await page.evaluate(() => {
+    const out = {};
+    ['flu', 'voc', 'spe'].forEach(t => {
+      const sec = DRILL.langSection('fr', t, 4242);
+      const it = sec.at(500);
+      out[t] = !!(it && it.o && it.o.length >= 2 && it.a >= 0 && it.a < it.o.length);
+    });
+    return out;
+  });
+  ok(lgFr.flu && lgFr.voc && lgFr.spe, 'français : générateur de secours pour aisance, vocabulaire et orthographe', lgFr);
   await page.evaluate(() => CORE.destroy());
 
   /* ── 11. mécanique : 24 questions, navigation ‹ ▦ › ── */
@@ -359,6 +389,18 @@ function serve(dir) {
   await wait(150);
   const nv3 = await page.evaluate(() => ({ i: CORE.current.i, count: document.getElementById('skCount').textContent }));
   ok(nv3.i === 2 && nv3.count === '1 / 37', 'flèche › avance la question', nv3);
+  /* les onglets de feuilles de données restent sous contrôle de l'utilisateur */
+  await enterRun('numerical');
+  const nvTab0 = await page.evaluate(() => ({ tab: CORE.current.tab, itemTab: CORE.current.items[CORE.current.i].tab, sheets: document.querySelectorAll('.nv-tab').length }));
+  ok(nvTab0.sheets === 6 && !!nvTab0.tab, '6 feuilles de données affichées avec la question', nvTab0);
+  await page.evaluate(() => { const b = [...document.querySelectorAll('.nv-tab')].find(x => x.dataset.t !== CORE.current.tab); b.click(); });
+  await wait(120);
+  const nvTab1 = await page.evaluate(() => ({ tab: CORE.current.tab, on: document.querySelector('.nv-tab.on') ? document.querySelector('.nv-tab.on').dataset.t : null }));
+  ok(nvTab1.tab !== nvTab0.tab && nvTab1.on === nvTab1.tab, 'changer de feuille de données fonctionne (question inchangée)', nvTab1);
+  await page.evaluate(() => { document.getElementById('nvNext').click(); });
+  await wait(150);
+  const nvTab2 = await page.evaluate(() => ({ tab: CORE.current.tab, itemTab: CORE.current.items[CORE.current.i].tab, i: CORE.current.i }));
+  ok(nvTab2.tab === nvTab1.tab, 'la feuille consultée reste celle choisie (pas de saut automatique par question)', nvTab2);
   await page.evaluate(() => CORE.destroy());
   await enterRun('verbal');
   const vb = await page.evaluate(() => ({ tabs: [...document.querySelectorAll('.nv-tab')].map(t => t.textContent.trim()).length, n: CORE.current.items.length, names: [...document.querySelectorAll('.nv-tab')].map(t => t.textContent.trim()) }));
@@ -372,10 +414,31 @@ function serve(dir) {
   await wait(250);
   const prog = await page.evaluate(() => ({ rows: document.querySelectorAll('.tbl')[0].querySelectorAll('tbody tr').length, cards: document.querySelectorAll('.card').length, hist: !!document.getElementById('pgReset') }));
   ok(prog.rows === 14 && prog.cards === 4 && prog.hist, 'progression : 14 épreuves + cartes + historique', prog);
+  /* une session avec détail, pour vérifier la relecture en français */
+  await enterRun('deductive');
+  await page.evaluate(() => { document.querySelector('.ded-opt').click(); });
+  await wait(700);
+  await page.evaluate(() => { CORE.finish(); });
+  await wait(200);
   await page.evaluate(() => { location.hash = '#/feedback'; });
   await wait(250);
-  const fb = await page.evaluate(() => ({ sess: document.querySelectorAll('.sesslist .btn').length, heads: document.querySelectorAll('h2').length }));
+  const fb = await page.evaluate(() => ({ sess: document.querySelectorAll('.sesslist .btn').length, h1: document.querySelector('.sk-main h1').textContent.trim() }));
   ok(fb.sess >= 1, 'feedback : sessions listées', fb);
+  ok(fb.h1 === 'Feedback', 'feedback : titre en français', fb.h1);
+  ok(await page.evaluate(() => !!document.getElementById('fbSel')), 'feedback : filtre par épreuve', null);
+  const fbModal = await page.evaluate(() => { document.querySelector('.sesslist .btn').click(); const t = document.getElementById('modalBox').innerText; U.closeModal(); return { fr: /Votre réponse/.test(t) && /Bonne réponse/.test(t), redo: !!document.getElementById('smRedo') }; });
+  ok(fbModal.fr, 'feedback : relecture question par question en français', fbModal);
+  await page.evaluate(() => { location.hash = '#/'; });
+  await wait(200);
+  const tabs = await page.evaluate(() => ({ n: document.querySelectorAll('#skTabs a').length, labels: [...document.querySelectorAll('#skTabs a')].map(a => a.textContent.trim()), on: document.querySelector('#skTabs a.on') ? document.querySelector('#skTabs a.on').dataset.tab : null }));
+  ok(tabs.n === 4 && tabs.on === 'home', 'barre d’onglets : Tâches / Progression / Feedback / Aide', tabs);
+  ok(tabs.labels.join('|') === 'Tâches à accomplir|Progression|Feedback|Aide & réglages', 'onglets libellés en français', tabs.labels);
+  await page.evaluate(() => { location.hash = '#/progression'; });
+  await wait(200);
+  const tabOn = await page.evaluate(() => document.querySelector('#skTabs a.on').dataset.tab);
+  ok(tabOn === 'progression', 'l’onglet actif suit la page ouverte', tabOn);
+  await page.evaluate(() => { location.hash = '#/feedback'; });
+  await wait(200);
   await page.evaluate(() => { location.hash = '#/reglages'; });
   await wait(250);
   const rg = await page.evaluate(() => ({ lang: !!document.getElementById('lgEn'), sound: !!document.getElementById('stSound'), code: document.getElementById('stCode').value }));

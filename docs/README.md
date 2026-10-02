@@ -6,6 +6,14 @@ raisonnement numérique, verbal, déductif, inductif et mécanique, concentratio
 multi-tâches, capacité d'apprentissage, traitement de l'information, compétences
 linguistiques anglais et français, switch challenge.
 
+## Utilisation
+
+Barre d'onglets Tâches / Progression / Feedback / Aide & réglages ; feedback en français
+(relecture question par question, filtre par épreuve) ; chronomètres standards sur toutes
+les épreuves sauf les questionnaires de personnalité ; feuilles de données et fiches de
+textes navigables librement ; banques extensibles : anglais / français, boîte de réception,
+déductif, inductif, concentration, multi-tâches et switch ne s'épuisent jamais.
+
 ## Conformité
 
 Chaque épreuve reproduit le format réel décrit dans la documentation de référence :

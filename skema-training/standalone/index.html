@@ -493,6 +493,28 @@ body.running .sk-foot{display:none}
 .le-bar{width:min(760px,88vw);height:9px;background:#b9b9b9;border-radius:2px;margin:16px auto 0;overflow:hidden}
 .le-bar i{display:block;height:100%;background:var(--red);transition:width .2s}
 
+/* ══════════ Barre d'onglets (Tâches / Progression / Feedback / Aide) ══════════ */
+.sk-tabs{position:sticky;top:44px;z-index:75;display:flex;gap:2px;background:var(--card);
+  border-bottom:1px solid var(--line);padding:0 14px;overflow-x:auto;box-shadow:0 1px 3px rgba(20,26,32,.06)}
+.sk-tabs a{padding:11px 16px 9px;font-size:13.5px;font-weight:600;color:var(--tx2);white-space:nowrap;
+  border-bottom:3px solid transparent}
+.sk-tabs a:hover{color:var(--tx);background:var(--bg)}
+.sk-tabs a.on{color:var(--red);border-bottom-color:var(--red)}
+body.running .sk-tabs{display:none}
+
+/* ══════════ Numérique / verbal : feuilles de données navigables ══════════ */
+.nv-sheets{margin-bottom:14px}
+.nv-sheets-l{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tx3);margin-bottom:6px}
+.nv-sheets-h{display:block;font-size:11.5px;color:var(--tx3);margin-top:6px}
+.nv-tabs{margin-bottom:0}
+.nv-tab{cursor:pointer}
+.nv-tab:hover{color:var(--red)}
+.navpad-end{padding:8px 14px;font-size:12.5px;font-weight:700;color:#fff;background:var(--red);border-color:var(--red-d)!important;width:auto!important;height:30px}
+
+/* ══════════ Feedback : boîte de relecture ══════════ */
+.fbbox{max-height:52vh;overflow:auto;border:1px solid var(--line);border-radius:4px;background:var(--card);margin-top:6px}
+@media(max-width:640px){ .sk-tabs a{padding:10px 12px 8px;font-size:12.5px} }
+
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23e0524a'/><text x='50' y='70' font-size='54' font-family='Inter,sans-serif' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>">
 </head>
@@ -523,6 +545,14 @@ body.running .sk-foot{display:none}
     <button id="skOut">Quitter le profil</button>
   </nav>
 </header>
+
+<!-- ══════════ ONGLETS ══════════ -->
+<nav class="sk-tabs" id="skTabs" aria-label="Navigation principale">
+  <a href="#/" data-tab="home" class="on">Tâches à accomplir</a>
+  <a href="#/progression" data-tab="progression">Progression</a>
+  <a href="#/feedback" data-tab="feedback">Feedback</a>
+  <a href="#/reglages" data-tab="reglages">Aide &amp; réglages</a>
+</nav>
 
 <!-- ══════════ CONTENU ══════════ -->
 <main class="sk-main" id="view"></main>
@@ -962,6 +992,146 @@ const BANK = (() => {
     { o: ['acquérir', 'acquérirre'], a: 0 },        { o: ['palette', 'pallette'], a: 0 }
   ];
 
+  /* ─────────── LANGUES — réserves « jamais à court » ───────────
+     Les banques ci-dessus couvrent le premier passage (items des captures).
+     Les réserves suivantes prennent le relais : phrases supplémentaires
+     écrites pour l'entraînement, paires mot/définition, et listes
+     d'orthographe à partir desquelles le générateur fabrique des items
+     supplémentaires (questions similaires) sans jamais s'épuiser. */
+
+  const enFluencyExtra = [
+    { s: 'The supplier failed to _____ with the agreed delivery schedule.', o: ['comply', 'apply', 'abide', 'conform'], a: 0, w: 'Comply with = respecter (abide by, conform to, apply to).' },
+    { s: 'The analyst _____ down the figures before the meeting.', o: ['broke', 'cut', 'tore', 'split'], a: 0, w: 'Break down = décomposer.' },
+    { s: 'The board decided to _____ the launch until the audit was complete.', o: ['defer', 'differ', 'infer', 'refer'], a: 0, w: 'Defer = reporter ; differ = être différent.' },
+    { s: 'Management must _____ for the delay in the reporting process.', o: ['account', 'count', 'discount', 'recount'], a: 0, w: 'Account for = expliquer, répondre de.' },
+    { s: 'The new system will _____ into effect on the first of March.', o: ['come', 'get', 'take', 'make'], a: 0, w: 'Come into effect = entrer en vigueur.' },
+    { s: 'The team had to _____ with an unexpected rise in demand.', o: ['cope', 'deal', 'handle', 'manage'], a: 0, w: 'Cope with = faire face à.' },
+    { s: 'The proposal was turned _____ because the budget was already committed.', o: ['down', 'off', 'out', 'up'], a: 0, w: 'Turn down = refuser.' },
+    { s: 'Please _____ your expense claims before the end of the quarter.', o: ['submit', 'subsist', 'submerge', 'subscribe'], a: 0, w: 'Submit a claim = déposer une demande.' },
+    { s: 'The manager was held _____ for the error in the report.', o: ['responsible', 'responsive', 'responsorial', 'responsibly'], a: 0, w: 'Held responsible for = tenu responsable de.' },
+    { s: 'The two departments must work _____ close cooperation.', o: ['in', 'on', 'at', 'by'], a: 0, w: 'In close cooperation.' },
+    { s: 'The figures are _____ line with the forecast.', o: ['in', 'on', 'at', 'by'], a: 0, w: 'In line with = conformément à.' },
+    { s: 'The contract is _____ to renewal every three years.', o: ['subject', 'subjective', 'subjected', 'subjection'], a: 0, w: 'Be subject to = être soumis à.' },
+    { s: 'Revenue rose _____ 4% in the second half.', o: ['by', 'of', 'from', 'to'], a: 0, w: 'Rise by + écart ; rise to + niveau atteint.' },
+    { s: 'The audit committee will look _____ the matter at its next meeting.', o: ['into', 'after', 'for', 'up'], a: 0, w: 'Look into = examiner.' },
+    { s: 'Please keep me _____ of any change in the schedule.', o: ['informed', 'informative', 'informing', 'information'], a: 0, w: 'Keep someone informed of.' },
+    { s: 'The company had to _____ its losses on the project.', o: ['absorb', 'absolve', 'absorbed', 'absorbing'], a: 0, w: 'Absorb losses = absorber des pertes.' },
+    { s: 'The report was _____ to the board last Friday.', o: ['submitted', 'subjected', 'subscribed', 'subsumed'], a: 0, w: 'Submit a report to.' },
+    { s: 'We should aim to _____ the deadline rather than extend it.', o: ['meet', 'reach to', 'touch', 'attend'], a: 0, w: 'Meet a deadline.' },
+    { s: 'The board must _____ by the end of the month.', o: ['decide', 'decide on', 'decision', 'decisive'], a: 0, w: 'Decide = verbe intransitif ici.' },
+    { s: 'The figures were prepared _____ a tight deadline.', o: ['under', 'below', 'beneath', 'underneath'], a: 0, w: 'Under a deadline.' },
+    { s: 'The supplier has agreed to _____ the order within ten days.', o: ['fulfil', 'full fill', 'fulfil with', 'fulfilment'], a: 0, w: 'Fulfil an order.' },
+    { s: 'She has been _____ charge of the project since January.', o: ['in', 'on', 'at', 'with'], a: 0, w: 'In charge of.' },
+    { s: 'The costs were _____ higher than expected.', o: ['considerably', 'considerate', 'consideration', 'considering'], a: 0, w: 'Adverbe de degré : considerably.' },
+    { s: 'The teams will _____ the results at the end of the quarter.', o: ['review', 'revise up', 'revision', 'reviewing'], a: 0, w: 'Review = examiner.' }
+  ];
+  const enVocabExtra = [
+    { s: 'to reduce costs or spending', o: ['retrench', 'entrench', 'entrance', 'trench'], a: 0, w: 'Retrench = réduire les dépenses.' },
+    { s: 'a temporary decline in economic activity', o: ['downturn', 'downgrade', 'downfall', 'downpour'], a: 0, w: 'Downturn = ralentissement.' },
+    { s: 'to describe something as smaller than it really is', o: ['understate', 'overstate', 'misstate', 'restate'], a: 0, w: 'Understate = minimiser.' },
+    { s: 'goods sent out of a country', o: ['exports', 'imports', 'excise', 'exodus'], a: 0, w: 'Exports.' },
+    { s: 'the amount by which spending exceeds income', o: ['deficit', 'debt', 'surplus', 'default'], a: 0, w: 'Deficit = déficit.' },
+    { s: 'to officially forbid something', o: ['prohibit', 'permit', 'expedite', 'remit'], a: 0, w: 'Prohibit = interdire.' },
+    { s: 'a person who owes money', o: ['debtor', 'creditor', 'broker', 'auditor'], a: 0, w: 'Debtor = débiteur.' },
+    { s: 'able to be trusted to do what is expected', o: ['reliable', 'reliant', 'reluctant', 'relishing'], a: 0, w: 'Reliable = fiable.' },
+    { s: 'a document stating an agreed price', o: ['quotation', 'quota', 'quorum', 'questionnaire'], a: 0, w: 'Quotation = devis.' },
+    { s: 'to cancel a decision or an agreement', o: ['rescind', 'reside', 'resume', 'prescribe'], a: 0, w: 'Rescind = annuler.' },
+    { s: 'exact and accurate', o: ['precise', 'obscure', 'vague', 'loose'], a: 0, w: 'Precise = précis.' },
+    { s: 'to give up a claim or a right', o: ['waive', 'wave', 'waiver', 'weave'], a: 0, w: 'Waive = renoncer à.' },
+    { s: 'quick to act; done without delay', o: ['prompt', 'prone', 'promote', 'prompting'], a: 0, w: 'Prompt = rapide, ponctuel.' },
+    { s: 'the money a company owes to others', o: ['liabilities', 'assets', 'equity', 'revenues'], a: 0, w: 'Liabilities = passif.' },
+    { s: 'an official inspection of accounts', o: ['audit', 'auction', 'edict', 'affidavit'], a: 0, w: 'Audit = audit.' },
+    { s: 'a general increase in prices', o: ['inflation', 'deflation', 'inflection', 'infusion'], a: 0, w: 'Inflation.' },
+    { s: 'to arrange a new payment plan for a debt', o: ['reschedule', 'reshape', 'resell', 'restock'], a: 0, w: 'Reschedule a debt.' },
+    { s: 'modest; not extreme', o: ['moderate', 'immoderate', 'mediocre', 'mute'], a: 0, w: 'Moderate = modéré.' },
+    { s: 'a sum paid regularly to a shareholder', o: ['dividend', 'deduction', 'deposit', 'discount'], a: 0, w: 'Dividend = dividende.' },
+    { s: 'to reduce the size of a company by cutting staff', o: ['downsize', 'oversize', 'upskill', 'outsource'], a: 0, w: 'Downsize = réduire les effectifs.' },
+    { s: 'a legally binding agreement between two parties', o: ['contract', 'contact', 'contrast', 'conduct'], a: 0, w: 'Contract = contrat.' },
+    { s: 'to grow or increase quickly', o: ['expand', 'expend', 'expense', 'expunge'], a: 0, w: 'Expand = se développer.' },
+    { s: 'the state of owing money', o: ['indebtedness', 'indifference', 'independence', 'indulgence'], a: 0, w: 'Indebtedness = endettement.' },
+    { s: 'careful management of resources', o: ['thrift', 'theft', 'thrive', 'drift'], a: 0, w: 'Thrift = économie, parcimonie.' },
+    { s: 'a written request for payment', o: ['invoice', 'invoyce', 'invoicing', 'invoke'], a: 0, w: 'Invoice = facture.' },
+    { s: 'to delay an event to a later date', o: ['postpone', 'postulant', 'posturing', 'postdate'], a: 0, w: 'Postpone = reporter.' }
+  ];
+  const enSpellPairs = [
+    ['necessary', 'neccessary'], ['occurrence', 'ocurrence'], ['committee', 'comittee'], ['separate', 'seperate'],
+    ['maintenance', 'maintainance'], ['acquaintance', 'aquaintance'], ['privilege', 'priviledge'], ['threshold', 'threshhold'],
+    ['conscientious', 'concientious'], ['accommodate', 'accomodate'], ['definitely', 'definately'], ['beginning', 'begining'],
+    ['tomorrow', 'tommorow'], ['recommend', 'recomend'], ['schedule', 'shedule'], ['business', 'buisness'],
+    ['receive', 'recieve'], ['believe', 'beleive'], ['colleague', 'collegue'], ['environment', 'enviroment'],
+    ['government', 'goverment'], ['immediately', 'immediatly'], ['knowledge', 'knowlege'], ['management', 'managerment'],
+    ['particularly', 'particulary'], ['performance', 'performence'], ['professional', 'proffessional'], ['pronunciation', 'pronounciation'],
+    ['questionnaire', 'questionaire'], ['responsibility', 'responsability'], ['successful', 'succesful'], ['sufficient', 'suficient'],
+    ['temperature', 'temperture'], ['unfortunately', 'unfortunatly'], ['vehicle', 'vehicule'], ['existence', 'existance'],
+    ['hierarchy', 'hierachy'], ['liaison', 'liason'], ['millennium', 'millenium'], ['noticeable', 'noticable']
+  ];
+
+  const frFluencyExtra = [
+    { s: 'Nous comptons _____ votre retour avant vendredi.', o: ['sur', 'de', 'à', 'pour'], a: 0, w: 'Compter sur.' },
+    { s: 'Le dossier a été transmis _____ service comptable.', o: ['au', 'du', 'à le', 'vers'], a: 0, w: 'À + le = au.' },
+    { s: 'Cette décision relève _____ la direction générale.', o: ['de', 'du', 'à', 'par'], a: 0, w: 'Relever de.' },
+    { s: 'Les résultats sont _____ hausse depuis mars.', o: ['en', 'à', 'de', 'sur'], a: 0, w: 'En hausse.' },
+    { s: 'Le rapport fait état _____ plusieurs risques.', o: ['de', 'des', 'à', 'sur'], a: 0, w: 'Faire état de.' },
+    { s: 'Je vous prie de bien vouloir _____ votre accord.', o: ['confirmer', 'confirmation', 'confirmé', 'confirmant'], a: 0, w: 'Après « vouloir » : infinitif.' },
+    { s: 'La direction a donné son accord pour _____ le projet.', o: ['lancer', 'lancement', 'lancé', 'lançant'], a: 0, w: 'Après « pour » : infinitif.' },
+    { s: 'Le remboursement sera effectué _____ réception de la facture.', o: ['dès', 'depuis', 'pendant', 'durant'], a: 0, w: 'Dès réception.' },
+    { s: 'Veuillez trouver ci-joint la facture _____ la prestation.', o: ['correspondant à', 'correspondant de', 'correspondante à', 'correspond à'], a: 0, w: 'Participe présent + à.' },
+    { s: 'Il convient _____ vérifier ces montants avant la clôture.', o: ['de', 'à', 'pour', 'par'], a: 0, w: 'Il convient de + infinitif.' },
+    { s: 'Le délai de paiement a été fixé _____ trente jours.', o: ['à', 'de', 'pour de', 'sur'], a: 0, w: 'Fixer à.' },
+    { s: 'Nous restons _____ votre disposition pour tout complément.', o: ['à', 'de', 'en', 'sur'], a: 0, w: 'À votre disposition.' },
+    { s: 'La note de service a été diffusée _____ l’ensemble des équipes.', o: ['à', 'au', 'de', 'vers'], a: 0, w: 'Diffuser à.' },
+    { s: 'Le budget prévisionnel a été _____ à la baisse.', o: ['révisé', 'réviser', 'révision', 'révisant'], a: 0, w: 'Participe passé après « a été ».' },
+    { s: 'Ces dépenses ne sont pas _____ au projet.', o: ['imputables', 'imputer', 'imputation', 'imputant'], a: 0, w: 'Imputable à.' },
+    { s: 'Le fournisseur s’engage _____ livrer sous dix jours.', o: ['à', 'de', 'pour', 'par'], a: 0, w: 'S’engager à + infinitif.' },
+    { s: 'La clause s’applique _____ compter du 1er janvier.', o: ['à', 'au', 'de', 'en'], a: 0, w: 'À compter de.' },
+    { s: 'Les deux services doivent se concerter _____ définir le plan.', o: ['pour', 'de', 'par', 'sur'], a: 0, w: 'Se concerter pour + infinitif.' },
+    { s: 'Le rapport doit être remis _____ la fin du mois.', o: ['avant', 'devant', 'avant de', 'auparavant'], a: 0, w: 'Avant + nom.' },
+    { s: 'La direction a pris acte _____ la décision du comité.', o: ['de', 'des', 'à', 'sur'], a: 0, w: 'Prendre acte de.' },
+    { s: 'Ces montants ont été corrigés _____ la suite de l’audit.', o: ['à', 'en', 'de', 'par'], a: 0, w: 'À la suite de.' },
+    { s: 'Nous vous saurions gré _____ bien vouloir confirmer la date.', o: ['de', 'à', 'pour', 'par'], a: 0, w: 'Savoir gré de.' },
+    { s: 'Le service commercial a été _____ de deux personnes.', o: ['renforcé', 'renforcer', 'renforcement', 'renforçant'], a: 0, w: 'Participe passé.' },
+    { s: 'Les factures sont payables _____ réception.', o: ['à', 'sur', 'de', 'en'], a: 0, w: 'Payable à réception.' }
+  ];
+  const frVocabExtra = [
+    { s: 'diminution progressive des prix', o: ['déflation', 'inflation', 'récession', 'expansion'], a: 0, w: 'Déflation.' },
+    { s: 'somme d’argent due à un fournisseur', o: ['dette', 'créance', 'apport', 'versement'], a: 0, w: 'Dette (la créance est une somme à recevoir).' },
+    { s: 'remise accordée sur un prix', o: ['rabais', 'majoration', 'prime', 'taxe'], a: 0, w: 'Rabais.' },
+    { s: 'contrôle officiel des comptes', o: ['audit', 'audience', 'audition', 'édit'], a: 0, w: 'Audit.' },
+    { s: 'qui ne peut pas être contesté', o: ['incontestable', 'contestable', 'incongru', 'inconstant'], a: 0, w: 'Incontestable.' },
+    { s: 'prévision des recettes et des dépenses', o: ['budget', 'bilan', 'bordereau', 'barème'], a: 0, w: 'Budget.' },
+    { s: 'part de bénéfice versée aux actionnaires', o: ['dividende', 'agio', 'apport', 'arrérage'], a: 0, w: 'Dividende.' },
+    { s: 'situation d’une entreprise qui dépense plus qu’elle ne gagne', o: ['déficit', 'excédent', 'endettement', 'trésorerie'], a: 0, w: 'Déficit.' },
+    { s: 'examen détaillé d’un dossier', o: ['analyse', 'analyste', 'analogue', 'analytique'], a: 0, w: 'Analyse.' },
+    { s: 'mettre fin à un contrat', o: ['résilier', 'résoudre', 'résider', 'résumer'], a: 0, w: 'Résilier.' },
+    { s: 'somme versée avant la livraison', o: ['acompte', 'remboursement', 'solde', 'ristourne'], a: 0, w: 'Acompte.' },
+    { s: 'qui respecte les règles prévues', o: ['conforme', 'informe', 'énorme', 'difforme'], a: 0, w: 'Conforme.' },
+    { s: 'manque de moyens ou de ressources', o: ['pénurie', 'pléthore', 'profusion', 'abondance'], a: 0, w: 'Pénurie.' },
+    { s: 'réduire les dépenses', o: ['restreindre', 'étendre', 'prétendre', 'astreindre'], a: 0, w: 'Restreindre.' },
+    { s: 'appréciation de la valeur d’un bien', o: ['estimation', 'destination', 'délimitation', 'prestation'], a: 0, w: 'Estimation.' },
+    { s: 'personne chargée de vérifier les comptes', o: ['auditeur', 'éditeur', 'acquéreur', 'assureur'], a: 0, w: 'Auditeur.' },
+    { s: 'résultat positif d’une opération', o: ['bénéfice', 'manque', 'pénurie', 'perte'], a: 0, w: 'Bénéfice.' },
+    { s: 'document récapitulatif des opérations d’un exercice', o: ['bilan', 'bureau', 'barème', 'bordereau'], a: 0, w: 'Bilan.' },
+    { s: 'augmentation du niveau général des prix', o: ['inflation', 'déflation', 'stagnation', 'dévaluation'], a: 0, w: 'Inflation.' },
+    { s: 'action de céder un bien à un tiers', o: ['cession', 'session', 'concession', 'succession'], a: 0, w: 'Cession.' },
+    { s: 'somme laissée en garantie', o: ['caution', 'captation', 'causerie', 'cassation'], a: 0, w: 'Caution.' },
+    { s: 'qui produit un rendement satisfaisant', o: ['rentable', 'rondement', 'tenable', 'portable'], a: 0, w: 'Rentable.' },
+    { s: 'écart entre le prévu et le réalisé', o: ['variation', 'variance', 'vacation', 'vénération'], a: 0, w: 'Variation / écart.' },
+    { s: 'faire face à une échéance', o: ['honorer', 'honoraire', 'honorifique', 'honorariat'], a: 0, w: 'Honorer une échéance.' }
+  ];
+  const frSpellPairs = [
+    ['développement', 'dévelopement'], ['occasion', 'occassion'], ['apparemment', 'aparemment'], ['maintenance', 'maintainance'],
+    ['privilège', 'privilége'], ['consciencieux', 'concentieux'], ['rythme', 'rhythme'], ['transmettre', 'transmetre'],
+    ['acquérir', 'acquérirre'], ['palette', 'pallette'], ['environnement', 'environement'], ['professionnel', 'profesionnel'],
+    ['nécessaire', 'nécéssaire'], ['commettre', 'comettre'], ['indépendamment', 'indépendament'], ['accueil', 'acceuil'],
+    ['adresse', 'addrèsse'], ['aggraver', 'agraver'], ['améliorer', 'amméliorer'], ['appeler', 'appeller'],
+    ['argument', 'arguement'], ['attendre', 'atendre'], ['bibliothèque', 'bibliothéque'], ['catégorie', 'catégorrie'],
+    ['collaboration', 'colaboration'], ['connaisseur', 'conaisseur'], ['décision', 'décission'], ['définition', 'définission'],
+    ['difficulté', 'difficultée'], ['efficace', 'efficasse'], ['élément', 'élement'], ['entreprise', 'entrepise'],
+    ['évidemment', 'évidament'], ['exception', 'exeption'], ['expérience', 'experiance'], ['gestion', 'guestion'],
+    ['immédiatement', 'imédiatement'], ['intéressant', 'interressant'], ['malheureusement', 'malheuresement'], ['parallèle', 'paralelle'],
+    ['satisfaction', 'satisfation'], ['sérieux', 'serrieux'], ['supplémentaire', 'suplementaire'], ['utiliser', 'utilisser']
+  ];
+
   /* ─────────── Comportement professionnel — 48 blocs × 3 ─────────── */
   const behaviour = [
     'Je termine mes tâches sans qu’on me le demande deux fois.','J’aime que mes résultats soient comparés à ceux des autres.','Je garde mon calme quand tout s’accélère.',
@@ -1086,8 +1256,38 @@ const BANK = (() => {
   const infoMailsLate = [
     { from: 'Priya Raman', to: 'tom.martin@interlan.com', d: 0, tag: 'cascade', subj: 'CASCADE — regulator call', body: 'Tom,\na regulator called about CASCADE this morning; the note is attached. Marketing owns the follow-up.\nP. Raman' },
     { from: 'Keira Sanders', to: 'tom.martin@interlan.com', d: 0, tag: 'atlas', subj: 'ATLAS — budget freeze?', body: 'Tom,\nrumour of a budget freeze on ATLAS; can you check with finance today?\nK. Sanders' },
-    { from: 'Helpdesk', to: 'marketing.support@interlan.com', d: 0, tag: 'support', subj: 'Mailbox migration notice', body: 'Dear colleagues,\nthe shared mailbox will be migrated on Sunday. Acknowledge receipt of this notice.\nHelpdesk' }
+    { from: 'Helpdesk', to: 'marketing.support@interlan.com', d: 0, tag: 'support', subj: 'Mailbox migration notice', body: 'Dear colleagues,\nthe shared mailbox will be migrated on Sunday. Acknowledge receipt of this notice.\nHelpdesk' },
+    { from: 'Keira Sanders', to: 'tom.martin@interlan.com', d: 3, tag: 'atlas', subj: 'ATLAS — steering pack', body: 'Mr. Martin,\nthe steering pack for ATLAS still needs the marketing figures. I sent the file some days ago.\nK. Sanders' },
+    { from: 'Daniel Knowles', to: 'tom.martin@interlan.com', d: 7, tag: 'boreal', subj: 'BOREAL — payment terms', body: 'Hello Tom,\nthe payment terms for BOREAL were addressed to you last week and are still pending.\nD. Knowles' },
+    { from: 'Lena Fischer', to: 'tom.martin@interlan.com', d: 1, tag: 'cascade', subj: 'CASCADE — sample labels', body: 'Hi,\nthe sample labels for CASCADE contain an error. Marketing is responsible for the correction.\nL. Fischer' }
   ];
+
+  /* Modèles de génération : la boîte continue de recevoir des e-mails
+     (mêmes règles de tri) sans jamais s'épuiser. */
+  const infoMailTpl = {
+    atlas: [
+      { from: 'Keira Sanders', subj: 'ATLAS — timeline review', body: 'Mr. Martin,\ncould you review the ATLAS timeline before the steering committee? The pack was sent some time ago.\nRegards, K. Sanders' },
+      { from: 'Keira Sanders', subj: 'ATLAS — customer list', body: 'Tom,\nthe ATLAS customer list needs an update; the file has been waiting in your mailbox.\nK. Sanders' },
+      { from: 'Walter Durenga', subj: 'ATLAS — budget note', body: 'Tom,\nthe ATLAS budget note was circulated to you and still needs an answer.\nW. Durenga' }
+    ],
+    boreal: [
+      { from: 'Daniel Knowles', subj: 'BOREAL — annexes', body: 'Hello Mr. Martin,\nthe annexes for BOREAL were sent directly to you; could you confirm receipt?\nD. Knowles' },
+      { from: 'Daniel Knowles', subj: 'BOREAL — supplier list', body: 'Tom,\nthe BOREAL supplier list is ready and was addressed to you personally.\nD. Knowles' }
+    ],
+    cascade: [
+      { from: 'Priya Raman', subj: 'CASCADE — test round', body: 'Hello,\nthe CASCADE test round is complete and someone in marketing must own the answer.\nP. Raman' },
+      { from: 'Lena Fischer', subj: 'CASCADE — customer complaint', body: 'Hi,\na CASCADE customer complained about the delay. Marketing is accountable.\nL. Fischer' }
+    ],
+    support: [
+      { from: 'Trade Fair Office', subj: 'Stand booking confirmation', body: 'Dear team,\nplease confirm the stand booking for the spring fair.\nTrade Fair Office' },
+      { from: 'Office Supplies Ltd', subj: 'Delivery note', body: 'Dear Sir or Madam,\nplease find the delivery note for your last order.\nSales desk' },
+      { from: 'Newsletter Desk', subj: 'Subscription request', body: 'A contact asked to be added to the marketing newsletter. Please process the request.' }
+    ],
+    other: [
+      { from: 'Internal Audit', subj: 'Expense sample', body: 'Mr. Martin,\nyour expense sample for last quarter needs a comment.\nInternal Audit', crit: true },
+      { from: 'Facilities', subj: 'Badge renewal', body: 'Dear colleague,\nyour building badge expires at the end of the month.\nFacilities' }
+    ]
+  };
 
   /* ─────────── Learning Efficiency — 12 objets (glyphes noirs) ─────────── */
   const leObjs = [
@@ -1209,6 +1409,7 @@ const BANK = (() => {
       blkBeh: 'Avec quelle précision ces affirmations décrivent-elles votre comportement ?',
       blkMot: 'Quelle importance accordez-vous aux aspects suivants de votre environnement de travail ?',
       blkSub: 'Attribuez les points en sélectionnant les cercles.',
+      sheets: 'Feuilles de données', sheetsHint: 'Naviguez librement entre les feuilles : la question reste affichée.', sheetGo: 'Afficher cette feuille', finish: 'Terminer',
       tf: ['true', 'false', 'cannot say'],
       unknown: '?',
       next: 'Suivant', intro: 'Introduction', guide: 'Directives', start: 'Commencer',
@@ -1234,6 +1435,7 @@ const BANK = (() => {
       blkBeh: 'How accurately do these statements describe your behaviour?',
       blkMot: 'How important do you rate the following aspects for your work environment?',
       blkSub: 'Please allocate points by selecting the circles.',
+      sheets: 'Data sheets', sheetsHint: 'Move freely between the sheets: the question stays on screen.', sheetGo: 'Show this sheet', finish: 'Finish',
       tf: ['true', 'false', 'cannot say'],
       unknown: '?',
       next: 'Next', intro: 'Introduction', guide: 'Guidelines', start: 'Start',
@@ -1249,7 +1451,8 @@ const BANK = (() => {
   };
 
   return { SYM_DED, SYM_IND, SYM_SW, verbalSheets, verbal, enFluency, enVocab, enSpell, frFluency, frVocab, frSpell,
-           behaviour, motivation, mech, infoRules, infoMails, infoMailsLate, leObjs, INTRO, STR };
+           behaviour, motivation, mech, infoRules, infoMails, infoMailsLate, infoMailTpl, leObjs, INTRO, STR,
+           enFluencyExtra, enVocabExtra, enSpellPairs, frFluencyExtra, frVocabExtra, frSpellPairs };
 })();
 
 if (typeof window !== 'undefined') window.BANK = BANK; else globalThis.BANK = BANK;
@@ -1431,6 +1634,80 @@ const DRILL = (() => {
   /* ══════════════════ LEARNING — ordres de sections ══════════════════ */
   function leOrder(seed, sec) { return shuffle(rng(seed + sec * 104729), Array.from({ length: 12 }, (_, i) => i)); }
 
+  /* ══════════════════ LANGUES — sections inépuisables ══════════════════
+     Les items des captures passent en premier (banque), puis le générateur
+     produit des questions similaires à l'infini : jamais de section vide. */
+  function spMutate(word, r) {
+    const how = ['double', 'drop', 'swap', 'accent'];
+    for (let e = 0; e < 60; e++) {
+      const w = word.split('');
+      const h = pick(r, how);
+      if (h === 'double') {
+        const cand = w.map((_, i) => i).filter(i => i > 0 && i < w.length - 1 &&
+          /[bcdfglmnprstvz]/.test(w[i]) && w[i] !== w[i - 1] && w[i] !== w[i + 1]);
+        if (!cand.length) continue;
+        const i = pick(r, cand); w.splice(i, 0, w[i]);
+      } else if (h === 'drop') {
+        if (w.length < 5) continue;
+        const cand = w.map((_, i) => i).filter(i => i > 0 && /[a-zà-ü]/i.test(w[i]));
+        w.splice(pick(r, cand), 1);
+      } else if (h === 'swap') {
+        const i = int(r, 1, w.length - 3); const t = w[i]; w[i] = w[i + 1]; w[i + 1] = t;
+      } else {
+        const map = { 'é': 'e', 'è': 'e', 'à': 'a', 'î': 'i', 'ô': 'o', 'û': 'u', 'e': 'é', 'a': 'à' };
+        const cand = w.map((_, i) => i).filter(i => map[w[i]] != null);
+        if (!cand.length) continue;
+        const i = pick(r, cand); w[i] = map[w[i]];
+      }
+      const out = w.join('');
+      if (out !== word && out.length > 2) return out;
+    }
+    return word + word.slice(-1);                     /* filet : jamais identique */
+  }
+  const LANG_KEY = { en: { flu: 'enFluency', voc: 'enVocab', spe: 'enSpell' }, fr: { flu: 'frFluency', voc: 'frVocab', spe: 'frSpell' } };
+  function langSection(lang, type, seed) {
+    const r = U.rng((seed >>> 0) + U.hash(lang + type));
+    const key = LANG_KEY[lang] || LANG_KEY.fr;
+    const bank = (BANK[key[type]] || []).map(x => ({ s: x.s, o: (x.o || []).slice(), a: x.a, w: x.w || '' }));
+    const items = shuffle(r, bank);                    /* ordre différent à chaque session */
+    const extraFlu = (BANK[key.flu] || []).concat(BANK[lang + 'FluencyExtra'] || []);
+    const vocPool = (BANK[key.voc] || []).concat(BANK[lang + 'VocabExtra'] || [])
+      .map(x => ({ w: x.o[x.a], s: x.s })).filter(x => x.w);
+    const spellPool = (BANK[key.spe] || []).map(x => x.o[x.a])
+      .concat((BANK[lang + 'SpellPairs'] || []).map(p => p[0])).filter(Boolean);
+    let n = 0;
+    const gen = () => {
+      n++;
+      if (type === 'flu') {
+        const base = extraFlu[(n - 1) % extraFlu.length];
+        const opts = shuffle(r, base.o.map((t, i) => ({ t, ok: i === base.a })));
+        return { s: base.s, o: opts.map(x => x.t), a: opts.findIndex(x => x.ok), w: base.w || '' };
+      }
+      if (type === 'voc') {
+        const target = vocPool[(n * 11 + 5) % vocPool.length];
+        const others = shuffle(r, vocPool.filter(x => x.w !== target.w)).slice(0, 3).map(x => x.w);
+        const opts = shuffle(r, [target.w].concat(others));
+        return { s: target.s, o: opts, a: opts.indexOf(target.w), w: 'Mot attendu : ' + target.w };
+      }
+      const good = spellPool[(n * 7 + 3) % spellPool.length];
+      const bad = spMutate(good, r);
+      const opts = shuffle(r, [good, bad]);
+      return { s: '', o: opts, a: opts.indexOf(good), w: 'Orthographe correcte : ' + good };
+    };
+    return { type, items, at: (i) => { while (items.length <= i) items.push(gen()); return items[i]; } };
+  }
+
+  /* ══════════════════ TRAITEMENT DE L'INFORMATION — e-mails générés ══════════════════ */
+  function infoMail(i) {
+    const tags = ['atlas', 'boreal', 'cascade', 'support', 'other'];
+    const tag = tags[i % tags.length];
+    const tpl = (BANK.infoMailTpl[tag] || BANK.infoMailTpl.other);
+    const t = tpl[Math.floor(i / tags.length) % tpl.length];
+    const r = U.rng(90210 + i * 7919);
+    const d = tag === 'boreal' ? int(r, 0, 9) : int(r, 0, 8);
+    return { from: t.from, to: tag === 'support' ? BANK.infoRules.support : BANK.infoRules.me, d, tag, subj: t.subj, body: t.body, crit: !!t.crit };
+  }
+
   /* ══════════════════ NUMÉRIQUE — 6 feuilles + 37 énoncés ══════════════════ */
   const esc = U.esc;
   function table(t) {
@@ -1607,7 +1884,8 @@ const DRILL = (() => {
     ].map((x, i) => Object.assign({ id: 'NV' + (i + 1), kind: 'numverb' }, x))
   };
 
-  return { dedItem, indItem, concItem, concSVG, swItem, applyCode, mtItem, leOrder, NV, table, pie, stacked, lines, hbars };
+  return { dedItem, indItem, concItem, concSVG, swItem, applyCode, mtItem, leOrder, NV, table, pie, stacked, lines, hbars,
+           langSection, spMutate, infoMail };
 })();
 
 if (typeof window !== 'undefined') window.DRILL = DRILL; else globalThis.DRILL = DRILL;
@@ -1634,7 +1912,7 @@ const CORE = (() => {
     { id: 'inductive',     home: 'Raisonnement Inductif',                     head: 'Inductive Reasoning',                   min: 9,  kind: 'pick2',    timed: 360 },
     { id: 'concentration', home: 'Capacité de Concentration',                 head: 'Ability to Concentrate',                min: 5,  kind: 'edots',    timed: 120, exTime: 30 },
     { id: 'multitask',     home: 'Capacité multi-tâches',                     head: 'Multi-tasking',                         min: 8,  kind: 'mt',       timed: 480, noDetail: true },
-    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem' },
+    { id: 'learning',      home: 'Capacité d’apprentissage',             head: 'Learning Efficiency',                   min: 9,  kind: 'seqmem',  timed: 360 },
     { id: 'info',          home: 'Traitement de l’information',          head: 'Information Handling',                  min: 18, kind: 'inbox',    timed: 900 },
     { id: 'english',       home: 'Compétences Linguistiques - Anglais',  head: 'Competences Linguistiques - Anglais',  min: 13, kind: 'lang',     lang: 'en' },
     { id: 'french',        home: 'Compétences Linguistiques - Français', head: 'Compétences Linguistiques - Français', min: 13, kind: 'lang',     lang: 'fr' },
@@ -1679,7 +1957,9 @@ const CORE = (() => {
     },
     wrongs(limit = 40) {
       const d = this.details(), out = [];
-      Object.keys(d).sort().reverse().forEach(k => (d[k] || []).forEach(it => { if (it && it.ok === false) out.push(Object.assign({ sess: k }, it)); }));
+      Object.keys(d).sort().reverse().forEach(k => (d[k] || []).forEach(it => {
+        if (it && it.ok === false) out.push(Object.assign({ sess: k }, it, { sectionName: (byId(it.section) || {}).home || it.section }));
+      }));
       return out.slice(0, limit);
     },
     PROFILES,                       /* alias : P.PROFILES.current() */
@@ -1711,6 +1991,8 @@ const CORE = (() => {
     S = null;
     document.body.classList.remove('running');
     const ng = document.getElementById('navGrid'); if (ng) ng.classList.remove('on');
+    ['skTimer', 'skCount', 'skLvl'].forEach(id => { const n = document.getElementById(id); if (n) { n.textContent = ''; if (id === 'skLvl') n.hidden = true; } });
+    const bk = document.getElementById('skBook'); if (bk) bk.hidden = true;
   }
 
   function start(id) {
@@ -1742,8 +2024,8 @@ const CORE = (() => {
       case 'edots': S.items = []; S.seed = seed; break;
       case 'mt': S.items = []; S.seed = seed; break;
       case 'seqmem': S.items = Array.from({ length: 6 }, (_, s2) => ({ sec: s2, order: DRILL.leOrder(seed, s2) })); S.demo = { order: DRILL.leOrder(seed, 90) }; break;
-      case 'inbox': S.mails = BANK.infoMails.map((m, i) => Object.assign({ id: i, prio: null, act: null, arrived: 0 }, m)); S.lateAt = [240, 480, 720]; break;
-      case 'lang': S.items = []; break;   /* géré par sous-phases */
+      case 'inbox': S.seed = seed; S.mails = BANK.infoMails.map((m, i) => Object.assign({ id: i, prio: null, act: null, arrived: 0 }, m)); S.lateAt = [180, 330, 480, 630]; break;
+      case 'lang': S.items = []; S.seed = seed; break;   /* géré par sous-phases */
       case 'mech': S.items = BANK.mech.map(x => Object.assign({}, x)); S.examples = [Object.assign({}, BANK.mech[0])]; break;
       case 'switchcode': S.items = []; S.seed = seed; break;
     }
@@ -1768,10 +2050,13 @@ const CORE = (() => {
       } else if (S.secEnd && now >= S.secEnd) {
         if (S.sec.kind === 'lang') return langNextSection(true);
       }
-      if (S.sec.kind === 'inbox' && S.lateAt && S.lateAt.length && (now - S.t0) / 1000 >= S.lateAt[0]) {
+      if (S.sec.kind === 'inbox' && (now - S.t0) / 1000 >= S.lateAt[0]) {
         S.lateAt.shift();
-        const m = BANK.infoMailsLate[S.late++];
+        const i = S.late++;
+        const m = BANK.infoMailsLate[i] || DRILL.infoMail(i - BANK.infoMailsLate.length);
         if (m) { S.mails.push(Object.assign({ id: S.mails.length, prio: null, act: null, arrived: now, isNew: true }, m)); if (S.phase === 'run') paintInboxList(); }
+        const next = Math.max((S.lateAt.length ? S.lateAt[S.lateAt.length - 1] : 0) + 150, (now - S.t0) / 1000 + 150);
+        if (S.deadline && (S.t0 + next * 1000) < (S.deadline - 20000)) S.lateAt.push(next);   /* toujours de nouveaux mails */
       }
     }
     chrome();
@@ -1786,7 +2071,7 @@ const CORE = (() => {
     const now = Date.now();
     let t = '';
     if (S.sec.kind === 'lang') t = (S.langPhase === 'run' && S.secEnd) ? mmss((S.secEnd - now) / 1000) : '';
-    else if (S.sec.kind === 'seqmem') t = S.lePhase === 'place' && S.secEnd ? mmss((S.secEnd - now) / 1000) : (S.lePhase === 'break' ? mmss((S.secEnd - now) / 1000) : '');
+    else if (S.sec.kind === 'seqmem') t = S.deadline ? mmss((S.deadline - now) / 1000) : '';
     else if (S.sec.timed) t = mmss((S.deadline - now) / 1000);
     T.textContent = t;
     T.classList.toggle('warn', !!t && (S.sec.timed ? (S.deadline - now) < 60000 : (S.secEnd - now) < 30000));
@@ -1890,7 +2175,7 @@ const CORE = (() => {
   function beginRun() {
     S.phase = 'run'; S.t0 = Date.now(); S.qStart = Date.now(); S.i = 0;
     const sec = S.sec;
-    if (sec.timed && sec.kind !== 'seqmem') S.deadline = S.t0 + sec.timed * 1000;
+    if (sec.timed) S.deadline = S.t0 + sec.timed * 1000;
     if (sec.kind === 'blocks') S.sel = [0, 0, 0];
     if (sec.kind === 'numverb') { S.i = 0; S.tab = (sec.src === 'num' ? DRILL.NV.tabs[0].id : BANK.verbalSheets[0].id); }
     if (sec.kind === 'mech') S.i = 0;
@@ -1932,12 +2217,12 @@ const CORE = (() => {
     const tabs = nvTabs();
     const fig = S.sec.src === 'num' ? DRILL.NV.figures[it.tab]() : BANK.verbalSheets.find(s => s.id === it.tab).html;
     view.className = 'sk-main';
-    view.innerHTML = '<div class="nv-tabs">' + tabs.map(t => '<button class="nv-tab' + (t.id === S.tab ? ' on' : '') + '" data-t="' + t.id + '">' + esc(t.name) + '</button>').join('') + '</div>' +
+    view.innerHTML = '<div class="nv-sheets"><span class="nv-sheets-l">' + esc(T.sheets) + '</span><div class="nv-tabs">' + tabs.map(t => '<button class="nv-tab' + (t.id === S.tab ? ' on' : '') + '" data-t="' + t.id + '" title="' + esc(T.sheetGo) + '">' + esc(t.name) + '</button>').join('') + '</div><span class="nv-sheets-h">' + esc(T.sheetsHint) + '</span></div>' +
       '<div class="nv-cols"><div class="nv-fig"><div class="nvtext">' + fig + '</div></div>' +
       '<div class="nv-side"><div class="nv-stmt">' + (isEx ? '<b>EXAMPLE</b> ' : '') + esc(it.q) + '</div>' +
       '<div class="tfbtns">' + T.tf.map((l, i) => '<button class="tfbtn' + (S.sel === i ? ' sel' : '') + '" data-v="' + i + '">' + l + '</button>').join('') + '</div></div></div>' +
       navPadHTML();
-    view.querySelectorAll('.nv-tab').forEach(b => b.onclick = () => { S.tab = b.dataset.t; nvItem(view, it, isEx); });
+    view.querySelectorAll('.nv-tab').forEach(b => b.onclick = () => { S.tab = b.dataset.t; if (S.nvAns != null) S.sel = S.nvAns; nvItem(view, it, isEx); });
     view.querySelectorAll('.tfbtn').forEach(b => b.onclick = () => {
       const v = +b.dataset.v;
       if (isEx) { S.sel = v; view.querySelectorAll('.tfbtn').forEach(x => x.classList.remove('sel', 'ok', 'ko')); b.classList.add(it.a === v ? 'ok' : 'ko'); setTimeout(() => exampleDone(it.a === v), 700); return; }
@@ -1949,7 +2234,7 @@ const CORE = (() => {
     bindNav(view, isEx);
     chrome();
   }
-  function renderNumVerb(view) { const it = S.items[S.i]; S.sel = S.answers[S.i] == null ? null : S.answers[S.i]; S.tab = it.tab; S.nvAns = null; nvItem(view, it, false); }
+  function renderNumVerb(view) { const it = S.items[S.i]; S.sel = S.answers[S.i] == null ? null : S.answers[S.i]; S.nvAns = null; nvItem(view, it, false); }
   const tfText = (it, idx) => (it.o ? it.o[idx] : STR(S.sec).tf[idx]);
   function nvSchedule(view, it) {
     clearTimeout(S.nvTimer);
@@ -1974,10 +2259,15 @@ const CORE = (() => {
   }
 
   /* ═══════════════ Navigation ‹ ▦ › ══════════════ */
-  function navPadHTML() { return '<div class="navpad"><button id="nvPrev">‹</button><button id="nvGrid">▦</button><button id="nvNext">›</button></div>'; }
+  function navPadHTML() {
+    const done = S && S.items && Object.keys(S.answers || {}).length >= S.items.length;
+    return '<div class="navpad"><button id="nvPrev">‹</button><button id="nvGrid">▦</button><button id="nvNext">›</button>' +
+      (done ? '<button class="navpad-end" id="nvEnd">' + esc(STR(S.sec).finish) + '</button>' : '') + '</div>';
+  }
   function bindNav(view, isEx) {
     const p = document.getElementById('nvPrev'), n = document.getElementById('nvNext'), g = document.getElementById('nvGrid');
     if (isEx) { p.style.visibility = n.style.visibility = g.style.visibility = 'hidden'; return; }
+    const e = document.getElementById('nvEnd'); if (e) e.onclick = () => finish();
     const stopNv = () => { if (S.sec.kind === 'numverb') { clearTimeout(S.nvTimer); S.nvAns = null; } };
     p.onclick = () => { if (S.i > 0) { stopNv(); S.i--; render(); } };
     n.onclick = () => { stopNv(); S.i = Math.min(S.items.length - 1, S.i + 1); render(); };
@@ -2119,7 +2409,8 @@ const CORE = (() => {
     }
     /* place */
     const filled = S.placed.filter(x => x != null).length;
-    view.innerHTML = '<div class="qtitle">' + esc(T.lePlace) + ' (' + (S.leSec + 1) + '/6)</div>' +
+    const left = S.secEnd ? mmss(Math.max(0, (S.secEnd - Date.now()) / 1000)) : '';
+    view.innerHTML = '<div class="qtitle">' + esc(T.lePlace) + ' (' + (S.leSec + 1) + '/6)' + (left ? ' — ' + left : '') + '</div>' +
       '<div class="le-pool">' + S.pool.filter(k => !S.placed.includes(k)).map(k => '<button class="le-p" data-k="' + k + '"><svg viewBox="0 0 100 100">' + BANK.leObjs[k] + '</svg></button>').join('') + '</div>' +
       '<div class="le-fields">' + Array.from({ length: 12 }, (_, i) => '<div class="le-f' + (S.placed[i] != null ? ' filled' : '') + '" data-f="' + i + '">' + (S.placed[i] != null ? '<svg viewBox="0 0 100 100">' + BANK.leObjs[S.placed[i]] + '</svg>' : '<i>' + (i + 1) + '</i>') + '</div>').join('') + '</div>' +
       '<div class="le-bar"><i style="width:' + Math.round(filled / 12 * 100) + '%"></i></div>' +
@@ -2198,12 +2489,13 @@ const CORE = (() => {
 
   /* ═══════════════ LANGUES (anglais / français) ═══════════════ */
   function langBank() {
-    if (S.sec.lang === 'en') return [{ type: 'flu', items: BANK.enFluency, sec: 240 }, { type: 'voc', items: BANK.enVocab, sec: 240 }, { type: 'spe', items: BANK.enSpell, sec: 120 }];
-    return [{ type: 'flu', items: BANK.frFluency, sec: 240 }, { type: 'voc', items: BANK.frVocab, sec: 240 }, { type: 'spe', items: BANK.frSpell, sec: 120 }];
+    const lang = S.sec.lang === 'en' ? 'en' : 'fr';
+    return [{ type: 'flu', sec: 240 }, { type: 'voc', sec: 240 }, { type: 'spe', sec: 120 }]
+      .map((x, k) => Object.assign({ sec: x.sec }, DRILL.langSection(lang, x.type, (S.seed || 1) + k * 977)));
   }
   function langBuildSection() { S.cur = langBank()[S.sub]; S.langIdx = 0; S.langPhase = 'examples'; S.langDone = 0; S.langCount = S.cur.items.length; }
   function langExample(view) {
-    const T = STR(S.sec), q = S.cur.items[S.langIdx];
+    const T = STR(S.sec), q = S.cur.at(S.langIdx);
     view.className = 'sk-main';
     view.innerHTML = '<div class="qinstr">EXEMPLE — ' + esc(instrFor(S.cur.type)) + '</div>' + langItemHTML(q) ;
     bindLangOpts(view, (i) => { view.querySelectorAll('.optrow').forEach((x, k) => { if (k === q.a) x.classList.add('ok'); else if (k === i) x.classList.add('ko'); }); setTimeout(() => { S.langIdx++; if (S.langIdx >= 2) S.langPhase = 'ready'; render(); }, 800); });
@@ -2242,17 +2534,16 @@ const CORE = (() => {
       document.getElementById('lgNext').onclick = () => { S.sub = nxt; langBuildSection(); S.langPhase = 'examples'; S.phase = 'example'; S.secEnd = 0; render(); };
       return chrome();
     }
-    const q = S.cur.items[S.langIdx];
+    const q = S.cur.at(S.langIdx);
     view.className = 'sk-main';
     view.innerHTML = '<div class="qinstr">' + esc(instrFor(S.cur.type)) + '</div>' + langItemHTML(q) +
       '<div class="langnext"><button class="langchev" id="lgNext" disabled title="' + esc(T.next) + '">›</button></div>';
     const advance = () => {
-      const i = S.langSel == null ? 99 : S.langSel, qq = S.cur.items[S.langIdx];
+      const i = S.langSel == null ? 99 : S.langSel, qq = S.cur.at(S.langIdx);
       const unk = i === 99, ok = unk ? null : (i === qq.a);
       S.log.push({ n: S.log.length + 1, q: qq.s, given: unk ? '?' : qq.o[i], correct: qq.o[qq.a], ok, ms: Date.now() - S.qStart, section: S.sec.id, why: qq.w || '' });
       S.qStart = Date.now(); S.langSel = null; S.langDone++; S.langIdx++;
-      if (S.langIdx >= S.cur.items.length) return langNextSection(false);
-      render();
+      render();                                  /* la section ne s'épuise jamais : le générateur prend le relais */
     };
     bindLangOpts(view, (i) => {
       S.langSel = i;
@@ -2366,12 +2657,14 @@ const CORE = (() => {
     document.getElementById('navGrid').classList.remove('on');
     render();
   }
+  const COREmmss = mmss;
   function renderEnd(view) {
     const a = S.attempt, lang = P.lang(S.sec.id);
     view.className = 'sk-main narrow';
     view.innerHTML = '<div class="intro-page"><p class="k">' + (lang === 'fr' ? 'Test terminé.' : 'Test finished.') + '</p>' +
       (a.behavioural ? '<p>' + (lang === 'fr' ? 'Vos réponses ont été enregistrées : ce questionnaire ne comporte pas de bonne réponse.' : 'Your answers have been recorded: this questionnaire has no right or wrong answers.') + '</p>'
         : '<p>' + (lang === 'fr' ? 'Score : ' : 'Score: ') + '<b>' + a.correct + ' / ' + a.items + '</b> (' + U.pct(a.accuracy) + ')</p>') +
+      '<p class="tiny">' + (lang === 'fr' ? 'Durée : ' : 'Time: ') + COREmmss(a.ms / 1000) + '</p>' +
       '<p class="tiny" style="color:var(--tx3)">' + (lang === 'fr' ? 'Le détail question par question est disponible dans le menu ≡ → Feedback détaillé.' : 'The question-by-question detail is available in the ≡ menu → Feedback.') + '</p>' +
       '<div class="intro-nav"><button class="btn-intro" id="endHome">‹ ' + (lang === 'fr' ? 'Tâches' : 'Tasks') + '</button><button class="btn-next" id="endFb">' + (lang === 'fr' ? 'Feedback' : 'Feedback') + ' ›</button></div></div>';
     document.getElementById('endHome').onclick = () => { destroy(); location.hash = '#/'; };
@@ -2436,6 +2729,9 @@ if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CO
     if (!h.startsWith('#/run/') && CORE.current) CORE.destroy();
     if (h.startsWith('#/run/')) { const id = h.slice(6); if (CORE.byId(id)) { if (!CORE.current || CORE.current.sec.id !== id) CORE.start(id); return; } location.hash = '#/'; return; }
     document.getElementById('navGrid').classList.remove('on');
+    const tab = h === '#/progression' ? 'progression' : h === '#/feedback' ? 'feedback' : h === '#/reglages' ? 'reglages' : 'home';
+    const tabs = document.getElementById('skTabs');
+    if (tabs) tabs.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab));
     if (h === '#/progression') return pageProgress();
     if (h === '#/feedback') return pageFeedback();
     if (h === '#/reglages') return pageSettings();
@@ -2497,22 +2793,51 @@ if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CO
 
   function sessModal(id) {
     const a = P.sessionOf(id), log = P.sessionLog(id);
-    U.modal('<h2>' + esc((a && a.sectionName) || 'Session') + '</h2><p class="tiny">' + esc((a && a.date) || '') + ' ' + esc((a && a.time) || '') + (a && a.accuracy != null ? ' — précision ' + U.pct(a.accuracy) : '') + '</p>' +
-      '<div class="logbox">' + (log.length ? log.map((r, i) => '<div class="logrow ' + (r.ok === true ? 'ok' : r.ok === false ? 'ko' : '') + '"><b>' + (r.n || i + 1) + '.</b> ' + esc(r.q) + '<br><span class="tiny">Donnée : ' + esc(r.given) + ' · Correcte : ' + esc(r.correct) + (r.why ? ' · ' + esc(r.why) : '') + '</span></div>').join('') : '<p class="tiny">Aucun détail enregistré pour cette session.</p>') + '</div>' +
-      '<div class="row end"><button class="btn" id="smClose">Fermer</button><button class="btn primary" id="smCsv">Exporter le CSV</button></div>');
+    const sec = a && CORE.byId(a.section);
+    U.modal('<h2>' + esc((a && a.sectionName) || 'Session') + '</h2>' +
+      '<p class="tiny">' + esc((a && a.date) || '') + ' ' + esc((a && a.time) || '') +
+      (a && a.accuracy != null ? ' — score ' + a.correct + '/' + a.items + ' (' + U.pct(a.accuracy) + ')' : '') +
+      (a && a.ms ? ' — durée ' + Math.round(a.ms / 60000) + ' min' : '') + '</p>' +
+      '<div class="fbbox">' + (log.length ? log.map((r, i) => '<div class="logrow ' + (r.ok === true ? 'ok' : r.ok === false ? 'ko' : '') + '"><b>Question ' + (r.n || i + 1) + '</b> — ' + esc(r.q) +
+        '<br><span class="tiny">Votre réponse : <b>' + esc(r.given) + '</b> · Bonne réponse : <b>' + esc(r.correct) + '</b>' + (r.ms ? ' · ' + U.ms(r.ms) : '') +
+        (r.why ? '<br>Explication : ' + esc(r.why) : '') + '</span></div>').join('') : '<p class="tiny">Aucun détail enregistré pour cette session.</p>') + '</div>' +
+      '<div class="row end"><button class="btn" id="smClose">Fermer</button>' +
+      (sec ? '<button class="btn primary" id="smRedo">Refaire cette épreuve</button>' : '') +
+      '<button class="btn" id="smCsv">Exporter en CSV</button></div>');
     $('#smClose').onclick = U.closeModal;
     $('#smCsv').onclick = () => P.csv(id);
+    if (sec) $('#smRedo').onclick = () => { U.closeModal(); location.hash = '#/run/' + sec.id; };
   }
 
-  /* ═══════════════ FEEDBACK DÉTAILLÉ ═══════════════ */
+  /* ═══════════════ FEEDBACK ═══════════════ */
   function pageFeedback() {
-    document.getElementById('skTitle').textContent = 'Feedback détaillé';
+    document.getElementById('skTitle').textContent = 'Feedback';
     const v = view(); v.className = 'sk-main page';
-    const wrongs = P.wrongs(60), att = P.attempts().slice().reverse();
-    v.innerHTML = '<h1>Feedback détaillé</h1>' +
-      '<h2>Revoir une session</h2><div class="sesslist">' + (att.length ? att.slice(0, 40).map(a => '<button class="btn xs" data-sess="' + a.id + '">' + esc(a.sectionName || a.section) + ' · ' + esc(a.date || '') + ' ' + esc(a.time || '') + '</button>').join('') : '<p class="tiny">Aucune session.</p>') + '</div>' +
-      '<h2>Dernières erreurs</h2>' + (wrongs.length ? '<div class="logbox">' + wrongs.map(r => '<div class="logrow ko"><b>' + esc(r.q) + '</b><br><span class="tiny">Donnée : ' + esc(r.given) + ' · Correcte : ' + esc(r.correct) + (r.why ? ' · ' + esc(r.why) : '') + '</span></div>').join('') + '</div>' : '<p class="tiny">Aucune erreur enregistrée — bravo.</p>');
-    v.querySelectorAll('[data-sess]').forEach(b => b.onclick = () => sessModal(b.dataset.sess));
+    const o = P.overall(), att = P.attempts().slice().reverse(), wrongs = P.wrongs(80);
+    v.innerHTML = '<h1>Feedback</h1>' +
+      '<p class="tiny">Relecture en français de vos sessions : épreuve, question, réponse donnée, bonne réponse et explication. Tout reste dans ce navigateur.</p>' +
+      '<div class="cards">' + card('Sessions enregistrées', o.n) + card('Réponses correctes', o.correct + ' / ' + o.items) + card('Précision globale', U.pct(o.accuracy)) + card('Temps cumulé', Math.round(o.minutes) + ' min') + '</div>' +
+      '<div class="setbox"><h2>Revoir une session</h2>' +
+      '<div class="setrow"><span>Filtrer par épreuve</span><select id="fbSel"><option value="">Toutes les épreuves</option>' +
+      CORE.SECTIONS.map(s2 => '<option value="' + s2.id + '">' + esc(s2.home) + '</option>').join('') + '</select></div>' +
+      '<div class="sesslist" id="fbList"></div></div>' +
+      '<h2>Dernières erreurs</h2>' +
+      (wrongs.length
+        ? '<p class="tiny">Chaque ligne indique la question, votre réponse, la bonne réponse et l’explication.</p>' +
+          '<div class="logbox">' + wrongs.map(r => '<div class="logrow ko"><b>' + esc(r.q) + '</b><br><span class="tiny">' +
+            (r.sectionName ? esc(r.sectionName) + ' · ' : '') + 'Votre réponse : <b>' + esc(r.given) + '</b> · Bonne réponse : <b>' + esc(r.correct) + '</b>' +
+            (r.why ? ' · ' + esc(r.why) : '') + '</span></div>').join('') + '</div>'
+        : '<p class="tiny">Aucune erreur enregistrée pour l’instant — bravo.</p>');
+    const paint = () => {
+      const id = $('#fbSel').value, list = att.filter(a => !id || a.section === id);
+      $('#fbList').innerHTML = list.length ? list.slice(0, 60).map(a =>
+        '<button class="btn xs" data-sess="' + a.id + '">' + esc(a.sectionName || a.section) + ' · ' + esc(a.date || '') + ' ' + esc(a.time || '') +
+        (a.accuracy == null ? '' : ' · ' + U.pct(a.accuracy)) + '</button>').join('')
+        : '<p class="tiny">Aucune session pour ce filtre.</p>';
+      $('#fbList').querySelectorAll('[data-sess]').forEach(b => b.onclick = () => sessModal(b.dataset.sess));
+    };
+    $('#fbSel').onchange = paint;
+    paint();
   }
 
   /* ═══════════════ RÉGLAGES ═══════════════ */
@@ -2595,7 +2920,7 @@ if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CO
   }
 
   /* ═══════════════ Démarrage ═══════════════ */
-  $('#footMeta').textContent = 'Assessment Trainer v4.0 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
+  $('#footMeta').textContent = 'Assessment Trainer v4.1 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
   ensureUser();
   route();
 })();

@@ -183,6 +183,146 @@ const BANK = (() => {
     { o: ['acquérir', 'acquérirre'], a: 0 },        { o: ['palette', 'pallette'], a: 0 }
   ];
 
+  /* ─────────── LANGUES — réserves « jamais à court » ───────────
+     Les banques ci-dessus couvrent le premier passage (items des captures).
+     Les réserves suivantes prennent le relais : phrases supplémentaires
+     écrites pour l'entraînement, paires mot/définition, et listes
+     d'orthographe à partir desquelles le générateur fabrique des items
+     supplémentaires (questions similaires) sans jamais s'épuiser. */
+
+  const enFluencyExtra = [
+    { s: 'The supplier failed to _____ with the agreed delivery schedule.', o: ['comply', 'apply', 'abide', 'conform'], a: 0, w: 'Comply with = respecter (abide by, conform to, apply to).' },
+    { s: 'The analyst _____ down the figures before the meeting.', o: ['broke', 'cut', 'tore', 'split'], a: 0, w: 'Break down = décomposer.' },
+    { s: 'The board decided to _____ the launch until the audit was complete.', o: ['defer', 'differ', 'infer', 'refer'], a: 0, w: 'Defer = reporter ; differ = être différent.' },
+    { s: 'Management must _____ for the delay in the reporting process.', o: ['account', 'count', 'discount', 'recount'], a: 0, w: 'Account for = expliquer, répondre de.' },
+    { s: 'The new system will _____ into effect on the first of March.', o: ['come', 'get', 'take', 'make'], a: 0, w: 'Come into effect = entrer en vigueur.' },
+    { s: 'The team had to _____ with an unexpected rise in demand.', o: ['cope', 'deal', 'handle', 'manage'], a: 0, w: 'Cope with = faire face à.' },
+    { s: 'The proposal was turned _____ because the budget was already committed.', o: ['down', 'off', 'out', 'up'], a: 0, w: 'Turn down = refuser.' },
+    { s: 'Please _____ your expense claims before the end of the quarter.', o: ['submit', 'subsist', 'submerge', 'subscribe'], a: 0, w: 'Submit a claim = déposer une demande.' },
+    { s: 'The manager was held _____ for the error in the report.', o: ['responsible', 'responsive', 'responsorial', 'responsibly'], a: 0, w: 'Held responsible for = tenu responsable de.' },
+    { s: 'The two departments must work _____ close cooperation.', o: ['in', 'on', 'at', 'by'], a: 0, w: 'In close cooperation.' },
+    { s: 'The figures are _____ line with the forecast.', o: ['in', 'on', 'at', 'by'], a: 0, w: 'In line with = conformément à.' },
+    { s: 'The contract is _____ to renewal every three years.', o: ['subject', 'subjective', 'subjected', 'subjection'], a: 0, w: 'Be subject to = être soumis à.' },
+    { s: 'Revenue rose _____ 4% in the second half.', o: ['by', 'of', 'from', 'to'], a: 0, w: 'Rise by + écart ; rise to + niveau atteint.' },
+    { s: 'The audit committee will look _____ the matter at its next meeting.', o: ['into', 'after', 'for', 'up'], a: 0, w: 'Look into = examiner.' },
+    { s: 'Please keep me _____ of any change in the schedule.', o: ['informed', 'informative', 'informing', 'information'], a: 0, w: 'Keep someone informed of.' },
+    { s: 'The company had to _____ its losses on the project.', o: ['absorb', 'absolve', 'absorbed', 'absorbing'], a: 0, w: 'Absorb losses = absorber des pertes.' },
+    { s: 'The report was _____ to the board last Friday.', o: ['submitted', 'subjected', 'subscribed', 'subsumed'], a: 0, w: 'Submit a report to.' },
+    { s: 'We should aim to _____ the deadline rather than extend it.', o: ['meet', 'reach to', 'touch', 'attend'], a: 0, w: 'Meet a deadline.' },
+    { s: 'The board must _____ by the end of the month.', o: ['decide', 'decide on', 'decision', 'decisive'], a: 0, w: 'Decide = verbe intransitif ici.' },
+    { s: 'The figures were prepared _____ a tight deadline.', o: ['under', 'below', 'beneath', 'underneath'], a: 0, w: 'Under a deadline.' },
+    { s: 'The supplier has agreed to _____ the order within ten days.', o: ['fulfil', 'full fill', 'fulfil with', 'fulfilment'], a: 0, w: 'Fulfil an order.' },
+    { s: 'She has been _____ charge of the project since January.', o: ['in', 'on', 'at', 'with'], a: 0, w: 'In charge of.' },
+    { s: 'The costs were _____ higher than expected.', o: ['considerably', 'considerate', 'consideration', 'considering'], a: 0, w: 'Adverbe de degré : considerably.' },
+    { s: 'The teams will _____ the results at the end of the quarter.', o: ['review', 'revise up', 'revision', 'reviewing'], a: 0, w: 'Review = examiner.' }
+  ];
+  const enVocabExtra = [
+    { s: 'to reduce costs or spending', o: ['retrench', 'entrench', 'entrance', 'trench'], a: 0, w: 'Retrench = réduire les dépenses.' },
+    { s: 'a temporary decline in economic activity', o: ['downturn', 'downgrade', 'downfall', 'downpour'], a: 0, w: 'Downturn = ralentissement.' },
+    { s: 'to describe something as smaller than it really is', o: ['understate', 'overstate', 'misstate', 'restate'], a: 0, w: 'Understate = minimiser.' },
+    { s: 'goods sent out of a country', o: ['exports', 'imports', 'excise', 'exodus'], a: 0, w: 'Exports.' },
+    { s: 'the amount by which spending exceeds income', o: ['deficit', 'debt', 'surplus', 'default'], a: 0, w: 'Deficit = déficit.' },
+    { s: 'to officially forbid something', o: ['prohibit', 'permit', 'expedite', 'remit'], a: 0, w: 'Prohibit = interdire.' },
+    { s: 'a person who owes money', o: ['debtor', 'creditor', 'broker', 'auditor'], a: 0, w: 'Debtor = débiteur.' },
+    { s: 'able to be trusted to do what is expected', o: ['reliable', 'reliant', 'reluctant', 'relishing'], a: 0, w: 'Reliable = fiable.' },
+    { s: 'a document stating an agreed price', o: ['quotation', 'quota', 'quorum', 'questionnaire'], a: 0, w: 'Quotation = devis.' },
+    { s: 'to cancel a decision or an agreement', o: ['rescind', 'reside', 'resume', 'prescribe'], a: 0, w: 'Rescind = annuler.' },
+    { s: 'exact and accurate', o: ['precise', 'obscure', 'vague', 'loose'], a: 0, w: 'Precise = précis.' },
+    { s: 'to give up a claim or a right', o: ['waive', 'wave', 'waiver', 'weave'], a: 0, w: 'Waive = renoncer à.' },
+    { s: 'quick to act; done without delay', o: ['prompt', 'prone', 'promote', 'prompting'], a: 0, w: 'Prompt = rapide, ponctuel.' },
+    { s: 'the money a company owes to others', o: ['liabilities', 'assets', 'equity', 'revenues'], a: 0, w: 'Liabilities = passif.' },
+    { s: 'an official inspection of accounts', o: ['audit', 'auction', 'edict', 'affidavit'], a: 0, w: 'Audit = audit.' },
+    { s: 'a general increase in prices', o: ['inflation', 'deflation', 'inflection', 'infusion'], a: 0, w: 'Inflation.' },
+    { s: 'to arrange a new payment plan for a debt', o: ['reschedule', 'reshape', 'resell', 'restock'], a: 0, w: 'Reschedule a debt.' },
+    { s: 'modest; not extreme', o: ['moderate', 'immoderate', 'mediocre', 'mute'], a: 0, w: 'Moderate = modéré.' },
+    { s: 'a sum paid regularly to a shareholder', o: ['dividend', 'deduction', 'deposit', 'discount'], a: 0, w: 'Dividend = dividende.' },
+    { s: 'to reduce the size of a company by cutting staff', o: ['downsize', 'oversize', 'upskill', 'outsource'], a: 0, w: 'Downsize = réduire les effectifs.' },
+    { s: 'a legally binding agreement between two parties', o: ['contract', 'contact', 'contrast', 'conduct'], a: 0, w: 'Contract = contrat.' },
+    { s: 'to grow or increase quickly', o: ['expand', 'expend', 'expense', 'expunge'], a: 0, w: 'Expand = se développer.' },
+    { s: 'the state of owing money', o: ['indebtedness', 'indifference', 'independence', 'indulgence'], a: 0, w: 'Indebtedness = endettement.' },
+    { s: 'careful management of resources', o: ['thrift', 'theft', 'thrive', 'drift'], a: 0, w: 'Thrift = économie, parcimonie.' },
+    { s: 'a written request for payment', o: ['invoice', 'invoyce', 'invoicing', 'invoke'], a: 0, w: 'Invoice = facture.' },
+    { s: 'to delay an event to a later date', o: ['postpone', 'postulant', 'posturing', 'postdate'], a: 0, w: 'Postpone = reporter.' }
+  ];
+  const enSpellPairs = [
+    ['necessary', 'neccessary'], ['occurrence', 'ocurrence'], ['committee', 'comittee'], ['separate', 'seperate'],
+    ['maintenance', 'maintainance'], ['acquaintance', 'aquaintance'], ['privilege', 'priviledge'], ['threshold', 'threshhold'],
+    ['conscientious', 'concientious'], ['accommodate', 'accomodate'], ['definitely', 'definately'], ['beginning', 'begining'],
+    ['tomorrow', 'tommorow'], ['recommend', 'recomend'], ['schedule', 'shedule'], ['business', 'buisness'],
+    ['receive', 'recieve'], ['believe', 'beleive'], ['colleague', 'collegue'], ['environment', 'enviroment'],
+    ['government', 'goverment'], ['immediately', 'immediatly'], ['knowledge', 'knowlege'], ['management', 'managerment'],
+    ['particularly', 'particulary'], ['performance', 'performence'], ['professional', 'proffessional'], ['pronunciation', 'pronounciation'],
+    ['questionnaire', 'questionaire'], ['responsibility', 'responsability'], ['successful', 'succesful'], ['sufficient', 'suficient'],
+    ['temperature', 'temperture'], ['unfortunately', 'unfortunatly'], ['vehicle', 'vehicule'], ['existence', 'existance'],
+    ['hierarchy', 'hierachy'], ['liaison', 'liason'], ['millennium', 'millenium'], ['noticeable', 'noticable']
+  ];
+
+  const frFluencyExtra = [
+    { s: 'Nous comptons _____ votre retour avant vendredi.', o: ['sur', 'de', 'à', 'pour'], a: 0, w: 'Compter sur.' },
+    { s: 'Le dossier a été transmis _____ service comptable.', o: ['au', 'du', 'à le', 'vers'], a: 0, w: 'À + le = au.' },
+    { s: 'Cette décision relève _____ la direction générale.', o: ['de', 'du', 'à', 'par'], a: 0, w: 'Relever de.' },
+    { s: 'Les résultats sont _____ hausse depuis mars.', o: ['en', 'à', 'de', 'sur'], a: 0, w: 'En hausse.' },
+    { s: 'Le rapport fait état _____ plusieurs risques.', o: ['de', 'des', 'à', 'sur'], a: 0, w: 'Faire état de.' },
+    { s: 'Je vous prie de bien vouloir _____ votre accord.', o: ['confirmer', 'confirmation', 'confirmé', 'confirmant'], a: 0, w: 'Après « vouloir » : infinitif.' },
+    { s: 'La direction a donné son accord pour _____ le projet.', o: ['lancer', 'lancement', 'lancé', 'lançant'], a: 0, w: 'Après « pour » : infinitif.' },
+    { s: 'Le remboursement sera effectué _____ réception de la facture.', o: ['dès', 'depuis', 'pendant', 'durant'], a: 0, w: 'Dès réception.' },
+    { s: 'Veuillez trouver ci-joint la facture _____ la prestation.', o: ['correspondant à', 'correspondant de', 'correspondante à', 'correspond à'], a: 0, w: 'Participe présent + à.' },
+    { s: 'Il convient _____ vérifier ces montants avant la clôture.', o: ['de', 'à', 'pour', 'par'], a: 0, w: 'Il convient de + infinitif.' },
+    { s: 'Le délai de paiement a été fixé _____ trente jours.', o: ['à', 'de', 'pour de', 'sur'], a: 0, w: 'Fixer à.' },
+    { s: 'Nous restons _____ votre disposition pour tout complément.', o: ['à', 'de', 'en', 'sur'], a: 0, w: 'À votre disposition.' },
+    { s: 'La note de service a été diffusée _____ l’ensemble des équipes.', o: ['à', 'au', 'de', 'vers'], a: 0, w: 'Diffuser à.' },
+    { s: 'Le budget prévisionnel a été _____ à la baisse.', o: ['révisé', 'réviser', 'révision', 'révisant'], a: 0, w: 'Participe passé après « a été ».' },
+    { s: 'Ces dépenses ne sont pas _____ au projet.', o: ['imputables', 'imputer', 'imputation', 'imputant'], a: 0, w: 'Imputable à.' },
+    { s: 'Le fournisseur s’engage _____ livrer sous dix jours.', o: ['à', 'de', 'pour', 'par'], a: 0, w: 'S’engager à + infinitif.' },
+    { s: 'La clause s’applique _____ compter du 1er janvier.', o: ['à', 'au', 'de', 'en'], a: 0, w: 'À compter de.' },
+    { s: 'Les deux services doivent se concerter _____ définir le plan.', o: ['pour', 'de', 'par', 'sur'], a: 0, w: 'Se concerter pour + infinitif.' },
+    { s: 'Le rapport doit être remis _____ la fin du mois.', o: ['avant', 'devant', 'avant de', 'auparavant'], a: 0, w: 'Avant + nom.' },
+    { s: 'La direction a pris acte _____ la décision du comité.', o: ['de', 'des', 'à', 'sur'], a: 0, w: 'Prendre acte de.' },
+    { s: 'Ces montants ont été corrigés _____ la suite de l’audit.', o: ['à', 'en', 'de', 'par'], a: 0, w: 'À la suite de.' },
+    { s: 'Nous vous saurions gré _____ bien vouloir confirmer la date.', o: ['de', 'à', 'pour', 'par'], a: 0, w: 'Savoir gré de.' },
+    { s: 'Le service commercial a été _____ de deux personnes.', o: ['renforcé', 'renforcer', 'renforcement', 'renforçant'], a: 0, w: 'Participe passé.' },
+    { s: 'Les factures sont payables _____ réception.', o: ['à', 'sur', 'de', 'en'], a: 0, w: 'Payable à réception.' }
+  ];
+  const frVocabExtra = [
+    { s: 'diminution progressive des prix', o: ['déflation', 'inflation', 'récession', 'expansion'], a: 0, w: 'Déflation.' },
+    { s: 'somme d’argent due à un fournisseur', o: ['dette', 'créance', 'apport', 'versement'], a: 0, w: 'Dette (la créance est une somme à recevoir).' },
+    { s: 'remise accordée sur un prix', o: ['rabais', 'majoration', 'prime', 'taxe'], a: 0, w: 'Rabais.' },
+    { s: 'contrôle officiel des comptes', o: ['audit', 'audience', 'audition', 'édit'], a: 0, w: 'Audit.' },
+    { s: 'qui ne peut pas être contesté', o: ['incontestable', 'contestable', 'incongru', 'inconstant'], a: 0, w: 'Incontestable.' },
+    { s: 'prévision des recettes et des dépenses', o: ['budget', 'bilan', 'bordereau', 'barème'], a: 0, w: 'Budget.' },
+    { s: 'part de bénéfice versée aux actionnaires', o: ['dividende', 'agio', 'apport', 'arrérage'], a: 0, w: 'Dividende.' },
+    { s: 'situation d’une entreprise qui dépense plus qu’elle ne gagne', o: ['déficit', 'excédent', 'endettement', 'trésorerie'], a: 0, w: 'Déficit.' },
+    { s: 'examen détaillé d’un dossier', o: ['analyse', 'analyste', 'analogue', 'analytique'], a: 0, w: 'Analyse.' },
+    { s: 'mettre fin à un contrat', o: ['résilier', 'résoudre', 'résider', 'résumer'], a: 0, w: 'Résilier.' },
+    { s: 'somme versée avant la livraison', o: ['acompte', 'remboursement', 'solde', 'ristourne'], a: 0, w: 'Acompte.' },
+    { s: 'qui respecte les règles prévues', o: ['conforme', 'informe', 'énorme', 'difforme'], a: 0, w: 'Conforme.' },
+    { s: 'manque de moyens ou de ressources', o: ['pénurie', 'pléthore', 'profusion', 'abondance'], a: 0, w: 'Pénurie.' },
+    { s: 'réduire les dépenses', o: ['restreindre', 'étendre', 'prétendre', 'astreindre'], a: 0, w: 'Restreindre.' },
+    { s: 'appréciation de la valeur d’un bien', o: ['estimation', 'destination', 'délimitation', 'prestation'], a: 0, w: 'Estimation.' },
+    { s: 'personne chargée de vérifier les comptes', o: ['auditeur', 'éditeur', 'acquéreur', 'assureur'], a: 0, w: 'Auditeur.' },
+    { s: 'résultat positif d’une opération', o: ['bénéfice', 'manque', 'pénurie', 'perte'], a: 0, w: 'Bénéfice.' },
+    { s: 'document récapitulatif des opérations d’un exercice', o: ['bilan', 'bureau', 'barème', 'bordereau'], a: 0, w: 'Bilan.' },
+    { s: 'augmentation du niveau général des prix', o: ['inflation', 'déflation', 'stagnation', 'dévaluation'], a: 0, w: 'Inflation.' },
+    { s: 'action de céder un bien à un tiers', o: ['cession', 'session', 'concession', 'succession'], a: 0, w: 'Cession.' },
+    { s: 'somme laissée en garantie', o: ['caution', 'captation', 'causerie', 'cassation'], a: 0, w: 'Caution.' },
+    { s: 'qui produit un rendement satisfaisant', o: ['rentable', 'rondement', 'tenable', 'portable'], a: 0, w: 'Rentable.' },
+    { s: 'écart entre le prévu et le réalisé', o: ['variation', 'variance', 'vacation', 'vénération'], a: 0, w: 'Variation / écart.' },
+    { s: 'faire face à une échéance', o: ['honorer', 'honoraire', 'honorifique', 'honorariat'], a: 0, w: 'Honorer une échéance.' }
+  ];
+  const frSpellPairs = [
+    ['développement', 'dévelopement'], ['occasion', 'occassion'], ['apparemment', 'aparemment'], ['maintenance', 'maintainance'],
+    ['privilège', 'privilége'], ['consciencieux', 'concentieux'], ['rythme', 'rhythme'], ['transmettre', 'transmetre'],
+    ['acquérir', 'acquérirre'], ['palette', 'pallette'], ['environnement', 'environement'], ['professionnel', 'profesionnel'],
+    ['nécessaire', 'nécéssaire'], ['commettre', 'comettre'], ['indépendamment', 'indépendament'], ['accueil', 'acceuil'],
+    ['adresse', 'addrèsse'], ['aggraver', 'agraver'], ['améliorer', 'amméliorer'], ['appeler', 'appeller'],
+    ['argument', 'arguement'], ['attendre', 'atendre'], ['bibliothèque', 'bibliothéque'], ['catégorie', 'catégorrie'],
+    ['collaboration', 'colaboration'], ['connaisseur', 'conaisseur'], ['décision', 'décission'], ['définition', 'définission'],
+    ['difficulté', 'difficultée'], ['efficace', 'efficasse'], ['élément', 'élement'], ['entreprise', 'entrepise'],
+    ['évidemment', 'évidament'], ['exception', 'exeption'], ['expérience', 'experiance'], ['gestion', 'guestion'],
+    ['immédiatement', 'imédiatement'], ['intéressant', 'interressant'], ['malheureusement', 'malheuresement'], ['parallèle', 'paralelle'],
+    ['satisfaction', 'satisfation'], ['sérieux', 'serrieux'], ['supplémentaire', 'suplementaire'], ['utiliser', 'utilisser']
+  ];
+
   /* ─────────── Comportement professionnel — 48 blocs × 3 ─────────── */
   const behaviour = [
     'Je termine mes tâches sans qu’on me le demande deux fois.','J’aime que mes résultats soient comparés à ceux des autres.','Je garde mon calme quand tout s’accélère.',
@@ -307,8 +447,38 @@ const BANK = (() => {
   const infoMailsLate = [
     { from: 'Priya Raman', to: 'tom.martin@interlan.com', d: 0, tag: 'cascade', subj: 'CASCADE — regulator call', body: 'Tom,\na regulator called about CASCADE this morning; the note is attached. Marketing owns the follow-up.\nP. Raman' },
     { from: 'Keira Sanders', to: 'tom.martin@interlan.com', d: 0, tag: 'atlas', subj: 'ATLAS — budget freeze?', body: 'Tom,\nrumour of a budget freeze on ATLAS; can you check with finance today?\nK. Sanders' },
-    { from: 'Helpdesk', to: 'marketing.support@interlan.com', d: 0, tag: 'support', subj: 'Mailbox migration notice', body: 'Dear colleagues,\nthe shared mailbox will be migrated on Sunday. Acknowledge receipt of this notice.\nHelpdesk' }
+    { from: 'Helpdesk', to: 'marketing.support@interlan.com', d: 0, tag: 'support', subj: 'Mailbox migration notice', body: 'Dear colleagues,\nthe shared mailbox will be migrated on Sunday. Acknowledge receipt of this notice.\nHelpdesk' },
+    { from: 'Keira Sanders', to: 'tom.martin@interlan.com', d: 3, tag: 'atlas', subj: 'ATLAS — steering pack', body: 'Mr. Martin,\nthe steering pack for ATLAS still needs the marketing figures. I sent the file some days ago.\nK. Sanders' },
+    { from: 'Daniel Knowles', to: 'tom.martin@interlan.com', d: 7, tag: 'boreal', subj: 'BOREAL — payment terms', body: 'Hello Tom,\nthe payment terms for BOREAL were addressed to you last week and are still pending.\nD. Knowles' },
+    { from: 'Lena Fischer', to: 'tom.martin@interlan.com', d: 1, tag: 'cascade', subj: 'CASCADE — sample labels', body: 'Hi,\nthe sample labels for CASCADE contain an error. Marketing is responsible for the correction.\nL. Fischer' }
   ];
+
+  /* Modèles de génération : la boîte continue de recevoir des e-mails
+     (mêmes règles de tri) sans jamais s'épuiser. */
+  const infoMailTpl = {
+    atlas: [
+      { from: 'Keira Sanders', subj: 'ATLAS — timeline review', body: 'Mr. Martin,\ncould you review the ATLAS timeline before the steering committee? The pack was sent some time ago.\nRegards, K. Sanders' },
+      { from: 'Keira Sanders', subj: 'ATLAS — customer list', body: 'Tom,\nthe ATLAS customer list needs an update; the file has been waiting in your mailbox.\nK. Sanders' },
+      { from: 'Walter Durenga', subj: 'ATLAS — budget note', body: 'Tom,\nthe ATLAS budget note was circulated to you and still needs an answer.\nW. Durenga' }
+    ],
+    boreal: [
+      { from: 'Daniel Knowles', subj: 'BOREAL — annexes', body: 'Hello Mr. Martin,\nthe annexes for BOREAL were sent directly to you; could you confirm receipt?\nD. Knowles' },
+      { from: 'Daniel Knowles', subj: 'BOREAL — supplier list', body: 'Tom,\nthe BOREAL supplier list is ready and was addressed to you personally.\nD. Knowles' }
+    ],
+    cascade: [
+      { from: 'Priya Raman', subj: 'CASCADE — test round', body: 'Hello,\nthe CASCADE test round is complete and someone in marketing must own the answer.\nP. Raman' },
+      { from: 'Lena Fischer', subj: 'CASCADE — customer complaint', body: 'Hi,\na CASCADE customer complained about the delay. Marketing is accountable.\nL. Fischer' }
+    ],
+    support: [
+      { from: 'Trade Fair Office', subj: 'Stand booking confirmation', body: 'Dear team,\nplease confirm the stand booking for the spring fair.\nTrade Fair Office' },
+      { from: 'Office Supplies Ltd', subj: 'Delivery note', body: 'Dear Sir or Madam,\nplease find the delivery note for your last order.\nSales desk' },
+      { from: 'Newsletter Desk', subj: 'Subscription request', body: 'A contact asked to be added to the marketing newsletter. Please process the request.' }
+    ],
+    other: [
+      { from: 'Internal Audit', subj: 'Expense sample', body: 'Mr. Martin,\nyour expense sample for last quarter needs a comment.\nInternal Audit', crit: true },
+      { from: 'Facilities', subj: 'Badge renewal', body: 'Dear colleague,\nyour building badge expires at the end of the month.\nFacilities' }
+    ]
+  };
 
   /* ─────────── Learning Efficiency — 12 objets (glyphes noirs) ─────────── */
   const leObjs = [
@@ -430,6 +600,7 @@ const BANK = (() => {
       blkBeh: 'Avec quelle précision ces affirmations décrivent-elles votre comportement ?',
       blkMot: 'Quelle importance accordez-vous aux aspects suivants de votre environnement de travail ?',
       blkSub: 'Attribuez les points en sélectionnant les cercles.',
+      sheets: 'Feuilles de données', sheetsHint: 'Naviguez librement entre les feuilles : la question reste affichée.', sheetGo: 'Afficher cette feuille', finish: 'Terminer',
       tf: ['true', 'false', 'cannot say'],
       unknown: '?',
       next: 'Suivant', intro: 'Introduction', guide: 'Directives', start: 'Commencer',
@@ -455,6 +626,7 @@ const BANK = (() => {
       blkBeh: 'How accurately do these statements describe your behaviour?',
       blkMot: 'How important do you rate the following aspects for your work environment?',
       blkSub: 'Please allocate points by selecting the circles.',
+      sheets: 'Data sheets', sheetsHint: 'Move freely between the sheets: the question stays on screen.', sheetGo: 'Show this sheet', finish: 'Finish',
       tf: ['true', 'false', 'cannot say'],
       unknown: '?',
       next: 'Next', intro: 'Introduction', guide: 'Guidelines', start: 'Start',
@@ -470,7 +642,8 @@ const BANK = (() => {
   };
 
   return { SYM_DED, SYM_IND, SYM_SW, verbalSheets, verbal, enFluency, enVocab, enSpell, frFluency, frVocab, frSpell,
-           behaviour, motivation, mech, infoRules, infoMails, infoMailsLate, leObjs, INTRO, STR };
+           behaviour, motivation, mech, infoRules, infoMails, infoMailsLate, infoMailTpl, leObjs, INTRO, STR,
+           enFluencyExtra, enVocabExtra, enSpellPairs, frFluencyExtra, frVocabExtra, frSpellPairs };
 })();
 
 if (typeof window !== 'undefined') window.BANK = BANK; else globalThis.BANK = BANK;
