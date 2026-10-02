@@ -622,3 +622,41 @@ html[data-theme="dark"] .pill.good,html[data-theme="dark"] .pill.hit{border-colo
 .blk .dot:hover{border-color:var(--pur)}
 .blk .dot.on{background:var(--pur);border-color:var(--pur);color:#fff}
 .blk .dot.dim{opacity:.35;cursor:not-allowed}
+
+/* ── déductif : grille 4×4 de symboles + choix du symbole manquant ── */
+.ggrid{display:grid;gap:6px;margin:0 auto 14px;width:max-content}
+.ggrid.g4{grid-template-columns:repeat(4,74px)}
+.ggrid.g3{grid-template-columns:repeat(3,58px)}
+.gtile{background:var(--card);border:1px solid var(--line2);border-radius:var(--r);display:flex;align-items:center;
+  justify-content:center;aspect-ratio:1;font-size:26px;font-weight:700;color:var(--tx)}
+.ggrid.g4 .gtile{width:74px}
+.ggrid.g3 .gtile{width:58px}
+.gtile svg{width:74%;height:74%}
+.gtile.hole{color:var(--tx3);background:var(--card2)}
+.gopts{display:flex;gap:12px;justify-content:center;margin:14px 0 10px}
+.gopt{position:relative;width:78px;height:78px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer}
+.gopt svg{width:70%;height:70%}
+.gopt:hover{border-color:var(--grn)}
+.gopt.sel{border-color:var(--grn);box-shadow:0 0 0 2px var(--grn-bg) inset}
+.gopt.ok{border-color:var(--grn);background:var(--grn-bg)}
+.gopt.ko{border-color:var(--red);background:var(--red-bg)}
+.gopt.dim{opacity:.45}
+.gopt .mk,.cand .cmark{position:absolute;top:-9px;right:-9px;width:20px;height:20px;border-radius:50%;background:var(--grn);
+  color:#fff;font-size:12px;display:none;align-items:center;justify-content:center}
+.gopt.ok .mk,.cand.ok .cmark,.cand.sel .cmark{display:flex}
+.gopt.ko .mk{display:flex;background:var(--red)}
+
+/* ── inductif : exemples à gauche, candidates à droite ── */
+.i2{display:grid;grid-template-columns:1fr 1.35fr;gap:18px;align-items:start}
+.i2-side{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:14px}
+.i2-t{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:12px;line-height:1.35}
+.i2-cands{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cand{position:relative;padding:8px;border:1px solid var(--line2);border-radius:var(--r2);cursor:pointer;width:max-content;background:var(--bg2)}
+.cand .ggrid{margin:0}
+.cand:hover{border-color:var(--grn)}
+.cand.sel{border-color:var(--grn);box-shadow:0 0 0 2px var(--grn-bg) inset}
+.cand.ok{border-color:var(--grn);background:var(--grn-bg)}
+.cand.ko{border-color:var(--red);background:var(--red-bg)}
+.cand.dim{opacity:.5}
+@media (max-width:980px){ .i2{grid-template-columns:1fr} }

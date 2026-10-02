@@ -632,6 +632,44 @@ html[data-theme="dark"] .pill.good,html[data-theme="dark"] .pill.hit{border-colo
 .blk .dot.on{background:var(--pur);border-color:var(--pur);color:#fff}
 .blk .dot.dim{opacity:.35;cursor:not-allowed}
 
+/* ── déductif : grille 4×4 de symboles + choix du symbole manquant ── */
+.ggrid{display:grid;gap:6px;margin:0 auto 14px;width:max-content}
+.ggrid.g4{grid-template-columns:repeat(4,74px)}
+.ggrid.g3{grid-template-columns:repeat(3,58px)}
+.gtile{background:var(--card);border:1px solid var(--line2);border-radius:var(--r);display:flex;align-items:center;
+  justify-content:center;aspect-ratio:1;font-size:26px;font-weight:700;color:var(--tx)}
+.ggrid.g4 .gtile{width:74px}
+.ggrid.g3 .gtile{width:58px}
+.gtile svg{width:74%;height:74%}
+.gtile.hole{color:var(--tx3);background:var(--card2)}
+.gopts{display:flex;gap:12px;justify-content:center;margin:14px 0 10px}
+.gopt{position:relative;width:78px;height:78px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer}
+.gopt svg{width:70%;height:70%}
+.gopt:hover{border-color:var(--grn)}
+.gopt.sel{border-color:var(--grn);box-shadow:0 0 0 2px var(--grn-bg) inset}
+.gopt.ok{border-color:var(--grn);background:var(--grn-bg)}
+.gopt.ko{border-color:var(--red);background:var(--red-bg)}
+.gopt.dim{opacity:.45}
+.gopt .mk,.cand .cmark{position:absolute;top:-9px;right:-9px;width:20px;height:20px;border-radius:50%;background:var(--grn);
+  color:#fff;font-size:12px;display:none;align-items:center;justify-content:center}
+.gopt.ok .mk,.cand.ok .cmark,.cand.sel .cmark{display:flex}
+.gopt.ko .mk{display:flex;background:var(--red)}
+
+/* ── inductif : exemples à gauche, candidates à droite ── */
+.i2{display:grid;grid-template-columns:1fr 1.35fr;gap:18px;align-items:start}
+.i2-side{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:14px}
+.i2-t{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:12px;line-height:1.35}
+.i2-cands{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cand{position:relative;padding:8px;border:1px solid var(--line2);border-radius:var(--r2);cursor:pointer;width:max-content;background:var(--bg2)}
+.cand .ggrid{margin:0}
+.cand:hover{border-color:var(--grn)}
+.cand.sel{border-color:var(--grn);box-shadow:0 0 0 2px var(--grn-bg) inset}
+.cand.ok{border-color:var(--grn);background:var(--grn-bg)}
+.cand.ko{border-color:var(--red);background:var(--red-bg)}
+.cand.dim{opacity:.5}
+@media (max-width:980px){ .i2{grid-template-columns:1fr} }
+
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230a8a3c'/><text x='50' y='68' font-size='52' font-family='Inter,sans-serif' font-weight='700' fill='white' text-anchor='middle'>CM</text></svg>">
 <script>
@@ -2596,11 +2634,11 @@ const CORE = (() => {
       need: 'Banque figée (37 ou 48 selon le paper choisi).'
     },
     {
-      id: 'deductive', name: 'Déductif', fr: 'Raisonnement déductif', icon: '🧩', family: 'cognitive',
-      mode: 'mc', source: 'fixed', items: 12, dur: 9, perItem: 45, color: 'pur',
-      desc: 'Matrices logiques : trouver les règles (forme, couleur, position, remplissage) et en déduire la case manquante.',
-      hint: 'Chercher d’abord la règle la plus simple ligne par ligne, puis colonne par colonne.',
-      need: 'Banque figée : 12 matrices.'
+      id: 'deductive', name: 'Déductif', fr: 'Deductive-logical Thinking', icon: '🧩', family: 'cognitive',
+      mode: 'latin4', source: 'infinite', items: 12, dur: 6, perItem: 30, color: 'pur',
+      desc: 'Format réel : grille 4×4 de symboles — chaque symbole apparaît une fois par ligne et par colonne. Une case porte un « ? » : choisissez le symbole manquant. 6 minutes.',
+      hint: 'Balayez la ligne ET la colonne du « ? » : il ne reste qu’un symbole possible. Ne vérifiez jamais toute la grille.',
+      need: '12 grilles · 6 min (rythme réel : ~30 s).'
     },
     {
       id: 'switch', name: 'Deductive Switch Challenge', fr: 'Switch Challenge', icon: '🔀', family: 'cognitive',
@@ -2610,11 +2648,11 @@ const CORE = (() => {
       need: 'Banque figée : 30 séries, difficulté croissante.'
     },
     {
-      id: 'inductive', name: 'Inductif', fr: 'Raisonnement inductif', icon: '🔷', family: 'cognitive',
-      mode: 'mc', source: 'fixed', items: 30, dur: 8, perItem: 30, color: 'pur',
-      desc: 'Séries de figures : conjecturez la suite selon la rotation, le nombre, le remplissage ou la couleur.',
-      hint: 'Chaque série n’a qu’une seule règle dominante : la chercher avant de regarder les options.',
-      need: 'Banque figée : 30 séries.'
+      id: 'inductive', name: 'Inductif', fr: 'Inductive Reasoning', icon: '🔷', family: 'cognitive',
+      mode: 'pick2', source: 'infinite', items: 8, dur: 6, perItem: 45, color: 'pur',
+      desc: 'Format réel : deux grilles d’exemple suivent une règle ; parmi quatre grilles, désignez les DEUX qui suivent la même règle. 6 minutes.',
+      hint: 'Formulez la règle en une phrase avant de regarder les candidates, puis éliminez : deux grilles doivent la violer.',
+      need: '8 séries · 6 min (rythme réel : ~45 s).'
     },
     {
       id: 'concentration', name: 'Concentration', fr: 'Capacité de concentration', icon: '👁️', family: 'cognitive',
@@ -2650,6 +2688,20 @@ const CORE = (() => {
       desc: 'Engrenages, courroies, poulies, leviers, ressorts : sens de rotation et efforts.',
       hint: 'Engrenages : le sens s’inverse à chaque contact. Courroie droite : même sens. Courroie croisée : sens opposés.',
       need: 'Banque figée : 24 items.'
+    },
+    {
+      id: 'deductiveMat', hidden: true, name: 'Déductif — matrices (ancien format)', fr: 'Matrices logiques', icon: '🧩', family: 'cognitive',
+      mode: 'mcfig', source: 'fixed', items: 12, dur: 9, perItem: 45, color: 'pur',
+      desc: 'Entraînement complémentaire : matrices logiques à trous (forme, couleur, position, remplissage).',
+      hint: 'Chercher d’abord la règle ligne par ligne, puis colonne par colonne.',
+      need: 'Banque figée : 12 matrices.'
+    },
+    {
+      id: 'inductiveSerie', hidden: true, name: 'Inductif — séries (ancien format)', fr: 'Séries de figures', icon: '🔷', family: 'cognitive',
+      mode: 'mcfig', source: 'infinite', items: 30, dur: 8, perItem: 30, color: 'pur',
+      desc: 'Entraînement complémentaire : séries de figures à compléter (rotation, nombre, remplissage, couleur).',
+      hint: 'Chaque série n’a qu’une seule règle dominante.',
+      need: 'Banque illimitée.'
     },
     {
       id: 'workBehaviour', name: 'Comportement professionnel', fr: 'Work behaviour', icon: '🧭', family: 'behavioural',
@@ -2715,8 +2767,18 @@ const CORE = (() => {
         const all = DRILL.numericalFixed().map(i => Object.assign({ kind: 'mc' }, i));
         return cfg.paper === 'B' ? all.slice(0, 37) : all;
       }
-      case 'deductive': return U.shuffle(U.rng(cfg.seed), BANK.DED.map(d => Object.assign({ kind: 'mcfig', why: d.rule, time: section.perItem }, d))).slice(0, n);
-      case 'inductive': return DRILL.inductiveSet(n).map(x => Object.assign(x, { kind: 'mcfig' }));
+      case 'deductive': {
+        const out = [];
+        for (let i = 0; i < n; i++) out.push(latin4Item(cfg.seed * 6151 + i * 7717, i));
+        return out;
+      }
+      case 'inductive': {
+        const out = [];
+        for (let i = 0; i < n; i++) out.push(pick2Item(cfg.seed * 4093 + i * 3571, i));
+        return out;
+      }
+      case 'deductiveMat': return U.shuffle(U.rng(cfg.seed), BANK.DED.map(d => Object.assign({ kind: 'mcfig', why: d.rule, time: section.perItem }, d))).slice(0, n);
+      case 'inductiveSerie': return DRILL.inductiveSet(n).map(x => Object.assign(x, { kind: 'mcfig' }));
       case 'concentration': return DRILL.concentrationSet(n).map(x => Object.assign(x, { kind: 'pair' }));
       case 'learning': return DRILL.learningSet(n).map(x => Object.assign(x, { kind: 'grid' }));
       case 'memory': return DRILL.memorySet(n).map(x => Object.assign(x, { kind: 'grid' }));
@@ -2729,6 +2791,116 @@ const CORE = (() => {
       case 'english': return buildEnglish(cfg, section);
       default: return [];
     }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     DÉDUCTIF / INDUCTIF — formats réels (grilles de symboles)
+     ═══════════════════════════════════════════════════════════ */
+  const GSYM = [
+    { kind: 'plus', color: 'blu' },        /* croix bleue   */
+    { kind: 'tri-full', color: 'blu' },    /* triangle bleu */
+    { kind: 'disc', color: 'grn' },        /* rond vert     */
+    { kind: 'square-full', color: 'red' }  /* carré rouge   */
+  ];
+
+  /** Grille 4×4 : chaque symbole apparaît une fois par ligne et par colonne. */
+  function latin4Item(seed, i) {
+    const rnd = U.rng(seed);
+    const base = U.shuffle(rnd, [0, 1, 2, 3]);
+    const sym = U.shuffle(rnd, [0, 1, 2, 3]);
+    const rows = U.shuffle(rnd, [0, 1, 2, 3]);
+    const cols = U.shuffle(rnd, [0, 1, 2, 3]);
+    const g = [];
+    for (let r = 0; r < 4; r++) {
+      g.push([]);
+      for (let c = 0; c < 4; c++) g[r].push(sym[base[(rows[r] + cols[c]) % 4]]);
+    }
+    const hr = rows[0], hc = cols[0];
+    const ans = g[hr][hc];
+    const opts = U.shuffle(rnd, [0, 1, 2, 3]);
+    return {
+      id: 'D4-' + i, kind: 'latin4', grid: g, hole: [hr, hc],
+      options: opts.map(k => GSYM[k]), ans: opts.indexOf(ans),
+      why: 'Chaque symbole apparaît exactement une fois par ligne et par colonne : la case « ? » ne peut recevoir qu’un seul symbole.',
+      secNote: 'Déductif — grille 4×4'
+    };
+  }
+
+  /** Règles inductives : simples, vérifiables, indépendantes des items du test réel. */
+  const IRULES = [
+    { id: 'corners', txt: 'les quatre coins portent le même symbole',
+      ok: (g) => g[0] === g[2] && g[0] === g[6] && g[0] === g[8] },
+    { id: 'row', txt: 'une ligne entière porte le même symbole',
+      ok: (g) => [0, 3, 6].some(r => g[r] === g[r + 1] && g[r] === g[r + 2]) },
+    { id: 'col', txt: 'une colonne entière porte le même symbole',
+      ok: (g) => [0, 1, 2].some(c => g[c] === g[c + 3] && g[c] === g[c + 6]) },
+    { id: 'centre', txt: 'la case du centre porte le même symbole que les quatre coins',
+      ok: (g) => g[4] === g[0] && g[4] === g[2] && g[4] === g[6] && g[4] === g[8] },
+    { id: 'mirror', txt: 'la grille est symétrique de gauche à droite',
+      ok: (g) => [0, 3, 6].every(r => g[r] === g[r + 2]) },
+    { id: 'diag', txt: 'les deux diagonales portent le même symbole',
+      ok: (g) => g[0] === g[4] && g[4] === g[8] && g[2] === g[4] && g[6] === g[4] }
+  ];
+
+  /** Construit une grille qui satisfait la règle (rnd = générateur). */
+  function gridFor(rule, rnd) {
+    const g = new Array(9).fill(2);              /* fond : rond vert */
+    const pick = () => [0, 1, 3][Math.floor(rnd() * 3)];
+    if (rule.id === 'corners') { const k = pick(); [0, 2, 6, 8].forEach(i => g[i] = k); g[4] = pick(); }
+    else if (rule.id === 'row') { const r = Math.floor(rnd() * 3), k = pick(); [0, 1, 2].forEach(d => g[r * 3 + d] = k); }
+    else if (rule.id === 'col') { const c = Math.floor(rnd() * 3), k = pick(); [0, 1, 2].forEach(d => g[c + d * 3] = k); }
+    else if (rule.id === 'centre') { const k = pick(); [0, 2, 4, 6, 8].forEach(i => g[i] = k); }
+    else if (rule.id === 'mirror') {
+      const a = pick(), b = pick(), c = pick(), d = pick(), e = pick();
+      g[0] = a; g[2] = a; g[6] = b; g[8] = b;      /* symétrie de gauche à droite */
+      g[1] = c; g[7] = c; g[3] = d; g[5] = d; g[4] = e;
+    }
+    else if (rule.id === 'diag') { const k = pick(); [0, 2, 4, 6, 8].forEach(i => g[i] = k); }
+    return g;
+  }
+
+  /** Casse la règle en modifiant 1 ou 2 cases (distracteur crédible, jamais bloquant). */
+  function breakRule(rule, g, rnd) {
+    for (let essai = 0; essai < 60; essai++) {
+      const copie = g.slice();
+      const n = 1 + Math.floor(rnd() * 2);
+      for (let k = 0; k < n; k++) {
+        const j = Math.floor(rnd() * 9);
+        let v = Math.floor(rnd() * 4);
+        if (v === copie[j]) v = (v + 1) % 4;
+        copie[j] = v;
+      }
+      if (!rule.ok(copie)) return copie;   /* la règle est bien violée */
+    }
+    return null;
+  }
+
+  /** Inductif : 2 grilles d'exemple qui suivent une règle, 4 candidates dont 2 la suivent. */
+  function pick2Item(seed, i) {
+    const rnd = U.rng(seed);
+    const rule = IRULES[(seed + i) % IRULES.length];
+    const ex = [gridFor(rule, rnd), gridFor(rule, rnd)];
+    const bonnes = [gridFor(rule, rnd), gridFor(rule, rnd)];
+    const faux = [];
+    let garde = 0;
+    while (faux.length < 2 && garde++ < 80) {
+      const g = breakRule(rule, gridFor(rule, rnd), rnd);
+      if (g && !rule.ok(g)) faux.push(g);
+    }
+    while (faux.length < 2) {                 /* filet de sécurité : grille manifestement hors règle */
+      const g = new Array(9).fill(0);
+      g[4] = 1; g[0] = 2; g[8] = 3;
+      if (!rule.ok(g)) faux.push(g); else break;
+    }
+    const cand = U.shuffle(rnd, [
+      { g: bonnes[0], ok: true }, { g: bonnes[1], ok: true }, { g: faux[0], ok: false }, { g: faux[1], ok: false }
+    ]);
+    const good = cand.map((c, k) => c.ok ? k : -1).filter(k => k >= 0);
+    return {
+      id: 'I2-' + i, kind: 'pick2', rule: rule.txt, examples: ex,
+      candidates: cand.map(c => c.g), good,
+      why: 'Règle : ' + rule.txt + '.', secNote: 'Inductif — 2 grilles parmi 4'
+    };
   }
 
   /* — banques complémentaires (navigateur : window ; tests node : globalThis) — */
@@ -3167,6 +3339,8 @@ const CORE = (() => {
     if (it.kind === 'grid') return renderGridPhase(it, b, f);
     if (it.kind === 'switch') return renderSwitch(it, b, f);
     if (it.kind === 'block') return renderBlock(it, b, f);
+    if (it.kind === 'latin4') return renderLatin4(it, b, f);
+    if (it.kind === 'pick2') return renderPick2(it, b, f);
     if (it.kind === 'inter') return renderInter(it, b, f);
     b.innerHTML = '<div class="fb ko">Item non pris en charge (kind = ' + U.esc(String(it.kind)) + ')</div>';
   }
@@ -3222,8 +3396,54 @@ const CORE = (() => {
     U.$$('#opts .opt').forEach(o => o.onclick = () => { pick(+o.dataset.i); setTimeout(() => submit(), 130); });
   }
 
+  /* — Déductif (format réel) : grille 4×4, une case « ? », 4 symboles — */
+  const GSYM_NOM = ['croix bleue', 'triangle bleu', 'rond vert', 'carré rouge'];
+  const gName = (o) => GSYM_NOM[GSYM.findIndex(x => x.kind === o.kind)] || 'symbole';
+  const gTile = (k, cls) => '<div class="gtile ' + (cls || '') + '">' + (k == null ? '?' : U.shape(GSYM[k].kind, DRILL.COLORMAP[GSYM[k].color], { sw: 9 })) + '</div>';
+  const gGrid = (g, hole) => '<div class="ggrid g4">' + g.map((row, r) => row.map((k, c) =>
+    (hole && hole[0] === r && hole[1] === c) ? gTile(null, 'hole') : gTile(k)).join('')).join('') + '</div>';
+
+  function renderLatin4(it, b, f) {
+    b.innerHTML = '<div class="qtext sm" style="text-align:center">Please choose the correct answer</div>' +
+      gGrid(it.grid, it.hole) +
+      '<div class="gopts" id="gopts">' + it.options.map((o, i) =>
+        '<div class="gopt" data-i="' + i + '"><span class="mk">✓</span>' + U.shape(o.kind, DRILL.COLORMAP[o.color], { sw: 9 }) + '</div>').join('') + '</div>' +
+      '<div class="tiny dim" style="text-align:center">Chaque symbole apparaît une fois par ligne et par colonne.</div>';
+    f.innerHTML = '<span class="tiny dim">Cliquez un symbole — la réponse part immédiatement.</span>';
+    U.$$('#gopts .gopt').forEach(o => o.onclick = () => { pick(+o.dataset.i); submit(); });
+  }
+
+  /* — Inductif (format réel) : 2 grilles d'exemple, 4 candidates, en désigner 2 — */
+  const gGrid3 = (g) => '<div class="ggrid g3">' + g.map(k => gTile(k)).join('') + '</div>';
+  function renderPick2(it, b, f) {
+    b.innerHTML =
+      '<div class="i2">' +
+        '<div class="i2-side">' +
+          '<div class="i2-t">These two grids follow a rule.</div>' +
+          it.examples.map(g => gGrid3(g)).join('') +
+        '</div>' +
+        '<div class="i2-side">' +
+          '<div class="i2-t">Which two of these grids follow the same rule?</div>' +
+          '<div class="i2-cands" id="cands">' + it.candidates.map((g, i) =>
+            '<div class="cand" data-i="' + i + '">' + gGrid3(g) + '<span class="cmark">✓</span></div>').join('') + '</div>' +
+        '</div>' +
+      '</div>';
+    f.innerHTML = '<span class="tiny dim" id="pickMsg">Sélectionnez 2 grilles.</span>' +
+      '<button class="btn pri" id="okBtn" disabled>Valider</button>';
+    pick2Sel = new Set();
+    U.$$('#cands .cand').forEach(c => c.onclick = () => {
+      const i = +c.dataset.i;
+      if (pick2Sel.has(i)) pick2Sel.delete(i); else { if (pick2Sel.size >= 2) return; pick2Sel.add(i); }
+      U.$$('#cands .cand').forEach(x => x.classList.toggle('sel', pick2Sel.has(+x.dataset.i)));
+      U.$('#pickMsg').textContent = pick2Sel.size + ' / 2 sélectionnée(s)' + (pick2Sel.size === 2 ? ' — validez.' : '');
+      U.$('#okBtn').disabled = pick2Sel.size !== 2;
+    });
+    U.$('#okBtn').onclick = () => submit();
+  }
+
   /* — Motivation (format réel) : 3 affirmations, 6 points à répartir — */
   let blockSel = [0, 0, 0];
+  let pick2Sel = new Set();
   function renderBlock(it, b, f) {
     blockSel = [0, 0, 0];
     const total = () => blockSel.reduce((a, x) => a + x, 0);
@@ -3377,6 +3597,7 @@ const CORE = (() => {
   /** Libellé affichable d'une option (gère les options objets du switch). */
   function label(it, idx) {
     if (idx == null) return 'non répondu';
+    if (it.kind === 'latin4' && it.options[idx]) return gName(it.options[idx]);
     if (it.skipQ && idx === it.options.length) return '? (je ne sais pas)';
     if (it.options) { const o = it.options[idx]; return (o && typeof o === 'object') ? (o.label || ('Option ' + (idx + 1))) : o; }
     if (it.opts) { const o = it.opts[idx]; return (o && typeof o === 'object') ? ('Figure ' + (idx + 1)) : ('Figure ' + (idx + 1)); }
@@ -3393,6 +3614,30 @@ const CORE = (() => {
     const it = S.items[S.i];
     const dt = Date.now() - (S.qStart || Date.now());
     S.times.push(dt);
+
+    /* — Déductif (grille 4×4) : QCM à 4 symboles, réponse immédiate — */
+    if (it.kind === 'latin4') {
+      const ix = multiSel && multiSel.size ? [...multiSel][0] : null;
+      const ok4 = ix !== null && ix === it.ans;
+      pushLog({ id: it.id, q: 'Grille 4×4 — symbole de la case « ? »', given: ix == null ? 'non répondu' : gName(it.options[ix]),
+                correct: gName(it.options[it.ans]), ok: ok4, ms: dt, section: (it.secId || S.sec.id), why: it.why, okFlag: ok4 });
+      S.results.push({ ok: ok4 });
+      if (S.feedback === 'immediate') showFeedback(it, ok4, dt, it.why, gName(it.options[it.ans]), false);
+      else next();
+      return;
+    }
+
+    /* — Inductif : les 2 grilles choisies sont-elles les bonnes ? — */
+    if (it.kind === 'pick2') {
+      const sel2 = pick2Sel ? [...pick2Sel].sort() : [];
+      const ok2 = sel2.length === 2 && sel2.join(',') === it.good.slice().sort().join(',');
+      pushLog({ id: it.id, q: 'Quelles deux grilles suivent la même règle ?', given: sel2.map(i => i + 1).join(' et '),
+                correct: it.good.map(i => i + 1).join(' et '), ok: ok2, ms: dt, section: (it.secId || S.sec.id), why: it.why });
+      S.results.push({ ok: ok2 });
+      if (S.feedback === 'immediate') showFeedback(it, ok2, dt, it.why, it.good.map(i => i + 1).join(' et '), false);
+      else next();
+      return;
+    }
 
     /* — Exemples du test d'anglais : ne comptent pas dans le score — */
     if (it.example) {
@@ -3489,6 +3734,24 @@ const CORE = (() => {
         const i = +o.dataset.i;
         const good = (i === subAns);
         const chosen = multiSel && multiSel.has(i);
+        if (good) o.classList.add('ok');
+        if (chosen && !good) o.classList.add('ko');
+        if (!chosen && !good) o.classList.add('dim');
+        o.classList.remove('sel');
+      });
+    }
+    if (it.kind === 'latin4') {
+      U.$$('#gopts .gopt').forEach(o => {
+        const i = +o.dataset.i, good = (i === it.ans), chosen = multiSel && multiSel.has(i);
+        if (good) o.classList.add('ok');
+        if (chosen && !good) o.classList.add('ko');
+        if (!chosen && !good) o.classList.add('dim');
+        o.classList.remove('sel');
+      });
+    }
+    if (it.kind === 'pick2') {
+      U.$$('#cands .cand').forEach(o => {
+        const i = +o.dataset.i, good = it.good.includes(i), chosen = pick2Sel && pick2Sel.has(i);
         if (good) o.classList.add('ok');
         if (chosen && !good) o.classList.add('ko');
         if (!chosen && !good) o.classList.add('dim');
