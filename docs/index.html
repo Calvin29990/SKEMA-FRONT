@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assessment Trainer — Calvin MINANG</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Plateforme personnelle d'entraînement aux tests d'évaluation bancaires (cut-e / Aon / Maki). Usage strictement personnel — Calvin MINANG.">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230a8a3c'/><text x='50' y='68' font-size='52' font-family='Inter,sans-serif' font-weight='700' fill='white' text-anchor='middle'>CM</text></svg>">
+<script>
+  /* applique le thème avant le rendu (évite le flash) */
+  try {
+    var s = JSON.parse(localStorage.getItem('skemaTrainer.v1.settings') || '{}');
+    document.documentElement.dataset.theme = (s && s.theme === 'dark') ? 'dark' : 'light';
+  } catch (e) {}
+</script>
+<style>html.userpending .topbar,html.userpending .view,html.userpending .footer{display:none !important}</style>
+<script>
+  /* Aucun profil mémorisé -> l'application reste masquée, l'écran d'accès prend la main.
+     (même contrôle que la barrière : dissuasif, pas un contrôle serveur) */
+  try { if (!localStorage.getItem('skemaTrainer.v1.user')) document.documentElement.classList.add('userpending'); } catch (e) {}
+</script>
+</head>
+<body>
+
+<!-- ══════════ EN-TÊTE ══════════ -->
+<header class="topbar">
+  <div class="brand" data-nav="#/">
+    <div class="brand-mark">CM</div>
+    <div class="brand-text">
+      <div class="brand-title">Assessment Trainer</div>
+      <div class="brand-sub">Calvin MINANG · usage personnel</div>
+    </div>
+  </div>
+
+  <nav class="mainnav" id="mainnav">
+    <a href="#/" data-nav="#/" class="navlink">Accueil</a>
+    <a href="#/progression" data-nav="#/progression" class="navlink">Progression</a>
+    <a href="#/feedback" data-nav="#/feedback" class="navlink">Feedback</a>
+    <a href="#/captures" data-nav="#/captures" class="navlink">Captures</a>
+    <a href="#/reglages" data-nav="#/reglages" class="navlink">Aide &amp; réglages</a>
+  </nav>
+
+  <div class="hud" id="hud"></div>
+
+  <div class="topright">
+    <select class="langsel" id="langSel" title="Langue de l’interface et des consignes">
+      <option value="fr">Français (UE)</option>
+      <option value="en">English (UK)</option>
+      <option value="es">Español</option>
+      <option value="pt">Português</option>
+    </select>
+    <div class="switch" id="themeSw" title="Basculer le thème sombre"><i></i></div>
+    <button class="userchip" id="userBtn" title="Changer de profil">👤 <b id="userName">—</b><span class="uchg">changer</span></button>
+  </div>
+
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</header>
+
+<!-- ══════════ CONTENU ══════════ -->
+<main id="view" class="view"></main>
+
+<footer class="footer">
+  <span><strong>Document strictement personnel — réservé à Calvin MINANG.</strong> Reproduction et diffusion interdites. Aucune donnée ne quitte ce navigateur.</span>
+  <span class="footer-meta" id="footerMeta"></span>
+</footer>
+
+<!-- ══════════ SURCOUCHES ══════════ -->
+<div class="toast-wrap" id="toastWrap"></div>
+<div class="modal-back" id="modalBack" hidden>
+  <div class="modal" id="modalBox" role="dialog" aria-modal="true"></div>
+</div>
+
+<script src="assets/js/util.js"></script>
+<script src="assets/js/banks.js"></script>
+<script src="assets/js/bank-plus.js"></script>
+<script src="assets/js/drills.js"></script>
+<script src="assets/js/numverb.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

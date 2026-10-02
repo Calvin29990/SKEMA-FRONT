@@ -1,0 +1,118 @@
+# langue | expression régulière | remplacement
+en|^Bibliothèque \((\d+)\)$|Library ($1)
+en|^(\d+) / (\d+) minute\(s\)$|$1 / $2 min
+en|^~ (\d+) minute\(s\)$|~ $1 min
+en|^Durée (.+)$|Duration $1
+en|^(\d+) / (\d+) bonnes réponses$|$1 / $2 correct answers
+en|^(\d+) bonnes réponses sur (\d+) · (\d+) erreurs · (\d+) non répondues$|$1 correct answers out of $2 · $3 errors · $4 unanswered
+en|^(\d+) / (\d+) correctes$|$1 / $2 correct
+en|^(\d+) correctes · (\d+) erreurs · (\d+) questions$|$1 correct · $2 errors · $3 questions
+en|^(\d+) min de travail cumulé$|$1 min of cumulative work
+en|^(\d+) session\(s\)$|$1 session(s)
+en|^(\d+) items sur (\d+) jours · série actuelle : (\d+) jour\(s\)$|$1 items over $2 days · current streak: $3 day(s)
+en|^(\d+) items disponibles$|$1 items available
+en|^Session du (.+) à (.+) · profil (.+)$|Session of $1 at $2 · profile $3
+en|^Temps moyen (.+)$|Average time $1
+en|^temps moyen (.+)$|average time $1
+en|^Régularité \(σ\) (.+)$|Consistency (σ) $1
+en|^Détail question par question \((\d+)\)$|Question-by-question detail ($1)
+en|^(\d+) décisions < 3 s · (\d+) hésitations$|$1 decisions < 3 s · $2 hesitations
+en|^Profil : (.+)$|Profile: $1
+en|^Profil « (.+) » — historique séparé$|Profile “$1” — separate history
+en|^Profil « (.+) » enregistré$|Profile “$1” saved
+en|^« (.+) » enregistré$|“$1” saved
+en|^(\d+) j$|$1 d
+en|^(.+) — terminé$|$1 — finished
+en|^Objectif ≥ (\d+) bonnes réponses$|Target ≥ $1 correct answers
+en|^(\d+) sessions · ([\d.,]+) Ko utilisés$|$1 sessions · $2 KB used
+en|^(\d{4}-\d{2}-\d{2}) : (\d+) items$|$1: $2 items
+en|^🎯 Il reste (\d+) bonnes réponses à gagner sur la batterie anglaise\.$|🎯 $1 correct answers left to earn on the English battery.
+en|^(\d+),(\d+) %$|$1.$2 %
+en|^(\d+) réponses$|$1 answers
+en|^Thème : (.+)$|Topic: $1
+en|^(\d+) jour\(s\)$|$1 day(s)
+en|^Langue : (.+)$|Language: $1
+en|^Langue des consignes : (.+)$|Instruction language: $1
+en|^(\d+) question\(s\)$|$1 question(s)
+en|^meilleur (.+)$|best $1
+en|^Test cible \(BNP Paribas\) : du 7 au 9 octobre — J−(\d+)$|Target test: 7 to 9 October — D−$1
+en|^à lancer lorsque chaque section est déjà réussie à ≥ 85 %\. Aucun retour en arrière, aucune pause\.$|to be launched once every section is already passed at ≥ 85%. No going back, no pause.
+es|^Bibliothèque \((\d+)\)$|Biblioteca ($1)
+es|^(\d+) / (\d+) minute\(s\)$|$1 / $2 min
+es|^~ (\d+) minute\(s\)$|~ $1 min
+es|^Durée (.+)$|Duración $1
+es|^(\d+) / (\d+) bonnes réponses$|$1 / $2 respuestas correctas
+es|^(\d+) bonnes réponses sur (\d+) · (\d+) erreurs · (\d+) non répondues$|$1 respuestas correctas de $2 · $3 errores · $4 sin responder
+es|^(\d+) / (\d+) correctes$|$1 / $2 correctas
+es|^(\d+) correctes · (\d+) erreurs · (\d+) questions$|$1 correctas · $2 errores · $3 preguntas
+es|^(\d+) min de travail cumulé$|$1 min de trabajo acumulado
+es|^(\d+) session\(s\)$|$1 sesión(es)
+es|^(\d+) items sur (\d+) jours · série actuelle : (\d+) jour\(s\)$|$1 ítems en $2 días · racha actual: $3 día(s)
+es|^(\d+) items disponibles$|$1 ítems disponibles
+es|^Session du (.+) à (.+) · profil (.+)$|Sesión del $1 a las $2 · perfil $3
+es|^Temps moyen (.+)$|Tiempo medio $1
+es|^temps moyen (.+)$|tiempo medio $1
+es|^Régularité \(σ\) (.+)$|Regularidad (σ) $1
+es|^Détail question par question \((\d+)\)$|Detalle pregunta por pregunta ($1)
+es|^(\d+) décisions < 3 s · (\d+) hésitations$|$1 decisiones < 3 s · $2 dudas
+es|^Profil : (.+)$|Perfil: $1
+es|^Profil « (.+) » — historique séparé$|Perfil «$1» — historial separado
+es|^Profil « (.+) » enregistré$|Perfil «$1» guardado
+es|^« (.+) » enregistré$|«$1» guardado
+es|^(\d+) j$|$1 d
+es|^(.+) — terminé$|$1 — terminado
+es|^Objectif ≥ (\d+) bonnes réponses$|Objetivo ≥ $1 respuestas correctas
+es|^(\d+) sessions · ([\d.,]+) Ko utilisés$|$1 sesiones · $2 KB usados
+es|^(\d{4}-\d{2}-\d{2}) : (\d+) items$|$1: $2 ítems
+es|^🎯 Il reste (\d+) bonnes réponses à gagner sur la batterie anglaise\.$|🎯 Faltan $1 respuestas correctas por ganar en la batería de inglés.
+es|^(\d+),(\d+) %$|$1,$2 %
+es|^(\d+) réponses$|$1 respuestas
+es|^Thème : (.+)$|Tema: $1
+es|^(\d+) jour\(s\)$|$1 día(s)
+es|^Langue : (.+)$|Idioma: $1
+es|^Langue des consignes : (.+)$|Idioma de las instrucciones: $1
+es|^(\d+) question\(s\)$|$1 pregunta(s)
+es|^meilleur (.+)$|mejor $1
+es|^Test cible \(BNP Paribas\) : du 7 au 9 octobre — J−(\d+)$|Prueba objetivo: del 7 al 9 de octubre — D−$1
+es|^à lancer lorsque chaque section est déjà réussie à ≥ 85 %\. Aucun retour en arrière, aucune pause\.$|para lanzarla cuando cada sección esté ya superada al ≥ 85 %. Sin marcha atrás, sin pausa.
+pt|^Bibliothèque \((\d+)\)$|Biblioteca ($1)
+pt|^(\d+) / (\d+) minute\(s\)$|$1 / $2 min
+pt|^~ (\d+) minute\(s\)$|~ $1 min
+pt|^Durée (.+)$|Duração $1
+pt|^(\d+) / (\d+) bonnes réponses$|$1 / $2 respostas certas
+pt|^(\d+) bonnes réponses sur (\d+) · (\d+) erreurs · (\d+) non répondues$|$1 respostas certas de $2 · $3 erros · $4 sem resposta
+pt|^(\d+) / (\d+) correctes$|$1 / $2 corretas
+pt|^(\d+) correctes · (\d+) erreurs · (\d+) questions$|$1 corretas · $2 erros · $3 perguntas
+pt|^(\d+) min de travail cumulé$|$1 min de trabalho acumulado
+pt|^(\d+) session\(s\)$|$1 sessão(ões)
+pt|^(\d+) items sur (\d+) jours · série actuelle : (\d+) jour\(s\)$|$1 itens em $2 dias · sequência atual: $3 dia(s)
+pt|^(\d+) items disponibles$|$1 itens disponíveis
+pt|^Session du (.+) à (.+) · profil (.+)$|Sessão de $1 às $2 · perfil $3
+pt|^Temps moyen (.+)$|Tempo médio $1
+pt|^temps moyen (.+)$|tempo médio $1
+pt|^Régularité \(σ\) (.+)$|Regularidade (σ) $1
+pt|^Détail question par question \((\d+)\)$|Detalhe pergunta a pergunta ($1)
+pt|^(\d+) décisions < 3 s · (\d+) hésitations$|$1 decisões < 3 s · $2 hesitações
+pt|^Profil : (.+)$|Perfil: $1
+pt|^Profil « (.+) » — historique séparé$|Perfil «$1» — histórico separado
+pt|^Profil « (.+) » enregistré$|Perfil «$1» guardado
+pt|^« (.+) » enregistré$|«$1» guardado
+pt|^(\d+) j$|$1 d
+pt|^(.+) — terminé$|$1 — concluído
+pt|^Objectif ≥ (\d+) bonnes réponses$|Objetivo ≥ $1 respostas certas
+pt|^(\d+) sessions · ([\d.,]+) Ko utilisés$|$1 sessões · $2 KB usados
+pt|^(\d{4}-\d{2}-\d{2}) : (\d+) items$|$1: $2 itens
+pt|^🎯 Il reste (\d+) bonnes réponses à gagner sur la batterie anglaise\.$|🎯 Faltam $1 respostas certas a ganhar na bateria de inglês.
+pt|^(\d+),(\d+) %$|$1,$2 %
+pt|^(\d+) réponses$|$1 respostas
+pt|^Thème : (.+)$|Tema: $1
+pt|^(\d+) jour\(s\)$|$1 dia(s)
+pt|^Langue : (.+)$|Idioma: $1
+pt|^Langue des consignes : (.+)$|Idioma das instruções: $1
+pt|^(\d+) question\(s\)$|$1 pergunta(s)
+pt|^meilleur (.+)$|melhor $1
+pt|^Test cible \(BNP Paribas\) : du 7 au 9 octobre — J−(\d+)$|Teste alvo: de 7 a 9 de outubro — D−$1
+pt|^à lancer lorsque chaque section est déjà réussie à ≥ 85 %\. Aucun retour en arrière, aucune pause\.$|a lançar quando cada secção já estiver superada em ≥ 85 %. Sem retroceder, sem pausa.
+en|^2 exemples, puis (\d+) phrases à compléter$|2 examples, then $1 sentence-completion items
+es|^2 exemples, puis (\d+) phrases à compléter$|2 ejemplos, luego $1 frases para completar
+pt|^2 exemples, puis (\d+) phrases à compléter$|2 exemplos, depois $1 frases para completar

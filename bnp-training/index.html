@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNP Paribas — Évaluation Maki</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #fafbfc; color: #1a1a2e; }
+        
+        .header { background: #fff; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ebeef2; position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 56px; }
+        .logo { font-size: 16px; font-weight: 700; color: #00915a; }
+        .logo span { color: #1a1a2e; font-weight: 400; }
+        .advice-btn { border: 1.5px solid #1a1a2e; border-radius: 24px; padding: 6px 18px; font-size: 13px; font-weight: 500; cursor: pointer; background: transparent; display: flex; align-items: center; gap: 6px; }
+        .timer-badge { background: #f0f2f5; border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 500; }
+        .timer-badge.warning { background: #ffebee; color: #d32f2f; }
+        
+        .progress-dots { position: fixed; top: 56px; left: 0; right: 0; height: 40px; background: #fff; border-bottom: 1px solid #ebeef2; display: flex; align-items: center; justify-content: center; gap: 8px; z-index: 99; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #e0e3e8; }
+        .dot.active { background: #00915a; }
+        .dot.done { background: #00915a; opacity: 0.4; }
+        
+        .screen { display: none; min-height: 100vh; padding-top: 96px; }
+        .screen.active { display: block; }
+        
+        #landing { padding: 96px 32px 60px; max-width: 680px; margin: 0 auto; }
+        .avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #8B6914, #D4A843); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+        .landing-top { text-align: center; margin-bottom: 40px; }
+        .landing-top h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+        .landing-top .deadline { font-size: 15px; color: #666; }
+        
+        .activity-card { background: #fff; border: 1.5px solid #e8eaed; border-radius: 16px; padding: 24px; margin-bottom: 16px; display: flex; gap: 20px; align-items: flex-start; cursor: pointer; transition: all 0.2s; }
+        .activity-card:hover { border-color: #00915a; box-shadow: 0 2px 12px rgba(0,145,90,0.08); }
+        .activity-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .activity-info h3 { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+        .activity-info .meta { font-size: 13px; color: #888; }
+        .activity-status { margin-left: auto; font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 12px; background: #f0f2f5; }
+        
+        #about { padding: 96px 32px 60px; max-width: 680px; margin: 0 auto; }
+        .about-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+        .about-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .about-header h2 { font-size: 22px; font-weight: 700; }
+        .about-header .author { font-size: 13px; color: #888; margin-top: 2px; }
+        .about-section { background: #fff; border: 1px solid #e8eaed; border-radius: 14px; padding: 24px; margin-bottom: 20px; }
+        .about-section h4 { font-size: 14px; font-weight: 600; color: #00915a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .about-section p { font-size: 14px; line-height: 1.7; color: #444; }
+        .rec-list { counter-reset: rec; list-style: none; padding: 0; }
+        .rec-list li { counter-increment: rec; padding: 10px 0 10px 40px; position: relative; border-bottom: 1px solid #f0f2f5; font-size: 14px; color: #444; }
+        .rec-list li::before { content: counter(rec); position: absolute; left: 0; width: 26px; height: 26px; background: #00915a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; top: 10px; }
+        .start-btn-container { text-align: center; margin-top: 32px; }
+        .start-btn { background: #00915a; color: #fff; border: none; border-radius: 12px; padding: 14px 48px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .back-link { display: inline-block; font-size: 13px; color: #888; margin-top: 16px; cursor: pointer; text-decoration: underline; }
+        
+        #test { padding: 110px 32px 60px; max-width: 720px; margin: 0 auto; }
+        .q-label { font-size: 12px; font-weight: 600; color: #00915a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .q-text { font-size: 20px; font-weight: 600; line-height: 1.45; margin-bottom: 28px; }
+        
+        .opt-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+        .opt-item { background: #fff; border: 1.5px solid #e4e7ec; border-radius: 12px; padding: 16px 20px; cursor: pointer; font-size: 14px; line-height: 1.55; display: flex; align-items: center; gap: 14px; transition: all 0.12s; }
+        .opt-item:hover { border-color: #00915a; }
+        .opt-item.selected { border-color: #00915a; background: #f0faf5; }
+        .opt-radio { width: 20px; height: 20px; border: 2px solid #d0d4db; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .opt-item.selected .opt-radio { border-color: #00915a; background: #00915a; }
+        .opt-item.selected .opt-radio::after { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; }
+        
+        .rank-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+        .rank-item { background: #fff; border: 1.5px solid #e4e7ec; border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+        .rank-badge { width: 26px; height: 26px; background: #00915a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
+        .rank-text { flex: 1; font-size: 14px; }
+        .rank-btns { display: flex; gap: 4px; }
+        .rank-btns button { width: 28px; height: 28px; border: 1px solid #e0e3e8; border-radius: 6px; background: #fafbfc; cursor: pointer; font-size: 12px; }
+        .rank-btns button:disabled { opacity: 0.25; }
+        
+        .pattern-grid { display: flex; gap: 12px; justify-content: center; margin: 24px 0; flex-wrap: wrap; }
+        .pattern-cell { width: 70px; height: 70px; border: 2px solid #e0e3e8; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #fff; font-size: 20px; font-weight: 600; }
+        .pattern-cell.mystery { border: 2px dashed #00915a; background: #f0faf5; color: #00915a; }
+        .pattern-options { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+        .pattern-opt { width: 70px; height: 70px; border: 2px solid #e4e7ec; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #fff; font-size: 18px; font-weight: 600; cursor: pointer; }
+        .pattern-opt.selected { border-color: #00915a; background: #f0faf5; }
+        
+        .test-nav { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid #eef0f3; }
+        .nav-btn { padding: 10px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
+        .nav-btn.primary { background: #00915a; color: #fff; }
+        .nav-btn.ghost { background: transparent; color: #888; }
+        .nav-btn:disabled { opacity: 0.3; }
+        
+        #results { padding: 96px 32px 60px; max-width: 600px; margin: 0 auto; text-align: center; }
+        .result-score { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; font-size: 44px; font-weight: 700; color: #fff; }
+        .result-score.high { background: linear-gradient(135deg, #00915a, #00b36b); }
+        .result-score.mid { background: linear-gradient(135deg, #ff9800, #ffb74d); }
+        .result-score.low { background: linear-gradient(135deg, #d32f2f, #ef5350); }
+        #results h2 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .result-sub { font-size: 15px; color: #666; margin-bottom: 32px; }
+        .result-card { background: #fff; border: 1px solid #e8eaed; border-radius: 14px; padding: 20px 24px; margin-bottom: 16px; text-align: left; }
+        .result-card h4 { font-size: 12px; font-weight: 600; color: #00915a; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; }
+        .trait-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+        .trait-name { font-size: 13px; color: #555; width: 130px; text-align: right; }
+        .trait-bar-bg { flex: 1; height: 6px; background: #eef0f3; border-radius: 3px; overflow: hidden; }
+        .trait-bar-fill { height: 100%; border-radius: 3px; }
+        .trait-pct { font-size: 13px; font-weight: 600; width: 36px; }
+        .result-tips { font-size: 13px; line-height: 1.7; color: #555; }
+        .result-actions { display: flex; gap: 12px; justify-content: center; margin-top: 28px; }
+        .disclaimer { font-size: 11px; color: #bbb; margin-top: 32px; }
+        
+        .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; align-items: center; justify-content: center; }
+        .modal-bg.show { display: flex; }
+        .modal-box { background: #fff; border-radius: 16px; padding: 32px; max-width: 440px; width: 90%; text-align: center; }
+        .modal-box h3 { font-size: 18px; margin-bottom: 10px; }
+        .modal-box p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; }
+        
+        @media (max-width: 600px) {
+            #landing, #about, #test, #results { padding-left: 16px; padding-right: 16px; }
+            .q-text { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">BNP PARIBAS</div>
+    <button class="advice-btn" onclick="showTips()">▶ Quelques conseils</button>
+    <div class="timer-badge" id="timerBadge">--:--</div>
+</div>
+
+<div class="progress-dots" id="progressDots"></div>
+
+<div class="modal-bg" id="warningModal">
+    <div class="modal-box">
+        <h3>⚠️ Question obligatoire</h3>
+        <p>Vous devez répondre à cette question avant de passer à la suivante.</p>
+        <button class="start-btn" onclick="closeModal('warningModal')">Compris</button>
+    </div>
+</div>
+
+<div class="modal-bg" id="tipsModal">
+    <div class="modal-box" style="max-width:520px; text-align:left;">
+        <h3>Quelques conseils</h3>
+        <ul style="list-style:none; padding:0;">
+            <li style="font-size:13px; line-height:1.6; color:#555; margin-bottom:8px;">1. Cette activité a une limite de temps : assurez-vous de regarder le chronomètre.</li>
+            <li style="font-size:13px; line-height:1.6; color:#555; margin-bottom:8px;">2. Vous devez répondre à la question actuelle avant de passer à la suivante.</li>
+            <li style="font-size:13px; line-height:1.6; color:#555; margin-bottom:8px;">3. Important : une fois commencée, elle ne peut pas être mise en pause.</li>
+            <li style="font-size:13px; line-height:1.6; color:#555;">4. Ne quittez pas le plein écran ni ne changez d'onglet.</li>
+        </ul>
+        <div style="text-align:center; margin-top:20px;">
+            <button class="start-btn" onclick="closeModal('tipsModal')">Fermer</button>
+        </div>
+    </div>
+</div>
+
+<div class="screen active" id="landing">
+    <div class="landing-top">
+        <div class="avatar">👤</div>
+        <h1>Vous avez 2 activités à compléter</h1>
+        <p class="deadline">avant le 14 octobre à 21:02</p>
+    </div>
+    <div class="activity-card" onclick="goAbout('adaptability')">
+        <div class="activity-icon" style="background:#fff3e0;">🤝</div>
+        <div class="activity-info">
+            <h3>Adaptabilité & Collaboration</h3>
+            <div class="meta">⏱ 10 minutes · 8 questions</div>
+            <div class="meta" style="margin-top:2px;">Traits de personnalité</div>
+        </div>
+        <div class="activity-status" id="statusAdapt">À faire</div>
+    </div>
+    <div class="activity-card" onclick="goAbout('analysis')">
+        <div class="activity-icon" style="background:#e3f2fd;">💡</div>
+        <div class="activity-info">
+            <h3>Esprit d'analyse</h3>
+            <div class="meta">⏱ 10 minutes · 8 questions</div>
+            <div class="meta" style="margin-top:2px;">Aptitudes cognitives</div>
+        </div>
+        <div class="activity-status" id="statusAnalysis">À faire</div>
+    </div>
+</div>
+
+<div class="screen" id="about">
+    <div class="about-header">
+        <div class="about-icon" id="aboutIcon"></div>
+        <div>
+            <h2 id="aboutTitle"></h2>
+            <div class="author" id="aboutAuthor"></div>
+        </div>
+    </div>
+    <div class="about-section">
+        <h4>À propos de cette activité</h4>
+        <p id="aboutDesc"></p>
+    </div>
+    <div class="about-section">
+        <h4>Recommandations</h4>
+        <ol class="rec-list">
+            <li>Cette activité a une limite de temps : assurez-vous de regarder le chronomètre en haut de votre écran.</li>
+            <li>Vous devez répondre à la question actuelle avant de passer à la suivante. Vous ne pouvez pas sauter de questions ni naviguer entre elles.</li>
+            <li>Important : une fois l'activité commencée, elle ne peut pas être mise en pause.</li>
+            <li>Ne quittez pas le plein écran ni ne changez d'onglet, votre évaluation sera marquée comme incomplète.</li>
+        </ol>
+    </div>
+    <div class="start-btn-container">
+        <button class="start-btn" id="aboutStartBtn">Démarrer l'activité</button>
+        <br>
+        <span class="back-link" onclick="showScreen('landing')">← Retour aux activités</span>
+    </div>
+</div>
+
+<div class="screen" id="test">
+    <div id="testContent"></div>
+</div>
+
+<div class="screen" id="results">
+    <div id="resultsContent"></div>
+</div>
+
+<script>
+const tests = {
+    adaptability: {
+        title: "Adaptabilité & Collaboration",
+        author: "Aiden Loe",
+        authorTitle: "Traits de personnalité",
+        icon: "🤝",
+        iconBg: "#fff3e0",
+        timeLimit: 600,
+        about: "Ce test évalue votre capacité à travailler efficacement au sein d'une équipe pour atteindre des objectifs communs, en favorisant un environnement cohésif et productif. La capacité à s'adapter au changement, à gérer les situations instables avec flexibilité et résilience sera également évaluée. Ce test fait partie d'un ensemble de compétences communes évaluées dans le cadre du processus de recrutement pour un stage ou une alternance chez BNP Paribas.",
+        questions: [
+            {
+                type: "force_rank",
+                text: "Classez les affirmations suivantes de la plus à la moins représentative de votre façon de travailler :",
+                items: [
+                    "Je m'adapte rapidement quand les priorités changent, même à la dernière minute",
+                    "Je privilégie la cohésion de l'équipe plutôt que ma contribution individuelle",
+                    "Je propose des solutions nouvelles même si elles remettent en question les méthodes en place",
+                    "Je m'assure que les processus soient respectés pour garantir un résultat fiable"
+                ],
+                ideal: [0, 1, 2, 3],
+                trait: "adaptabilite"
+            },
+            {
+                type: "sjt",
+                text: "Votre équipe doit livrer un projet dans 3 jours. Un collègue clé tombe malade. Que faites-vous ?",
+                options: [
+                    "Je redistribue les tâches entre les disponibles, je prends en charge les éléments critiques, et je tiens le manager informé",
+                    "Je propose au manager de reporter la deadline pour garantir la qualité du livrable",
+                    "Je contacte un collègue d'une autre équipe avec les compétences nécessaires pour le remplacer temporairement",
+                    "Je me concentre sur ma partie du travail et j'attends que le manager redistribue les tâches"
+                ],
+                scores: [3, 1, 2, 0],
+                trait: "proactivite"
+            },
+            {
+                type: "sjt",
+                text: "Un client modifie ses exigences la veille de la livraison finale. Votre première réaction ?",
+                options: [
+                    "J'exprime clairement les impacts du changement, je propose un plan d'action ajusté, et je mobilise l'équipe autour du nouveau scope",
+                    "J'accepte le changement sans discuter et je fais le nécessaire pour livrer, quitte à travailler hors horaires",
+                    "Je refuse poliment en rappelant que le cahier des charges a été validé et signé",
+                    "Je consulte mon manager avant toute action pour valider la marche à suivre"
+                ],
+                scores: [3, 1, 1, 2],
+                trait: "adaptabilite"
+            },
+            {
+                type: "force_rank",
+                text: "Dans un environnement de travail, qu'est-ce qui vous motive le plus ? (classez du + au -)",
+                items: [
+                    "Résoudre un problème complexe en équipe que personne n'aurait pu résoudre seul",
+                    "Recevoir la reconnaissance de mon manager pour ma contribution personnelle",
+                    "Voir l'impact concret de notre travail sur les clients finaux",
+                    "Développer mes compétences grâce aux échanges et retours de mes collègues"
+                ],
+                ideal: [0, 3, 2, 1],
+                trait: "collaboration"
+            },
+            {
+                type: "sjt",
+                text: "Vous êtes en désaccord avec la décision de votre manager sur un projet stratégique. Que faites-vous ?",
+                options: [
+                    "J'applique la décision tout en documentant mes réserves pour un retour d'expérience futur",
+                    "Je demande un entretien en tête-à-tête pour exposer mon point de vue avec des arguments concrets",
+                    "Je consulte mes collègues pour vérifier si d'autres partagent mon analyse avant d'agir",
+                    "Je m'aligne immédiatement — le manager a une vision plus globale"
+                ],
+                scores: [1, 3, 2, 1],
+                trait: "assertivite"
+            },
+            {
+                type: "sjt",
+                text: "Vous rejoignez une nouvelle équipe. Les processus en place vous semblent inefficaces. Que faites-vous ?",
+                options: [
+                    "J'observe 2-3 semaines pour comprendre le contexte, puis je propose des améliorations ciblées avec des données",
+                    "Je propose des changements immédiats basés sur mes expériences précédentes",
+                    "Je m'adapte aux processus existants — ce n'est pas à moi de changer les choses",
+                    "J'en parle d'abord en off à un collègue de confiance pour comprendre l'histoire derrière ces processus"
+                ],
+                scores: [3, 1, 0, 2],
+                trait: "adaptabilite"
+            },
+            {
+                type: "force_rank",
+                text: "Face à un imprévu majeur, quelle est votre approche naturelle ? (classez du + au -)",
+                items: [
+                    "Je reste calme, j'analyse la situation froidement, puis je propose un plan B structuré",
+                    "Je rassemble rapidement l'équipe pour brainstormer des solutions ensemble",
+                    "J'agis vite sur ce que je peux contrôler, même sans avoir toute l'information",
+                    "Je consulte mon manager avant toute action pour valider la direction"
+                ],
+                ideal: [0, 1, 2, 3],
+                trait: "stress"
+            },
+            {
+                type: "sjt",
+                text: "Un collègue ne respecte pas ses deadlines, ce qui impacte directement votre travail. Comment gérez-vous ?",
+                options: [
+                    "Je lui parle directement, en privé, pour comprendre s'il y a un blocage et trouver une solution ensemble",
+                    "J'en parle au manager pour qu'il recadre la situation rapidement",
+                    "Je m'adapte en anticipant ses retards et en ajustant mon planning en conséquence",
+                    "Je lui envoie un message formel rappelant les deadlines et les impacts sur le projet"
+                ],
+                scores: [3, 1, 0, 1],
+                trait: "collaboration"
+            }
+        ]
+    },
+    analysis: {
+        title: "Esprit d'analyse",
+        author: "Aiden Loe",
+        authorTitle: "Aptitudes cognitives",
+        icon: "💡",
+        iconBg: "#e3f2fd",
+        timeLimit: 600,
+        about: "Ce test évalue votre capacité à analyser des situations complexes, identifier des patterns logiques, interpréter des données chiffrées et prendre des décisions structurées. L'esprit d'analyse est une compétence transversale essentielle dans un environnement bancaire, où les collaborateurs sont amenés à traiter rapidement des informations variées, à évaluer des risques et à formuler des recommandations argumentées.",
+        questions: [
+            {
+                type: "coding",
+                text: "Dans un certain langage, 'TRICK' est codé 'SQHBJ'. MAGIC est codé ___ dans ce langage.",
+                options: ["LZJHD", "LZGIB", "LAFHB", "LZFHB"],
+                scores: [0, 0, 0, 3],
+                trait: "logical_reasoning"
+            },
+            {
+                type: "word_problem",
+                text: "Une équipe de contrôle qualité se compose de 9 inspecteurs et de 3 analystes. 3 inspecteurs sont aussi productifs que 6 analystes. Le gestionnaire veut changer l'équipe pour la composer uniquement d'analystes tout en conservant le même niveau d'efficacité. L'équipe de contrôle qualité comptera ___ personnes après le changement.",
+                options: ["21", "12", "17", "19"],
+                scores: [3, 0, 0, 0],
+                trait: "numerical_reasoning"
+            },
+            {
+                type: "coding",
+                text: "Dans un certain code, 'FISH' est écrit 'EHRG'. Comment 'JUNGLE' est-il écrit dans ce code ?",
+                options: ["ITMFKD", "ITMGKD", "ITMKFD", "ITNFKE"],
+                scores: [0, 3, 0, 0],
+                trait: "logical_reasoning"
+            },
+            {
+                type: "price_comparison",
+                text: "Le prix de la matière première A est supérieur de 1/3 au prix de la matière première B, tandis que le prix de la matière première C est de 10% du prix de la matière première A. Laquelle des affirmations suivantes est vraie ?",
+                options: [
+                    "A > B > C",
+                    "B > A > C",
+                    "A > C > B",
+                    "C > B > A"
+                ],
+                scores: [3, 0, 0, 0],
+                trait: "numerical_reasoning"
+            },
+            {
+                type: "word_problem",
+                text: "Paul, Sophie et Marc gèrent ensemble un portefeuille de dossiers. Sophie en gère 40%, Marc gère 1/4, et Paul s'occupe du reste. Si Paul gère 56 dossiers, combien de dossiers ont été traités au total ?",
+                options: ["140", "150", "160", "180"],
+                scores: [0, 0, 3, 0],
+                trait: "numerical_reasoning"
+            },
+            {
+                type: "visual_pattern",
+                text: "Observez la séquence : ▲, ▲▲, ▲▲▲, ▲▲▲▲, ? Quel symbole complète la série ?",
+                sequence: ["▲", "▲▲", "▲▲▲", "▲▲▲▲", "?"],
+                options: ["▲▲▲▲▲", "▲▲▲▲", "▲▲", "▲▲▲▲▲▲"],
+                scores: [3, 0, 0, 0],
+                trait: "pattern_recognition"
+            },
+            {
+                type: "coding",
+                text: "Si 'COMPUTER' est codé 'DPNQVUFS', comment est codé 'SCIENCE' ?",
+                options: ["TDJFODF", "SBJDMDR", "TDJFMDR", "SBIDFOD"],
+                scores: [3, 0, 0, 0],
+                trait: "logical_reasoning"
+            },
+            {
+                type: "word_problem",
+                text: "Une équipe de 50 conseillers traite 200 dossiers en 10 jours. Si l'équipe est réduite à 40 conseillers, combien de jours faudra-t-il pour traiter 240 dossiers ?",
+                options: ["12 jours", "15 jours", "18 jours", "20 jours"],
+                scores: [0, 3, 0, 0],
+                trait: "numerical_reasoning"
+            }
+        ]
+    }
+};
+
+let currentTestKey = null;
+let currentTest = null;
+let currentQuestion = 0;
+let answers = [];
+let timerInterval = null;
+let timeLeft = 0;
+let completedTests = {};
+
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('progressDots').style.display = (id === 'test') ? 'flex' : 'none';
+    window.scrollTo(0, 0);
+}
+
+function showTips() { document.getElementById('tipsModal').classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+function goAbout(testKey) {
+    if (completedTests[testKey]) { showTestResults(testKey); return; }
+    currentTestKey = testKey;
+    currentTest = tests[testKey];
+    document.getElementById('aboutIcon').textContent = currentTest.icon;
+    document.getElementById('aboutIcon').style.background = currentTest.iconBg;
+    document.getElementById('aboutTitle').textContent = currentTest.title;
+    document.getElementById('aboutAuthor').textContent = `${currentTest.author} · ${currentTest.authorTitle}`;
+    document.getElementById('aboutDesc').textContent = currentTest.about;
+    document.getElementById('aboutStartBtn').onclick = () => startTest(testKey);
+    showScreen('about');
+}
+
+function startTest(testKey) {
+    currentTestKey = testKey;
+    currentTest = tests[testKey];
+    currentQuestion = 0;
+    answers = new Array(currentTest.questions.length).fill(null);
+    timeLeft = currentTest.timeLimit;
+    showScreen('test');
+    renderDots();
+    startTimer();
+    renderQuestion();
+}
+
+function renderDots() {
+    const container = document.getElementById('progressDots');
+    const total = currentTest.questions.length;
+    let html = '';
+    for (let i = 0; i < total; i++) {
+        let cls = 'dot';
+        if (i < currentQuestion) cls += ' done';
+        if (i === currentQuestion) cls += ' active';
+        html += `<div class="${cls}"></div>`;
+    }
+    container.innerHTML = html;
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) { clearInterval(timerInterval); finishTest(); }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const min = Math.floor(timeLeft / 60);
+    const sec = timeLeft % 60;
+    const el = document.getElementById('timerBadge');
+    el.textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+    el.className = 'timer-badge' + (timeLeft < 120 ? ' warning' : '');
+}
+
+function renderQuestion() {
+    const q = currentTest.questions[currentQuestion];
+    renderDots();
+    
+    let html = `
+        <div class="q-label">Question ${currentQuestion + 1} sur ${currentTest.questions.length} — ${currentTest.title}</div>
+        <div class="q-text">${q.text}</div>
+    `;
+
+    if (q.type === 'sjt' || q.type === 'single' || q.type === 'coding' || q.type === 'word_problem' || q.type === 'price_comparison') {
+        html += '<div class="opt-list">';
+        q.options.forEach((opt, i) => {
+            const sel = answers[currentQuestion] === i ? 'selected' : '';
+            html += `<div class="opt-item ${sel}" onclick="selectAnswer(${i})"><div class="opt-radio"></div><span>${opt}</span></div>`;
+        });
+        html += '</div>';
+    } else if (q.type === 'force_rank') {
+        const order = answers[currentQuestion] || [0, 1, 2, 3];
+        html += '<div class="rank-list">';
+        order.forEach((itemIdx, pos) => {
+            html += `
+                <div class="rank-item">
+                    <div class="rank-badge">${pos + 1}</div>
+                    <div class="rank-text">${q.items[itemIdx]}</div>
+                    <div class="rank-btns">
+                        <button onclick="moveRank(${pos},-1)" ${pos===0?'disabled':''}>↑</button>
+                        <button onclick="moveRank(${pos},1)" ${pos===order.length-1?'disabled':''}>↓</button>
+                    </div>
+                </div>
+            `;
+        });
+        html += '</div>';
+        if (!answers[currentQuestion]) answers[currentQuestion] = [0,1,2,3];
+    } else if (q.type === 'visual_pattern') {
+        if (q.sequence) {
+            html += '<div class="pattern-grid">';
+            q.sequence.forEach(cell => {
+                const isMystery = cell === '?';
+                html += `<div class="pattern-cell${isMystery?' mystery':''}" style="font-size:${isMystery?'18':'22'}px">${isMystery?'?':cell}</div>`;
+            });
+            html += '</div>';
+        }
+        html += '<div class="pattern-options">';
+        q.options.forEach((opt, i) => {
+            const sel = answers[currentQuestion] === i ? 'selected' : '';
+            html += `<div class="pattern-opt ${sel}" onclick="selectAnswer(${i})">${opt}</div>`;
+        });
+        html += '</div>';
+    }
+
+    html += `
+        <div class="test-nav">
+            <button class="nav-btn ghost" onclick="prevQuestion()" ${currentQuestion===0?'style="visibility:hidden"':''}>← Précédent</button>
+            <button class="nav-btn primary" onclick="nextQuestion()">${currentQuestion===currentTest.questions.length-1?'Terminer':'Suivant →'}</button>
+        </div>
+    `;
+
+    document.getElementById('testContent').innerHTML = html;
+}
+
+function selectAnswer(idx) { answers[currentQuestion] = idx; renderQuestion(); }
+
+function moveRank(pos, dir) {
+    const order = [...(answers[currentQuestion] || [0,1,2,3])];
+    const newPos = pos + dir;
+    if (newPos < 0 || newPos >= order.length) return;
+    [order[pos], order[newPos]] = [order[newPos], order[pos]];
+    answers[currentQuestion] = order;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if (answers[currentQuestion] === null) { document.getElementById('warningModal').classList.add('show'); return; }
+    if (currentQuestion < currentTest.questions.length - 1) { currentQuestion++; renderQuestion(); }
+    else { finishTest(); }
+}
+
+function prevQuestion() { if (currentQuestion > 0) { currentQuestion--; renderQuestion(); } }
+
+function finishTest() {
+    clearInterval(timerInterval);
+    let totalScore = 0, maxScore = 0, traits = {};
+    const penalty = currentTestKey === 'analysis' ? 0.5 : 0;
+
+    currentTest.questions.forEach((q, i) => {
+        const answer = answers[i];
+        if (q.type === 'sjt' || q.type === 'single' || q.type === 'coding' || q.type === 'word_problem' || q.type === 'price_comparison') {
+            const pts = q.scores[answer] !== undefined ? q.scores[answer] : 0;
+            const isCorrect = pts === 3;
+            const ptsWithPenalty = isCorrect ? 3 : Math.max(0, pts - penalty);
+            totalScore += ptsWithPenalty;
+            maxScore += 3;
+            if (!traits[q.trait]) traits[q.trait] = { pts: 0, max: 0 };
+            traits[q.trait].pts += ptsWithPenalty;
+            traits[q.trait].max += 3;
+        } else if (q.type === 'force_rank') {
+            const ideal = q.ideal || [0,1,2,3];
+            const userOrder = answer || [0,1,2,3];
+            let correct = 0;
+            userOrder.forEach((item, pos) => { if (ideal[pos] === item) correct++; });
+            const pts = Math.round((correct / q.items.length) * 3);
+            totalScore += pts;
+            maxScore += 3;
+            if (!traits[q.trait]) traits[q.trait] = { pts: 0, max: 0 };
+            traits[q.trait].pts += pts;
+            traits[q.trait].max += 3;
+        } else if (q.type === 'visual_pattern') {
+            const pts = q.scores[answer] !== undefined ? q.scores[answer] : 0;
+            const isCorrect = pts === 3;
+            const ptsWithPenalty = isCorrect ? 3 : Math.max(0, pts - penalty);
+            totalScore += ptsWithPenalty;
+            maxScore += 3;
+            if (!traits[q.trait]) traits[q.trait] = { pts: 0, max: 0 };
+            traits[q.trait].pts += ptsWithPenalty;
+            traits[q.trait].max += 3;
+        }
+    });
+
+    const pct = Math.round((totalScore / maxScore) * 100);
+    completedTests[currentTestKey] = { pct, traits };
+    updateLandingStatus();
+    showTestResults(currentTestKey);
+}
+
+function updateLandingStatus() {
+    if (completedTests.adaptability) {
+        document.getElementById('statusAdapt').textContent = '✓ Terminé';
+        document.getElementById('statusAdapt').style.background = '#e8f5e9';
+        document.getElementById('statusAdapt').style.color = '#00915a';
+    }
+    if (completedTests.analysis) {
+        document.getElementById('statusAnalysis').textContent = '✓ Terminé';
+        document.getElementById('statusAnalysis').style.background = '#e8f5e9';
+        document.getElementById('statusAnalysis').style.color = '#00915a';
+    }
+}
+
+function showTestResults(testKey) {
+    const data = completedTests[testKey];
+    if (!data) return;
+    const pct = data.pct, traits = data.traits, t = tests[testKey];
+    const scoreClass = pct >= 70 ? 'high' : pct >= 50 ? 'mid' : 'low';
+    const feedback = pct >= 70 ? "Excellent. Votre profil correspond aux attentes d'un stage chez BNP Paribas." : pct >= 50 ? "Bon résultat. Quelques ajustements peuvent améliorer votre score." : "Résultat en dessous du seuil. Ces tests se préparent — lisez les conseils et recommencez.";
+
+    let traitsHtml = '';
+    const traitLabels = { adaptabilite: "Adaptabilité", collaboration: "Collaboration", proactivite: "Proactivité", assertivite: "Assertivité", stress: "Gestion du stress", pattern_recognition: "Reconnaissance de patterns", financial_analysis: "Analyse financière", logical_reasoning: "Raisonnement logique", numerical_reasoning: "Raisonnement numérique", decision_making: "Prise de décision" };
+    Object.entries(traits).forEach(([key, val]) => {
+        const traitPct = Math.round((val.pts / val.max) * 100);
+        const color = traitPct >= 70 ? '#00915a' : traitPct >= 50 ? '#ff9800' : '#d32f2f';
+        const label = traitLabels[key] || key;
+        traitsHtml += `<div class="trait-row"><div class="trait-name">${label}</div><div class="trait-bar-bg"><div class="trait-bar-fill" style="width:${traitPct}%;background:${color}"></div></div><div class="trait-pct">${traitPct}%</div></div>`;
+    });
+
+    const tips = testKey === 'adaptability' ? getAdaptTips() : getAnalysisTips();
+    document.getElementById('resultsContent').innerHTML = `
+        <div class="result-score ${scoreClass}">${pct}%</div>
+        <h2>${t.title}</h2>
+        <p class="result-sub">${feedback}</p>
+        <div class="result-card"><h4>Détail par compétence</h4>${traitsHtml}</div>
+        <div class="result-card"><h4>Conseils pour le vrai test</h4><div class="result-tips">${tips}</div></div>
+        <div class="result-actions">
+            <button class="nav-btn ghost" onclick="showScreen('landing')">← Activités</button>
+            <button class="nav-btn primary" onclick="startTest('${testKey}')">Recommencer</button>
+        </div>
+        <p class="disclaimer">Outil d'entraînement personnel. Les questions sont originales et ne reproduisent pas les tests BNP Paribas / Maki People.</p>
+    `;
+    showScreen('results');
+}
+
+function getAdaptTips() {
+    return `<strong>Cohérence :</strong> Les tests personnalité détectent les contradictions. Choisissez un profil (team player proactif) et restez-y.<br><br><strong>Collaboration d'abord :</strong> BNP valorise le collectif. Privilégiez les réponses qui impliquent l'équipe avant l'individu.<br><br><strong>Adaptabilité > rigidité :</strong> Les options flexibles sont toujours mieux notées que "je suis les process à la lettre".<br><br><strong>Assertivité mesurée :</strong> Osez contredire avec respect et arguments. Pas de soumission totale, pas d'agressivité.<br><br><strong>Pas d'extrêmes :</strong> Évitez les "toujours" et "jamais" — la nuance est mieux notée.`;
+}
+
+function getAnalysisTips() {
+    return `<strong>Coding (lettres) :</strong> Cherche la règle de transformation (shift -1, +1, reverse, substitution). Teste sur chaque lettre.<br><br><strong>Word problems :</strong> Traduis en équation. "3 inspecteurs = 6 analystes" → 1 inspecteur = 2 analystes.<br><br><strong>Prix/fractions :</strong> A = B + 1/3 B = 4/3 B. C = 10% de A. Compare les valeurs relatives.<br><br><strong>Patterns visuels :</strong> Cherche la règle simple (croissance linéaire, rotation, duplication).<br><br><strong>Pénalité -0.5/erreur :</strong> Ne réponds pas au hasard si tu n'es pas sûr.`;
+}
+</script>
+
+</body>
+</html>

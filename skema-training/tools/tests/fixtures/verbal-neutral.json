@@ -1,0 +1,78 @@
+{
+ "title": "Verbal Reasoning — fixture de test (contenu inventé)",
+ "totalSec": 720,
+ "prompt": "Looking at the text of the current tab, is each statement true, false, or cannot say?",
+ "tabs": [
+  {
+   "id": "structure",
+   "short": "Structure",
+   "fr": "Structure"
+  },
+  {
+   "id": "strategy",
+   "short": "Strategy",
+   "fr": "Stratégie"
+  },
+  {
+   "id": "principles",
+   "short": "Principles",
+   "fr": "Principes"
+  }
+ ],
+ "figures": {
+  "structure": {
+   "type": "text",
+   "blocks": [
+    {
+     "name": "Maison mere",
+     "body": "Le groupe chapeaute deux poles : Blue Harbour Shipping et Blue Harbour Logistics. Chaque pole dispose de sa propre direction commerciale."
+    },
+    {
+     "name": "Blue Harbour Shipping",
+     "body": "Clients : armateurs independants et grands groupes industriels. La flotte compte quarante navires et opere en mer du Nord uniquement."
+    }
+   ]
+  },
+  "strategy": {
+   "type": "text",
+   "blocks": [
+    {
+     "name": "Croissance externe",
+     "body": "Blue Harbour a rachete trois societes de logistique portuaire en 2026, toutes situees dans la region de Hambourg, afin de securiser ses terminaux."
+    }
+   ]
+  },
+  "principles": {
+   "type": "text",
+   "blocks": [
+    {
+     "name": "Principes",
+     "body": "Texte de remplacement pour la fixture de test."
+    }
+   ]
+  }
+ },
+ "items": [
+  {
+   "id": "T01",
+   "tab": "structure",
+   "q": "La flotte de Blue Harbour Shipping opere uniquement en mer du Nord.",
+   "ans": 0,
+   "why": "Le texte le dit explicitement."
+  },
+  {
+   "id": "T02",
+   "tab": "structure",
+   "q": "Les deux poles partagent la meme direction commerciale.",
+   "ans": 1,
+   "why": "Le texte indique une direction commerciale propre a chaque pole."
+  },
+  {
+   "id": "T03",
+   "tab": "strategy",
+   "q": "Blue Harbour a rachete des societes basees a Hambourg.",
+   "ans": 0,
+   "why": "Trois societes de la region de Hambourg."
+  }
+ ]
+}
