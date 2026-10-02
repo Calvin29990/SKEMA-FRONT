@@ -161,7 +161,7 @@
     const days = U.daysBetween(new Date().toISOString().slice(0, 10), CORE.DL.exam);
     const target = st.target || 50;
     const bestVX = CORE.P.bestRun('verbalX');
-    const plan = CORE.SECTIONS;
+    const plan = CORE.SECTIONS.filter(s => !s.hidden);
     const totalMin = plan.reduce((a, s) => a + (s.dur || 0), 0);
     const doneMin = plan.reduce((a, s) => a + (s.dur || 0) * sectionProgress(s.id), 0);
     const SEG = 20, filled = Math.round(SEG * (totalMin ? doneMin / totalMin : 0));
@@ -231,6 +231,7 @@
       '<div class="trow ' + cls + '" data-id="' + s.id + '">' +
         '<span class="tico">' + icon + '</span>' +
         '<span class="tname"><span>' + U.esc(s.name) + (s.source === 'infinite' ? ' ∞' : '') + '</span>' +
+          (s.mode === 'numverb' ? '<span class="tfmt">6 onglets · true / false / cannot say</span>' : '') +
           '<span class="tchev" title="Détails">▼</span></span>' +
         '<span class="tdur">' + I.clock + '~ ' + s.dur + ' minute(s)</span>' +
         I18N.selectHTML('tlang') +
@@ -238,9 +239,11 @@
       '</div>' +
       '<div class="tdetails">' +
         '<div class="d">' + U.esc(s.desc) + '</div>' +
-        '<div class="hint"><b>Méthode :</b> ' + U.esc(s.hint) + '</div>' +
+        '<div class="hint"><b>Méthode :</b> ' + U.esc(s.hint) +
+          (s.mode === 'numverb' ? ' <a href="#/run/numericalMCQ" style="color:var(--grn)">Variante QCM classique →</a>' : '') + '</div>' +
         '<div class="stats"><span class="tag">' + s.items + ' items disponibles</span><span class="tag">' + s.perItem + ' s / item</span>' +
           (s.source === 'infinite' ? '<span class="tag amb">banque illimitée</span>' : '<span class="tag">banque figée</span>') +
+          (s.mode === 'numverb' ? '<span class="tag amb">6 onglets · true / false / cannot say</span><span class="tag blu">12 min · 37 questions</span>' : '') +
           (st ? '<span class="tag blu">' + st.n + ' session(s)</span><span class="tag ' + (st.best >= .85 ? 'grn' : 'amb') + '">meilleur ' + U.pct(st.best) + '</span>' : '<span class="tag">jamais faite</span>') +
         '</div>' +
       '</div>';
@@ -274,6 +277,8 @@
     if (!s) return landing();
     const st = CORE.P.statsFor(id);
     const isNum = id === 'numerical';
+    const isNV = s.mode === 'numverb';
+    const isMCQ = id === 'numericalMCQ';
     view.className = 'view';
     view.innerHTML =
       '<a class="btn sm ghost" href="#/">&larr; Retour aux tâches</a>' +
@@ -290,11 +295,14 @@
         '<div class="hr"></div>' +
         '<div class="grid g2">' +
           '<div><div class="card-t">Configuration</div>' +
-            (isNum
+            (isNV
+              ? '<div class="setrow"><div><div class="t">Format du test réel</div><div class="d">6 onglets de figures (Income, Costs, Market shares, Employees, Return on equity, Outlook) — 37 énoncés true / false / cannot say</div></div><span class="tag amb">Figé</span></div>' +
+                '<div class="setrow"><div><div class="t">Durée imposée</div><div class="d">12 minutes, chrono global — ~19 s par énoncé</div></div><span class="tag blu">12:00</span></div>'
+              : (isNum
               ? '<div class="setrow"><div><div class="t">Nombre de questions</div><div class="d">Imposé par le paper (37 ou 48) — contenu figé, identique à chaque session</div></div><span class="tag amb">Figé</span></div>'
               : '<div class="setrow"><div><div class="t">Nombre d’items</div><div class="d">Banque disponible : ' + s.items + ' items</div></div>' +
-                '<input id="cfgCount" type="number" min="4" max="' + Math.max(s.items, 120) + '" value="' + s.items + '" style="width:88px"></div>') +
-            (isNum ? '<div class="setrow"><div><div class="t">Paper</div><div class="d">A = 48 items (complet) · B = 37 items (extrait)</div></div>' +
+                '<input id="cfgCount" type="number" min="4" max="' + Math.max(s.items, 120) + '" value="' + s.items + '" style="width:88px"></div>')) +
+            (isMCQ ? '<div class="setrow"><div><div class="t">Paper</div><div class="d">A = 48 items (complet) · B = 37 items (extrait)</div></div>' +
               '<select id="cfgPaper"><option value="A">Paper A — 48</option><option value="B">Paper B — 37</option></select></div>' : '') +
             '<div class="setrow"><div><div class="t">Feedback</div><div class="d">Immédiat = entraînement · Fin de session = conditions d’examen</div></div>' +
               '<select id="cfgFb"><option value="immediate">Immédiat</option><option value="end">Fin de session</option></select></div>' +

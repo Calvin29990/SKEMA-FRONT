@@ -66,8 +66,15 @@ const CORE = (() => {
     },
     {
       id: 'numerical', name: 'Numerical Reasoning', fr: 'Raisonnement numérique', icon: '📊', family: 'cognitive',
+      mode: 'numverb', source: 'fixed', items: 37, dur: 12, perItem: 19.5, color: 'grn',
+      desc: 'Format réel du test : 6 onglets de figures (Income, Costs, Market shares, Employees, Return on equity, Outlook) et 37 énoncés à trancher true / false / cannot say, en 12 minutes. Chaque question renvoie automatiquement à son onglet.',
+      hint: 'La difficulté est le rythme : ~19 s par énoncé, 6 onglets à balayer. Lisez la figure de l’onglet courant, vérifiez l’énoncé, tranchez — ne relisez pas tout.',
+      need: '37 questions · 12 min · 6 onglets — conditions réelles.'
+    },
+    {
+      id: 'numericalMCQ', hidden: true, name: 'Numerical — QCM classique', fr: 'Raisonnement numérique (variante)', icon: '📊', family: 'cognitive',
       mode: 'mc', source: 'fixed', items: 48, dur: 15, perItem: 75, color: 'grn',
-      desc: 'Tableaux de données + questions chiffrées. Paper A = 48 items, Paper B = 37 items (extrait), calculateur autorisée.',
+      desc: 'Variante d’entraînement : tableaux de données + questions à choix multiples. Paper A = 48 items, Paper B = 37 items (extrait), calculateur autorisée.',
       hint: 'Toujours partir de l’unité demandée, vérifier le sens de la variation, et se méfier des pièges de part/variation.',
       need: 'Banque figée (37 ou 48 selon le paper choisi).'
     },
@@ -178,7 +185,9 @@ const CORE = (() => {
         }
         return out;
       }
-      case 'numerical': {
+      case 'numerical':
+        return NUMVERB.ITEMS.map(x => Object.assign({}, x, { time: NUMVERB.totalSec / NUMVERB.ITEMS.length }));
+      case 'numericalMCQ': {
         const all = DRILL.numericalFixed().map(i => Object.assign({ kind: 'mc' }, i));
         return cfg.paper === 'B' ? all.slice(0, 37) : all;
       }
@@ -201,7 +210,7 @@ const CORE = (() => {
   /** Simulation complète : échantillon de toutes les sections. */
   function buildMixed(cfg) {
     const mix = [
-      ['numerical', 12], ['verbalX', 12], ['deductive', 6], ['inductive', 6],
+      ['numericalMCQ', 12], ['verbalX', 12], ['deductive', 6], ['inductive', 6],
       ['switch', 8], ['concentration', 15], ['learning', 4], ['info', 5], ['mech', 8]
     ];
     let items = [];
@@ -436,6 +445,13 @@ const CORE = (() => {
     const st = P.settings();
     if (!st.keyboard) return;
     if (S.locked) return;
+    if (S.sec.mode === 'numverb') {
+      if (e.key >= '1' && e.key <= '3') { nvAnswer(parseInt(e.key, 10) - 1); return; }
+      if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nvMove(1); return; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); nvMove(-1); return; }
+      if (e.key === 'g' || e.key === 'G') { nvGrid(); return; }
+      return;
+    }
     if (e.key >= '1' && e.key <= '4') {
       const it = S.items[S.i], idx = parseInt(e.key, 10) - 1;
       if (it.kind === 'likert') { if (idx < it.scale.length) pick(idx); return; }
@@ -476,6 +492,12 @@ const CORE = (() => {
       startedAt: new Date().toISOString()
     };
 
+    if (sec.mode === 'numverb') {
+      /* test réel : chrono global + réponses gardées en mémoire, journal bâti à la fin */
+      S.nv = { answers: {}, times: {}, stamps: {}, t0: Date.now(), deadline: Date.now() + NUMVERB.totalSec * 1000,
+               view: items[0].tab, started: Date.now() };
+    }
+
     writeHUD();
     document.addEventListener('keydown', onKey);
     render();
@@ -487,12 +509,13 @@ const CORE = (() => {
     if (!S) { hud.innerHTML = ''; hud.classList.remove('on'); return; }
     hud.classList.add('on');
     const total = S.totalQ || S.items.length;
-    const answered = S.log.filter(r => r.ok !== null).length;
-    const good = S.log.filter(r => r.ok === true).length;
-    const bad = S.log.filter(r => r.ok === false).length;
+    const nvMode = S.sec.mode === 'numverb' && S.nv;
+    const answered = nvMode ? Object.keys(S.nv.answers).length : S.log.filter(r => r.ok !== null).length;
+    const good = nvMode ? S.items.filter((it, i) => S.nv.answers[i] === it.ans).length : S.log.filter(r => r.ok === true).length;
+    const bad = nvMode ? S.items.filter((it, i) => S.nv.answers[i] != null && S.nv.answers[i] !== it.ans).length : S.log.filter(r => r.ok === false).length;
     hud.innerHTML =
       '<span class="pill"><span class="k">Section</span>' + U.esc(S.sec.name) + '</span>' +
-      '<span class="pill mono"><span class="k">Item</span>' + Math.min(answered + 1, total) + '/' + total + '</span>' +
+      '<span class="pill mono"><span class="k">Item</span>' + (nvMode ? Math.min(S.i + 1, total) : Math.min(answered + 1, total)) + '/' + total + '</span>' +
       '<span class="pill hit mono">✔ ' + good + '</span>' +
       '<span class="pill miss mono">✘ ' + bad + '</span>' +
       '<span class="pill mono"><span class="k">Restant</span>' + (total - answered) + '</span>' +
@@ -505,6 +528,7 @@ const CORE = (() => {
     if (!S) return;
     if (S.done) return renderSummary();
     if (S.phase === 'show') return renderShowPhase();
+    if (S.sec.mode === 'numverb') return renderNumVerb();
     const it = S.items[S.i];
     sel = null; multiSel = new Set(); gridSel = new Set();
 
@@ -875,8 +899,180 @@ const CORE = (() => {
     }, 100);
   }
 
+
+  /* ═══════════════════════════════════════════════════════════════
+     NUMERICAL REASONING — format réel : 6 onglets, true / false / cannot say,
+     chrono global de 12 minutes, bascule automatique vers l'onglet.
+     ═══════════════════════════════════════════════════════════════ */
+  const NV_LABEL = ['true', 'false', 'cannot say'];
+  let nvFlash = false;
+
+  function NV_UI() {
+    const tr = (x) => (typeof I18N !== 'undefined' ? I18N.tr(x) : x);
+    return {
+      subtitle: tr('format réel · 6 onglets · 12 min'),
+      question: tr('Question'),
+      help: tr('true = vrai · false = faux · cannot say = l’information ne figure pas dans les figures'),
+      prev: tr('Question précédente'), next: tr('Question suivante'),
+      overview: tr('Vue d’ensemble des questions'),
+      gridHelp: tr('Cliquez un numéro pour revenir sur une question. Les réponses restent modifiables jusqu’à la fin du temps.'),
+      close: tr('Fermer'), all: tr('Toutes les questions'), done: tr('répondue'), todo: tr('sans réponse')
+    };
+  }
+
+  /** Journal complet du test : une ligne par question, dans l'ordre. */
+  function nvLog() {
+    const a = (S.nv && S.nv.answers) || {}, t = (S.nv && S.nv.times) || {}, st = (S.nv && S.nv.stamps) || {};
+    return S.items.map((it, i) => {
+      const v = a[i];
+      return {
+        id: it.id, n: i + 1, q: it.q, tab: NUMVERB.tabOf(it.tab).short,
+        given: v == null ? 'non répondu' : NV_LABEL[v],
+        correct: NV_LABEL[it.ans],
+        ok: v != null && v === it.ans,
+        ms: t[i] || 0,
+        at: st[i] || new Date().toISOString(),
+        section: 'numerical', why: it.why
+      };
+    });
+  }
+
+  function renderNumVerb() {
+    const view = U.$('#view');
+    const it = S.items[S.i];
+    const nv = S.nv;
+    const changed = nv.view !== it.tab;
+    nv.view = it.tab;
+    const ans = nv.answers[S.i];
+    const reveal = S.feedback === 'immediate' && ans != null;
+    const solved = Object.keys(nv.answers).length;
+    const UIx = NV_UI();
+
+    view.className = 'view';
+    view.innerHTML =
+      '<div class="runner nv">' +
+        '<div class="row between" style="margin-bottom:8px">' +
+          '<div><div class="qlabel">' + S.sec.icon + ' ' + U.esc(S.sec.name) +
+            ' <span class="tiny dim">' + UIx.subtitle + '</span></div></div>' +
+          '<div class="row">' +
+            '<span class="pill mono" id="qTimer">' + nvFmt() + '</span>' +
+            '<button class="btn sm ghost" id="btnQuit">' + T().quit + '</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="timerline" style="margin-bottom:10px"><i id="tbar" style="width:100%"></i></div>' +
+        '<div class="nv-tabs" id="nvTabs">' + NUMVERB.TABS.map(t =>
+          '<button class="nvt' + (t.id === nv.view ? ' on' : '') + (nvFlash && t.id === nv.view ? ' flash' : '') +
+          '" data-tab="' + t.id + '">' + U.esc(t.short) + '</button>').join('') + '</div>' +
+        '<div class="nv-fig" id="nvFig">' + NUMVERB.figure(nv.view) + '</div>' +
+        '<div class="nv-qrow">' +
+          '<div class="nv-stmt"><div class="nv-qno">' + UIx.question + ' ' + (S.i + 1) + ' / ' + S.items.length + '</div>' +
+            U.esc(it.q) + '</div>' +
+          '<div class="nv-ans">' + NV_LABEL.map((l, i) =>
+            '<button class="nvbtn' + (ans === i ? ' sel' : '') +
+            (reveal ? (i === it.ans ? ' good' : (ans === i ? ' bad' : '')) : '') +
+            '" data-v="' + i + '">' + l + '</button>').join('') +
+            '<div class="nv-help">' + UIx.help + '</div>' +
+          '</div>' +
+        '</div>' +
+        (reveal ? '<div class="fb ' + (ans === it.ans ? 'ok' : 'ko') + '">' + (ans === it.ans ? T().right : T().wrong) +
+          ' — ' + U.esc(it.why) + '</div>' : '') +
+        '<div class="nv-nav">' +
+          '<button class="nvnav" id="nvPrev" title="' + UIx.prev + '"' + (S.i === 0 ? ' disabled' : '') + '>‹</button>' +
+          '<button class="nvnav" id="nvGrid" title="' + UIx.overview + '">▦<span>' + solved + '/' + S.items.length + '</span></button>' +
+          '<button class="nvnav" id="nvNext" title="' + UIx.next + '">›</button>' +
+        '</div>' +
+      '</div>';
+
+    U.$$('#nvTabs .nvt').forEach(b => b.onclick = () => { S.nv.view = b.dataset.tab; nvFlash = false; renderNumVerb(); });
+    U.$$('.nvbtn').forEach(b => b.onclick = () => nvAnswer(+b.dataset.v));
+    U.$('#nvPrev').onclick = () => nvMove(-1);
+    U.$('#nvNext').onclick = () => nvMove(1);
+    U.$('#nvGrid').onclick = () => nvGrid();
+    U.$('#btnQuit').onclick = () => { if (confirm('Quitter la session ? Les réponses déjà données sont conservées.')) { S.i = S.items.length; finish(); } };
+    nvFlash = false;
+    nvTimer();
+    writeHUD();
+  }
+
+  function nvAnswer(v) {
+    const nv = S.nv;
+    nv.answers[S.i] = v;
+    nv.stamps[S.i] = new Date().toISOString();
+    const y = window.scrollY;
+    renderNumVerb();
+    window.scrollTo(0, y);
+  }
+
+  function nvMove(d) {
+    const nv = S.nv;
+    nv.times[S.i] = (nv.times[S.i] || 0) + (Date.now() - nv.t0);
+    const target = S.i + d;
+    if (target < 0) return;
+    if (target >= S.items.length) { S.i = S.items.length; return finish(); }
+    const newTab = S.items[target].tab;
+    const sameTab = newTab === nv.view;
+    S.i = target;
+    nv.t0 = Date.now();
+    nvFlash = !sameTab;
+    const y = sameTab ? window.scrollY : 0;
+    renderNumVerb();
+    window.scrollTo(0, y);
+  }
+
+  /* temps restant formaté (mm:ss) — sert au rendu initial comme au tic du chrono */
+  function nvFmt() {
+    const sec = Math.max(0, Math.round((S.nv.deadline - Date.now()) / 1000));
+    return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
+  }
+
+  function nvTick() {
+    if (!S || !S.nv || S.done) return;
+    const bar = U.$('#tbar'), q = U.$('#qTimer');
+    const total = NUMVERB.totalSec * 1000;
+    const left = S.nv.deadline - Date.now();
+    if (!bar || !q) return;
+    const p = Math.max(0, Math.min(1, left / total));
+    bar.style.width = (p * 100) + '%';
+    bar.className = p < 0.1 ? 'd' : (p < 0.25 ? 'w' : '');
+    q.textContent = nvFmt();
+    q.className = 'pill mono' + (p < 0.1 ? ' danger' : (p < 0.25 ? ' warn' : ''));
+    if (left <= 0) { clearInterval(tick); tick = null; S.i = S.items.length; finish(); }
+  }
+
+  /* le chrono est global à la session : un seul intervalle, jamais réinitialisé par un rendu */
+  function nvTimer() {
+    if (!tick) tick = setInterval(nvTick, 200);
+    nvTick();
+  }
+
+  function nvGrid() {
+    const UIx = NV_UI();
+    U.modal(
+      '<h3 style="margin-bottom:6px">' + UIx.overview + '</h3>' +
+      '<div class="small dim" style="margin-bottom:14px">' + UIx.gridHelp + '</div>' +
+      '<div class="nvgrid">' + S.items.map((it, i) => {
+        const a = S.nv.answers[i];
+        const cls = a == null ? ' todo' : '';
+        return '<button class="nvg' + cls + (i === S.i ? ' cur' : '') + '" data-g="' + i + '">' + (i + 1) +
+          '<i>' + U.esc(NUMVERB.tabOf(it.tab).short) + '</i></button>';
+      }).join('') + '</div>' +
+      '<div class="row between sp"><span class="small dim">' + UIx.todo + '</span>' +
+      '<button class="btn" id="nvClose">' + UIx.close + '</button></div>');
+    U.$$('.nvg').forEach(b => b.onclick = () => {
+      const i = +b.dataset.g;
+      S.nv.times[S.i] = (S.nv.times[S.i] || 0) + (Date.now() - S.nv.t0);
+      S.i = i; S.nv.t0 = Date.now(); S.nv.view = S.items[i].tab; nvFlash = true;
+      U.closeModal(); renderNumVerb(); window.scrollTo(0, 0);
+    });
+    U.$('#nvClose').onclick = () => U.closeModal();
+  }
+
   /* ─────────── Fin de session + résumé ─────────── */
   function finish() {
+    if (S && S.sec.mode === 'numverb' && S.nv) {
+      S.nv.times[S.i] = (S.nv.times[S.i] || 0) + (Date.now() - S.nv.t0);
+      S.log = nvLog();          /* toutes les questions, y compris non répondues */
+    }
     if (!S || S.done) return;
     S.done = true;
     if (tick) { clearInterval(tick); tick = null; }
@@ -954,7 +1150,7 @@ const CORE = (() => {
       log.map((r, i) =>
         '<tr class="' + (r.ok === true ? 'r-ok' : (r.ok === false ? 'r-ko' : '')) + '">' +
         '<td class="qn">' + (r.n || i + 1) + '</td>' +
-        '<td class="qx">' + U.esc(String(r.q || '').slice(0, 220)) + '</td>' +
+        '<td class="qx">' + (r.tab ? '<span class="tabtag">' + U.esc(r.tab) + '</span>' : '') + U.esc(String(r.q || '').slice(0, 220)) + '</td>' +
         '<td class="qa">' + U.esc(r.given == null ? '—' : String(r.given).slice(0, 90)) + '</td>' +
         '<td class="qa">' + (r.correct == null ? '<span class="dim">sans bonne réponse</span>' : '<span class="good">' + U.esc(String(r.correct).slice(0, 90)) + '</span>') + '</td>' +
         '<td>' + (r.ok === true ? '<span class="good">✔ correct</span>' : (r.ok === false ? '<span class="bad">✘ incorrect</span>' : '<span class="dim">—</span>')) + '</td>' +

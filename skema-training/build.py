@@ -17,12 +17,12 @@ REPO = os.path.dirname(ROOT)
 DOCS = os.path.join(REPO, 'docs')
 STANDALONE = os.path.join(ROOT, 'standalone')
 PUB = '/tmp/skema-pub'          # copie publique temporaire
-JS = ['util.js', 'banks.js', 'drills.js', 'core.js', 'i18n.js', 'app.js']
+JS = ['util.js', 'banks.js', 'drills.js', 'numverb.js', 'core.js', 'i18n.js', 'app.js']
 
 # ── 1. copie de travail ────────────────────────────────────────────────
 if os.path.exists(PUB):
     shutil.rmtree(PUB)
-shutil.copytree(ROOT, PUB, ignore=shutil.ignore_patterns('standalone', '.git', 'build.py'))
+shutil.copytree(ROOT, PUB, ignore=shutil.ignore_patterns('standalone', '.git', 'build.py', 'i18n', 'tools'))
 
 # ── 2. assainissement pour la version publique ─────────────────────────
 def edit(path, pairs):
