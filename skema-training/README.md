@@ -1,4 +1,4 @@
-# Assessment Trainer — v4.2 « conforme au document de référence »
+# Assessment Trainer — v4.3 « conforme au document de référence »
 
 Plateforme personnelle d'entraînement aux tests d'aptitude utilisés dans les processus
 de sélection (format cut-e / Aon). Cette version reconstruit **l'intégralité des 14 tâches
@@ -80,6 +80,11 @@ les exemples non notés (~3 min).
   multi-tâches et switch génèrent leurs items à la volée (toujours des questions nouvelles).
 - Numérique / verbal / mécanique : bouton **Terminer** dès que tout est répondu (pas besoin
   d'attendre la fin du chrono) ; navigation ‹ ▦ › et grille de questions.
+- **Retour immédiat (v4.3)** : après chaque réponse, un panneau d'explication (`.ifb`) indique
+  **✔ Correct / ✘ Incorrect**, la réponse attendue, **POURQUOI** (explication détaillée +
+  figures visuelles : grilles, machine à codes, E + points, comparaison des 12 objets,
+  accès direct à la feuille de données) et un bouton **Continuer ›** (désactivable dans
+  *Aide & réglages* pour retrouver la cadence d'examen).
 
 ## Données & confidentialité
 
@@ -99,13 +104,13 @@ skema-training/
   assets/js/core.js       registre des 14 épreuves, moteur de session, scoring
   assets/js/app.js        routeur, accueil, progression, feedback, réglages, import/export
   build.py                génère standalone/index.html, docs/ et le ZIP hors-ligne
-  tools/tests/conform.js  harnais de conformité (Chromium headless, 216 contrôles)
+  tools/tests/conform.js  harnais de conformité (Chromium headless, 241 contrôles)
 ```
 
 ```bash
 cd skema-training
 python3 build.py                       # régénère standalone/ + docs/ + ZIP
-NODE_PATH=… node tools/tests/conform.js   # 216 contrôles de conformité
+NODE_PATH=… node tools/tests/conform.js   # 241 contrôles de conformité
 ```
 
 Le harnais vérifie : les 14 lignes de l'accueil (libellés + minutes), l'ouverture de chaque
@@ -113,8 +118,8 @@ Le harnais vérifie : les 14 lignes de l'accueil (libellés + minutes), l'ouvert
 skips, retours vert/rouge, « ? » neutre), les flux de sections, l'enregistrement des
 sessions, l'absence de requête externe et le rendu mobile 390 px. Il contrôle aussi les
 ajouts v4.1 (chrono global de l'apprentissage, navigation libre entre les feuilles de
-données, réserves inépuisables, barre d'onglets, feedback en français) et les correctifs
-v4.2 : contenu réellement lié à l'onglet choisi, feuille par défaut = question posée,
+données, réserves inépuisables, barre d'onglets, feedback en français), les correctifs
+v4.2 (contenu réellement lié à l'onglet choisi, feuille par défaut = question posée,
 choix mémorisé, note « le chrono démarre après les exemples » + décompte vérifié 12:00 → 11:59,
 anglais par défaut avec réglage épreuve par épreuve, et banques de personnalité complètes
-(144 + 108 énoncés, FR et EN, aucun bloc vide).
+144 + 108 énoncés, FR et EN, aucun bloc vide) et le retour immédiat v4.3 sur les 14 épreuves.

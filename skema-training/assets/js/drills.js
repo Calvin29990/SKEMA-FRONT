@@ -86,7 +86,7 @@ const DRILL = (() => {
       }
       const intended = cands.map((c, idx) => c.ok ? idx : -1).filter(idx => idx >= 0);
       if (fitting !== 1 || !goodPair || goodPair.join(',') !== intended.join(',')) continue;
-      return { id: 'I' + i, kind: 'pick2', examples: ex, candidates: cands.map(c => c.g), good: intended };
+      return { id: 'I' + i, kind: 'pick2', rule: rule.id, examples: ex, candidates: cands.map(c => c.g), good: intended };
     }
     /* filet : règle « coins » simple, vérifiée à nouveau */
     const r = rng(seed);
@@ -95,7 +95,7 @@ const DRILL = (() => {
     const good = [gridFor(rule, r), gridFor(rule, r)];
     const bad = [breakRule(rule, gridFor(rule, r), r) || new Array(9).fill(0), breakRule(rule, gridFor(rule, r), r) || new Array(9).fill(1)];
     const cands = shuffle(r, [{ g: good[0], ok: true }, { g: good[1], ok: true }, { g: bad[0], ok: false }, { g: bad[1], ok: false }]);
-    return { id: 'I' + i, kind: 'pick2', examples: ex, candidates: cands.map(c => c.g), good: cands.map((c, idx) => c.ok ? idx : -1).filter(idx => idx >= 0) };
+    return { id: 'I' + i, kind: 'pick2', rule: rule.id, examples: ex, candidates: cands.map(c => c.g), good: cands.map((c, idx) => c.ok ? idx : -1).filter(idx => idx >= 0) };
   }
 
   /* ══════════════════ CONCENTRATION — E + points ══════════════════ */
@@ -160,7 +160,7 @@ const DRILL = (() => {
   }
 
   /* ══════════════════ MULTI-TÂCHES — switch de consignes ══════════════════ */
-  const MT_LETTERS = [['A', 'consonant'], ['E', 'vowel'], ['I', 'vowel'], ['O', 'vowel'], ['U', 'vowel'], ['R', 'consonant'], ['T', 'consonant'], ['M', 'consonant']];
+  const MT_LETTERS = [['A', 'vowel'], ['E', 'vowel'], ['I', 'vowel'], ['O', 'vowel'], ['U', 'vowel'], ['R', 'consonant'], ['T', 'consonant'], ['M', 'consonant']];
   function mtItem(seed, i) {
     const r = rng(seed);
     const cue = r() < 0.5 ? 'letter' : 'digit';
@@ -207,7 +207,12 @@ const DRILL = (() => {
   function langSection(lang, type, seed) {
     const r = U.rng((seed >>> 0) + U.hash(lang + type));
     const key = LANG_KEY[lang] || LANG_KEY.fr;
-    const bank = (BANK[key[type]] || []).map(x => ({ s: x.s, o: (x.o || []).slice(), a: x.a, w: x.w || '' }));
+    const bank = (BANK[key[type]] || []).map(x => ({
+      s: x.s || '',
+      o: (x.o || []).slice(),
+      a: x.a,
+      w: x.w || (type === 'spe' ? 'Orthographe correcte : « ' + x.o[x.a] + ' » (et non « ' + x.o[1 - x.a] + ' »).' : 'Réponse attendue : ' + x.o[x.a])
+    }));
     const items = shuffle(r, bank);                    /* ordre différent à chaque session */
     const extraFlu = (BANK[key.flu] || []).concat(BANK[lang + 'FluencyExtra'] || []);
     const vocPool = (BANK[key.voc] || []).concat(BANK[lang + 'VocabExtra'] || [])
