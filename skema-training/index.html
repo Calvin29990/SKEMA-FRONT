@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKEMA — Assessment Trainer · Calvin MINANG</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Plateforme personnelle d'entraînement aux tests d'évaluation bancaires (cut-e / Aon / Maki), conforme au document de référence. Usage strictement personnel — Calvin MINANG.">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23e0524a'/><text x='50' y='70' font-size='54' font-family='Inter,sans-serif' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>">
+</head>
+<body>
+
+<!-- ══════════ BARRE ROUGE SKEMA ══════════ -->
+<header class="sk-top" id="skTop">
+  <button class="sk-burger" id="skBurger" aria-label="Menu">≡</button>
+  <span class="sk-brand">SKEMA</span>
+  <span class="sk-sep">//</span>
+  <span class="sk-title" id="skTitle">Accueil</span>
+  <div class="sk-right">
+    <button class="sk-book" id="skBook" hidden title="Directives" aria-label="Directives"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M11 6.5A4.5 4.5 0 0 0 6.5 2H2v16h5.5A3.5 3.5 0 0 1 11 21zM13 6.5A4.5 4.5 0 0 1 17.5 2H22v16h-5.5A3.5 3.5 0 0 0 13 21z"/></svg></button>
+    <span class="sk-lvl" id="skLvl" hidden></span>
+    <span class="sk-count" id="skCount"></span>
+    <span class="sk-timer" id="skTimer"></span>
+  </div>
+  <nav class="sk-menu" id="skMenu">
+    <a href="#/">Tâches à accomplir</a>
+    <a href="#/progression">Progression</a>
+    <a href="#/feedback">Feedback détaillé</a>
+    <a href="#/reglages">Aide &amp; réglages</a>
+    <div class="sep"></div>
+    <button id="skExport">Exporter mes données (JSON)</button>
+    <button id="skImport">Importer une sauvegarde</button>
+    <div class="sep"></div>
+    <button id="skUser">Profil : <b id="skUserName">—</b></button>
+    <button id="skOut">Quitter le profil</button>
+  </nav>
+</header>
+
+<!-- ══════════ CONTENU ══════════ -->
+<main class="sk-main" id="view"></main>
+
+<footer class="sk-foot">
+  <span><strong>Document strictement personnel — réservé à Calvin MINANG.</strong> Reproduction et diffusion interdites. Aucune donnée ne quitte ce navigateur.</span>
+  <span id="footMeta"></span>
+</footer>
+
+<!-- ══════════ SURCOUCHES ══════════ -->
+<div class="toast-wrap" id="toastWrap"></div>
+<div class="modal-back" id="modalBack">
+  <div class="modal" id="modalBox" role="dialog" aria-modal="true"></div>
+</div>
+<div class="navgrid" id="navGrid"></div>
+
+<script src="assets/js/util.js"></script>
+<script src="assets/js/banks.js"></script>
+<script src="assets/js/drills.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
