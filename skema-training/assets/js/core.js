@@ -495,7 +495,7 @@ const CORE = (() => {
     if (sec.mode === 'numverb') {
       /* test réel : chrono global + réponses gardées en mémoire, journal bâti à la fin */
       S.nv = { answers: {}, times: {}, stamps: {}, t0: Date.now(), deadline: Date.now() + NUMVERB.totalSec * 1000,
-               view: items[0].tab, started: Date.now() };
+               view: items[0].tab, lastQ: 0, started: Date.now() };
     }
 
     writeHUD();
@@ -941,8 +941,13 @@ const CORE = (() => {
     const view = U.$('#view');
     const it = S.items[S.i];
     const nv = S.nv;
-    const changed = nv.view !== it.tab;
-    nv.view = it.tab;
+    /* l'onglet suit la question (bascule automatique) mais l'élève peut consulter un autre
+       onglet à la main : on ne force le retour que lorsqu'on change de question */
+    if (nv.lastQ !== S.i) {
+      if (nv.view !== it.tab) nvFlash = true;
+      nv.lastQ = S.i;
+      nv.view = it.tab;
+    }
     const ans = nv.answers[S.i];
     const reveal = S.feedback === 'immediate' && ans != null;
     const solved = Object.keys(nv.answers).length;
@@ -1061,7 +1066,7 @@ const CORE = (() => {
     U.$$('.nvg').forEach(b => b.onclick = () => {
       const i = +b.dataset.g;
       S.nv.times[S.i] = (S.nv.times[S.i] || 0) + (Date.now() - S.nv.t0);
-      S.i = i; S.nv.t0 = Date.now(); S.nv.view = S.items[i].tab; nvFlash = true;
+      S.i = i; S.nv.t0 = Date.now(); S.nv.lastQ = -1; nvFlash = true;
       U.closeModal(); renderNumVerb(); window.scrollTo(0, 0);
     });
     U.$('#nvClose').onclick = () => U.closeModal();

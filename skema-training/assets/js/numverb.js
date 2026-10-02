@@ -20,12 +20,18 @@ const NUMVERB = (() => {
       'text-anchor="' + (o.anchor || 'middle') + '"' + (o.bold ? ' font-weight="700"' : '') +
       (o.mono ? ' font-family="monospace"' : '') + '>' + esc(s) + '</text>';
   };
+  /* légende : fragment SVG à insérer DANS un <svg> (sinon les <rect>/<text> ne sont pas rendus) */
   const legend = (items, y) => items.map((it, i) => {
     const x = 40 + (i % 3) * 200, yy = y + Math.floor(i / 3) * 22;
     return '<rect x="' + x + '" y="' + (yy - 10) + '" width="13" height="13" rx="2" fill="' + PAL[it.color] + '"/>' +
       txt(x + 6.5, yy, it.n, { size: 9, fill: '#fff', bold: true }) +
       txt(x + 20, yy, it.name, { size: 11, anchor: 'start', fill: '#23282c' });
   }).join('');
+  const legendBox = (items, y, cols) => {
+    cols = cols || 3;
+    const rows = Math.ceil(items.length / cols), h = y + Math.ceil(items.length / cols) * 22;
+    return '<svg class="nvlegsvg" width="620" height="' + h + '" viewBox="0 0 620 ' + h + '">' + legend(items, y) + '</svg>';
+  };
 
   /* ── 1. tableau ── */
   function table(t) {
@@ -58,7 +64,7 @@ const NUMVERB = (() => {
     });
     return svg(620, 300, inner) +
       '<div class="nvcap">' + esc(d.title) + '</div>' +
-      '<div class="nvlegend">' + legend(d.slices.map(s => ({ color: s.color, n: s.color, name: s.label })), 20).replace(/y="2[0-9]"/g, '') + '</div>' +
+      '<div class="nvlegend">' + legendBox(d.slices.map(s => ({ color: s.color, n: s.color, name: s.label })), 16) + '</div>' +
       '<div class="nvnote">' + esc(d.total) + '</div>';
   }
 
@@ -89,7 +95,7 @@ const NUMVERB = (() => {
     g += txt((x0 + x1) / 2, y1 + 36, d.xaxis, { size: 11, fill: '#23282c' });
     g += txt(16, (y0 + y1) / 2, d.yaxis.replace('\n', ' '), { size: 11, fill: '#23282c', anchor: 'middle' });
     return svg(W, H + 46, g) +
-      '<div class="nvlegend">' + legend(d.series.map(s => ({ color: s.color, n: s.color, name: s.name })), 16) + '</div>';
+      '<div class="nvlegend">' + legendBox(d.series.map(s => ({ color: s.color, n: s.color, name: s.name })), 16) + '</div>';
   }
 
   /* ── 4. courbes ── */
@@ -116,7 +122,7 @@ const NUMVERB = (() => {
     g += txt((x0 + x1) / 2, y1 + 36, d.xaxis, { size: 11, fill: '#23282c' });
     g += txt(16, (y0 + y1) / 2, d.yaxis, { size: 11, fill: '#23282c' });
     return svg(W, H + 46, g) +
-      '<div class="nvlegend">' + legend(d.series.map(s => ({ color: s.color, n: s.color, name: s.name })), 16) + '</div>';
+      '<div class="nvlegend">' + legendBox(d.series.map(s => ({ color: s.color, n: s.color, name: s.name })), 16) + '</div>';
   }
 
   /* ── 5. barres horizontales ── */
@@ -144,7 +150,7 @@ const NUMVERB = (() => {
     });
     g += txt((x0 + x1) / 2, y1 + 38, d.xaxis, { size: 11, fill: '#23282c' });
     return svg(W, H + 46, g) +
-      '<div class="nvlegend">' + legend(d.series.map(s => ({ color: s.color, n: s.color, name: s.name })), 16) + '</div>';
+      '<div class="nvlegend">' + legendBox(d.series.map(s => ({ color: s.color, n: s.color, name: s.name })), 16) + '</div>';
   }
 
   const FIG = {
