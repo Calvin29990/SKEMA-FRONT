@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assessment Trainer — Calvin MINANG</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Plateforme personnelle d'entraînement aux tests d'évaluation bancaires (cut-e / Aon / Maki). Usage strictement personnel — Calvin MINANG.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  /* Écran d'accès — visible uniquement si la barrière est active */
+  #gate{display:none}
+  html.gated body > *:not(#gate){display:none !important}
+  html.gated #gate{display:flex}
+  #gate{position:fixed;inset:0;z-index:9999;background:#eef1f3;align-items:center;justify-content:center;
+        font-family:'Inter',-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+  #gate .box{background:#fff;border:1px solid #e2e6ea;border-radius:6px;box-shadow:0 1px 3px rgba(23,32,41,.08),0 6px 22px rgba(23,32,41,.05);
+        padding:34px 38px;max-width:420px;width:calc(100% - 40px);text-align:center}
+  #gate .mk{width:46px;height:46px;border-radius:4px;background:#0a8a3c;color:#fff;font-weight:800;font-size:17px;
+        display:flex;align-items:center;justify-content:center;margin:0 auto 16px;letter-spacing:.5px}
+  #gate h2{font-size:17px;margin:0 0 6px;color:#23282c;font-weight:600}
+  #gate p{font-size:12.5px;color:#5a656e;margin:0 0 20px;line-height:1.6}
+  #gate input{width:100%;padding:11px 13px;border:1px solid #cdd4da;border-radius:4px;font-size:14px;
+        text-align:center;letter-spacing:2px;text-transform:uppercase;outline:none}
+  #gate input:focus{border-color:#0a8a3c}
+  #gate button{width:100%;margin-top:12px;padding:11px;background:#0a8a3c;color:#fff;border:none;border-radius:4px;
+        font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer}
+  #gate button:hover{background:#076a2c}
+  #gate .err{color:#c62828;font-size:12px;margin-top:10px;min-height:15px}
+  #gate .foot{font-size:10.5px;color:#8a949c;margin-top:18px;line-height:1.6}
+</style>
+<script>
+  /* Barrière d'accès — inactive sur localhost et sur l'aperçu Arena.
+     Ce n'est PAS un contrôle de sécurité serveur : c'est une protection dissuasive. */
+  (function () {
+    try {
+      var h = location.hostname || '';
+      if (/^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(h) || /\.e2b\.app$/i.test(h) || h === '') return;
+      var KEY = 'skemaTrainer.v1.gate', CODE = 'CM2026';
+      if (localStorage.getItem(KEY) === '1') return;
+      var k = ((new URLSearchParams(location.search)).get('k') || '').trim().toUpperCase();
+      if (k === CODE) { localStorage.setItem(KEY, '1'); return; }
+      document.documentElement.classList.add('gated');
+    } catch (e) {}
+  })();
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230a8a3c'/><text x='50' y='68' font-size='52' font-family='Inter,sans-serif' font-weight='700' fill='white' text-anchor='middle'>CM</text></svg>">
+<script>
+  /* applique le thème avant le rendu (évite le flash) */
+  try {
+    var s = JSON.parse(localStorage.getItem('skemaTrainer.v1.settings') || '{}');
+    document.documentElement.dataset.theme = (s && s.theme === 'dark') ? 'dark' : 'light';
+  } catch (e) {}
+</script>
+</head>
+<body>
+
+<!-- ══════════ ÉCRAN D'ACCÈS (affiché uniquement hors localhost / aperçu) ══════════ -->
+<div id="gate">
+  <div class="box">
+    <div class="mk">CM</div>
+    <h2>Assessment Trainer</h2>
+    <p>Espace d’entraînement à usage strictement personnel.<br>Saisissez votre code d’accès pour continuer.</p>
+    <input id="gateInput" type="password" placeholder="CODE" autocomplete="off" spellcheck="false">
+    <button id="gateBtn">Accéder</button>
+    <div class="err" id="gateErr"></div>
+    <div class="foot">Accès réservé — reproduction et diffusion interdites.</div>
+  </div>
+</div>
+<script>
+  (function () {
+    var inp = document.getElementById('gateInput'), btn = document.getElementById('gateBtn'), err = document.getElementById('gateErr');
+    if (!inp) return;
+    function tryUnlock() {
+      if ((inp.value || '').trim().toUpperCase() === 'CM2026') {
+        try { localStorage.setItem('skemaTrainer.v1.gate', '1'); } catch (e) {}
+        document.documentElement.classList.remove('gated');
+      } else { err.textContent = 'Code incorrect.'; }
+    }
+    btn.onclick = tryUnlock;
+    inp.onkeydown = function (e) { if (e.key === 'Enter') tryUnlock(); };
+    if (document.documentElement.classList.contains('gated')) setTimeout(function () { inp.focus(); }, 100);
+  })();
+</script>
+
+<!-- ══════════ EN-TÊTE ══════════ -->
+<header class="topbar">
+  <div class="brand" data-nav="#/">
+    <div class="brand-mark">CM</div>
+    <div class="brand-text">
+      <div class="brand-title">Assessment Trainer</div>
+      <div class="brand-sub">Calvin MINANG · usage personnel</div>
+    </div>
+  </div>
+
+  <nav class="mainnav" id="mainnav">
+    <a href="#/" data-nav="#/" class="navlink">Accueil</a>
+    <a href="#/progression" data-nav="#/progression" class="navlink">Progression</a>
+    <a href="#/feedback" data-nav="#/feedback" class="navlink">Feedback</a>
+    <a href="#/captures" data-nav="#/captures" class="navlink">Captures</a>
+    <a href="#/reglages" data-nav="#/reglages" class="navlink">Aide &amp; réglages</a>
+  </nav>
+
+  <div class="hud" id="hud"></div>
+
+  <div class="topright">
+    <select class="langsel" id="langSel" title="Langue des consignes pendant les exercices">
+      <option value="fr">Français (UE)</option>
+      <option value="en">English (UK)</option>
+    </select>
+    <div class="switch" id="themeSw" title="Basculer le thème sombre"><i></i></div>
+    <div class="userchip">👤 <b>Calvin MINANG</b></div>
+  </div>
+
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</header>
+
+<!-- ══════════ CONTENU ══════════ -->
+<main id="view" class="view"></main>
+
+<footer class="footer">
+  <span><strong>Document strictement personnel — réservé à Calvin MINANG.</strong> Reproduction et diffusion interdites. Aucune donnée ne quitte ce navigateur.</span>
+  <span class="footer-meta" id="footerMeta"></span>
+</footer>
+
+<!-- ══════════ SURCOUCHES ══════════ -->
+<div class="toast-wrap" id="toastWrap"></div>
+<div class="modal-back" id="modalBack" hidden>
+  <div class="modal" id="modalBox" role="dialog" aria-modal="true"></div>
+</div>
+
+<script src="assets/js/util.js"></script>
+<script src="assets/js/banks.js"></script>
+<script src="assets/js/drills.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
