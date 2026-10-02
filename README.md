@@ -19,6 +19,7 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
+| `skema-training/` | **Plateforme personnelle complète** (13 sections + simulation, banques figées + batterie anglaise illimitée, progression, feedback, captures) | Entraînement quotidien jusqu'au test |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
@@ -33,7 +34,8 @@
 - **Ne pas** : menacer avocat en premier contact, dire "SKEMA cares about image", "je quitte SKEMA"
 
 ### 2. BNP Paribas — Test Maki (7-9 octobre)
-- **Fichier** : `bnp-training/index.html`
+- **Plateforme d'entraînement principale** : `skema-training/index.html` (13 sections, progression, feedback, import des captures du dossier Drive)
+- **Clone visuel BNP** : `bnp-training/index.html`
 - **Contrainte** : One shot only. Blacklist si échec. Pas avant le 7, pas après le 13/10.
 - **Plateforme** : Maki People (PAS AON). Training en cours pour clone pixel-perfect.
 
@@ -104,6 +106,7 @@ Math : *Matrix Cookbook*, *Arbitrage-free smoothing implied volatility surface*
 | `SKEMA-DOSSIER-ARCHIVE.md` | TOUT le dossier SKEMA (argument, preuves, stratégie, contacts) |
 | `candidatures/TRACKING-CANDIDATURES-2026-2027.md` | Audit candidatures (blacklist, retake policies) |
 | `bnp-training/index.html` | Clone plateforme BNP Maki (test 7-9 octobre) |
+| `skema-training/index.html` | Plateforme d'entraînement personnelle (usage exclusif Calvin MINANG) |
 | `documents/CV_Calvin_MINANG.pdf` | CV à jour |
 | `documents/Portfolio_Calvin_MINANG.pdf` | Portfolio |
 

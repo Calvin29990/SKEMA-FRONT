@@ -217,27 +217,101 @@ const CORE = (() => {
   /* ═══════════════════════════════════════════════════════════
      PROGRESSION
      ═══════════════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════════════════════
+     PROFILS — chaque utilisateur a son propre historique local
+     ═══════════════════════════════════════════════════════════ */
+  function normalizeName(n) {
+    n = String(n || '').trim().replace(/\s+/g, ' ');
+    if (!n) return '';
+    return n.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+  }
+  const PROFILES = {
+    list() { return U.store.get('users', []); },
+    current() { return U.store.get('user', null); },
+    add(name) { const l = this.list(); if (name && l.indexOf(name) < 0) { l.push(name); U.store.set('users', l); } return name; },
+    set(name) { const c = normalizeName(name); this.add(c); U.store.set('user', c); return c; },
+    logout() { U.store.del('user'); },
+    reset(name) { const l = this.list().filter(x => x !== name); U.store.set('users', l); }
+  };
+
+  const dFr = (iso) => iso ? new Date(iso).toLocaleDateString('fr-FR') : '—';
+  const hFr = (iso) => iso ? new Date(iso).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '—';
+  const csvc = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""').replace(/\s+/g, ' ').trim() + '"';
+
   const P = {
-    attempts() { return U.store.get('attempts', []); },
-    details() { return U.store.get('details', {}); },
-    settings() { return U.store.get('settings', { sound: false, keyboard: true, feedback: 'immediate', showTimer: true, target: 50, strict: false }); },
+    profiles: PROFILES,
+    key(k) { return k + '::' + (PROFILES.current() || 'Invité'); },
+
+    /* migration de l'ancien format global vers un profil nommé */
+    migrate() {
+      try {
+        const old = U.store.get('attempts', null);
+        if (old && old.length) {
+          const k = 'attempts::Calvin';
+          if (!U.store.get(k, null)) U.store.set(k, old);
+          U.store.del('attempts');
+          const od = U.store.get('details', null);
+          if (od) { if (!U.store.get('details::Calvin', null)) U.store.set('details::Calvin', od); U.store.del('details'); }
+        }
+      } catch (e) {}
+    },
+
+    attempts() { return U.store.get(this.key('attempts'), []); },
+    details() { return U.store.get(this.key('details'), {}); },
+    settings() {
+      return U.store.get('settings', { sound: false, keyboard: true, feedback: 'immediate', showTimer: true,
+        target: 50, strict: false, theme: 'light', langUI: 'fr', code: 'CM2026' });
+    },
     saveSettings(s) { U.store.set('settings', s); },
+    code() { const st = this.settings(); return String(st.code || 'CM2026').trim().toUpperCase(); },
+
     add(attempt, detail) {
       const a = this.attempts(); a.push(attempt);
-      U.store.set('attempts', a.slice(-500));
-      if (detail) {
+      U.store.set(this.key('attempts'), a.slice(-800));
+      if (detail && detail.length) {
         const d = this.details(); d[attempt.id] = detail;
         const ids = Object.keys(d);
-        if (ids.length > 12) delete d[ids[0]];
-        U.store.set('details', d);
+        if (ids.length > 80) delete d[ids[0]];
+        U.store.set(this.key('details'), d);
       }
     },
-    clear() { U.store.del('attempts'); U.store.del('details'); },
+    clear() { U.store.del(this.key('attempts')); U.store.del(this.key('details')); },
+
+    /* détail question par question d'une session */
+    sessionLog(id) { const d = this.details(); return d[id] || []; },
+    sessionOf(id) { return this.attempts().find(x => x.id === id) || null; },
+    sessions() { return this.attempts().slice().reverse(); },
+
+    /** Export CSV du détail d'une session (question par question). */
+    csv(id) {
+      const a = this.sessionOf(id) || {};
+      const log = this.sessionLog(id);
+      const head = ['Profil', 'Session', 'Date', 'Heure', 'Section', 'N°', 'Question', 'Réponse donnée',
+        'Réponse correcte', 'Résultat', 'Temps (ms)', 'Explication'];
+      const secName = (sid) => (byId(sid) ? byId(sid).name : (sid || ''));
+      const rows = log.map((r, i) => [
+        PROFILES.current() || '', id, dFr(a.at), hFr(a.at), secName(r.section), (r.n || i + 1),
+        csvc(r.q), csvc(r.given), csvc(r.correct),
+        r.ok === true ? 'correct' : (r.ok === false ? 'incorrect' : 'sans bonne reponse'),
+        r.ms == null ? '' : r.ms, csvc(r.why)
+      ]);
+      const csv = [head.map(csvc).join(';')].concat(rows.map(r => r.join(';'))).join('\r\n');
+      const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const lk = document.createElement('a');
+      lk.href = url;
+      lk.download = 'detail-session-' + id + '-' + (PROFILES.current() || 'profil') + '.csv';
+      lk.click();
+      U.toast('Détail exporté (CSV)');
+    },
+
     statsFor(id) {
       const all = this.attempts().filter(x => x.section === id);
       const a = all.filter(x => x.accuracy !== null && x.accuracy !== undefined);
       if (!all.length) return null;
-      if (!a.length) return { n: all.length, behavioural: true, best: null, last: null, avg: null, avgMs: all.reduce((x, y) => x + (y.avgMs || 0), 0) / all.length, trend: 0, total: 0, lastAt: all[all.length - 1].at };
+      if (!a.length) return { n: all.length, behavioural: true, best: null, last: null, avg: null,
+        avgMs: all.reduce((x, y) => x + (y.avgMs || 0), 0) / all.length, trend: 0, total: 0,
+        lastAt: all[all.length - 1].at };
       const acc = a.map(x => x.accuracy);
       const best = Math.max(...acc);
       const last = a[a.length - 1];
@@ -252,7 +326,8 @@ const CORE = (() => {
       const a = this.attempts();
       if (!a.length) return { n: 0, correct: 0, items: 0, accuracy: 0, minutes: 0, answered: 0 };
       const items = a.reduce((x, y) => x + y.items, 0), correct = a.reduce((x, y) => x + y.correct, 0);
-      return { n: a.length, correct, items, accuracy: correct / items, minutes: a.reduce((x, y) => x + (y.ms || 0), 0) / 60000,
+      return { n: a.length, correct, items, accuracy: items ? correct / items : 0,
+        minutes: a.reduce((x, y) => x + (y.ms || 0), 0) / 60000,
         answered: a.reduce((x, y) => x + (y.answered || y.items), 0) };
     },
     days(n = 30) {
@@ -271,12 +346,13 @@ const CORE = (() => {
     bestRun(section) { return Math.max(0, ...this.attempts().filter(a => a.section === section).map(a => a.correct)); },
     wrongs(limit = 30) {
       const d = this.details(), out = [];
-      Object.keys(d).sort().reverse().forEach(k => {
-        (d[k] || []).forEach(it => { if (it && it.ok === false) out.push(it); });
-      });
+      Object.keys(d).sort().reverse().forEach(k => { (d[k] || []).forEach(it => { if (it && it.ok === false) out.push(it); }); });
       return out.slice(0, limit);
     }
   };
+
+  /* alias pratique : CORE.P.PROFILES et CORE.PROFILES pointent la même chose */
+  P.PROFILES = PROFILES;
 
   /* ═══════════════════════════════════════════════════════════
      FEEDBACK ENGINE
@@ -352,6 +428,13 @@ const CORE = (() => {
 
   /* — état d'une réponse en cours — */
   let sel = null, multiSel = null, gridSel = null;
+
+  /** Ajoute une ligne au journal de session : n° de question + horodatage exact. */
+  function pushLog(entry) {
+    entry.n = S.log.length + 1;
+    entry.at = new Date().toISOString();
+    S.log.push(entry);
+  }
 
   function mount(view, sectionId, cfg) {
     destroy();
@@ -621,7 +704,7 @@ const CORE = (() => {
     /* — Likert : pas de bonne réponse — */
     if (it.kind === 'likert') {
       const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
-      S.log.push({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, ms: dt, section: S.sec.id });
+      pushLog({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, ms: dt, section: S.sec.id });
       S.results.push({ ok: null });
       next(); return;
     }
@@ -632,7 +715,7 @@ const CORE = (() => {
       const target = it.cells;
       const hit = clicked.filter(c => target.includes(c)).length;
       const ok = hit === target.length && clicked.length === target.length;
-      S.log.push({ id: it.id, q: 'Grille ' + it.size + '×' + it.size + ' — mémoriser et reproduire ' + target.length + ' cases',
+      pushLog({ id: it.id, q: 'Grille ' + it.size + '×' + it.size + ' — mémoriser et reproduire ' + target.length + ' cases',
         given: clicked.length + ' cases (' + hit + ' correctes)', correct: target.length + ' cases', ok, ms: dt, section: S.sec.id });
       S.results.push({ ok });
       if (S.feedback === 'immediate') showFeedback(it, ok, dt, ok ? 'Placement exact.' : 'Comparez avec la position des cases vertes.', target.length + ' cases', false);
@@ -645,7 +728,7 @@ const CORE = (() => {
       const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
       const good = it.same ? 0 : 1;
       const ok = idx !== null && idx === good;
-      S.log.push({ id: it.id, q: 'Deux figures — identiques ou différentes ?',
+      pushLog({ id: it.id, q: 'Deux figures — identiques ou différentes ?',
         given: idx === 0 ? 'identiques' : (idx === 1 ? 'différentes' : 'non répondu'),
         correct: it.same ? 'identiques' : 'différentes', ok, ms: dt, section: S.sec.id });
       S.results.push({ ok });
@@ -661,7 +744,7 @@ const CORE = (() => {
       const sub = it.sub[si];
       const ansl = VX_LABEL[sub.a];
       const ok = idx !== null && it.options[idx] === ansl;
-      S.log.push({ id: it.id + '-' + (si + 1), q: sub.t, given: idx == null ? 'non répondu' : it.options[idx], correct: ansl, ok, ms: dt, section: S.sec.id, why: sub.w });
+      pushLog({ id: it.id + '-' + (si + 1), q: sub.t, given: idx == null ? 'non répondu' : it.options[idx], correct: ansl, ok, ms: dt, section: S.sec.id, why: sub.w });
       S.results.push({ ok });
       S.lastSub = si;
       S.subIndex = si + 1;
@@ -673,7 +756,7 @@ const CORE = (() => {
     /* — QCM standard (numérique, information, mécanique, figures) — */
     const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
     const ok = idx !== null && idx === it.ans;
-    S.log.push({ id: it.id, q: it.q, given: label(it, idx), correct: ansLabel(it), ok, ms: dt, section: S.sec.id, why: it.why, okFlag: ok });
+    pushLog({ id: it.id, q: it.q, given: label(it, idx), correct: ansLabel(it), ok, ms: dt, section: S.sec.id, why: it.why, okFlag: ok });
     S.results.push({ ok });
     if (S.feedback === 'immediate') showFeedback(it, ok, dt, it.why, ansLabel(it), false);
     else next();
@@ -785,6 +868,10 @@ const CORE = (() => {
     const attempt = {
       id: 'A' + Date.now(),
       at: new Date().toISOString(),
+      endedAt: new Date().toISOString(),
+      date: dFr(new Date().toISOString()),
+      time: hFr(new Date().toISOString()),
+      user: PROFILES.current() || 'Invité',
       section: S.sec.id, sectionName: S.sec.name,
       behavioural,
       items: S.totalQ || S.items.length, answered: graded.length, correct, wrong, skipped,
@@ -793,7 +880,7 @@ const CORE = (() => {
       ms: Date.now() - S.t0,
       paper: S.cfg.paper || null, mode: S.feedback
     };
-    P.add(attempt, S.log);
+    P.add(attempt, S.log.map(r => Object.assign({}, r)));
     renderSummary(attempt);
     writeHUD();
   }
@@ -829,9 +916,33 @@ const CORE = (() => {
         '</ul></div>' +
       '<div class="card sp2"><div class="card-t">Détail des réponses</div><table class="tbl"><thead><tr><th>Affirmation</th><th>Votre choix</th><th class="num">Temps</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '</div>';
+    if (U.$('#sumCsv')) U.$('#sumCsv').onclick = () => P.csv(it.id);
+    if (U.$('#sumDetail')) U.$('#sumDetail').onclick = () => { location.hash = '#/session/' + it.id; };
     U.$('#againBtn').onclick = () => mount(view, S.sec.id, Object.assign({}, S.cfg, { seed: (S.cfg.seed + 13) % 99991 }));
     U.$('#homeBtn').onclick = () => { location.hash = '#/'; };
     U.$('#progBtn').onclick = () => { location.hash = '#/progression'; };
+  }
+
+  /** Tableau « question par question » : n°, question, réponses, résultat, temps, heure, explication. */
+  function detailTable(log) {
+    if (!log || !log.length) return '<div class="small dim">Aucun détail enregistré pour cette session.</div>';
+    const good = log.filter(r => r.ok === true).length, bad = log.filter(r => r.ok === false).length;
+    return '<div class="detailwrap"><table class="qtbl2"><thead><tr>' +
+      '<th class="qn">N°</th><th class="qx">Question</th><th class="qa">Votre réponse</th><th class="qa">Correcte</th>' +
+      '<th>Résultat</th><th>Temps</th><th>Heure</th><th>Explication</th></tr></thead><tbody>' +
+      log.map((r, i) =>
+        '<tr class="' + (r.ok === true ? 'r-ok' : (r.ok === false ? 'r-ko' : '')) + '">' +
+        '<td class="qn">' + (r.n || i + 1) + '</td>' +
+        '<td class="qx">' + U.esc(String(r.q || '').slice(0, 220)) + '</td>' +
+        '<td class="qa">' + U.esc(r.given == null ? '—' : String(r.given).slice(0, 90)) + '</td>' +
+        '<td class="qa">' + (r.correct == null ? '<span class="dim">sans bonne réponse</span>' : '<span class="good">' + U.esc(String(r.correct).slice(0, 90)) + '</span>') + '</td>' +
+        '<td>' + (r.ok === true ? '<span class="good">✔ correct</span>' : (r.ok === false ? '<span class="bad">✘ incorrect</span>' : '<span class="dim">—</span>')) + '</td>' +
+        '<td class="stamp">' + (r.ms == null ? '—' : U.ms(r.ms)) + '</td>' +
+        '<td class="stamp">' + (r.at ? hFr(r.at) : '—') + '</td>' +
+        '<td class="why">' + U.esc(String(r.why || '').slice(0, 200)) + '</td>' +
+        '</tr>').join('') + '</tbody></table></div>' +
+      '<div class="legend-detail"><span><i class="ok"></i> bonne réponse</span><span><i class="ko"></i> erreur</span>' +
+      '<span>' + good + ' correctes · ' + bad + ' erreurs · ' + log.length + ' questions</span></div>';
   }
 
   function renderSummary(attempt) {
@@ -874,14 +985,19 @@ const CORE = (() => {
             '<span class="bar-track"><i class="' + (p >= .85 ? '' : p >= .6 ? 'amb' : 'red') + '" style="width:' + (p * 100) + '%"></i></span>' +
             '<span class="bar-val">' + v.ok + '/' + v.n + '</span></div>';
         }).join('') + '</div></div>' : '') +
-      (wrongs.length ?
-        '<div class="card sp2"><div class="card-t">Erreurs à revoir (' + wrongs.length + ')</div>' +
-        wrongs.map(w => '<div class="fb ko"><div class="fb-t">' + U.esc((w.q || '').slice(0, 150)) + '</div>' +
-          '<div class="small">Votre réponse : <b>' + U.esc(w.given == null ? '—' : String(w.given)) + '</b>' + (w.correct != null ? ' · Attendue : <b>' + U.esc(String(w.correct)) + '</b>' : '') + '</div>' +
-          (w.why ? '<div class="small dim" style="margin-top:4px">' + U.esc(w.why) + '</div>' : '') + '</div>').join('') +
-        '</div>' : '<div class="card sp2"><div class="card-t">Aucune erreur</div><div class="small muted">Run parfait. Monetez d’un cran : items suivants, mode strict, ou temps divisé par deux.</div></div>') +
+      '<div class="card sp2">' +
+        '<div class="row between" style="margin-bottom:10px">' +
+          '<div><div class="card-t" style="margin-bottom:2px">Détail question par question (' + S.log.length + ')</div>' +
+          '<span class="small dim">Session du ' + dFr(it.at) + ' à ' + hFr(it.at) + ' · profil ' + U.esc(it.user || '—') + '</span></div>' +
+          '<span class="row"><button class="btn sm" id="sumDetail">Vue complète</button>' +
+          '<button class="btn sm ghost" id="sumCsv">CSV</button></span>' +
+        '</div>' +
+        detailTable(S.log) +
+      '</div>' +
       '</div>';
 
+    if (U.$('#sumCsv')) U.$('#sumCsv').onclick = () => P.csv(it.id);
+    if (U.$('#sumDetail')) U.$('#sumDetail').onclick = () => { location.hash = '#/session/' + it.id; };
     U.$('#againBtn').onclick = () => mount(view, S.sec.id, Object.assign({}, S.cfg, { seed: (S.cfg.seed + 13) % 99991 }));
     U.$('#homeBtn').onclick = () => { location.hash = '#/'; };
     U.$('#progBtn').onclick = () => { location.hash = '#/progression'; };
@@ -895,6 +1011,6 @@ const CORE = (() => {
     return idb.put({ name: file.name || 'capture', type: file.type || 'image/png', note: note || '', at: new Date().toISOString(), data: dataUrl });
   }
 
-  return { SECTIONS, byId, mount, destroy, P, feedbackReport, idb, addShot, buildItems, buildMixed, DL,
+  return { SECTIONS, byId, mount, destroy, P, PROFILES, dFr, hFr, detailTable, feedbackReport, idb, addShot, buildItems, buildMixed, DL,
            get current() { return S; } };
 })();

@@ -458,3 +458,79 @@ html[data-theme="dark"] .pill.good,html[data-theme="dark"] .pill.hit{border-colo
   body{background:#fff}
   .card,.pagecard,.stat{box-shadow:none}
 }
+
+
+/* ══════════════════════════════════════════════════════════════
+   ÉCRAN D'ACCÈS (code + prénom) — overlay robuste, plein écran
+   ══════════════════════════════════════════════════════════════ */
+#loginOverlay{
+  position:fixed;inset:0;z-index:9000;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+#loginOverlay .lg-box{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r2);
+  box-shadow:var(--sh);padding:34px 38px 28px;max-width:430px;width:100%;text-align:center;
+}
+#loginOverlay .lg-mk{
+  width:48px;height:48px;border-radius:var(--r);background:var(--grn);color:#fff;
+  font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;letter-spacing:.5px;
+}
+#loginOverlay h2{font-size:18px;margin:0 0 6px;font-weight:600;color:var(--tx)}
+#loginOverlay p.sub{font-size:12.5px;color:var(--tx2);margin:0 0 22px;line-height:1.6}
+#loginOverlay label{display:block;text-align:left;font-size:11.5px;font-weight:600;color:var(--tx2);
+  text-transform:uppercase;letter-spacing:.5px;margin:0 0 6px}
+#loginOverlay input{
+  width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:var(--r);
+  font-size:14px;background:var(--card);color:var(--tx);outline:none;margin-bottom:16px;
+}
+#loginOverlay input:focus{border-color:var(--grn)}
+#loginOverlay #lgCode{text-align:center;letter-spacing:2px;text-transform:uppercase}
+#loginOverlay button.go{
+  width:100%;padding:12px;background:var(--grn);color:#fff;border-radius:var(--r);
+  font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+}
+#loginOverlay button.go:hover{background:var(--grn-d)}
+#loginOverlay .lg-err{color:var(--red);font-size:12px;margin-top:10px;min-height:16px}
+#loginOverlay .lg-foot{font-size:10.5px;color:var(--tx3);margin-top:18px;line-height:1.6}
+#loginOverlay .lg-users{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+#loginOverlay .lg-users button{
+  border:1px solid var(--line2);background:var(--card2);border-radius:20px;
+  padding:5px 12px;font-size:12px;color:var(--tx2);font-weight:600;
+}
+#loginOverlay .lg-users button:hover{border-color:var(--grn);color:var(--grn)}
+#loginOverlay .lg-sep{font-size:11px;color:var(--tx3);margin-top:18px;text-transform:uppercase;letter-spacing:.6px}
+
+/* pastille utilisateur */
+.userchip{cursor:pointer}
+.userchip .uchg{font-size:10px;color:var(--grn);border-left:1px solid var(--line);padding-left:8px;margin-left:2px;font-weight:600}
+
+/* ══════════════════════════════════════════════════════════════
+   DÉTAIL QUESTION PAR QUESTION
+   ══════════════════════════════════════════════════════════════ */
+.qtbl2{width:100%;border-collapse:collapse;font-size:12.5px}
+.qtbl2 th{text-align:left;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--tx3);border-bottom:1px solid var(--line2);font-weight:700;position:sticky;top:0;background:var(--card)}
+.qtbl2 td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.qtbl2 tr.r-ok td{background:rgba(10,138,60,.045)}
+.qtbl2 tr.r-ko td{background:rgba(198,40,40,.05)}
+.qtbl2 .qn{font-family:var(--mono);color:var(--tx3);width:38px}
+.qtbl2 .qx{min-width:200px}
+.qtbl2 .qa{white-space:nowrap}
+.qtbl2 .good{color:var(--grn);font-weight:600}
+.qtbl2 .bad{color:var(--red);font-weight:600}
+.qtbl2 .why{font-size:11.5px;color:var(--tx3);margin-top:4px;line-height:1.5}
+.qtbl2 .stamp{font-family:var(--mono);font-size:11px;color:var(--tx3);white-space:nowrap}
+
+.sessrow{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;
+  padding:12px 4px;border-bottom:1px solid var(--line)}
+.sessrow:hover{background:var(--bg2)}
+.sessrow .st{font-family:var(--mono);font-size:12px;color:var(--tx2);white-space:nowrap}
+.sessrow .sn{font-size:13px;font-weight:600}
+.sessrow .ss{font-size:11.5px;color:var(--tx3)}
+.detailwrap{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:var(--r);margin-top:12px}
+.legend-detail{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--tx3);margin-top:10px}
+.legend-detail span{display:flex;align-items:center;gap:6px}
+.legend-detail i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.legend-detail i.ok{background:rgba(10,138,60,.35)}
+.legend-detail i.ko{background:rgba(198,40,40,.35)}

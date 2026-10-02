@@ -471,44 +471,83 @@ html[data-theme="dark"] .pill.good,html[data-theme="dark"] .pill.hit{border-colo
   .card,.pagecard,.stat{box-shadow:none}
 }
 
+
+/* ══════════════════════════════════════════════════════════════
+   ÉCRAN D'ACCÈS (code + prénom) — overlay robuste, plein écran
+   ══════════════════════════════════════════════════════════════ */
+#loginOverlay{
+  position:fixed;inset:0;z-index:9000;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+#loginOverlay .lg-box{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r2);
+  box-shadow:var(--sh);padding:34px 38px 28px;max-width:430px;width:100%;text-align:center;
+}
+#loginOverlay .lg-mk{
+  width:48px;height:48px;border-radius:var(--r);background:var(--grn);color:#fff;
+  font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;letter-spacing:.5px;
+}
+#loginOverlay h2{font-size:18px;margin:0 0 6px;font-weight:600;color:var(--tx)}
+#loginOverlay p.sub{font-size:12.5px;color:var(--tx2);margin:0 0 22px;line-height:1.6}
+#loginOverlay label{display:block;text-align:left;font-size:11.5px;font-weight:600;color:var(--tx2);
+  text-transform:uppercase;letter-spacing:.5px;margin:0 0 6px}
+#loginOverlay input{
+  width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:var(--r);
+  font-size:14px;background:var(--card);color:var(--tx);outline:none;margin-bottom:16px;
+}
+#loginOverlay input:focus{border-color:var(--grn)}
+#loginOverlay #lgCode{text-align:center;letter-spacing:2px;text-transform:uppercase}
+#loginOverlay button.go{
+  width:100%;padding:12px;background:var(--grn);color:#fff;border-radius:var(--r);
+  font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+}
+#loginOverlay button.go:hover{background:var(--grn-d)}
+#loginOverlay .lg-err{color:var(--red);font-size:12px;margin-top:10px;min-height:16px}
+#loginOverlay .lg-foot{font-size:10.5px;color:var(--tx3);margin-top:18px;line-height:1.6}
+#loginOverlay .lg-users{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+#loginOverlay .lg-users button{
+  border:1px solid var(--line2);background:var(--card2);border-radius:20px;
+  padding:5px 12px;font-size:12px;color:var(--tx2);font-weight:600;
+}
+#loginOverlay .lg-users button:hover{border-color:var(--grn);color:var(--grn)}
+#loginOverlay .lg-sep{font-size:11px;color:var(--tx3);margin-top:18px;text-transform:uppercase;letter-spacing:.6px}
+
+/* pastille utilisateur */
+.userchip{cursor:pointer}
+.userchip .uchg{font-size:10px;color:var(--grn);border-left:1px solid var(--line);padding-left:8px;margin-left:2px;font-weight:600}
+
+/* ══════════════════════════════════════════════════════════════
+   DÉTAIL QUESTION PAR QUESTION
+   ══════════════════════════════════════════════════════════════ */
+.qtbl2{width:100%;border-collapse:collapse;font-size:12.5px}
+.qtbl2 th{text-align:left;padding:9px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--tx3);border-bottom:1px solid var(--line2);font-weight:700;position:sticky;top:0;background:var(--card)}
+.qtbl2 td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.qtbl2 tr.r-ok td{background:rgba(10,138,60,.045)}
+.qtbl2 tr.r-ko td{background:rgba(198,40,40,.05)}
+.qtbl2 .qn{font-family:var(--mono);color:var(--tx3);width:38px}
+.qtbl2 .qx{min-width:200px}
+.qtbl2 .qa{white-space:nowrap}
+.qtbl2 .good{color:var(--grn);font-weight:600}
+.qtbl2 .bad{color:var(--red);font-weight:600}
+.qtbl2 .why{font-size:11.5px;color:var(--tx3);margin-top:4px;line-height:1.5}
+.qtbl2 .stamp{font-family:var(--mono);font-size:11px;color:var(--tx3);white-space:nowrap}
+
+.sessrow{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;
+  padding:12px 4px;border-bottom:1px solid var(--line)}
+.sessrow:hover{background:var(--bg2)}
+.sessrow .st{font-family:var(--mono);font-size:12px;color:var(--tx2);white-space:nowrap}
+.sessrow .sn{font-size:13px;font-weight:600}
+.sessrow .ss{font-size:11.5px;color:var(--tx3)}
+.detailwrap{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:var(--r);margin-top:12px}
+.legend-detail{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--tx3);margin-top:10px}
+.legend-detail span{display:flex;align-items:center;gap:6px}
+.legend-detail i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.legend-detail i.ok{background:rgba(10,138,60,.35)}
+.legend-detail i.ko{background:rgba(198,40,40,.35)}
+
 </style>
-<style>
-  /* Écran d'accès — visible uniquement si la barrière est active */
-  #gate{display:none}
-  html.gated body > *:not(#gate){display:none !important}
-  html.gated #gate{display:flex}
-  #gate{position:fixed;inset:0;z-index:9999;background:#eef1f3;align-items:center;justify-content:center;
-        font-family:'Inter',-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
-  #gate .box{background:#fff;border:1px solid #e2e6ea;border-radius:6px;box-shadow:0 1px 3px rgba(23,32,41,.08),0 6px 22px rgba(23,32,41,.05);
-        padding:34px 38px;max-width:420px;width:calc(100% - 40px);text-align:center}
-  #gate .mk{width:46px;height:46px;border-radius:4px;background:#0a8a3c;color:#fff;font-weight:800;font-size:17px;
-        display:flex;align-items:center;justify-content:center;margin:0 auto 16px;letter-spacing:.5px}
-  #gate h2{font-size:17px;margin:0 0 6px;color:#23282c;font-weight:600}
-  #gate p{font-size:12.5px;color:#5a656e;margin:0 0 20px;line-height:1.6}
-  #gate input{width:100%;padding:11px 13px;border:1px solid #cdd4da;border-radius:4px;font-size:14px;
-        text-align:center;letter-spacing:2px;text-transform:uppercase;outline:none}
-  #gate input:focus{border-color:#0a8a3c}
-  #gate button{width:100%;margin-top:12px;padding:11px;background:#0a8a3c;color:#fff;border:none;border-radius:4px;
-        font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer}
-  #gate button:hover{background:#076a2c}
-  #gate .err{color:#c62828;font-size:12px;margin-top:10px;min-height:15px}
-  #gate .foot{font-size:10.5px;color:#8a949c;margin-top:18px;line-height:1.6}
-</style>
-<script>
-  /* Barrière d'accès — inactive sur localhost et sur l'aperçu Arena.
-     Ce n'est PAS un contrôle de sécurité serveur : c'est une protection dissuasive. */
-  (function () {
-    try {
-      var h = location.hostname || '';
-      if (/^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(h) || /\.e2b\.app$/i.test(h) || h === '') return;
-      var KEY = 'skemaTrainer.v1.gate', CODE = 'CM2026';
-      if (localStorage.getItem(KEY) === '1') return;
-      var k = ((new URLSearchParams(location.search)).get('k') || '').trim().toUpperCase();
-      if (k === CODE) { localStorage.setItem(KEY, '1'); return; }
-      document.documentElement.classList.add('gated');
-    } catch (e) {}
-  })();
-</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230a8a3c'/><text x='50' y='68' font-size='52' font-family='Inter,sans-serif' font-weight='700' fill='white' text-anchor='middle'>CM</text></svg>">
 <script>
   /* applique le thème avant le rendu (évite le flash) */
@@ -517,36 +556,14 @@ html[data-theme="dark"] .pill.good,html[data-theme="dark"] .pill.hit{border-colo
     document.documentElement.dataset.theme = (s && s.theme === 'dark') ? 'dark' : 'light';
   } catch (e) {}
 </script>
+<style>html.userpending .topbar,html.userpending .view,html.userpending .footer{display:none !important}</style>
+<script>
+  /* Aucun profil mémorisé -> l'application reste masquée, l'écran d'accès prend la main.
+     (même contrôle que la barrière : dissuasif, pas un contrôle serveur) */
+  try { if (!localStorage.getItem('skemaTrainer.v1.user')) document.documentElement.classList.add('userpending'); } catch (e) {}
+</script>
 </head>
 <body>
-
-<!-- ══════════ ÉCRAN D'ACCÈS (affiché uniquement hors localhost / aperçu) ══════════ -->
-<div id="gate">
-  <div class="box">
-    <div class="mk">CM</div>
-    <h2>Assessment Trainer</h2>
-    <p>Espace d’entraînement à usage strictement personnel.<br>Saisissez votre code d’accès pour continuer.</p>
-    <input id="gateInput" type="password" placeholder="CODE" autocomplete="off" spellcheck="false">
-    <button id="gateBtn">Accéder</button>
-    <div class="err" id="gateErr"></div>
-    <div class="foot">Accès réservé — reproduction et diffusion interdites.</div>
-  </div>
-</div>
-<script>
-  (function () {
-    var inp = document.getElementById('gateInput'), btn = document.getElementById('gateBtn'), err = document.getElementById('gateErr');
-    if (!inp) return;
-    function tryUnlock() {
-      if ((inp.value || '').trim().toUpperCase() === 'CM2026') {
-        try { localStorage.setItem('skemaTrainer.v1.gate', '1'); } catch (e) {}
-        document.documentElement.classList.remove('gated');
-      } else { err.textContent = 'Code incorrect.'; }
-    }
-    btn.onclick = tryUnlock;
-    inp.onkeydown = function (e) { if (e.key === 'Enter') tryUnlock(); };
-    if (document.documentElement.classList.contains('gated')) setTimeout(function () { inp.focus(); }, 100);
-  })();
-</script>
 
 <!-- ══════════ EN-TÊTE ══════════ -->
 <header class="topbar">
@@ -574,7 +591,7 @@ html[data-theme="dark"] .pill.good,html[data-theme="dark"] .pill.hit{border-colo
       <option value="en">English (UK)</option>
     </select>
     <div class="switch" id="themeSw" title="Basculer le thème sombre"><i></i></div>
-    <div class="userchip">👤 <b>Calvin MINANG</b></div>
+    <button class="userchip" id="userBtn" title="Changer de profil">👤 <b id="userName">—</b><span class="uchg">changer</span></button>
   </div>
 
   <button class="burger" id="burger" aria-label="Menu">☰</button>
@@ -2183,27 +2200,101 @@ const CORE = (() => {
   /* ═══════════════════════════════════════════════════════════
      PROGRESSION
      ═══════════════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════════════════════
+     PROFILS — chaque utilisateur a son propre historique local
+     ═══════════════════════════════════════════════════════════ */
+  function normalizeName(n) {
+    n = String(n || '').trim().replace(/\s+/g, ' ');
+    if (!n) return '';
+    return n.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+  }
+  const PROFILES = {
+    list() { return U.store.get('users', []); },
+    current() { return U.store.get('user', null); },
+    add(name) { const l = this.list(); if (name && l.indexOf(name) < 0) { l.push(name); U.store.set('users', l); } return name; },
+    set(name) { const c = normalizeName(name); this.add(c); U.store.set('user', c); return c; },
+    logout() { U.store.del('user'); },
+    reset(name) { const l = this.list().filter(x => x !== name); U.store.set('users', l); }
+  };
+
+  const dFr = (iso) => iso ? new Date(iso).toLocaleDateString('fr-FR') : '—';
+  const hFr = (iso) => iso ? new Date(iso).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '—';
+  const csvc = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""').replace(/\s+/g, ' ').trim() + '"';
+
   const P = {
-    attempts() { return U.store.get('attempts', []); },
-    details() { return U.store.get('details', {}); },
-    settings() { return U.store.get('settings', { sound: false, keyboard: true, feedback: 'immediate', showTimer: true, target: 50, strict: false }); },
+    profiles: PROFILES,
+    key(k) { return k + '::' + (PROFILES.current() || 'Invité'); },
+
+    /* migration de l'ancien format global vers un profil nommé */
+    migrate() {
+      try {
+        const old = U.store.get('attempts', null);
+        if (old && old.length) {
+          const k = 'attempts::Calvin';
+          if (!U.store.get(k, null)) U.store.set(k, old);
+          U.store.del('attempts');
+          const od = U.store.get('details', null);
+          if (od) { if (!U.store.get('details::Calvin', null)) U.store.set('details::Calvin', od); U.store.del('details'); }
+        }
+      } catch (e) {}
+    },
+
+    attempts() { return U.store.get(this.key('attempts'), []); },
+    details() { return U.store.get(this.key('details'), {}); },
+    settings() {
+      return U.store.get('settings', { sound: false, keyboard: true, feedback: 'immediate', showTimer: true,
+        target: 50, strict: false, theme: 'light', langUI: 'fr', code: 'CM2026' });
+    },
     saveSettings(s) { U.store.set('settings', s); },
+    code() { const st = this.settings(); return String(st.code || 'CM2026').trim().toUpperCase(); },
+
     add(attempt, detail) {
       const a = this.attempts(); a.push(attempt);
-      U.store.set('attempts', a.slice(-500));
-      if (detail) {
+      U.store.set(this.key('attempts'), a.slice(-800));
+      if (detail && detail.length) {
         const d = this.details(); d[attempt.id] = detail;
         const ids = Object.keys(d);
-        if (ids.length > 12) delete d[ids[0]];
-        U.store.set('details', d);
+        if (ids.length > 80) delete d[ids[0]];
+        U.store.set(this.key('details'), d);
       }
     },
-    clear() { U.store.del('attempts'); U.store.del('details'); },
+    clear() { U.store.del(this.key('attempts')); U.store.del(this.key('details')); },
+
+    /* détail question par question d'une session */
+    sessionLog(id) { const d = this.details(); return d[id] || []; },
+    sessionOf(id) { return this.attempts().find(x => x.id === id) || null; },
+    sessions() { return this.attempts().slice().reverse(); },
+
+    /** Export CSV du détail d'une session (question par question). */
+    csv(id) {
+      const a = this.sessionOf(id) || {};
+      const log = this.sessionLog(id);
+      const head = ['Profil', 'Session', 'Date', 'Heure', 'Section', 'N°', 'Question', 'Réponse donnée',
+        'Réponse correcte', 'Résultat', 'Temps (ms)', 'Explication'];
+      const secName = (sid) => (byId(sid) ? byId(sid).name : (sid || ''));
+      const rows = log.map((r, i) => [
+        PROFILES.current() || '', id, dFr(a.at), hFr(a.at), secName(r.section), (r.n || i + 1),
+        csvc(r.q), csvc(r.given), csvc(r.correct),
+        r.ok === true ? 'correct' : (r.ok === false ? 'incorrect' : 'sans bonne reponse'),
+        r.ms == null ? '' : r.ms, csvc(r.why)
+      ]);
+      const csv = [head.map(csvc).join(';')].concat(rows.map(r => r.join(';'))).join('\r\n');
+      const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const lk = document.createElement('a');
+      lk.href = url;
+      lk.download = 'detail-session-' + id + '-' + (PROFILES.current() || 'profil') + '.csv';
+      lk.click();
+      U.toast('Détail exporté (CSV)');
+    },
+
     statsFor(id) {
       const all = this.attempts().filter(x => x.section === id);
       const a = all.filter(x => x.accuracy !== null && x.accuracy !== undefined);
       if (!all.length) return null;
-      if (!a.length) return { n: all.length, behavioural: true, best: null, last: null, avg: null, avgMs: all.reduce((x, y) => x + (y.avgMs || 0), 0) / all.length, trend: 0, total: 0, lastAt: all[all.length - 1].at };
+      if (!a.length) return { n: all.length, behavioural: true, best: null, last: null, avg: null,
+        avgMs: all.reduce((x, y) => x + (y.avgMs || 0), 0) / all.length, trend: 0, total: 0,
+        lastAt: all[all.length - 1].at };
       const acc = a.map(x => x.accuracy);
       const best = Math.max(...acc);
       const last = a[a.length - 1];
@@ -2218,7 +2309,8 @@ const CORE = (() => {
       const a = this.attempts();
       if (!a.length) return { n: 0, correct: 0, items: 0, accuracy: 0, minutes: 0, answered: 0 };
       const items = a.reduce((x, y) => x + y.items, 0), correct = a.reduce((x, y) => x + y.correct, 0);
-      return { n: a.length, correct, items, accuracy: correct / items, minutes: a.reduce((x, y) => x + (y.ms || 0), 0) / 60000,
+      return { n: a.length, correct, items, accuracy: items ? correct / items : 0,
+        minutes: a.reduce((x, y) => x + (y.ms || 0), 0) / 60000,
         answered: a.reduce((x, y) => x + (y.answered || y.items), 0) };
     },
     days(n = 30) {
@@ -2237,12 +2329,13 @@ const CORE = (() => {
     bestRun(section) { return Math.max(0, ...this.attempts().filter(a => a.section === section).map(a => a.correct)); },
     wrongs(limit = 30) {
       const d = this.details(), out = [];
-      Object.keys(d).sort().reverse().forEach(k => {
-        (d[k] || []).forEach(it => { if (it && it.ok === false) out.push(it); });
-      });
+      Object.keys(d).sort().reverse().forEach(k => { (d[k] || []).forEach(it => { if (it && it.ok === false) out.push(it); }); });
       return out.slice(0, limit);
     }
   };
+
+  /* alias pratique : CORE.P.PROFILES et CORE.PROFILES pointent la même chose */
+  P.PROFILES = PROFILES;
 
   /* ═══════════════════════════════════════════════════════════
      FEEDBACK ENGINE
@@ -2318,6 +2411,13 @@ const CORE = (() => {
 
   /* — état d'une réponse en cours — */
   let sel = null, multiSel = null, gridSel = null;
+
+  /** Ajoute une ligne au journal de session : n° de question + horodatage exact. */
+  function pushLog(entry) {
+    entry.n = S.log.length + 1;
+    entry.at = new Date().toISOString();
+    S.log.push(entry);
+  }
 
   function mount(view, sectionId, cfg) {
     destroy();
@@ -2587,7 +2687,7 @@ const CORE = (() => {
     /* — Likert : pas de bonne réponse — */
     if (it.kind === 'likert') {
       const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
-      S.log.push({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, ms: dt, section: S.sec.id });
+      pushLog({ id: it.id, q: it.q, given: idx == null ? 'non répondu' : it.scale[idx], correct: null, ok: null, ms: dt, section: S.sec.id });
       S.results.push({ ok: null });
       next(); return;
     }
@@ -2598,7 +2698,7 @@ const CORE = (() => {
       const target = it.cells;
       const hit = clicked.filter(c => target.includes(c)).length;
       const ok = hit === target.length && clicked.length === target.length;
-      S.log.push({ id: it.id, q: 'Grille ' + it.size + '×' + it.size + ' — mémoriser et reproduire ' + target.length + ' cases',
+      pushLog({ id: it.id, q: 'Grille ' + it.size + '×' + it.size + ' — mémoriser et reproduire ' + target.length + ' cases',
         given: clicked.length + ' cases (' + hit + ' correctes)', correct: target.length + ' cases', ok, ms: dt, section: S.sec.id });
       S.results.push({ ok });
       if (S.feedback === 'immediate') showFeedback(it, ok, dt, ok ? 'Placement exact.' : 'Comparez avec la position des cases vertes.', target.length + ' cases', false);
@@ -2611,7 +2711,7 @@ const CORE = (() => {
       const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
       const good = it.same ? 0 : 1;
       const ok = idx !== null && idx === good;
-      S.log.push({ id: it.id, q: 'Deux figures — identiques ou différentes ?',
+      pushLog({ id: it.id, q: 'Deux figures — identiques ou différentes ?',
         given: idx === 0 ? 'identiques' : (idx === 1 ? 'différentes' : 'non répondu'),
         correct: it.same ? 'identiques' : 'différentes', ok, ms: dt, section: S.sec.id });
       S.results.push({ ok });
@@ -2627,7 +2727,7 @@ const CORE = (() => {
       const sub = it.sub[si];
       const ansl = VX_LABEL[sub.a];
       const ok = idx !== null && it.options[idx] === ansl;
-      S.log.push({ id: it.id + '-' + (si + 1), q: sub.t, given: idx == null ? 'non répondu' : it.options[idx], correct: ansl, ok, ms: dt, section: S.sec.id, why: sub.w });
+      pushLog({ id: it.id + '-' + (si + 1), q: sub.t, given: idx == null ? 'non répondu' : it.options[idx], correct: ansl, ok, ms: dt, section: S.sec.id, why: sub.w });
       S.results.push({ ok });
       S.lastSub = si;
       S.subIndex = si + 1;
@@ -2639,7 +2739,7 @@ const CORE = (() => {
     /* — QCM standard (numérique, information, mécanique, figures) — */
     const idx = multiSel && multiSel.size ? [...multiSel][0] : null;
     const ok = idx !== null && idx === it.ans;
-    S.log.push({ id: it.id, q: it.q, given: label(it, idx), correct: ansLabel(it), ok, ms: dt, section: S.sec.id, why: it.why, okFlag: ok });
+    pushLog({ id: it.id, q: it.q, given: label(it, idx), correct: ansLabel(it), ok, ms: dt, section: S.sec.id, why: it.why, okFlag: ok });
     S.results.push({ ok });
     if (S.feedback === 'immediate') showFeedback(it, ok, dt, it.why, ansLabel(it), false);
     else next();
@@ -2751,6 +2851,10 @@ const CORE = (() => {
     const attempt = {
       id: 'A' + Date.now(),
       at: new Date().toISOString(),
+      endedAt: new Date().toISOString(),
+      date: dFr(new Date().toISOString()),
+      time: hFr(new Date().toISOString()),
+      user: PROFILES.current() || 'Invité',
       section: S.sec.id, sectionName: S.sec.name,
       behavioural,
       items: S.totalQ || S.items.length, answered: graded.length, correct, wrong, skipped,
@@ -2759,7 +2863,7 @@ const CORE = (() => {
       ms: Date.now() - S.t0,
       paper: S.cfg.paper || null, mode: S.feedback
     };
-    P.add(attempt, S.log);
+    P.add(attempt, S.log.map(r => Object.assign({}, r)));
     renderSummary(attempt);
     writeHUD();
   }
@@ -2795,9 +2899,33 @@ const CORE = (() => {
         '</ul></div>' +
       '<div class="card sp2"><div class="card-t">Détail des réponses</div><table class="tbl"><thead><tr><th>Affirmation</th><th>Votre choix</th><th class="num">Temps</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '</div>';
+    if (U.$('#sumCsv')) U.$('#sumCsv').onclick = () => P.csv(it.id);
+    if (U.$('#sumDetail')) U.$('#sumDetail').onclick = () => { location.hash = '#/session/' + it.id; };
     U.$('#againBtn').onclick = () => mount(view, S.sec.id, Object.assign({}, S.cfg, { seed: (S.cfg.seed + 13) % 99991 }));
     U.$('#homeBtn').onclick = () => { location.hash = '#/'; };
     U.$('#progBtn').onclick = () => { location.hash = '#/progression'; };
+  }
+
+  /** Tableau « question par question » : n°, question, réponses, résultat, temps, heure, explication. */
+  function detailTable(log) {
+    if (!log || !log.length) return '<div class="small dim">Aucun détail enregistré pour cette session.</div>';
+    const good = log.filter(r => r.ok === true).length, bad = log.filter(r => r.ok === false).length;
+    return '<div class="detailwrap"><table class="qtbl2"><thead><tr>' +
+      '<th class="qn">N°</th><th class="qx">Question</th><th class="qa">Votre réponse</th><th class="qa">Correcte</th>' +
+      '<th>Résultat</th><th>Temps</th><th>Heure</th><th>Explication</th></tr></thead><tbody>' +
+      log.map((r, i) =>
+        '<tr class="' + (r.ok === true ? 'r-ok' : (r.ok === false ? 'r-ko' : '')) + '">' +
+        '<td class="qn">' + (r.n || i + 1) + '</td>' +
+        '<td class="qx">' + U.esc(String(r.q || '').slice(0, 220)) + '</td>' +
+        '<td class="qa">' + U.esc(r.given == null ? '—' : String(r.given).slice(0, 90)) + '</td>' +
+        '<td class="qa">' + (r.correct == null ? '<span class="dim">sans bonne réponse</span>' : '<span class="good">' + U.esc(String(r.correct).slice(0, 90)) + '</span>') + '</td>' +
+        '<td>' + (r.ok === true ? '<span class="good">✔ correct</span>' : (r.ok === false ? '<span class="bad">✘ incorrect</span>' : '<span class="dim">—</span>')) + '</td>' +
+        '<td class="stamp">' + (r.ms == null ? '—' : U.ms(r.ms)) + '</td>' +
+        '<td class="stamp">' + (r.at ? hFr(r.at) : '—') + '</td>' +
+        '<td class="why">' + U.esc(String(r.why || '').slice(0, 200)) + '</td>' +
+        '</tr>').join('') + '</tbody></table></div>' +
+      '<div class="legend-detail"><span><i class="ok"></i> bonne réponse</span><span><i class="ko"></i> erreur</span>' +
+      '<span>' + good + ' correctes · ' + bad + ' erreurs · ' + log.length + ' questions</span></div>';
   }
 
   function renderSummary(attempt) {
@@ -2840,14 +2968,19 @@ const CORE = (() => {
             '<span class="bar-track"><i class="' + (p >= .85 ? '' : p >= .6 ? 'amb' : 'red') + '" style="width:' + (p * 100) + '%"></i></span>' +
             '<span class="bar-val">' + v.ok + '/' + v.n + '</span></div>';
         }).join('') + '</div></div>' : '') +
-      (wrongs.length ?
-        '<div class="card sp2"><div class="card-t">Erreurs à revoir (' + wrongs.length + ')</div>' +
-        wrongs.map(w => '<div class="fb ko"><div class="fb-t">' + U.esc((w.q || '').slice(0, 150)) + '</div>' +
-          '<div class="small">Votre réponse : <b>' + U.esc(w.given == null ? '—' : String(w.given)) + '</b>' + (w.correct != null ? ' · Attendue : <b>' + U.esc(String(w.correct)) + '</b>' : '') + '</div>' +
-          (w.why ? '<div class="small dim" style="margin-top:4px">' + U.esc(w.why) + '</div>' : '') + '</div>').join('') +
-        '</div>' : '<div class="card sp2"><div class="card-t">Aucune erreur</div><div class="small muted">Run parfait. Monetez d’un cran : items suivants, mode strict, ou temps divisé par deux.</div></div>') +
+      '<div class="card sp2">' +
+        '<div class="row between" style="margin-bottom:10px">' +
+          '<div><div class="card-t" style="margin-bottom:2px">Détail question par question (' + S.log.length + ')</div>' +
+          '<span class="small dim">Session du ' + dFr(it.at) + ' à ' + hFr(it.at) + ' · profil ' + U.esc(it.user || '—') + '</span></div>' +
+          '<span class="row"><button class="btn sm" id="sumDetail">Vue complète</button>' +
+          '<button class="btn sm ghost" id="sumCsv">CSV</button></span>' +
+        '</div>' +
+        detailTable(S.log) +
+      '</div>' +
       '</div>';
 
+    if (U.$('#sumCsv')) U.$('#sumCsv').onclick = () => P.csv(it.id);
+    if (U.$('#sumDetail')) U.$('#sumDetail').onclick = () => { location.hash = '#/session/' + it.id; };
     U.$('#againBtn').onclick = () => mount(view, S.sec.id, Object.assign({}, S.cfg, { seed: (S.cfg.seed + 13) % 99991 }));
     U.$('#homeBtn').onclick = () => { location.hash = '#/'; };
     U.$('#progBtn').onclick = () => { location.hash = '#/progression'; };
@@ -2861,7 +2994,7 @@ const CORE = (() => {
     return idb.put({ name: file.name || 'capture', type: file.type || 'image/png', note: note || '', at: new Date().toISOString(), data: dataUrl });
   }
 
-  return { SECTIONS, byId, mount, destroy, P, feedbackReport, idb, addShot, buildItems, buildMixed, DL,
+  return { SECTIONS, byId, mount, destroy, P, PROFILES, dFr, hFr, detailTable, feedbackReport, idb, addShot, buildItems, buildMixed, DL,
            get current() { return S; } };
 })();
 
@@ -2916,6 +3049,7 @@ const CORE = (() => {
     if (p === '') return landing();
     if (p === 'section') return sectionView(parts[1]);
     if (p === 'run') return runView(parts[1], params);
+    if (p === 'session') return sessionView(parts[1]);
     if (p === 'progression') return progressionView();
     if (p === 'feedback') return feedbackView();
     if (p === 'captures') return capturesView();
@@ -2923,6 +3057,91 @@ const CORE = (() => {
     return landing();
   }
   function routeAndBind() { route(); bindSwitches(); }
+
+  /* ═══════════════════ ÉCRAN D'ACCÈS (code + prénom) ═══════════════════ */
+  function showLogin() {
+    document.documentElement.classList.add('userpending');
+    if (U.$('#loginOverlay')) return;
+    const known = CORE.PROFILES.list();
+    const ov = document.createElement('div');
+    ov.id = 'loginOverlay';
+    ov.innerHTML =
+      '<div class="lg-box">' +
+        '<div class="lg-mk">CM</div>' +
+        '<h2>Assessment Trainer</h2>' +
+        '<p class="sub">Espace d’entraînement personnel.<br>Saisissez le code d’accès puis votre prénom : ' +
+          'chaque profil conserve son propre historique, horodaté à la seconde.</p>' +
+        '<label for="lgCode">Code d’accès</label>' +
+        '<input id="lgCode" type="password" placeholder="••••••" autocomplete="off" spellcheck="false">' +
+        '<label for="lgName">Prénom</label>' +
+        '<input id="lgName" type="text" placeholder="Calvin" autocomplete="off" spellcheck="false">' +
+        '<button class="go" id="lgGo">Accéder</button>' +
+        '<div class="lg-err" id="lgErr"></div>' +
+        (known.length ? '<div class="lg-sep">Profils enregistrés sur cet appareil</div>' +
+          '<div class="lg-users">' + known.map(n => '<button data-name="' + U.esc(n) + '">' + U.esc(n) + '</button>').join('') + '</div>' : '') +
+        '<div class="lg-foot">Accès réservé — reproduction et diffusion interdites.<br>' +
+          'Données stockées uniquement dans ce navigateur.</div>' +
+      '</div>';
+    document.body.appendChild(ov);
+
+    const code = U.$('#lgCode'), name = U.$('#lgName'), err = U.$('#lgErr');
+    function go(prefill) {
+      const c = (code.value || '').trim().toUpperCase();
+      const n = (prefill || name.value || '').trim();
+      if (c !== CORE.P.code()) { err.textContent = 'Code d’accès incorrect.'; code.focus(); return; }
+      if (!n) { err.textContent = 'Indiquez votre prénom.'; name.focus(); return; }
+      CORE.PROFILES.set(n);
+      CORE.P.migrate();
+      ov.remove();
+      document.documentElement.classList.remove('userpending');
+      paintUser();
+      routeAndBind();
+      U.toast('Profil « ' + CORE.PROFILES.current() + ' » — historique séparé');
+    }
+    U.$('#lgGo').onclick = () => go();
+    U.$$('#loginOverlay .lg-users button').forEach(b => b.onclick = () => { name.value = b.dataset.name; go(); });
+    ov.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+    setTimeout(() => code.focus(), 80);
+  }
+
+  function paintUser() {
+    const n = CORE.PROFILES.current();
+    const el = U.$('#userName');
+    if (el) el.textContent = n || '—';
+  }
+
+  function userMenu() {
+    const cur = CORE.PROFILES.current() || '';
+    const others = CORE.PROFILES.list().filter(x => x !== cur);
+    U.modal(
+      '<h3 style="margin-bottom:6px">Profil : ' + U.esc(cur) + '</h3>' +
+      '<div class="small dim" style="margin-bottom:16px">Chaque profil possède son propre historique (tentatives horodatées, progression, feedback). ' +
+        'Pratique si vous prêtez la plateforme : les résultats restent séparés.</div>' +
+      '<div class="card-t">Changer de profil</div>' +
+      (others.length ? '<div class="row" style="margin-bottom:14px">' + others.map(n => '<button class="btn sm" data-sw="' + U.esc(n) + '">' + U.esc(n) + '</button>').join('') + '</div>'
+        : '<div class="small dim" style="margin-bottom:14px">Aucun autre profil enregistré.</div>') +
+      '<div class="setrow"><div><div class="t">Nouveau profil</div><div class="d">Entrez un prénom puis validez</div></div>' +
+        '<input id="umName" placeholder="Prénom" style="width:150px"></div>' +
+      '<div class="setrow"><div><div class="t">Code d’accès du site</div><div class="d">Modifiable — à communiquer aux personnes autorisées</div></div>' +
+        '<input id="umCode" value="' + U.esc(CORE.P.code()) + '" style="width:150px;text-transform:uppercase"></div>' +
+      '<div class="row end sp2"><button class="btn ghost" id="umOut">Quitter le profil</button>' +
+        '<button class="btn pri" id="umSave">Enregistrer</button></div>'
+    );
+    U.$$('[data-sw]').forEach(b => b.onclick = () => {
+      CORE.PROFILES.set(b.dataset.sw); CORE.P.migrate();
+      U.closeModal(); paintUser(); routeAndBind();
+      U.toast('Profil « ' + CORE.PROFILES.current() + ' »');
+    });
+    U.$('#umSave').onclick = () => {
+      const nm = U.$('#umName').value.trim();
+      const cd = U.$('#umCode').value.trim().toUpperCase();
+      if (cd) { const st = CORE.P.settings(); st.code = cd; CORE.P.saveSettings(st); }
+      if (nm) { CORE.PROFILES.set(nm); CORE.P.migrate(); }
+      U.closeModal(); paintUser(); routeAndBind();
+      U.toast('Profil « ' + CORE.PROFILES.current() + ' » enregistré');
+    };
+    U.$('#umOut').onclick = () => { CORE.PROFILES.logout(); U.closeModal(); showLogin(); };
+  }
 
   /* ═══════════════════ ACCUEIL — tableau des tâches ═══════════════════ */
   function landing() {
@@ -3116,6 +3335,47 @@ const CORE = (() => {
     CORE.mount(view, id, cfg);
   }
 
+  /* ═══════════════════ DÉTAIL D'UNE SESSION (question par question) ═══════════════════ */
+  const detailTable = (log) => CORE.detailTable(log);
+
+  function sessionView(id) {
+    const a = CORE.P.sessionOf(id);
+    const log = CORE.P.sessionLog(id);
+    view.className = 'view';
+    if (!a) {
+      view.innerHTML = '<div class="pagecard"><h1>Session introuvable</h1>' +
+        '<p class="intro">Le détail de cette session n’est plus conservé (les 80 dernières sessions sont gardées).</p>' +
+        '<button class="btn pri" onclick="location.hash=\'#/feedback\'">Retour au feedback</button></div>';
+      return;
+    }
+    const pct = a.behavioural ? null : Math.round((a.accuracy || 0) * 100);
+    view.innerHTML =
+      '<a class="btn sm ghost" href="#/feedback">&larr; Feedback</a>' +
+      '<div class="pagecard sp">' +
+        '<h1>' + U.esc(a.sectionName || a.section) + ' <span class="tiny dim">détail question par question</span></h1>' +
+        '<div class="row" style="margin:14px 0 6px">' +
+          '<span class="tag blu">👤 ' + U.esc(a.user || '—') + '</span>' +
+          '<span class="tag">📅 ' + CORE.dFr(a.at) + '</span>' +
+          '<span class="tag">🕒 ' + CORE.hFr(a.at) + '</span>' +
+          '<span class="tag">' + a.correct + ' / ' + a.answered + ' correctes</span>' +
+          (pct == null ? '<span class="tag">questionnaire — pas de bonne réponse</span>' : '<span class="tag ' + (pct >= 85 ? 'grn' : pct >= 65 ? 'amb' : 'red') + '">' + pct + ' %</span>') +
+          '<span class="tag mono">temps moyen ' + U.ms(a.avgMs) + '</span>' +
+          '<span class="tag mono">durée ' + U.ms(a.ms) + '</span>' +
+          (a.paper ? '<span class="tag">Paper ' + a.paper + '</span>' : '') +
+        '</div>' +
+        '<div class="row" style="margin:14px 0 4px">' +
+          '<button class="btn pri sm" id="csvBtn">Télécharger le détail (CSV)</button>' +
+          '<button class="btn sm" id="againBtn">Refaire cette section</button>' +
+          '<button class="btn sm ghost" id="printBtn">Imprimer / PDF</button>' +
+        '</div>' +
+        '<div class="hr"></div>' +
+        detailTable(log) +
+      '</div>';
+    U.$('#csvBtn').onclick = () => CORE.P.csv(id);
+    U.$('#againBtn').onclick = () => startRun(a.section, a.paper ? { paper: a.paper } : {});
+    U.$('#printBtn').onclick = () => window.print();
+  }
+
   /* ═══════════════════ PROGRESSION ═══════════════════ */
   function progressionView() {
     const o = CORE.P.overall();
@@ -3131,7 +3391,8 @@ const CORE = (() => {
     view.className = 'view';
     view.innerHTML =
       '<div class="pagecard">' +
-      '<h1>Progression</h1><p class="intro" style="margin-bottom:18px">Suivi local — stocké dans ce navigateur uniquement, aucune donnée envoyée.</p>' +
+      '<h1>Progression</h1><p class="intro" style="margin-bottom:18px">Profil <b>' + U.esc(CORE.PROFILES.current() || '—') + '</b> — suivi local, horodaté au jour et à l’heure, aucune donnée envoyée. ' +
+        'Chaque tentative est conservée avec le détail de ses questions.</p>' +
       '<div class="summarystrip" style="margin:0 0 22px">' +
         stat('Sessions', o.n, 'depuis le début') +
         stat('Précision globale', U.pct(o.accuracy), o.correct + ' / ' + o.items) +
@@ -3170,8 +3431,9 @@ const CORE = (() => {
       '<div class="card sp"><div class="card-t">Dernières sessions</div>' +
       (attempts.length ? attempts.slice(0, 25).map(a =>
         '<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)">' +
-          '<div><b>' + U.esc(a.sectionName || a.section) + '</b> <span class="tag">' + U.fr(a.at) + '</span>' +
-          (a.paper ? ' <span class="tag blu">Paper ' + a.paper + '</span>' : '') + '</div>' +
+          '<div><b>' + U.esc(a.sectionName || a.section) + '</b> <span class="tag">' + CORE.dFr(a.at) + ' · ' + CORE.hFr(a.at) + '</span>' +
+          (a.paper ? ' <span class="tag blu">Paper ' + a.paper + '</span>' : '') +
+          ' <button class="btn sm ghost" data-det="' + a.id + '">détail</button></div>' +
           '<div class="row">' + (a.behavioural ? '<span class="tag">questionnaire — ' + a.items + ' réponses</span>' :
             '<span class="tag mono">' + a.correct + '/' + a.answered + '</span>' +
             '<span class="tag ' + (a.accuracy >= .85 ? 'grn' : a.accuracy >= .65 ? 'amb' : 'red') + '">' + U.pct(a.accuracy) + '</span>') +
@@ -3184,6 +3446,7 @@ const CORE = (() => {
       '<button class="btn danger" id="clrBtn">Effacer tout l’historique</button></div>' +
       '</div>';
 
+    U.$$('[data-det]').forEach(b => b.onclick = () => { location.hash = '#/session/' + b.dataset.det; });
     U.$('#expBtn').onclick = () => exportData();
     U.$('#printBtn').onclick = () => window.print();
     U.$('#clrBtn').onclick = () => { if (confirm('Effacer définitivement tout l’historique ?')) { CORE.P.clear(); U.toast('Historique effacé'); routeAndBind(); } };
@@ -3236,6 +3499,20 @@ const CORE = (() => {
       '<div class="card sp"><div class="card-t">Plan d’action</div><ul class="ul num">' +
         r.recos.map(x => '<li>' + mdBold(x) + '</li>').join('') + '</ul></div>' +
 
+      '<div class="card sp"><div class="card-t">Historique détaillé par session (' + CORE.P.sessions().length + ')</div>' +
+        '<div class="small dim" style="margin-bottom:10px">Chaque tentative est enregistrée au jour et à l’heure exacte, avec le détail de chaque question. Cliquez sur « Détail » pour tout revoir.</div>' +
+        (CORE.P.sessions().length ? CORE.P.sessions().slice(0, 40).map(a =>
+          '<div class="sessrow">' +
+            '<span class="st">' + CORE.dFr(a.at) + ' · ' + CORE.hFr(a.at) + '</span>' +
+            '<span><span class="sn">' + U.esc(a.sectionName || a.section) + '</span>' +
+            '<span class="ss"> · ' + U.esc(a.user || '') + ' · ' + a.correct + ' / ' + a.answered + ' · ' + U.ms(a.avgMs) + '/item</span></span>' +
+            (a.behavioural ? '<span class="tag">questionnaire</span>'
+              : '<span class="tag ' + (a.accuracy >= .85 ? 'grn' : a.accuracy >= .65 ? 'amb' : 'red') + '">' + U.pct(a.accuracy) + '</span>') +
+            '<span class="row"><button class="btn sm" data-det="' + a.id + '">Détail</button>' +
+            '<button class="btn sm ghost" data-csv="' + a.id + '">CSV</button></span>' +
+          '</div>').join('') : '<div class="small dim">Aucune session.</div>') +
+      '</div>' +
+
       '<div class="card sp"><div class="card-t">Journal des erreurs (' + r.wrongs.length + ')</div>' +
         (r.wrongs.length ? r.wrongs.map(w =>
           '<div class="fb ko"><div class="fb-t">' + U.esc(String(w.q || '').slice(0, 160)) + '</div>' +
@@ -3257,6 +3534,8 @@ const CORE = (() => {
 
     U.$('#fbMode').onchange = (e) => { const s = CORE.P.settings(); s.feedback = e.target.value; CORE.P.saveSettings(s); U.toast('Réglage enregistré'); };
     U.$('#fbTarget').onchange = (e) => { const s = CORE.P.settings(); s.target = Math.max(1, +e.target.value || 50); CORE.P.saveSettings(s); U.toast('Objectif : ' + s.target); };
+    U.$$('[data-det]').forEach(b => b.onclick = () => { location.hash = '#/session/' + b.dataset.det; });
+    U.$$('[data-csv]').forEach(b => b.onclick = () => CORE.P.csv(b.dataset.csv));
     U.$('#printBtn2').onclick = () => window.print();
     U.$('#homeBtn2').onclick = () => location.hash = '#/';
   }
@@ -3269,7 +3548,7 @@ const CORE = (() => {
     view.innerHTML =
       '<div class="pagecard">' +
       '<h1>Captures originales</h1>' +
-      '<p class="intro" style="margin-bottom:18px">Importez ici vos captures d’écran de référence (figures, écrans d’exercices). ' +
+      '<p class="intro" style="margin-bottom:18px">Importez ici vos captures d’écran de référence. ' +
         'Les images sont conservées <b>telles quelles</b> (aucun recadrage, aucune modification) et stockées uniquement dans ce navigateur.</p>' +
       '<div class="dropzone" id="dz">' +
         '<div style="font-size:30px">🖼️</div>' +
@@ -3340,6 +3619,16 @@ const CORE = (() => {
         '<input id="sTarget" type="number" min="5" max="300" value="' + (st.target || 50) + '" style="width:88px"></div>' +
       '</div>' +
 
+      '<div class="card sp"><div class="card-t">Profils &amp; accès</div>' +
+        '<div class="setrow"><div><div class="t">Profil actif</div><div class="d">Chaque profil a son propre historique, horodaté</div></div>' +
+        '<div class="row"><span class="tag blu">' + U.esc(CORE.P.PROFILES.current() || '—') + '</span>' +
+        '<button class="btn sm" id="stProfile">Gérer les profils</button></div></div>' +
+        '<div class="setrow"><div><div class="t">Code d’accès</div><div class="d">Requis à l’ouverture du site (à communiquer aux personnes autorisées)</div></div>' +
+        '<input id="stCode" value="' + U.esc(CORE.P.code()) + '" style="width:150px;text-transform:uppercase"></div>' +
+        '<div class="setrow"><div><div class="t">Profils enregistrés</div><div class="d">' + (CORE.P.PROFILES.list().join(' · ') || 'aucun') + '</div></div>' +
+        '<span class="tag">' + CORE.P.PROFILES.list().length + '</span></div>' +
+      '</div>' +
+
       '<div class="card sp"><div class="card-t">Données</div>' +
         '<div class="setrow"><div><div class="t">Historique</div><div class="d">' + CORE.P.attempts().length + ' sessions · ' + size + ' Ko utilisés</div></div>' +
         '<div class="row"><button class="btn sm" id="expBtn">Exporter</button><button class="btn sm" id="impBtn">Importer</button><button class="btn sm danger" id="rstBtn">Réinitialiser</button></div></div>' +
@@ -3364,6 +3653,8 @@ const CORE = (() => {
     U.$('#sFb').value = st.feedback;
     U.$('#sFb').onchange = (e) => { st.feedback = e.target.value; CORE.P.saveSettings(st); U.toast('Enregistré'); };
     U.$('#sTarget').onchange = (e) => { st.target = Math.max(1, +e.target.value || 50); CORE.P.saveSettings(st); U.toast('Objectif : ' + st.target); };
+    U.$('#stProfile').onclick = () => userMenu();
+    U.$('#stCode').onchange = (e) => { const s2 = CORE.P.settings(); s2.code = (e.target.value || 'CM2026').trim().toUpperCase(); CORE.P.saveSettings(s2); U.toast('Code d’accès enregistré'); };
     U.$('#expBtn').onclick = () => exportData();
     U.$('#impBtn').onclick = () => importData();
     U.$('#rstBtn').onclick = () => { if (confirm('Réinitialiser tout l’historique et les réglages ?')) { CORE.P.clear(); U.store.wipe(); U.toast('Réinitialisé'); routeAndBind(); applyTheme('light'); } };
@@ -3436,9 +3727,21 @@ const CORE = (() => {
   const themeSw = U.$('#themeSw');
   if (themeSw) themeSw.onclick = () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 
-  U.$('#footerMeta').textContent = 'Calvin MINANG · usage personnel · v2.0 — ' + new Date().toLocaleDateString('fr-FR');
+  U.$('#footerMeta').textContent = 'Usage personnel · v3.0 — ' + new Date().toLocaleDateString('fr-FR');
   applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
-  routeAndBind();
+
+  /* pastille utilisateur */
+  if (U.$('#userBtn')) U.$('#userBtn').onclick = () => userMenu();
+  paintUser();
+
+  /* accès : profil mémorisé -> application ; sinon écran d'accès (code + prénom) */
+  CORE.P.migrate();
+  if (!CORE.P.PROFILES.current()) {
+    showLogin();
+  } else {
+    document.documentElement.classList.remove('userpending');
+    routeAndBind();
+  }
 })();
 
 </script>

@@ -47,6 +47,7 @@
     if (p === '') return landing();
     if (p === 'section') return sectionView(parts[1]);
     if (p === 'run') return runView(parts[1], params);
+    if (p === 'session') return sessionView(parts[1]);
     if (p === 'progression') return progressionView();
     if (p === 'feedback') return feedbackView();
     if (p === 'captures') return capturesView();
@@ -54,6 +55,91 @@
     return landing();
   }
   function routeAndBind() { route(); bindSwitches(); }
+
+  /* ═══════════════════ ÉCRAN D'ACCÈS (code + prénom) ═══════════════════ */
+  function showLogin() {
+    document.documentElement.classList.add('userpending');
+    if (U.$('#loginOverlay')) return;
+    const known = CORE.PROFILES.list();
+    const ov = document.createElement('div');
+    ov.id = 'loginOverlay';
+    ov.innerHTML =
+      '<div class="lg-box">' +
+        '<div class="lg-mk">CM</div>' +
+        '<h2>Assessment Trainer</h2>' +
+        '<p class="sub">Espace d’entraînement personnel.<br>Saisissez le code d’accès puis votre prénom : ' +
+          'chaque profil conserve son propre historique, horodaté à la seconde.</p>' +
+        '<label for="lgCode">Code d’accès</label>' +
+        '<input id="lgCode" type="password" placeholder="••••••" autocomplete="off" spellcheck="false">' +
+        '<label for="lgName">Prénom</label>' +
+        '<input id="lgName" type="text" placeholder="Calvin" autocomplete="off" spellcheck="false">' +
+        '<button class="go" id="lgGo">Accéder</button>' +
+        '<div class="lg-err" id="lgErr"></div>' +
+        (known.length ? '<div class="lg-sep">Profils enregistrés sur cet appareil</div>' +
+          '<div class="lg-users">' + known.map(n => '<button data-name="' + U.esc(n) + '">' + U.esc(n) + '</button>').join('') + '</div>' : '') +
+        '<div class="lg-foot">Accès réservé — reproduction et diffusion interdites.<br>' +
+          'Données stockées uniquement dans ce navigateur.</div>' +
+      '</div>';
+    document.body.appendChild(ov);
+
+    const code = U.$('#lgCode'), name = U.$('#lgName'), err = U.$('#lgErr');
+    function go(prefill) {
+      const c = (code.value || '').trim().toUpperCase();
+      const n = (prefill || name.value || '').trim();
+      if (c !== CORE.P.code()) { err.textContent = 'Code d’accès incorrect.'; code.focus(); return; }
+      if (!n) { err.textContent = 'Indiquez votre prénom.'; name.focus(); return; }
+      CORE.PROFILES.set(n);
+      CORE.P.migrate();
+      ov.remove();
+      document.documentElement.classList.remove('userpending');
+      paintUser();
+      routeAndBind();
+      U.toast('Profil « ' + CORE.PROFILES.current() + ' » — historique séparé');
+    }
+    U.$('#lgGo').onclick = () => go();
+    U.$$('#loginOverlay .lg-users button').forEach(b => b.onclick = () => { name.value = b.dataset.name; go(); });
+    ov.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+    setTimeout(() => code.focus(), 80);
+  }
+
+  function paintUser() {
+    const n = CORE.PROFILES.current();
+    const el = U.$('#userName');
+    if (el) el.textContent = n || '—';
+  }
+
+  function userMenu() {
+    const cur = CORE.PROFILES.current() || '';
+    const others = CORE.PROFILES.list().filter(x => x !== cur);
+    U.modal(
+      '<h3 style="margin-bottom:6px">Profil : ' + U.esc(cur) + '</h3>' +
+      '<div class="small dim" style="margin-bottom:16px">Chaque profil possède son propre historique (tentatives horodatées, progression, feedback). ' +
+        'Pratique si vous prêtez la plateforme : les résultats restent séparés.</div>' +
+      '<div class="card-t">Changer de profil</div>' +
+      (others.length ? '<div class="row" style="margin-bottom:14px">' + others.map(n => '<button class="btn sm" data-sw="' + U.esc(n) + '">' + U.esc(n) + '</button>').join('') + '</div>'
+        : '<div class="small dim" style="margin-bottom:14px">Aucun autre profil enregistré.</div>') +
+      '<div class="setrow"><div><div class="t">Nouveau profil</div><div class="d">Entrez un prénom puis validez</div></div>' +
+        '<input id="umName" placeholder="Prénom" style="width:150px"></div>' +
+      '<div class="setrow"><div><div class="t">Code d’accès du site</div><div class="d">Modifiable — à communiquer aux personnes autorisées</div></div>' +
+        '<input id="umCode" value="' + U.esc(CORE.P.code()) + '" style="width:150px;text-transform:uppercase"></div>' +
+      '<div class="row end sp2"><button class="btn ghost" id="umOut">Quitter le profil</button>' +
+        '<button class="btn pri" id="umSave">Enregistrer</button></div>'
+    );
+    U.$$('[data-sw]').forEach(b => b.onclick = () => {
+      CORE.PROFILES.set(b.dataset.sw); CORE.P.migrate();
+      U.closeModal(); paintUser(); routeAndBind();
+      U.toast('Profil « ' + CORE.PROFILES.current() + ' »');
+    });
+    U.$('#umSave').onclick = () => {
+      const nm = U.$('#umName').value.trim();
+      const cd = U.$('#umCode').value.trim().toUpperCase();
+      if (cd) { const st = CORE.P.settings(); st.code = cd; CORE.P.saveSettings(st); }
+      if (nm) { CORE.PROFILES.set(nm); CORE.P.migrate(); }
+      U.closeModal(); paintUser(); routeAndBind();
+      U.toast('Profil « ' + CORE.PROFILES.current() + ' » enregistré');
+    };
+    U.$('#umOut').onclick = () => { CORE.PROFILES.logout(); U.closeModal(); showLogin(); };
+  }
 
   /* ═══════════════════ ACCUEIL — tableau des tâches ═══════════════════ */
   function landing() {
@@ -247,6 +333,47 @@
     CORE.mount(view, id, cfg);
   }
 
+  /* ═══════════════════ DÉTAIL D'UNE SESSION (question par question) ═══════════════════ */
+  const detailTable = (log) => CORE.detailTable(log);
+
+  function sessionView(id) {
+    const a = CORE.P.sessionOf(id);
+    const log = CORE.P.sessionLog(id);
+    view.className = 'view';
+    if (!a) {
+      view.innerHTML = '<div class="pagecard"><h1>Session introuvable</h1>' +
+        '<p class="intro">Le détail de cette session n’est plus conservé (les 80 dernières sessions sont gardées).</p>' +
+        '<button class="btn pri" onclick="location.hash=\'#/feedback\'">Retour au feedback</button></div>';
+      return;
+    }
+    const pct = a.behavioural ? null : Math.round((a.accuracy || 0) * 100);
+    view.innerHTML =
+      '<a class="btn sm ghost" href="#/feedback">&larr; Feedback</a>' +
+      '<div class="pagecard sp">' +
+        '<h1>' + U.esc(a.sectionName || a.section) + ' <span class="tiny dim">détail question par question</span></h1>' +
+        '<div class="row" style="margin:14px 0 6px">' +
+          '<span class="tag blu">👤 ' + U.esc(a.user || '—') + '</span>' +
+          '<span class="tag">📅 ' + CORE.dFr(a.at) + '</span>' +
+          '<span class="tag">🕒 ' + CORE.hFr(a.at) + '</span>' +
+          '<span class="tag">' + a.correct + ' / ' + a.answered + ' correctes</span>' +
+          (pct == null ? '<span class="tag">questionnaire — pas de bonne réponse</span>' : '<span class="tag ' + (pct >= 85 ? 'grn' : pct >= 65 ? 'amb' : 'red') + '">' + pct + ' %</span>') +
+          '<span class="tag mono">temps moyen ' + U.ms(a.avgMs) + '</span>' +
+          '<span class="tag mono">durée ' + U.ms(a.ms) + '</span>' +
+          (a.paper ? '<span class="tag">Paper ' + a.paper + '</span>' : '') +
+        '</div>' +
+        '<div class="row" style="margin:14px 0 4px">' +
+          '<button class="btn pri sm" id="csvBtn">Télécharger le détail (CSV)</button>' +
+          '<button class="btn sm" id="againBtn">Refaire cette section</button>' +
+          '<button class="btn sm ghost" id="printBtn">Imprimer / PDF</button>' +
+        '</div>' +
+        '<div class="hr"></div>' +
+        detailTable(log) +
+      '</div>';
+    U.$('#csvBtn').onclick = () => CORE.P.csv(id);
+    U.$('#againBtn').onclick = () => startRun(a.section, a.paper ? { paper: a.paper } : {});
+    U.$('#printBtn').onclick = () => window.print();
+  }
+
   /* ═══════════════════ PROGRESSION ═══════════════════ */
   function progressionView() {
     const o = CORE.P.overall();
@@ -262,7 +389,8 @@
     view.className = 'view';
     view.innerHTML =
       '<div class="pagecard">' +
-      '<h1>Progression</h1><p class="intro" style="margin-bottom:18px">Suivi local — stocké dans ce navigateur uniquement, aucune donnée envoyée.</p>' +
+      '<h1>Progression</h1><p class="intro" style="margin-bottom:18px">Profil <b>' + U.esc(CORE.PROFILES.current() || '—') + '</b> — suivi local, horodaté au jour et à l’heure, aucune donnée envoyée. ' +
+        'Chaque tentative est conservée avec le détail de ses questions.</p>' +
       '<div class="summarystrip" style="margin:0 0 22px">' +
         stat('Sessions', o.n, 'depuis le début') +
         stat('Précision globale', U.pct(o.accuracy), o.correct + ' / ' + o.items) +
@@ -301,8 +429,9 @@
       '<div class="card sp"><div class="card-t">Dernières sessions</div>' +
       (attempts.length ? attempts.slice(0, 25).map(a =>
         '<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)">' +
-          '<div><b>' + U.esc(a.sectionName || a.section) + '</b> <span class="tag">' + U.fr(a.at) + '</span>' +
-          (a.paper ? ' <span class="tag blu">Paper ' + a.paper + '</span>' : '') + '</div>' +
+          '<div><b>' + U.esc(a.sectionName || a.section) + '</b> <span class="tag">' + CORE.dFr(a.at) + ' · ' + CORE.hFr(a.at) + '</span>' +
+          (a.paper ? ' <span class="tag blu">Paper ' + a.paper + '</span>' : '') +
+          ' <button class="btn sm ghost" data-det="' + a.id + '">détail</button></div>' +
           '<div class="row">' + (a.behavioural ? '<span class="tag">questionnaire — ' + a.items + ' réponses</span>' :
             '<span class="tag mono">' + a.correct + '/' + a.answered + '</span>' +
             '<span class="tag ' + (a.accuracy >= .85 ? 'grn' : a.accuracy >= .65 ? 'amb' : 'red') + '">' + U.pct(a.accuracy) + '</span>') +
@@ -315,6 +444,7 @@
       '<button class="btn danger" id="clrBtn">Effacer tout l’historique</button></div>' +
       '</div>';
 
+    U.$$('[data-det]').forEach(b => b.onclick = () => { location.hash = '#/session/' + b.dataset.det; });
     U.$('#expBtn').onclick = () => exportData();
     U.$('#printBtn').onclick = () => window.print();
     U.$('#clrBtn').onclick = () => { if (confirm('Effacer définitivement tout l’historique ?')) { CORE.P.clear(); U.toast('Historique effacé'); routeAndBind(); } };
@@ -367,6 +497,20 @@
       '<div class="card sp"><div class="card-t">Plan d’action</div><ul class="ul num">' +
         r.recos.map(x => '<li>' + mdBold(x) + '</li>').join('') + '</ul></div>' +
 
+      '<div class="card sp"><div class="card-t">Historique détaillé par session (' + CORE.P.sessions().length + ')</div>' +
+        '<div class="small dim" style="margin-bottom:10px">Chaque tentative est enregistrée au jour et à l’heure exacte, avec le détail de chaque question. Cliquez sur « Détail » pour tout revoir.</div>' +
+        (CORE.P.sessions().length ? CORE.P.sessions().slice(0, 40).map(a =>
+          '<div class="sessrow">' +
+            '<span class="st">' + CORE.dFr(a.at) + ' · ' + CORE.hFr(a.at) + '</span>' +
+            '<span><span class="sn">' + U.esc(a.sectionName || a.section) + '</span>' +
+            '<span class="ss"> · ' + U.esc(a.user || '') + ' · ' + a.correct + ' / ' + a.answered + ' · ' + U.ms(a.avgMs) + '/item</span></span>' +
+            (a.behavioural ? '<span class="tag">questionnaire</span>'
+              : '<span class="tag ' + (a.accuracy >= .85 ? 'grn' : a.accuracy >= .65 ? 'amb' : 'red') + '">' + U.pct(a.accuracy) + '</span>') +
+            '<span class="row"><button class="btn sm" data-det="' + a.id + '">Détail</button>' +
+            '<button class="btn sm ghost" data-csv="' + a.id + '">CSV</button></span>' +
+          '</div>').join('') : '<div class="small dim">Aucune session.</div>') +
+      '</div>' +
+
       '<div class="card sp"><div class="card-t">Journal des erreurs (' + r.wrongs.length + ')</div>' +
         (r.wrongs.length ? r.wrongs.map(w =>
           '<div class="fb ko"><div class="fb-t">' + U.esc(String(w.q || '').slice(0, 160)) + '</div>' +
@@ -388,6 +532,8 @@
 
     U.$('#fbMode').onchange = (e) => { const s = CORE.P.settings(); s.feedback = e.target.value; CORE.P.saveSettings(s); U.toast('Réglage enregistré'); };
     U.$('#fbTarget').onchange = (e) => { const s = CORE.P.settings(); s.target = Math.max(1, +e.target.value || 50); CORE.P.saveSettings(s); U.toast('Objectif : ' + s.target); };
+    U.$$('[data-det]').forEach(b => b.onclick = () => { location.hash = '#/session/' + b.dataset.det; });
+    U.$$('[data-csv]').forEach(b => b.onclick = () => CORE.P.csv(b.dataset.csv));
     U.$('#printBtn2').onclick = () => window.print();
     U.$('#homeBtn2').onclick = () => location.hash = '#/';
   }
@@ -400,7 +546,7 @@
     view.innerHTML =
       '<div class="pagecard">' +
       '<h1>Captures originales</h1>' +
-      '<p class="intro" style="margin-bottom:18px">Importez ici vos captures d’écran de référence (figures, écrans d’exercices). ' +
+      '<p class="intro" style="margin-bottom:18px">Importez ici vos captures d’écran de référence. ' +
         'Les images sont conservées <b>telles quelles</b> (aucun recadrage, aucune modification) et stockées uniquement dans ce navigateur.</p>' +
       '<div class="dropzone" id="dz">' +
         '<div style="font-size:30px">🖼️</div>' +
@@ -471,6 +617,16 @@
         '<input id="sTarget" type="number" min="5" max="300" value="' + (st.target || 50) + '" style="width:88px"></div>' +
       '</div>' +
 
+      '<div class="card sp"><div class="card-t">Profils &amp; accès</div>' +
+        '<div class="setrow"><div><div class="t">Profil actif</div><div class="d">Chaque profil a son propre historique, horodaté</div></div>' +
+        '<div class="row"><span class="tag blu">' + U.esc(CORE.P.PROFILES.current() || '—') + '</span>' +
+        '<button class="btn sm" id="stProfile">Gérer les profils</button></div></div>' +
+        '<div class="setrow"><div><div class="t">Code d’accès</div><div class="d">Requis à l’ouverture du site (à communiquer aux personnes autorisées)</div></div>' +
+        '<input id="stCode" value="' + U.esc(CORE.P.code()) + '" style="width:150px;text-transform:uppercase"></div>' +
+        '<div class="setrow"><div><div class="t">Profils enregistrés</div><div class="d">' + (CORE.P.PROFILES.list().join(' · ') || 'aucun') + '</div></div>' +
+        '<span class="tag">' + CORE.P.PROFILES.list().length + '</span></div>' +
+      '</div>' +
+
       '<div class="card sp"><div class="card-t">Données</div>' +
         '<div class="setrow"><div><div class="t">Historique</div><div class="d">' + CORE.P.attempts().length + ' sessions · ' + size + ' Ko utilisés</div></div>' +
         '<div class="row"><button class="btn sm" id="expBtn">Exporter</button><button class="btn sm" id="impBtn">Importer</button><button class="btn sm danger" id="rstBtn">Réinitialiser</button></div></div>' +
@@ -495,6 +651,8 @@
     U.$('#sFb').value = st.feedback;
     U.$('#sFb').onchange = (e) => { st.feedback = e.target.value; CORE.P.saveSettings(st); U.toast('Enregistré'); };
     U.$('#sTarget').onchange = (e) => { st.target = Math.max(1, +e.target.value || 50); CORE.P.saveSettings(st); U.toast('Objectif : ' + st.target); };
+    U.$('#stProfile').onclick = () => userMenu();
+    U.$('#stCode').onchange = (e) => { const s2 = CORE.P.settings(); s2.code = (e.target.value || 'CM2026').trim().toUpperCase(); CORE.P.saveSettings(s2); U.toast('Code d’accès enregistré'); };
     U.$('#expBtn').onclick = () => exportData();
     U.$('#impBtn').onclick = () => importData();
     U.$('#rstBtn').onclick = () => { if (confirm('Réinitialiser tout l’historique et les réglages ?')) { CORE.P.clear(); U.store.wipe(); U.toast('Réinitialisé'); routeAndBind(); applyTheme('light'); } };
@@ -567,7 +725,19 @@
   const themeSw = U.$('#themeSw');
   if (themeSw) themeSw.onclick = () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 
-  U.$('#footerMeta').textContent = 'Calvin MINANG · usage personnel · v2.0 — ' + new Date().toLocaleDateString('fr-FR');
+  U.$('#footerMeta').textContent = 'Usage personnel · v3.0 — ' + new Date().toLocaleDateString('fr-FR');
   applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
-  routeAndBind();
+
+  /* pastille utilisateur */
+  if (U.$('#userBtn')) U.$('#userBtn').onclick = () => userMenu();
+  paintUser();
+
+  /* accès : profil mémorisé -> application ; sinon écran d'accès (code + prénom) */
+  CORE.P.migrate();
+  if (!CORE.P.PROFILES.current()) {
+    showLogin();
+  } else {
+    document.documentElement.classList.remove('userpending');
+    routeAndBind();
+  }
 })();
