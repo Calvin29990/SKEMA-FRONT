@@ -42,7 +42,15 @@ const CORE = (() => {
     settings() { return U.store.get('settings', { sound: false, keyboard: true, code: 'CM2026', langs: {} }); },
     saveSettings(s) { U.store.set('settings', s); },
     code() { return String(this.settings().code || 'CM2026').trim().toUpperCase(); },
-    lang(sec) { const l = this.settings().langs || {}; return l[sec] || 'fr'; },
+    lang(sec) {
+      const id = sec && sec.id ? sec.id : sec;
+      const l = this.settings().langs || {};
+      if (l[id]) return l[id];
+      /* Par défaut les épreuves s'affichent en anglais (langue du test réel) ;
+         seules les épreuves de langues gardent leur langue propre. L'habillage
+         (accueil, progression, feedback, aide) reste en français. */
+      return id === 'french' ? 'fr' : 'en';
+    },
     setLang(sec, v) { const s = this.settings(); s.langs = s.langs || {}; s.langs[sec] = v; this.saveSettings(s); },
     add(attempt, detail) { const a = this.attempts(); a.push(attempt); U.store.set(this.key('attempts'), a.slice(-800)); if (detail && detail.length) { const d = this.details(); d[attempt.id] = detail; const ids = Object.keys(d); if (ids.length > 80) delete d[ids[0]]; U.store.set(this.key('details'), d); } },
     clear() { U.store.del(this.key('attempts')); U.store.del(this.key('details')); },
@@ -104,7 +112,7 @@ const CORE = (() => {
   function start(id) {
     destroy();
     const sec = byId(id);
-    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0 };
+    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false };
     buildItems();
     document.body.classList.add('running');
     tick = setInterval(onTick, 250);
@@ -116,7 +124,11 @@ const CORE = (() => {
     switch (sec.kind) {
       case 'blocks': {
         const bank = sec.id === 'behaviour' ? BANK.behaviour : BANK.motivation;
-        S.items = Array.from({ length: sec.blocks }, (_, b) => ({ id: sec.id + b, stmts: [bank[b * 3], bank[b * 3 + 1], bank[b * 3 + 2]] }));
+        const li = P.lang(sec.id) === 'fr' ? 0 : 1;      /* énoncés stockés en paires [FR, EN] */
+        S.items = Array.from({ length: sec.blocks }, (_, b) => ({
+          id: sec.id + b,
+          stmts: [bank[b * 3], bank[b * 3 + 1], bank[b * 3 + 2]].map(s => (s ? (s[li] || s[0]) : ''))
+        }));
         break;
       }
       case 'numverb': {
@@ -262,7 +274,7 @@ const CORE = (() => {
     if (sec.kind === 'edots') { S.phase = 'run'; S.exMode = true; S.deadline = Date.now() + sec.exTime * 1000; S.i = 0; return renderEdots(view); }
     const it = S.examples[S.i];
     if (!it) return beginRun();
-    if (sec.kind === 'numverb') { S.tab = it.tab; return nvItem(view, it, true); }
+    if (sec.kind === 'numverb') return nvItem(view, it, true);
     if (sec.kind === 'mech') return mechItem(view, it, true);
     if (sec.kind === 'latin') return latinItem(view, it, true);
     if (sec.kind === 'pick2') return pick2ItemView(view, it, true);
@@ -275,7 +287,8 @@ const CORE = (() => {
       ? (fr ? 'Très bien ! Vous avez trouvé la bonne réponse.' : 'Very good! You found the right answer right away.')
       : (fr ? 'Ce n’est pas la bonne réponse : la solution correcte est mise en évidence.' : 'That was not correct: the right answer is highlighted.');
     if (v) v.appendChild(d);
-    setTimeout(() => { if (!S || S.phase !== 'example') return; S.i++; if (S.i >= (S.examples || []).length) beginRun(); else render(); }, 1600);
+    /* 1,2 s : le flux consignes → exemples → test reste lisible sans ralentir le passage au chrono. */
+    setTimeout(() => { if (!S || S.phase !== 'example') return; S.i++; if (S.i >= (S.examples || []).length) beginRun(); else render(); }, 1200);
   }
 
   function beginRun() {
@@ -283,7 +296,7 @@ const CORE = (() => {
     const sec = S.sec;
     if (sec.timed) S.deadline = S.t0 + sec.timed * 1000;
     if (sec.kind === 'blocks') S.sel = [0, 0, 0];
-    if (sec.kind === 'numverb') { S.i = 0; S.tab = (sec.src === 'num' ? DRILL.NV.tabs[0].id : BANK.verbalSheets[0].id); }
+    if (sec.kind === 'numverb') { S.i = 0; if (!S.tabUser || !S.tab) S.tab = S.items[0] ? S.items[0].tab : null; }
     if (sec.kind === 'mech') S.i = 0;
     if (sec.kind === 'lang') { S.sub = 0; S.langPhase = 'examples'; S.langIdx = 0; langBuildSection(); S.secEnd = 0; }
     if (sec.kind === 'seqmem') { S.leSec = 0; startBreak(); }
@@ -318,20 +331,34 @@ const CORE = (() => {
 
   /* ═══════════════ NUMVERB (numérique + verbal) ═══════════════ */
   const nvTabs = () => S.sec.src === 'num' ? DRILL.NV.tabs.map(t => ({ id: t.id, name: t.name })) : BANK.verbalSheets.map(t => ({ id: t.id, name: t.name }));
+  /* Note affichée pendant les exemples : rend explicite le fait que le chrono
+     du test ne démarre qu'après eux (les exemples sont non notés et non chronométrés). */
+  function exNoteHTML() {
+    const T = STR(S.sec), n = (S.examples || []).length;
+    if (!S.sec || !S.sec.timed || !n) return '';
+    const tpl = n > 1 ? T.exNoteMany : T.exNoteOne;
+    return '<div class="ex-note">' + esc(tpl.replace('{t}', mmss(S.sec.timed))) + '</div>';
+  }
   function nvItem(view, it, isEx) {
     const T = STR(S.sec);
     const tabs = nvTabs();
-    const fig = S.sec.src === 'num' ? DRILL.NV.figures[it.tab]() : BANK.verbalSheets.find(s => s.id === it.tab).html;
+    /* Feuille affichée : le contenu suit l'onglet sélectionné (jamais l'onglet
+       « subi » de la question). Par défaut, la feuille de la question ; dès que
+       l'utilisateur choisit une feuille, ce choix est conservé d'une question à
+       l'autre. */
+    if (!S.tabUser || !tabs.some(t => t.id === S.tab)) S.tab = it.tab;
+    const fig = S.sec.src === 'num' ? DRILL.NV.figures[S.tab]() : BANK.verbalSheets.find(s => s.id === S.tab).html;
     view.className = 'sk-main';
     view.innerHTML = '<div class="nv-sheets"><span class="nv-sheets-l">' + esc(T.sheets) + '</span><div class="nv-tabs">' + tabs.map(t => '<button class="nv-tab' + (t.id === S.tab ? ' on' : '') + '" data-t="' + t.id + '" title="' + esc(T.sheetGo) + '">' + esc(t.name) + '</button>').join('') + '</div><span class="nv-sheets-h">' + esc(T.sheetsHint) + '</span></div>' +
       '<div class="nv-cols"><div class="nv-fig"><div class="nvtext">' + fig + '</div></div>' +
       '<div class="nv-side"><div class="nv-stmt">' + (isEx ? '<b>EXAMPLE</b> ' : '') + esc(it.q) + '</div>' +
+      (isEx ? exNoteHTML() : '') +
       '<div class="tfbtns">' + T.tf.map((l, i) => '<button class="tfbtn' + (S.sel === i ? ' sel' : '') + '" data-v="' + i + '">' + l + '</button>').join('') + '</div></div></div>' +
       navPadHTML();
-    view.querySelectorAll('.nv-tab').forEach(b => b.onclick = () => { S.tab = b.dataset.t; if (S.nvAns != null) S.sel = S.nvAns; nvItem(view, it, isEx); });
+    view.querySelectorAll('.nv-tab').forEach(b => b.onclick = () => { S.tab = b.dataset.t; S.tabUser = true; if (S.nvAns != null) S.sel = S.nvAns; nvItem(view, it, isEx); });
     view.querySelectorAll('.tfbtn').forEach(b => b.onclick = () => {
       const v = +b.dataset.v;
-      if (isEx) { S.sel = v; view.querySelectorAll('.tfbtn').forEach(x => x.classList.remove('sel', 'ok', 'ko')); b.classList.add(it.a === v ? 'ok' : 'ko'); setTimeout(() => exampleDone(it.a === v), 700); return; }
+      if (isEx) { S.sel = v; view.querySelectorAll('.tfbtn').forEach(x => x.classList.remove('sel', 'ok', 'ko')); b.classList.add(it.a === v ? 'ok' : 'ko'); setTimeout(() => exampleDone(it.a === v), 600); return; }
       S.nvAns = v;
       view.querySelectorAll('.tfbtn').forEach(x => { x.classList.remove('ok', 'ko'); x.classList.toggle('sel', x === b); });
       b.classList.add(v === it.a ? 'ok' : 'ko');
@@ -398,10 +425,10 @@ const CORE = (() => {
         return '<div class="ded-tile empty"></div>';
       }).join('')).join('') + '</div><div class="ded-sep"></div><div class="ded-opts" id="dopts">' +
       it.options.map((k, i) => '<button class="ded-opt" data-i="' + i + '">' + symSVG(BANK.SYM_DED[k]) + '</button>').join('') + '</div>' +
-      '<div class="qsub" style="margin-top:14px">' + esc(T.dedNote) + '</div></div>';
+      '<div class="qsub" style="margin-top:14px">' + esc(T.dedNote) + '</div>' + (isEx ? exNoteHTML() : '') + '</div>';
     view.querySelectorAll('.ded-opt').forEach(b => b.onclick = () => {
       const i = +b.dataset.i, ok = i === it.ans;
-      if (isEx) { b.classList.add(ok ? 'ok' : 'ko'); setTimeout(() => exampleDone(ok), 650); return; }
+      if (isEx) { b.classList.add(ok ? 'ok' : 'ko'); setTimeout(() => exampleDone(ok), 550); return; }
       b.classList.add(ok ? 'ok' : 'ko');
       S.log.push({ n: S.log.length + 1, q: 'Grille 4×4 — case « ? »', given: String(i + 1), correct: String(it.ans + 1), ok, ms: Date.now() - S.qStart, section: S.sec.id, why: T.dedNote });
       S.qStart = Date.now(); S.i++;
@@ -418,6 +445,7 @@ const CORE = (() => {
     view.className = 'sk-main';
     view.innerHTML = '<div class="ind-wrap"><div class="ind-side"><div class="ind-t">' + esc(T.indLeft) + '</div><div class="ind-ex">' + it.examples.map(g3).join('') + '</div></div>' +
       '<div class="ind-side"><div class="ind-t">' + esc(T.indRight) + '</div><div class="ind-cands" id="cands">' + it.candidates.map((g, i) => '<div class="cand' + (S.pick.has(i) ? ' sel' : '') + '" data-i="' + i + '">' + g3(g) + '</div>').join('') + '</div></div></div>' +
+      (isEx ? exNoteHTML() : '') +
       '<div class="ind-go"><button id="indGo" title="Valider">▶▶</button></div>';
     view.querySelectorAll('.cand').forEach(c => c.onclick = () => {
       const i = +c.dataset.i;
@@ -670,12 +698,12 @@ const CORE = (() => {
   /* ═══════════════ MÉCANIQUE ═══════════════ */
   function mechItem(view, it, isEx) {
     view.className = 'sk-main';
-    view.innerHTML = '<div class="qwrap"><div class="qtitle" style="font-size:15px;font-weight:600;text-align:left">' + (isEx ? 'EXAMPLE — ' : '') + esc(it.q) + '</div>' +
+    view.innerHTML = '<div class="qwrap"><div class="qtitle" style="font-size:15px;font-weight:600;text-align:left">' + (isEx ? 'EXAMPLE — ' : '') + esc(it.q) + '</div>' + (isEx ? exNoteHTML() : '') +
       '<div class="optrows">' + it.o.map((o, i) => '<button class="optrow' + (S.sel === i ? ' sel' : '') + '" data-i="' + i + '">' + esc(o) + '</button>').join('') + '</div>' +
       '<div class="panel-gray" style="margin-top:18px">' + sceneSVG(it.sc) + '</div></div>' + navPadHTML();
     view.querySelectorAll('.optrow').forEach(b => b.onclick = () => {
       S.sel = +b.dataset.i;
-      if (isEx) { view.querySelectorAll('.optrow').forEach((x, k) => { if (k === it.a) x.classList.add('ok'); else if (k === S.sel) x.classList.add('ko'); }); setTimeout(() => exampleDone(it.a === S.sel), 800); return; }
+      if (isEx) { view.querySelectorAll('.optrow').forEach((x, k) => { if (k === it.a) x.classList.add('ok'); else if (k === S.sel) x.classList.add('ko'); }); setTimeout(() => exampleDone(it.a === S.sel), 700); return; }
       S.answers[S.i] = S.sel; mechItem(view, it, false);
     });
     bindNav(view, isEx);

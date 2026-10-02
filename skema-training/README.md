@@ -1,4 +1,4 @@
-# Assessment Trainer — v4.1 « conforme au document de référence »
+# Assessment Trainer — v4.2 « conforme au document de référence »
 
 Plateforme personnelle d'entraînement aux tests d'aptitude utilisés dans les processus
 de sélection (format cut-e / Aon). Cette version reconstruit **l'intégralité des 14 tâches
@@ -62,7 +62,18 @@ les exemples non notés (~3 min).
 - **Chronomètres standards** sur toutes les épreuves sauf les deux questionnaires de personnalité
   (comportements, motivations) qui restent sans limite de temps, conformément au document.
 - **Feuilles de données / fiches de textes** (numérique, verbal) : les onglets restent sous votre
-  contrôle — la feuille consultée ne change plus à chaque question, et la question reste affichée.
+  contrôle — **le contenu suit l'onglet choisi** (cliquer *Outlook* affiche bien le graphique
+  FY 8 / FY 9, la question restant affichée). Par défaut chaque question ouvre sa propre feuille ;
+  dès que vous choisissez une feuille, ce choix est conservé d'une question à l'autre.
+- **Exemples → chrono explicite** : pendant les exemples, une note rappelle que le chrono du test
+  (12:00 pour le numérique) ne démarre qu'après le 3ᵉ exemple ; les exemples ont été accélérés
+  (~1,8 s chacun) pour un passage immédiat au test réel.
+- **Langue** : par défaut **toute l'épreuve s'affiche en anglais** (consignes, énoncés,
+  true / false / cannot say, « Data sheets », e-mails, items de mécanique, blocs de personnalité) ;
+  l'habillage — accueil, progression, feedback, aide — reste en français. Les deux tests de
+  langues conservent leur langue de contenu. Réglage **épreuve par épreuve** dans *Aide & réglages*.
+- **Banques de personnalité complètes et bilingues** : comportement 48 blocs × 3 = **144 énoncés**,
+  motivation 36 blocs × 3 = **108 énoncés**, en français et en anglais — plus aucun bloc vide.
 - **Jamais à court de questions** : anglais et français (aisance, vocabulaire, orthographe)
   enchaînent la banque des captures puis des **questions similaires générées à l'infini** ;
   la boîte de réception reçoit des e-mails sans fin ; déductif, inductif, concentration,
@@ -88,19 +99,22 @@ skema-training/
   assets/js/core.js       registre des 14 épreuves, moteur de session, scoring
   assets/js/app.js        routeur, accueil, progression, feedback, réglages, import/export
   build.py                génère standalone/index.html, docs/ et le ZIP hors-ligne
-  tools/tests/conform.js  harnais de conformité (Chromium headless, 167 contrôles)
+  tools/tests/conform.js  harnais de conformité (Chromium headless, 216 contrôles)
 ```
 
 ```bash
 cd skema-training
 python3 build.py                       # régénère standalone/ + docs/ + ZIP
-NODE_PATH=… node tools/tests/conform.js   # 153 contrôles de conformité
+NODE_PATH=… node tools/tests/conform.js   # 216 contrôles de conformité
 ```
 
 Le harnais vérifie : les 14 lignes de l'accueil (libellés + minutes), l'ouverture de chaque
 épreuve sans erreur JS, les durées et compteurs, les mécaniques d'interaction (points,
 skips, retours vert/rouge, « ? » neutre), les flux de sections, l'enregistrement des
 sessions, l'absence de requête externe et le rendu mobile 390 px. Il contrôle aussi les
-ajouts v4.1 : chrono global de l'apprentissage, navigation libre entre les feuilles de
-données, réserves inépuisables (anglais/français jusqu'à l'index 900, e-mails générés),
-barre d'onglets et feedback en français.
+ajouts v4.1 (chrono global de l'apprentissage, navigation libre entre les feuilles de
+données, réserves inépuisables, barre d'onglets, feedback en français) et les correctifs
+v4.2 : contenu réellement lié à l'onglet choisi, feuille par défaut = question posée,
+choix mémorisé, note « le chrono démarre après les exemples » + décompte vérifié 12:00 → 11:59,
+anglais par défaut avec réglage épreuve par épreuve, et banques de personnalité complètes
+(144 + 108 énoncés, FR et EN, aucun bloc vide).

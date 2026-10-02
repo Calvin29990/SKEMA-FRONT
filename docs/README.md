@@ -18,8 +18,19 @@ mécanique 15:00 (24 tâches), switchChallenge 6:00 ; comportements et motivatio
 Barre d'onglets Tâches / Progression / Feedback / Aide & réglages ; feedback en français
 (relecture question par question, filtre par épreuve) ; chronomètres standards sur toutes
 les épreuves sauf les questionnaires de personnalité ; feuilles de données et fiches de
-textes navigables librement ; banques extensibles : anglais / français, boîte de réception,
-déductif, inductif, concentration, multi-tâches et switch ne s'épuisent jamais.
+textes navigables librement (le contenu suit l'onglet choisi et le choix est mémorisé) ;
+banques extensibles : anglais / français, boîte de réception, déductif, inductif,
+concentration, multi-tâches et switch ne s'épuisent jamais.
+
+## Langue (v4.2)
+
+Par défaut, toute l'épreuve s'affiche en anglais — consignes, énoncés, true / false /
+cannot say, feuilles de données, e-mails, items de mécanique et blocs de personnalité —
+tandis que l'habillage (accueil, progression, feedback, aide) reste en français. Les deux
+tests de langues conservent leur langue de contenu. La langue est réglable épreuve par
+épreuve dans Aide & réglages ; les questionnaires de personnalité sont complets et
+bilingues (144 + 108 énoncés). Une note explicite annonce, pendant les exemples non
+chronométrés, le démarrage du chrono du test après le dernier exemple.
 
 ## Conformité
 

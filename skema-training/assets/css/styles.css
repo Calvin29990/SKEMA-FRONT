@@ -152,6 +152,10 @@ input:focus,select:focus{border-color:var(--red)}
 .nv-fig{background:var(--card);border:1px solid var(--line);border-radius:2px;box-shadow:var(--sh);padding:16px;min-height:280px;overflow:auto}
 .nv-side{display:flex;flex-direction:column;gap:10px}
 .nv-stmt{background:var(--card);border:1px solid var(--line);border-radius:2px;box-shadow:var(--sh);padding:14px 16px;font-size:13.5px}
+/* Note explicite sous l'énoncé pendant les exemples : le chrono du test démarre après. */
+.ex-note{margin-top:10px;font-size:12.5px;line-height:1.45;color:var(--tx2);background:var(--red-bg);border-left:3px solid var(--red);padding:8px 10px}
+.ind-wrap .ex-note{max-width:640px;margin:0 auto 10px}
+.qwrap .ex-note{margin:8px 0 0}
 .nvtext{font-size:12.8px;line-height:1.65;color:var(--tx)}
 .nvtext b{display:block;margin-bottom:6px}
 .nvtext p{margin-bottom:9px}
