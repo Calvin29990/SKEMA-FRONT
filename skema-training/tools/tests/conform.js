@@ -203,6 +203,40 @@ function serve(dir) {
   ok(mot.count === '1/36', 'motivations : 36 blocs (1/36)', mot);
   await page.evaluate(() => CORE.destroy());
 
+  /* ── 4bis. banques de personnalité : complètes et bilingues (FR / EN) ── */
+  group('Banques de personnalité (complètes, FR / EN)');
+  const banks = await page.evaluate(() => {
+    const missing = [], empty = [];
+    const check = (bank, blocks) => {
+      for (let b = 0; b < blocks; b++) {
+        for (let k = 0; k < 3; k++) {
+          const p = bank[b * 3 + k];
+          if (!p) { missing.push(b + 1); continue; }
+          if (!p[0] || !String(p[0]).trim()) empty.push('fr·bloc ' + (b + 1));
+          if (!p[1] || !String(p[1]).trim()) empty.push('en·bloc ' + (b + 1));
+        }
+      }
+    };
+    check(BANK.behaviour, 48); check(BANK.motivation, 36);
+    return { beh: BANK.behaviour.length, mot: BANK.motivation.length, missing, empty };
+  });
+  ok(banks.beh === 144, 'comportement : 48 blocs × 3 = 144 énoncés', banks.beh);
+  ok(banks.mot === 108, 'motivation : 36 blocs × 3 = 108 énoncés', banks.mot);
+  ok(banks.missing.length === 0, 'aucun bloc incomplet (plus d’énoncés vides en fin de questionnaire)', banks.missing);
+  ok(banks.empty.length === 0, 'aucun énoncé vide, en français comme en anglais', banks.empty);
+  for (const lg of ['en', 'fr']) {
+    await page.evaluate((l) => CORE.P.setLang('behaviour', l), lg);
+    await enterRun('behaviour');
+    const shown = await page.evaluate(() => CORE.current.items.map(it => it.stmts.map(s => String(s || '').trim()).join(' ')));
+    ok(shown.length === 48 && shown.every(t => t.length > 12), 'comportement (' + lg + ') : les 48 blocs affichent réellement leurs 3 énoncés', shown.filter(t => t.length <= 12).length);
+    if (lg === 'en') {
+      const first = await page.evaluate(() => ({ shown: CORE.current.items[0].stmts[0], bank: BANK.behaviour[0][1] }));
+      ok(first.shown === first.bank, 'comportement : énoncés anglais affichés par défaut', first.shown);
+    }
+    await page.evaluate(() => CORE.destroy());
+  }
+  await page.evaluate(() => CORE.P.setLang('behaviour', 'en'));
+
   /* ── 5. déductif : grille 4×4, 3 options, avance automatique ── */
   group('Déductif');
   await enterRun('deductive');
@@ -408,21 +442,120 @@ function serve(dir) {
   /* les onglets de feuilles de données restent sous contrôle de l'utilisateur */
   await enterRun('numerical');
   const nvTab0 = await page.evaluate(() => ({ tab: CORE.current.tab, itemTab: CORE.current.items[CORE.current.i].tab, sheets: document.querySelectorAll('.nv-tab').length }));
-  ok(nvTab0.sheets === 6 && !!nvTab0.tab, '6 feuilles de données affichées avec la question', nvTab0);
-  await page.evaluate(() => { const b = [...document.querySelectorAll('.nv-tab')].find(x => x.dataset.t !== CORE.current.tab); b.click(); });
-  await wait(120);
-  const nvTab1 = await page.evaluate(() => ({ tab: CORE.current.tab, on: document.querySelector('.nv-tab.on') ? document.querySelector('.nv-tab.on').dataset.t : null }));
-  ok(nvTab1.tab !== nvTab0.tab && nvTab1.on === nvTab1.tab, 'changer de feuille de données fonctionne (question inchangée)', nvTab1);
+  ok(nvTab0.sheets === 6 && nvTab0.tab === nvTab0.itemTab, '6 feuilles de données, ouverture sur la feuille de la question', nvTab0);
+  /* cliquer un onglet change réellement le contenu affiché (et pas seulement la surbrillance) */
+  const nvClick = await page.evaluate(() => {
+    const norm = (s) => String(s).replace(/\s+/g, ' ').trim();
+    const txt = (el) => norm(el.textContent);
+    const before = txt(document.querySelector('.nv-fig .nvtext'));
+    const stmt = document.querySelector('.nv-stmt').innerText;
+    const target = [...document.querySelectorAll('.nv-tab')].find(x => x.dataset.t === 'outlook');
+    target.click();
+    const after = txt(document.querySelector('.nv-fig .nvtext'));
+    const tmp = document.createElement('div'); tmp.innerHTML = DRILL.NV.figures.outlook();
+    const expected = txt(tmp);
+    return { changed: before !== after, matches: after.length > 20 && after === expected, fy: /FY 8/.test(after) && /FY 9/.test(after), on: document.querySelector('.nv-tab.on').dataset.t, tab: CORE.current.tab, sameStmt: stmt === document.querySelector('.nv-stmt').innerText };
+  });
+  ok(nvClick.on === 'outlook' && nvClick.tab === 'outlook', 'l’onglet cliqué devient actif', { on: nvClick.on, tab: nvClick.tab });
+  ok(nvClick.changed && nvClick.matches, 'le contenu suit l’onglet choisi : cliquer Outlook affiche la feuille Outlook', { changed: nvClick.changed, matches: nvClick.matches });
+  ok(nvClick.fy, 'Outlook affiche bien le graphique FY 8 / FY 9', nvClick.fy);
+  ok(nvClick.sameStmt, 'la question reste affichée pendant le changement de feuille', nvClick.sameStmt);
+  /* la feuille choisie est mémorisée d'une question à l'autre */
   await page.evaluate(() => { document.getElementById('nvNext').click(); });
   await wait(150);
-  const nvTab2 = await page.evaluate(() => ({ tab: CORE.current.tab, itemTab: CORE.current.items[CORE.current.i].tab, i: CORE.current.i }));
-  ok(nvTab2.tab === nvTab1.tab, 'la feuille consultée reste celle choisie (pas de saut automatique par question)', nvTab2);
+  const nvTab2 = await page.evaluate(() => ({ tab: CORE.current.tab, itemTab: CORE.current.items[CORE.current.i].tab, on: document.querySelector('.nv-tab.on').dataset.t, fig: /FY 8/.test(document.querySelector('.nv-fig .nvtext').innerHTML), i: CORE.current.i }));
+  ok(nvTab2.i === 1 && nvTab2.tab === 'outlook' && nvTab2.on === 'outlook' && nvTab2.fig, 'la feuille choisie est conservée (contenu compris) à la question suivante', nvTab2);
+  /* sans choix explicite, la feuille par défaut reste celle de la question posée */
+  await page.evaluate(() => CORE.destroy());
+  await enterRun('numerical');
+  for (let k = 0; k < 5; k++) { await page.evaluate(() => document.getElementById('nvNext').click()); await wait(120); }
+  const nvDef0 = await page.evaluate(() => ({ tab: CORE.current.tab, itemTab: CORE.current.items[CORE.current.i].tab, i: CORE.current.i }));
+  await page.evaluate(() => { document.getElementById('nvNext').click(); });
+  await wait(150);
+  const nvDef1 = await page.evaluate(() => ({ tab: CORE.current.tab, itemTab: CORE.current.items[CORE.current.i].tab, on: document.querySelector('.nv-tab.on').dataset.t, i: CORE.current.i }));
+  ok(nvDef0.tab === nvDef0.itemTab && nvDef1.tab === nvDef1.itemTab && nvDef1.on === nvDef1.itemTab && nvDef0.itemTab !== nvDef1.itemTab, 'sans choix explicite : chaque question ouvre sa propre feuille de données', { q5: nvDef0, q6: nvDef1 });
   await page.evaluate(() => CORE.destroy());
   await enterRun('verbal');
   const vb = await page.evaluate(() => ({ tabs: [...document.querySelectorAll('.nv-tab')].map(t => t.textContent.trim()).length, n: CORE.current.items.length, names: [...document.querySelectorAll('.nv-tab')].map(t => t.textContent.trim()) }));
   ok(vb.tabs === 6 && vb.n === 49, 'verbal : 6 onglets de textes + 49 affirmations', vb);
   ok(vb.names.length === 6 && vb.names.every(n => n === n.toUpperCase()), 'onglets de textes nommés en capitales (comme les captures)', vb.names);
   await page.evaluate(() => CORE.destroy());
+
+  /* ── 14bis. flux exemples → chrono : explicite et rapide ── */
+  group('Exemples → chrono (flux explicite)');
+  await page.evaluate(() => { location.hash = '#/'; });
+  await page.waitForSelector('.task[data-id="numerical"] .tk-start');
+  await page.click('.task[data-id="numerical"] .tk-start');
+  await wait(150);
+  for (let i = 0; i < 12 && (await page.evaluate(() => CORE.current && CORE.current.phase)) === 'intro'; i++) { await page.evaluate(() => { const b = document.getElementById('inNext'); b && b.click(); }); await wait(140); }
+  const ex0 = await page.evaluate(() => ({ phase: CORE.current.phase, n: (CORE.current.examples || []).length, note: (document.querySelector('.ex-note') || {}).innerText || '', timer: document.getElementById('skTimer').textContent, example: /EXAMPLE/.test(document.querySelector('.nv-stmt').innerText) }));
+  ok(ex0.phase === 'example' && ex0.n === 3, 'numérique : 3 exemples non notés avant le test', { phase: ex0.phase, n: ex0.n });
+  ok(ex0.example && /12:00/.test(ex0.note), 'note sous l’énoncé : le chrono 12:00 démarre après le 3ᵉ exemple', ex0.note);
+  ok(ex0.timer === '', 'aucun chrono affiché pendant les exemples', ex0.timer);
+  const tEx = Date.now();
+  for (let k = 0; k < 3; k++) {
+    const before = await page.evaluate(() => CORE.current.i);
+    await page.evaluate(() => { const b = document.querySelector('.tfbtn'); b && b.click(); });
+    for (let w = 0; w < 45; w++) {
+      const st = await page.evaluate(() => ({ i: CORE.current.i, ph: CORE.current.phase }));
+      if (st.ph === 'run' || st.i > before) break;
+      await wait(60);
+    }
+  }
+  const perExample = (Date.now() - tEx) / 3;
+  ok(perExample < 2200, 'exemples accélérés (~1,8 s par exemple, seuil 2,2 s)', Math.round(perExample));
+  const runSt = await page.evaluate(() => ({ phase: CORE.current.phase, timer: document.getElementById('skTimer').textContent, example: /EXAMPLE/.test(document.querySelector('.nv-stmt').innerText), note: !!document.querySelector('.ex-note') }));
+  ok(runSt.phase === 'run' && runSt.timer === '12:00', 'fin des exemples → le test réel démarre et le chrono affiche 12:00', runSt);
+  ok(!runSt.example && !runSt.note, 'la 1re question réelle ne porte plus mention d’exemple', runSt);
+  await wait(1300);
+  const tick1 = await page.evaluate(() => document.getElementById('skTimer').textContent);
+  ok(tick1 === '11:59' || tick1 === '11:58', 'le chrono décompte bien après le démarrage (11:59)', tick1);
+  await page.evaluate(() => CORE.destroy());
+
+  /* ── 14ter. langue : épreuves en anglais par défaut, habillage en français ── */
+  group('Langue des épreuves (anglais par défaut)');
+  const langDef = await page.evaluate(() => {
+    const s = CORE.P.settings(); delete s.langs; CORE.P.saveSettings(s);
+    const o = {}; ['behaviour', 'numerical', 'verbal', 'mechanical', 'info', 'english', 'french'].forEach(id => o[id] = CORE.P.lang(id));
+    return o;
+  });
+  ok(langDef.numerical === 'en' && langDef.verbal === 'en' && langDef.behaviour === 'en' && langDef.mechanical === 'en' && langDef.info === 'en', 'épreuves en anglais par défaut', langDef);
+  ok(langDef.english === 'en' && langDef.french === 'fr', 'tests de langues : consignes dans la langue de l’épreuve', { en: langDef.english, fr: langDef.french });
+  await page.evaluate(() => { location.hash = '#/'; });
+  await wait(150);
+  await page.click('.task[data-id="numerical"] .tk-start');
+  await wait(150);
+  const introEn = await page.evaluate(() => document.querySelector('.intro-page').innerText);
+  ok(/This test checks your ability to analyse/.test(introEn), 'consignes du numérique en anglais', introEn.slice(0, 60));
+  for (let i = 0; i < 12 && (await page.evaluate(() => CORE.current && CORE.current.phase)) === 'intro'; i++) { await page.evaluate(() => { const b = document.getElementById('inNext'); b && b.click(); }); await wait(140); }
+  const numEn = await page.evaluate(() => ({ sheets: document.querySelector('.nv-sheets-l').textContent.trim(), hint: document.querySelector('.nv-sheets-h').textContent.trim(), tf: [...document.querySelectorAll('.tfbtn')].map(b => b.textContent.trim()).join('/'), stmt: document.querySelector('.nv-stmt').innerText.trim(), expected: DRILL.NV.items[DRILL.NV.items.length - 3].q }));
+  ok(numEn.sheets === 'Data sheets' && /Move freely between the sheets/.test(numEn.hint), 'numérique : libellés de feuilles en anglais', { sheets: numEn.sheets, hint: numEn.hint.slice(0, 40) });
+  ok(numEn.tf === 'true/false/cannot say', 'numérique : true / false / cannot say', numEn.tf);
+  ok(/^EXAMPLE\s+/.test(numEn.stmt) && numEn.stmt.replace(/^EXAMPLE\s+/, '') === numEn.expected, 'énoncé d’exemple anglais et complet (base Halden & Roe)', numEn.stmt.slice(0, 60));
+  await page.evaluate(() => CORE.destroy());
+  await enterRun('behaviour');
+  const behEn = await page.evaluate(() => ({ rows: [...document.querySelectorAll('.blk-t')].map(x => x.textContent.trim()), en: BANK.behaviour.slice(0, 3).map(p => p[1]), head: document.querySelector('.blk-head h2').textContent }));
+  ok(behEn.rows.join('|') === behEn.en.join('|'), 'comportement : le 1er bloc s’affiche en anglais', behEn.rows);
+  ok(/How accurately do these statements describe your behaviour\?/.test(behEn.head), 'comportement : intertitre en anglais', behEn.head);
+  await page.evaluate(() => CORE.destroy());
+  await enterRun('mechanical');
+  const mechEn = await page.evaluate(() => ({ shown: [...document.querySelectorAll('.optrow')].map(b => b.innerText.trim()), bank: BANK.mech[0].o }));
+  ok(mechEn.shown.join('/') === mechEn.bank.join('/'), 'mécanique : options de l’exemple en anglais', mechEn.shown);
+  await page.evaluate(() => CORE.destroy());
+  await enterRun('info');
+  const infoEn = await page.evaluate(() => ({ prio: [...document.querySelectorAll('#mPrio option')].map(o => o.textContent).join('/'), lab: [...document.querySelectorAll('.mail-ctl label')].map(l => l.textContent).join('/') }));
+  ok(/HIGH/.test(infoEn.prio) && /MEDIUM/.test(infoEn.prio) && /LOW/.test(infoEn.prio) && /Priority/.test(infoEn.lab) && /Action/.test(infoEn.lab), 'boîte de réception : libellés anglais (Priority / Action / HIGH…)', infoEn);
+  await page.evaluate(() => CORE.destroy());
+  /* réglage épreuve par épreuve : le numérique rebascule en français */
+  await page.evaluate(() => CORE.P.setLang('numerical', 'fr'));
+  await page.evaluate(() => { location.hash = '#/'; });
+  await wait(150);
+  await page.click('.task[data-id="numerical"] .tk-start');
+  await wait(150);
+  const introFr = await page.evaluate(() => document.querySelector('.intro-page').innerText);
+  ok(/Ce test mesure votre capacité/.test(introFr), 'réglage par épreuve : le numérique repasse en français', introFr.slice(0, 60));
+  await page.evaluate(() => CORE.destroy());
+  await page.evaluate(() => { const s = CORE.P.settings(); delete s.langs; CORE.P.saveSettings(s); });
 
   /* ── 15. progression, feedback, réglages, import/export ── */
   group('Progression / feedback / réglages');
@@ -457,8 +590,14 @@ function serve(dir) {
   await wait(200);
   await page.evaluate(() => { location.hash = '#/reglages'; });
   await wait(250);
-  const rg = await page.evaluate(() => ({ lang: !!document.getElementById('lgEn'), sound: !!document.getElementById('stSound'), code: document.getElementById('stCode').value }));
-  ok(rg.lang && rg.sound && rg.code === 'CM2026', 'réglages : langues, sons, code d’accès', rg);
+  const rg = await page.evaluate(() => ({
+    n: document.querySelectorAll('select.langsel').length,
+    def: { num: document.getElementById('lg-numerical').value, be: document.getElementById('lg-behaviour').value, fr: document.getElementById('lg-french').value },
+    sound: !!document.getElementById('stSound'), code: document.getElementById('stCode').value
+  }));
+  ok(rg.n === 14, 'réglages : langue réglable épreuve par épreuve (14 sélecteurs)', rg.n);
+  ok(rg.def.num === 'en' && rg.def.be === 'en' && rg.def.fr === 'fr', 'réglages : anglais par défaut, français pour l’épreuve de français', rg.def);
+  ok(rg.sound && rg.code === 'CM2026', 'réglages : sons et code d’accès présents', { sound: rg.sound, code: rg.code });
   const exp = await page.evaluate(() => { let called = 0; const old = URL.createObjectURL; URL.createObjectURL = (b) => { called = b.size; return 'blob:x'; }; const lk = document.createElement('a'); lk.click = () => {}; document.getElementById('stExport').click(); URL.createObjectURL = old; return called; });
   ok(exp > 100, 'export JSON non vide', exp);
   await page.evaluate(() => { location.hash = '#/'; });
@@ -511,7 +650,13 @@ function serve(dir) {
   /* multi-tâches : consigne qui alterne lettre / chiffre */
   await enterRun('multitask');
   const mtCue = await page.evaluate(() => document.querySelector('.mt-cue').innerText);
-  ok(/LETTRE|CHIFFRE/.test(mtCue), 'multi-tâches : la consigne alterne LETTRE / CHIFFRE', mtCue.slice(0, 40));
+  ok(/LETTER|DIGIT/.test(mtCue), 'multi-tâches : consigne en anglais par défaut (LETTER / DIGIT)', mtCue.slice(0, 40));
+  await page.evaluate(() => CORE.destroy());
+  await page.evaluate(() => CORE.P.setLang('multitask', 'fr'));
+  await enterRun('multitask');
+  const mtCueFr = await page.evaluate(() => document.querySelector('.mt-cue').innerText);
+  ok(/LETTRE|CHIFFRE/.test(mtCueFr), 'multi-tâches : le réglage par épreuve repasse la consigne en français', mtCueFr.slice(0, 40));
+  await page.evaluate(() => CORE.P.setLang('multitask', 'en'));
   await page.evaluate(() => CORE.destroy());
 
   /* numérique : le temps écoulé termine la session et enregistre une tentative */
