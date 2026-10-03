@@ -1,5 +1,8 @@
 # MÉMO 04 — RAISONNEMENT INDUCTIF (≈ 6:00)
 
+> 🏋️ **Avant le test, entraîne-toi :** [EX-04 · 50 items](exos/exos-04-inductif.md) — suites numériques · suites de lettres · matrices 2×2.
+> Chaque item donne la réponse **et le piège à éviter** : lis le piège même quand tu as juste.
+
 > Format cut-e : on te montre **2 exemples qui suivent une règle**, puis **4 candidats** ; tu dois
 > choisir **exactement les 2** qui respectent la même règle (bouton ▶▶). Chrono global ~6 min.
 > La règle porte sur **nombre / position / couleur / orientation** des symboles (rond, carré, triangle, croix).

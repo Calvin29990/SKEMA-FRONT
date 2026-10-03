@@ -1,5 +1,8 @@
 # MÉMO 05 — RAISONNEMENT DÉDUCTIF (grille 4×4) + switchChallenge
 
+> 🏋️ **Avant le test, entraîne-toi :** [EX-05 · 68 items](exos/exos-05-deductif.md) — règle → cas, seuils et info manquante.
+> Chaque item donne la réponse **et le piège à éviter** : lis le piège même quand tu as juste.
+
 > Deux épreuves « logiques » distinctes sur le trainer :
 > **(A) Pensée logique déductive** : grille 4×4 partiellement remplie de 4 symboles (carré rouge, rond
 > vert, triangle bleu, croix bleu clair), une case « ? », contraintes **une seule occurrence par ligne et

@@ -1,5 +1,8 @@
 # MÉMO 06 — CAPACITÉ DE CONCENTRATION (2:00, en continu)
 
+> 🏋️ **Avant le test, entraîne-toi :** [EX-06 · 50 items](exos/exos-06-concentration.md) — comptage · lignes · intrus.
+> Chaque item donne la réponse **et le piège à éviter** : lis le piège même quand tu as juste.
+
 > Format cut-e : on te montre un **E entouré de points** ; tu dois répondre **correct** uniquement si le
 > E est entouré d'**exactement 3 points**, sinon **incorrect**. Raccourcis clavier **D** (correct) /
 **A** (incorrect). L'objet reste affiché jusqu'à ta réponse ; chrono global 2:00. C'est un débit pur.

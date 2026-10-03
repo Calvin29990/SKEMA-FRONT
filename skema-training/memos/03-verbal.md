@@ -1,5 +1,8 @@
 # MÉMO 03 — RAISONNEMENT VERBAL (49 affirmations, 12:00)
 
+> 🏋️ **Avant le test, entraîne-toi :** [EX-03 · 60 items](exos/exos-03-verbal.md) — 10 textes × 6 affirmations.
+> Chaque item donne la réponse **et le piège à éviter** : lis le piège même quand tu as juste.
+
 > Même mécanique que le numérique, mais sur **6 fiches de textes**. 49 affirmations
 > TRUE / FALSE / CANNOT SAY, 12 min, navigation libre. Chaque item indique **en gras** le passage exact de
 > la fiche à regarder.

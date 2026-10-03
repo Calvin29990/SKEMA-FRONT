@@ -1,5 +1,8 @@
 # MÉMO 07 — TRAITEMENT DE L'INFORMATION (boîte mail, 15:00)
 
+> 🏋️ **Avant le test, entraîne-toi :** [EX-07 · 60 items](exos/exos-07-mailing.md) — priorité + action sur les règles réelles.
+> Chaque item donne la réponse **et le piège à éviter** : lis le piège même quand tu as juste.
+
 > Simulation cut-e « information handling » : tu es **tom.martin@interlan.com** (marketing). Une boîte de
 > réception se remplit **pendant** l'épreuve ; pour chaque mail tu dois (1) fixer la **priorité**
 > HIGH / MEDIUM / LOW et (2) choisir la bonne **action**. Les consignes restent consultables. 15:00 global.

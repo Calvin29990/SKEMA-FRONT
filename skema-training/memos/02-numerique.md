@@ -1,5 +1,8 @@
 # MÉMO 02 — RAISONNEMENT NUMÉRIQUE (37 affirmations, 12:00)
 
+> 🏋️ **Avant le test, entraîne-toi :** [EX-02 · 65 items](exos/exos-02-numerique.md) — ROE · capitalisation · effectifs · outlook · marge.
+> Chaque item donne la réponse **et le piège à éviter** : lis le piège même quand tu as juste.
+
 > Format Aon/cut-e « scales numerical » : 37 affirmations TRUE / FALSE / CANNOT SAY, **6 feuilles de
 > données navigables librement** (la question reste affichée quand tu changes d'onglet), 12 minutes.
 > « Most people cannot complete all 37 tasks in 12 minutes » — la vitesse fait partie de la note, mais

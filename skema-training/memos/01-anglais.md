@@ -1,5 +1,8 @@
 # MÉMO 01 — TEST D'ANGLAIS (3 sections) — AUTO-SUFFISANT
 
+> 🏋️ **Avant le test, entraîne-toi :** [EX-01 · 217 items](exos/exos-01-anglais.md) — A 69 aisance · B 87 vocabulaire · C 61 orthographe.
+> Chaque item donne la réponse **et le piège à éviter** : lis le piège même quand tu as juste.
+
 > Sections : **Aisance/phrases** (4:00) · **Vocabulaire par définition** (4:00) · **Orthographe** (2:00).
 > Item = phrase à trou, 4 choix + « ? » ; orthographe = 2 choix + « ? ». Niveau de départ supposé **A2**.
 > Ce doc se suffit à lui-même : tout ce qu'il faut pour performer **sur ce test** est ci-dessous.

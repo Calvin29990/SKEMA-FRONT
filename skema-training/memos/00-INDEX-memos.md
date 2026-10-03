@@ -35,3 +35,21 @@ c'est elle qui piège les gens qui devinent.
 **Méthode d'utilisation** : lis le mémo AVANT de lancer l'épreuve sur le trainer, fais une passe, puis
 relis la correction en notant chaque erreur dans une colonne « pourquoi je me suis trompé ». Refais
 jusqu'à 0 erreur. C'est ça, « zéro réponse au hasard ».
+
+## Exercices volontaires (avant chaque test)
+
+570 items corrigés, un fichier par test, **le piège indiqué à chaque item** —
+dans `exos/` (et en PDF dans `pdf/` pour la lecture sur téléphone).
+
+| Fichier | Items | Contenu |
+|---|---|---|
+| [exos-01-anglais.md](exos/exos-01-anglais.md) | 217 | Aisance 69 · Vocabulaire 87 · Orthographe 61 |
+| [exos-02-numerique.md](exos/exos-02-numerique.md) | 65 | ROE · capitalisation · effectifs · outlook · marge |
+| [exos-03-verbal.md](exos/exos-03-verbal.md) | 60 | 10 textes × 6 affirmations |
+| [exos-04-inductif.md](exos/exos-04-inductif.md) | 50 | suites numériques · lettres · matrices 2×2 |
+| [exos-05-deductif.md](exos/exos-05-deductif.md) | 68 | règle → cas (seuils, info manquante) |
+| [exos-06-concentration.md](exos/exos-06-concentration.md) | 50 | comptage · lignes · intrus |
+| [exos-07-mailing.md](exos/exos-07-mailing.md) | 60 | priorité + action (règles réelles) |
+
+Générateur : `skema-training/scripts/gen_exos.py` (les items numériques/déductifs/concentration/mailing
+sont **calculés**, donc les réponses sont vérifiables) ; PDF : `skema-training/scripts/md2pdf.py`.
