@@ -15,7 +15,9 @@
   sans retour arrière.
 - **Fenêtre** : **7 → 9 octobre** · **limite ultime 13/10** · **buffer (−24 h) : lun. 12/10**
 - **Politique** : ⚠️ one shot, blacklist si échec.
-- **Créneau retenu** : **ven. 09/10 matin** (dernier jour de fenêtre, 4 j de marge avant l'ultime limite).
+- **Créneau retenu (v2, 03/10)** : **sam. 10/10 matin** — le ven. 09/10 est désormais pris par le
+  **midterm Corporate Valuation** (annonce K2 du 29/09). 3 j de marge avant l'ultime limite.
+  **Repli** : mer. 07/10 après 13:00 si la landing Maki impose « avant le 09/10 ».
 - **Prépa** : `bnp-training/index.html` (2 runs complets, lun. 05 et mar. 06 au soir).
 - **Retour 2027** : ⚠️ 6-12 mois si raté.
 
@@ -26,7 +28,7 @@
 - **Deadline** : invitation **+ 168 h** → **jeu. 08/10 ≈ 16:09** (déduit du safelink : invitation
   01/10 16:09 — **à confirmer dans Outlook**) · **buffer (−24 h) : mer. 07/10 ≈ 16:09**
 - **Politique** : ❌ **« Retakes are not permitted »** → une seule chance.
-- **Créneau retenu** : **dim. 04/10 matin** (calme, 4 j de marge, avant l'examen du 08/10).
+- **Créneau retenu** : **dim. 04/10 matin** (calme, 4 j de marge, avant le midterm du 09/10).
 - **Règle recruteur** : à passer seul, **sans IA ni outil automatisé**.
 - **Retour 2027** : ❌ si raté.
 
@@ -42,18 +44,31 @@
 
 ## 📅 SÉQUENCE RETENUE (03 → 13/10)
 
-| Jour | Action test | Verrou |
-|---|---|---|
-| Sam 03/10 | **PAUSE** (validée) | seul coût : Hull J1 décalé au 10/10 |
-| Dim 04/10 | **UBS** (Culture Match + Aon, ~1 h) | J-4 avant la limite |
-| Lun 05 / mar. 06 | runs `bnp-training` le soir | examen du 08/10 en priorité le jour |
-| Mer 07/10 | **aucun test** | buffer UBS + veille d'examen |
-| Jeu 08/10 | **EXAMEN SKEMA** | — |
-| Ven 09/10 | **BNP Maki** (2 activités) | dernier jour de la fenêtre 7-9/10 |
-| Sam 10/10 | **Morgan Stanley** (si lien vivant) | 1 chance → matin, esprit frais |
-| Lun 12/10 | filet BNP (buffer ultime) | après = perdu |
+| Jour | Cours (calendrier K2) | Action test | Verrou |
+|---|---|---|---|
+| Sam 03/10 | libre | **PAUSE** (validée) | seul coût : Hull J1 décalé au 10/10 |
+| Dim 04/10 | libre | **UBS** (Culture Match + Aon, ~1 h) | J-4 avant la limite |
+| Lun 05/10 | Money Banking 09:45-13:00 (C 306) | révision Corp Val le soir + 1 run `bnp-training` | midterm = urgence n°2 |
+| Mar 06/10 | **libre** | journée midterm Corp Val (S1-S3) + 2ᵉ run BNP | pas de cours = journée d'or |
+| Mer 07/10 | Money Banking 09:45-13:00 (A 221) | révision Corp Val ; **check buffer UBS** | — |
+| Jeu 08/10 | Money Banking 15:00-18:15 (A 322) | révision finale le matin ; **AUCUN test** | veille du midterm = zone protégée |
+| Ven 09/10 | **Corp Val 09:45-13:00 (Amphi C 201)** | **MIDTERM Corp Val** (20 MCQ, 30 min) ; après-midi repos | AUCUN test bancaire ce jour |
+| Sam 10/10 | libre | **BNP Maki** le matin + Hull J1 l'après-midi | 3 j de marge avant le 13/10 |
+| Dim 11/10 | libre | **Morgan Stanley** le matin | 1 chance → jamais la veille d'une épreuve |
+| Lun 12/10 | — | filet BNP (buffer ultime) | après = perdu |
 
 **Règle** : un seul test par jour, jamais la veille ni le jour d'un examen, jamais après 20 h.
+**Conflit évité** : le BNP ne peut PAS être le ven. 09/10 (midterm Corp Val le même matin) → sam. 10/10.
+
+###  Académique (semaine du 05-11/10, calendrier K2 + annonces)
+- **Corporate Valuation Methods — MIDTERM ven. 09/10** : 20 MCQ, 30 min, sessions 1-3 (annonce K2
+  Farooq Ahmad, 29/09 15:52). **Urgence n°2 du week-end après l'UBS.**
+- **Money, Banking & FM** : cours lun 5, mer 7, jeu 8 ; final 100 % + TI BA II Plus physique (plus tard).
+- **Sustainable Finance** : **one-pager 1 page PDF** (avis personnel, rendu [à confirmer]) + **oraux
+  mer. 28/10** (mail Derrien). Hors semaine.
+- **Capital Budgeting** : **laissé de côté** (2 cours, jugé insuffisant pour évaluation) — mais la page
+  K2 a une section « Test an Exam » : à rouvrir si un sujet y apparaît.
+- Détails matière par matière : `planning/DEADLINES-VERIF-2026-10-03.md`.
 
 ---
 

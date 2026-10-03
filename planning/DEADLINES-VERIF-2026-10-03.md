@@ -1,147 +1,157 @@
-# DEADLINES — vérification matière par matière · samedi 03/10/2026
+# DEADLINES — vérification matière par matière · samedi 03/10/2026 (v2 — captures K2 du 03/10)
 
-> Ce qui suit ne contient **que** ce que j'ai pu lire dans le repo `Calvin29990/SKEMA-FRONT` ce jour
-> (commandes `find`, extraction de texte des PDF/DOCX, `gh api user/repos`). Tout ce qui n'est pas
-> sourcé est marqué **[NON VÉRIFIÉ]**. Les prérequis sont exclus du planning sur ta consigne.
+> Sources : repo `Calvin29990/SKEMA-FRONT` (textes extraits des PDF/DOCX/MD) + **3 captures d'écran K2
+> et 1 mail prof fournis dans le chat le 03/10** (fichiers image non présents dans le sandbox — le
+> contenu est transcrit ci-dessous, §1bis). Ce qui n'est ni dans le repo ni sur les captures est marqué
+> **[NON VÉRIFIÉ]**. Prérequis exclus du planning sur consigne de Calvin.
+>
+> **CE QUE LA v1 AVAIT DE FAUX** : la v1 plaçait « l'examen » au **jeu. 08/10** (sur ta seule
+> déclaration) et calait le BNP Maki le **ven. 09/10**. Les captures K2 prouvent que le midterm
+> **Corporate Valuation est le ven. 09/10** (pas le 8) et que le 08/10 est un jour de **cours**
+> Money Banking (15:00-18:15). Conséquence : le BNP glisse au **sam. 10/10**, le MS au **dim. 11/10**.
 
 ---
 
 ## 0. VERDICT EXPRESS — peux-tu déconnecter ce samedi ?
 
-**OUI, aujourd'hui samedi 03/10 est le meilleur jour de pause de toute la quinzaine — à 3 conditions.**
-
-Pourquoi c'est le bon jour :
-
-1. Aucune des 3 limites restantes ne tombe avant le **mer. 07/10** (buffer UBS) → 4 jours de marge.
-2. Le **BNP Maki** peut se faire **jusqu'au 13/10** (README + dossier archive) : rien ne t'oblige à le
-   passer avant l'examen du 08/10.
-3. Le seul coût réel est le **Jour 1 du programme Hull (ch. 1-8) prévu aujourd'hui** (`PLAN-S5`). Il se
-   décale au sam. 10/10 → le Jour 4 tombe au 31/10, soit **1 jour après ton auto-deadline du 30/10**.
-   Correctif : Jour 4 le ven. 30/10 soir ou le sam. 31/10 et tu assumes le +1 jour.
-
-**Les 3 conditions (sinon la pause se paie plus tard) :**
+**OUI, samedi 03/10 reste le bon jour de pause — à 3 conditions.** Aucune limite ne tombe avant le
+**mer. 07/10** (buffer UBS), le midterm est **ven. 09/10**, et le BNP a un filet jusqu'au **13/10**.
 
 | # | Condition | Pourquoi |
 |---|---|---|
-| 1 | **UBS fait dimanche 04/10 matin** (~1 h) | C'est la limite la plus proche (≈ jeu. 08/10) et **retake interdit** |
-| 2 | **BNP Maki visé ven. 09/10** (dernier jour de la fenêtre 7-9/10) | Garde 4 jours de marge avant l'ultime limite du 13/10 |
-| 3 | **Aucun test le mer. 07/10 ni le jeu. 08/10** | 07/10 = veille d'examen = zone protégée |
+| 1 | **UBS fait dimanche 04/10 matin** (~1 h) | Limite la plus proche (≈ jeu. 08/10 ≈ 16:09) + **retake interdit** |
+| 2 | **Mar. 06/10 = journée midterm** (pas de cours ce jour-là, calendrier K2) | Le midterm Corporate Val (ven. 09/10) est « la seule urgence » avec les tests |
+| 3 | **Aucun test le jeu. 08/10** (veille du midterm) | Zone protégée ; et le 08/10 tu as cours 15:00-18:15 |
 
-Si « ce samedi » veut dire **samedi 10/10** : c'est possible aussi, mais le Morgan Stanley glisse au
-dim. 11/10 et le BNP doit impérativement être fait le **ven. 09/10** (plus aucun filet après le 13/10).
-Moins confortable → ma reco reste la pause **aujourd'hui**.
+Seul coût de la pause : **Hull Jour 1 (ch. 1-8) décalé au sam. 10/10** → Jour 4 au 31/10, soit +1 jour
+sur ton auto-deadline du 30/10 (à assumer ou à rattraper ven. 30/10 au soir).
 
 ---
 
-## 1. Ce que j'ai vérifié dans le repo — et ce que je n'ai PAS trouvé
+## 1. Ce que le repo contient — et ses trous (inchangé depuis v1)
 
 | Recherche | Résultat |
 |---|---|
-| Un calendrier / EDT SKEMA S5 | ❌ **Absent.** Le seul fichier `planning/EMPLOI DU TEMPS VALIDE.pdf` est l'emploi du temps de **Cléanne MINANG, Licence Éco-Gestion, Université de Lille 2026-2027** (TD probabilités, macro, micro, Saint-Paul). Ce n'est **pas** ton EDT SKEMA — il ne peut pas servir à caler tes examens. |
-| Une date d'examen au 08/10 | ❌ **Aucun document du repo ne mentionne le 8 octobre.** Scan de tous les PDF/DOCX/MD (hors `livres/`) sur les motifs de dates : **0 occurrence**. L'examen du 08/10 vient de toi / de YEP-K2, pas du repo. |
-| Un repo « memoir » séparé | ❌ `gh api user/repos` sur le compte `Calvin29990` ne renvoie **qu'un seul dépôt** : `SKEMA-FRONT` (public, pushé le 03/10/2026). Aucun repo mémoire/masterclass accessible. Le `PLAN-S5` cite un fichier `masterclass…/M2S5-SKEMA-planning-major-FMI-CFM.md` **qui n'existe pas dans ce dépôt**. |
-| Semaines couvertes par le planning du repo | ⚠️ `PLAN-S5-semaine-28-09-au-04-10.md` s'arrête au **dim. 04/10**. Les cours de la semaine du 05-11/10 ne sont **pas** documentés → je ne peux pas dire quels créneaux sont libres lundi/mardi. |
-
-**Conséquence honnête** : la vérification « matière par matière » ci-dessous porte sur les **modalités
-d'évaluation** (syllabus du repo, vérifiées), pas sur les **dates d'examen** (absentes du repo). Pour
-fermer le sujet, envoie-moi l'onglet Examens YEP/K2 (capture ou export) et je complète la table.
+| Calendrier/EDT SKEMA S5 dans le repo | ❌ Absent. `planning/EMPLOI DU TEMPS VALIDE.pdf` = EDT **Cléanne MINANG, Université de Lille** — pas le tien. |
+| Date d'examen au 08/10 | ❌ 0 occurrence dans tout le repo → **c'était faux**, confirmé par les captures : pas d'examen le 8. |
+| Repo « memoir » séparé | ❌ `gh api user/repos` → un seul dépôt, `SKEMA-FRONT`. |
+| ✅ **Comblé par tes captures du 03/10** | EDT semaine 05-11/10 + annonce midterm + page Capital Budgeting (§1bis). |
 
 ---
 
-## 2. TABLE DES LIMITES — et le buffer « −24 h »
+## 1bis. TRANSCRIPTION des captures K2 + mail Derrien (fournis le 03/10)
 
-| # | Échéance | Durée | Limite réelle | **Buffer = limite − 24 h** | Marge au 03/10 | Source |
-|---|---|---|---|---|---|---|
-| 1 | **UBS Culture Match** (18 scénarios) | 15-20 min | **jeu. 08/10 ≈ 16:09** (invitation + 168 h) | **mer. 07/10 ≈ 16:09** | 4 j | mail UBS (« dans les sept prochains jours / 168 heures ») |
-| 2 | **UBS Junior Talent Cognitive (Aon)** | 30-45 min, **en une seule fois** | idem (même invitation) | idem | 4 j | mail UBS |
-| 3 | **BNP Maki** — 2 activités : *Adaptabilité & Collaboration* + *Esprit d'analyse* | 2 × 10 min, 8 questions, **sans retour arrière** | fenêtre **7-9/10** ; ultime **13/10** | **lun. 12/10** (sur l'ultime limite) | 9 j | `README.md`, `SKEMA-DOSSIER-ARCHIVE.md`, `bnp-training/index.html` |
-| 4 | **Morgan Stanley** (Numerical + Inductive + SJT) | 30-90 min au total | **[NON VÉRIFIÉ]** — à lire sur la plateforme | limite − 24 h dès que connue | ? | `TRACKING-CANDIDATURES-2026-2027.md` (« Deadline : à vérifier », 1 chance) |
-| 5 | **Examen SKEMA du 08/10** | ? | **jeu. 08/10** | **mer. 07/10 = zone protégée** (aucun test, aucun nouveau contenu) | 5 j | **ta déclaration** — aucun doc repo |
-| 6 | Programme **Hull** (auto-deadline) | 4 jours × 8 chapitres | **ven. 30/10** | jeu. 29/10 | 27 j | `PLAN-S5` §1 |
-| 7 | **Corp. Valuation Methods** — rapport ~10 p. + modèle Excel | fil rouge | **[NON VÉRIFIÉ]** | — | — | syllabus `103964202260SM1` |
+**Capture 1 — annonce K2, Corporate Valuation Methods (103964202260SM1) » Forums » Announcements :**
+« Save the Date – Corporate Valuation Methods Mid-Term Exam, 9 October », par **Muhammad Farooq AHMAD**,
+mardi 29 septembre 2026, 15:52. Corps du message : *« Please save the date for the Corporate Valuation
+Methods Mid-Term Exam, which will take place on **Friday, 9 October 2026**. The exam will consist of
+**20 MCQs**, with a total duration of **30 minutes**, and will cover all topics discussed in
+**Sessions 1 to 3**. »*
 
-### D'où sort la date UBS du 08/10 (méthode, à confirmer en 10 secondes)
-Le lien « Mon parcours » du mail UBS est un *safelink* Outlook dont le paramètre `data=` contient un
-**identifiant d'exécution Logic Apps = ticks .NET**. Déchiffré : `639264605572011237` → **01/10/2026
-14:09 UTC = 16:09 CEST**. + 168 h → **jeu. 08/10 ≈ 16:09 CEST**.
-Le mail BNP, même méthode (`639265611872141248`) → **02/10/2026 20:06 CEST**, ce qui colle avec la
-fenêtre 7-9/10.
-⚠️ **C'est une déduction, pas une donnée du repo.** Vérifie dans Outlook : date de réception du mail
-UBS + heure exacte affichée sur la page Maki/Aon. Si l'invitation est du 02/10, la limite glisse au
-**09/10** et le buffer au **08/10** — dans ce cas l'UBS se fait **avant** l'examen, impérativement.
+**Capture 2 — page K2 `k2.skema.edu/course/view.php?id=328767` « CAPITAL BUDGETING – Common Resources » :**
+sections *General (Announcements)*, *Ppt Files* (« Capital budgeting Introduction », « Capital budgeting
+Step 1 », « Capital budgeting Step 2 »), ***Test an Exam***, *News*. → Décision Calvin : **laissé de
+côté** (2 cours jugés insuffisants pour une évaluation). ⚠️ La section « Test an Exam » **existe** sur K2 :
+si Farooq y dépose un sujet, cette décision tombe.
 
----
+**Capture 3 — « My Calendar » K2, semaine 5 → 11 oct. 2026 (heures campus Lille) :**
 
-## 3. MATIÈRE PAR MATIÈRE — ce que disent les documents du repo
+| Jour | Créneaux |
+|---|---|
+| Lun 5 | 09:45-11:15 + 11:30-13:00 — MONEY, BANKING AND FINANCIAL M — Room C 306 |
+| Mar 6 | **libre** |
+| Mer 7 | 09:45-11:15 + 11:30-13:00 — MONEY, BANKING AND FINANCIAL M — Room A 221 |
+| Jeu 8 | 15:00-16:30 + 16:45-18:15 — MONEY, BANKING AND FINANCIAL M — Room A 322 |
+| Ven 9 | 09:45-11:15 + 11:30-13:00 — **CORPORATE VALUATION METHODS — Amphi C 201** (midterm pendant ce bloc) |
+| Sam 10 / Dim 11 | **libres** |
 
-### Matières notées (dans le périmètre)
-
-| Matière | Prof | Pondération (syllabus repo) | Format | Ce que ça impose |
-|---|---|---|---|---|
-| **Financial Reporting & Analysis** | Rakotovololona | **Continu 40 % / Final 60 %** | Continu : écrit **1 h** · Final : écrit **2 h** | Le syllabus S1_CF écrit noir sur blanc *« contents and date will be released in due course »* → **date non publiée dans le repo**. À demander (le mail type est déjà rédigé dans `MAILS-PREQUISITES-FINAL-EXAM-2026-09-30.md`). |
-| **Money, Banking & Financial Markets** | Saidane | **Final 100 % / Continu 0 %** | 1 seule épreuve, 7 sessions | **Calculatrice physique TI BA II (Plus) obligatoire, l'appli est interdite** (syllabus p.3). Contenu = duration/convexité, futures/options, binomial, Black-Scholes, grecques, repo → **le Hull EST ce cours**. |
-| **Corporate Valuation Methods** | Sommer | **Final 50 % / Continu 50 %** | **Rapport individuel ~10 p. + modèle Excel intégré** | Critères de la société imposés : cotée (Nasdaq/NYSE/Europe/HK, pas de marchés émergents), **cap > 1 Md$**, **5 ans de données** en IR, **FCF/EV > 3 %**. Le `PLAN-S5` dit « choisir la boîte cette semaine » → **[NON VÉRIFIÉ] si c'est fait**. |
-| **Sustainable Finance & Impact** | Aouida | **[NON VÉRIFIÉ]** — pas de syllabus dans le repo | — | Le deck Module 1 couvre les **3 modules** → cours très condensé. `PLAN-S5` : *« 5 créneaux dans la semaine = exam probablement tôt »*. **C'est le candidat n°1 pour ton examen du 08/10** — hypothèse, pas une preuve. Fiche prête : `FICHE-COURS-Sustainable-Finance-Impact.md` (le tableau des 5 approches p.41 = sujet d'examen probable). |
-| **Capital Budgeting** | — | **[NON VÉRIFIÉ]** — pas de syllabus dans le repo | — | Cours en bloc intensif (4 créneaux lun 28 + mar 29) → exam probablement fin octobre. |
-| **Capital Structure & Dividend Policy** | — | **[NON VÉRIFIÉ]** — pas de syllabus dans le repo | — | Idem, à récupérer sur K2. |
-
-### Prérequis — EXCLUS du planning (ta consigne)
-
-Exclus comme demandé : **Excel Prerequisites** (Chikh) et **Accounting Prerequisites** (Rakotovololona).
-
-⚠️ **Un seul conflit à connaître** : le syllabus officiel du repo `syllabus_CORPORATE FINANCE
-PREQUISITES (104292302260SM1).pdf` indique **« Final examination 100 % / Continuous assessment 0 % »**,
-et `PLAN-S5` §2 le note « final noté, mais 0 crédit / pass-fail ». Je le sors du planning comme tu l'as
-demandé ; garde juste en tête que le document dit le contraire — la réponse d'Iyidogan au mail du
-30/09 tranche la question. Rien à faire tant qu'il n'a pas répondu.
+**Mail Antoine DERRIEN (Sustainable Finance, antoine.derrien-ext@skema.edu) :**
+- Vendredi 02/10 = journée intensive en 3 parties (review + travail de groupe + polish) — passée.
+- **Mercredi 28/10 = 3 sessions : review + présentations orales + Q&A étendu.** « The more relevant our
+  work on Friday, the more 28 October will become a mere formality. »
+- **One-pager** : **1 seule page PDF**, une question commune à tous, noté sur **la qualité de TON
+  argumentation** (thèse-antithèse-synthèse tolérée mais moins valorisée). Question discutée le vendredi 02/10.
+  **Date de rendu : [NON VÉRIFIÉ]** — à confirmer (logiquement autour du 28/10).
 
 ---
 
-## 4. SÉQUENCE RECOMMANDÉE 03/10 → 13/10
+## 2. TABLE DES LIMITES — buffer « −24 h » (v2)
+
+| # | Échéance | Durée | Limite réelle | **Buffer −24 h** | Source |
+|---|---|---|---|---|---|
+| 1 | **UBS Culture Match** (18 scénarios) | 15-20 min | **jeu. 08/10 ≈ 16:09** (invitation + 168 h) | **mer. 07/10 ≈ 16:09** | mail UBS + ticks safelink (À CONFIRMER dans Outlook) |
+| 2 | **UBS Aon Cognitive** | 30-45 min, une seule fois | idem | idem | mail UBS |
+| 3 | **Midterm Corporate Valuation Methods** | **20 MCQ, 30 min**, sessions 1-3 | **ven. 09/10** (en classe, bloc 09:45-13:00) | **jeu. 08/10 = zone protégée** | **annonce K2 du 29/09 (capture 1)** |
+| 4 | **BNP Maki** (2 × 10 min, sans retour arrière) | 20 min | ultime **mar. 13/10** | **lun. 12/10** | README + dossier archive + clone (`avant le 14/10 à 21:02`) |
+| 5 | **Morgan Stanley** (Num+Ind+SJT) | 30-90 min | **[NON VÉRIFIÉ]** — à lire sur la plateforme | limite − 24 h | TRACKING |
+| 6 | **Sustainable Finance — oraux** | 3 sessions | **mer. 28/10** | mar. 27/10 | mail Derrien |
+| 7 | **Sustainable Finance — one-pager** | 1 p. PDF | **[NON VÉRIFIÉ]** | — | mail Derrien |
+| 8 | Hull (auto-deadline) | 4 × 8 chapitres | ven. 30/10 | jeu. 29/10 | PLAN-S5 |
+
+*Note UBS* : si l'invitation date du **02/10** (et non 01/10), limite = **ven. 09/10 ≈ 16:09** → dans ce
+cas l'UBS est fait **dim. 04/10 quoi qu'il arrive** (déjà prévu), et le buffer tombe le **08/10** (respecté).
+
+*Note BNP* : la « fenêtre 7-9/10 » du repo est une recommandation ; les limites dures lues sont **13/10**
+(archive) / **14/10 21:02** (clone). Le sam. 10/10 est donc légitime. **Si** la landing Maki affichait
+« avant le 9/10 », repli : **mer. 07/10 après 13:00** (après les cours, et le 07 n'est PAS la veille du
+midterm — la veille, c'est le 08).
+
+---
+
+## 3. MATIÈRE PAR MATIÈRE — état au 03/10
+
+| Matière | Prof | Évaluation (source) | Statut / urgence |
+|---|---|---|---|
+| **Corporate Valuation Methods** | Sommer/Farooq | **Midterm ven. 09/10 : 20 MCQ, 30 min, sessions 1-3** (K2) + final 50 % / continu 50 % = rapport ~10 p. + modèle Excel (syllabus repo) | 🔴 **URGENCE n°2 du week-end** : réviser sessions 1-3. Supports repo : `Session 1 (1).pdf`, `Session 1 (2).pdf`, `Session_1_Exercises.pdf`, `Session_1_Class_Activity_Student.pdf`, `Session_2_Forecasting_Valuation_Inputs_*.pdf`, `CORPORATE VALUATION 2409.docx`. **Supports session 3 : [NON VÉRIFIÉ] à télécharger sur K2.** |
+| **Money, Banking & FM** | Saidane | Final 100 % (syllabus repo) ; **TI BA II Plus physique obligatoire** | Cours lun 5, mer 7, jeu 8 (calendrier K2). Révisions = Hull. Pas d'examen cette semaine. |
+| **Sustainable Finance & Impact** | Aouida/Derrien | **Oraux mer. 28/10** + **one-pager 1 page** (date [NON VÉRIFIÉ]) ; pondérations [NON VÉRIFIÉ] | Pas cette semaine. Fiche repo prête (`FICHE-COURS-Sustainable-Finance-Impact.md`). Le one-pager se rédige avec TON avis — pas d'IA-rédaction (le prof note précisément ça). |
+| **Capital Budgeting** | — | Section « Test an Exam » existe sur K2 (capture 2) | **Laissé de côté** (décision Calvin : 2 cours insuffisants). À rouvrir uniquement si un sujet apparaît dans « Test an Exam ». |
+| **FRA** | Rakotovololona | Continu 40 % (1 h) + final 60 % (2 h), dates « released in due course » (syllabus repo) | Pas de date → hors semaine. Mail de demande déjà rédigé (`MAILS-PREQUISITES-FINAL-EXAM-2026-09-30.md`). |
+| **Capital Structure & Dividend** | — | Pas de syllabus repo | Pas au calendrier K2 du 05-11/10 → hors semaine. |
+| **Prérequis (CFP/Accounting/Excel)** | — | — | **EXCLUS** sur consigne. (Rappel v1 : le syllabus CFP dit « Final 100 % » — conflit connu, 0 crédit.) |
+
+---
+
+## 4. SÉQUENCE RECOMMANDÉE 03/10 → 13/10 (v2)
 
 | Jour | Matin | Après-midi / soir | Verrou |
 |---|---|---|---|
-| **Sam 03/10** | **PAUSE** ✅ | **PAUSE** ✅ | Hull J1 → décalé au 10/10 (seul coût) |
-| **Dim 04/10** | **UBS Culture Match (20 min) + Aon (45 min)** — calme, téléphone loin | Examen du 08/10 : 1 h de reprise + fiches | **UBS bouclé à J-4 de la limite** |
-| **Lun 05/10** | Examen 08/10 | Examen + **1 run complet `bnp-training/index.html`** (20 min) | Vérifier que la calc **TI BA II Plus** est là |
-| **Mar 06/10** | Examen 08/10 | Examen + 2ᵉ run BNP, chrono | |
-| **Mer 07/10** | Révisions légères, **aucun test** | Relecture fiches, **coucher tôt** | **ZONE PROTÉGÉE** (= buffer UBS) |
-| **Jeu 08/10** | **EXAMEN** | Rien. Repos. | |
-| **Ven 09/10** | **BNP Maki — les 2 activités** (fenêtre 7-9/10) | Débrief + notes | 4 j de marge avant le 13/10 |
-| **Sam 10/10** | **Morgan Stanley** (si lien valide, 30-90 min) | Hull J1 (ch. 1-8) | MS = **1 chance** → jamais la veille d'un examen |
-| **Dim 11 → mar. 13/10** | Corp. Valuation : choix/avancement du modèle Excel | Hull J2 | Filet BNP jusqu'au **12/10** (buffer) |
+| **Sam 03/10** | **PAUSE** ✅ | **PAUSE** ✅ | Hull J1 → 10/10 |
+| **Dim 04/10** | **UBS : Culture Match + Aon (~1 h)** | Corporate Val : sessions 1-2 (supports repo) | UBS à J-4 de la limite |
+| **Lun 05/10** | Cours MB 09:45-13:00 (C 306) | Corporate Val S1-S2 + 1 run `bnp-training` (20 min) | |
+| **Mar 06/10** | **Journée midterm** : S1-S2 à blanc (MCQ) | S3 dès que téléchargée de K2 + 2ᵉ run BNP | Pas de cours = journée d'or |
+| **Mer 07/10** | Cours MB 09:45-13:00 (A 221) | Relecture S1-S3 + **check buffer UBS** (déjà fait) | Repli BNP ici si Maki impose le 09/10 |
+| **Jeu 08/10** | Révision finale midterm (fiches, MCQ) | Cours MB 15:00-18:15 (A 322) puis **rien** | **ZONE PROTÉGÉE** (veille + buffer UBS) |
+| **Ven 09/10** | **MIDTERM Corporate Valuation** (20 MCQ, 30 min, Amphi C 201) | Repos | Aucun test bancaire ce jour |
+| **Sam 10/10** | **BNP Maki** (2 activités, matin frais) | Hull J1 (ch. 1-8) | 3 j de marge avant le 13/10 |
+| **Dim 11/10** | **Morgan Stanley** (si lien valide) | Repos / one-pager si la date approche | 1 test/jour max |
+| **Lun 12/10** | Filet BNP (**buffer**) | — | Après = perdu |
 
-**Règle de négociation interne** : un test « one shot » (UBS, MS, BNP) ne se passe **jamais**
-(a) la veille d'un examen, (b) le jour d'un examen, (c) après 20 h, (d) entre deux créneaux de cours.
+**Règles** : un seul test par jour ; jamais la veille ni le jour d'une épreuve ; jamais après 20 h ;
+tests cognitifs le matin. **One-pager SF et oraux du 28/10 : aucune IA pour rédiger à ta place** — le
+prof Derrien évalue explicitement ton propre raisonnement (et il utilise lui-même Claude en le déclarant :
+l'input doit rester humain).
 
 ---
 
-## 5. LES 3 INCONNUES À ME DONNER (je complète le fichier dans la foulée)
+## 5. INCONNUES RESTANTES (réduites de 3 à 3, mais différentes)
 
-1. **Matière + heure de l'examen du 08/10** (et sa durée / docs autorisés).
-2. **Date et heure exactes de réception du mail UBS** (Outlook) → fixe la limite 168 h et le buffer.
-3. **Deadline Morgan Stanley** affichée sur la plateforme (le repo dit seulement « à vérifier »).
-
-Bonus utile : capture de l'**onglet Examens YEP/K2** et de l'**EDT de la semaine du 05-11/10** — sans
-eux, les lignes « [NON VÉRIFIÉ] » du tableau §3 ne peuvent pas être fermées.
+1. **Heure de réception exacte du mail UBS** (Outlook) → fige la limite 168 h (08/10 ou 09/10).
+2. **Deadline Morgan Stanley** affichée sur la plateforme.
+3. **Date de rendu du one-pager Sustainable Finance** + **supports de la session 3 Corporate Valuation** (K2).
 
 ---
 
 ## 6. SI UNE LIMITE DOIT BOUGER (négociation)
 
-- **UBS** : mail à `ubs.recruiting` **avant** la limite, pas après. Argument qui marche : conflit
-  documenté avec un examen universitaire daté (joindre la convocation YEP). Demande **7 jours de plus**,
-  pas « un délai ». Ne demande jamais à reporter *après* avoir raté le test : retake interdit.
-- **BNP** : la fenêtre est déjà large (7 → 13/10). **N'écris pas** pour ça — tu perdrais du crédit pour
-  rien. N'écris que si un imprévu t'empêche de le passer avant le 13/10.
-- **Morgan Stanley** : vérifier d'abord que le lien est vivant. S'il est expiré, un mail court au
-  recruiting (« lien expiré, serait-il possible de le réactiver ? ») coûte zéro et rapporte parfois.
-- **Examen SKEMA** : un aménagement ne se demande pas la veille. Si le 08/10 est confirmé et que tu es
-  malade/empêché → prévenir le prof **et** le bureau des examens le jour même, par écrit.
+- **UBS** : mail au recruiting **avant** la limite, argument = conflit documenté avec un midterm
+  universitaire (joindre l'annonce K2 du 29/09). Demande +7 jours, jamais après échec (retake interdit).
+- **BNP** : n'écris pas — la marge 10 → 13/10 suffit. N'écris que si imprévu total avant le 13/10.
+- **Midterm** : un report ne se demande que le jour J, par écrit, au prof + bureau des examens.
+- **Morgan Stanley** : si lien expiré → mail court de réactivation, coût zéro.
 
 ---
 
-*Généré le sam. 03/10/2026 · sources : `README.md`, `SKEMA-DOSSIER-ARCHIVE.md`, `bnp-training/index.html`,
-`candidatures/TRACKING-CANDIDATURES-2026-2027.md`, `candidatures/MAILS-PREQUISITES-FINAL-EXAM-2026-09-30.md`,
-`planning/PLAN-S5-semaine-28-09-au-04-10.md`, `cours/syllabus_*.pdf`, `cours/S1_CF/CFM_FRAL (Syllabus)…pdf`,
-`planning/EMPLOI DU TEMPS VALIDE.pdf`, `planning/Notes global skema 2026 2025 M2.pdf`, mails BNP/UBS collés.*
+*v2 — sam. 03/10/2026 · sources repo : `README.md`, `SKEMA-DOSSIER-ARCHIVE.md`, `bnp-training/index.html`,
+`TRACKING-CANDIDATURES-2026-2027.md`, `PLAN-S5`, `cours/syllabus_*.pdf` · sources chat : 3 captures K2
+(annonce midterm 09/10, page Capital Budgeting, calendrier 05-11/10) + mail A. Derrien.*
