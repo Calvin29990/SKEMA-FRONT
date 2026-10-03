@@ -1,4 +1,4 @@
-# PROMPT GEMINI — planning deadlines avec buffer −24 h · 03/10/2026 (v2)
+# PROMPT GEMINI — planning deadlines avec buffer −24 h · 03/10/2026 (v5)
 
 > Copie-colle **tout le bloc ci-dessous** dans Gemini. Auto-suffisant : dates, durées et contraintes
 > vérifiées (repo + captures K2 du 03/10). Champs `[À REMPLIR]` = seules inconnues — laisse-les tels
@@ -20,7 +20,8 @@ c'est une règle écrite des recruteurs. Ton seul travail : séquencer, protége
 
 QUI JE SUIS
 Calvin MINANG, M2 MSc Corporate Financial Management, SKEMA Lille. Aujourd'hui : samedi 3 octobre 2026.
-Il me reste 3 tests de recrutement + un midterm à l'école.
+À passer cette quinzaine : 2 tests (UBS, BNP) + un midterm à l'école. Morgan Stanley est réservé pour
+un prochain off-cycle (ne pas le planifier).
 
 MES LIMITES (vérifiées — applique-les, ne les modifie pas)
 1. UBS — 2027 Off-Cycle Global Markets Paris (poste 339388BR, candidat 6021706)
