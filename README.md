@@ -23,7 +23,7 @@
 
 ---
 
-## 🔥 PRIORITÉS ACTUELLES (30/09/2026)
+## 🔥 PRIORITÉS ACTUELLES (03/10/2026)
 
 ### 1. SKEMA — Dispute financière (URGENT)
 - **Fichier** : `SKEMA-DOSSIER-ARCHIVE.md`
@@ -32,12 +32,18 @@
 - **Titre de séjour** : expire 30/01/2027 — certificat S5 indispensable
 - **Ne pas** : menacer avocat en premier contact, dire "SKEMA cares about image", "je quitte SKEMA"
 
-### 2. BNP Paribas — Test Maki (7-9 octobre)
+### 2. Tests — Deadlines maximales (03/10/2026)
+- **Fichier** : `planning/DEADLINES-MAXIMALES-TESTS-2026-10.md`
+- **⚠️ CACIB AON** (code `b6x-kkd-ssr`) : deadline à vérifier sur la plateforme AUJOURD'HUI — fenêtre AON type 5-10 j → peut expirer avant BNP
+- **BNP Maki** : fenêtre 07→13/10 — passage recommandé **12-13/10 matin** (max d'entraînement, one shot)
+- **AON SKEMA** (7 tests, 1h57) : à faire 05-06/10 = entraînement direct pour CACIB/HSBC/MS
+
+### 3. BNP Paribas — Test Maki (7-13 octobre)
 - **Fichier** : `bnp-training/index.html`
 - **Contrainte** : One shot only. Blacklist si échec. Pas avant le 7, pas après le 13/10.
 - **Plateforme** : Maki People (PAS AON). Training en cours pour clone pixel-perfect.
 
-### 3. Candidatures banques
+### 4. Candidatures banques
 - **Fichier** : `candidatures/TRACKING-CANDIDATURES-2026-2027.md`
 - Barclays Off-Cycle Sales Paris 2027 — Under Consideration (referral Olivier Moser)
 - Barclays Graduate Banking Paris 2027 — Under Consideration
@@ -102,6 +108,7 @@ Math : *Matrix Cookbook*, *Arbitrage-free smoothing implied volatility surface*
 | Fichier | Usage |
 |---|---|
 | `SKEMA-DOSSIER-ARCHIVE.md` | TOUT le dossier SKEMA (argument, preuves, stratégie, contacts) |
+| `planning/DEADLINES-MAXIMALES-TESTS-2026-10.md` | Deadlines max de TOUS les tests (BNP, AON CACIB, prérequis, finales S1) + calendrier d'entraînement |
 | `candidatures/TRACKING-CANDIDATURES-2026-2027.md` | Audit candidatures (blacklist, retake policies) |
 | `bnp-training/index.html` | Clone plateforme BNP Maki (test 7-9 octobre) |
 | `documents/CV_Calvin_MINANG.pdf` | CV à jour |
