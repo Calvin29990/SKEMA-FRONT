@@ -62,6 +62,7 @@ def inline(t):
     """Markdown inline -> balises reportlab (l'italique devient du gris foncé)."""
     t = t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     t = re.sub(r"`([^`]+)`", r'<font face="DjM" color="#7a1f1f">\1</font>', t)
+    t = re.sub(r"\[\[([^\]]+)\]\]", r'<font color="#0a7a2f"><b>\1</b></font>', t)  # réponses en vert
     t = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", t)
     t = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r'<font color="#41546b">\1</font>', t)
     t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"<b>\1</b>", t)   # liens -> titre en gras
