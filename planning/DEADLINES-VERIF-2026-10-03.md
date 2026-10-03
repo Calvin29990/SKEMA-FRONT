@@ -132,6 +132,7 @@ midterm — la veille, c'est le 08).
 | **Sam 10/10** | **BNP Maki** (matin) | Hull J1 (ch. 1-8) | 6 j après UBS → décision UBS plausible avant |
 | **Dim 11/10** | Repos / Hull J2 | — | MS réservé → journée libre |
 | **Lun 12/10** | Filet BNP (**buffer**) | — | après = perdu |
+| **Mar 13/10** | BNP : **limite ultime** (ne pas attendre) | **CFM Connect 13:00-14:30 — obligatoire** = pitch thèse Saïdane (`cours/S1_MoneyBanking/THESE-SAIDANE-pitch.md`) | mail de follow-up à J+2 |
 
 **Règles** : un seul test par jour ; jamais la veille ni le jour d'une épreuve ; jamais après 20 h ;
 tests cognitifs le matin. **One-pager SF et oraux du 28/10 : aucune IA pour rédiger à ta place** — le
