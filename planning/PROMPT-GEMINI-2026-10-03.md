@@ -6,8 +6,8 @@
 >
 > **v2 (03/10)** : l'examen confirmé est le **midterm Corporate Valuation du ven. 09/10** (20 MCQ,
 > 30 min, sessions 1-3 — annonce K2 du 29/09), PAS le 08/10. Le 08/10 = cours Money Banking 15:00-18:15.
-> Donc BNP → **sam. 10/10**, Morgan Stanley → **dim. 11/10** (jamais deux tests le même jour, jamais la
-> veille d'une épreuve).
+> Donc BNP → **sam. 10/10**. **Morgan Stanley = réservé** (48 h expirées, verrou 6 mois) → exclu du
+> planning de la quinzaine (jamais deux tests le même jour, jamais la veille d'une épreuve).
 
 ---
 
@@ -34,9 +34,11 @@ MES LIMITES (vérifiées — applique-les, ne les modifie pas)
      chacune, sans retour arrière.
    - **Pas de passation avant le mercredi 7 octobre** (contrainte plateforme/repo) ; limite ultime :
      mardi 13 octobre. BUFFER −24 h = lundi 12 octobre. One shot.
-3. Morgan Stanley — 2027 IB Off-Cycle Paris
-   - Numerical + Inductive + Situational Judgement, 30 à 90 min au total.
-   - LIMITE = [À REMPLIR : date affichée sur la plateforme]. BUFFER = limite − 24 h. Une seule chance.
+3. Morgan Stanley — 2027 IB Off-Cycle Paris → **RÉSERVÉ, NE PAS PLANIFIER cette quinzaine**
+   - Numerical + Inductive + Situational Judgement (fournisseur Aon), 30 à 90 min, 1 simulation.
+   - Fenêtre 48 h expirée ≈ 16/08 (mail du 14/08). Le passer maintenant verrouillerait ces tests pour
+     6 mois et créerait un écart au re-test supervisé. On le garde pour un prochain off-cycle ;
+     préparation via le trainer `skema-training/` (formats Aon/cut-e identiques).
 
 MON MIDTERM (confirmé par annonce K2 du 29/09)
 - Corporate Valuation Methods : vendredi 9 octobre 2026, pendant le bloc de cours 09:45-13:00
@@ -75,8 +77,8 @@ CE QUE JE VEUX EN SORTIE (dans cet ordre, sans préambule)
 2. Les 4 verrous : pour chaque test, date de passation, buffer, marge à ce moment, plan B si je rate le créneau.
 3. Verdict sur ma pause du sam. 03/10 : OUI/NON, coût exact, condition minimale pour qu'elle ne coûte rien d'autre.
 4. Les 3 risques qui peuvent tout faire sauter d'ici le 13/10, avec signal d'alerte et action immédiate.
-5. Les infos manquantes (heure exacte de réception du mail UBS ; deadline Morgan Stanley ; date de rendu
-   du one-pager Sustainable Finance).
+5. Les infos manquantes (heure exacte de réception du mail UBS ; date de rendu du one-pager
+   Sustainable Finance).
 
 CE QUE TU NE DOIS PAS FAIRE
 - Ne pas inventer de date/pondération/deadline : écris « à confirmer ».
@@ -93,7 +95,8 @@ CE QUE TU NE DOIS PAS FAIRE
 ```
 Samedi 3 octobre 2026. Il me reste : UBS (Culture Match 15-20 min + Aon 30-45 min, limite jeu. 8/10 à
 16:09, buffer mer. 7/10, retake interdit), BNP Maki (2 × 10 min, limite ultime mar. 13/10, buffer
-lun. 12/10, one shot), Morgan Stanley (30-90 min, deadline à confirmer, 1 chance), et le midterm
+lun. 12/10, one shot) — Morgan Stanley est réservé (48 h expirées, verrou 6 mois), ne le planifie pas —
+et le midterm
 Corporate Valuation le ven. 9/10 (20 MCQ, 30 min, sessions 1-3). Prérequis exclus. Cours : lun 5 et
 mer 7 (09:45-13:00), jeu 8 (15:00-18:15), ven 9 (midterm) ; mar 6, sam 10, dim 11 libres.
 Règles : jamais de test la veille ou le jour d'une épreuve, un seul test bancaire par jour, le matin.

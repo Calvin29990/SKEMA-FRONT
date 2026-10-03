@@ -12,28 +12,25 @@
 
 ---
 
-## 0. VERDICT (v4 — tests bancaires EN SÉRIE, décision avant le suivant)
+## 0. VERDICT (v5 — MS réservé ; série réduite à UBS → BNP)
 
-Ta nouvelle règle : **un test bancaire à la fois, espacés, pour idéalement avoir la décision de la
-banque avant le test suivant**. Voilà la seule séquence qui respecte À LA FOIS cette règle, les buffers
-−24 h, « pas avant le 7 » pour le BNP, et le midterm du ven. 09/10.
+**Morgan Stanley est sorti du planning (voir §3 et TRACKING) : fenêtre 48 h expirée le ~16/08, et le
+passer maintenant verrouillerait ses 3 tests Aon pour 6 mois + créerait un écart au re-test supervisé.
+On le garde intact pour un prochain off-cycle.** La série bancaire de la quinzaine = **UBS → BNP**.
 
 | # | Test | Jour | Pourquoi ce jour |
 |---|---|---|---|
 | 1 | **UBS** (Culture Match + Aon, ~1 h) | **dim. 04/10 matin** | Le + urgent (buffer mer. 07) ; laisse **6 jours** avant le BNP → la décision UBS a le temps d'arriver ✅ |
-| 2 | **BNP Maki** (2 × 10 min) | **sam. 10/10 matin** | « Pas avant le 7 » ✔ ; après le midterm ✔ ; 6 j après l'UBS = fenêtre réaliste pour recevoir la décision UBS avant de passer le BNP ✅ |
-| 3 | **Morgan Stanley** (30-90 min) | **dim. 11/10 matin** | Après le BNP ; 1 chance → matin, frais. ⚠️ 1 seul jour après le BNP : la décision BNP n'aura PAS le temps d'arriver avant le MS (voir ci-dessous). |
+| 2 | **BNP Maki** (2 × 10 min) | **sam. 10/10 matin** | « Pas avant le 7 » ✔ ; après le midterm ✔ ; 6 j après l'UBS = fenêtre réaliste pour recevoir la décision UBS avant le BNP ✅ |
+| — | **Morgan Stanley** | **RÉSERVÉ** (pas cette quinzaine) | 48 h expirées ~16/08 ; le passer = brûler la chance 6 mois. Prep via `skema-training/` pour le prochain off-cycle. |
 
 **Ce que la séquence permet vraiment (délais de décision réalistes = 3 à 7 jours) :**
-- ✅ **UBS → BNP** : 6 jours d'écart. C'est le seul enchaînement où « décision avant le test suivant » est
-  plausible.
-- ❌ **BNP → MS** : 1 jour d'écart. La décision BNP n'arrivera pas à temps. Deux options : (a) accepter
-  (le MS est « 1 chance » de toute façon, le connaître ne change rien), ou (b) **si la deadline MS le
-  permet**, repousser le MS au **lun. 12/10 ou après** pour laisser 2-3 jours de plus — mais jamais après
-  le buffer BNP (lun. 12/10) si tu n'as pas encore fait le BNP.
+- ✅ **UBS → BNP** : 6 jours d'écart → « décision avant le test suivant » est plausible. C'est le seul
+  enchaînement de la quinzaine qui le permette.
 
 **Règles conservées** : jamais de test la veille/le jour d'une épreuve (jeu. 08 et ven. 09 protégés) ;
 jamais après 20 h ; cognitifs le matin ; blanc corporate le **mar. 06/10** (jour libre, à J-3 du midterm).
+Le **dim. 11/10** redevient libre (repos / Hull J2) puisque le MS est réservé.
 
 Seul coût inchangé : **Hull Jour 1 → sam. 10/10** (+1 j sur l'auto-deadline du 30/10).
 
@@ -92,7 +89,7 @@ si Farooq y dépose un sujet, cette décision tombe.
 | 2 | **UBS Aon Cognitive** | 30-45 min, une seule fois | idem | idem | mail UBS |
 | 3 | **Midterm Corporate Valuation Methods** | **20 MCQ, 30 min**, sessions 1-3 | **ven. 09/10** (en classe, bloc 09:45-13:00) | **jeu. 08/10 = zone protégée** | **annonce K2 du 29/09 (capture 1)** |
 | 4 | **BNP Maki** (2 × 10 min, sans retour arrière) | 20 min | ultime **mar. 13/10** | **lun. 12/10** | README + dossier archive + clone (`avant le 14/10 à 21:02`) |
-| 5 | **Morgan Stanley** (Num+Ind+SJT) | 30-90 min | **[NON VÉRIFIÉ]** — à lire sur la plateforme | limite − 24 h | TRACKING |
+| 5 | **Morgan Stanley** (Num+Ind+SJT, 1 simulation) | 30-90 min | **48 h expirées ≈ dim. 16/08** (mail du ven. 14/08 ≈ 07:55 CEST) → **RÉSERVÉ**, pas de buffer actif | — | mail MS + plateforme (Start Test encore affiché mais hors délai) |
 | 6 | **Sustainable Finance — oraux** | 3 sessions | **mer. 28/10** | mar. 27/10 | mail Derrien |
 | 7 | **Sustainable Finance — one-pager** | 1 p. PDF | **[NON VÉRIFIÉ]** | — | mail Derrien |
 | 8 | Hull (auto-deadline) | 4 × 8 chapitres | ven. 30/10 | jeu. 29/10 | PLAN-S5 |
@@ -133,7 +130,7 @@ midterm — la veille, c'est le 08).
 | **Jeu 08/10** | Révision finale | Cours MB 15:00-18:15 (A 322) puis rien | **ZONE PROTÉGÉE** (veille du midterm) |
 | **Ven 09/10** | **MIDTERM Corp Val** (20 MCQ, 30 min, Amphi C 201) | Repos | aucun test bancaire |
 | **Sam 10/10** | **BNP Maki** (matin) | Hull J1 (ch. 1-8) | 6 j après UBS → décision UBS plausible avant |
-| **Dim 11/10** | **Morgan Stanley** (matin) | Repos | si deadline MS le permet, repousser au 12+ pour laisser venir la décision BNP |
+| **Dim 11/10** | Repos / Hull J2 | — | MS réservé → journée libre |
 | **Lun 12/10** | Filet BNP (**buffer**) | — | après = perdu |
 
 **Règles** : un seul test par jour ; jamais la veille ni le jour d'une épreuve ; jamais après 20 h ;
@@ -143,11 +140,12 @@ l'input doit rester humain).
 
 ---
 
-## 5. INCONNUES RESTANTES (réduites de 3 à 3, mais différentes)
+## 5. INCONNUES RESTANTES
 
 1. **Heure de réception exacte du mail UBS** (Outlook) → fige la limite 168 h (08/10 ou 09/10).
-2. **Deadline Morgan Stanley** affichée sur la plateforme.
-3. **Date de rendu du one-pager Sustainable Finance** + **supports de la session 3 Corporate Valuation** (K2).
+2. **Date de rendu du one-pager Sustainable Finance** + **supports de la session 3 Corporate Valuation** (K2).
+3. ~~Deadline Morgan Stanley~~ → **résolue** : 48 h expirées ≈ 16/08, test **réservé** pour un prochain
+   off-cycle (ne pas le passer maintenant).
 
 ---
 
@@ -157,7 +155,11 @@ l'input doit rester humain).
   universitaire (joindre l'annonce K2 du 29/09). Demande +7 jours, jamais après échec (retake interdit).
 - **BNP** : n'écris pas — la marge 10 → 13/10 suffit. N'écris que si imprévu total avant le 13/10.
 - **Midterm** : un report ne se demande que le jour J, par écrit, au prof + bureau des examens.
-- **Morgan Stanley** : si lien expiré → mail court de réactivation, coût zéro.
+- **Morgan Stanley** : **ne rien négocier maintenant et ne pas passer le test.** À la prochaine
+  campagne off-cycle, se reconnecter frais ; si la plateforme réclamait l'ancienne session, un mail
+  court au support (morganstanley.emea.support@aon.com) suffira. Surtout : **pas de screenshots ni de
+  passage « recon » assisté** — la clause de re-test supervisé + la règle des 6 mois transforment ce
+  « reconnaissance » en blacklist de fait.
 
 ---
 

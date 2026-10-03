@@ -1,8 +1,9 @@
 # TRACKING CANDIDATURES — Calvin Minang (2026-2027)
 
-> **MAJ 03/10/2026** — sur déclaration de Calvin : **tous les autres tests sont faits et archivés**.
-> Il ne reste **que 3 dossiers ouverts : BNP, UBS, Morgan Stanley**. Tout le reste est descendu en
-> bas de fichier (section ARCHIVE). Détail des limites + buffers : `planning/DEADLINES-VERIF-2026-10-03.md`.
+> **MAJ 03/10/2026 (v5)** — sur déclaration de Calvin : **tous les autres tests sont faits et archivés**.
+> Dans cette quinzaine : **2 tests à passer = UBS + BNP**. **Morgan Stanley = RÉSERVÉ** (48 h expirées
+> le ~16/08 ; ne pas brûler les 3 tests Aon qui verrouilleraient 6 mois). Tout le reste est en ARCHIVE.
+> Détail des limites + buffers : `planning/DEADLINES-VERIF-2026-10-03.md`.
 
 ---
 
@@ -32,15 +33,28 @@
 - **Règle recruteur** : à passer seul, **sans IA ni outil automatisé**.
 - **Retour 2027** : ❌ si raté.
 
-### 3. Morgan Stanley — 2027 IB Off-Cycle Internship Paris
-- **Statut** : invitation reçue, **lien à re-vérifier** (validité ?).
-- **Test** : Numerical + Inductive + Situational Judgement (format SHL), **30-90 min au total**.
-- **Deadline** : **[à lire sur la plateforme]** → poser le buffer à cette limite − 24 h.
-- **Politique** : 1 chance par campagne.
-- **Créneau retenu (v4)** : **dim. 11/10 matin**. ⚠️ À 1 jour du BNP, la décision BNP n'arrivera pas
-  avant : si la deadline plateforme le permet, repousser au **lun. 12/10 ou après** pour laisser venir
-  la décision BNP. Si la deadline tombe avant le 06/10 → le faire ce week-end.
-- **Retour 2027** : ⚠️ MS est sélectif.
+### 3. Morgan Stanley — 2027 IB Off-Cycle Internship Paris → **RÉSERVÉ, pas maintenant**
+- **Statut (vérifié sur le mail + la plateforme, 03/10)** : invitation du **ven. 14/08/2026 ≈ 07:55 CEST**
+  (déduit du safelink, même méthode que UBS/BNP) avec fenêtre de **48 h** → expirée **≈ dim. 16/08**.
+  La page candidature affiche encore « Tests left to complete : 1. Investment Banking » + bouton
+  **Start Test** au 03/10, mais l'application 2027 est hors délai depuis ~7 semaines → **cette
+  candidature-là est morte quoi qu'on fasse**.
+- **Test** : Numerical + Inductive + Situational Judgement, intégrés en **une seule simulation**,
+  30-90 min. Fournisseur = **Aon** (support : morganstanley.emea.support@aon.com) → mêmes formats que
+  le trainer `skema-training/` (cut-e/Aon).
+- **Règles qui changent la stratégie** :
+  1. « Complete the assessments **alone**… we may **re-test under supervised conditions** ; a
+     significant discrepancy **may impact your application** » → screenshots + « travailler avec les
+     autres » sur le test live = auto-piège (écart énorme au re-test supervisé).
+  2. « If you have completed tests for another MS application **within the last 6 months**, you will
+     **not** be required to retake the same test » → passer maintenant **verrouille ces 3 tests pour
+     6 mois** sur le score de ce passage. Un passage « pour du beurre » ou assisté grille donc la
+     chance propre des prochains off-cycle.
+- **Décision (v5, 03/10)** : **NE PAS cliquer Start Test maintenant.** Pas de screenshot, pas de test
+  « recon ». On garde la chance intacte pour le prochain off-cycle (MS recrute chaque année), et on se
+  prépare dessus avec `skema-training/` (numérique, inductif, SJT/comportements) + pratique SHL/Aon
+  publique. Calvin n'est **pas blacklisté** tant qu'il ne passe rien.
+- **Retour 2027** : ✅ rejouable à la prochaine campagne, à condition de ne pas avoir brûlé les tests.
 
 ---
 
@@ -56,7 +70,7 @@
 | Jeu 08/10 | MB 15:00-18:15 (A 322) | révision légère matin ; **AUCUN test** | veille du midterm |
 | Ven 09/10 | Corp Val 09:45-13:00 (C 201) | **MIDTERM** (20 MCQ, 30 min) ; repos | — |
 | Sam 10/10 | libre | **BNP Maki** matin + Hull J1 | 6 j après UBS |
-| Dim 11/10 | libre | **Morgan Stanley** matin (ou 12+ si deadline le permet) | 1 chance → frais |
+| Dim 11/10 | libre | repos / Hull J2 (MS **réservé**, pas maintenant) | — |
 | Lun 12/10 | — | filet BNP (buffer ultime) | après = perdu |
 
 **Règle** : un seul test par jour, jamais la veille ni le jour d'un examen, jamais après 20 h.
@@ -104,7 +118,7 @@
 |---|---|---|---|---|
 | **UBS** | ✅ oui | jeu. 08/10 ≈ 16:09 | mer. 07/10 | ❌ interdit |
 | **BNP** | ✅ oui | fenêtre 7-9/10, ultime 13/10 | lun. 12/10 | ⚠️ one shot |
-| **Morgan Stanley** | ✅ oui | à confirmer | limite − 24 h | ⚠️ 1 chance |
+| **Morgan Stanley** | 🚫 **réservé** (ne pas passer) | 48 h expirées ≈ 16/08 | — | verrou 6 mois si passé |
 | Tout le reste | ❌ non (archivé) | — | — | — |
 
 ---

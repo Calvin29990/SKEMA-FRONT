@@ -19,6 +19,8 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
+| `skema-training/` | **Assessment Trainer v4.3** — 14 tâches format Aon/cut-e (numérique, verbal, inductif, déductif, SJT…) | Prep MS / Aon / cut-e (restauré de l'historique, commit `f5d6f2a`) |
+| `audits/` | Audit de fidélité du trainer (02/10) | Avant de s'appuyer sur skema-training |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
@@ -28,10 +30,11 @@
 ### 0. Semaine 03 → 13/10 — 3 tests restants + midterm Corp Val du ven. 09/10
 - **Fichier** : `planning/DEADLINES-VERIF-2026-10-03.md` (limites, buffers −24 h, verdict pause samedi)
 - **Prompt Gemini prêt à l'emploi** : `planning/PROMPT-GEMINI-2026-10-03.md`
-- Reste uniquement : **UBS** (limite jeu. 08/10 ≈ 16:09, retake interdit → visé dim. 04/10) · **BNP Maki**
-  (ultime 13/10, « pas avant le 7 » → visé sam. 10/10) · **Morgan Stanley** (deadline à confirmer →
-  dim. 11/10, ou 12+ si la deadline le permet). Séquence espacée pour recevoir la décision d'une banque
-  avant le test suivant quand c'est possible : détails dans `planning/DEADLINES-VERIF-2026-10-03.md` §0.
+- À passer cette quinzaine : **UBS** (limite jeu. 08/10 ≈ 16:09, retake interdit → visé dim. 04/10) ·
+  **BNP Maki** (ultime 13/10, « pas avant le 7 » → visé sam. 10/10). **Morgan Stanley = RÉSERVÉ**
+  (48 h expirées ≈ 16/08 ; le passer maintenant verrouille 6 mois → gardé pour le prochain off-cycle,
+  prep via `skema-training/`). Séquence espacée pour recevoir la décision avant le test suivant quand
+  c'est possible : détails dans `planning/DEADLINES-VERIF-2026-10-03.md` §0.
 - **Midterm Corporate Valuation : ven. 09/10** (20 MCQ, 30 min, sessions 1-3 — annonce K2 du 29/09).
 - Le calendrier K2 de la semaine 05-11/10 + l'annonce du midterm sont transcrits dans
   `planning/DEADLINES-VERIF-2026-10-03.md` §1bis (captures fournies en chat le 03/10 ; images non
