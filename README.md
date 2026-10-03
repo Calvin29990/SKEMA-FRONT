@@ -23,7 +23,18 @@
 
 ---
 
-## 🔥 PRIORITÉS ACTUELLES (30/09/2026)
+## 🔥 PRIORITÉS ACTUELLES (03/10/2026)
+
+### 0. Semaine 03 → 13/10 — 3 tests restants + examen du 08/10
+- **Fichier** : `planning/DEADLINES-VERIF-2026-10-03.md` (limites, buffers −24 h, verdict pause samedi)
+- **Prompt Gemini prêt à l'emploi** : `planning/PROMPT-GEMINI-2026-10-03.md`
+- Reste uniquement : **UBS** (limite jeu. 08/10 ≈ 16:09, retake interdit) · **BNP Maki** (fenêtre 7-9/10,
+  ultime 13/10) · **Morgan Stanley** (deadline à confirmer). Tous les autres tests sont faits → archivés
+  dans `candidatures/TRACKING-CANDIDATURES-2026-2027.md`.
+- ⚠️ Aucun calendrier d'examens SKEMA dans ce repo : le `planning/EMPLOI DU TEMPS VALIDE.pdf` est l'EDT
+  **Université de Lille de Cléanne MINANG**, pas l'EDT SKEMA S5. À uploader (YEP/K2).
+
+## 🔥 PRIORITÉS PRÉCÉDENTES (30/09/2026)
 
 ### 1. SKEMA — Dispute financière (URGENT)
 - **Fichier** : `SKEMA-DOSSIER-ARCHIVE.md`
