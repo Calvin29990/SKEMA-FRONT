@@ -12,21 +12,30 @@
 
 ---
 
-## 0. VERDICT EXPRESS — peux-tu déconnecter ce samedi ?
+## 0. VERDICT (v4 — tests bancaires EN SÉRIE, décision avant le suivant)
 
-**OUI, samedi 03/10 reste le bon jour de pause — à 3 conditions.** Aucune limite ne tombe avant le
-**mer. 07/10** (buffer UBS), le midterm est **ven. 09/10**, et le BNP a un filet jusqu'au **13/10**.
+Ta nouvelle règle : **un test bancaire à la fois, espacés, pour idéalement avoir la décision de la
+banque avant le test suivant**. Voilà la seule séquence qui respecte À LA FOIS cette règle, les buffers
+−24 h, « pas avant le 7 » pour le BNP, et le midterm du ven. 09/10.
 
-| # | Condition | Pourquoi |
-|---|---|---|
-| 1 | **UBS fait dimanche 04/10 matin** (~1 h) | Limite la plus proche (≈ jeu. 08/10 ≈ 16:09) + **retake interdit** |
-| 2 | **Mar. 06/10 = journée midterm** (pas de cours ce jour-là, calendrier K2) | Le midterm Corporate Val (ven. 09/10) est « la seule urgence » avec les tests |
-| 3 | **Aucun test le jeu. 08/10** (veille du midterm) | Zone protégée ; et le 08/10 tu as cours 15:00-18:15 |
+| # | Test | Jour | Pourquoi ce jour |
+|---|---|---|---|
+| 1 | **UBS** (Culture Match + Aon, ~1 h) | **dim. 04/10 matin** | Le + urgent (buffer mer. 07) ; laisse **6 jours** avant le BNP → la décision UBS a le temps d'arriver ✅ |
+| 2 | **BNP Maki** (2 × 10 min) | **sam. 10/10 matin** | « Pas avant le 7 » ✔ ; après le midterm ✔ ; 6 j après l'UBS = fenêtre réaliste pour recevoir la décision UBS avant de passer le BNP ✅ |
+| 3 | **Morgan Stanley** (30-90 min) | **dim. 11/10 matin** | Après le BNP ; 1 chance → matin, frais. ⚠️ 1 seul jour après le BNP : la décision BNP n'aura PAS le temps d'arriver avant le MS (voir ci-dessous). |
 
-Seul coût de la pause : **Hull Jour 1 (ch. 1-8) décalé au sam. 10/10** → Jour 4 au 31/10, soit +1 jour
-sur ton auto-deadline du 30/10 (à assumer ou à rattraper ven. 30/10 au soir).
+**Ce que la séquence permet vraiment (délais de décision réalistes = 3 à 7 jours) :**
+- ✅ **UBS → BNP** : 6 jours d'écart. C'est le seul enchaînement où « décision avant le test suivant » est
+  plausible.
+- ❌ **BNP → MS** : 1 jour d'écart. La décision BNP n'arrivera pas à temps. Deux options : (a) accepter
+  (le MS est « 1 chance » de toute façon, le connaître ne change rien), ou (b) **si la deadline MS le
+  permet**, repousser le MS au **lun. 12/10 ou après** pour laisser 2-3 jours de plus — mais jamais après
+  le buffer BNP (lun. 12/10) si tu n'as pas encore fait le BNP.
 
----
+**Règles conservées** : jamais de test la veille/le jour d'une épreuve (jeu. 08 et ven. 09 protégés) ;
+jamais après 20 h ; cognitifs le matin ; blanc corporate le **mar. 06/10** (jour libre, à J-3 du midterm).
+
+Seul coût inchangé : **Hull Jour 1 → sam. 10/10** (+1 j sur l'auto-deadline du 30/10).
 
 ## 1. Ce que le repo contient — et ses trous (inchangé depuis v1)
 
@@ -112,20 +121,20 @@ midterm — la veille, c'est le 08).
 
 ---
 
-## 4. SÉQUENCE RECOMMANDÉE 03/10 → 13/10 (v2)
+## 4. SÉQUENCE 03/10 → 13/10 (v4 — série bancaire espacée)
 
 | Jour | Matin | Après-midi / soir | Verrou |
 |---|---|---|---|
-| **Sam 03/10** | **PAUSE** ✅ | **PAUSE** ✅ | Hull J1 → 10/10 |
-| **Dim 04/10** | **UBS : Culture Match + Aon (~1 h)** | Corporate Val : sessions 1-2 (supports repo) | UBS à J-4 de la limite |
-| **Lun 05/10** | Cours MB 09:45-13:00 (C 306) | Corporate Val S1-S2 + 1 run `bnp-training` (20 min) | |
-| **Mar 06/10** | **Journée midterm** : S1-S2 à blanc (MCQ) | S3 dès que téléchargée de K2 + 2ᵉ run BNP | Pas de cours = journée d'or |
-| **Mer 07/10** | Cours MB 09:45-13:00 (A 221) | Relecture S1-S3 + **check buffer UBS** (déjà fait) | Repli BNP ici si Maki impose le 09/10 |
-| **Jeu 08/10** | Révision finale midterm (fiches, MCQ) | Cours MB 15:00-18:15 (A 322) puis **rien** | **ZONE PROTÉGÉE** (veille + buffer UBS) |
-| **Ven 09/10** | **MIDTERM Corporate Valuation** (20 MCQ, 30 min, Amphi C 201) | Repos | Aucun test bancaire ce jour |
-| **Sam 10/10** | **BNP Maki** (2 activités, matin frais) | Hull J1 (ch. 1-8) | 3 j de marge avant le 13/10 |
-| **Dim 11/10** | **Morgan Stanley** (si lien valide) | Repos / one-pager si la date approche | 1 test/jour max |
-| **Lun 12/10** | Filet BNP (**buffer**) | — | Après = perdu |
+| **Sam 03/10** | **PAUSE** ✅ | **PAUSE** ✅ (+ run `bnp-training` si envie) | Hull J1 → 10/10 |
+| **Dim 04/10** | **UBS** (2 modules, ~1 h) | Repos / Corp Val léger | décision UBS attendue d'ici le 10 |
+| **Lun 05/10** | Cours MB 09:45-13:00 (C 306) | Corp Val S1-S3 | |
+| **Mar 06/10** | **Blanc corporate** (20 MCQ, 30 min chrono) + correction | Combler les lacunes | jour libre, J-3 du midterm |
+| **Mer 07/10** | Cours MB 09:45-13:00 (A 221) | Relecture ; **buffer UBS** (déjà passé) | BNP autorisé à partir d'aujourd'hui mais gardé pour le 10 |
+| **Jeu 08/10** | Révision finale | Cours MB 15:00-18:15 (A 322) puis rien | **ZONE PROTÉGÉE** (veille du midterm) |
+| **Ven 09/10** | **MIDTERM Corp Val** (20 MCQ, 30 min, Amphi C 201) | Repos | aucun test bancaire |
+| **Sam 10/10** | **BNP Maki** (matin) | Hull J1 (ch. 1-8) | 6 j après UBS → décision UBS plausible avant |
+| **Dim 11/10** | **Morgan Stanley** (matin) | Repos | si deadline MS le permet, repousser au 12+ pour laisser venir la décision BNP |
+| **Lun 12/10** | Filet BNP (**buffer**) | — | après = perdu |
 
 **Règles** : un seul test par jour ; jamais la veille ni le jour d'une épreuve ; jamais après 20 h ;
 tests cognitifs le matin. **One-pager SF et oraux du 28/10 : aucune IA pour rédiger à ta place** — le

@@ -15,10 +15,9 @@
   sans retour arrière.
 - **Fenêtre** : **7 → 9 octobre** · **limite ultime 13/10** · **buffer (−24 h) : lun. 12/10**
 - **Politique** : ⚠️ one shot, blacklist si échec.
-- **Créneau retenu (v2, 03/10)** : **sam. 10/10 matin** — le ven. 09/10 est désormais pris par le
-  **midterm Corporate Valuation** (annonce K2 du 29/09). 3 j de marge avant l'ultime limite.
-  **Repli** : mer. 07/10 après 13:00 si la landing Maki impose « avant le 09/10 ».
-- **Prépa** : `bnp-training/index.html` (2 runs complets, lun. 05 et mar. 06 au soir).
+- **Créneau retenu (v4)** : **sam. 10/10 matin** (après le midterm du 09/10 ; « pas avant le 7 » ✔ ;
+  3 j de marge avant l'ultime 13/10). ⛔ Jamais avant le 07/10 (README + archive). Repli : dim. 11/10.
+- **Prépa** : `bnp-training/index.html` (runs le week-end 03-04/10).
 - **Retour 2027** : ⚠️ 6-12 mois si raté.
 
 ### 2. UBS — 2027 Off-Cycle Internship Global Markets Paris (ref. 339388BR · candidat 6021706)
@@ -28,7 +27,8 @@
 - **Deadline** : invitation **+ 168 h** → **jeu. 08/10 ≈ 16:09** (déduit du safelink : invitation
   01/10 16:09 — **à confirmer dans Outlook**) · **buffer (−24 h) : mer. 07/10 ≈ 16:09**
 - **Politique** : ❌ **« Retakes are not permitted »** → une seule chance.
-- **Créneau retenu** : **dim. 04/10 matin** (calme, 4 j de marge, avant le midterm du 09/10).
+- **Créneau retenu (v4)** : **dim. 04/10 matin**. 6 jours avant le BNP (10/10) → laisse une fenêtre
+  réaliste (3-7 j) pour recevoir la décision UBS avant le test suivant.
 - **Règle recruteur** : à passer seul, **sans IA ni outil automatisé**.
 - **Retour 2027** : ❌ si raté.
 
@@ -37,24 +37,26 @@
 - **Test** : Numerical + Inductive + Situational Judgement (format SHL), **30-90 min au total**.
 - **Deadline** : **[à lire sur la plateforme]** → poser le buffer à cette limite − 24 h.
 - **Politique** : 1 chance par campagne.
-- **Créneau retenu** : **sam. 10/10 matin** (après l'examen, jamais la veille d'une épreuve).
+- **Créneau retenu (v4)** : **dim. 11/10 matin**. ⚠️ À 1 jour du BNP, la décision BNP n'arrivera pas
+  avant : si la deadline plateforme le permet, repousser au **lun. 12/10 ou après** pour laisser venir
+  la décision BNP. Si la deadline tombe avant le 06/10 → le faire ce week-end.
 - **Retour 2027** : ⚠️ MS est sélectif.
 
 ---
 
 ## 📅 SÉQUENCE RETENUE (03 → 13/10)
 
-| Jour | Cours (calendrier K2) | Action test | Verrou |
+| Jour | Cours (calendrier K2) | Action | Verrou |
 |---|---|---|---|
-| Sam 03/10 | libre | **PAUSE** (validée) | seul coût : Hull J1 décalé au 10/10 |
-| Dim 04/10 | libre | **UBS** (Culture Match + Aon, ~1 h) | J-4 avant la limite |
-| Lun 05/10 | Money Banking 09:45-13:00 (C 306) | révision Corp Val le soir + 1 run `bnp-training` | midterm = urgence n°2 |
-| Mar 06/10 | **libre** | journée midterm Corp Val (S1-S3) + 2ᵉ run BNP | pas de cours = journée d'or |
-| Mer 07/10 | Money Banking 09:45-13:00 (A 221) | révision Corp Val ; **check buffer UBS** | — |
-| Jeu 08/10 | Money Banking 15:00-18:15 (A 322) | révision finale le matin ; **AUCUN test** | veille du midterm = zone protégée |
-| Ven 09/10 | **Corp Val 09:45-13:00 (Amphi C 201)** | **MIDTERM Corp Val** (20 MCQ, 30 min) ; après-midi repos | AUCUN test bancaire ce jour |
-| Sam 10/10 | libre | **BNP Maki** le matin + Hull J1 l'après-midi | 3 j de marge avant le 13/10 |
-| Dim 11/10 | libre | **Morgan Stanley** le matin | 1 chance → jamais la veille d'une épreuve |
+| Sam 03/10 | libre | **PAUSE** (+ run `bnp-training` si envie) | Hull J1 → 10/10 |
+| Dim 04/10 | libre | **UBS** matin (~1 h) ; après-midi repos | décision UBS attendue d'ici le 10 |
+| Lun 05/10 | MB 09:45-13:00 (C 306) | Corp Val S1-S3 le soir | — |
+| Mar 06/10 | **libre** | **Blanc corporate** (20 MCQ, 30 min) + correction | J-3 du midterm |
+| Mer 07/10 | MB 09:45-13:00 (A 221) | relecture ; buffer UBS déjà passé | BNP ≥ 07/10 OK mais gardé au 10 |
+| Jeu 08/10 | MB 15:00-18:15 (A 322) | révision légère matin ; **AUCUN test** | veille du midterm |
+| Ven 09/10 | Corp Val 09:45-13:00 (C 201) | **MIDTERM** (20 MCQ, 30 min) ; repos | — |
+| Sam 10/10 | libre | **BNP Maki** matin + Hull J1 | 6 j après UBS |
+| Dim 11/10 | libre | **Morgan Stanley** matin (ou 12+ si deadline le permet) | 1 chance → frais |
 | Lun 12/10 | — | filet BNP (buffer ultime) | après = perdu |
 
 **Règle** : un seul test par jour, jamais la veille ni le jour d'un examen, jamais après 20 h.

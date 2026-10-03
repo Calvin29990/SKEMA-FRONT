@@ -32,7 +32,8 @@ MES LIMITES (vérifiées — applique-les, ne les modifie pas)
 2. BNP Paribas — Stage Analyste Quantitatif BCEF junior (Maki People)
    - 2 activités : « Adaptabilité & Collaboration » + « Esprit d'analyse », 10 min et 8 questions
      chacune, sans retour arrière.
-   - Limite ultime : mardi 13 octobre. BUFFER −24 h = lundi 12 octobre. One shot.
+   - **Pas de passation avant le mercredi 7 octobre** (contrainte plateforme/repo) ; limite ultime :
+     mardi 13 octobre. BUFFER −24 h = lundi 12 octobre. One shot.
 3. Morgan Stanley — 2027 IB Off-Cycle Paris
    - Numerical + Inductive + Situational Judgement, 30 à 90 min au total.
    - LIMITE = [À REMPLIR : date affichée sur la plateforme]. BUFFER = limite − 24 h. Une seule chance.
@@ -64,6 +65,10 @@ R4. Tests cognitifs le matin, esprit frais, téléphone dans une autre pièce.
 R5. Je veux une vraie pause le samedi 3 octobre. Dis-moi si elle tient, ce qu'elle coûte, ce que je déplace.
 R6. Cours de la semaine connus (voir ci-dessus) : mar 6, sam 10 et dim 11 sont LIBRES.
 R7. Si deux limites se télescopent : d'abord « une seule chance » + le plus proche, puis le plus de marge.
+R8. Je veux espacer les tests bancaires (un par jour, pas en bloc) pour, dans l'idéal, recevoir la
+    décision d'une banque AVANT de passer la suivante. Compte 3 à 7 jours de délai de décision.
+    Dis-moi, pour chaque écart entre deux tests, si la décision a le temps d'arriver ; sinon propose le
+    décalage minimal qui la laisse arriver sans casser les buffers ni « pas avant le 7 » du BNP.
 
 CE QUE JE VEUX EN SORTIE (dans cet ordre, sans préambule)
 1. Tableau jour par jour sam. 03/10 → mar. 13/10 : date | matin | après-midi | soir | limite | buffer | marge.
