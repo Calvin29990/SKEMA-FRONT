@@ -4,11 +4,19 @@
 > ce qui est valorisé / nb de questions / vitesse / repères humains / structure / correction / pièges.
 > Les mémos collent **exactement** au contenu de ton trainer (`skema-training/standalone/index.html`).
 
-⚠️ **Deux avertissements honnêtes**
+⚠️ **Trois avertissements honnêtes**
 1. Ces mémos documentent **ta plateforme d'entraînement** (contenu original), PAS les tests réels UBS/BNP/Aon.
    Le jour J, tu passes seul, sans support — c'est la règle des recruteurs.
 2. Les « repères humains » (dauphine, senior entraîné) sont des **ordres de grandeur indicatifs, non
    vérifiés**, donnés pour te situer. Ne les traite pas comme des statistiques officielles.
+3. Les images `img/*.png` sont des **figures annotées rendues fidèlement depuis les données du trainer**
+   (pas des captures d'écran pixel-perfect) : elles montrent exactement quelles cellules/points regarder
+   ou ignorer. Numérique & verbal indiquent **en gras**, question par question, la cellule ou le passage à lire.
+
+**Nouveautés v2 des mémos** : numérique = tables de référence + où regarder en gras par question + 4
+graphes annotés · verbal = les 6 fiches + passage-clé en gras par question · anglais = doc auto-suffisant
+(listes de mots/phrases traduites, ×2-3) · inductif/déductif/concentration/mailing = figures annotées +
+items travaillés + « pourquoi cette réponse plutôt qu'une autre ».
 
 **Légende des réponses** : TRUE = absolument vrai sur la seule base du dossier · FALSE = absolument faux ·
 CANNOT SAY = on ne peut pas trancher sans info supplémentaire. **CANNOT SAY est une vraie réponse** —

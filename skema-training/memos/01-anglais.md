@@ -1,72 +1,115 @@
-# MÉMO 01 — TEST D'ANGLAIS (3 sections)
+# MÉMO 01 — TEST D'ANGLAIS (3 sections) — AUTO-SUFFISANT
 
-> Épreuve « Compétences Linguistiques – Anglais » du trainer. Trois sections indépendantes :
-> **Aisance / phrases** (4:00), **Vocabulaire par définition** (4:00), **Orthographe** (2:00).
-> Format : phrase à trou avec 4 choix + « ? » (ne sais pas) ; orthographe = 2 choix + « ? ».
-> Niveau de départ supposé : **A2**. Tout ce qui suit vise à performer **sur ce test**, pas l'anglais en général.
+> Sections : **Aisance/phrases** (4:00) · **Vocabulaire par définition** (4:00) · **Orthographe** (2:00).
+> Item = phrase à trou, 4 choix + « ? » ; orthographe = 2 choix + « ? ». Niveau de départ supposé **A2**.
+> Ce doc se suffit à lui-même : tout ce qu'il faut pour performer **sur ce test** est ci-dessous.
 
-## 1. Histoire / qui l'a créé
-Famille des épreuves linguistiques **Aon / cut-e** (« language skills »). cut-e (Cologne, Allemagne,
-fondé par le Dr Achim Schmidt) a été racheté par **Aon** en 2017 ; ces batteries alimentent les process
-banque/consulting en Europe. Le principe : mesurer un anglais **professionnel standardisé** (bureau,
-contrats, e-mails), pas un anglais littéraire. D'où le vocabulaire « business » partout (invoice, merger,
-delivery, committee…).
+## 1. Histoire / ce qui est évalué / valorisé
+Famille Aon/cut-e « language skills » (cut-e, Cologne, racheté par Aon 2017). Mesure un **anglais
+professionnel standardisé** (bureau, contrats, e-mails), pas littéraire.
+- **Aisance** : reconnaître la **collocation** et la **préposition fixe** (« ça se dit / ça ne se dit pas »).
+- **Vocabulaire** : synonyme exact d'une définition ; leurres = cousins de forme (defer/infer/confer).
+- **Orthographe** : les 10 mots les plus massacrés de l'anglais des affaires.
+- **Valorisé** : vitesse + sûreté. Le « ? » est préférable à une devinette.
 
-## 2. Ce qui est évalué / valorisé
-- **Aisance** : reconnaître la **collocation** (le mot qui va naturellement avec un autre) et la
-  **préposition fixe**. Ce n'est PAS de la grammaire fine : c'est du « ça se dit / ça ne se dit pas ».
-- **Vocabulaire** : reconnaître un **synonyme exact** d'une définition. Les 3 leurres sont des mots qui
-  *ressemblent* (defer/infer/confer/prefer) → ils testent ta résistance aux faux-amis de forme.
-- **Orthographe** : les 10 mots les plus massacrés de l'anglais des affaires. Pur réflexe visuel.
-- **Valorisé** : vitesse + sûreté. Un item où tu hésites > 10 s est un item perdu. Le « ? » existe :
-  utilise-le plutôt que deviner (il ne pénalise pas comme une faute nette dans beaucoup de barèmes cut-e).
+## 2. Vitesse / repères humains (indicatif, non vérifié)
+Aisance/vocab : viser ≤ 12-15 s/item ; A2 entraîné ~10 s ; Dauphine/HEC ~7-8 s ; senior bilingue ~5 s.
+Orthographe : 2-3 s/paire si tu connais la liste.
 
-## 3. Vitesse / repères humains (indicatif, non vérifié)
-- Aisance & vocabulaire : 4:00 pour la série. **Viser ≤ 12-15 s/item**. Un A2 entraîné qui connaît les
-  collocations ci-dessous tourne à ~10 s ; un profil entraîné type Dauphine/HEC à ~7-8 s ; un senior
-  bilingue à ~5 s et ne lit même pas les 3 leurres.
-- Orthographe : 2:00 pour 10 paires = **12 s/paire** max ; en réalité c'est 2-3 s si tu connais la liste.
+## 3. PRÉPOSITIONS & COLLOCATIONS FIXES (à apprendre telles quelles) — FR
+| Anglais | FR | | Anglais | FR |
+|---|---|---|---|---|
+| in charge of | responsable de | | on behalf of | au nom de |
+| take note of | prendre note de | | due to | prévu pour |
+| come into force | entrer en vigueur | | on time | dans les délais |
+| in time (for) | à temps (pour) | | experience in + -ing | expérience en |
+| responsible for | responsable de | | aware of | conscient de |
+| interested in | intéressé par | | involved in | impliqué dans |
+| rely on | compter sur | | depend on | dépendre de |
+| apply for (a job) | postuler à | | deal with | traiter avec |
+| in charge **of** / **in** control of | sous contrôle | | with regard to | concernant |
 
-## 4. Structure à avoir en tête
-- Chaque item aisance = **une seule préposition/collocation correcte**. Les leurres sont soit des
-  prépositions plausibles, soit des verbes proches (adopted/adapted/adjusted/admitted).
-- Chaque item vocabulaire = **définition → 1 synonyme exact + 3 leurres** (contraires ou cousins de forme).
-- Orthographe = toujours **la bonne orthographe en premier dans le trainer** ; le jour J l'ordre change :
-  repère le mot correct, ne suppose pas la position.
+## 4. PHRASAL VERBS (sens exact) — FR
+| Phrasal | FR | | Phrasal | FR |
+|---|---|---|---|---|
+| add up | être cohérent | | turn down | refuser |
+| turn out | s'avérer | | turn over | retourner / CA |
+| put off | reporter (= defer) | | carry out | mener à bien |
+| set up | créer (société) | | take over | racheter |
+| break down | tomber en panne | | fill in | remplir (formul.) |
+| find out | découvrir | | point out | souligner |
+| rule out | écarter | | bring forward | avancer (date) |
+| put forward | proposer | | write off | amortir |
 
-## 5. Pièges de langue à connaître par cœur (niveau A2 → le test vise B1/B2)
-**Phrasal verbs récurrents** (sens exact) :
-- add **up** = être cohérent (« the figures don't add up »)
-- turn **down** = refuser · turn **out** = s'avérer · turn **over** = retourner
-- put **off** = reporter (= defer) · come **into** force = entrer en vigueur
-- take **note of** = prendre note · **in** charge of = responsable de · **on** behalf of = au nom de
-- experience **in** + -ing · due **to** = prévu pour · on time = dans les délais (in time = à temps pour)
+## 5. VERBES PIÉGEUX (ne les confonds plus) — FR
+- **rise** (sans objet) = monter · **raise** (avec objet) = augmenter qqch.
+- **adopt** = adopter/approuver · **adapt** = adapter · **adjust** = ajuster · **admit** = admettre.
+- **delay** a delivery (jamais « postponed off »).
+- **enclose/attach** + objet (joindre) · **defer** = reporter · **infer** = déduire · **confer** = conférer.
 
-**Verbes piégeux** :
-- **rise** (intransitif, sans objet) vs **raise** (transitif, avec objet) : « sales have risen » / « raise prices ».
-- **adopt** (adopter/approuver) vs **adapt** (adapter) vs **adjust** (ajuster) vs **admit** (admettre).
-- **delay** a delivery (pas « postponed off », qui n'existe pas).
+## 6. VOCABULAIRE BUSINESS (définition → mot) — FR (le double du trainer)
+| Définition EN | Mot | FR |
+|---|---|---|
+| to postpone | **defer** | reporter |
+| careful attention to detail | **meticulousness** | minutie |
+| to make less severe | **alleviate** | soulager |
+| abundant | **ample** | abondant |
+| to waver between two options | **vacillate** | hésiter |
+| clearly expressed | **lucid** | clair |
+| happening every year | **annual** | annuel |
+| to examine closely | **scrutinise** | examiner |
+| unwilling to spend | **miserly** | radin |
+| honest with strong morals | **integrity** | intégrité |
+| to give permission | **authorise** | autoriser |
+| brief, few words | **succinct** | concis |
+| to recover after decline | **rebound** | rebondir |
+| suitable | **apt** | approprié |
+| every two years | **biennial** | bisannuel |
+| lasting a long time | **perennial** | durable |
+| to make worse | **aggravate** | aggraver |
+| unclear, hard to understand | **obscure** | obscur |
+| too many words | **verbose** | verbeux |
+| scarcity | **shortage** | pénurie |
+| to forbid | **prohibit** | interdire |
+| to keep back, refuse | **withhold** | retenir |
+| honest, fair | **fair** | équitable |
+| to estimate, judge | **assess** | évaluer |
+| revenue, income | **turnover** | chiffre d'affaires |
+| money owed | **debt** | dette |
+| excess of spending | **deficit** | déficit |
+| surplus | **excédent** | excédent |
+| to merge | **fusionner** | fusionner |
+| to hire | **recruit** | recruter |
 
-**Faux-amis de forme (vocabulaire)** : defer≠infer≠confer≠prefer · alleviate (soulager)≠aggravate ·
-ample (abondant)≠scarce · vacillate (hésiter) · lucid (clair) · succinct (concis) · miserly (radin) ·
-scrutinise (examiner de près) · apt (approprié)≠inepte.
-
-**Orthographe — la liste des 10** (mémorise la bonne forme) :
+## 7. ORTHOGRAPHE — les 10 (mémorise la bonne forme)
 necessary · occurrence · committee · separate · maintenance · judgment · acquaint · privilege ·
 threshold · conscientious.
-(Astuce : « ne-cess-ary » (1 c, 2 s) ; « commi-tt-ee » (2 m, 2 t) ; « sep-a-rate » ; « privi-lege » sans d.)
+(Astuce : ne-cess-ary 1c2s ; commi-tt-ee 2m2t ; sep-a-rate ; privi-lege sans d.)
 
-## 6. Exemples du trainer + pourquoi
-- « The board **adopted** the proposal. » → adopt = approuver (adapted = adapter = leurre).
-- « Sales have **risen** steadily. » → rise intransitif ; raised exigerait un objet.
-- « She is **in** charge of… » / « signed **on** behalf of… » → prépositions fixes, à apprendre telles quelles.
-- « The committee turned **down** the request. » → turn down = refuser.
-- Vocab : « to postpone » → **defer** ; « careful attention to detail » → **meticulousness** ;
-  « brief and concise » → **succinct** ; « honest and strong morals » → **integrity**.
-- Orthographe : **necessary**, **occurrence**, **committee**… (voir liste §5).
+## 8. PHRASES TYPES AVEC TRADUCTION FR (le cœur du test aisance)
+1. The board **adopted** the proposal. → Le conseil a **adopté** la proposition.
+2. Sales have **risen** steadily. → Les ventes ont **augmenté** régulièrement.
+3. She is **in** charge of onboarding. → Elle est **responsable** de l'intégration.
+4. Signed **on** behalf of both parties. → Signé **au nom des** deux parties.
+5. The delivery will be **delayed**. → La livraison sera **retardée**.
+6. His figures do not add **up**. → Ses chiffres ne sont pas **cohérents**.
+7. The committee turned **down** the request. → Le comité a **refusé** la demande.
+8. Please **enclose** the documents. → Veuillez **joindre** les documents.
+9. The merger is **due** to be completed by June. → La fusion est **prévue** pour juin.
+10. Management takes **note** of every complaint. → La direction **prend note** de chaque plainte.
+11. The rules come **into** force next month. → Les règles entrent **en** vigueur le mois prochain.
+12. Experience **in** negotiating. → Expérience **en** négociation.
+13. A significant **rise** in costs. → Une **hausse** significative des coûts.
+14. Unless paid **on** time. → Sauf paiement **dans les délais**.
+15. We look forward **to** hearing from you. → Nous attendons **de** vos nouvelles.
+16. He is good **at** analysing data. → Il est doué **pour** analyser.
+17. The report is **in** line with expectations. → Le rapport est **conforme** aux attentes.
+18. We depend **on** our suppliers. → Nous dépendons **de** nos fournisseurs.
+19. She applied **for** the role. → Elle a postulé **au** poste.
+20. The figures were rounded **up**. → Les chiffres ont été arrondis **au-dessus**.
 
-## 7. Objectif zéro hasard
-1. Apprends les 3 listes (§5) par cœur : elles couvrent l'essentiel des items du trainer.
-2. Sur un item inconnu : élimine d'abord les leurres de forme (mots cousins), puis décide ; si 2 restent
-   et que tu ne tranches pas en 5 s → « ? ».
-3. Orthographe : ne coche jamais au feeling ; si les deux formes te semblent justes → « ? ».
+## 9. Méthode & objectif zéro hasard
+1. Apprends §3-§7 par cœur : ils couvrent l'essentiel des items.
+2. Item inconnu : élimine les leurres de forme, puis tranche en 5 s sinon « ? ».
+3. Orthographe : jamais au feeling ; doute = « ? ».
+4. Fais 2 runs sur le trainer en visant ≤ 12 s/item et 0 erreur sur les listes.

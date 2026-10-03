@@ -15,6 +15,7 @@ case. Valorisé : rigueur + vitesse ; il n'y a **jamais d'ambiguïté** — la c
 ### 2. Repères (indicatif) : entraîné 10-12 grilles/6 min ; non entraîné 5-7. Vise 8-10 sans faute.
 
 ### 3. Méthode qui marche (≤ 30 s/grille)
+![Grille 4x4 — ligne + colonne de la case ?](img/ded-grid.png)
 1. Regarde d'abord la **ligne ET la colonne** de la case « ? » : liste les symboles déjà présents.
 2. La réponse = le seul symbole **absent** de sa ligne et de sa colonne (parfois il faut remplir une case
    intermédiaire pour débloquer : choisis la ligne/colonne la plus remplie).
@@ -24,6 +25,16 @@ case. Valorisé : rigueur + vitesse ; il n'y a **jamais d'ambiguïté** — la c
 - Grilles « presque pleines » du trainer : la réponse semble directe, mais vérifie **les deux** axes
   (ligne + colonne), pas un seul.
 - Ne pars pas d'une case vide au hasard : pars de la ligne/colonne **la plus contrainte**.
+
+### 5. Item travaillé (comme sur l'image)
+Ligne 4 = [croix, ?, carré vert, triangle] → il manque **rouge ou croix**? Non : la ligne a déjà croix,
+vert, bleu → il manque **rouge**. Colonne 2 = [vert, triangle, croix, ?] → il manque **rouge**.
+Les deux axes concordent → **? = rond rouge**. Si ligne et colonne donnaient deux réponses différentes,
+c'est que tu as mal lu une case → relis.
+
+### 6. Routine d'entraînement
+Fais 3 grilles « à voix haute » (tu énonces ligne puis colonne) sans chrono, puis 5 grilles chrono.
+Cible : **≤ 30 s/grille, 0 erreur**. Le jour J, l'avance automatique punit l'hésitation : décide et avance.
 
 ## B. switchChallenge
 ### 1. Ce qui est évalué

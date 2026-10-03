@@ -16,6 +16,7 @@ réponses** en 2 min, avec un taux d'erreur bas.
 Toi : la progression vient en 3-4 sessions ; l'erreur type = répondre avant d'avoir **compté**.
 
 ## 3. Vraies astuces (le test va très vite)
+![3 points = correct / 4 points = incorrect](img/conc-3vs4.png)
 1. **Compte, ne devine pas** : balaye les points dans le même ordre à chaque fois (ex. haut→bas, gauche→
    droite) et compte 1-2-3 ; dès 4 → incorrect immédiatement (inutile de finir).
 2. **3 = correct, tout le reste incorrect** : 0,1,2,4,5 points = A. La majorité des items sont « incorrect » ;
@@ -33,3 +34,10 @@ Toi : la progression vient en 3-4 sessions ; l'erreur type = répondre avant d'a
 Le module reproduit « E + exactement 3 points » avec D/A. Travaille d'abord **la précision à rythme lent**
 (0 erreur sur 20), puis augmente le débit. Note ton nb d'items et ton % d'erreur à chaque run : la courbe
 doit monter en volume ET descendre en erreur.
+
+## 6. Plan de progression en 4 sessions (~10 min chacune)
+1. **S1 précision** : rythme lent, objectif 0 erreur sur 20 items (peu importe le temps).
+2. **S2 débit** : vise 1 item/s, tolère ≤ 2 erreurs sur 40.
+3. **S3 chrono réel** : 2:00 pleines, note items + % erreur ; cible 60+ à <5%.
+4. **S4 fatigue** : fais-la juste après une autre épreuve pour simuler la fatigue du jour J ; même cible.
+Entre chaque session, identifie ton erreur type (comptage incomplet vs impulsion) et corrige-la en S suivante.
