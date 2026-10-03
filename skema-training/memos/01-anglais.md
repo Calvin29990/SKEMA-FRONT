@@ -3,6 +3,10 @@
 > Sections : **Aisance/phrases** (4:00) · **Vocabulaire par définition** (4:00) · **Orthographe** (2:00).
 > Item = phrase à trou, 4 choix + « ? » ; orthographe = 2 choix + « ? ». Niveau de départ supposé **A2**.
 > Ce doc se suffit à lui-même : tout ce qu'il faut pour performer **sur ce test** est ci-dessous.
+>
+> **Pour aller plus loin (rivaliser avec les C2)**, 4 sous-docs exhaustifs dans `english/` :
+> [EN-1 vocabulaire ~950 mots](english/en-1-vocabulaire.md) · [EN-2 grammaire de zéro](english/en-2-grammaire.md) ·
+> [EN-3 fautes à ne jamais faire](english/en-3-fautes-de-base.md) · [EN-4 synonymes instantanés](english/en-4-synonymes.md).
 
 ## 1. Histoire / ce qui est évalué / valorisé
 Famille Aon/cut-e « language skills » (cut-e, Cologne, racheté par Aon 2017). Mesure un **anglais

@@ -24,7 +24,7 @@ c'est elle qui piège les gens qui devinent.
 
 | # | Test | Mémo | Durée réelle | Nb |
 |---|---|---|---|---|
-| 1 | Anglais (3 sections) | [01-anglais.md](01-anglais.md) | 4+4+2 min | ~59 items |
+| 1 | Anglais (3 sections) + 4 sous-docs (vocab 950 / grammaire / fautes / synonymes) | [01-anglais.md](01-anglais.md) | 4+4+2 min | ~59 items |
 | 2 | Raisonnement numérique | [02-numerique.md](02-numerique.md) | 12:00 | 37 |
 | 3 | Raisonnement verbal | [03-verbal.md](03-verbal.md) | 12:00 | 49 |
 | 4 | Raisonnement inductif | [04-inductif.md](04-inductif.md) | 6:00 | ~8-12 |
