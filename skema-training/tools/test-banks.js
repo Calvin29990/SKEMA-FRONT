@@ -1,4 +1,6 @@
-/* Test de conformité — charge les vrais scripts et démarre chaque nouvelle section bancaire. */
+/* Test de conformité v4.5 — charge les vrais scripts et démarre chaque section bancaire.
+   Vérifie aussi : thèmes par banque (data-bank sur body), kind `chatsjt`, les 18 blocs
+   du Culture Match UBS, et le flux chat complet (13 réponses → log comportemental). */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 
@@ -17,6 +19,18 @@ const mkEl = () => new Proxy(function () {}, {
   set: () => true,
   apply: () => mkEl()
 });
+
+/* body : objet plain qui trace setAttribute/removeAttribute (thèmes par banque) */
+const bodyStub = {
+  _attrs: {},
+  setAttribute(k, v) { this._attrs[k] = String(v); },
+  removeAttribute(k) { delete this._attrs[k]; },
+  getAttribute(k) { return k in this._attrs ? this._attrs[k] : null; },
+  classList: { add() {}, remove() {}, toggle() {}, contains: () => false }
+};
+/* view : objet plain (le Proxy ne stocke pas les surcharges innerHTML) */
+const viewStub = { innerHTML: '', className: '', querySelector: () => null, querySelectorAll: () => [], appendChild() {} };
+
 const sandbox = {
   console,
   localStorage: { getItem: () => null, setItem() {}, removeItem() {} },
@@ -26,7 +40,15 @@ const sandbox = {
   navigator: { userAgent: 'node' },
   matchMedia: () => ({ matches: false, addListener() {}, addEventListener() {} })
 };
-sandbox.document = { body: mkEl(), getElementById: () => mkEl(), createElement: () => mkEl(), querySelector: () => null, querySelectorAll: () => [], addEventListener() {}, documentElement: mkEl() };
+sandbox.document = {
+  body: bodyStub,
+  getElementById: (id) => (id === 'view' ? viewStub : mkEl()),
+  createElement: () => mkEl(),
+  querySelector: () => null,
+  querySelectorAll: () => [],
+  addEventListener() {},
+  documentElement: mkEl()
+};
 sandbox.window = sandbox;
 sandbox.globalThis = sandbox;
 const ctx = vm.createContext(sandbox);
@@ -59,7 +81,7 @@ CORE.SECTIONS.forEach(s => {
 /* 3. start() sur chaque nouvelle section : items conformes au format documenté */
 const expect = {
   'bnp-num': 9, 'bnp-ps': 10, 'bnp-log': 0, 'bnp-sjt': 13, 'bnp-det': 0,
-  'ubs-num': 37, 'ubs-verb': 18, 'ubs-cult': 24,
+  'ubs-num': 37, 'ubs-verb': 18, 'ubs-cult': 18,   /* Culture Match : 18 scénarios (retours candidats déc. 2024) */
   'ms-num': 18, 'ms-verb': 30, 'ms-ind': 0, 'ms-sw': 0, 'ms-sjt': 13
 };
 for (const id of bankIds) {
@@ -80,6 +102,59 @@ for (const s of CORE.SECTIONS.filter(x => !x.bank)) {
 
 /* 5. Clés STR ajoutées */
 ok(typeof BANK.STR.fr.blkSjt === 'string' && typeof BANK.STR.en.blkSjt === 'string', 'STR.blkSjt FR+EN');
+['chatOnline', 'chatTyping', 'chatPlaceholder', 'chatSend', 'chatNextLbl', 'chatNextCta'].forEach(k => {
+  ok(typeof BANK.STR.fr[k] === 'string' && typeof BANK.STR.en[k] === 'string', 'STR.' + k + ' FR+EN');
+});
+
+/* 6. v4.5 — thèmes par banque : data-bank posé sur body pendant la session, retiré après */
+const themeOf = { 'bnp-num': 'BNP', 'ubs-num': 'UBS', 'ms-num': 'MS' };
+for (const id of Object.keys(themeOf)) {
+  CORE.start(id);
+  ok(bodyStub._attrs['data-bank'] === themeOf[id], 'thème : data-bank="' + themeOf[id] + '" posé pendant ' + id);
+  CORE.destroy();
+  ok(!('data-bank' in bodyStub._attrs), 'thème : data-bank retiré après destroy(' + id + ')');
+}
+
+/* 7. v4.5 — Morgan Stanley chatAssess : kind chatsjt, 13 scénarios FR/EN, chaînage ms-num */
+const sjt = CORE.byId('ms-sjt');
+ok(sjt.kind === 'chatsjt', 'ms-sjt : kind "chatsjt" (trouvé ' + sjt.kind + ')');
+ok(sjt.next === 'ms-num', 'ms-sjt : chaînage vers le test suivant (ms-num)');
+ok(Array.isArray(BANK.msChat) && BANK.msChat.length === 13, 'BANK.msChat : 13 scénarios de chat (trouvé ' + (BANK.msChat || []).length + ')');
+ok(BANK.msChat.every(c => typeof c.from === 'string' && c.from.length > 3 &&
+   Array.isArray(c.in) && typeof c.in[0] === 'string' && c.in[0].length > 40 &&
+   typeof c.in[1] === 'string' && c.in[1].length > 40),
+   'BANK.msChat : chaque scénario a un expéditeur + message FR et EN');
+
+/* 8. v4.5 — flux chat complet : 13 réponses → log comportemental → finish() */
+CORE.start('ms-sjt');
+ok(bodyStub._attrs['data-bank'] === 'MS', 'chat : thème MS actif pendant la session');
+CORE.__beginRun();
+let S = CORE.current;
+ok(S.phase === 'run', 'chat : beginRun passe en phase run');
+ok(S.sec.timed === 600 && S.deadline > 0, 'chat : chrono 10:00 armé');
+CORE.__chat.arrive(0);   /* dans l'UI : setTimeout 700 ms (indicateur de frappe) */
+for (let i = 0; i < 13; i++) {
+  ok(S.chatAwaiting === true, 'chat : scénario ' + (i + 1) + '/13 en attente de réponse');
+  CORE.__chat.send('Réponse pro au scénario ' + (i + 1) + ' : je vérifie, je respecte la procédure et j’escalade au bon niveau.');
+  CORE.__chat.arrive(i + 1);   /* dans l'UI : setTimeout 900 ms après l'envoi */
+}
+ok(S.log.length === 13, 'chat : 13 réponses loggées (trouvé ' + S.log.length + ')');
+ok(S.log.every(r => !('ok' in r)), 'chat : aucune entrée "ok" → agrégé comme comportemental');
+ok(S.log.every(r => typeof r.given === 'string' && r.given.length > 10), 'chat : chaque réponse texte est enregistrée');
+ok(S.chatDone === true, 'chat : message final avec lien vers le test suivant reçu');
+ok(/Numerical Reasoning/.test(S.chatMsgs[S.chatMsgs.length - 1].text), 'chat : le message final pointe vers Numerical Reasoning');
+CORE.finish();
+ok(S.attempt && S.attempt.behavioural === true, 'finish() : session chatAssess enregistrée (behavioural)');
+ok(S.attempt && S.attempt.answered === 13, 'finish() : 13 réponses agrégées (trouvé ' + (S.attempt && S.attempt.answered) + ')');
+ok(S.attempt && S.attempt.section === 'ms-sjt', 'finish() : rattaché à la section ms-sjt');
+CORE.destroy();
+ok(!('data-bank' in bodyStub._attrs), 'chat : thème retiré après la session');
+
+/* 9. v4.5 — UBS Culture Match : 18 blocs */
+ok(CORE.byId('ubs-cult').blocks === 18, 'ubs-cult : 18 blocs (scénarios) au registre');
+CORE.start('ubs-cult');
+ok(CORE.current.items.length === 18 && CORE.current.items[0].stmts.length === 3, 'ubs-cult : 18 blocs × 3 affirmations générés');
+CORE.destroy();
 
 console.log(fails ? '\n' + fails + ' ÉCHEC(S)' : '\nTOUS LES TESTS PASSENT');
 process.exit(fails ? 1 : 0);

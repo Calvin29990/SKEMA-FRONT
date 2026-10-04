@@ -692,6 +692,54 @@ const BANK = (() => {
     { sc: 'gears3',   q: 'Gear B is removed from the row. What happens?', o: ['C no longer turns', 'C turns like A', 'C turns faster'], a: 0, w: 'Without B the transmission from A to C is broken.' }
   ].map((x, i) => Object.assign({ id: 'M' + (i + 1) }, x));
 
+  /* ─────────── Morgan Stanley — chatAssess (Aon) : 13 scénarios de chat ───────────
+     Format documenté par les candidats (Wall Street Oasis : « responding to messages
+     of colleagues in fake scenarios using a chat feature » ; mconsultingprep : « chat
+     feature named chatAssess »). Contenu d'entraînement ORIGINAL rédigé pour cette
+     plateforme : chaque scénario est un message reçu d'un collègue, le candidat répond
+     dans la fenêtre de chat comme il le ferait en situation réelle. Paires [FR, EN]. */
+  const msChat = [
+    { from: 'Priya Nair — Analyst', in: [
+      'Salut ! Je pars en réunion client dans 5 minutes. Tu peux envoyer la version actuelle du pitch au client tout de suite ? Il manque encore deux slides, mais il attend quelque chose avant midi.',
+      'Hi! I’m heading into a client meeting in 5 minutes. Could you send the current version of the pitch to the client right away? Two slides are still unfinished, but the client expects something before noon.' ] },
+    { from: 'Tom Keller — Associate', in: [
+      'Hello, je monte un projet transversal et j’aurais besoin du dossier client Meridian. Tu peux me l’envoyer directement ? Inutile de passer par mon manager, ça ira plus vite.',
+      'Hello, I’m setting up a cross-team project and I need the Meridian client file. Could you send it to me directly? No need to go through my manager, it will be faster.' ] },
+    { from: 'Sofia Marino — Assistante d’équipe', in: [
+      'Petit rappel : tu as deux réunions planifiées demain à 10h en même temps — le point hebdo de l’équipe et l’onboarding du nouveau stagiaire. Laquelle est-ce que je garde ?',
+      'Quick reminder: you have two meetings scheduled for 10 a.m. tomorrow at the same time — the team weekly catch-up and the new intern’s onboarding. Which one should I keep?' ] },
+    { from: 'David Chen — VP', in: [
+      'Le modèle est sur le drive partagé. Peux-tu vérifier les chiffres clés avant 9h demain matin ? Si quelque chose te semble incohérent, signale-le-moi immédiatement plutôt que de corriger seul dans ton coin.',
+      'The model is on the shared drive. Could you check the key figures before 9 a.m. tomorrow? If anything looks inconsistent to you, flag it to me immediately rather than fixing it on your own.' ] },
+    { from: 'Léa Fontaine — Analyste', in: [
+      'Petit service : je dois partir à 15h aujourd’hui mais mon relevé d’heures doit afficher 19h. Tu peux saisir les heures à ma place ? Je te revaudrai ça.',
+      'Quick favour: I have to leave at 3 p.m. today but my timesheet needs to show 7 p.m. Could you log the hours for me? I’ll owe you one.' ] },
+    { from: 'Marcus Webb — Compliance Officer', in: [
+      'Pour l’audit du régulateur, il me faut la liste des transactions du compte 44-821. Je sais que ça demande normalement la validation du manager, mais le délai est très court — tu peux me l’envoyer directement ?',
+      'For the regulator’s audit, I need the transaction list of account 44-821. I know it normally requires manager approval, but the deadline is very tight — could you send it to me directly?' ] },
+    { from: 'Anna Petrova — Client Coverage', in: [
+      'Le client Meridian demande notre grille tarifaire exacte sur le desk produits structurés avant 17h. Je n’ai pas les chiffres sous la main — tu peux lui donner une réponse rapide, même une estimation ?',
+      'The Meridian client is asking for our exact fee structure on the structured products desk before 5 p.m. I don’t have the figures at hand — could you give them a quick answer, even an estimate?' ] },
+    { from: 'Hugo Lambert — Stagiaire', in: [
+      'Au secours : j’ai trois tâches « urgentes » de trois personnes différentes, toutes pour aujourd’hui — deux VP et un associate. Je ne peux matériellement pas tout faire. Qu’est-ce que je dois faire ?',
+      'Help: I have three “urgent” tasks from three different people, all due today — two VPs and one associate. I physically cannot do all three. What should I do?' ] },
+    { from: 'Rachel Adeyemi — RH', in: [
+      'Pour préparer la revue de rémunération, tu pourrais me dire ce que gagne à peu près ton collègue de bureau ? Ça reste entre nous, c’est juste pour vérifier l’équité interne.',
+      'To prepare the compensation review, could you tell me roughly what your desk neighbour earns? It stays between us, it is only to check internal fairness.' ] },
+    { from: 'Karim Benali — Analyste', in: [
+      'Hey, je viens de recevoir un e-mail du CEO qui demande d’acheter en urgence des cartes cadeaux et de cliquer sur un lien pour « valider ». Bizarre, non ? Je clique pour voir ce que c’est ?',
+      'Hey, I just got an e-mail from the CEO asking us to urgently buy gift cards and click a link to “validate”. Weird, right? Should I click to see what it is?' ] },
+    { from: 'Julie Moreau — Manager', in: [
+      'L’équipe organise un verre jeudi à 18h. Je sais que tu es sous l’eau avec le dossier Meridian en ce moment — c’est toi qui vois, mais ça ferait plaisir de te voir au moins une heure.',
+      'The team is organising drinks on Thursday at 6 p.m. I know you are swamped with the Meridian file right now — it is entirely up to you, but it would be nice to see you for at least an hour.' ] },
+    { from: 'Stefan Weiss — Audit', in: [
+      'Dans le rapport trimestriel, le chiffre de 3,47 % fait désordre à côté des 4,1 % de l’an dernier. Si on arrondit à 4 %, la présentation est plus propre. Personne ne remarquera rien — tu peux faire la modification ?',
+      'In the quarterly report, the 3.47% figure looks awkward next to last year’s 4.1%. If we round it to 4%, the presentation looks cleaner. Nobody will notice — could you make the change?' ] },
+    { from: 'Nadia Torres — Associate', in: [
+      'Un client important veut sauter l’étape KYC pour « aller plus vite » sur l’ouverture de son compte. Il menace d’aller voir ailleurs si on refuse. On peut faire une exception juste cette fois ?',
+      'An important client wants to skip the KYC step to “speed things up” on his account opening. He is threatening to take his business elsewhere if we refuse. Can we make an exception just this once?' ] }
+  ];
+
   /* ─────────── Information Handling — règles + boîte de réception ─────────── */
   const infoRules = {
     projects: { atlas: 'ATLAS', boreal: 'BOREAL', cascade: 'CASCADE' },
@@ -900,8 +948,8 @@ const BANK = (() => {
         '<p><b>UBS — Online Assessment.</b> Documented module: <b>logical/inductive reasoning — 18 items in 6 minutes</b>, TRUE / FALSE / CANNOT SAY statements based on written information.</p><p>6 minutes for 18 items: under 20 seconds per question. Read the statement, find the sheet, decide — never get stuck.</p><p>The test cannot be interrupted once started.</p>')
     ],
     'ubs-cult': [
-      I('<p><b>UBS — Online Assessment.</b> Le <b>Korn Ferry Culture Match</b> fait partie de toutes les candidatures UBS (source : learnandpass.co.uk).</p><p>Comme les questionnaires « Comportements » et « Motivations » de la base : blocs de trois affirmations, six points à répartir selon l’environnement de travail idéal pour vous.</p><p>Sans limite de temps, mais travaillez vite et honnêtement : ~15 minutes. Aucun retour en arrière possible.</p>',
-        '<p><b>UBS — Online Assessment.</b> The <b>Korn Ferry Culture Match</b> is part of every UBS application (source: learnandpass.co.uk).</p><p>Like the “Behaviour” and “Motivation” questionnaires in the base: blocks of three statements, six points to allocate according to your ideal working environment.</p><p>No time limit, but work quickly and honestly: ~15 minutes. You cannot move back.</p>')
+      I('<p><b>UBS — Online Assessment.</b> Le <b>Korn Ferry Culture Match</b> fait partie de toutes les candidatures UBS (source : learnandpass.co.uk) : selon les retours de candidats (déc. 2024), il se compose de <b>18 questions basées sur des scénarios</b>.</p><p>Comme les questionnaires « Comportements » et « Motivations » de la base : blocs de trois affirmations, six points à répartir selon l’environnement de travail idéal pour vous.</p><p>Sans limite de temps, mais travaillez vite et honnêtement : ~15 minutes. Aucun retour en arrière possible.</p>',
+        '<p><b>UBS — Online Assessment.</b> The <b>Korn Ferry Culture Match</b> is part of every UBS application (source: learnandpass.co.uk): according to candidate reports (Dec. 2024), it consists of <b>18 scenario-based questions</b>.</p><p>Like the “Behaviour” and “Motivation” questionnaires in the base: blocks of three statements, six points to allocate according to your ideal working environment.</p><p>No time limit, but work quickly and honestly: ~15 minutes. You cannot move back.</p>')
     ],
     'ms-num': [
       I('<p><b>Morgan Stanley — Online Assessment</b> (sources : forgeprep.io · careertestprep.com · preplounge.com). Selon le poste et la région : batterie <b>SHL</b> (IBD/S&amp;T notamment) ou <b>Aon/cut-e</b> (campus EMEA). Fenêtre de complétion : 5 à 7 jours ; cut-scores numériques parmi les plus élevés du secteur.</p><p>Module SHL : <b>numérique — 18 questions en 25 minutes</b>. Affirmations TRUE / FALSE / CANNOT SAY sur les feuilles de données.</p><p>Prévoyez calculatrice, crayon et papier. Le chrono démarre à la première question.</p>',
@@ -920,8 +968,10 @@ const BANK = (() => {
         '<p><b>Morgan Stanley — Online Assessment.</b> EMEA campus candidates report an Aon battery including the <b>switchChallenge</b> (source: candidate reports, gameassessmentprep.com).</p><p>Same format as the base “switchChallenge”: find the permutation code applied by the machine. 6 minutes, increasing difficulty.</p><p>Make sure you are not interrupted.</p>')
     ],
     'ms-sjt': [
-      I('<p><b>Morgan Stanley — Online Assessment.</b> Les batteries campus incluent un <b>jugement situationnel de type « chat »</b> (sources : preplounge.com · retours de candidats) : situations client/équipe à prioriser en temps limité.</p><p>13 scénarios, 10 minutes : répartissez les points entre les réactions proposées selon ce qui vous correspond le mieux, en pensant au contexte bancaire (client d’abord, escalade au bon niveau, conformité).</p><p>Il n’y a pas de bonne réponse unique — mais les banques attendent cohérence et jugement professionnel.</p>',
-        '<p><b>Morgan Stanley — Online Assessment.</b> Campus batteries include a <b>chat-based situational judgement test</b> (sources: preplounge.com · candidate reports): client/team situations to prioritise under time pressure.</p><p>13 scenarios, 10 minutes: allocate the points between the proposed reactions according to what suits you best, thinking of the banking context (client first, escalate at the right level, compliance).</p><p>There is no single right answer — but banks expect consistency and professional judgement.</p>')
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Les batteries campus EMEA incluent le <b>chatAssess d’Aon</b> : selon les candidats qui l’ont passé, « il faut répondre aux messages de collègues dans des scénarios fictifs en utilisant une interface de chat ».</p><p>Ce module reproduit ce format en mode messagerie : les scénarios arrivent comme des <b>messages reçus</b> et vous répondez comme vous le feriez dans un chat professionnel (quelques phrases suffisent).</p><p>13 scénarios, 10 minutes. Il n’y a pas de bonne réponse unique : demandez-vous ce que ferait un collègue fiable en contexte bancaire — qualité du travail, confidentialité, conformité, intégrité, priorisation, relation client.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> EMEA campus batteries include <b>Aon’s chatAssess</b>: according to candidates who took it, “you have to respond to colleague messages in fake scenarios using a chat feature”.</p><p>This module reproduces that format in messenger mode: scenarios arrive as <b>incoming messages</b> and you reply exactly as you would in a professional chat (a few sentences are enough).</p><p>13 scenarios, 10 minutes. There is no single right answer: ask yourself what a reliable colleague would do in a banking context — quality of work, confidentiality, compliance, integrity, prioritisation, client care.</p>'),
+      I('<p>Veuillez noter :</p><ul><li>Le chronomètre (10:00) démarre dès le premier message reçu.</li><li>Répondez à chaque message en tapant votre réponse puis « Envoyer » ; aucun retour en arrière possible.</li><li>Écrivez comme à un collègue : ton courtois, clair et professionnel.</li><li>À la fin, un dernier message vous oriente vers l’évaluation suivante du process.</li><li>Le test ne peut pas être interrompu une fois commencé.</li></ul>',
+        '<p>Please note:</p><ul><li>The timer (10:00) starts as soon as the first message arrives.</li><li>Answer each message by typing your reply and pressing “Send”; you cannot move back.</li><li>Write as you would to a colleague: courteous, clear and professional tone.</li><li>At the end, a final message points you to the next assessment in the process.</li><li>The test cannot be interrupted once started.</li></ul>')
     ]
   };
 
@@ -954,7 +1004,10 @@ const BANK = (() => {
       },
       inbox: 'Boîte de réception', prio: 'Priorité', action: 'Action', noAction: '— aucune —',
       prioV: ['HIGH', 'MEDIUM', 'LOW'],
-      actV: ['Transférer à Keira Sanders', 'Transférer à Daniel Knowles', 'Accuser réception', 'Responsable personnellement', 'Transférer à Walter Durenga']
+      actV: ['Transférer à Keira Sanders', 'Transférer à Daniel Knowles', 'Accuser réception', 'Responsable personnellement', 'Transférer à Walter Durenga'],
+      chatOnline: 'en ligne', chatTyping: 'écrit…', chatPlaceholder: 'Écrivez votre réponse…', chatSend: 'Envoyer',
+      chatNextLbl: 'Évaluation suivante', chatNextCta: 'Numerical Reasoning — appuyez pour commencer',
+      chatEmpty: 'Écrivez une réponse avant d’envoyer.'
     },
     en: {
       chooseCorrect: 'Please choose the correct answer',
@@ -983,12 +1036,15 @@ const BANK = (() => {
       },
       inbox: 'Inbox', prio: 'Priority', action: 'Action', noAction: '— none —',
       prioV: ['HIGH', 'MEDIUM', 'LOW'],
-      actV: ['Forward to Keira Sanders', 'Forward to Daniel Knowles', 'Notice of receipt', 'Personally responsible', 'Forward to Walter Durenga']
+      actV: ['Forward to Keira Sanders', 'Forward to Daniel Knowles', 'Notice of receipt', 'Personally responsible', 'Forward to Walter Durenga'],
+      chatOnline: 'online', chatTyping: 'typing…', chatPlaceholder: 'Type your reply…', chatSend: 'Send',
+      chatNextLbl: 'Next assessment', chatNextCta: 'Numerical Reasoning — tap to start',
+      chatEmpty: 'Write a reply before sending.'
     }
   };
 
   return { SYM_DED, SYM_IND, SYM_SW, verbalSheets, verbal, enFluency, enVocab, enSpell, frFluency, frVocab, frSpell,
-           behaviour, motivation, mech, infoRules, infoMails, infoMailsLate, infoMailTpl, leObjs, INTRO, STR,
+           behaviour, motivation, mech, msChat, infoRules, infoMails, infoMailsLate, infoMailTpl, leObjs, INTRO, STR,
            enFluencyExtra, enVocabExtra, enSpellPairs, frFluencyExtra, frVocabExtra, frSpellPairs };
 })();
 
