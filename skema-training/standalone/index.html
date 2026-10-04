@@ -1956,6 +1956,18 @@ const BANK = (() => {
       I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>attention aux détails — 10 questions en 12 minutes</b>.</p><p>Comparez les suites de symboles et placez les points exactement comme dans « Capacité de Concentration » de la base, mais avec le chrono de 12 minutes du format Maki.</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
         '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>attention to detail — 10 items in 12 minutes</b>.</p><p>Compare the symbol sequences and place the dots exactly as in “Ability to Concentration” from the base, but with the 12-minute timer of the Maki format.</p><p>The test cannot be interrupted once started.</p>')
     ],
+    'ubs-num': [
+      I('<p><b>UBS — Online Assessment</b> (source : learnandpass.co.uk/tests-by-company/ubs). Toutes les candidatures passent la batterie cognitive <b>Aon</b> + le <b>Korn Ferry Culture Match</b>.</p><p>Module : <b>raisonnement numérique Aon — 37 questions en 12 minutes</b>, affirmations TRUE / FALSE / CANNOT SAY sur les feuilles de données.</p><p>La plupart des candidats ne terminent pas les 37 questions : visez la précision avant la quantité. Calculatrice et papier recommandés.</p>',
+        '<p><b>UBS — Online Assessment</b> (source: learnandpass.co.uk/tests-by-company/ubs). All applications take the <b>Aon</b> cognitive battery + the <b>Korn Ferry Culture Match</b>.</p><p>Module: <b>Aon numerical reasoning — 37 items in 12 minutes</b>, TRUE / FALSE / CANNOT SAY statements on the data sheets.</p><p>Most candidates cannot complete all 37 items: aim for accuracy before quantity. Calculator and paper recommended.</p>')
+    ],
+    'ubs-verb': [
+      I('<p><b>UBS — Online Assessment.</b> Module documenté : <b>raisonnement logique/inductif — 18 questions en 6 minutes</b>, affirmations TRUE / FALSE / CANNOT SAY à partir d’informations écrites.</p><p>6 minutes pour 18 questions : moins de 20 secondes par question. Lisez l’affirmation, retrouvez la feuille, tranchez — ne restez jamais bloqué.</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>UBS — Online Assessment.</b> Documented module: <b>logical/inductive reasoning — 18 items in 6 minutes</b>, TRUE / FALSE / CANNOT SAY statements based on written information.</p><p>6 minutes for 18 items: under 20 seconds per question. Read the statement, find the sheet, decide — never get stuck.</p><p>The test cannot be interrupted once started.</p>')
+    ],
+    'ubs-cult': [
+      I('<p><b>UBS — Online Assessment.</b> Le <b>Korn Ferry Culture Match</b> fait partie de toutes les candidatures UBS (source : learnandpass.co.uk) : selon les retours de candidats (déc. 2024), il se compose de <b>18 questions basées sur des scénarios</b>.</p><p>Comme les questionnaires « Comportements » et « Motivations » de la base : blocs de trois affirmations, six points à répartir selon l’environnement de travail idéal pour vous.</p><p>Sans limite de temps, mais travaillez vite et honnêtement : ~15 minutes. Aucun retour en arrière possible.</p>',
+        '<p><b>UBS — Online Assessment.</b> The <b>Korn Ferry Culture Match</b> is part of every UBS application (source: learnandpass.co.uk): according to candidate reports (Dec. 2024), it consists of <b>18 scenario-based questions</b>.</p><p>Like the “Behaviour” and “Motivation” questionnaires in the base: blocks of three statements, six points to allocate according to your ideal working environment.</p><p>No time limit, but work quickly and honestly: ~15 minutes. You cannot move back.</p>')
+    ],
     'ms-num': [
       I('<p><b>Morgan Stanley — Online Assessment</b> (sources : forgeprep.io · careertestprep.com · preplounge.com). Selon le poste et la région : batterie <b>SHL</b> (IBD/S&amp;T notamment) ou <b>Aon/cut-e</b> (campus EMEA). Fenêtre de complétion : 5 à 7 jours ; cut-scores numériques parmi les plus élevés du secteur.</p><p>Module SHL : <b>numérique — 18 questions en 25 minutes</b>. Affirmations TRUE / FALSE / CANNOT SAY sur les feuilles de données.</p><p>Prévoyez calculatrice, crayon et papier. Le chrono démarre à la première question.</p>',
         '<p><b>Morgan Stanley — Online Assessment</b> (sources: forgeprep.io · careertestprep.com · preplounge.com). Depending on role and region: <b>SHL</b> battery (IBD/S&amp;T notably) or <b>Aon/cut-e</b> (EMEA campus). Completion window: 5 to 7 days; numerical cut-scores among the highest in the industry.</p><p>SHL module: <b>numerical — 18 items in 25 minutes</b>. TRUE / FALSE / CANNOT SAY statements on the data sheets.</p><p>Have a calculator, pencil and paper ready. The timer starts with the first question.</p>')
@@ -2415,7 +2427,7 @@ if (typeof window !== 'undefined') window.BANK = BANK; else globalThis.BANK = BA
   BANK.ubsCulturePractice = culturePractice;
   BANK.ubsCulture = culture.map((item, i) => Object.assign({ id: 'UBSC' + (i + 1) }, item));
 
-  BANK.INTRO['ubs-num'] = [
+  BANK.INTRO['ubs-num-18'] = [
     intro(
       '<p>Ce test d’entraînement mesure votre capacité à lire des tableaux et des graphiques puis à évaluer des affirmations sur la seule base des données affichées.</p><p>Pour chaque affirmation, choisissez <b>TRUE</b> si elle est nécessairement vraie, <b>FALSE</b> si elle est nécessairement fausse, ou <b>CANNOT SAY</b> si la feuille ne permet pas de trancher. Six feuilles de données restent consultables pendant l’épreuve.</p><p>Les noms, chiffres et questions de cette version sont fictifs et ont été écrits pour l’entraînement ; ils ne reproduisent pas le contenu du test UBS.</p>',
       '<p>This practice test checks how quickly you can read tables and charts and evaluate statements using only the displayed data.</p><p>For each statement, choose <b>TRUE</b> if it must be true, <b>FALSE</b> if it must be false, or <b>CANNOT SAY</b> if the sheet does not provide enough information. Six data sheets remain available throughout the test.</p><p>All names, figures, and questions in this practice version are fictional and original; they do not reproduce UBS test content.</p>'
@@ -2425,7 +2437,7 @@ if (typeof window !== 'undefined') window.BANK = BANK; else globalThis.BANK = BA
       '<p>Please note:</p><ul><li>The test contains <b>18 statements in 6 minutes</b>.</li><li>Each statement relates to a data sheet; you can switch sheets without leaving the question.</li><li>There is one correct answer per statement; answers can be changed with the arrows or question grid.</li><li>The timer starts with the first question. You can finish early once every answer is recorded.</li><li>A calculator and scratch paper may help.</li></ul>'
     )
   ];
-  BANK.INTRO['ubs-cult'] = [
+  BANK.INTRO['ubs-cult-action'] = [
     intro(
       '<p>Ce module d’entraînement présente des situations professionnelles et trois réactions possibles. Pour chaque situation, sélectionnez l’action <b>la plus efficace</b> et celle <b>la moins efficace</b>.</p><p>Évaluez les options au regard de la collaboration, de l’intégrité, de la qualité du travail, du service client et de la gestion des risques. Les scénarios sont originaux et les résultats constituent un repère d’entraînement, pas une notation officielle UBS.</p>',
       '<p>This practice module presents workplace scenarios and three possible actions. For each scenario, choose the <b>most effective</b> and the <b>least effective</b> response.</p><p>Consider collaboration, integrity, work quality, client service, and risk management. The scenarios are original, and the results are practice guidance rather than an official UBS score.</p>'
@@ -2927,11 +2939,16 @@ const CORE = (() => {
     { id: 'bnp-sjt', bank: 'BNP', home: 'BNP Maki — SJT « communication efficace » (jugement situationnel, 13 q. / 10 min)', head: 'BNP Maki — SJT “effective communication” (situational judgement, 13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600, sjt: true },
     { id: 'bnp-det', bank: 'BNP', home: 'BNP Maki — attention aux détails (10 q. / 12 min)', head: 'BNP Maki — attention to detail (10 items / 12 min)', min: 12, kind: 'edots', timed: 720, exTime: 30 },
 
-    /* ══ UBS — les trois formats ajoutés d’après les documents fournis.
-       Les exercices et données utilisés ci-dessous sont originaux et fictifs. ══ */
-    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique (18 questions / 6 min)', head: 'UBS — numerical reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'ubs', cap: 18, timed: 360 },
-    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (18 scénarios / ~20 min)', head: 'UBS — Culture Match (18 scenarios / ~20 min)', min: 20, kind: 'culture', blocks: 18 },
-    { id: 'ubs-ind', bank: 'UBS', home: 'UBS — raisonnement inductif (6 min)', head: 'UBS — inductive reasoning (6 min)', min: 6, kind: 'pick2', timed: 360 },
+    /* ══ UBS — formats déjà présents (Aon / Korn Ferry). ══ */
+    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique Aon (37 q. / 12 min)', head: 'UBS — Aon numerical reasoning (37 items / 12 min)', min: 12, kind: 'numverb', src: 'num', timed: 720 },
+    { id: 'ubs-verb', bank: 'UBS', home: 'UBS — raisonnement logique/inductif (18 q. / 6 min)', head: 'UBS — logical/inductive reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'verb', cap: 18, timed: 360 },
+    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (préférences, 18 blocs)', head: 'UBS — Culture Match (preferences, 18 blocks)', min: 15, kind: 'blocks', blocks: 18 },
+
+    /* ══ UBS — trois formats supplémentaires d’après les documents fournis.
+       Ces nouveaux exercices et jeux de données sont originaux et fictifs. ══ */
+    { id: 'ubs-num-18', bank: 'UBS', home: 'UBS — numérique (18 questions / 6 min · documents fournis)', head: 'UBS — numerical reasoning (18 items / 6 min · supplied format)', min: 6, kind: 'numverb', src: 'ubs', cap: 18, timed: 360 },
+    { id: 'ubs-cult-action', bank: 'UBS', home: 'UBS — Culture Match (18 scénarios, plus/moins efficaces)', head: 'UBS — Culture Match (18 scenarios, most/least effective)', min: 20, kind: 'culture', blocks: 18 },
+    { id: 'ubs-ind', bank: 'UBS', home: 'UBS — raisonnement inductif par grilles (6 min)', head: 'UBS — inductive reasoning with grids (6 min)', min: 6, kind: 'pick2', timed: 360 },
 
     /* ══ Morgan Stanley — Online Assessment selon poste/région : SHL (IBD/S&T notamment)
        ou Aon/cut-e (campus EMEA). Sources : forgeprep.io · careertestprep.com · preplounge.com ·
@@ -2947,7 +2964,7 @@ const CORE = (() => {
   /* Groupes affichés sur l'accueil (dans l'ordre d'apparition de SECTIONS). */
   const BANKS = {
     BNP: { title: 'BNP Paribas — Maki (plateforme depuis 2025)', src: 'Formats documentés : psychotechniquetest.fr · test-banque.fr · Glassdoor (process CIB stagiaires). Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5), plancher 0. Modules anglais/français ≈ sections « Compétences Linguistiques » ci-dessus.' },
-    UBS: { title: 'UBS — Online Assessment · 3 entraînements', src: 'Formats vus dans les documents fournis : numérique (18 questions / 6 min), Culture Match (18 scénarios / ~20 min, sans chrono) et raisonnement inductif (6 min). Données et questions d’entraînement originales.' },
+    UBS: { title: 'UBS — Online Assessment · 6 entraînements', src: 'Formats Aon/Korn Ferry existants, complétés par les trois formats des documents fournis : numérique (18 questions / 6 min), Culture Match (18 scénarios, plus/moins efficaces) et inductif par grilles (6 min). Les nouveaux exercices sont originaux et fictifs.' },
     MS: { title: 'Morgan Stanley — Online Assessment (SHL ou Aon)', src: 'Formats documentés : forgeprep.io · careertestprep.com · preplounge.com — SHL (IBD/S&T) ou Aon/cut-e (campus EMEA) selon le poste ; cut-scores numériques parmi les plus élevés. Aon chatAssess : répondre aux messages de collègues dans une interface de chat (retours candidats : Wall Street Oasis, mconsultingprep).' }
   };
   const byId = (id) => SECTIONS.find(s => s.id === id);

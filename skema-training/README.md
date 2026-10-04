@@ -1,8 +1,8 @@
 # Assessment Trainer — v4.6 · Aon/cut-e et modules bancaires
 
 Plateforme personnelle d'entraînement aux tests d'aptitude utilisés dans les processus
-de sélection. Elle conserve les **14 tâches de base Aon / cut-e** et ajoute 13 modules
-BNP Paribas, UBS et Morgan Stanley. Les documents de référence servent à reprendre les
+de sélection. Elle conserve les **14 tâches de base Aon / cut-e** et regroupe 16 modules
+BNP Paribas, UBS et Morgan Stanley, dont trois nouveaux formats UBS. Les documents de référence servent à reprendre les
 formats, durées et mécaniques ; toutes les questions, données et grilles d'entraînement
 sont originales.
 
@@ -128,14 +128,14 @@ anglais par défaut avec réglage épreuve par épreuve, et banques de personnal
 
 ## Modules bancaires (v4.6) — BNP Maki, UBS, Morgan Stanley
 
-13 sections supplémentaires, regroupées sur l'accueil sous trois en-têtes. Les captures
+16 sections supplémentaires, regroupées sur l'accueil sous trois en-têtes. Les captures
 fournies servent à caler les formats et les durées ; les énoncés, tableaux, scénarios et
-grilles de ce trainer restent **originaux et fictifs** (aucun item du test réel n'est copié).
+grilles des modules ajoutés restent **originaux et fictifs** (aucun item du test réel n'est copié).
 
 | Groupe | Modules d'entraînement | Sources de format |
 |---|---|---|
 | **BNP Paribas — Maki** | numérique 9 q./10 min · logique 13 q./8 min · résolution de problèmes 10 q./10 min · SJT 13 q./10 min · attention aux détails 10 q./12 min | psychotechniquetest.fr/bnp-paribas · test-banque.fr/bnp-paribas · Glassdoor (process CIB stagiaires) |
-| **UBS — Online Assessment** | **Numérique** : 18 q./6 min, 6 feuilles ; **Culture Match** : 18 scénarios, ~20 min sans chrono, choix « plus/moins efficace » ; **Inductif** : 2 grilles modèles + choisir 2 candidates, 6 min | captures des documents UBS fournis pour cette session ; contenu du trainer entièrement original |
+| **UBS — Online Assessment** | Modules existants : Aon numérique 37 q./12 min · logique/T-F/Cannot Say 18 q./6 min · Culture Match préférences (18 blocs). Nouveaux formats : numérique 18 q./6 min, 6 feuilles · Culture Match à choix « plus/moins efficace » (18 scénarios, ~20 min sans chrono) · inductif par grilles (2 modèles + choisir 2 sur 4, 6 min) | learnandpass.co.uk pour les formats historiques · captures des documents UBS fournis pour les nouveaux formats ; nouveau contenu entièrement original |
 | **Morgan Stanley — OA** | SHL : numérique 18 q./25 min · verbal 30 q./19 min · inductif 24 q./25 min ; Aon EMEA : switchChallenge + SJT chat 13 q./10 min | forgeprep.io · careertestprep.com · preplounge.com · gameassessmentprep.com |
 
 Les trois modules UBS ont des consignes FR/EN, une mécanique dédiée pour le choix « Most /

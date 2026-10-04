@@ -356,7 +356,7 @@
   BANK.ubsCulturePractice = culturePractice;
   BANK.ubsCulture = culture.map((item, i) => Object.assign({ id: 'UBSC' + (i + 1) }, item));
 
-  BANK.INTRO['ubs-num'] = [
+  BANK.INTRO['ubs-num-18'] = [
     intro(
       '<p>Ce test d’entraînement mesure votre capacité à lire des tableaux et des graphiques puis à évaluer des affirmations sur la seule base des données affichées.</p><p>Pour chaque affirmation, choisissez <b>TRUE</b> si elle est nécessairement vraie, <b>FALSE</b> si elle est nécessairement fausse, ou <b>CANNOT SAY</b> si la feuille ne permet pas de trancher. Six feuilles de données restent consultables pendant l’épreuve.</p><p>Les noms, chiffres et questions de cette version sont fictifs et ont été écrits pour l’entraînement ; ils ne reproduisent pas le contenu du test UBS.</p>',
       '<p>This practice test checks how quickly you can read tables and charts and evaluate statements using only the displayed data.</p><p>For each statement, choose <b>TRUE</b> if it must be true, <b>FALSE</b> if it must be false, or <b>CANNOT SAY</b> if the sheet does not provide enough information. Six data sheets remain available throughout the test.</p><p>All names, figures, and questions in this practice version are fictional and original; they do not reproduce UBS test content.</p>'
@@ -366,7 +366,7 @@
       '<p>Please note:</p><ul><li>The test contains <b>18 statements in 6 minutes</b>.</li><li>Each statement relates to a data sheet; you can switch sheets without leaving the question.</li><li>There is one correct answer per statement; answers can be changed with the arrows or question grid.</li><li>The timer starts with the first question. You can finish early once every answer is recorded.</li><li>A calculator and scratch paper may help.</li></ul>'
     )
   ];
-  BANK.INTRO['ubs-cult'] = [
+  BANK.INTRO['ubs-cult-action'] = [
     intro(
       '<p>Ce module d’entraînement présente des situations professionnelles et trois réactions possibles. Pour chaque situation, sélectionnez l’action <b>la plus efficace</b> et celle <b>la moins efficace</b>.</p><p>Évaluez les options au regard de la collaboration, de l’intégrité, de la qualité du travail, du service client et de la gestion des risques. Les scénarios sont originaux et les résultats constituent un repère d’entraînement, pas une notation officielle UBS.</p>',
       '<p>This practice module presents workplace scenarios and three possible actions. For each scenario, choose the <b>most effective</b> and the <b>least effective</b> response.</p><p>Consider collaboration, integrity, work quality, client service, and risk management. The scenarios are original, and the results are practice guidance rather than an official UBS score.</p>'

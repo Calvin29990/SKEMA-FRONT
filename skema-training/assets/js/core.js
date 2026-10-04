@@ -38,11 +38,16 @@ const CORE = (() => {
     { id: 'bnp-sjt', bank: 'BNP', home: 'BNP Maki — SJT « communication efficace » (jugement situationnel, 13 q. / 10 min)', head: 'BNP Maki — SJT “effective communication” (situational judgement, 13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600, sjt: true },
     { id: 'bnp-det', bank: 'BNP', home: 'BNP Maki — attention aux détails (10 q. / 12 min)', head: 'BNP Maki — attention to detail (10 items / 12 min)', min: 12, kind: 'edots', timed: 720, exTime: 30 },
 
-    /* ══ UBS — les trois formats ajoutés d’après les documents fournis.
-       Les exercices et données utilisés ci-dessous sont originaux et fictifs. ══ */
-    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique (18 questions / 6 min)', head: 'UBS — numerical reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'ubs', cap: 18, timed: 360 },
-    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (18 scénarios / ~20 min)', head: 'UBS — Culture Match (18 scenarios / ~20 min)', min: 20, kind: 'culture', blocks: 18 },
-    { id: 'ubs-ind', bank: 'UBS', home: 'UBS — raisonnement inductif (6 min)', head: 'UBS — inductive reasoning (6 min)', min: 6, kind: 'pick2', timed: 360 },
+    /* ══ UBS — formats déjà présents (Aon / Korn Ferry). ══ */
+    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique Aon (37 q. / 12 min)', head: 'UBS — Aon numerical reasoning (37 items / 12 min)', min: 12, kind: 'numverb', src: 'num', timed: 720 },
+    { id: 'ubs-verb', bank: 'UBS', home: 'UBS — raisonnement logique/inductif (18 q. / 6 min)', head: 'UBS — logical/inductive reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'verb', cap: 18, timed: 360 },
+    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (préférences, 18 blocs)', head: 'UBS — Culture Match (preferences, 18 blocks)', min: 15, kind: 'blocks', blocks: 18 },
+
+    /* ══ UBS — trois formats supplémentaires d’après les documents fournis.
+       Ces nouveaux exercices et jeux de données sont originaux et fictifs. ══ */
+    { id: 'ubs-num-18', bank: 'UBS', home: 'UBS — numérique (18 questions / 6 min · documents fournis)', head: 'UBS — numerical reasoning (18 items / 6 min · supplied format)', min: 6, kind: 'numverb', src: 'ubs', cap: 18, timed: 360 },
+    { id: 'ubs-cult-action', bank: 'UBS', home: 'UBS — Culture Match (18 scénarios, plus/moins efficaces)', head: 'UBS — Culture Match (18 scenarios, most/least effective)', min: 20, kind: 'culture', blocks: 18 },
+    { id: 'ubs-ind', bank: 'UBS', home: 'UBS — raisonnement inductif par grilles (6 min)', head: 'UBS — inductive reasoning with grids (6 min)', min: 6, kind: 'pick2', timed: 360 },
 
     /* ══ Morgan Stanley — Online Assessment selon poste/région : SHL (IBD/S&T notamment)
        ou Aon/cut-e (campus EMEA). Sources : forgeprep.io · careertestprep.com · preplounge.com ·
@@ -58,7 +63,7 @@ const CORE = (() => {
   /* Groupes affichés sur l'accueil (dans l'ordre d'apparition de SECTIONS). */
   const BANKS = {
     BNP: { title: 'BNP Paribas — Maki (plateforme depuis 2025)', src: 'Formats documentés : psychotechniquetest.fr · test-banque.fr · Glassdoor (process CIB stagiaires). Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5), plancher 0. Modules anglais/français ≈ sections « Compétences Linguistiques » ci-dessus.' },
-    UBS: { title: 'UBS — Online Assessment · 3 entraînements', src: 'Formats vus dans les documents fournis : numérique (18 questions / 6 min), Culture Match (18 scénarios / ~20 min, sans chrono) et raisonnement inductif (6 min). Données et questions d’entraînement originales.' },
+    UBS: { title: 'UBS — Online Assessment · 6 entraînements', src: 'Formats Aon/Korn Ferry existants, complétés par les trois formats des documents fournis : numérique (18 questions / 6 min), Culture Match (18 scénarios, plus/moins efficaces) et inductif par grilles (6 min). Les nouveaux exercices sont originaux et fictifs.' },
     MS: { title: 'Morgan Stanley — Online Assessment (SHL ou Aon)', src: 'Formats documentés : forgeprep.io · careertestprep.com · preplounge.com — SHL (IBD/S&T) ou Aon/cut-e (campus EMEA) selon le poste ; cut-scores numériques parmi les plus élevés. Aon chatAssess : répondre aux messages de collègues dans une interface de chat (retours candidats : Wall Street Oasis, mconsultingprep).' }
   };
   const byId = (id) => SECTIONS.find(s => s.id === id);
