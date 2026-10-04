@@ -242,7 +242,7 @@
   }
 
   /* ═══════════════ Démarrage ═══════════════ */
-  $('#footMeta').textContent = 'Assessment Trainer v4.3 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
+  $('#footMeta').textContent = 'Assessment Trainer v4.5 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
   ensureUser();
   route();
 })();

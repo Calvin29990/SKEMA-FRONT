@@ -418,6 +418,9 @@ input:focus,select:focus{border-color:var(--red)}
 .tasks{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--card);box-shadow:var(--sh)}
 .task{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--card)}
 .task:last-child{border-bottom:0}
+.bank-head{padding:14px 16px 12px;border-bottom:1px solid var(--line);background:#f4f6fa}
+.bh-title{font-size:14px;font-weight:800;color:var(--tx1);letter-spacing:.2px}
+.bh-src{font-size:12px;color:var(--tx3);margin-top:3px;line-height:1.45}
 .task:hover{background:#fafbfd}
 .tk-name{flex:1;font-size:15.5px;font-weight:600;color:var(--tx1)}
 .tk-time{font-size:13.5px;color:var(--tx3);min-width:92px;text-align:right}
@@ -601,6 +604,62 @@ body.running .sk-tabs{display:none}
 .ifb-lecell i{position:absolute;top:1px;left:3px;font-style:normal;font-size:8.5px;font-weight:700;color:var(--tx3)}
 @media(max-width:640px){ .ifb-lecells{grid-template-columns:repeat(6,1fr)} }
 
+
+/* ══════════ v4.5 — Thèmes par banque (variables centralisées : --red, --red-d, --red-bg) ══════════ */
+/* BNP Paribas — style Maki : blanc / rouge #ce0f2e, cartes et boutons arrondis */
+body[data-bank="BNP"]{--red:#ce0f2e;--red-d:#a90c26;--red-bg:#fbe9ec}
+body[data-bank="BNP"] .tstart,body[data-bank="BNP"] .btn-next,body[data-bank="BNP"] .btn-intro,
+body[data-bank="BNP"] .blk-next,body[data-bank="BNP"] .tfbtn,body[data-bank="BNP"] .conc-btn,
+body[data-bank="BNP"] .navpad button{border-radius:999px}
+body[data-bank="BNP"] .intro-page,body[data-bank="BNP"] .trow,body[data-bank="BNP"] .optrow,
+body[data-bank="BNP"] .blk,body[data-bank="BNP"] .blk-row{border-radius:14px}
+body[data-bank="BNP"] .sk-top{box-shadow:0 2px 12px rgba(206,15,46,.28)}
+
+/* UBS — blanc / rouge UBS vif #ec0000 (trait net, fidèle à la charte UBS) */
+body[data-bank="UBS"]{--red:#ec0000;--red-d:#c40000;--red-bg:#fde8e8}
+
+/* Morgan Stanley — bleu moderne */
+body[data-bank="MS"]{--red:#17457e;--red-d:#0f2f57;--red-bg:#e8f0fb}
+
+/* ══════════ v4.5 — chatAssess Morgan Stanley, fenêtre façon WhatsApp ══════════ */
+.chat-app{max-width:620px;margin:8px auto 0;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:var(--sh);display:flex;flex-direction:column;height:min(74vh,660px)}
+.chat-head{display:flex;align-items:center;gap:12px;padding:12px 16px;color:#fff;
+  background:linear-gradient(135deg,#0b2a55,#1f6feb)}
+.chat-ava{width:38px;height:38px;border-radius:50%;background:#fff;color:#17457e;font-weight:800;
+  font-size:14px;display:flex;align-items:center;justify-content:center;letter-spacing:.5px;flex-shrink:0}
+.chat-hdtxt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.chat-hdtxt b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-hdtxt span{font-size:11.5px;opacity:.85}
+.chat-lock{margin-left:auto;opacity:.8;font-size:13px}
+.chat-body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:8px;
+  background:#efeae2}
+.chat-row{display:flex}
+.chat-row.me{justify-content:flex-end}
+.bubble{max-width:80%;padding:8px 12px;border-radius:12px;font-size:13.5px;line-height:1.45;
+  box-shadow:0 1px 1px rgba(0,0,0,.10);white-space:pre-wrap;word-wrap:break-word}
+.bubble.them{background:#fff;border-top-left-radius:3px}
+.bubble.me{background:linear-gradient(135deg,#1f6feb,#17457e);color:#fff;border-top-right-radius:3px}
+.b-from{font-size:11px;font-weight:700;color:#17457e;margin-bottom:2px}
+.b-time{display:block;font-size:10px;opacity:.6;margin-top:4px;text-align:right}
+.b-ticks{letter-spacing:-2px}
+.link-bubble{border:2px solid #1f6feb}
+.chat-cta{display:block;width:100%;margin-top:8px;background:#1f6feb;color:#fff;font-weight:700;
+  border-radius:999px;padding:9px 14px;font-size:13px;text-align:center}
+.chat-cta:hover{background:#17457e}
+.chat-input{display:flex;gap:8px;padding:10px 12px;background:#f0f2f5;border-top:1px solid var(--line);align-items:flex-end}
+.chat-input textarea{flex:1;resize:none;border-radius:18px;border:1px solid var(--line2);
+  padding:9px 14px;font-size:13.5px;max-height:110px;line-height:1.4}
+.chat-input textarea:focus{border-color:#1f6feb}
+.chat-send{background:#1f6feb;color:#fff;border-radius:999px;padding:10px 18px;font-weight:700;font-size:13px;flex-shrink:0}
+.chat-send:hover{background:#17457e}
+.chat-send:disabled{opacity:.45;cursor:default}
+.bubble.typing{display:flex;gap:4px;padding:13px 15px;align-items:center}
+.bubble.typing i{width:7px;height:7px;border-radius:50%;background:#9aa4ad;animation:chatTypingAnim 1.2s infinite}
+.bubble.typing i:nth-child(2){animation-delay:.2s}
+.bubble.typing i:nth-child(3){animation-delay:.4s}
+@keyframes chatTypingAnim{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.end-actions{display:flex;gap:10px}
 
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23e0524a'/><text x='50' y='70' font-size='54' font-family='Inter,sans-serif' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>">
@@ -1588,6 +1647,54 @@ const BANK = (() => {
     { sc: 'gears3',   q: 'Gear B is removed from the row. What happens?', o: ['C no longer turns', 'C turns like A', 'C turns faster'], a: 0, w: 'Without B the transmission from A to C is broken.' }
   ].map((x, i) => Object.assign({ id: 'M' + (i + 1) }, x));
 
+  /* ─────────── Morgan Stanley — chatAssess (Aon) : 13 scénarios de chat ───────────
+     Format documenté par les candidats (Wall Street Oasis : « responding to messages
+     of colleagues in fake scenarios using a chat feature » ; mconsultingprep : « chat
+     feature named chatAssess »). Contenu d'entraînement ORIGINAL rédigé pour cette
+     plateforme : chaque scénario est un message reçu d'un collègue, le candidat répond
+     dans la fenêtre de chat comme il le ferait en situation réelle. Paires [FR, EN]. */
+  const msChat = [
+    { from: 'Priya Nair — Analyst', in: [
+      'Salut ! Je pars en réunion client dans 5 minutes. Tu peux envoyer la version actuelle du pitch au client tout de suite ? Il manque encore deux slides, mais il attend quelque chose avant midi.',
+      'Hi! I’m heading into a client meeting in 5 minutes. Could you send the current version of the pitch to the client right away? Two slides are still unfinished, but the client expects something before noon.' ] },
+    { from: 'Tom Keller — Associate', in: [
+      'Hello, je monte un projet transversal et j’aurais besoin du dossier client Meridian. Tu peux me l’envoyer directement ? Inutile de passer par mon manager, ça ira plus vite.',
+      'Hello, I’m setting up a cross-team project and I need the Meridian client file. Could you send it to me directly? No need to go through my manager, it will be faster.' ] },
+    { from: 'Sofia Marino — Assistante d’équipe', in: [
+      'Petit rappel : tu as deux réunions planifiées demain à 10h en même temps — le point hebdo de l’équipe et l’onboarding du nouveau stagiaire. Laquelle est-ce que je garde ?',
+      'Quick reminder: you have two meetings scheduled for 10 a.m. tomorrow at the same time — the team weekly catch-up and the new intern’s onboarding. Which one should I keep?' ] },
+    { from: 'David Chen — VP', in: [
+      'Le modèle est sur le drive partagé. Peux-tu vérifier les chiffres clés avant 9h demain matin ? Si quelque chose te semble incohérent, signale-le-moi immédiatement plutôt que de corriger seul dans ton coin.',
+      'The model is on the shared drive. Could you check the key figures before 9 a.m. tomorrow? If anything looks inconsistent to you, flag it to me immediately rather than fixing it on your own.' ] },
+    { from: 'Léa Fontaine — Analyste', in: [
+      'Petit service : je dois partir à 15h aujourd’hui mais mon relevé d’heures doit afficher 19h. Tu peux saisir les heures à ma place ? Je te revaudrai ça.',
+      'Quick favour: I have to leave at 3 p.m. today but my timesheet needs to show 7 p.m. Could you log the hours for me? I’ll owe you one.' ] },
+    { from: 'Marcus Webb — Compliance Officer', in: [
+      'Pour l’audit du régulateur, il me faut la liste des transactions du compte 44-821. Je sais que ça demande normalement la validation du manager, mais le délai est très court — tu peux me l’envoyer directement ?',
+      'For the regulator’s audit, I need the transaction list of account 44-821. I know it normally requires manager approval, but the deadline is very tight — could you send it to me directly?' ] },
+    { from: 'Anna Petrova — Client Coverage', in: [
+      'Le client Meridian demande notre grille tarifaire exacte sur le desk produits structurés avant 17h. Je n’ai pas les chiffres sous la main — tu peux lui donner une réponse rapide, même une estimation ?',
+      'The Meridian client is asking for our exact fee structure on the structured products desk before 5 p.m. I don’t have the figures at hand — could you give them a quick answer, even an estimate?' ] },
+    { from: 'Hugo Lambert — Stagiaire', in: [
+      'Au secours : j’ai trois tâches « urgentes » de trois personnes différentes, toutes pour aujourd’hui — deux VP et un associate. Je ne peux matériellement pas tout faire. Qu’est-ce que je dois faire ?',
+      'Help: I have three “urgent” tasks from three different people, all due today — two VPs and one associate. I physically cannot do all three. What should I do?' ] },
+    { from: 'Rachel Adeyemi — RH', in: [
+      'Pour préparer la revue de rémunération, tu pourrais me dire ce que gagne à peu près ton collègue de bureau ? Ça reste entre nous, c’est juste pour vérifier l’équité interne.',
+      'To prepare the compensation review, could you tell me roughly what your desk neighbour earns? It stays between us, it is only to check internal fairness.' ] },
+    { from: 'Karim Benali — Analyste', in: [
+      'Hey, je viens de recevoir un e-mail du CEO qui demande d’acheter en urgence des cartes cadeaux et de cliquer sur un lien pour « valider ». Bizarre, non ? Je clique pour voir ce que c’est ?',
+      'Hey, I just got an e-mail from the CEO asking us to urgently buy gift cards and click a link to “validate”. Weird, right? Should I click to see what it is?' ] },
+    { from: 'Julie Moreau — Manager', in: [
+      'L’équipe organise un verre jeudi à 18h. Je sais que tu es sous l’eau avec le dossier Meridian en ce moment — c’est toi qui vois, mais ça ferait plaisir de te voir au moins une heure.',
+      'The team is organising drinks on Thursday at 6 p.m. I know you are swamped with the Meridian file right now — it is entirely up to you, but it would be nice to see you for at least an hour.' ] },
+    { from: 'Stefan Weiss — Audit', in: [
+      'Dans le rapport trimestriel, le chiffre de 3,47 % fait désordre à côté des 4,1 % de l’an dernier. Si on arrondit à 4 %, la présentation est plus propre. Personne ne remarquera rien — tu peux faire la modification ?',
+      'In the quarterly report, the 3.47% figure looks awkward next to last year’s 4.1%. If we round it to 4%, the presentation looks cleaner. Nobody will notice — could you make the change?' ] },
+    { from: 'Nadia Torres — Associate', in: [
+      'Un client important veut sauter l’étape KYC pour « aller plus vite » sur l’ouverture de son compte. Il menace d’aller voir ailleurs si on refuse. On peut faire une exception juste cette fois ?',
+      'An important client wants to skip the KYC step to “speed things up” on his account opening. He is threatening to take his business elsewhere if we refuse. Can we make an exception just this once?' ] }
+  ];
+
   /* ─────────── Information Handling — règles + boîte de réception ─────────── */
   const infoRules = {
     projects: { atlas: 'ATLAS', boreal: 'BOREAL', cascade: 'CASCADE' },
@@ -1764,6 +1871,62 @@ const BANK = (() => {
         '<p>Your logical problem-solving skills are measured.</p><p>Find as many correct codes as you can.</p><p>You have 6 minutes once the assessment starts.</p><p>Make sure you are not interrupted.</p>'),
       I('<p>Tutoriel — la machine :</p><ul><li>Le code change l’ordre des symboles.</li><li>Chaque chiffre du code indique quelle position d’entrée alimente la position de sortie correspondante : le code 1 3 2 4 place en sortie, dans l’ordre, les symboles d’entrée 1, 3, 2 puis 4.</li><li>On vous donne la suite d’entrée et la suite de sortie : retrouvez le code appliqué parmi les trois proposés.</li><li>Choisissez un code : la réponse part immédiatement et la question suivante arrive.</li><li>Le niveau augmente progressivement la difficulté des permutations.</li></ul>',
         '<p>Tutorial — the machine:</p><ul><li>The code changes the order of the symbols.</li><li>Each digit of the code tells which input position feeds the corresponding output position: code 1 3 2 4 places at the output, in order, the input symbols 1, 3, 2 then 4.</li><li>You are given the input row and the output row: find the applied code among the three proposed.</li><li>Choose a code: the answer is submitted immediately and the next question arrives.</li><li>The level progressively increases the difficulty of the permutations.</li></ul>')
+    ],
+
+    /* ─── Modules bancaires (formats documentés publiquement — voir core.js) ─── */
+    'bnp-num': [
+      I('<p><b>BNP Paribas — plateforme Maki</b> (utilisée par BNP depuis 2025). Module documenté : <b>raisonnement numérique — 9 questions en 10 minutes</b>.</p><p>Format identique au raisonnement numérique de la base : affirmations TRUE / FALSE / CANNOT SAY à partir des feuilles de données.</p><p>Scoring Maki : <b>(bonnes réponses ÷ total) − (erreurs × 0,5)</b>, plancher 0. Seuils constatés : ~65-68 % (BDDF), ~72 % (CIB).</p><p>Calculatrice, crayon et papier autorisés. Le test ne peut pas être interrompu.</p>',
+        '<p><b>BNP Paribas — Maki platform</b> (used by BNP since 2025). Documented module: <b>numerical reasoning — 9 items in 10 minutes</b>.</p><p>Same format as the base numerical reasoning: TRUE / FALSE / CANNOT SAY statements based on the data sheets.</p><p>Maki scoring: <b>(correct ÷ total) − (errors × 0.5)</b>, floored at 0. Observed thresholds: ~65-68% (BDDF), ~72% (CIB).</p><p>Calculator, pencil and paper allowed. The test cannot be interrupted.</p>')
+    ],
+    'bnp-log': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>logique élémentaire — 13 questions en 8 minutes</b>.</p><p>Séries logiques : choisissez la figure qui complète la séquence. Travaillez vite et précisément — le scoring Maki pénalise les erreurs (− 0,5 par erreur).</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>elementary logic — 13 items in 8 minutes</b>.</p><p>Logical series: choose the figure that completes the sequence. Work quickly and accurately — Maki scoring penalises errors (− 0.5 per error).</p><p>The test cannot be interrupted once started.</p>')
+    ],
+    'bnp-ps': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>résolution de problèmes — 10 questions en 10 minutes</b> (cité par les stagiaires CIB sur Glassdoor : « résolution de problème, raisonnement numérique, verbal »).</p><p>Questions numériques appliquées : lisez l’énoncé, calculez, choisissez la bonne réponse. Une seule réponse correcte par question.</p><p>Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5). Le test ne peut pas être interrompu.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>problem solving — 10 items in 10 minutes</b> (reported by CIB interns on Glassdoor: “problem solving, numerical, verbal reasoning”).</p><p>Applied numerical questions: read the prompt, compute, choose the right answer. One correct answer per item.</p><p>Maki scoring: (correct ÷ total) − (errors × 0.5). The test cannot be interrupted.</p>')
+    ],
+    'bnp-sjt': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>jugement situationnel « communication efficace » — 13 questions en 10 minutes</b>.</p><p>Des scénarios professionnels vous sont présentés ; répartissez les points entre les attitudes proposées selon ce qui vous correspond le mieux — comme pour les questionnaires de personnalité de la base.</p><p>Il n’y a pas de bonne réponse : répondez honnêtement, mais pensez au contexte bancaire (relation client, travail d’équipe, conformité).</p><p>Chrono : 10 minutes. Le test ne peut pas être interrompu.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>“effective communication” situational judgement — 13 items in 10 minutes</b>.</p><p>You are shown workplace scenarios; allocate the points between the proposed attitudes according to what suits you best — like the personality questionnaires in the base.</p><p>There are no right answers: answer honestly, but think of the banking context (client relations, teamwork, compliance).</p><p>Timer: 10 minutes. The test cannot be interrupted.</p>')
+    ],
+    'bnp-det': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>attention aux détails — 10 questions en 12 minutes</b>.</p><p>Comparez les suites de symboles et placez les points exactement comme dans « Capacité de Concentration » de la base, mais avec le chrono de 12 minutes du format Maki.</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>attention to detail — 10 items in 12 minutes</b>.</p><p>Compare the symbol sequences and place the dots exactly as in “Ability to Concentration” from the base, but with the 12-minute timer of the Maki format.</p><p>The test cannot be interrupted once started.</p>')
+    ],
+    'ubs-num': [
+      I('<p><b>UBS — Online Assessment</b> (source : learnandpass.co.uk/tests-by-company/ubs). Toutes les candidatures passent la batterie cognitive <b>Aon</b> + le <b>Korn Ferry Culture Match</b>.</p><p>Module : <b>raisonnement numérique Aon — 37 questions en 12 minutes</b>, affirmations TRUE / FALSE / CANNOT SAY sur les feuilles de données.</p><p>La plupart des candidats ne terminent pas les 37 questions : visez la précision avant la quantité. Calculatrice et papier recommandés.</p>',
+        '<p><b>UBS — Online Assessment</b> (source: learnandpass.co.uk/tests-by-company/ubs). All applications take the <b>Aon</b> cognitive battery + the <b>Korn Ferry Culture Match</b>.</p><p>Module: <b>Aon numerical reasoning — 37 items in 12 minutes</b>, TRUE / FALSE / CANNOT SAY statements on the data sheets.</p><p>Most candidates cannot complete all 37 items: aim for accuracy before quantity. Calculator and paper recommended.</p>')
+    ],
+    'ubs-verb': [
+      I('<p><b>UBS — Online Assessment.</b> Module documenté : <b>raisonnement logique/inductif — 18 questions en 6 minutes</b>, affirmations TRUE / FALSE / CANNOT SAY à partir d’informations écrites.</p><p>6 minutes pour 18 questions : moins de 20 secondes par question. Lisez l’affirmation, retrouvez la feuille, tranchez — ne restez jamais bloqué.</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>UBS — Online Assessment.</b> Documented module: <b>logical/inductive reasoning — 18 items in 6 minutes</b>, TRUE / FALSE / CANNOT SAY statements based on written information.</p><p>6 minutes for 18 items: under 20 seconds per question. Read the statement, find the sheet, decide — never get stuck.</p><p>The test cannot be interrupted once started.</p>')
+    ],
+    'ubs-cult': [
+      I('<p><b>UBS — Online Assessment.</b> Le <b>Korn Ferry Culture Match</b> fait partie de toutes les candidatures UBS (source : learnandpass.co.uk) : selon les retours de candidats (déc. 2024), il se compose de <b>18 questions basées sur des scénarios</b>.</p><p>Comme les questionnaires « Comportements » et « Motivations » de la base : blocs de trois affirmations, six points à répartir selon l’environnement de travail idéal pour vous.</p><p>Sans limite de temps, mais travaillez vite et honnêtement : ~15 minutes. Aucun retour en arrière possible.</p>',
+        '<p><b>UBS — Online Assessment.</b> The <b>Korn Ferry Culture Match</b> is part of every UBS application (source: learnandpass.co.uk): according to candidate reports (Dec. 2024), it consists of <b>18 scenario-based questions</b>.</p><p>Like the “Behaviour” and “Motivation” questionnaires in the base: blocks of three statements, six points to allocate according to your ideal working environment.</p><p>No time limit, but work quickly and honestly: ~15 minutes. You cannot move back.</p>')
+    ],
+    'ms-num': [
+      I('<p><b>Morgan Stanley — Online Assessment</b> (sources : forgeprep.io · careertestprep.com · preplounge.com). Selon le poste et la région : batterie <b>SHL</b> (IBD/S&amp;T notamment) ou <b>Aon/cut-e</b> (campus EMEA). Fenêtre de complétion : 5 à 7 jours ; cut-scores numériques parmi les plus élevés du secteur.</p><p>Module SHL : <b>numérique — 18 questions en 25 minutes</b>. Affirmations TRUE / FALSE / CANNOT SAY sur les feuilles de données.</p><p>Prévoyez calculatrice, crayon et papier. Le chrono démarre à la première question.</p>',
+        '<p><b>Morgan Stanley — Online Assessment</b> (sources: forgeprep.io · careertestprep.com · preplounge.com). Depending on role and region: <b>SHL</b> battery (IBD/S&amp;T notably) or <b>Aon/cut-e</b> (EMEA campus). Completion window: 5 to 7 days; numerical cut-scores among the highest in the industry.</p><p>SHL module: <b>numerical — 18 items in 25 minutes</b>. TRUE / FALSE / CANNOT SAY statements on the data sheets.</p><p>Have a calculator, pencil and paper ready. The timer starts with the first question.</p>')
+    ],
+    'ms-verb': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Module SHL documenté : <b>verbal — 30 questions en 19 minutes</b>.</p><p>Affirmations TRUE / FALSE / CANNOT SAY à partir de passages écrits : répondez uniquement sur la base du texte, jamais sur vos connaissances.</p><p>~38 secondes par question. Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> Documented SHL module: <b>verbal — 30 items in 19 minutes</b>.</p><p>TRUE / FALSE / CANNOT SAY statements based on written passages: answer only from the text, never from outside knowledge.</p><p>~38 seconds per question. The test cannot be interrupted once started.</p>')
+    ],
+    'ms-ind': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Module SHL documenté : <b>inductif — 24 questions en 25 minutes</b>.</p><p>Séries de figures : identifiez la règle (rotation, nombre, couleur, taille) et choisissez la figure suivante. Une seule réponse correcte.</p><p>~1 minute par question : si la règle ne saute pas aux yeux en 30 secondes, passez et revenez plus tard si le temps le permet.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> Documented SHL module: <b>inductive — 24 items in 25 minutes</b>.</p><p>Figure series: identify the rule (rotation, count, colour, size) and pick the next figure. One correct answer.</p><p>~1 minute per question: if the rule is not obvious within 30 seconds, move on and come back later if time allows.</p>')
+    ],
+    'ms-sw': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Les candidats campus EMEA rapportent une batterie Aon incluant le <b>switchChallenge</b> (source : retours de candidats, gameassessmentprep.com).</p><p>Format identique au « switchChallenge » de la base : retrouvez le code de permutation appliqué par la machine. 6 minutes, niveau croissant.</p><p>Assurez-vous de ne pas être interrompu.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> EMEA campus candidates report an Aon battery including the <b>switchChallenge</b> (source: candidate reports, gameassessmentprep.com).</p><p>Same format as the base “switchChallenge”: find the permutation code applied by the machine. 6 minutes, increasing difficulty.</p><p>Make sure you are not interrupted.</p>')
+    ],
+    'ms-sjt': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Les batteries campus EMEA incluent le <b>chatAssess d’Aon</b> : selon les candidats qui l’ont passé, « il faut répondre aux messages de collègues dans des scénarios fictifs en utilisant une interface de chat ».</p><p>Ce module reproduit ce format en mode messagerie : les scénarios arrivent comme des <b>messages reçus</b> et vous répondez comme vous le feriez dans un chat professionnel (quelques phrases suffisent).</p><p>13 scénarios, 10 minutes. Il n’y a pas de bonne réponse unique : demandez-vous ce que ferait un collègue fiable en contexte bancaire — qualité du travail, confidentialité, conformité, intégrité, priorisation, relation client.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> EMEA campus batteries include <b>Aon’s chatAssess</b>: according to candidates who took it, “you have to respond to colleague messages in fake scenarios using a chat feature”.</p><p>This module reproduces that format in messenger mode: scenarios arrive as <b>incoming messages</b> and you reply exactly as you would in a professional chat (a few sentences are enough).</p><p>13 scenarios, 10 minutes. There is no single right answer: ask yourself what a reliable colleague would do in a banking context — quality of work, confidentiality, compliance, integrity, prioritisation, client care.</p>'),
+      I('<p>Veuillez noter :</p><ul><li>Le chronomètre (10:00) démarre dès le premier message reçu.</li><li>Répondez à chaque message en tapant votre réponse puis « Envoyer » ; aucun retour en arrière possible.</li><li>Écrivez comme à un collègue : ton courtois, clair et professionnel.</li><li>À la fin, un dernier message vous oriente vers l’évaluation suivante du process.</li><li>Le test ne peut pas être interrompu une fois commencé.</li></ul>',
+        '<p>Please note:</p><ul><li>The timer (10:00) starts as soon as the first message arrives.</li><li>Answer each message by typing your reply and pressing “Send”; you cannot move back.</li><li>Write as you would to a colleague: courteous, clear and professional tone.</li><li>At the end, a final message points you to the next assessment in the process.</li><li>The test cannot be interrupted once started.</li></ul>')
     ]
   };
 
@@ -1781,6 +1944,7 @@ const BANK = (() => {
       leBreak: 'Pause — prochaine section dans',
       blkBeh: 'Avec quelle précision ces affirmations décrivent-elles votre comportement ?',
       blkMot: 'Quelle importance accordez-vous aux aspects suivants de votre environnement de travail ?',
+      blkSjt: 'Répartissez les points selon les réactions qui vous correspondent le mieux dans la situation décrite.',
       blkSub: 'Attribuez les points en sélectionnant les cercles.',
       sheets: 'Feuilles de données', sheetsHint: 'Naviguez librement entre les feuilles : la question reste affichée.', sheetGo: 'Afficher cette feuille', finish: 'Terminer',
       exNoteOne: 'Exemple non noté et non chronométré — le chrono de {t} démarre après l’exemple.',
@@ -1795,7 +1959,10 @@ const BANK = (() => {
       },
       inbox: 'Boîte de réception', prio: 'Priorité', action: 'Action', noAction: '— aucune —',
       prioV: ['HIGH', 'MEDIUM', 'LOW'],
-      actV: ['Transférer à Keira Sanders', 'Transférer à Daniel Knowles', 'Accuser réception', 'Responsable personnellement', 'Transférer à Walter Durenga']
+      actV: ['Transférer à Keira Sanders', 'Transférer à Daniel Knowles', 'Accuser réception', 'Responsable personnellement', 'Transférer à Walter Durenga'],
+      chatOnline: 'en ligne', chatTyping: 'écrit…', chatPlaceholder: 'Écrivez votre réponse…', chatSend: 'Envoyer',
+      chatNextLbl: 'Évaluation suivante', chatNextCta: 'Numerical Reasoning — appuyez pour commencer',
+      chatEmpty: 'Écrivez une réponse avant d’envoyer.'
     },
     en: {
       chooseCorrect: 'Please choose the correct answer',
@@ -1809,6 +1976,7 @@ const BANK = (() => {
       leBreak: 'Break — next section in',
       blkBeh: 'How accurately do these statements describe your behaviour?',
       blkMot: 'How important do you rate the following aspects for your work environment?',
+      blkSjt: 'Allocate the points according to the reactions that suit you best in the situation described.',
       blkSub: 'Please allocate points by selecting the circles.',
       sheets: 'Data sheets', sheetsHint: 'Move freely between the sheets: the question stays on screen.', sheetGo: 'Show this sheet', finish: 'Finish',
       exNoteOne: 'Unscored, untimed example — the {t} test timer starts after the example.',
@@ -1823,12 +1991,15 @@ const BANK = (() => {
       },
       inbox: 'Inbox', prio: 'Priority', action: 'Action', noAction: '— none —',
       prioV: ['HIGH', 'MEDIUM', 'LOW'],
-      actV: ['Forward to Keira Sanders', 'Forward to Daniel Knowles', 'Notice of receipt', 'Personally responsible', 'Forward to Walter Durenga']
+      actV: ['Forward to Keira Sanders', 'Forward to Daniel Knowles', 'Notice of receipt', 'Personally responsible', 'Forward to Walter Durenga'],
+      chatOnline: 'online', chatTyping: 'typing…', chatPlaceholder: 'Type your reply…', chatSend: 'Send',
+      chatNextLbl: 'Next assessment', chatNextCta: 'Numerical Reasoning — tap to start',
+      chatEmpty: 'Write a reply before sending.'
     }
   };
 
   return { SYM_DED, SYM_IND, SYM_SW, verbalSheets, verbal, enFluency, enVocab, enSpell, frFluency, frVocab, frSpell,
-           behaviour, motivation, mech, infoRules, infoMails, infoMailsLate, infoMailTpl, leObjs, INTRO, STR,
+           behaviour, motivation, mech, msChat, infoRules, infoMails, infoMailsLate, infoMailTpl, leObjs, INTRO, STR,
            enFluencyExtra, enVocabExtra, enSpellPairs, frFluencyExtra, frVocabExtra, frSpellPairs };
 })();
 
@@ -2299,8 +2470,45 @@ const CORE = (() => {
     { id: 'english',       home: 'Compétences Linguistiques - Anglais',  head: 'Competences Linguistiques - Anglais',  min: 13, kind: 'lang',     lang: 'en' },
     { id: 'french',        home: 'Compétences Linguistiques - Français', head: 'Compétences Linguistiques - Français', min: 13, kind: 'lang',     lang: 'fr' },
     { id: 'mechanical',    home: 'Raisonnement Mécanique',                    head: 'Mechanical Reasoning',                  min: 18, kind: 'mech',     timed: 900 },
-    { id: 'switch',        home: 'Raisonnement Déductif - switchChallenge',   head: 'Deductive Reasoning - switchChallenge', min: 9,  kind: 'switchcode', timed: 360 }
+    { id: 'switch',        home: 'Raisonnement Déductif - switchChallenge',   head: 'Deductive Reasoning - switchChallenge', min: 9,  kind: 'switchcode', timed: 360 },
+
+    /* ══ BNP Paribas — Maki (plateforme depuis 2025). Formats documentés publiquement :
+       psychotechniquetest.fr/bnp-paribas · psychotechnique.lu/bnp-paribas · test-banque.fr/bnp-paribas.
+       Modules : numérique 9 q./10 min · logique élémentaire 13 q./8 min · résolution de problèmes
+       10 q./10 min · jugement situationnel « communication efficace » 13 q./10 min · attention aux
+       détails 10 q./12 min · anglais 16 q./5 min · français 21 q./6 min.
+       Scoring : (bonnes ÷ total) − (erreurs × 0,5), plancher 0 ; seuils ~65-68 % BDDF, ~72 % CIB.
+       Les questions restent la banque d'entraînement de cette plateforme. ══ */
+    { id: 'bnp-num', bank: 'BNP', home: 'BNP Maki — raisonnement numérique (9 q. / 10 min)', head: 'BNP Maki — numerical reasoning (9 items / 10 min)', min: 10, kind: 'numverb', src: 'num', cap: 9, timed: 600 },
+    { id: 'bnp-log', bank: 'BNP', home: 'BNP Maki — raisonnement logique (13 q. / 8 min)', head: 'BNP Maki — logical reasoning (13 items / 8 min)', min: 8, kind: 'pick2', timed: 480 },
+    { id: 'bnp-ps', bank: 'BNP', home: 'BNP Maki — résolution de problèmes (10 q. / 10 min)', head: 'BNP Maki — problem solving (10 items / 10 min)', min: 10, kind: 'numverb', src: 'num', cap: 10, timed: 600 },
+    { id: 'bnp-sjt', bank: 'BNP', home: 'BNP Maki — SJT « communication efficace » (jugement situationnel, 13 q. / 10 min)', head: 'BNP Maki — SJT “effective communication” (situational judgement, 13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600, sjt: true },
+    { id: 'bnp-det', bank: 'BNP', home: 'BNP Maki — attention aux détails (10 q. / 12 min)', head: 'BNP Maki — attention to detail (10 items / 12 min)', min: 12, kind: 'edots', timed: 720, exTime: 30 },
+
+    /* ══ UBS — Online Assessment : batterie cognitive Aon + Korn Ferry Culture Match.
+       Source : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min (Aon),
+       logique/inductif 18 q./6 min (T/F/Cannot Say), Culture Match (Korn Ferry, sans chrono). ══ */
+    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique (Aon, 37 q. / 12 min)', head: 'UBS — numerical reasoning (Aon, 37 items / 12 min)', min: 12, kind: 'numverb', src: 'num', timed: 720 },
+    { id: 'ubs-verb', bank: 'UBS', home: 'UBS — raisonnement logique/inductif (18 q. / 6 min)', head: 'UBS — logical/inductive reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'verb', cap: 18, timed: 360 },
+    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (Korn Ferry, 18 scénarios)', head: 'UBS — Culture Match (Korn Ferry, 18 scenarios)', min: 15, kind: 'blocks', blocks: 18 },
+
+    /* ══ Morgan Stanley — Online Assessment selon poste/région : SHL (IBD/S&T notamment)
+       ou Aon/cut-e (campus EMEA). Sources : forgeprep.io · careertestprep.com · preplounge.com ·
+       gameassessmentprep.com. SHL : numérique 18 q./25 min · verbal 30 q./19 min · inductif 24 q./25 min.
+       Aon EMEA : numérique + déductif + SJT chat + switchChallenge. ══ */
+    { id: 'ms-num', bank: 'MS', home: 'Morgan Stanley — numérique (SHL, 18 q. / 25 min)', head: 'Morgan Stanley — numerical (SHL, 18 items / 25 min)', min: 25, kind: 'numverb', src: 'num', cap: 18, timed: 1500 },
+    { id: 'ms-verb', bank: 'MS', home: 'Morgan Stanley — verbal (SHL, 30 q. / 19 min)', head: 'Morgan Stanley — verbal (SHL, 30 items / 19 min)', min: 19, kind: 'numverb', src: 'verb', cap: 30, timed: 1140 },
+    { id: 'ms-ind', bank: 'MS', home: 'Morgan Stanley — inductif (SHL, 24 q. / 25 min)', head: 'Morgan Stanley — inductive (SHL, 24 items / 25 min)', min: 25, kind: 'pick2', timed: 1500 },
+    { id: 'ms-sw', bank: 'MS', home: 'Morgan Stanley — switchChallenge (Aon)', head: 'Morgan Stanley — switchChallenge (Aon)', min: 9, kind: 'switchcode', timed: 360 },
+    { id: 'ms-sjt', bank: 'MS', home: 'Morgan Stanley — chatAssess · SJT chat façon WhatsApp (13 scénarios / 10 min)', head: 'Morgan Stanley — chatAssess · chat-based SJT (13 scenarios / 10 min)', min: 10, kind: 'chatsjt', blocks: 13, timed: 600, next: 'ms-num' }
   ];
+
+  /* Groupes affichés sur l'accueil (dans l'ordre d'apparition de SECTIONS). */
+  const BANKS = {
+    BNP: { title: 'BNP Paribas — Maki (plateforme depuis 2025)', src: 'Formats documentés : psychotechniquetest.fr · test-banque.fr · Glassdoor (process CIB stagiaires). Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5), plancher 0. Modules anglais/français ≈ sections « Compétences Linguistiques » ci-dessus.' },
+    UBS: { title: 'UBS — Online Assessment (Aon + Korn Ferry)', src: 'Formats documentés : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min, logique/inductif 18 q./6 min (Aon) + Culture Match (Korn Ferry, 18 scénarios — retours candidats déc. 2024) pour tous les rôles.' },
+    MS: { title: 'Morgan Stanley — Online Assessment (SHL ou Aon)', src: 'Formats documentés : forgeprep.io · careertestprep.com · preplounge.com — SHL (IBD/S&T) ou Aon/cut-e (campus EMEA) selon le poste ; cut-scores numériques parmi les plus élevés. Aon chatAssess : répondre aux messages de collègues dans une interface de chat (retours candidats : Wall Street Oasis, mconsultingprep).' }
+  };
   const byId = (id) => SECTIONS.find(s => s.id === id);
 
   /* ═══════════════ Stockage, profils, réglages ═══════════════ */
@@ -2492,9 +2700,10 @@ const CORE = (() => {
   function destroy() {
     if (tick) { clearInterval(tick); tick = null; }
     if (S && S.clockId) clearInterval(S.clockId);
-    if (S) { clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer); clearTimeout(S.exTimer); }
+    if (S) { clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer); clearTimeout(S.exTimer); clearTimeout(S.chatTimer); }
     S = null;
     document.body.classList.remove('running');
+    if (document.body.removeAttribute) document.body.removeAttribute('data-bank');
     const ng = document.getElementById('navGrid'); if (ng) ng.classList.remove('on');
     ['skTimer', 'skCount', 'skLvl'].forEach(id => { const n = document.getElementById(id); if (n) { n.textContent = ''; if (id === 'skLvl') n.hidden = true; } });
     const bk = document.getElementById('skBook'); if (bk) bk.hidden = true;
@@ -2503,9 +2712,11 @@ const CORE = (() => {
   function start(id) {
     destroy();
     const sec = byId(id);
-    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false, fbLock: false };
+    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false, fbLock: false,
+          chatMsgs: [], chatTyping: false, chatAwaiting: false, chatDone: false, chatDraft: '', chatTimer: 0 };
     buildItems();
     document.body.classList.add('running');
+    if (sec.bank && document.body.setAttribute) document.body.setAttribute('data-bank', sec.bank);   /* thème par banque (styles.css) */
     tick = setInterval(onTick, 250);
     render();
   }
@@ -2526,6 +2737,7 @@ const CORE = (() => {
         if (sec.src === 'num') S.items = DRILL.NV.items.map(x => Object.assign({}, x));
         else S.items = BANK.verbal.map(v => ({ id: v.id, kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w }));
         S.examples = (sec.src === 'num' ? DRILL.NV.items.slice(-3).map(x => Object.assign({}, x)) : BANK.verbal.slice(-3).map(v => ({ id: v.id + 'x', kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w })));
+        if (sec.cap) S.items = S.items.slice(0, sec.cap);   /* modules bancaires : nombre de questions documenté */
         break;
       }
       case 'latin': S.items = []; S.seed = seed; S.examples = [DRILL.dedItem(seed + 999, 900)]; break;
@@ -2537,6 +2749,7 @@ const CORE = (() => {
       case 'lang': S.items = []; S.seed = seed; break;   /* géré par sous-phases */
       case 'mech': S.items = BANK.mech.map(x => Object.assign({ why: x.w || '' }, x)); S.examples = [Object.assign({ why: BANK.mech[0].w || '' }, BANK.mech[0])]; break;
       case 'switchcode': S.items = []; S.seed = seed; break;
+      case 'chatsjt': S.items = BANK.msChat.map((c, i2) => ({ id: sec.id + i2, from: c.from, in: c.in })); break;
     }
   }
 
@@ -2586,6 +2799,7 @@ const CORE = (() => {
     T.classList.toggle('warn', !!t && (S.sec.timed ? (S.deadline - now) < 60000 : (S.secEnd - now) < 30000));
     let c = '';
     if (S.sec.kind === 'blocks') c = Math.min(S.i + 1, S.items.length) + '/' + S.items.length;
+    else if (S.sec.kind === 'chatsjt') c = Math.min(S.log.length + 1, S.items.length) + '/' + S.items.length;
     else if (S.sec.kind === 'numverb') { const done = Object.keys(S.answers || {}).length; c = done ? done + ' / ' + S.items.length : ''; }
     else if (S.sec.kind === 'mech') c = Math.min(S.i + 1, S.items.length) + ' / ' + S.items.length;
     else if (S.sec.kind === 'lang') c = '';
@@ -2615,6 +2829,7 @@ const CORE = (() => {
       case 'lang': return renderLang(view);
       case 'mech': return renderMech(view);
       case 'switchcode': return renderSwitch(view);
+      case 'chatsjt': return renderChat(view);
     }
   }
 
@@ -2694,13 +2909,14 @@ const CORE = (() => {
     if (sec.kind === 'lang') { S.sub = 0; S.langPhase = 'examples'; S.langIdx = 0; langBuildSection(); S.secEnd = 0; }
     if (sec.kind === 'seqmem') { S.leSec = 0; startBreak(); }
     if (sec.kind === 'inbox') { S.mail = 0; }
+    if (sec.kind === 'chatsjt') { const curS = S; clearTimeout(S.chatTimer); S.chatTimer = setTimeout(() => { if (S !== curS) return; chatArrive(0); }, 700); }
     render();
   }
 
   /* ═══════════════ BLOCS (comportement / motivation) ═══════════════ */
   function renderBlocks(view) {
     const it = S.items[S.i], T = STR(S.sec);
-    const title = S.sec.id === 'behaviour' ? T.blkBeh : T.blkMot;
+    const title = S.sec.id === 'behaviour' ? T.blkBeh : (S.sec.sjt ? T.blkSjt : T.blkMot);
     view.className = 'sk-main';
     const spent = S.sel.reduce((a, b) => a + b, 0);
     const fb = P.instantFb() ? ifbHTML({
@@ -2731,6 +2947,89 @@ const CORE = (() => {
     document.getElementById('blkNext').onclick = goNext;
     const ifbN = document.getElementById('ifbNext');
     if (ifbN) ifbN.onclick = goNext;
+    chrome();
+  }
+
+  /* ═══════════════ CHATSJT — Morgan Stanley chatAssess (mode messagerie) ═══════════════
+     Les scénarios arrivent comme des messages reçus (bulles blanches) ; le candidat tape
+     sa réponse, qui part comme un vrai message (bulle bleue, ✓✓, horodatage). Pas de
+     bonne réponse : les entrées du log n'ont pas de champ `ok` → finish() les agrège
+     comme un questionnaire comportemental. À la fin, un message contient le lien vers
+     l'évaluation suivante (sec.next), comme dans le process réel. */
+  const chatTime = () => { try { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
+
+  function chatArrive(i) {
+    if (!S || S.phase === 'end' || S.done) return;
+    if (i >= S.items.length) {                     /* message final : lien vers le test suivant */
+      const T = STR(S.sec);
+      S.chatTyping = false; S.chatAwaiting = false; S.chatDone = true;
+      S.chatMsgs.push({ who: 'them', link: true, from: 'Morgan Stanley — Recruitment', text: '🔗 ' + T.chatNextLbl + ' : ' + T.chatNextCta, t: chatTime() });
+      return render();
+    }
+    const lang = P.lang(S.sec.id) === 'fr' ? 0 : 1;   /* scénarios stockés en paires [FR, EN] */
+    const it = S.items[i];
+    S.chatTyping = false; S.chatAwaiting = true; S.chatDraft = '';
+    if (!S.qStart) S.qStart = Date.now();
+    S.chatMsgs.push({ who: 'them', from: it.from, text: it.in[lang], t: chatTime() });
+    render();
+  }
+
+  function chatSend(text) {
+    if (!S || S.phase !== 'run' || S.done) return;
+    text = String(text == null ? '' : text).trim();
+    if (!S.chatAwaiting || !text) return;
+    const lang = P.lang(S.sec.id) === 'fr' ? 0 : 1;
+    const i = S.log.length;
+    const it = S.items[i];
+    if (!it) return;
+    S.chatAwaiting = false;
+    S.chatMsgs.push({ who: 'me', text, t: chatTime() });
+    S.log.push({ n: i + 1, q: it.in[lang], given: text, ms: Date.now() - (S.qStart || Date.now()), section: S.sec.id });
+    S.qStart = Date.now();
+    S.chatTyping = true;
+    render();
+    clearTimeout(S.chatTimer);
+    const curS = S;
+    S.chatTimer = setTimeout(() => { if (S !== curS) return; chatArrive(i + 1); }, 900);
+  }
+
+  function renderChat(view) {
+    const T = STR(S.sec);
+    view.className = 'sk-main narrow';
+    const msgs = S.chatMsgs.map(m => {
+      if (m.who === 'me') return '<div class="chat-row me"><div class="bubble me">' + esc(m.text) + '<span class="b-time">' + esc(m.t) + ' <span class="b-ticks">✓✓</span></span></div></div>';
+      const head = m.from ? '<div class="b-from">' + esc(m.from) + '</div>' : '';
+      const cta = m.link ? '<button class="chat-cta" id="chatGoNext">▶ ' + esc(T.chatNextLbl) + ' — ' + esc(S.sec.next || '') + '</button>' : '';
+      return '<div class="chat-row them"><div class="bubble them' + (m.link ? ' link-bubble' : '') + '">' + head + esc(m.text) + cta + '<span class="b-time">' + esc(m.t) + '</span></div></div>';
+    }).join('');
+    const typing = S.chatTyping ? '<div class="chat-row them"><div class="bubble them typing"><i></i><i></i><i></i></div></div>' : '';
+    const inputBar = S.chatDone ? '' :
+      '<div class="chat-input"><textarea id="chatIn" rows="2" placeholder="' + esc(T.chatPlaceholder) + '">' + esc(S.chatDraft || '') + '</textarea>' +
+      '<button class="chat-send" id="chatSend"' + ((S.chatTyping || !S.chatAwaiting) ? ' disabled' : '') + '>' + esc(T.chatSend) + '</button></div>';
+    view.innerHTML = '<div class="chat-app">' +
+      '<div class="chat-head"><div class="chat-ava">MS</div><div class="chat-hdtxt"><b>Morgan Stanley — Recruitment</b><span id="chatStatus">' + (S.chatTyping ? esc(T.chatTyping) : esc(T.chatOnline)) + '</span></div><span class="chat-lock">🔒</span></div>' +
+      '<div class="chat-body" id="chatBody">' + msgs + typing + '</div>' + inputBar + '</div>';
+    const body = document.getElementById('chatBody');
+    if (body && body.scrollTo) { try { body.scrollTop = body.scrollHeight; } catch (e) {} }
+    const inp = document.getElementById('chatIn');
+    if (inp) {
+      inp.oninput = () => {
+        S.chatDraft = inp.value;
+        const b = document.getElementById('chatSend');
+        if (b) b.disabled = S.chatTyping || !S.chatAwaiting || !String(inp.value || '').trim();
+      };
+      if (inp.addEventListener) inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const b = document.getElementById('chatSend'); if (b) b.click(); }
+      });
+    }
+    const send = document.getElementById('chatSend');
+    if (send) send.onclick = () => {
+      const v = inp ? String(inp.value || '') : '';
+      if (!v.trim()) return U.toast(STR(S.sec).chatEmpty, 'err');
+      chatSend(v);
+    };
+    const go = document.getElementById('chatGoNext');
+    if (go) go.onclick = () => { const nx = S.sec.next; finish(); if (nx) location.hash = '#/run/' + nx; };
     chrome();
   }
 
@@ -3378,7 +3677,7 @@ const CORE = (() => {
     if (!S || S.done) return;
     S.done = true;
     if (tick) { clearInterval(tick); tick = null; }
-    clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer);
+    clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer); clearTimeout(S.chatTimer);
     const sec = S.sec;
     let correct = 0, graded = 0, answered = 0;
     if (sec.kind === 'numverb' || sec.kind === 'mech') {
@@ -3394,6 +3693,7 @@ const CORE = (() => {
       correct = good; graded = good + bad; answered = S.log.length;
       S.langNet = good - bad;
     } else if (sec.kind === 'blocks') { graded = 0; answered = S.log.length; }
+    else if (sec.kind === 'chatsjt') { graded = 0; answered = S.log.length; }   /* réponses libres du chat : comportemental */
     else if (sec.kind === 'seqmem') { correct = S.lePos || 0; graded = 72; answered = 72; }
     else if (sec.kind === 'inbox') {
       S.mails.forEach((m, i) => { const ex = explainMail(m); const pOk = m.prio === ex.prio, aOk = (m.act == null ? -1 : m.act) === ex.act; if (pOk) correct++; if (aOk) correct++; graded += 2; answered += 2; S.log.push({ n: i + 1, q: m.subj, given: (m.prio != null ? ['HIGH', 'MEDIUM', 'LOW'][m.prio] : '—') + ' / ' + (m.act != null ? m.act + 1 : '—'), correct: ['HIGH', 'MEDIUM', 'LOW'][ex.prio] + ' / ' + (ex.act + 1), ok: pOk && aOk, ms: 0, section: sec.id, why: ex.why }); });
@@ -3422,9 +3722,14 @@ const CORE = (() => {
         : '<p>' + (lang === 'fr' ? 'Score : ' : 'Score: ') + '<b>' + a.correct + ' / ' + a.items + '</b> (' + U.pct(a.accuracy) + ')</p>') +
       '<p class="tiny">' + (lang === 'fr' ? 'Durée : ' : 'Time: ') + COREmmss(a.ms / 1000) + '</p>' +
       '<p class="tiny" style="color:var(--tx3)">' + (lang === 'fr' ? 'Le détail question par question est disponible dans le menu ≡ → Feedback détaillé.' : 'The question-by-question detail is available in the ≡ menu → Feedback.') + '</p>' +
-      '<div class="intro-nav"><button class="btn-intro" id="endHome">‹ ' + (lang === 'fr' ? 'Tâches' : 'Tasks') + '</button><button class="btn-next" id="endFb">' + (lang === 'fr' ? 'Feedback' : 'Feedback') + ' ›</button></div></div>';
+      '<div class="intro-nav"><button class="btn-intro" id="endHome">‹ ' + (lang === 'fr' ? 'Tâches' : 'Tasks') + '</button>' +
+      '<div class="end-actions"><button class="btn-next" id="endFb">' + (lang === 'fr' ? 'Feedback' : 'Feedback') + '</button>' +
+      (S.sec.next ? '<button class="btn-next" id="endNext">' + (lang === 'fr' ? 'Test suivant' : 'Next test') + ' ›</button>' : '') +
+      '</div></div></div>';
     document.getElementById('endHome').onclick = () => { destroy(); location.hash = '#/'; };
     document.getElementById('endFb').onclick = () => { destroy(); location.hash = '#/feedback'; };
+    const endNext = document.getElementById('endNext');
+    if (endNext) endNext.onclick = () => { const nx = S.sec.next; destroy(); location.hash = '#/run/' + nx; };
     chrome();
   }
 
@@ -3443,7 +3748,9 @@ const CORE = (() => {
     if (S.sec.kind === 'lang' && k >= '1' && k <= '5') { const b = document.querySelectorAll('.optrow')[+k - 1]; if (b) b.click(); }
   });
 
-  return { SECTIONS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, explainMail, get current() { return S; } };
+  return { SECTIONS, BANKS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, explainMail, get current() { return S; },
+           /* crochets de test (tools/test-banks.js) : ne font pas partie de l'UI */
+           __render: render, __beginRun: beginRun, __chat: { send: chatSend, arrive: chatArrive } };
 })();
 
 if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CORE;
@@ -3502,13 +3809,24 @@ if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CO
     document.getElementById('skTitle').textContent = 'Tâches à accomplir';
     const v = view(); v.className = 'sk-main home';
     v.innerHTML = '<div class="home-head"><h1>Tâches à accomplir</h1><p class="tiny">Chaque ligne ouvre le test réel : consignes, exemples, chronomètre et navigation identiques au document de référence.</p></div>' +
-      '<div class="tasks">' + CORE.SECTIONS.map(s => {
-        const st = P.statsFor(s.id);
-        const badge = st ? (st.behavioural ? '<span class="tk-badge">' + st.n + '× fait</span>' : '<span class="tk-badge">' + U.pct(st.last) + '</span>') : '';
-        return '<div class="task" data-id="' + s.id + '"><div class="tk-name">' + esc(s.home) + '</div><div class="tk-time">' + s.min + ' minutes</div>' + badge +
-          (s.noDetail ? '' : '<button class="tk-info" data-info="' + s.id + '" title="Détails">›</button>') +
-          '<button class="tk-start" data-start="' + s.id + '">Début</button></div>';
-      }).join('') + '</div>';
+      '<div class="tasks">' + (() => {
+        let bank = null;
+        return CORE.SECTIONS.map(s => {
+          let head = '';
+          if ((s.bank || null) !== bank) {
+            bank = s.bank || null;
+            const g = bank ? CORE.BANKS[bank] : null;
+            head = g
+              ? '<div class="bank-head"><div class="bh-title">' + esc(g.title) + '</div><div class="bh-src">' + esc(g.src) + '</div></div>'
+              : '<div class="bank-head"><div class="bh-title">Aon / cut-e — épreuves de base</div><div class="bh-src">Les 14 épreuves conformes aux documents de référence ; elles servent aussi de base aux formats bancaires ci-dessous.</div></div>';
+          }
+          const st = P.statsFor(s.id);
+          const badge = st ? (st.behavioural ? '<span class="tk-badge">' + st.n + '× fait</span>' : '<span class="tk-badge">' + U.pct(st.last) + '</span>') : '';
+          return head + '<div class="task" data-id="' + s.id + '"><div class="tk-name">' + esc(s.home) + '</div><div class="tk-time">' + s.min + ' minutes</div>' + badge +
+            (s.noDetail ? '' : '<button class="tk-info" data-info="' + s.id + '" title="Détails">›</button>') +
+            '<button class="tk-start" data-start="' + s.id + '">Début</button></div>';
+        }).join('');
+      })() + '</div>';
     v.querySelectorAll('[data-start]').forEach(b => b.onclick = () => { location.hash = '#/run/' + b.dataset.start; });
     v.querySelectorAll('[data-info]').forEach(b => b.onclick = (e) => { e.stopPropagation(); infoModal(b.dataset.info); });
   }
@@ -3683,7 +4001,7 @@ if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CO
   }
 
   /* ═══════════════ Démarrage ═══════════════ */
-  $('#footMeta').textContent = 'Assessment Trainer v4.3 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
+  $('#footMeta').textContent = 'Assessment Trainer v4.5 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
   ensureUser();
   route();
 })();

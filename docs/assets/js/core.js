@@ -35,7 +35,7 @@ const CORE = (() => {
     { id: 'bnp-num', bank: 'BNP', home: 'BNP Maki — raisonnement numérique (9 q. / 10 min)', head: 'BNP Maki — numerical reasoning (9 items / 10 min)', min: 10, kind: 'numverb', src: 'num', cap: 9, timed: 600 },
     { id: 'bnp-log', bank: 'BNP', home: 'BNP Maki — raisonnement logique (13 q. / 8 min)', head: 'BNP Maki — logical reasoning (13 items / 8 min)', min: 8, kind: 'pick2', timed: 480 },
     { id: 'bnp-ps', bank: 'BNP', home: 'BNP Maki — résolution de problèmes (10 q. / 10 min)', head: 'BNP Maki — problem solving (10 items / 10 min)', min: 10, kind: 'numverb', src: 'num', cap: 10, timed: 600 },
-    { id: 'bnp-sjt', bank: 'BNP', home: 'BNP Maki — jugement situationnel « communication efficace » (13 q. / 10 min)', head: 'BNP Maki — situational judgement “effective communication” (13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600, sjt: true },
+    { id: 'bnp-sjt', bank: 'BNP', home: 'BNP Maki — SJT « communication efficace » (jugement situationnel, 13 q. / 10 min)', head: 'BNP Maki — SJT “effective communication” (situational judgement, 13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600, sjt: true },
     { id: 'bnp-det', bank: 'BNP', home: 'BNP Maki — attention aux détails (10 q. / 12 min)', head: 'BNP Maki — attention to detail (10 items / 12 min)', min: 12, kind: 'edots', timed: 720, exTime: 30 },
 
     /* ══ UBS — Online Assessment : batterie cognitive Aon + Korn Ferry Culture Match.
@@ -43,7 +43,7 @@ const CORE = (() => {
        logique/inductif 18 q./6 min (T/F/Cannot Say), Culture Match (Korn Ferry, sans chrono). ══ */
     { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique (Aon, 37 q. / 12 min)', head: 'UBS — numerical reasoning (Aon, 37 items / 12 min)', min: 12, kind: 'numverb', src: 'num', timed: 720 },
     { id: 'ubs-verb', bank: 'UBS', home: 'UBS — raisonnement logique/inductif (18 q. / 6 min)', head: 'UBS — logical/inductive reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'verb', cap: 18, timed: 360 },
-    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (Korn Ferry)', head: 'UBS — Culture Match (Korn Ferry)', min: 15, kind: 'blocks', blocks: 24 },
+    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (Korn Ferry, 18 scénarios)', head: 'UBS — Culture Match (Korn Ferry, 18 scenarios)', min: 15, kind: 'blocks', blocks: 18 },
 
     /* ══ Morgan Stanley — Online Assessment selon poste/région : SHL (IBD/S&T notamment)
        ou Aon/cut-e (campus EMEA). Sources : forgeprep.io · careertestprep.com · preplounge.com ·
@@ -53,14 +53,14 @@ const CORE = (() => {
     { id: 'ms-verb', bank: 'MS', home: 'Morgan Stanley — verbal (SHL, 30 q. / 19 min)', head: 'Morgan Stanley — verbal (SHL, 30 items / 19 min)', min: 19, kind: 'numverb', src: 'verb', cap: 30, timed: 1140 },
     { id: 'ms-ind', bank: 'MS', home: 'Morgan Stanley — inductif (SHL, 24 q. / 25 min)', head: 'Morgan Stanley — inductive (SHL, 24 items / 25 min)', min: 25, kind: 'pick2', timed: 1500 },
     { id: 'ms-sw', bank: 'MS', home: 'Morgan Stanley — switchChallenge (Aon)', head: 'Morgan Stanley — switchChallenge (Aon)', min: 9, kind: 'switchcode', timed: 360 },
-    { id: 'ms-sjt', bank: 'MS', home: 'Morgan Stanley — jugement situationnel (chat, 13 q. / 10 min)', head: 'Morgan Stanley — situational judgement (chat-based, 13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600 }
+    { id: 'ms-sjt', bank: 'MS', home: 'Morgan Stanley — chatAssess · SJT chat façon WhatsApp (13 scénarios / 10 min)', head: 'Morgan Stanley — chatAssess · chat-based SJT (13 scenarios / 10 min)', min: 10, kind: 'chatsjt', blocks: 13, timed: 600, next: 'ms-num' }
   ];
 
   /* Groupes affichés sur l'accueil (dans l'ordre d'apparition de SECTIONS). */
   const BANKS = {
     BNP: { title: 'BNP Paribas — Maki (plateforme depuis 2025)', src: 'Formats documentés : psychotechniquetest.fr · test-banque.fr · Glassdoor (process CIB stagiaires). Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5), plancher 0. Modules anglais/français ≈ sections « Compétences Linguistiques » ci-dessus.' },
-    UBS: { title: 'UBS — Online Assessment (Aon + Korn Ferry)', src: 'Formats documentés : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min, logique/inductif 18 q./6 min (Aon) + Culture Match (Korn Ferry) pour tous les rôles.' },
-    MS: { title: 'Morgan Stanley — Online Assessment (SHL ou Aon)', src: 'Formats documentés : forgeprep.io · careertestprep.com · preplounge.com — SHL (IBD/S&T) ou Aon/cut-e (campus EMEA) selon le poste ; cut-scores numériques parmi les plus élevés.' }
+    UBS: { title: 'UBS — Online Assessment (Aon + Korn Ferry)', src: 'Formats documentés : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min, logique/inductif 18 q./6 min (Aon) + Culture Match (Korn Ferry, 18 scénarios — retours candidats déc. 2024) pour tous les rôles.' },
+    MS: { title: 'Morgan Stanley — Online Assessment (SHL ou Aon)', src: 'Formats documentés : forgeprep.io · careertestprep.com · preplounge.com — SHL (IBD/S&T) ou Aon/cut-e (campus EMEA) selon le poste ; cut-scores numériques parmi les plus élevés. Aon chatAssess : répondre aux messages de collègues dans une interface de chat (retours candidats : Wall Street Oasis, mconsultingprep).' }
   };
   const byId = (id) => SECTIONS.find(s => s.id === id);
 
@@ -253,9 +253,10 @@ const CORE = (() => {
   function destroy() {
     if (tick) { clearInterval(tick); tick = null; }
     if (S && S.clockId) clearInterval(S.clockId);
-    if (S) { clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer); clearTimeout(S.exTimer); }
+    if (S) { clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer); clearTimeout(S.exTimer); clearTimeout(S.chatTimer); }
     S = null;
     document.body.classList.remove('running');
+    if (document.body.removeAttribute) document.body.removeAttribute('data-bank');
     const ng = document.getElementById('navGrid'); if (ng) ng.classList.remove('on');
     ['skTimer', 'skCount', 'skLvl'].forEach(id => { const n = document.getElementById(id); if (n) { n.textContent = ''; if (id === 'skLvl') n.hidden = true; } });
     const bk = document.getElementById('skBook'); if (bk) bk.hidden = true;
@@ -264,9 +265,11 @@ const CORE = (() => {
   function start(id) {
     destroy();
     const sec = byId(id);
-    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false, fbLock: false };
+    S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false, fbLock: false,
+          chatMsgs: [], chatTyping: false, chatAwaiting: false, chatDone: false, chatDraft: '', chatTimer: 0 };
     buildItems();
     document.body.classList.add('running');
+    if (sec.bank && document.body.setAttribute) document.body.setAttribute('data-bank', sec.bank);   /* thème par banque (styles.css) */
     tick = setInterval(onTick, 250);
     render();
   }
@@ -299,6 +302,7 @@ const CORE = (() => {
       case 'lang': S.items = []; S.seed = seed; break;   /* géré par sous-phases */
       case 'mech': S.items = BANK.mech.map(x => Object.assign({ why: x.w || '' }, x)); S.examples = [Object.assign({ why: BANK.mech[0].w || '' }, BANK.mech[0])]; break;
       case 'switchcode': S.items = []; S.seed = seed; break;
+      case 'chatsjt': S.items = BANK.msChat.map((c, i2) => ({ id: sec.id + i2, from: c.from, in: c.in })); break;
     }
   }
 
@@ -348,6 +352,7 @@ const CORE = (() => {
     T.classList.toggle('warn', !!t && (S.sec.timed ? (S.deadline - now) < 60000 : (S.secEnd - now) < 30000));
     let c = '';
     if (S.sec.kind === 'blocks') c = Math.min(S.i + 1, S.items.length) + '/' + S.items.length;
+    else if (S.sec.kind === 'chatsjt') c = Math.min(S.log.length + 1, S.items.length) + '/' + S.items.length;
     else if (S.sec.kind === 'numverb') { const done = Object.keys(S.answers || {}).length; c = done ? done + ' / ' + S.items.length : ''; }
     else if (S.sec.kind === 'mech') c = Math.min(S.i + 1, S.items.length) + ' / ' + S.items.length;
     else if (S.sec.kind === 'lang') c = '';
@@ -377,6 +382,7 @@ const CORE = (() => {
       case 'lang': return renderLang(view);
       case 'mech': return renderMech(view);
       case 'switchcode': return renderSwitch(view);
+      case 'chatsjt': return renderChat(view);
     }
   }
 
@@ -456,6 +462,7 @@ const CORE = (() => {
     if (sec.kind === 'lang') { S.sub = 0; S.langPhase = 'examples'; S.langIdx = 0; langBuildSection(); S.secEnd = 0; }
     if (sec.kind === 'seqmem') { S.leSec = 0; startBreak(); }
     if (sec.kind === 'inbox') { S.mail = 0; }
+    if (sec.kind === 'chatsjt') { const curS = S; clearTimeout(S.chatTimer); S.chatTimer = setTimeout(() => { if (S !== curS) return; chatArrive(0); }, 700); }
     render();
   }
 
@@ -493,6 +500,89 @@ const CORE = (() => {
     document.getElementById('blkNext').onclick = goNext;
     const ifbN = document.getElementById('ifbNext');
     if (ifbN) ifbN.onclick = goNext;
+    chrome();
+  }
+
+  /* ═══════════════ CHATSJT — Morgan Stanley chatAssess (mode messagerie) ═══════════════
+     Les scénarios arrivent comme des messages reçus (bulles blanches) ; le candidat tape
+     sa réponse, qui part comme un vrai message (bulle bleue, ✓✓, horodatage). Pas de
+     bonne réponse : les entrées du log n'ont pas de champ `ok` → finish() les agrège
+     comme un questionnaire comportemental. À la fin, un message contient le lien vers
+     l'évaluation suivante (sec.next), comme dans le process réel. */
+  const chatTime = () => { try { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
+
+  function chatArrive(i) {
+    if (!S || S.phase === 'end' || S.done) return;
+    if (i >= S.items.length) {                     /* message final : lien vers le test suivant */
+      const T = STR(S.sec);
+      S.chatTyping = false; S.chatAwaiting = false; S.chatDone = true;
+      S.chatMsgs.push({ who: 'them', link: true, from: 'Morgan Stanley — Recruitment', text: '🔗 ' + T.chatNextLbl + ' : ' + T.chatNextCta, t: chatTime() });
+      return render();
+    }
+    const lang = P.lang(S.sec.id) === 'fr' ? 0 : 1;   /* scénarios stockés en paires [FR, EN] */
+    const it = S.items[i];
+    S.chatTyping = false; S.chatAwaiting = true; S.chatDraft = '';
+    if (!S.qStart) S.qStart = Date.now();
+    S.chatMsgs.push({ who: 'them', from: it.from, text: it.in[lang], t: chatTime() });
+    render();
+  }
+
+  function chatSend(text) {
+    if (!S || S.phase !== 'run' || S.done) return;
+    text = String(text == null ? '' : text).trim();
+    if (!S.chatAwaiting || !text) return;
+    const lang = P.lang(S.sec.id) === 'fr' ? 0 : 1;
+    const i = S.log.length;
+    const it = S.items[i];
+    if (!it) return;
+    S.chatAwaiting = false;
+    S.chatMsgs.push({ who: 'me', text, t: chatTime() });
+    S.log.push({ n: i + 1, q: it.in[lang], given: text, ms: Date.now() - (S.qStart || Date.now()), section: S.sec.id });
+    S.qStart = Date.now();
+    S.chatTyping = true;
+    render();
+    clearTimeout(S.chatTimer);
+    const curS = S;
+    S.chatTimer = setTimeout(() => { if (S !== curS) return; chatArrive(i + 1); }, 900);
+  }
+
+  function renderChat(view) {
+    const T = STR(S.sec);
+    view.className = 'sk-main narrow';
+    const msgs = S.chatMsgs.map(m => {
+      if (m.who === 'me') return '<div class="chat-row me"><div class="bubble me">' + esc(m.text) + '<span class="b-time">' + esc(m.t) + ' <span class="b-ticks">✓✓</span></span></div></div>';
+      const head = m.from ? '<div class="b-from">' + esc(m.from) + '</div>' : '';
+      const cta = m.link ? '<button class="chat-cta" id="chatGoNext">▶ ' + esc(T.chatNextLbl) + ' — ' + esc(S.sec.next || '') + '</button>' : '';
+      return '<div class="chat-row them"><div class="bubble them' + (m.link ? ' link-bubble' : '') + '">' + head + esc(m.text) + cta + '<span class="b-time">' + esc(m.t) + '</span></div></div>';
+    }).join('');
+    const typing = S.chatTyping ? '<div class="chat-row them"><div class="bubble them typing"><i></i><i></i><i></i></div></div>' : '';
+    const inputBar = S.chatDone ? '' :
+      '<div class="chat-input"><textarea id="chatIn" rows="2" placeholder="' + esc(T.chatPlaceholder) + '">' + esc(S.chatDraft || '') + '</textarea>' +
+      '<button class="chat-send" id="chatSend"' + ((S.chatTyping || !S.chatAwaiting) ? ' disabled' : '') + '>' + esc(T.chatSend) + '</button></div>';
+    view.innerHTML = '<div class="chat-app">' +
+      '<div class="chat-head"><div class="chat-ava">MS</div><div class="chat-hdtxt"><b>Morgan Stanley — Recruitment</b><span id="chatStatus">' + (S.chatTyping ? esc(T.chatTyping) : esc(T.chatOnline)) + '</span></div><span class="chat-lock">🔒</span></div>' +
+      '<div class="chat-body" id="chatBody">' + msgs + typing + '</div>' + inputBar + '</div>';
+    const body = document.getElementById('chatBody');
+    if (body && body.scrollTo) { try { body.scrollTop = body.scrollHeight; } catch (e) {} }
+    const inp = document.getElementById('chatIn');
+    if (inp) {
+      inp.oninput = () => {
+        S.chatDraft = inp.value;
+        const b = document.getElementById('chatSend');
+        if (b) b.disabled = S.chatTyping || !S.chatAwaiting || !String(inp.value || '').trim();
+      };
+      if (inp.addEventListener) inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const b = document.getElementById('chatSend'); if (b) b.click(); }
+      });
+    }
+    const send = document.getElementById('chatSend');
+    if (send) send.onclick = () => {
+      const v = inp ? String(inp.value || '') : '';
+      if (!v.trim()) return U.toast(STR(S.sec).chatEmpty, 'err');
+      chatSend(v);
+    };
+    const go = document.getElementById('chatGoNext');
+    if (go) go.onclick = () => { const nx = S.sec.next; finish(); if (nx) location.hash = '#/run/' + nx; };
     chrome();
   }
 
@@ -1140,7 +1230,7 @@ const CORE = (() => {
     if (!S || S.done) return;
     S.done = true;
     if (tick) { clearInterval(tick); tick = null; }
-    clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer);
+    clearTimeout(S.nvTimer); clearTimeout(S.lgTimer); clearTimeout(S.fbTimer); clearTimeout(S.chatTimer);
     const sec = S.sec;
     let correct = 0, graded = 0, answered = 0;
     if (sec.kind === 'numverb' || sec.kind === 'mech') {
@@ -1156,6 +1246,7 @@ const CORE = (() => {
       correct = good; graded = good + bad; answered = S.log.length;
       S.langNet = good - bad;
     } else if (sec.kind === 'blocks') { graded = 0; answered = S.log.length; }
+    else if (sec.kind === 'chatsjt') { graded = 0; answered = S.log.length; }   /* réponses libres du chat : comportemental */
     else if (sec.kind === 'seqmem') { correct = S.lePos || 0; graded = 72; answered = 72; }
     else if (sec.kind === 'inbox') {
       S.mails.forEach((m, i) => { const ex = explainMail(m); const pOk = m.prio === ex.prio, aOk = (m.act == null ? -1 : m.act) === ex.act; if (pOk) correct++; if (aOk) correct++; graded += 2; answered += 2; S.log.push({ n: i + 1, q: m.subj, given: (m.prio != null ? ['HIGH', 'MEDIUM', 'LOW'][m.prio] : '—') + ' / ' + (m.act != null ? m.act + 1 : '—'), correct: ['HIGH', 'MEDIUM', 'LOW'][ex.prio] + ' / ' + (ex.act + 1), ok: pOk && aOk, ms: 0, section: sec.id, why: ex.why }); });
@@ -1184,9 +1275,14 @@ const CORE = (() => {
         : '<p>' + (lang === 'fr' ? 'Score : ' : 'Score: ') + '<b>' + a.correct + ' / ' + a.items + '</b> (' + U.pct(a.accuracy) + ')</p>') +
       '<p class="tiny">' + (lang === 'fr' ? 'Durée : ' : 'Time: ') + COREmmss(a.ms / 1000) + '</p>' +
       '<p class="tiny" style="color:var(--tx3)">' + (lang === 'fr' ? 'Le détail question par question est disponible dans le menu ≡ → Feedback détaillé.' : 'The question-by-question detail is available in the ≡ menu → Feedback.') + '</p>' +
-      '<div class="intro-nav"><button class="btn-intro" id="endHome">‹ ' + (lang === 'fr' ? 'Tâches' : 'Tasks') + '</button><button class="btn-next" id="endFb">' + (lang === 'fr' ? 'Feedback' : 'Feedback') + ' ›</button></div></div>';
+      '<div class="intro-nav"><button class="btn-intro" id="endHome">‹ ' + (lang === 'fr' ? 'Tâches' : 'Tasks') + '</button>' +
+      '<div class="end-actions"><button class="btn-next" id="endFb">' + (lang === 'fr' ? 'Feedback' : 'Feedback') + '</button>' +
+      (S.sec.next ? '<button class="btn-next" id="endNext">' + (lang === 'fr' ? 'Test suivant' : 'Next test') + ' ›</button>' : '') +
+      '</div></div></div>';
     document.getElementById('endHome').onclick = () => { destroy(); location.hash = '#/'; };
     document.getElementById('endFb').onclick = () => { destroy(); location.hash = '#/feedback'; };
+    const endNext = document.getElementById('endNext');
+    if (endNext) endNext.onclick = () => { const nx = S.sec.next; destroy(); location.hash = '#/run/' + nx; };
     chrome();
   }
 
@@ -1205,7 +1301,9 @@ const CORE = (() => {
     if (S.sec.kind === 'lang' && k >= '1' && k <= '5') { const b = document.querySelectorAll('.optrow')[+k - 1]; if (b) b.click(); }
   });
 
-  return { SECTIONS, BANKS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, explainMail, get current() { return S; } };
+  return { SECTIONS, BANKS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, explainMail, get current() { return S; },
+           /* crochets de test (tools/test-banks.js) : ne font pas partie de l'UI */
+           __render: render, __beginRun: beginRun, __chat: { send: chatSend, arrive: chatArrive } };
 })();
 
 if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CORE;

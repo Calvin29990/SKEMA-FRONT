@@ -19,9 +19,34 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
-| `skema-training/` | **Assessment Trainer v4.3** — 14 tâches format Aon/cut-e (numérique, verbal, inductif, déductif, SJT…) | Prep MS / Aon / cut-e (restauré de l'historique, commit `f5d6f2a`) |
+| `skema-training/` | **Assessment Trainer v4.5** — 14 tâches format Aon/cut-e + 13 modules bancaires (BNP Maki, UBS, Morgan Stanley) | Prep MS / Aon / cut-e / Maki (restauré de l'historique, commit `f5d6f2a`) |
 | `audits/` | Audit de fidélité du trainer (02/10) | Avant de s'appuyer sur skema-training |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
+
+---
+
+## 🏦 Assessment Trainer v4.5 — styles distincts par banque (04/10/2026)
+
+Le trainer (`skema-training/`, publié via `docs/`) passe en v4.5 : chaque banque a désormais
+son propre style, et le SJT Morgan Stanley est en mode messagerie comme le vrai chatAssess.
+
+- **Morgan Stanley — chatAssess façon WhatsApp** (fini les blocs Aon) : fenêtre de messagerie
+  bleu moderne (en-tête dégradé « Morgan Stanley — Recruitment », avatar, statut « en ligne /
+  écrit… »), les 13 scénarios arrivent comme des **messages reçus** (bulles blanches), les
+  réponses partent comme de vrais messages (bulles bleues, ✓✓, horodatage). **À la fin : message
+  avec le lien vers le test suivant** (« 🔗 Évaluation suivante : Numerical Reasoning ») qui
+  lance réellement `ms-num`, comme dans le process décrit par les candidats (Wall Street Oasis :
+  « responding to messages of colleagues in fake scenarios using a chat feature »).
+- **BNP — style Maki** (pas Aon) : thème blanc/rouge `#ce0f2e`, cartes et boutons arrondis.
+- **UBS** : thème blanc/rouge vif `#ec0000` ; **Culture Match corrigé à 18 scénarios**
+  (au lieu de 24) d'après les retours candidats (« 18 scenario-based questions », déc. 2024).
+- Technique : thèmes via `body[data-bank]` (variables `--red/--red-d/--red-bg` déjà centralisées) ;
+  nouveau kind `chatsjt` + `renderChat` dans `core.js` ; réponses du chat loggées sans champ `ok`
+  → `finish()` les agrège comme un questionnaire comportemental ; bouton « Test suivant » sur
+  l'écran de résultats ; crochets de test `__render/__beginRun/__chat`.
+- **Vérifier** : `node skema-training/tools/test-banks.js` (124 contrôles, y compris le flux chat
+  complet 13 réponses) · **Publier** : `python3 skema-training/build.py` (régénère `docs/` +
+  `standalone/index.html`).
 
 ---
 
