@@ -868,6 +868,60 @@ const BANK = (() => {
         '<p>Your logical problem-solving skills are measured.</p><p>Find as many correct codes as you can.</p><p>You have 6 minutes once the assessment starts.</p><p>Make sure you are not interrupted.</p>'),
       I('<p>Tutoriel — la machine :</p><ul><li>Le code change l’ordre des symboles.</li><li>Chaque chiffre du code indique quelle position d’entrée alimente la position de sortie correspondante : le code 1 3 2 4 place en sortie, dans l’ordre, les symboles d’entrée 1, 3, 2 puis 4.</li><li>On vous donne la suite d’entrée et la suite de sortie : retrouvez le code appliqué parmi les trois proposés.</li><li>Choisissez un code : la réponse part immédiatement et la question suivante arrive.</li><li>Le niveau augmente progressivement la difficulté des permutations.</li></ul>',
         '<p>Tutorial — the machine:</p><ul><li>The code changes the order of the symbols.</li><li>Each digit of the code tells which input position feeds the corresponding output position: code 1 3 2 4 places at the output, in order, the input symbols 1, 3, 2 then 4.</li><li>You are given the input row and the output row: find the applied code among the three proposed.</li><li>Choose a code: the answer is submitted immediately and the next question arrives.</li><li>The level progressively increases the difficulty of the permutations.</li></ul>')
+    ],
+
+    /* ─── Modules bancaires (formats documentés publiquement — voir core.js) ─── */
+    'bnp-num': [
+      I('<p><b>BNP Paribas — plateforme Maki</b> (utilisée par BNP depuis 2025). Module documenté : <b>raisonnement numérique — 9 questions en 10 minutes</b>.</p><p>Format identique au raisonnement numérique de la base : affirmations TRUE / FALSE / CANNOT SAY à partir des feuilles de données.</p><p>Scoring Maki : <b>(bonnes réponses ÷ total) − (erreurs × 0,5)</b>, plancher 0. Seuils constatés : ~65-68 % (BDDF), ~72 % (CIB).</p><p>Calculatrice, crayon et papier autorisés. Le test ne peut pas être interrompu.</p>',
+        '<p><b>BNP Paribas — Maki platform</b> (used by BNP since 2025). Documented module: <b>numerical reasoning — 9 items in 10 minutes</b>.</p><p>Same format as the base numerical reasoning: TRUE / FALSE / CANNOT SAY statements based on the data sheets.</p><p>Maki scoring: <b>(correct ÷ total) − (errors × 0.5)</b>, floored at 0. Observed thresholds: ~65-68% (BDDF), ~72% (CIB).</p><p>Calculator, pencil and paper allowed. The test cannot be interrupted.</p>')
+    ],
+    'bnp-log': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>logique élémentaire — 13 questions en 8 minutes</b>.</p><p>Séries logiques : choisissez la figure qui complète la séquence. Travaillez vite et précisément — le scoring Maki pénalise les erreurs (− 0,5 par erreur).</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>elementary logic — 13 items in 8 minutes</b>.</p><p>Logical series: choose the figure that completes the sequence. Work quickly and accurately — Maki scoring penalises errors (− 0.5 per error).</p><p>The test cannot be interrupted once started.</p>')
+    ],
+    'bnp-ps': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>résolution de problèmes — 10 questions en 10 minutes</b> (cité par les stagiaires CIB sur Glassdoor : « résolution de problème, raisonnement numérique, verbal »).</p><p>Questions numériques appliquées : lisez l’énoncé, calculez, choisissez la bonne réponse. Une seule réponse correcte par question.</p><p>Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5). Le test ne peut pas être interrompu.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>problem solving — 10 items in 10 minutes</b> (reported by CIB interns on Glassdoor: “problem solving, numerical, verbal reasoning”).</p><p>Applied numerical questions: read the prompt, compute, choose the right answer. One correct answer per item.</p><p>Maki scoring: (correct ÷ total) − (errors × 0.5). The test cannot be interrupted.</p>')
+    ],
+    'bnp-sjt': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>jugement situationnel « communication efficace » — 13 questions en 10 minutes</b>.</p><p>Des scénarios professionnels vous sont présentés ; répartissez les points entre les attitudes proposées selon ce qui vous correspond le mieux — comme pour les questionnaires de personnalité de la base.</p><p>Il n’y a pas de bonne réponse : répondez honnêtement, mais pensez au contexte bancaire (relation client, travail d’équipe, conformité).</p><p>Chrono : 10 minutes. Le test ne peut pas être interrompu.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>“effective communication” situational judgement — 13 items in 10 minutes</b>.</p><p>You are shown workplace scenarios; allocate the points between the proposed attitudes according to what suits you best — like the personality questionnaires in the base.</p><p>There are no right answers: answer honestly, but think of the banking context (client relations, teamwork, compliance).</p><p>Timer: 10 minutes. The test cannot be interrupted.</p>')
+    ],
+    'bnp-det': [
+      I('<p><b>BNP Paribas — plateforme Maki.</b> Module documenté : <b>attention aux détails — 10 questions en 12 minutes</b>.</p><p>Comparez les suites de symboles et placez les points exactement comme dans « Capacité de Concentration » de la base, mais avec le chrono de 12 minutes du format Maki.</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>BNP Paribas — Maki platform.</b> Documented module: <b>attention to detail — 10 items in 12 minutes</b>.</p><p>Compare the symbol sequences and place the dots exactly as in “Ability to Concentration” from the base, but with the 12-minute timer of the Maki format.</p><p>The test cannot be interrupted once started.</p>')
+    ],
+    'ubs-num': [
+      I('<p><b>UBS — Online Assessment</b> (source : learnandpass.co.uk/tests-by-company/ubs). Toutes les candidatures passent la batterie cognitive <b>Aon</b> + le <b>Korn Ferry Culture Match</b>.</p><p>Module : <b>raisonnement numérique Aon — 37 questions en 12 minutes</b>, affirmations TRUE / FALSE / CANNOT SAY sur les feuilles de données.</p><p>La plupart des candidats ne terminent pas les 37 questions : visez la précision avant la quantité. Calculatrice et papier recommandés.</p>',
+        '<p><b>UBS — Online Assessment</b> (source: learnandpass.co.uk/tests-by-company/ubs). All applications take the <b>Aon</b> cognitive battery + the <b>Korn Ferry Culture Match</b>.</p><p>Module: <b>Aon numerical reasoning — 37 items in 12 minutes</b>, TRUE / FALSE / CANNOT SAY statements on the data sheets.</p><p>Most candidates cannot complete all 37 items: aim for accuracy before quantity. Calculator and paper recommended.</p>')
+    ],
+    'ubs-verb': [
+      I('<p><b>UBS — Online Assessment.</b> Module documenté : <b>raisonnement logique/inductif — 18 questions en 6 minutes</b>, affirmations TRUE / FALSE / CANNOT SAY à partir d’informations écrites.</p><p>6 minutes pour 18 questions : moins de 20 secondes par question. Lisez l’affirmation, retrouvez la feuille, tranchez — ne restez jamais bloqué.</p><p>Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>UBS — Online Assessment.</b> Documented module: <b>logical/inductive reasoning — 18 items in 6 minutes</b>, TRUE / FALSE / CANNOT SAY statements based on written information.</p><p>6 minutes for 18 items: under 20 seconds per question. Read the statement, find the sheet, decide — never get stuck.</p><p>The test cannot be interrupted once started.</p>')
+    ],
+    'ubs-cult': [
+      I('<p><b>UBS — Online Assessment.</b> Le <b>Korn Ferry Culture Match</b> fait partie de toutes les candidatures UBS (source : learnandpass.co.uk).</p><p>Comme les questionnaires « Comportements » et « Motivations » de la base : blocs de trois affirmations, six points à répartir selon l’environnement de travail idéal pour vous.</p><p>Sans limite de temps, mais travaillez vite et honnêtement : ~15 minutes. Aucun retour en arrière possible.</p>',
+        '<p><b>UBS — Online Assessment.</b> The <b>Korn Ferry Culture Match</b> is part of every UBS application (source: learnandpass.co.uk).</p><p>Like the “Behaviour” and “Motivation” questionnaires in the base: blocks of three statements, six points to allocate according to your ideal working environment.</p><p>No time limit, but work quickly and honestly: ~15 minutes. You cannot move back.</p>')
+    ],
+    'ms-num': [
+      I('<p><b>Morgan Stanley — Online Assessment</b> (sources : forgeprep.io · careertestprep.com · preplounge.com). Selon le poste et la région : batterie <b>SHL</b> (IBD/S&amp;T notamment) ou <b>Aon/cut-e</b> (campus EMEA). Fenêtre de complétion : 5 à 7 jours ; cut-scores numériques parmi les plus élevés du secteur.</p><p>Module SHL : <b>numérique — 18 questions en 25 minutes</b>. Affirmations TRUE / FALSE / CANNOT SAY sur les feuilles de données.</p><p>Prévoyez calculatrice, crayon et papier. Le chrono démarre à la première question.</p>',
+        '<p><b>Morgan Stanley — Online Assessment</b> (sources: forgeprep.io · careertestprep.com · preplounge.com). Depending on role and region: <b>SHL</b> battery (IBD/S&amp;T notably) or <b>Aon/cut-e</b> (EMEA campus). Completion window: 5 to 7 days; numerical cut-scores among the highest in the industry.</p><p>SHL module: <b>numerical — 18 items in 25 minutes</b>. TRUE / FALSE / CANNOT SAY statements on the data sheets.</p><p>Have a calculator, pencil and paper ready. The timer starts with the first question.</p>')
+    ],
+    'ms-verb': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Module SHL documenté : <b>verbal — 30 questions en 19 minutes</b>.</p><p>Affirmations TRUE / FALSE / CANNOT SAY à partir de passages écrits : répondez uniquement sur la base du texte, jamais sur vos connaissances.</p><p>~38 secondes par question. Le test ne peut pas être interrompu une fois commencé.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> Documented SHL module: <b>verbal — 30 items in 19 minutes</b>.</p><p>TRUE / FALSE / CANNOT SAY statements based on written passages: answer only from the text, never from outside knowledge.</p><p>~38 seconds per question. The test cannot be interrupted once started.</p>')
+    ],
+    'ms-ind': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Module SHL documenté : <b>inductif — 24 questions en 25 minutes</b>.</p><p>Séries de figures : identifiez la règle (rotation, nombre, couleur, taille) et choisissez la figure suivante. Une seule réponse correcte.</p><p>~1 minute par question : si la règle ne saute pas aux yeux en 30 secondes, passez et revenez plus tard si le temps le permet.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> Documented SHL module: <b>inductive — 24 items in 25 minutes</b>.</p><p>Figure series: identify the rule (rotation, count, colour, size) and pick the next figure. One correct answer.</p><p>~1 minute per question: if the rule is not obvious within 30 seconds, move on and come back later if time allows.</p>')
+    ],
+    'ms-sw': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Les candidats campus EMEA rapportent une batterie Aon incluant le <b>switchChallenge</b> (source : retours de candidats, gameassessmentprep.com).</p><p>Format identique au « switchChallenge » de la base : retrouvez le code de permutation appliqué par la machine. 6 minutes, niveau croissant.</p><p>Assurez-vous de ne pas être interrompu.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> EMEA campus candidates report an Aon battery including the <b>switchChallenge</b> (source: candidate reports, gameassessmentprep.com).</p><p>Same format as the base “switchChallenge”: find the permutation code applied by the machine. 6 minutes, increasing difficulty.</p><p>Make sure you are not interrupted.</p>')
+    ],
+    'ms-sjt': [
+      I('<p><b>Morgan Stanley — Online Assessment.</b> Les batteries campus incluent un <b>jugement situationnel de type « chat »</b> (sources : preplounge.com · retours de candidats) : situations client/équipe à prioriser en temps limité.</p><p>13 scénarios, 10 minutes : répartissez les points entre les réactions proposées selon ce qui vous correspond le mieux, en pensant au contexte bancaire (client d’abord, escalade au bon niveau, conformité).</p><p>Il n’y a pas de bonne réponse unique — mais les banques attendent cohérence et jugement professionnel.</p>',
+        '<p><b>Morgan Stanley — Online Assessment.</b> Campus batteries include a <b>chat-based situational judgement test</b> (sources: preplounge.com · candidate reports): client/team situations to prioritise under time pressure.</p><p>13 scenarios, 10 minutes: allocate the points between the proposed reactions according to what suits you best, thinking of the banking context (client first, escalate at the right level, compliance).</p><p>There is no single right answer — but banks expect consistency and professional judgement.</p>')
     ]
   };
 
@@ -885,6 +939,7 @@ const BANK = (() => {
       leBreak: 'Pause — prochaine section dans',
       blkBeh: 'Avec quelle précision ces affirmations décrivent-elles votre comportement ?',
       blkMot: 'Quelle importance accordez-vous aux aspects suivants de votre environnement de travail ?',
+      blkSjt: 'Répartissez les points selon les réactions qui vous correspondent le mieux dans la situation décrite.',
       blkSub: 'Attribuez les points en sélectionnant les cercles.',
       sheets: 'Feuilles de données', sheetsHint: 'Naviguez librement entre les feuilles : la question reste affichée.', sheetGo: 'Afficher cette feuille', finish: 'Terminer',
       exNoteOne: 'Exemple non noté et non chronométré — le chrono de {t} démarre après l’exemple.',
@@ -913,6 +968,7 @@ const BANK = (() => {
       leBreak: 'Break — next section in',
       blkBeh: 'How accurately do these statements describe your behaviour?',
       blkMot: 'How important do you rate the following aspects for your work environment?',
+      blkSjt: 'Allocate the points according to the reactions that suit you best in the situation described.',
       blkSub: 'Please allocate points by selecting the circles.',
       sheets: 'Data sheets', sheetsHint: 'Move freely between the sheets: the question stays on screen.', sheetGo: 'Show this sheet', finish: 'Finish',
       exNoteOne: 'Unscored, untimed example — the {t} test timer starts after the example.',
