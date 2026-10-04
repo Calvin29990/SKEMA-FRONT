@@ -125,7 +125,7 @@ midterm — la veille, c'est le 08).
 | **Sam 03/10** | **PAUSE** ✅ | **PAUSE** ✅ (+ run `bnp-training` si envie) | Hull J1 → 10/10 |
 | **Dim 04/10** | **UBS** (2 modules, ~1 h) | Repos / Corp Val léger | décision UBS attendue d'ici le 10 |
 | **Lun 05/10** | Cours MB 09:45-13:00 (C 306) | Corp Val S1-S3 | |
-| **Mar 06/10** | **Blanc corporate** (20 MCQ, 30 min chrono) + correction | Combler les lacunes | jour libre, J-3 du midterm |
+| **Mar 06/10** | **Blanc corporate** (20 MCQ, 30 min chrono) + correction | Combler les lacunes · **17:15 : Zoom MS « Meet & Greet our Traders » (17:30-18:45)** — 2 questions prêtes (Dallas HQ + hedging corporates FX/taux/LatAm) | jour libre, J-3 du midterm ; event ≠ test, zéro risque |
 | **Mer 07/10** | Cours MB 09:45-13:00 (A 221) | Relecture ; **buffer UBS** (déjà passé) | BNP autorisé à partir d'aujourd'hui mais gardé pour le 10 |
 | **Jeu 08/10** | Révision finale | Cours MB 15:00-18:15 (A 322) puis rien | **ZONE PROTÉGÉE** (veille du midterm) |
 | **Ven 09/10** | **MIDTERM Corp Val** (20 MCQ, 30 min, Amphi C 201) | Repos | aucun test bancaire |
