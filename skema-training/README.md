@@ -123,3 +123,26 @@ v4.2 (contenu réellement lié à l'onglet choisi, feuille par défaut = questio
 choix mémorisé, note « le chrono démarre après les exemples » + décompte vérifié 12:00 → 11:59,
 anglais par défaut avec réglage épreuve par épreuve, et banques de personnalité complètes
 144 + 108 énoncés, FR et EN, aucun bloc vide) et le retour immédiat v4.3 sur les 14 épreuves.
+
+## Modules bancaires (v4.4) — BNP Maki, UBS, Morgan Stanley
+
+13 sections supplémentaires, regroupées sur l'accueil sous trois en-têtes. **Aucun test
+inventé** : seuls les formats (nombre de questions, chronos, type de scoring) proviennent de
+sources publiques ; les questions restent la banque d'entraînement de cette plateforme.
+
+| Groupe | Modules (format documenté) | Sources |
+|---|---|---|
+| **BNP Paribas — Maki** (plateforme depuis 2025) | numérique 9 q./10 min · logique 13 q./8 min · résolution de problèmes 10 q./10 min · SJT « communication efficace » 13 q./10 min · attention aux détails 10 q./12 min | psychotechniquetest.fr/bnp-paribas · test-banque.fr/bnp-paribas · Glassdoor (process CIB stagiaires) |
+| **UBS — Online Assessment** | numérique Aon 37 q./12 min · logique/inductif 18 q./6 min (T/F/CS) · Korn Ferry Culture Match | learnandpass.co.uk/tests-by-company/ubs |
+| **Morgan Stanley — OA** | SHL : numérique 18 q./25 min · verbal 30 q./19 min · inductif 24 q./25 min ; Aon EMEA : switchChallenge + SJT chat 13 q./10 min | forgeprep.io · careertestprep.com · preplounge.com · gameassessmentprep.com |
+
+Scoring Maki (documenté) : (bonnes ÷ total) − (erreurs × 0,5), plancher 0 ; seuils ~65-68 %
+BDDF, ~72 % CIB. Les modules anglais (16 q./5 min) et français (21 q./6 min) de Maki
+correspondent aux sections « Compétences Linguistiques » de la base.
+
+Mécanique : paramètre `cap` (nombre de questions) sur les épreuves `numverb`, `blocks` et
+`timed` documenté par module ; intros FR/EN dédiées citant le format et sa source.
+
+Test de conformité : `node skema-training/tools/test-banks.js` (charge les vrais scripts,
+démarre chaque section, vérifie les nombres de questions, les chronos, les intros et la
+non-régression des 14 épreuves d'origine).

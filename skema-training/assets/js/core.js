@@ -23,8 +23,45 @@ const CORE = (() => {
     { id: 'english',       home: 'Compétences Linguistiques - Anglais',  head: 'Competences Linguistiques - Anglais',  min: 13, kind: 'lang',     lang: 'en' },
     { id: 'french',        home: 'Compétences Linguistiques - Français', head: 'Compétences Linguistiques - Français', min: 13, kind: 'lang',     lang: 'fr' },
     { id: 'mechanical',    home: 'Raisonnement Mécanique',                    head: 'Mechanical Reasoning',                  min: 18, kind: 'mech',     timed: 900 },
-    { id: 'switch',        home: 'Raisonnement Déductif - switchChallenge',   head: 'Deductive Reasoning - switchChallenge', min: 9,  kind: 'switchcode', timed: 360 }
+    { id: 'switch',        home: 'Raisonnement Déductif - switchChallenge',   head: 'Deductive Reasoning - switchChallenge', min: 9,  kind: 'switchcode', timed: 360 },
+
+    /* ══ BNP Paribas — Maki (plateforme depuis 2025). Formats documentés publiquement :
+       psychotechniquetest.fr/bnp-paribas · psychotechnique.lu/bnp-paribas · test-banque.fr/bnp-paribas.
+       Modules : numérique 9 q./10 min · logique élémentaire 13 q./8 min · résolution de problèmes
+       10 q./10 min · jugement situationnel « communication efficace » 13 q./10 min · attention aux
+       détails 10 q./12 min · anglais 16 q./5 min · français 21 q./6 min.
+       Scoring : (bonnes ÷ total) − (erreurs × 0,5), plancher 0 ; seuils ~65-68 % BDDF, ~72 % CIB.
+       Les questions restent la banque d'entraînement de cette plateforme. ══ */
+    { id: 'bnp-num', bank: 'BNP', home: 'BNP Maki — raisonnement numérique (9 q. / 10 min)', head: 'BNP Maki — numerical reasoning (9 items / 10 min)', min: 10, kind: 'numverb', src: 'num', cap: 9, timed: 600 },
+    { id: 'bnp-log', bank: 'BNP', home: 'BNP Maki — raisonnement logique (13 q. / 8 min)', head: 'BNP Maki — logical reasoning (13 items / 8 min)', min: 8, kind: 'pick2', timed: 480 },
+    { id: 'bnp-ps', bank: 'BNP', home: 'BNP Maki — résolution de problèmes (10 q. / 10 min)', head: 'BNP Maki — problem solving (10 items / 10 min)', min: 10, kind: 'numverb', src: 'num', cap: 10, timed: 600 },
+    { id: 'bnp-sjt', bank: 'BNP', home: 'BNP Maki — jugement situationnel « communication efficace » (13 q. / 10 min)', head: 'BNP Maki — situational judgement “effective communication” (13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600, sjt: true },
+    { id: 'bnp-det', bank: 'BNP', home: 'BNP Maki — attention aux détails (10 q. / 12 min)', head: 'BNP Maki — attention to detail (10 items / 12 min)', min: 12, kind: 'edots', timed: 720, exTime: 30 },
+
+    /* ══ UBS — Online Assessment : batterie cognitive Aon + Korn Ferry Culture Match.
+       Source : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min (Aon),
+       logique/inductif 18 q./6 min (T/F/Cannot Say), Culture Match (Korn Ferry, sans chrono). ══ */
+    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique (Aon, 37 q. / 12 min)', head: 'UBS — numerical reasoning (Aon, 37 items / 12 min)', min: 12, kind: 'numverb', src: 'num', timed: 720 },
+    { id: 'ubs-verb', bank: 'UBS', home: 'UBS — raisonnement logique/inductif (18 q. / 6 min)', head: 'UBS — logical/inductive reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'verb', cap: 18, timed: 360 },
+    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (Korn Ferry)', head: 'UBS — Culture Match (Korn Ferry)', min: 15, kind: 'blocks', blocks: 24 },
+
+    /* ══ Morgan Stanley — Online Assessment selon poste/région : SHL (IBD/S&T notamment)
+       ou Aon/cut-e (campus EMEA). Sources : forgeprep.io · careertestprep.com · preplounge.com ·
+       gameassessmentprep.com. SHL : numérique 18 q./25 min · verbal 30 q./19 min · inductif 24 q./25 min.
+       Aon EMEA : numérique + déductif + SJT chat + switchChallenge. ══ */
+    { id: 'ms-num', bank: 'MS', home: 'Morgan Stanley — numérique (SHL, 18 q. / 25 min)', head: 'Morgan Stanley — numerical (SHL, 18 items / 25 min)', min: 25, kind: 'numverb', src: 'num', cap: 18, timed: 1500 },
+    { id: 'ms-verb', bank: 'MS', home: 'Morgan Stanley — verbal (SHL, 30 q. / 19 min)', head: 'Morgan Stanley — verbal (SHL, 30 items / 19 min)', min: 19, kind: 'numverb', src: 'verb', cap: 30, timed: 1140 },
+    { id: 'ms-ind', bank: 'MS', home: 'Morgan Stanley — inductif (SHL, 24 q. / 25 min)', head: 'Morgan Stanley — inductive (SHL, 24 items / 25 min)', min: 25, kind: 'pick2', timed: 1500 },
+    { id: 'ms-sw', bank: 'MS', home: 'Morgan Stanley — switchChallenge (Aon)', head: 'Morgan Stanley — switchChallenge (Aon)', min: 9, kind: 'switchcode', timed: 360 },
+    { id: 'ms-sjt', bank: 'MS', home: 'Morgan Stanley — jugement situationnel (chat, 13 q. / 10 min)', head: 'Morgan Stanley — situational judgement (chat-based, 13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600 }
   ];
+
+  /* Groupes affichés sur l'accueil (dans l'ordre d'apparition de SECTIONS). */
+  const BANKS = {
+    BNP: { title: 'BNP Paribas — Maki (plateforme depuis 2025)', src: 'Formats documentés : psychotechniquetest.fr · test-banque.fr · Glassdoor (process CIB stagiaires). Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5), plancher 0. Modules anglais/français ≈ sections « Compétences Linguistiques » ci-dessus.' },
+    UBS: { title: 'UBS — Online Assessment (Aon + Korn Ferry)', src: 'Formats documentés : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min, logique/inductif 18 q./6 min (Aon) + Culture Match (Korn Ferry) pour tous les rôles.' },
+    MS: { title: 'Morgan Stanley — Online Assessment (SHL ou Aon)', src: 'Formats documentés : forgeprep.io · careertestprep.com · preplounge.com — SHL (IBD/S&T) ou Aon/cut-e (campus EMEA) selon le poste ; cut-scores numériques parmi les plus élevés.' }
+  };
   const byId = (id) => SECTIONS.find(s => s.id === id);
 
   /* ═══════════════ Stockage, profils, réglages ═══════════════ */
@@ -250,6 +287,7 @@ const CORE = (() => {
         if (sec.src === 'num') S.items = DRILL.NV.items.map(x => Object.assign({}, x));
         else S.items = BANK.verbal.map(v => ({ id: v.id, kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w }));
         S.examples = (sec.src === 'num' ? DRILL.NV.items.slice(-3).map(x => Object.assign({}, x)) : BANK.verbal.slice(-3).map(v => ({ id: v.id + 'x', kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w })));
+        if (sec.cap) S.items = S.items.slice(0, sec.cap);   /* modules bancaires : nombre de questions documenté */
         break;
       }
       case 'latin': S.items = []; S.seed = seed; S.examples = [DRILL.dedItem(seed + 999, 900)]; break;
@@ -424,7 +462,7 @@ const CORE = (() => {
   /* ═══════════════ BLOCS (comportement / motivation) ═══════════════ */
   function renderBlocks(view) {
     const it = S.items[S.i], T = STR(S.sec);
-    const title = S.sec.id === 'behaviour' ? T.blkBeh : T.blkMot;
+    const title = S.sec.id === 'behaviour' ? T.blkBeh : (S.sec.sjt ? T.blkSjt : T.blkMot);
     view.className = 'sk-main';
     const spent = S.sel.reduce((a, b) => a + b, 0);
     const fb = P.instantFb() ? ifbHTML({
@@ -1167,7 +1205,7 @@ const CORE = (() => {
     if (S.sec.kind === 'lang' && k >= '1' && k <= '5') { const b = document.querySelectorAll('.optrow')[+k - 1]; if (b) b.click(); }
   });
 
-  return { SECTIONS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, explainMail, get current() { return S; } };
+  return { SECTIONS, BANKS, byId, start, destroy, finish, P, PROFILES, STR, mmss, toggleNav, expectedMail, explainMail, get current() { return S; } };
 })();
 
 if (typeof window !== 'undefined') window.CORE = CORE; else globalThis.CORE = CORE;

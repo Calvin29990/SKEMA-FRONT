@@ -50,13 +50,24 @@
     document.getElementById('skTitle').textContent = 'Tâches à accomplir';
     const v = view(); v.className = 'sk-main home';
     v.innerHTML = '<div class="home-head"><h1>Tâches à accomplir</h1><p class="tiny">Chaque ligne ouvre le test réel : consignes, exemples, chronomètre et navigation identiques au document de référence.</p></div>' +
-      '<div class="tasks">' + CORE.SECTIONS.map(s => {
-        const st = P.statsFor(s.id);
-        const badge = st ? (st.behavioural ? '<span class="tk-badge">' + st.n + '× fait</span>' : '<span class="tk-badge">' + U.pct(st.last) + '</span>') : '';
-        return '<div class="task" data-id="' + s.id + '"><div class="tk-name">' + esc(s.home) + '</div><div class="tk-time">' + s.min + ' minutes</div>' + badge +
-          (s.noDetail ? '' : '<button class="tk-info" data-info="' + s.id + '" title="Détails">›</button>') +
-          '<button class="tk-start" data-start="' + s.id + '">Début</button></div>';
-      }).join('') + '</div>';
+      '<div class="tasks">' + (() => {
+        let bank = null;
+        return CORE.SECTIONS.map(s => {
+          let head = '';
+          if ((s.bank || null) !== bank) {
+            bank = s.bank || null;
+            const g = bank ? CORE.BANKS[bank] : null;
+            head = g
+              ? '<div class="bank-head"><div class="bh-title">' + esc(g.title) + '</div><div class="bh-src">' + esc(g.src) + '</div></div>'
+              : '<div class="bank-head"><div class="bh-title">Aon / cut-e — épreuves de base</div><div class="bh-src">Les 14 épreuves conformes aux documents de référence ; elles servent aussi de base aux formats bancaires ci-dessous.</div></div>';
+          }
+          const st = P.statsFor(s.id);
+          const badge = st ? (st.behavioural ? '<span class="tk-badge">' + st.n + '× fait</span>' : '<span class="tk-badge">' + U.pct(st.last) + '</span>') : '';
+          return head + '<div class="task" data-id="' + s.id + '"><div class="tk-name">' + esc(s.home) + '</div><div class="tk-time">' + s.min + ' minutes</div>' + badge +
+            (s.noDetail ? '' : '<button class="tk-info" data-info="' + s.id + '" title="Détails">›</button>') +
+            '<button class="tk-start" data-start="' + s.id + '">Début</button></div>';
+        }).join('');
+      })() + '</div>';
     v.querySelectorAll('[data-start]').forEach(b => b.onclick = () => { location.hash = '#/run/' + b.dataset.start; });
     v.querySelectorAll('[data-info]').forEach(b => b.onclick = (e) => { e.stopPropagation(); infoModal(b.dataset.info); });
   }
