@@ -27,3 +27,7 @@ desktop.ini
 
 # Node (pour bnp-training si besoin)
 node_modules/
+
+# Python build/test artifacts
+__pycache__/
+*.py[cod]

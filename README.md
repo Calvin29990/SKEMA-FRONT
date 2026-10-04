@@ -19,6 +19,7 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
+| `skema-training/` | Trainer multi-banques, désormais avec les 3 modules UBS | Entraînement numerical, Culture Match, inductif |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
@@ -104,6 +105,7 @@ Math : *Matrix Cookbook*, *Arbitrage-free smoothing implied volatility surface*
 | `SKEMA-DOSSIER-ARCHIVE.md` | TOUT le dossier SKEMA (argument, preuves, stratégie, contacts) |
 | `candidatures/TRACKING-CANDIDATURES-2026-2027.md` | Audit candidatures (blacklist, retake policies) |
 | `bnp-training/index.html` | Clone plateforme BNP Maki (test 7-9 octobre) |
+| `skema-training/index.html` | Trainer multi-banques — modules UBS numérique, Culture Match et inductif |
 | `documents/CV_Calvin_MINANG.pdf` | CV à jour |
 | `documents/Portfolio_Calvin_MINANG.pdf` | Portfolio |
 
