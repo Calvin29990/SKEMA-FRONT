@@ -19,16 +19,16 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
-| `skema-training/` | **Assessment Trainer v4.5** — 14 tâches format Aon/cut-e + 13 modules bancaires (BNP Maki, UBS, Morgan Stanley) | Prep MS / Aon / cut-e / Maki (restauré de l'historique, commit `f5d6f2a`) |
+| `skema-training/` | **Assessment Trainer v4.6** — 14 tâches de base + 16 modules bancaires, dont 3 nouveaux formats UBS | Prep Aon / cut-e / BNP Maki / UBS / Morgan Stanley |
 | `audits/` | Audit de fidélité du trainer (02/10) | Avant de s'appuyer sur skema-training |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
 
-## 🏦 Assessment Trainer v4.5 — styles distincts par banque (04/10/2026)
+## 🏦 Assessment Trainer v4.6 — nouveaux formats UBS (04/10/2026)
 
-Le trainer (`skema-training/`, publié via `docs/`) passe en v4.5 : chaque banque a désormais
-son propre style, et le SJT Morgan Stanley est en mode messagerie comme le vrai chatAssess.
+Le trainer (`skema-training/`, publié via `docs/`) conserve les épreuves bancaires déjà en place
+et ajoute trois modules d’entraînement UBS calés sur les documents fournis.
 
 - **Morgan Stanley — chatAssess façon WhatsApp** (fini les blocs Aon) : fenêtre de messagerie
   bleu moderne (en-tête dégradé « Morgan Stanley — Recruitment », avatar, statut « en ligne /
@@ -38,8 +38,11 @@ son propre style, et le SJT Morgan Stanley est en mode messagerie comme le vrai 
   lance réellement `ms-num`, comme dans le process décrit par les candidats (Wall Street Oasis :
   « responding to messages of colleagues in fake scenarios using a chat feature »).
 - **BNP — style Maki** (pas Aon) : thème blanc/rouge `#ce0f2e`, cartes et boutons arrondis.
-- **UBS** : thème blanc/rouge vif `#ec0000` ; **Culture Match corrigé à 18 scénarios**
-  (au lieu de 24) d'après les retours candidats (« 18 scenario-based questions », déc. 2024).
+- **UBS** : thème blanc/rouge vif `#ec0000`. Les modules Aon / Korn Ferry préexistants sont
+  conservés ; trois formats supplémentaires issus des documents fournis sont accessibles séparément :
+  numérique (18 affirmations / 6 min), Culture Match à choix « plus / moins efficace » (18 scénarios,
+  ~20 min sans chrono) et raisonnement inductif par grilles (6 min). Les nouveaux items et données
+  sont fictifs et originaux.
 - Technique : thèmes via `body[data-bank]` (variables `--red/--red-d/--red-bg` déjà centralisées) ;
   nouveau kind `chatsjt` + `renderChat` dans `core.js` ; réponses du chat loggées sans champ `ok`
   → `finish()` les agrège comme un questionnaire comportemental ; bouton « Test suivant » sur
@@ -147,6 +150,7 @@ Math : *Matrix Cookbook*, *Arbitrage-free smoothing implied volatility surface*
 | `SKEMA-DOSSIER-ARCHIVE.md` | TOUT le dossier SKEMA (argument, preuves, stratégie, contacts) |
 | `candidatures/TRACKING-CANDIDATURES-2026-2027.md` | Audit candidatures (blacklist, retake policies) |
 | `bnp-training/index.html` | Clone plateforme BNP Maki (test 7-9 octobre) |
+| `skema-training/index.html` | Assessment Trainer — nouveaux exercices UBS |
 | `documents/CV_Calvin_MINANG.pdf` | CV à jour |
 | `documents/Portfolio_Calvin_MINANG.pdf` | Portfolio |
 

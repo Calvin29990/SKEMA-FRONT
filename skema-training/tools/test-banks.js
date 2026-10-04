@@ -1,6 +1,5 @@
-/* Test de conformité v4.5 — charge les vrais scripts et démarre chaque section bancaire.
-   Vérifie aussi : thèmes par banque (data-bank sur body), kind `chatsjt`, les 18 blocs
-   du Culture Match UBS, et le flux chat complet (13 réponses → log comportemental). */
+/* Test de conformité v4.6 — charge les vrais scripts et démarre chaque section bancaire.
+   Vérifie aussi les trois formats UBS, les thèmes par banque et le flux chat Morgan Stanley. */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 
@@ -53,7 +52,7 @@ sandbox.window = sandbox;
 sandbox.globalThis = sandbox;
 const ctx = vm.createContext(sandbox);
 const dir = path.join(__dirname, '..', 'assets', 'js');
-for (const f of ['util.js', 'banks.js', 'drills.js', 'core.js']) {
+for (const f of ['util.js', 'banks.js', 'ubs.js', 'drills.js', 'core.js']) {
   vm.runInContext(fs.readFileSync(path.join(dir, f), 'utf8'), ctx, { filename: f });
 }
 const CORE = sandbox.CORE, BANK = sandbox.BANK;
@@ -61,13 +60,13 @@ const CORE = sandbox.CORE, BANK = sandbox.BANK;
 let fails = 0;
 const ok = (cond, msg) => { console.log((cond ? 'PASS' : 'FAIL') + ' — ' + msg); if (!cond) fails++; };
 
-/* 1. Catalogue : 14 anciennes + 13 nouvelles sections bancaires */
+/* 1. Catalogue : 14 épreuves de base + 16 modules bancaires */
 const bankIds = CORE.SECTIONS.filter(s => s.bank).map(s => s.id);
-ok(bankIds.length === 13, '13 sections bancaires au catalogue (trouvé ' + bankIds.length + ')');
+ok(bankIds.length === 16, '16 sections bancaires au catalogue (trouvé ' + bankIds.length + ')');
 const byBank = {};
 CORE.SECTIONS.filter(s => s.bank).forEach(s => { (byBank[s.bank] = byBank[s.bank] || []).push(s.id); });
 ok((byBank.BNP || []).length === 5, 'BNP : 5 modules → ' + (byBank.BNP || []).join(', '));
-ok((byBank.UBS || []).length === 3, 'UBS : 3 modules → ' + (byBank.UBS || []).join(', '));
+ok((byBank.UBS || []).length === 6 && (byBank.UBS || []).join(',') === 'ubs-num,ubs-verb,ubs-cult,ubs-num-18,ubs-cult-action,ubs-ind', 'UBS : 3 formats existants + 3 nouveaux → ' + (byBank.UBS || []).join(', '));
 ok((byBank.MS || []).length === 5, 'MS : 5 modules → ' + (byBank.MS || []).join(', '));
 ok(CORE.BANKS.BNP && CORE.BANKS.UBS && CORE.BANKS.MS, 'CORE.BANKS exporté pour les 3 banques');
 
@@ -78,10 +77,11 @@ CORE.SECTIONS.forEach(s => {
   ok(good, 'INTRO FR/EN présent pour ' + s.id);
 });
 
-/* 3. start() sur chaque nouvelle section : items conformes au format documenté */
+/* 3. start() sur chaque section bancaire : contenus et comptes conformes */
 const expect = {
   'bnp-num': 9, 'bnp-ps': 10, 'bnp-log': 0, 'bnp-sjt': 13, 'bnp-det': 0,
-  'ubs-num': 37, 'ubs-verb': 18, 'ubs-cult': 18,   /* Culture Match : 18 scénarios (retours candidats déc. 2024) */
+  'ubs-num': 37, 'ubs-verb': 18, 'ubs-cult': 18,
+  'ubs-num-18': 18, 'ubs-cult-action': 18, 'ubs-ind': 0,
   'ms-num': 18, 'ms-verb': 30, 'ms-ind': 0, 'ms-sw': 0, 'ms-sjt': 13
 };
 for (const id of bankIds) {
@@ -150,10 +150,36 @@ ok(S.attempt && S.attempt.section === 'ms-sjt', 'finish() : rattaché à la sect
 CORE.destroy();
 ok(!('data-bank' in bodyStub._attrs), 'chat : thème retiré après la session');
 
-/* 9. v4.5 — UBS Culture Match : 18 blocs */
-ok(CORE.byId('ubs-cult').blocks === 18, 'ubs-cult : 18 blocs (scénarios) au registre');
+/* 9. UBS — conserver les trois formats existants et vérifier les trois nouveaux */
+ok(CORE.byId('ubs-num').src === 'num' && CORE.byId('ubs-num').timed === 720, 'ubs-num : ancien format Aon (37 questions / 12 min) conservé');
+ok(CORE.byId('ubs-verb').src === 'verb' && CORE.byId('ubs-verb').timed === 360, 'ubs-verb : ancien format logique/T-F/Cannot Say conservé');
+ok(CORE.byId('ubs-cult').kind === 'blocks' && CORE.byId('ubs-cult').blocks === 18, 'ubs-cult : ancien questionnaire de préférences conservé');
 CORE.start('ubs-cult');
-ok(CORE.current.items.length === 18 && CORE.current.items[0].stmts.length === 3, 'ubs-cult : 18 blocs × 3 affirmations générés');
+ok(CORE.current.items.length === 18 && CORE.current.items[0].stmts.length === 3, 'ubs-cult : 18 blocs × 3 affirmations');
+CORE.destroy();
+
+ok(BANK.ubsNumericalSheets.length === 6, 'nouveau numérique UBS : six feuilles de données');
+ok(BANK.ubsNumerical.length === 18 && BANK.ubsNumerical.every(q => [0, 1, 2].includes(q.a) && BANK.ubsNumericalSheets.some(s => s.id === q.tab)), 'nouveau numérique UBS : 18 questions rattachées à une feuille avec réponses T/F/Cannot Say');
+ok(BANK.ubsNumerical.some(q => q.a === 2), 'nouveau numérique UBS : inclut des réponses CANNOT SAY');
+CORE.start('ubs-num-18');
+ok(CORE.current.items.length === 18 && CORE.current.examples.length === 3 && CORE.current.sec.timed === 360, 'ubs-num-18 : 18 questions, 3 exemples, chrono 6:00');
+CORE.destroy();
+
+ok(CORE.byId('ubs-cult-action').kind === 'culture' && CORE.byId('ubs-cult-action').blocks === 18, 'nouveau Culture Match : moteur Most/Least dédié, 18 scénarios');
+CORE.start('ubs-cult-action');
+ok(CORE.current.items.length === 18 && CORE.current.items.every(q => q.actions.length === 3 && q.best !== q.least), 'Culture Match : 18 scénarios × 3 options, clés Most / Least distinctes');
+ok(CORE.current.examples.length === 1 && !CORE.current.sec.timed, 'Culture Match : exemple guidé et aucune limite de temps');
+CORE.__beginRun();
+const cultureSession = CORE.current;
+cultureSession.log = Array.from({ length: 18 }, (_, i) => ({
+  n: i + 1, q: 'Situation ' + (i + 1), given: 'Most A · Least C', correct: 'Most A · Least C',
+  ok: i < 10, mostOk: i < 12, leastOk: i < 10, ms: 1000, section: 'ubs-cult-action', why: 'Practice scoring check.'
+}));
+CORE.finish();
+ok(cultureSession.attempt && cultureSession.attempt.items === 36 && cultureSession.attempt.correct === 22 && cultureSession.attempt.answered === 36 && Math.abs(cultureSession.attempt.accuracy - 22 / 36) < 1e-9, 'Culture Match : score Most + Least sur 36 décisions');
+CORE.destroy();
+CORE.start('ubs-ind');
+ok(CORE.current.sec.kind === 'pick2' && CORE.current.examples.length === 3 && CORE.current.sec.timed === 360, 'nouveau raisonnement inductif : grilles pick-two, 3 exemples, chrono 6:00');
 CORE.destroy();
 
 console.log(fails ? '\n' + fails + ' ÉCHEC(S)' : '\nTOUS LES TESTS PASSENT');

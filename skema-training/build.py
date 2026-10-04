@@ -17,7 +17,7 @@ REPO = os.path.dirname(ROOT)
 DOCS = os.path.join(REPO, 'docs')
 STANDALONE = os.path.join(ROOT, 'standalone')
 PUB = '/tmp/skema-pub'          # copie publique temporaire
-JS = ['util.js', 'banks.js', 'drills.js', 'core.js', 'app.js']
+JS = ['util.js', 'banks.js', 'ubs.js', 'drills.js', 'core.js', 'app.js']
 PRIVATE = os.path.join(ROOT, 'perso')   # contenu personnel importé : JAMAIS publié
 
 # ── 0. garde-fou : recenser le contenu personnel avant toute copie ─────
@@ -31,7 +31,7 @@ print('contenu perso : %d fichier(s) dans perso/ (exclu des livrables)' % len(pr
 if os.path.exists(PUB):
     shutil.rmtree(PUB)
 shutil.copytree(ROOT, PUB, ignore=shutil.ignore_patterns('standalone', '.git', 'build.py', 'tools',
-                                                         'perso', 'perso-*', '*.perso.json'))
+                                                         '__pycache__', '*.pyc', 'perso', 'perso-*', '*.perso.json'))
 
 # ── 2. fichiers techniques du dossier public ───────────────────────────
 open(os.path.join(PUB, 'robots.txt'), 'w').write('User-agent: *\nDisallow: /\n')
@@ -152,8 +152,10 @@ if os.path.exists(zip_path):
     os.remove(zip_path)
 with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as z:
     for base, dirs, files in os.walk(ROOT):
-        dirs[:] = [d for d in dirs if d not in ('.git', 'perso')]
+        dirs[:] = [d for d in dirs if d not in ('.git', 'perso', '__pycache__')]
         for f in files:
+            if f.endswith(('.pyc', '.pyo')):
+                continue
             p = os.path.join(base, f)
             z.write(p, os.path.join('Assessment-Trainer', os.path.relpath(p, ROOT)))
 print('ZIP : %.1f Ko' % (os.path.getsize(zip_path) / 1024))

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   app.js — routeur, accueil « Tâches à accomplir » (14 lignes),
+   app.js — routeur, accueil « Tâches à accomplir » (épreuves Aon et banques).
    profils, progression, feedback détaillé, réglages, export/import.
    Assessment Trainer — Calvin MINANG — usage personnel.
    ═══════════════════════════════════════════════════════════════ */
@@ -20,7 +20,7 @@
     const cur = P.PROFILES.current();
     if (cur) return paintUser();
     const list = P.PROFILES.list();
-    U.modal('<h2>Bienvenue</h2><p class="tiny">Plateforme d’entraînement personnelle — conforme au document de référence. Choisissez ou créez un profil (les résultats sont enregistrés par profil, dans ce navigateur uniquement).</p>' +
+    U.modal('<h2>Bienvenue</h2><p class="tiny">Plateforme d’entraînement personnelle construite à partir des formats des documents de référence. Les trois modules UBS ajoutés utilisent des questions originales et des données fictives. Choisissez ou créez un profil (résultats enregistrés dans ce navigateur uniquement).</p>' +
       (list.length ? '<div class="userlist">' + list.map(u => '<button class="btn" data-u="' + esc(u) + '">' + esc(u) + '</button>').join('') + '</div><p class="tiny">…ou nouveau profil :</p>' : '') +
       '<div class="row"><input id="uName" class="inp" placeholder="Prénom NOM" autocomplete="off"><button class="btn primary" id="uGo">Entrer</button></div>');
     $('#uGo').onclick = () => { const n = P.PROFILES.set($('#uName').value); if (!n) return U.toast('Indiquez un nom de profil', 'err'); U.closeModal(); paintUser(); route(); };
@@ -49,7 +49,7 @@
   function pageHome() {
     document.getElementById('skTitle').textContent = 'Tâches à accomplir';
     const v = view(); v.className = 'sk-main home';
-    v.innerHTML = '<div class="home-head"><h1>Tâches à accomplir</h1><p class="tiny">Chaque ligne ouvre le test réel : consignes, exemples, chronomètre et navigation identiques au document de référence.</p></div>' +
+    v.innerHTML = '<div class="home-head"><h1>Tâches à accomplir</h1><p class="tiny">Chaque ligne ouvre un entraînement au format correspondant : consignes, exemples, chronomètre et navigation adaptés à l’épreuve.</p></div>' +
       '<div class="tasks">' + (() => {
         let bank = null;
         return CORE.SECTIONS.map(s => {
@@ -164,7 +164,7 @@
     const st = P.settings();
     v.innerHTML = '<h1>Aide &amp; réglages</h1>' +
       '<div class="setbox"><h2>Langue des épreuves</h2>' +
-      '<p class="tiny">Par défaut, toute l’épreuve s’affiche en anglais (la langue du test réel) ; l’habillage — accueil, progression, feedback, aide — reste en français. Les deux tests de langues conservent leur langue de contenu : le réglage ne change que l’affichage de leurs consignes.</p>' +
+      '<p class="tiny">Par défaut, toute l’épreuve s’affiche en anglais (langue des formats de référence) ; l’habillage — accueil, progression, feedback, aide — reste en français. Les deux tests de langues conservent leur langue de contenu : le réglage ne change que l’affichage de leurs consignes.</p>' +
       CORE.SECTIONS.map(s => '<div class="setrow"><span>' + esc(s.home) + '</span><select class="langsel" id="lg-' + s.id + '" data-sec="' + s.id + '"><option value="fr">Français</option><option value="en">English</option></select></div>').join('') +
       '<h2>Interface</h2>' +
       '<div class="setrow"><span>Retour immédiat (juste/faux + pourquoi après chaque réponse)</span><input type="checkbox" id="stInstant"></div>' +
@@ -173,7 +173,7 @@
       '<div class="setrow"><span>Code d’accès du profil</span><input class="inp sm" id="stCode" maxlength="12"></div>' +
       '<h2>Données</h2><p class="tiny">Tout est stocké localement dans ce navigateur (localStorage), par profil. L’export JSON contient l’historique et le détail question par question.</p>' +
       '<div class="row"><button class="btn" id="stExport">Exporter (JSON)</button><button class="btn" id="stImport">Importer</button><button class="btn danger" id="stPurge">Supprimer ce profil</button></div></div>' +
-      '<h2>Aide</h2><div class="setbox tiny"><p>• Accueil → « Début » lance le test réel (consignes + exemples + chrono).</p><p>• Retour immédiat : un panneau sous la question indique juste/faux, la réponse attendue et pourquoi (décochez-le dans Interface pour vous entraîner en conditions réelles).</p><p>• Pendant un test : le menu ≡ reste accessible ; « ›/‹ » et « ▦ » naviguent entre questions quand le test réel le permet.</p><p>• Tests chronométrés : le temps restant s’affiche en haut à droite ; à 0, la session se termine et les questions non répondues comptent comme incorrectes.</p><p>• Comportements / Motivations : répartissez jusqu’à 6 points par bloc (1-6), sans obligation de tout distribuer.</p><p>• Concentration : touches D = correct, A = incorrect.</p></div>';
+      '<h2>Aide</h2><div class="setbox tiny"><p>• Accueil → « Début » lance l’épreuve d’entraînement (consignes + exemples + chrono).</p><p>• Retour immédiat : un panneau sous la question indique juste/faux, la réponse attendue et pourquoi (décochez-le dans Interface pour vous entraîner en conditions réelles).</p><p>• Pendant un test : le menu ≡ reste accessible ; « ›/‹ » et « ▦ » naviguent entre questions quand le test réel le permet.</p><p>• Tests chronométrés : le temps restant s’affiche en haut à droite ; à 0, la session se termine et les questions non répondues comptent comme incorrectes.</p><p>• Comportements / Motivations : répartissez jusqu’à 6 points par bloc (1-6), sans obligation de tout distribuer.</p><p>• Concentration : touches D = correct, A = incorrect.</p></div>';
     v.querySelectorAll('select.langsel').forEach(s => { s.value = P.lang(s.dataset.sec); s.onchange = (e) => { P.setLang(s.dataset.sec, e.target.value); U.toast('Langue enregistrée : ' + s.dataset.sec + ' → ' + (e.target.value === 'fr' ? 'français' : 'anglais')); }; });
     $('#stInstant').checked = st.instantFb !== false; $('#stSound').checked = !!st.sound; $('#stKeys').checked = st.keyboard !== false; $('#stCode').value = st.code || 'CM2026';
     $('#stInstant').onchange = (e) => { st.instantFb = e.target.checked; P.saveSettings(st); U.toast(e.target.checked ? 'Retour immédiat activé' : 'Retour immédiat désactivé (conditions réelles)'); };
@@ -242,7 +242,7 @@
   }
 
   /* ═══════════════ Démarrage ═══════════════ */
-  $('#footMeta').textContent = 'Assessment Trainer v4.5 — conforme au document de référence — ' + new Date().toLocaleDateString('fr-FR');
+  $('#footMeta').textContent = 'Assessment Trainer v4.6 — formats de référence, exercices d’entraînement originaux — ' + new Date().toLocaleDateString('fr-FR');
   ensureUser();
   route();
 })();

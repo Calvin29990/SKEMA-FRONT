@@ -38,12 +38,16 @@ const CORE = (() => {
     { id: 'bnp-sjt', bank: 'BNP', home: 'BNP Maki — SJT « communication efficace » (jugement situationnel, 13 q. / 10 min)', head: 'BNP Maki — SJT “effective communication” (situational judgement, 13 items / 10 min)', min: 10, kind: 'blocks', blocks: 13, timed: 600, sjt: true },
     { id: 'bnp-det', bank: 'BNP', home: 'BNP Maki — attention aux détails (10 q. / 12 min)', head: 'BNP Maki — attention to detail (10 items / 12 min)', min: 12, kind: 'edots', timed: 720, exTime: 30 },
 
-    /* ══ UBS — Online Assessment : batterie cognitive Aon + Korn Ferry Culture Match.
-       Source : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min (Aon),
-       logique/inductif 18 q./6 min (T/F/Cannot Say), Culture Match (Korn Ferry, sans chrono). ══ */
-    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique (Aon, 37 q. / 12 min)', head: 'UBS — numerical reasoning (Aon, 37 items / 12 min)', min: 12, kind: 'numverb', src: 'num', timed: 720 },
+    /* ══ UBS — formats déjà présents (Aon / Korn Ferry). ══ */
+    { id: 'ubs-num', bank: 'UBS', home: 'UBS — raisonnement numérique Aon (37 q. / 12 min)', head: 'UBS — Aon numerical reasoning (37 items / 12 min)', min: 12, kind: 'numverb', src: 'num', timed: 720 },
     { id: 'ubs-verb', bank: 'UBS', home: 'UBS — raisonnement logique/inductif (18 q. / 6 min)', head: 'UBS — logical/inductive reasoning (18 items / 6 min)', min: 6, kind: 'numverb', src: 'verb', cap: 18, timed: 360 },
-    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (Korn Ferry, 18 scénarios)', head: 'UBS — Culture Match (Korn Ferry, 18 scenarios)', min: 15, kind: 'blocks', blocks: 18 },
+    { id: 'ubs-cult', bank: 'UBS', home: 'UBS — Culture Match (préférences, 18 blocs)', head: 'UBS — Culture Match (preferences, 18 blocks)', min: 15, kind: 'blocks', blocks: 18 },
+
+    /* ══ UBS — trois formats supplémentaires d’après les documents fournis.
+       Ces nouveaux exercices et jeux de données sont originaux et fictifs. ══ */
+    { id: 'ubs-num-18', bank: 'UBS', home: 'UBS — numérique (18 questions / 6 min · documents fournis)', head: 'UBS — numerical reasoning (18 items / 6 min · supplied format)', min: 6, kind: 'numverb', src: 'ubs', cap: 18, timed: 360 },
+    { id: 'ubs-cult-action', bank: 'UBS', home: 'UBS — Culture Match (18 scénarios, plus/moins efficaces)', head: 'UBS — Culture Match (18 scenarios, most/least effective)', min: 20, kind: 'culture', blocks: 18 },
+    { id: 'ubs-ind', bank: 'UBS', home: 'UBS — raisonnement inductif par grilles (6 min)', head: 'UBS — inductive reasoning with grids (6 min)', min: 6, kind: 'pick2', timed: 360 },
 
     /* ══ Morgan Stanley — Online Assessment selon poste/région : SHL (IBD/S&T notamment)
        ou Aon/cut-e (campus EMEA). Sources : forgeprep.io · careertestprep.com · preplounge.com ·
@@ -59,7 +63,7 @@ const CORE = (() => {
   /* Groupes affichés sur l'accueil (dans l'ordre d'apparition de SECTIONS). */
   const BANKS = {
     BNP: { title: 'BNP Paribas — Maki (plateforme depuis 2025)', src: 'Formats documentés : psychotechniquetest.fr · test-banque.fr · Glassdoor (process CIB stagiaires). Scoring Maki : (bonnes ÷ total) − (erreurs × 0,5), plancher 0. Modules anglais/français ≈ sections « Compétences Linguistiques » ci-dessus.' },
-    UBS: { title: 'UBS — Online Assessment (Aon + Korn Ferry)', src: 'Formats documentés : learnandpass.co.uk/tests-by-company/ubs — numérique 37 q./12 min, logique/inductif 18 q./6 min (Aon) + Culture Match (Korn Ferry, 18 scénarios — retours candidats déc. 2024) pour tous les rôles.' },
+    UBS: { title: 'UBS — Online Assessment · 6 entraînements', src: 'Formats Aon/Korn Ferry existants, complétés par les trois formats des documents fournis : numérique (18 questions / 6 min), Culture Match (18 scénarios, plus/moins efficaces) et inductif par grilles (6 min). Les nouveaux exercices sont originaux et fictifs.' },
     MS: { title: 'Morgan Stanley — Online Assessment (SHL ou Aon)', src: 'Formats documentés : forgeprep.io · careertestprep.com · preplounge.com — SHL (IBD/S&T) ou Aon/cut-e (campus EMEA) selon le poste ; cut-scores numériques parmi les plus élevés. Aon chatAssess : répondre aux messages de collègues dans une interface de chat (retours candidats : Wall Street Oasis, mconsultingprep).' }
   };
   const byId = (id) => SECTIONS.find(s => s.id === id);
@@ -266,7 +270,8 @@ const CORE = (() => {
     destroy();
     const sec = byId(id);
     S = { sec, phase: 'intro', page: 0, i: 0, items: [], log: [], answers: {}, t0: 0, deadline: 0, secEnd: 0, sub: 0, exLeft: 0, sel: null, pick: new Set(), placed: [], pool: [], mail: 0, mails: [], late: 0, done: false, qStart: 0, tab: null, tabUser: false, fbLock: false,
-          chatMsgs: [], chatTyping: false, chatAwaiting: false, chatDone: false, chatDraft: '', chatTimer: 0 };
+          chatMsgs: [], chatTyping: false, chatAwaiting: false, chatDone: false, chatDraft: '', chatTimer: 0,
+          cultureSel: { most: null, least: null } };
     buildItems();
     document.body.classList.add('running');
     if (sec.bank && document.body.setAttribute) document.body.setAttribute('data-bank', sec.bank);   /* thème par banque (styles.css) */
@@ -287,14 +292,27 @@ const CORE = (() => {
         break;
       }
       case 'numverb': {
-        if (sec.src === 'num') S.items = DRILL.NV.items.map(x => Object.assign({}, x));
-        else S.items = BANK.verbal.map(v => ({ id: v.id, kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w }));
-        S.examples = (sec.src === 'num' ? DRILL.NV.items.slice(-3).map(x => Object.assign({}, x)) : BANK.verbal.slice(-3).map(v => ({ id: v.id + 'x', kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w })));
+        if (sec.src === 'num') {
+          S.items = DRILL.NV.items.map(x => Object.assign({}, x));
+          S.examples = DRILL.NV.items.slice(-3).map(x => Object.assign({}, x));
+        } else if (sec.src === 'ubs') {
+          S.items = BANK.ubsNumerical.map(x => Object.assign({}, x));
+          S.examples = BANK.ubsNumericalExamples.map(x => Object.assign({}, x));
+        } else {
+          S.items = BANK.verbal.map(v => ({ id: v.id, kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w }));
+          S.examples = BANK.verbal.slice(-3).map(v => ({ id: v.id + 'x', kind: 'numverb', tab: v.sh, q: v.s, a: v.a, why: v.w }));
+        }
         if (sec.cap) S.items = S.items.slice(0, sec.cap);   /* modules bancaires : nombre de questions documenté */
         break;
       }
+      case 'culture': S.items = BANK.ubsCulture.map(x => Object.assign({}, x)); S.examples = [Object.assign({}, BANK.ubsCulturePractice)]; break;
       case 'latin': S.items = []; S.seed = seed; S.examples = [DRILL.dedItem(seed + 999, 900)]; break;
-      case 'pick2': S.items = []; S.seed = seed; S.examples = [DRILL.indItem(seed + 888, 901)]; break;
+      case 'pick2': {
+        S.items = []; S.seed = seed;
+        const examples = sec.id === 'ubs-ind' ? 3 : 1;
+        S.examples = Array.from({ length: examples }, (_, i) => DRILL.indItem(seed + 888 + i * 7919, 901 + i));
+        break;
+      }
       case 'edots': S.items = []; S.seed = seed; break;
       case 'mt': S.items = []; S.seed = seed; break;
       case 'seqmem': S.items = Array.from({ length: 6 }, (_, s2) => ({ sec: s2, order: DRILL.leOrder(seed, s2) })); S.demo = { order: DRILL.leOrder(seed, 90) }; break;
@@ -351,7 +369,7 @@ const CORE = (() => {
     T.textContent = t;
     T.classList.toggle('warn', !!t && (S.sec.timed ? (S.deadline - now) < 60000 : (S.secEnd - now) < 30000));
     let c = '';
-    if (S.sec.kind === 'blocks') c = Math.min(S.i + 1, S.items.length) + '/' + S.items.length;
+    if (S.sec.kind === 'blocks' || S.sec.kind === 'culture') c = Math.min(S.i + 1, S.items.length) + '/' + S.items.length;
     else if (S.sec.kind === 'chatsjt') c = Math.min(S.log.length + 1, S.items.length) + '/' + S.items.length;
     else if (S.sec.kind === 'numverb') { const done = Object.keys(S.answers || {}).length; c = done ? done + ' / ' + S.items.length : ''; }
     else if (S.sec.kind === 'mech') c = Math.min(S.i + 1, S.items.length) + ' / ' + S.items.length;
@@ -372,6 +390,7 @@ const CORE = (() => {
     /* run */
     switch (S.sec.kind) {
       case 'blocks': return renderBlocks(view);
+      case 'culture': return renderCulture(view, S.phase === 'example' ? S.examples[S.i] : S.items[S.i], S.phase === 'example');
       case 'numverb': return renderNumVerb(view);
       case 'latin': return renderLatin(view);
       case 'pick2': return renderPick2(view);
@@ -404,7 +423,7 @@ const CORE = (() => {
     if (bk) bk.onclick = () => { S.page--; render(); };
     chrome();
   }
-  function hasExamples() { return ['numverb', 'latin', 'pick2', 'mech', 'edots', 'seqmem', 'lang', 'switchcode'].includes(S.sec.kind); }
+  function hasExamples() { return ['numverb', 'latin', 'pick2', 'culture', 'mech', 'edots', 'seqmem', 'lang', 'switchcode'].includes(S.sec.kind); }
 
   function renderTutorial(view) {
     const lang = P.lang(S.sec.id);
@@ -433,6 +452,7 @@ const CORE = (() => {
     if (sec.kind === 'edots') { S.phase = 'run'; S.exMode = true; S.deadline = Date.now() + sec.exTime * 1000; S.i = 0; return renderEdots(view); }
     const it = S.examples[S.i];
     if (!it) return beginRun();
+    if (sec.kind === 'culture') return renderCulture(view, it, true);
     if (sec.kind === 'numverb') return nvItem(view, it, true);
     if (sec.kind === 'mech') return mechItem(view, it, true);
     if (sec.kind === 'latin') return latinItem(view, it, true);
@@ -457,6 +477,7 @@ const CORE = (() => {
     const sec = S.sec;
     if (sec.timed) S.deadline = S.t0 + sec.timed * 1000;
     if (sec.kind === 'blocks') S.sel = [0, 0, 0];
+    if (sec.kind === 'culture') S.cultureSel = { most: null, least: null };
     if (sec.kind === 'numverb') { S.i = 0; if (!S.tabUser || !S.tab) S.tab = S.items[0] ? S.items[0].tab : null; }
     if (sec.kind === 'mech') S.i = 0;
     if (sec.kind === 'lang') { S.sub = 0; S.langPhase = 'examples'; S.langIdx = 0; langBuildSection(); S.secEnd = 0; }
@@ -500,6 +521,78 @@ const CORE = (() => {
     document.getElementById('blkNext').onclick = goNext;
     const ifbN = document.getElementById('ifbNext');
     if (ifbN) ifbN.onclick = goNext;
+    chrome();
+  }
+
+  /* ═══════════════ CULTURE MATCH — une réponse la plus efficace + la moins efficace ══ */
+  function renderCulture(view, it, isEx) {
+    if (!it) return isEx ? beginRun() : finish();
+    const fr = P.lang(S.sec.id) === 'fr';
+    const text = (v) => v && typeof v === 'object' ? (v[fr ? 'fr' : 'en'] || v.en || '') : String(v || '');
+    const selection = S.cultureSel || { most: null, least: null };
+    const mostLabel = fr ? 'La plus efficace' : 'Most effective';
+    const leastLabel = fr ? 'La moins efficace' : 'Least effective';
+    const title = fr ? 'Choisissez une réponse pour chaque catégorie' : 'Choose one response for each category';
+    const submitLabel = isEx ? (fr ? 'Vérifier l’exemple' : 'Check example') :
+      (S.i === S.items.length - 1 ? (fr ? 'Terminer' : 'Finish') : (fr ? 'Scénario suivant' : 'Next scenario'));
+    const choices = it.actions.map((action, i) => {
+      const mostOn = selection.most === i, leastOn = selection.least === i;
+      return '<article class="cm-action" data-action="' + i + '"><div class="cm-action-letter">' + String.fromCharCode(65 + i) + '</div>' +
+        '<div class="cm-action-copy">' + esc(text(action)) + '</div><div class="cm-action-picks">' +
+        '<button type="button" class="cm-pick most' + (mostOn ? ' on' : '') + '" data-role="most" data-i="' + i + '" aria-pressed="' + mostOn + '">' + esc(mostLabel) + '</button>' +
+        '<button type="button" class="cm-pick least' + (leastOn ? ' on' : '') + '" data-role="least" data-i="' + i + '" aria-pressed="' + leastOn + '">' + esc(leastLabel) + '</button></div></article>';
+    }).join('');
+    const hasPair = selection.most != null && selection.least != null && selection.most !== selection.least;
+    view.className = 'sk-main narrow';
+    view.innerHTML = '<div class="cm-wrap"><div class="cm-topline"><span>' + (isEx ? (fr ? 'Exemple guidé' : 'Practice example') :
+      esc((fr ? 'Scénario ' : 'Scenario ') + (S.i + 1) + ' / ' + S.items.length)) + '</span><span class="cm-source">UBS · Culture Match</span></div>' +
+      '<h2 class="cm-instruction">' + esc(title) + '</h2><section class="cm-scenario"><span>' + (fr ? 'SITUATION' : 'SCENARIO') + '</span><p>' + esc(text(it.scenario)) + '</p></section>' +
+      '<div class="cm-columns"><span>' + (fr ? 'RÉACTION' : 'RESPONSE') + '</span><span>' + esc(mostLabel) + '</span><span>' + esc(leastLabel) + '</span></div>' +
+      '<div class="cm-actions">' + choices + '</div>' +
+      '<p class="cm-hint">' + (fr ? 'Sélectionnez deux actions différentes : une plus efficace et une moins efficace.' : 'Select two different actions: one most effective and one least effective.') + '</p>' +
+      '<div class="cm-submit"><button class="btn-next" id="cmSubmit"' + (hasPair ? '' : ' disabled') + '>' + esc(submitLabel) + ' ›</button></div></div>';
+
+    view.querySelectorAll('.cm-pick').forEach((button) => button.onclick = () => {
+      if (S.fbLock) return;
+      const role = button.dataset.role, idx = +button.dataset.i;
+      const next = Object.assign({ most: null, least: null }, S.cultureSel || {});
+      next[role] = next[role] === idx ? null : idx;
+      const other = role === 'most' ? 'least' : 'most';
+      if (next[other] === idx) next[other] = null;
+      S.cultureSel = next;
+      renderCulture(view, it, isEx);
+    });
+
+    document.getElementById('cmSubmit').onclick = () => {
+      if (!hasPair) return U.toast(fr ? 'Choisissez deux actions différentes.' : 'Choose two different actions.', 'err', 1400);
+      const mostOk = selection.most === it.best, leastOk = selection.least === it.least;
+      if (isEx) {
+        S.fbLock = true;
+        view.querySelectorAll('.cm-action').forEach((row, idx) => {
+          if (idx === it.best) row.classList.add('answer-most');
+          if (idx === it.least) row.classList.add('answer-least');
+        });
+        exampleDone(mostOk && leastOk);
+        return;
+      }
+      const given = (fr ? 'Plus efficace : ' : 'Most effective: ') + String.fromCharCode(65 + selection.most) +
+        ' · ' + (fr ? 'Moins efficace : ' : 'Least effective: ') + String.fromCharCode(65 + selection.least);
+      const expected = (fr ? 'Plus efficace : ' : 'Most effective: ') + String.fromCharCode(65 + it.best) +
+        ' · ' + (fr ? 'Moins efficace : ' : 'Least effective: ') + String.fromCharCode(65 + it.least);
+      S.answers[S.i] = { most: selection.most, least: selection.least };
+      S.log.push({ n: S.i + 1, q: text(it.scenario), given, correct: expected, ok: mostOk && leastOk,
+        mostOk, leastOk, ms: Date.now() - S.qStart, section: S.sec.id, why: text(it.why) });
+      S.i++;
+      S.cultureSel = { most: null, least: null };
+      S.qStart = Date.now();
+      if (S.i >= S.items.length) return finish();
+      if (!P.instantFb()) return render();
+      S.fbLock = true;
+      showInstantFb(view, { ok: mostOk && leastOk, given, expected, why: text(it.why), nextLabel: fr ? 'Continuer ›' : 'Continue ›' }, () => {
+        if (S && S.phase === 'run') { S.fbLock = false; render(); }
+      }, 4000);
+      chrome();
+    };
     chrome();
   }
 
@@ -587,7 +680,14 @@ const CORE = (() => {
   }
 
   /* ═══════════════ NUMVERB (numérique + verbal) ═══════════════ */
-  const nvTabs = () => S.sec.src === 'num' ? DRILL.NV.tabs.map(t => ({ id: t.id, name: t.name })) : BANK.verbalSheets.map(t => ({ id: t.id, name: t.name }));
+  const nvText = (value) => value && typeof value === 'object'
+    ? (value[P.lang(S.sec.id)] || value.en || value.fr || '')
+    : String(value == null ? '' : value);
+  const nvTabs = () => S.sec.src === 'num'
+    ? DRILL.NV.tabs.map(t => ({ id: t.id, name: t.name }))
+    : (S.sec.src === 'ubs'
+      ? BANK.ubsNumericalSheets.map(t => ({ id: t.id, name: P.lang(S.sec.id) === 'fr' ? t.nameFr : t.nameEn }))
+      : BANK.verbalSheets.map(t => ({ id: t.id, name: t.name })));
   /* Note affichée pendant les exemples : rend explicite le fait que le chrono
      du test ne démarre qu'après eux (les exemples sont non notés et non chronométrés). */
   function exNoteHTML() {
@@ -604,11 +704,12 @@ const CORE = (() => {
        l'utilisateur choisit une feuille, ce choix est conservé d'une question à
        l'autre. */
     if (!S.tabUser || !tabs.some(t => t.id === S.tab)) S.tab = it.tab;
-    const fig = S.sec.src === 'num' ? DRILL.NV.figures[S.tab]() : BANK.verbalSheets.find(s => s.id === S.tab).html;
+    const sheet = S.sec.src === 'ubs' ? BANK.ubsNumericalSheets.find(s => s.id === S.tab) : null;
+    const fig = S.sec.src === 'num' ? DRILL.NV.figures[S.tab]() : (sheet ? sheet[P.lang(S.sec.id) === 'fr' ? 'fr' : 'en'] : BANK.verbalSheets.find(s => s.id === S.tab).html);
     view.className = 'sk-main';
     view.innerHTML = '<div class="nv-sheets"><span class="nv-sheets-l">' + esc(T.sheets) + '</span><div class="nv-tabs">' + tabs.map(t => '<button class="nv-tab' + (t.id === S.tab ? ' on' : '') + '" data-t="' + t.id + '" title="' + esc(T.sheetGo) + '">' + esc(t.name) + '</button>').join('') + '</div><span class="nv-sheets-h">' + esc(T.sheetsHint) + '</span></div>' +
       '<div class="nv-cols"><div class="nv-fig"><div class="nvtext">' + fig + '</div></div>' +
-      '<div class="nv-side"><div class="nv-stmt">' + (isEx ? '<b>EXAMPLE</b> ' : '') + esc(it.q) + '</div>' +
+      '<div class="nv-side"><div class="nv-stmt">' + (isEx ? '<b>EXAMPLE</b> ' : '') + esc(nvText(it.q)) + '</div>' +
       (isEx ? exNoteHTML() : '') +
       '<div class="tfbtns">' + T.tf.map((l, i) => '<button class="tfbtn' + (S.sel === i ? ' sel' : '') + '" data-v="' + i + '">' + l + '</button>').join('') + '</div></div></div>' +
       navPadHTML();
@@ -651,8 +752,8 @@ const CORE = (() => {
       const tabs = nvTabs();
       const shObj = tabs.find(t => t.id === it.tab);
       const shName = shObj ? shObj.name : it.tab;
-      const shKind = S.sec.src === 'num' ? 'Feuille de données' : 'Fiche de texte';
-      const whyTxt = (it.why ? it.why + ' ' : '') + shKind + ' : ' + shName + '.';
+      const shKind = S.sec.src === 'verb' ? 'Fiche de texte' : 'Feuille de données';
+      const whyTxt = (it.why ? nvText(it.why) + ' ' : '') + shKind + ' : ' + shName + '.';
       const side = view.querySelector('.nv-side') || view;
       const el = showInstantFb(side, {
         ok,
@@ -666,7 +767,8 @@ const CORE = (() => {
       if (shBtn) shBtn.onclick = () => {
         S.tab = it.tab; S.tabUser = true;
         view.querySelectorAll('.nv-tab').forEach(t => t.classList.toggle('on', t.dataset.t === S.tab));
-        const fig = S.sec.src === 'num' ? DRILL.NV.figures[S.tab]() : BANK.verbalSheets.find(s => s.id === S.tab).html;
+        const activeSheet = S.sec.src === 'ubs' ? BANK.ubsNumericalSheets.find(s => s.id === S.tab) : null;
+        const fig = S.sec.src === 'num' ? DRILL.NV.figures[S.tab]() : (activeSheet ? activeSheet[P.lang(S.sec.id) === 'fr' ? 'fr' : 'en'] : BANK.verbalSheets.find(s => s.id === S.tab).html);
         const box = view.querySelector('.nv-fig .nvtext');
         if (box) box.innerHTML = fig;
       };
@@ -1237,7 +1339,7 @@ const CORE = (() => {
       if (sec.kind === 'numverb' && S.nvAns != null && S.answers[S.i] == null) S.answers[S.i] = S.nvAns;
       S.items.forEach((it, i) => {
         const a = S.answers[i], info = (S.nvInfo && S.nvInfo[i]) || {};
-        S.log.push({ n: i + 1, q: it.q, given: a == null ? '—' : tfText(it, a), correct: tfText(it, it.a), ok: a != null && a === it.a, ms: info.ms || 0, section: sec.id, why: it.why || it.w || '' });
+        S.log.push({ n: i + 1, q: nvText(it.q), given: a == null ? '—' : tfText(it, a), correct: tfText(it, it.a), ok: a != null && a === it.a, ms: info.ms || 0, section: sec.id, why: nvText(it.why || it.w || '') });
       });
       graded = S.items.length; answered = Object.keys(S.answers).length;
       correct = S.log.filter(r => r.ok === true).length;
@@ -1245,6 +1347,10 @@ const CORE = (() => {
       const good = S.log.filter(r => r.ok === true).length, bad = S.log.filter(r => r.ok === false).length;
       correct = good; graded = good + bad; answered = S.log.length;
       S.langNet = good - bad;
+    } else if (sec.kind === 'culture') {
+      correct = S.log.reduce((n, r) => n + (r.mostOk ? 1 : 0) + (r.leastOk ? 1 : 0), 0);
+      graded = S.items.length * 2;
+      answered = S.log.length * 2;
     } else if (sec.kind === 'blocks') { graded = 0; answered = S.log.length; }
     else if (sec.kind === 'chatsjt') { graded = 0; answered = S.log.length; }   /* réponses libres du chat : comportemental */
     else if (sec.kind === 'seqmem') { correct = S.lePos || 0; graded = 72; answered = 72; }
@@ -1269,10 +1375,13 @@ const CORE = (() => {
   const COREmmss = mmss;
   function renderEnd(view) {
     const a = S.attempt, lang = P.lang(S.sec.id);
+    const cultureBreakdown = S.sec.kind === 'culture'
+      ? '<p class="tiny">' + (lang === 'fr' ? 'Plus efficace : ' : 'Most effective: ') + S.log.filter(r => r.mostOk).length + '/18 · ' +
+        (lang === 'fr' ? 'Moins efficace : ' : 'Least effective: ') + S.log.filter(r => r.leastOk).length + '/18</p>' : '';
     view.className = 'sk-main narrow';
     view.innerHTML = '<div class="intro-page"><p class="k">' + (lang === 'fr' ? 'Test terminé.' : 'Test finished.') + '</p>' +
       (a.behavioural ? '<p>' + (lang === 'fr' ? 'Vos réponses ont été enregistrées : ce questionnaire ne comporte pas de bonne réponse.' : 'Your answers have been recorded: this questionnaire has no right or wrong answers.') + '</p>'
-        : '<p>' + (lang === 'fr' ? 'Score : ' : 'Score: ') + '<b>' + a.correct + ' / ' + a.items + '</b> (' + U.pct(a.accuracy) + ')</p>') +
+        : '<p>' + (lang === 'fr' ? 'Score : ' : 'Score: ') + '<b>' + a.correct + ' / ' + a.items + '</b> (' + U.pct(a.accuracy) + ')</p>') + cultureBreakdown +
       '<p class="tiny">' + (lang === 'fr' ? 'Durée : ' : 'Time: ') + COREmmss(a.ms / 1000) + '</p>' +
       '<p class="tiny" style="color:var(--tx3)">' + (lang === 'fr' ? 'Le détail question par question est disponible dans le menu ≡ → Feedback détaillé.' : 'The question-by-question detail is available in the ≡ menu → Feedback.') + '</p>' +
       '<div class="intro-nav"><button class="btn-intro" id="endHome">‹ ' + (lang === 'fr' ? 'Tâches' : 'Tasks') + '</button>' +

@@ -1,15 +1,16 @@
-# Assessment Trainer — v4.3 « conforme au document de référence »
+# Assessment Trainer — v4.6 · Aon/cut-e et modules bancaires
 
 Plateforme personnelle d'entraînement aux tests d'aptitude utilisés dans les processus
-de sélection (format cut-e / Aon). Cette version reconstruit **l'intégralité des 14 tâches
-de l'accueil** pour reproduire, capture par capture, le format réel du document de
-référence : consignes, exemples non notés, chronomètres globaux, interactions et habillage.
+de sélection. Elle conserve les **14 tâches de base Aon / cut-e** et regroupe 16 modules
+BNP Paribas, UBS et Morgan Stanley, dont trois nouveaux formats UBS. Les documents de référence servent à reprendre les
+formats, durées et mécaniques ; toutes les questions, données et grilles d'entraînement
+sont originales.
 
 > ⚠️ **Contenu 100 % original.** Les textes, énoncés, tableaux et grilles sont générés ou
 > rédigés pour cette plateforme. Aucun item de test réel n'est reproduit. Usage strictement
 > personnel — Calvin MINANG.
 
-## Les 14 tâches
+## Les 14 tâches de base Aon / cut-e
 
 | # | Tâche | Durée | Ce qui est reproduit |
 |---|-------|-------|----------------------|
@@ -100,8 +101,9 @@ skema-training/
   assets/css/styles.css   habillage et composants des épreuves
   assets/js/util.js       utilitaires (rng, store, toast, modale, formes SVG)
   assets/js/banks.js      banques de contenu original (textes, énoncés, grilles, mails…)
+  assets/js/ubs.js        contenus fictifs et données des 3 modules UBS
   assets/js/drills.js     générateurs déterministes + banque numérique + graphiques
-  assets/js/core.js       registre des 14 épreuves, moteur de session, scoring
+  assets/js/core.js       registre des épreuves, moteur de session, scoring
   assets/js/app.js        routeur, accueil, progression, feedback, réglages, import/export
   build.py                génère standalone/index.html, docs/ et le ZIP hors-ligne
   tools/tests/conform.js  harnais de conformité (Chromium headless, 241 contrôles)
@@ -124,25 +126,23 @@ choix mémorisé, note « le chrono démarre après les exemples » + décompte 
 anglais par défaut avec réglage épreuve par épreuve, et banques de personnalité complètes
 144 + 108 énoncés, FR et EN, aucun bloc vide) et le retour immédiat v4.3 sur les 14 épreuves.
 
-## Modules bancaires (v4.4) — BNP Maki, UBS, Morgan Stanley
+## Modules bancaires (v4.6) — BNP Maki, UBS, Morgan Stanley
 
-13 sections supplémentaires, regroupées sur l'accueil sous trois en-têtes. **Aucun test
-inventé** : seuls les formats (nombre de questions, chronos, type de scoring) proviennent de
-sources publiques ; les questions restent la banque d'entraînement de cette plateforme.
+16 sections supplémentaires, regroupées sur l'accueil sous trois en-têtes. Les captures
+fournies servent à caler les formats et les durées ; les énoncés, tableaux, scénarios et
+grilles des modules ajoutés restent **originaux et fictifs** (aucun item du test réel n'est copié).
 
-| Groupe | Modules (format documenté) | Sources |
+| Groupe | Modules d'entraînement | Sources de format |
 |---|---|---|
-| **BNP Paribas — Maki** (plateforme depuis 2025) | numérique 9 q./10 min · logique 13 q./8 min · résolution de problèmes 10 q./10 min · SJT « communication efficace » 13 q./10 min · attention aux détails 10 q./12 min | psychotechniquetest.fr/bnp-paribas · test-banque.fr/bnp-paribas · Glassdoor (process CIB stagiaires) |
-| **UBS — Online Assessment** | numérique Aon 37 q./12 min · logique/inductif 18 q./6 min (T/F/CS) · Korn Ferry Culture Match | learnandpass.co.uk/tests-by-company/ubs |
+| **BNP Paribas — Maki** | numérique 9 q./10 min · logique 13 q./8 min · résolution de problèmes 10 q./10 min · SJT 13 q./10 min · attention aux détails 10 q./12 min | psychotechniquetest.fr/bnp-paribas · test-banque.fr/bnp-paribas · Glassdoor (process CIB stagiaires) |
+| **UBS — Online Assessment** | Modules existants : Aon numérique 37 q./12 min · logique/T-F/Cannot Say 18 q./6 min · Culture Match préférences (18 blocs). Nouveaux formats : numérique 18 q./6 min, 6 feuilles · Culture Match à choix « plus/moins efficace » (18 scénarios, ~20 min sans chrono) · inductif par grilles (2 modèles + choisir 2 sur 4, 6 min) | learnandpass.co.uk pour les formats historiques · captures des documents UBS fournis pour les nouveaux formats ; nouveau contenu entièrement original |
 | **Morgan Stanley — OA** | SHL : numérique 18 q./25 min · verbal 30 q./19 min · inductif 24 q./25 min ; Aon EMEA : switchChallenge + SJT chat 13 q./10 min | forgeprep.io · careertestprep.com · preplounge.com · gameassessmentprep.com |
 
-Scoring Maki (documenté) : (bonnes ÷ total) − (erreurs × 0,5), plancher 0 ; seuils ~65-68 %
-BDDF, ~72 % CIB. Les modules anglais (16 q./5 min) et français (21 q./6 min) de Maki
-correspondent aux sections « Compétences Linguistiques » de la base.
-
-Mécanique : paramètre `cap` (nombre de questions) sur les épreuves `numverb`, `blocks` et
-`timed` documenté par module ; intros FR/EN dédiées citant le format et sa source.
+Les trois modules UBS ont des consignes FR/EN, une mécanique dédiée pour le choix « Most /
+Least effective », six tableaux/visualisations numériques fictifs et des grilles inductives
+générées. Les résultats Culture Match sont indicatifs pour l'entraînement, pas une notation
+officielle UBS.
 
 Test de conformité : `node skema-training/tools/test-banks.js` (charge les vrais scripts,
-démarre chaque section, vérifie les nombres de questions, les chronos, les intros et la
+vérifie le catalogue, les durées et banques UBS, démarre chaque section et contrôle la
 non-régression des 14 épreuves d'origine).
