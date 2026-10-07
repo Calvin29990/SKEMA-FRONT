@@ -321,7 +321,7 @@ RIT = [
     "établi par SKEMA Business School le 6 novembre 2025 pour le Programme Grande École (PGE) M1 "
     "comporte un tableau de synthèse où, sous les titres « Crédits présentés » et « Crédits validés », "
     "les deux semestres de l'année 2022/2023 sont portés ligne à ligne : « 2022/2023 - Fall Semester - "
-    "Paris 30 30 12.50 » et « 2022/2023 - Spring Semester - Paris 30 30 12.80 », soit trente crédits validés sur trente présentés à chaque semestre (pièce K). Le Student Office de SKEMA Business School l'avait écrit le 7 mai 2024 : « a validé son année de Licence 3 (60 crédits obtenus) sur l'année scolaire 2022-2023 » (pièce F). Ce que j'ignorais, c'est que le score de "
+    "Paris 30 30 12.50 » et « 2022/2023 - Spring Semester - Paris 30 30 12.80 », soit trente crédits validés sur trente présentés à chaque semestre (pièce K). Le Student Office de SKEMA Business School l'avait écrit le 7 mai 2024 : « a validé son année de Licence 3 (60 crédits obtenus) sur l'année scolaire 2022-2023 » (pièce F). Un relevé plus récent, établi par SKEMA Business School le 30 janvier 2026, porte pour l'ensemble du parcours « TOTAL 124 124 » : cent vingt-quatre crédits présentés, cent vingt-quatre validés, le semestre d'automne 2025/2026 étant lui-même acquis, trente sur trente (pièce K). Ce que j'ignorais, c'est que le score de "
     "langue anglaise conditionnait l'accès en M1. J'ai donc passé ce test et je l'ai obtenu : le "
     "certificat d'iCIMS Language Assessment produit en pièce K porte « Completed on: 17/10/2023 », "
     "« Points: 67 / 100 », « CEFR level: Upper intermediate » et « Expires on: 16/10/2025 », sous le "
@@ -332,8 +332,7 @@ RIT = [
     "semestre suivant. Le semestre d'attente ne comportant aucun enseignement, j'ai demandé une césure et choisi d'employer ce temps en entreprise. La césure est une année au cours de laquelle l'étudiant interrompt les cours pour travailler, reste inscrit et continue de régler les frais de scolarité ; l'année est validée sur attestation de l'entreprise et non sur des notes. Le 27 octobre 2023, SKEMA Business School a écrit : « Votre demande pour effectuer la "
     "césure à partir de janvier 2024 a été acceptée. Je viens de mettre à jour votre dossier. » Le "
     "4 janvier 2024, SKEMA Business School a signé avec BPCE VIE la convention de stage : « Le stage se "
-    "déroulera du 08/01/2024 au 05/07/2024 », cinq jours ouvrés par semaine, à Paris ; l'entreprise m'a "
-    "délivré l'attestation de fin de stage (pièce H).",
+    "déroulera du 08/01/2024 au 05/07/2024 », cinq jours ouvrés par semaine, à Paris ; l'entreprise m'a délivré l'attestation de fin de stage (pièce H). Le semestre d'automne suivant a suivi la même règle : la convention de stage établie le 1er août 2024 entre SKEMA Business School et G2J IT porte en objet « 23/24-PGE-FI-M1-L1 - Expérience professionnelle non créditée S4 », pour une durée de « 6 mois maximum en temps de travail effectif », du 12/08/2024 au 14/12/2024 ; un semestre que la convention, rédigée par SKEMA Business School, qualifie elle-même d'expérience professionnelle non créditée (pièce H).",
 
     "Sur ce point, la négligence me revient : le critère de langue n'a pas été satisfait en temps utile, son effet bloquant pour l'accès en M1 m'étant inconnu. Les conditions de diplomation du "
     "Programme Grande École sont, d'une part, une expérience professionnelle de douze mois lorsque "
@@ -398,16 +397,15 @@ RIT = [
     "janvier 2025, la facture n° 22223502, intitulée « Master 2 », portait 15 000,00 € ; le 20 février "
     "2025, une pièce comptable portait 4 000,00 € ; le 30 septembre 2026, 7 500,00 € ; le 5 octobre "
     "2026, un document comptable portait 14 840,00 €. Le 7 octobre 2026 à 15:04, la mise en demeure "
-    "n° 2026-SK.D-0002 — acte par lequel l'établissement enjoint de payer dans un délai fixé avant poursuites — a réclamé ce "
+    "n° 2026-SK.D-0002 — acte par lequel un créancier enjoint à son débiteur de payer dans un délai fixé "
+    "avant poursuites — a réclamé ce "
     "solde « au titre de l'année 2025/2026 », avec paiement sous dix jours, en précisant que « "
     "l'absence ou la cessation de prise en charge par un organisme tiers ne vous libère pas », sous "
-    "menace de procédure et de cessation définitive de scolarité. Aucun de ces montants n'est accompagné "
-    "d'un calcul, et l'écart avec le plafond de 46 000,00 € du contrat de Fall 2022 n'est justifié par "
-    "aucune pièce (pièces I, J).",
+    "menace de procédure et de cessation définitive de scolarité. Aucun de ces montants n'est accompagné d'un calcul. Le 21 septembre 2026, le Credit Manager de SKEMA Business School attestait que « les frais de scolarité de MINANG Calvin pour le programme PGE M2, au titre de l'année académique 2026/2027, s'élèvent à 15 000 € », en quatre échéances de 3 750,00 € (20/02/2026, 20/04/2026, 20/10/2026 et 20/12/2026) ; seize jours plus tard, la mise en demeure réclamait 14 840,00 € pour l'année 2025/2026, payables en dix jours. Les bons de commande réglés à SKEMA Business School — 15 000,00 € pour 2022/2023 et 16 000,00 € pour 2023/2024 — ajoutés à cette dernière tranche de 15 000,00 €, portent le total à 46 000,00 €, soit exactement le plafond du contrat : c'est l'année de rattachement de cette tranche, et son échéancier, que les pièces ne précisent pas (pièces I, J).",
 
     "Le 7 octobre 2026 à 21:06, la plateforme eBourse de l'ANBG affichait, pour la session 2025-2026 "
     "du dossier 110584Z : « DÉCISION : AVIS DÉFAVORABLE » et « VOUS ÊTES NON BOURSIER », avec "
-    "l'arborescence des sessions CA24B3, 1LMK24, 2E4C0B, LDPMRC, PNPXWG, 4EO0OO, WEXQTG. Mon dossier est donc tenu pour non boursier, pendant que SKEMA Business School me scolarise, m'inscrit aux examens du semestre 5, facture à Campus France et a délivré le 13 août 2025 un certificat de scolarité pour l'année académique 2025/2026 (pièces E, F, I).",
+    "l'arborescence des sessions CA24B3, 1LMK24, 2E4C0B, LDPMRC, PNPXWG, 4EO0OO, WEXQTG. Mon dossier est donc tenu pour non boursier, pendant que SKEMA Business School me scolarise, m'inscrit aux examens du semestre 5, facture à Campus France et atteste le 21 septembre 2026 que l'étudiant « est, à ce jour, inscrit à SKEMA Business School et figure bien sur nos listes d'étudiants » (pièces E, F, I).",
 ]
 
 FIN = [
@@ -443,9 +441,7 @@ DEMANDES = [
         "que les demandes de pièces adressées à SKEMA Business School le soient en même temps qu'à "
         "l'étudiant, et non après rejet."]),
     ("À SKEMA Business School", "S", [
-        "la communication de la pièce qui fonde 14 840,00 € au titre de l'année 2025/2026, et le "
-        "rapprochement avec le contrat d'inscription de Fall 2022, de 46 000,00 € pour une durée de "
-        "soixante mois ;",
+        "la communication de la pièce qui fonde 14 840,00 € au titre de l'année 2025/2026, l'indication de l'année à laquelle se rattache la dernière tranche de 15 000,00 € attestée le 21 septembre 2026, et le rapprochement avec le contrat d'inscription de Fall 2022, de 46 000,00 € pour une durée de soixante mois ;",
         "la suspension des effets de la mise en demeure — interruption de scolarité et rétention des "
         "documents — pendant l'examen du recours par l'ANBG ;",
         "à défaut de réponse avant le 19 octobre 2026, date d'expiration du délai de dix jours, la "
@@ -495,20 +491,22 @@ PIECES_INDEX = [
      "autour de la facture n° 1281253 rejetée"),
     ("E", "2024 → 2026", "Agence nationale des bourses du Gabon : notifications et validations de la "
      "plateforme eBourse, avec date et heure — à imprimer depuis l'espace étudiant"),
-    ("F", "07/05/2024 → 09/12/2025", "SKEMA Business School : certificat du Student Office sur la "
-     "réussite de la L3 et l'absence de notes pendant la césure, attestation du registraire sur "
-     "le parcours, certificat de scolarité 2025/2026, puis attestation d'assiduité"),
+    ("F", "07/05/2024 → 09/12/2025", "SKEMA Business School : attestation du Student Office sur la "
+     "réussite de la L3 et l'absence de notes pendant la césure, attestation du registraire sur le "
+     "parcours, puis attestation d'assiduité"),
     ("G", "24/01/2023 et 06/05/2024", "Campus France : bons de commande n° 677745 et n° 721622, émis "
      "au profit de SKEMA Business School"),
-    ("H", "04/01/2024", "SKEMA Business School et BPCE VIE : convention de stage du 08/01/2024 au "
-     "05/07/2024"),
-    ("I", "14/11/2024 et 07/10/2026", "SKEMA Business School : rappel de frais de scolarité "
-     "2024/2025, puis mise en demeure n° 2026-SK.D-0002"),
+    ("H", "04/01/2024 et 01/08/2024", "SKEMA Business School, BPCE VIE et G2J IT : deux conventions "
+     "de stage couvrant l'année de césure, du 08/01/2024 au 05/07/2024 puis du 12/08/2024 au "
+     "14/12/2024, la seconde intitulée « Expérience professionnelle non créditée »"),
+    ("I", "14/11/2024 → 07/10/2026", "SKEMA Business School : rappel de frais de scolarité "
+     "2024/2025, attestation de frais à payer du 21/09/2026, puis mise en demeure n° "
+     "2026-SK.D-0002"),
     ("J", "2022 → 2025", "SKEMA Business School : contrat d'inscription de Fall 2022, dossier "
      "n° 2733904447 et acte de cautionnement de l'État gabonais"),
-    ("K", "17/10/2023 et 06/11/2025", "SKEMA Business School : certificat du test de langue iCIMS "
-     "(67 points sur 100, niveau B2) et relevé de notes du Programme Grande École (PGE) M1 avec le "
-     "tableau de synthèse des résultats depuis 2022/2023"),
+    ("K", "17/10/2023, 06/11/2025 et 30/01/2026", "SKEMA Business School : certificat du test de "
+     "langue iCIMS (67 points sur 100, niveau B2) et deux relevés de notes du Programme Grande École "
+     "(PGE) M1 portant le tableau de synthèse des résultats depuis 2022/2023"),
     ("L", "08/10/2026", "Procuration donnée par l'étudiant à la personne qui remet le dossier"),
     ("M", "08/10/2026", "Accusé de remise du recours à l'Agence nationale des bourses du Gabon, établi "
      "en deux exemplaires"),
@@ -633,15 +631,17 @@ ANNEX = {
     "D": ([("contradiction-campus-france.pdf", None)], None),
     "E": ([], "à produire"),
     "F": ([("attestation-reussite-L3-07-05-2024.pdf", None), ("attestation-PGE.pdf", None),
-          ("certificat-scolarite-2025-2026.pdf", None),
-          ("attestation-assiduite-09-12-2025.pdf", None)], None),
+           ("attestation-assiduite-09-12-2025.pdf", None)], None),
     "G": ([("bon-de-commande-M1.pdf", None)], None),
-    "H": ([("convention-stage-bpce-2024.pdf", [0, 1, 2])], None),
-    "I": ([("relance-skema-M1.pdf", [0]), ("mise-en-demeure.pdf", [0])], None),
+    "H": ([("convention-stage-bpce-2024.pdf", [0, 1, 2]),
+           ("convention-stage-g2j-it-2024.pdf", [0, 1, 2])], None),
+    "I": ([("relance-skema-M1.pdf", [0]), ("attestation-frais-a-payer-21-09-2026.pdf", None),
+           ("mise-en-demeure.pdf", [0])], None),
     "J": ([("contrat-signé.pdf", None), ("dossier-campus-caution.pdf", [0, 1, 2])], None),
     "L": ([], "procuration"),
     "M": ([], "recepisse"),
-    "K": ([("certificat-B2.pdf", None), ("releve-PGE-M1-2024-2025.pdf", None)], None),
+    "K": ([("certificat-B2.pdf", None), ("releve-PGE-M1-2024-2025.pdf", None),
+           ("releve-PGE-M1-au-30-01-2026.pdf", None)], None),
 }
 
 BLOCS = (("A", "# 1. RECOURS GRACIEUX", "# 2. PROCURATION"),
