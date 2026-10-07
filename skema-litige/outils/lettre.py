@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Lettre recommandée — exposé de la situation 2019-2026, demandes, bordereau, pièces A à L.
+"""Lettre recommandée — exposé de la situation 2019-2026, demandes, bordereau, pièces A à M.
 
 Police Lato, corps aéré. Pas d'italique : la couleur, sobre, marque seule l'auteur de l'acte.
   vert profond  = Agence nationale des bourses du Gabon
@@ -159,6 +159,11 @@ def para3(f, tri, size=11.0, lead=16.4, space=8.0, width=None, justifier=True, i
         ecart = 0.0
         if justifier and i < len(lignes) - 1 and len(line) > 1:
             ecart = (width - lw) / (len(line) - 1)
+            # Une ligne qui ne demande qu'un espace de plus de quatre cinquièmes
+            # du blanc ordinaire est laissée libre : l'étirement se voit davantage
+            # que la coupe.
+            if not (0.0 < ecart <= 0.8 * ws):
+                ecart = 0.0
         x = ML + (indent if i == 0 else 0.0)
         for mot, fname, col, wd, _fo in line:
             f.pg.insert_text((x, y), mot, fontname=fname, fontsize=size, color=col)
@@ -257,7 +262,7 @@ def entete(f):
          runs=[("Objet : ", "T"),
                ("Bourse d'État, prise en charge des frais de scolarité et facturation — exposé de "
                 "la situation et demandes", "T")])
-    para(f, "Un seul exemplaire par destinataire. Douze pièces jointes, cotées A à L, bordereau "
+    para(f, "Un seul exemplaire par destinataire. Treize pièces jointes, cotées A à M, bordereau "
             "en fin de lettre.", size=10.8, lead=15.0, space=1.5, justifier=False)
     f.pg.draw_line(fitz.Point(ML, f.y + 2), fitz.Point(W - MR, f.y + 2), width=0.6, color=NOIR)
     f.y += 18
@@ -273,7 +278,7 @@ RIT = [
     "décembre 2026 le Programme Grande École de SKEMA Business School (PGE M2, MSc Corporate Financial "
     "Management), le diplôme principal du cycle : un master en gestion en trois années — L3, M1, "
     "M2 —, auxquelles s'ajoute, quand l'étudiant la choisit, une année de césure. Les faits rapportés ci-dessous sont ceux qu'enregistrent vos documents respectifs ; "
-    "les passages entre guillemets en reproduisent exactement le texte, et les pièces A à L les "
+    "les passages entre guillemets en reproduisent exactement le texte, et les pièces A à M les "
     "accompagnent.",
 
     "Ce qui est en cause est la prise en charge des frais de scolarité : l'argent versé à SKEMA Business "
@@ -323,10 +328,18 @@ RIT = [
     "l'engagement de payer pris par l'organisme auprès de SKEMA Business School (pièces G, J).",
 
     "L'année 2022/2023 a été difficile, et il faut la raconter exactement : les matières de l'année "
-    "étaient validées — soixante crédits — et ce n'est pas un échec aux examens qui a arrêté le "
-    "parcours. Ce que j'ignorais, c'est que le score de langue anglaise conditionnait l'accès en M1. "
-    "J'ai donc passé ce test et je l'ai obtenu : le certificat iCIMS du 17 octobre 2023 porte 67 points, "
-    "valables jusqu'au 16 octobre 2025. Mais la délibération du jury de SKEMA Business School était "
+    "étaient validées, et ce n'est pas un échec aux examens qui a arrêté le parcours. Le relevé de notes "
+    "établi par SKEMA Business School le 6 novembre 2025 pour le Programme Grande École (PGE) M1 "
+    "comporte un tableau de synthèse où, sous les titres « Crédits présentés » et « Crédits validés », "
+    "les deux semestres de l'année 2022/2023 sont portés ligne à ligne : « 2022/2023 - Fall Semester - "
+    "Paris 30 30 12.50 » et « 2022/2023 - Spring Semester - Paris 30 30 12.80 », soit trente crédits "
+    "validés sur trente présentés à chaque semestre (pièce K). Ce que j'ignorais, c'est que le score de "
+    "langue anglaise conditionnait l'accès en M1. J'ai donc passé ce test et je l'ai obtenu : le "
+    "certificat d'iCIMS Language Assessment produit en pièce K porte « Completed on: 17/10/2023 », "
+    "« Points: 67 / 100 », « CEFR level: Upper intermediate » et « Expires on: 16/10/2025 », sous le "
+    "visa du 18 octobre 2023 d'Erin Douglas, directrice de iCIMS Language Assessment ; le relevé de "
+    "notes du 6 novembre 2025 reprend ce résultat sous la forme « Meilleur score ICIMS 67 », à la même "
+    "date du 18 octobre 2023. Mais la délibération du jury de SKEMA Business School était "
     "passée en juillet 2023, et il m'a été répondu qu'à cette date je ne pouvais intégrer le M1 qu'au "
     "semestre suivant. Deux voies s'offraient : attendre la rentrée de septembre avec un semestre vide, "
     "ou mettre ce temps à profit, chercher une expérience professionnelle et apprendre au moins sur le "
@@ -351,11 +364,11 @@ RIT = [
     "l'entrée en M1. Ce point n'est pas un détail de scolarité : la règle « un seul redoublement est "
     "admis au cours d'un même cycle », que j'ai lue dans la foire aux questions de l'Agence nationale des "
     "bourses du Gabon, est la seule base à ma portée pour expliquer le motif de « parcours "
-    "insoutenable » retenu contre mon dossier. Or je n'ai pas redoublé : les matières de l'année ont été "
-    "validées, l'accès en M1 a été reporté d'un semestre, et le second semestre de 2023/2024 a été une césure acceptée par SKEMA "
-    "Business School, avec inscription et frais de scolarité maintenus. Je rapporte ces éléments pour que le "
-    "calendrier soit compris, non pour contester une décision pédagogique, qui relève de SKEMA Business "
-    "School (pièces F, J).",
+    "insoutenable » retenu contre mon dossier. Or je n'ai pas redoublé : les soixante crédits de la "
+    "L3 ont été validés, l'accès en M1 a été reporté d'un semestre, et le second semestre de l'année "
+    "2023/2024 a été une césure acceptée par SKEMA Business School, avec inscription et frais de "
+    "scolarité maintenus. Je rapporte ces éléments pour que le calendrier soit compris, non pour "
+    "contester une décision pédagogique, qui relève de SKEMA Business School (pièces F, J, K).",
 
     "Le 14 mai 2024, le registraire de SKEMA Business School (le service qui tient les dossiers de "
     "scolarité) a certifié le parcours dans une attestation officielle : « 2023/2024 L3/M1 Paris Fall "
@@ -525,8 +538,11 @@ PIECES_INDEX = [
      "2024/2025, puis mise en demeure n° 2026-SK.D-0002"),
     ("J", "2022 → 2025", "SKEMA Business School : contrat d'inscription de Fall 2022, dossier "
      "n° 2733904447 et acte de cautionnement de l'État gabonais"),
-    ("K", "08/10/2026", "Procuration donnée par l'étudiant à la personne qui remet le dossier"),
-    ("L", "08/10/2026", "Accusé de remise du recours à l'Agence nationale des bourses du Gabon, établi "
+    ("K", "17/10/2023 et 06/11/2025", "SKEMA Business School : certificat du test de langue iCIMS "
+     "(67 points sur 100, niveau B2) et relevé de notes du Programme Grande École (PGE) M1 avec le "
+     "tableau de synthèse des résultats depuis 2022/2023"),
+    ("L", "08/10/2026", "Procuration donnée par l'étudiant à la personne qui remet le dossier"),
+    ("M", "08/10/2026", "Accusé de remise du recours à l'Agence nationale des bourses du Gabon, établi "
      "en deux exemplaires"),
 ]
 
@@ -653,13 +669,14 @@ ANNEX = {
     "H": ([("convention-stage-bpce-2024.pdf", [0, 1, 2])], None),
     "I": ([("relance-skema-M1.pdf", [0]), ("mise-en-demeure.pdf", [0])], None),
     "J": ([("contrat-signé.pdf", None), ("dossier-campus-caution.pdf", [0, 1, 2])], None),
-    "K": ([], "procuration"),
-    "L": ([], "recepisse"),
+    "L": ([], "procuration"),
+    "M": ([], "recepisse"),
+    "K": ([("certificat-B2.pdf", None), ("releve-PGE-M1-2024-2025.pdf", None)], None),
 }
 
 BLOCS = (("A", "# 1. RECOURS GRACIEUX", "# 2. PROCURATION"),
-         ("K", "# 2. PROCURATION", "# 3. ACCUSÉ DE REMISE"),
-         ("L", "# 3. ACCUSÉ DE REMISE", "# 4. CHEMISE"))
+         ("L", "# 2. PROCURATION", "# 3. ACCUSÉ DE REMISE"),
+         ("M", "# 3. ACCUSÉ DE REMISE", "# 4. CHEMISE"))
 
 
 def annexes(f, xcol):
