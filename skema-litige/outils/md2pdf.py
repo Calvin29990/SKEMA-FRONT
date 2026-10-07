@@ -201,6 +201,14 @@ def render(md, out, footer=""):
     while i < len(lines):
         raw = lines[i]
         ln = raw.strip()
+        if ln.startswith("<!--"):
+            if ln == "<!--PDF-STOP-->":
+                break
+            if not ln.endswith("-->"):
+                while i < len(lines) and "-->" not in lines[i]:
+                    i += 1
+            i += 1
+            continue
         if not ln:
             pdf.y += 4.0
             i += 1

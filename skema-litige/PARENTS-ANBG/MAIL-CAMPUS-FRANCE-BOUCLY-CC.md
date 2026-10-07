@@ -37,7 +37,7 @@
 >
 > **Mes cinq demandes.**
 > 1. **État du dossier Chorus Pro de la facture n° 1281253** à la date de votre réponse : statut, date du dernier traitement, service détenteur, et copie de toute décision de rejet ou de rectification postérieure au 6/11/2025.
-> 2. **Confirmation écrite de la conformité des trois attestations** produites le 6/11/2025. À défaut, je vous serais reconnaissant de m'indiquer **la pièce exacte** qui fait défaut — nature du document, autorité qui doit le délivrer, et date qu'il doit porter — afin que je la sollicule auprès de l'établissement sur un fondement précis. Vous trouverez à nouveau jointes à ce courriel : l'attestation délivrée le **14/05/2024** par le registraire de SKEMA Business School, le certificat de scolarité du **17/12/2024** et l'attestation d'assiduité du **9/12/2025** signée par Mme Sophie Gay, Directrice de l'Expérience Étudiant ; ces trois documents sont postérieurs au 1er septembre 2023.
+> 2. **Confirmation écrite de la conformité des trois attestations** produites le 6/11/2025. À défaut, je vous serais reconnaissant de m'indiquer **la pièce exacte** qui fait défaut — nature du document, autorité qui doit le délivrer, et date qu'il doit porter — afin que je la sollicule auprès de l'établissement sur un fondement précis. Vous trouverez jointes à ce courriel : l'attestation délivrée le **14/05/2024** par le registraire de SKEMA Business School, l'attestation d'assiduité du **9/12/2025** signée par Mme Sophie Gay, Directrice de l'Expérience Étudiant — toutes deux postérieures au 1er septembre 2023 — ainsi que la **convention de stage SKEMA / BPCE du 4 janvier 2024**, qui couvre du 8 janvier au 5 juillet 2024 la période pour laquelle vous m'aviez demandé un relevé de notes. **Le certificat de scolarité du 17/12/2024 est en cours de nouvelle délivrance par le registraire de l'établissement** : je vous le transmettrai dans les vingt-quatre heures de sa réception, et je vous serais reconnaissant de bien vouloir ne pas regarder la facture comme définitivement rejetée pendant ce délai.
 > 3. **Existence d'un bon de commande pour l'année 2024/2025** au dossier 110584Z, comme cela a été le cas pour 2022/2023 et 2023/2024 ; et, pour 2025/2026, la mention de l'état de la demande auprès de l'ANBG, de sa date et de la réponse reçue.
 > 4. **Délivrance d'une attestation à l'attention de SKEMA Business School**, portant, pour les années 2022/2023, 2023/2024, 2024/2025 et 2025/2026 : les bons de commande émis et réglés, la date et le motif de tout rejet de facture, et la précision que **la facturation a été conduite par vos soins avec l'établissement**, selon les règles que vous avez vous-mêmes fixées le **24/01/2023** (facture à l'ordre de Campus France, dépôt sur Chorus Pro, déduction de l'acompte). Ce document est celui dont j'ai besoin pour traiter avec la comptabilité de mon école : je ne suis pas en mesure d'en établir les mentions à votre place.
 > 5. Que toute demande de pièce adressée pour l'avenir le soit **simultanément à l'établissement**, en copie : les documents exigés (certificats, relevés, attestations d'inscription) sont établis par le registraire, non par l'étudiant.
@@ -48,17 +48,21 @@
 >
 > Calvin MINANG — né le 02/05/2002 à Libreville — SKEMA Business School, MSc Corporate Financial Management, 2e année de Master — n° 0305476 — dossier 110584Z — calvin.minang@skema.edu / blanchardminang00@gmail.com — +33 7 52 97 58 09
 
-## 4. Pièces jointes (à nommer exactement ainsi, dans cet ordre)
+## 4. Pièces jointes — 7 fichiers, à nommer exactement ainsi
 
-| # | Nom du fichier à utiliser | Document | Pourquoi dans ce mail |
-|---|---|---|---|
-| 1 | `01-facture-rejetee-1281253-filet-complet.pdf` | Filet des 25/09, 06/10, 29/10 et 06/11/2025 (`contradiction-campus-france.pdf`) | L'antériorité : c'est votre service qui a saisi l'étudiant d'une exigence de pièce |
-| 2 | `02-attestation-registraire-14-05-2024.pdf` | Attestation PGE, césures, M2 en 2025/2026 | Répond à « relevé de notes pour 2023-2024 » : l'année comportait une césure |
-| 3 | `03-certificat-scolarite-17-12-2024.pdf` | Certificat de scolarité | Postérieur au 01/09/2023 |
-| 4 | `04-attestation-assiduite-09-12-2025.pdf` | Attestation Sophie Gay | Postérieur au 01/09/2023 **et** à votre demande du 29/10/2025 |
-| 5 | `05-bon-de-commande-721622.pdf` | BC du 06/05/2024, 16 000 € | Le précédent : la méthode de financement existait et a fonctionné |
-| 6 | `06-mise-en-demeure-2026-SK-D-0002.pdf` | Mise en demeure du 07/10/2026 | L'urgence : 14 840 € réclamés à l'étudiant pour la période où la facture est en attente |
-| 7 | `07-recours-gracieux-ANBG.pdf` | Recours gracieux du jour | Demande n° 4 : l'attestation à adresser à l'établissement |
+| # | Fichier (déjà préparé, dans le dossier `pieces-mail/`) | Ce qu'il apporte |
+|---|---|---|
+| 01 | `01-filet-facture-rejetee-1281253.pdf` | L'antériorité : votre service a saisi l'étudiant d'une exigence de pièce le 25/09/2025, puis les 06/10 et 29/10/2025 |
+| 02 | `02-attestation-registraire-14-05-2024.pdf` | Le calendrier certifié par l'école : césure Spring 24, césure Fall 24, M2 en 2025/2026 |
+| 03 | `03-attestation-assiduite-09-12-2025.pdf` | Inscription régulière 2025-2026 et présence aux cours, attestées par la Direction de l'Expérience Étudiant |
+| 04 | `04-convention-stage-BPCE-04-01-2024.pdf` | La période du 08/01/2024 au 05/07/2024 en entreprise : répond à la demande de « relevé de notes pour 2023-2024 » |
+| 05 | `05-bon-de-commande-721622.pdf` | Le précédent : 16 000,00 € réglés pour 2023/2024 « pour le compte de l'ANBG », fournisseur SKEMA n° 35025 |
+| 06 | `06-mise-en-demeure-2026-SK-D-0002.pdf` | L'urgence : 14 840,00 € réclamés à l'étudiant, paiement sous dix jours |
+| 07 | `07-recours-gracieux-ANBG.pdf` | La demande n° 4 : l'attestation à adresser à l'établissement |
+
+**Une ligne à ajouter au bord du courriel, si vous voulez que la réponse porte :** « *Courriel adressé le ___ /10/2026 à 15 h __ à `anbg.boursiers@campusfrance.org`, avec copie à `amandine.boucly@skema.edu`, `studentaccountingoffice@skema.edu`, `beatrice.marino@skema.edu`, `c.ngari.anbg@gmail.com` — accusé de lecture demandé.* »
+
+<!--PDF-STOP-->
 
 ## 5. Garde-fous — ne pas écrire
 

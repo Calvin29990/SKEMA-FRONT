@@ -1,3 +1,21 @@
+# CONSIGNES DU PORTEUR — À NE PAS REMETTRE AU GUICHET
+*Cette page et la dernière sont vos instructions. Tout le reste du dossier se remet tel quel, dans l'ordre, sans rien écrire : le dossier est déjà daté, nommé et complet.*
+
+## Les 4 étapes
+1. **Imprimer le fichier en A4, en couleurs si possible**, en **deux exemplaires de la seule page du récépissé** (repérée « RÉCÉPISSÉ ») : un pour l'ANBG, un pour vous.
+2. **Agrafer** dans cet ordre : recours (3 p.) — procuration (1 p.) — récépissé (1 p.) — liste des pièces (1 p.) — les annexes. Joindre la **photocopie de la pièce d'identité du porteur**.
+3. **Se présenter au guichet du courrier de l'ANBG (Direction Générale, Libreville)**, ou au service des bourses de l'étranger. Remettre la chemise. Demander trois choses, dans cet ordre : **un numéro d'enregistrement**, **la date sur votre exemplaire**, **le nom du service** qui traite.
+4. **Envoyer une photo du récépissé daté** à Calvin (`calvin.minang@skema.edu`). C'est la seule chose qui compte pour la suite : sans ce papier daté, le recours n'existe pas administrativement.
+
+## S'il y a un refus d'enregistrer
+Demander **uniquement le tampon daté** sur l'exemplaire du récépissé, et noter : l'heure, le nom du service, le nom et le grade de l'agent, le motif donné. Ne pas insister, ne pas se fâcher, repartir avec l'exemplaire tamponné.
+
+## Ce qu'il ne faut surtout pas faire
+- **Ne rien signer d'autre** que la remise du dossier. Refuser poliment de signer tout document qui ressemblerait à un engagement, une reconnaissance de dette ou un désistement, et le dire : « *je ne suis pas la partie, je remets un recours* ».
+- **Ne demander aucun versement d'argent**, ni allocation, ni remboursement : le dossier ne demande que des documents écrits et un réexamen.
+- **Aucune allusion à la politique, aux suppressions de bourses, ni à un avocat.** Les trois phrases à dire sont en fin de dossier.
+
+---
 # 1. RECOURS GRACIEUX
 
 **MINANG Calvin Blanchard**
@@ -6,6 +24,7 @@ SKEMA Business School — Programme Grande École, MSc Corporate Financial Manag
 Référence externe du dossier : **110584Z**
 Dossiers eBourse : 2019-2020 WEXQTG · 2020-2021 4EO0OO · 2021-2022 PNPXWG · 2022-2023 LDPMRC · 2023-2024 2E4C0B · **2024-2025 1LMK24** · **2025-2026 CA24B3**
 Courriel : calvin.minang@skema.edu / blanchardminang00@gmail.com — Téléphone : +33 7 52 97 58 09
+Adresse de scolarité (où le courrier peut être reçu) : SKEMA Business School, avenue Willy Brandt, 59777 Euralille, France
 
 **À l'attention de Monsieur le Directeur Général de l'Agence Nationale des Bourses du Gabon**
 **À Monsieur le Président de la Commission Technique des bourses d'études**
@@ -15,7 +34,7 @@ Présidence de la République — Libreville, Gabon
 
 ### Objet
 **Recours gracieux formé contre la décision du 10 novembre 2025 portant avis défavorable sur le dossier CA24B3 (session 2025-2026), et demande de réexamen de la décision du 25 septembre 2024 de suppression du dossier 1LMK24 (session 2024-2025).**
-Remis en main propre le _____ / _____ / 2026 contre récépissé (volet 3).
+Remis en main propre le **8 octobre 2026**, contre récépissé (2 exemplaires à établir au guichet).
 
 Monsieur le Directeur Général, Monsieur le Président,
 
@@ -65,18 +84,22 @@ Je me tiens à la disposition de vos services pour tout entretien, à Libreville
 
 Je vous prie d'agréer, Monsieur le Directeur Général, Monsieur le Président, l'expression de ma haute considération.
 
-Fait à ______________________ , le _____ / _____ / 2026
+Fait à Lille, le 8 octobre 2026.
 
-**Calvin MINANG** *(signature précédée de la mention « lu et approuvé »)*
+**Calvin MINANG** — *lu et approuvé*
+
+<!-- Le seul geste restant à faire en France : la signature manuscrite ci-dessous.
+Le dossier est ensuite envoyé tel quel, rien d'autre n'est à compléter au Gabon. -->
+Signature : ______________________________________
 
 <<<
 # 2. PROCURATION — remise du recours par un parent
 
 **Je soussigné :**
-MINANG Calvin Blanchard, né le 02/05/2002 à Libreville (Gabon), étudiant en 2e année de Master (MSc Corporate Financial Management) à SKEMA Business School (France), titulaire du dossier ANBG de référence externe **110584Z**, dossiers eBourse 1LMK24 (2024-2025) et CA24B3 (2025-2026), demeurant ______________________ , courriel calvin.minang@skema.edu
+MINANG Calvin Blanchard, né le 02/05/2002 à Libreville (Gabon), étudiant en 2e année de Master (MSc Corporate Financial Management) à SKEMA Business School (France), titulaire du dossier ANBG de référence externe **110584Z**, dossiers eBourse 1LMK24 (2024-2025) et CA24B3 (2025-2026), demeurant SKEMA Business School, avenue Willy Brandt, 59777 Euralille (France), courriel calvin.minang@skema.edu
 
 **Donne par la présente pouvoir à :**
-M. / Mme ______________________ , né(e) le _____ / _____ / ______ , demeurant ______________________ , titulaire de la pièce d'identité n° ______________________ , mon père / ma mère / ______________________ ,
+**mon père ou ma mère**, MINANG, porteur ou portatrice du présent dossier, demeurant en République Gabonaise, dont **le nom et le numéro de pièce d'identité sont relevés au guichet** lors de la remise (la copie de cette pièce est jointe au dossier), ci-après « **le porteur** »,
 
 **À l'effet de :**
 - déposer auprès de l'Agence Nationale des Bourses du Gabon, du service compétent de la Présidence de la République, du secrétariat de la Commission Technique, de la Direction des bourses ou de toute autre autorité compétente, **le recours gracieux ci-annexé** et toute pièce de mon dossier ;
@@ -86,11 +109,11 @@ M. / Mme ______________________ , né(e) le _____ / _____ / ______ , demeurant _
 
 La présente procuration vaut pour la durée nécessaire au traitement du recours, et ne confère **aucun pouvoir de transaction, de renonciation, d'acquittement ou de reconnaissance de dette**. Elle ne vaut pas demande d'attribution nouvelle, ni demande de versement d'allocation entre les mains du porteur.
 
-Fait à ______________________ , le _____ / _____ / 2026
+Fait à Lille, le 8 octobre 2026.
 
-**Calvin MINANG** *(signature)* — **Le porteur** *(signature, précédée de la mention « bon pour acceptation »)*
+**Calvin MINANG** *(signature)* — **Le porteur** *(à signer au guichet, précédée de la mention « bon pour acceptation »)*
 
-*Joindre : copie de la pièce d'identité du porteur ; copie de la pièce d'identité ou du passeport de l'étudiant.*
+*Pièces jointes au dossier : copie de la pièce d'identité du porteur (à ajouter avant impression). La signature de l'étudiant figure au volet 1 et au volet 2.*
 
 <<<
 # 3. RÉCÉPISSÉ DE REMISE — à faire viser par l'agent
@@ -98,17 +121,40 @@ Fait à ______________________ , le _____ / _____ / 2026
 | **Case à compléter au guichet** | **Inscription** |
 |---|---|
 | **Document remis** | Recours gracieux de M. MINANG Calvin Blanchard, dossier ANBG n° 110584Z (sessions 2024-2025, réf. 1LMK24 et 2025-2026, réf. CA24B3), accompagné de ses pièces justificatives et de la procuration ci-jointe |
-| **Remis par** | M. / Mme ______________________ , en qualité de porteur muni d'une procuration |
-| **Nombre de pièces remises** | _____ |
-| **Reçu par (nom, fonction, service)** | ______________________ |
-| **Date et heure** | _____ / _____ / 2026 , à _____ h _____ |
-| **N° d'enregistrement / de courrier attribué** | ______________________ |
+| **Remis par** | le porteur de la procuration ci-dessus (père ou mère de l'étudiant), pièce d'identité présentée |
+| **Nombre de pièces remises** | **9** (dont le présent dossier de 8 feuillets) |
+| **Reçu par (nom, fonction, service)** | *à compléter par l'agent* |
+| **Date** | **8 octobre 2026**, à ______ h ______ (heure relevée au guichet) |
+| **N° d'enregistrement / de courrier attribué** | *à compléter par l'agent — c'est la mention la plus importante* |
 | **Cachet et signature du service** | *(à apposer ici)* |
 
 *Le porteur demande en outre que lui soient indiqués : (i) le service et l'agent en charge du dossier, (ii) le délai indicatif de traitement, (iii) le numéro sous lequel le recours est enregistré. Si l'enregistrement est refusé, demander le tampon daté sur un double du présent récépissé.*
 
 <<<
-# 4. MÉMO POUR LES PARENTS — ce qui aide, ce qui n'aide pas
+# 4. CHEMISE À REMETTRE — 10 pièces, dans cet ordre
+
+| # | Pièce | Ce qu'elle établit |
+|---|---|---|
+| 1 | **Le recours gracieux**, signé, daté (volet 1 ci-dessus) | L'acte lui-même ; quatre moyens ; cinq demandes |
+| 2 | **La procuration** signée (volet 2) + copie de la pièce d'identité du porteur | Le droit de remettre et de retirer les documents |
+| 3 | **Le récépissé de remise**, sur deux exemplaires (volet 3) | La preuve du dépôt, sans laquelle le recours n'existe pas |
+| 4 | **Captures d'écran de la plateforme eBourse** (4 feuilles : 25/09/2024 16:37 ; 17/02/2025 11:06 ; 17/02/2025 11:11 ; 10/11/2025 15:47), **horodatage de consultation visible** | Les dates, les heures, les motifs recopiés mot pour mot |
+| 5 | **Attestation d'assiduité de SKEMA Business School du 9 décembre 2025** (Sophie GAY) | Inscription régulière 2025-2026 et présence aux cours, certifiées 29 jours après le refus |
+| 6 | **Attestation « Programme Grande École » du registraire du 14 mai 2024** | Le calendrier : césure Spring 24, césure Fall 24, M2 en 2025/2026 — motif du moyen 1 |
+| 7 | **Bon de commande n° 721622 du 6 mai 2024** (16 000,00 €, « pour le compte de l'ANBG — frais formation 2023 2024 ») | Que la prise en charge a bien été exécutée par bons de commande jusqu'en 2023-2024 |
+| 8 | **Convention de stage SKEMA / BPCE du 4 janvier 2024** (3 p.) | Le stage de six mois du 08/01/2024 au 05/07/2024 : l'année sans relevé était une année en entreprise, autorisée par l'école |
+| 9 | **Mise en demeure de SKEMA Business School du 7 octobre 2026** (réf. 2026-SK.D-0002) | La raison pour laquelle les documents sont demandés aujourd'hui, et l'urgence |
+| 10 | **Attestations ANBG n° 100326-21-MAINTIEN et n° 100057-22-ACCORD** | Des décisions **annuelles** de la Commission Technique (catégorie C), dont la mention « *pour une durée : 1 année(s)* » : les droits ont été re-accordés chaque année, y compris hors de France |
+
+*Les pages marquées d'un bandeau « CONSIGNES DU PORTEUR » (la première et l'avant-dernière) restent en poche : tout le reste se remet.*
+
+*Ne pas joindre : les relevés de notes, les bulletins, les factures de scolarité, la correspondance avec l'école — l'ANBG les a déjà dans le dossier, et rien de ce qui concerne les notes n'est contesté.*
+
+---
+
+<<<
+# CONSIGNES DU PORTEUR (FIN) — À NE PAS REMETTRE AU GUICHET
+*Suite des instructions. Ces pages restent dans la chemise à la maison ou en poche : elles ne font pas partie du dossier déposé.*
 
 ## Trois phrases à dire, dans cet ordre
 1. « **Mon fils est boursier de l'État depuis 2019-2020, et son dossier porte la référence 110584Z.** Il a deux dossiers ouverts sur eBourse, 1LMK24 et CA24B3, et il forme un recours gracieux contre la décision du 10 novembre 2025. »
@@ -140,24 +186,13 @@ Fait à ______________________ , le _____ / _____ / 2026
 2. **Une impression lisible de l'attestation du 06/09/2023** si elle existe ailleurs qu'en ligne (le fichier en notre possession est illisible). Si elle reste introuvable, la demande n° 4 du recours la réclame, et il n'y a rien à ajouter.
 
 <<<
-# 5. CHEMISE À REMETTRE — 9 pièces, dans cet ordre
-
-| # | Pièce | Ce qu'elle établit |
-|---|---|---|
-| 1 | **Le recours gracieux**, signé, daté (volet 1 ci-dessus) | L'acte lui-même ; quatre moyens ; cinq demandes |
-| 2 | **La procuration** signée (volet 2) + copie de la pièce d'identité du porteur | Le droit de remettre et de retirer les documents |
-| 3 | **Le récépissé de remise**, sur deux exemplaires (volet 3) | La preuve du dépôt, sans laquelle le recours n'existe pas |
-| 4 | **Captures d'écran de la plateforme eBourse** (4 feuilles : 25/09/2024 16:37 ; 17/02/2025 11:06 ; 17/02/2025 11:11 ; 10/11/2025 15:47), **horodatage de consultation visible** | Les dates, les heures, les motifs recopiés mot pour mot |
-| 5 | **Attestation d'assiduité de SKEMA Business School du 9 décembre 2025** (Sophie GAY) | Inscription régulière 2025-2026 et présence aux cours, certifiées 29 jours après le refus |
-| 6 | **Attestation « Programme Grande École » du registraire du 14 mai 2024** | Le calendrier : césure Spring 24, césure Fall 24, M2 en 2025/2026 — motif du moyen 1 |
-| 7 | **Bon de commande n° 721622 du 6 mai 2024** (16 000,00 €, « pour le compte de l'ANBG — frais formation 2023 2024 ») | Que la prise en charge a bien été exécutée par bons de commande jusqu'en 2023-2024 |
-| 8 | **Convention de stage SKEMA / BPCE du 4 janvier 2024** (3 p.) | Le stage de six mois du 08/01/2024 au 05/07/2024 : l'année sans relevé était une année en entreprise, autorisée par l'école |
-| 9 | **Mise en demeure de SKEMA Business School du 7 octobre 2026** (réf. 2026-SK.D-0002) | La raison pour laquelle les documents sont demandés aujourd'hui, et l'urgence |
-
-*Ne pas joindre : les relevés de notes, les bulletins, les factures de scolarité, la correspondance avec l'école — l'ANBG les a déjà dans le dossier, et rien de ce qui concerne les notes n'est contesté.*
 
 ---
+
+<!--
+NOTE INTERNE (document de travail, hors dossier parents) — conservée dans skema-litige/PARENTS-ANBG/NOTE-INTERNE.md
 # NOTE INTERNE FAMILIALE — NE PAS REMETTRE À L'ANBG
 - **La pièce 5 est à double tranchant, mais il faut la remettre.** Elle mentionne un passage attendu « sur le campus de SKEMA Belo Horizonte pour le semestre SPRING26 ». L'Agence connaissait déjà le semestre de Raleigh (avril 2025) par l'attestation du 14 mai 2024, qu'elle a validée : la géographie du parcours n'est donc pas un élément nouveau qu'elle pourrait découvrir. Ce que la pièce 5 établit — **l'assiduité certifiée par l'école après le refus** — est plus précieux que le risque.
 - L'attestation du 9 décembre 2025 indique « *actuellement en Master 1* » pour l'année 2025-2026, alors que la facturation de l'école porte l'année en « Master 2 ». Cet écart est une affaire **entre l'étudiant et l'école** : ne pas le mentionner à l'ANBG, il n'éclaire en rien la décision boursière et brouillerait le recours.
 - Aucune mention de « suppression des bourses » comme motif de paiement : cela revient à plaider l'insolvabilité de la caution. L'objet du recours est la **motivation de trois décisions**, pas le budget de l'État.
+-->
