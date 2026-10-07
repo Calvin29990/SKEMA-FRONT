@@ -27,3 +27,10 @@ desktop.ini
 
 # Node (pour bnp-training si besoin)
 node_modules/
+
+# Dossier de litige : les PDF se régénèrent via skema-litige/outils/assembler-dossier.py
+# (contient état civil + correspondance contentieuse : hors dépôt par défaut)
+skema-litige/PARENTS-ANBG/pdf/
+
+__pycache__/
+*.pyc

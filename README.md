@@ -10,7 +10,8 @@
 | Dossier | Contenu | Quand l'utiliser |
 |---|---|---|
 | `candidatures/` | Suivi candidatures banques, debriefs, notes Arena | Candidatures, entretiens, runbooks |
-| `SKEMA-DOSSIER-ARCHIVE.md` | **Dispute financière SKEMA** (bourse ANBG, €7,500) | Problème SKEMA / titre de séjour |
+| `skema-litige/` | **Dossier de litige monté et sourcé** : reconstitution 2019-2026, réponse à la mise en demeure, **recours gracieux ANBG**, index des annexes | Toute correspondance ANBG / Campus France / SKEMA |
+| `SKEMA-DOSSIER-ARCHIVE.md` | **Dispute financière SKEMA** (bourse ANBG, €7,500 → €14 840) | Problème SKEMA / titre de séjour |
 | `cours/` | Cours S1 + S2 M2 CFM, syllabus, lectures | Devoirs, examens, révisions |
 | `exercices/` | Exercices Excel, CFP, comptabilité | Pratique cours |
 | `entretien/` | Questions entretien, fiches, guides (Jane Street, Optiver) | Préparation entretiens banques |
@@ -23,14 +24,14 @@
 
 ---
 
-## 🔥 PRIORITÉS ACTUELLES (30/09/2026)
+## 🔥 PRIORITÉS ACTUELLES (07/10/2026)
 
-### 1. SKEMA — Dispute financière (URGENT)
-- **Fichier** : `SKEMA-DOSSIER-ARCHIVE.md`
-- **Situation** : SKEMA réclame €7,500. La bourse ANBG couvre 2 ans (M1+M2). SKEMA n'a facturé qu'1 an.
-- **Action en cours** : Mail à la Direction Générale (Alice Guilhon) — demain 8h30
+### 1. SKEMA — Réponse à la mise en demeure (URGENT)
+- **Dossier** : `skema-litige/` (reconstitution + courrier + index des pièces)
+- **À faire avant envoi** : (1) relire `mise en demeure.pdf` (scan) pour la date, le signataire et le montant ; (2) retrouver une version **lisible** de l'attestation ANBG du 06/09/2023 (2 ans, M1+M2) ; (3) capturer depuis Gmail les courriels des 27/10/2023, 15/01/2024, 08/01/2024 et 11/03/2024
+- **Envoi** : un seul courrier, **simultané**, à `amandine.boucly@skema.edu` + `maxime.belloni@skema.edu` + `beatrice.marino@skema.edu` + `anbg.boursiers@campusfrance.org` + ANBG — objectif : faire **confirmer ou corriger le récit** sous 10 jours
 - **Titre de séjour** : expire 30/01/2027 — certificat S5 indispensable
-- **Ne pas** : menacer avocat en premier contact, dire "SKEMA cares about image", "je quitte SKEMA"
+- **Ne pas** : reconnaître la dette (retirer/conditionner la proposition de reconnaissance de dette du 22/09), menacer avocat en premier contact, dire "SKEMA cares about image", "je quitte SKEMA", calculer soi-même les pénalités (art. 3.4.1)
 
 ### 2. BNP Paribas — Test Maki (7-9 octobre)
 - **Fichier** : `bnp-training/index.html`
