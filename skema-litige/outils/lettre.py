@@ -270,7 +270,7 @@ def entete(f):
 
 # ---------------------------------------------------------------------- récit
 RIT = [
-    "Je me permets de vous adresser un seul courrier à trois destinataires, parce que les mêmes faits "
+    "J'adresse un seul courrier à trois destinataires, parce que les mêmes faits "
     "engagent à la fois l'Agence nationale des bourses du Gabon (ANBG), qui m'a accordé la bourse, le "
     "Service Financement et Bourses de Campus France, qui règle les frais de scolarité de SKEMA "
     "Business School, et SKEMA Business School, qui me réclame aujourd'hui 14 840,00 € au titre de "
@@ -281,15 +281,9 @@ RIT = [
     "les passages entre guillemets en reproduisent exactement le texte, et les pièces A à M les "
     "accompagnent.",
 
-    "Ce qui est en cause est la prise en charge des frais de scolarité : l'argent versé à SKEMA Business "
-    "School pour que l'étudiant soit inscrit, suive les cours et se présente aux examens. La bourse "
-    "nationale comprend aussi une allocation mensuelle, qui sert à se loger et à vivre : je ne la "
-    "réclame pas et ce courrier ne la concerne pas. Seule la prise en charge des frais de scolarité est "
-    "discutée, parce que ces frais, payés à SKEMA Business School par l'organisme payeur pour 2022/2023 "
-    "puis pour "
-    "2023/2024, sont aujourd'hui réclamés à l'étudiant pour 2025/2026.",
+    "Le présent courrier porte sur la prise en charge des frais de scolarité, c'est-à-dire sur les sommes versées à SKEMA Business School pour l'inscription, les enseignements et les examens. La bourse nationale comprend aussi une allocation mensuelle, destinée au logement et à la vie courante : elle n'est pas demandée et reste hors du champ de ce courrier. Les frais de scolarité, payés à SKEMA Business School par l'organisme payeur pour 2022/2023 puis pour 2023/2024, sont aujourd'hui réclamés à l'étudiant pour 2025/2026.",
 
-    "Tout a commencé par les classes préparatoires. Admis au Groupe Scolaire La Résidence de Casablanca "
+    "Le dossier commence en classes préparatoires. Admis au Groupe Scolaire La Résidence de Casablanca "
     "en filière ECE (économique et commerciale), j'ai obtenu la bourse nationale pour l'année "
     "2019-2020, sous la référence WEXQTG. Le 1er février 2021, la Commission technique de l'ANBG a "
     "confirmé cette bourse pour l'année suivante en catégorie C — l'échelon qui fixe le montant mensuel "
@@ -302,10 +296,7 @@ RIT = [
 
     "Admis à SKEMA Business School par le concours BCE (le concours commun d'entrée en école de "
     "commerce) sous le numéro de candidat 21446, je me suis inscrit le 1er septembre 2022 en L3 du "
-    "Programme Grande École, sur la rentrée Fall 2022. Il faut lire les mots employés par "
-    "SKEMA Business School : « Fall » y "
-    "désigne le premier semestre de l'année universitaire, de septembre à décembre, « Spring » le "
-    "second, de janvier à mai. Le dossier d'inscription n° 2733904447 comporte un acte de "
+    "Programme Grande École, sur la rentrée Fall 2022. Les mots employés par SKEMA Business School suivent l'année universitaire : « Fall » désigne le premier semestre, de septembre à décembre, « Spring » le second, de janvier à mai. Le dossier d'inscription n° 2733904447 comporte un acte de "
     "cautionnement : l'État gabonais s'y porte garant du paiement de mes études, pour un maximum de "
     "« quarante six mille euros (46 000 €) » et une durée de « soixante (60) mois ». Soixante mois n'est "
     "pas la durée des études, qui en compte trente-six : c'est la durée maximale sur laquelle "
@@ -314,8 +305,7 @@ RIT = [
     "scolarité se prolonge. Le 25 août 2022, SKEMA Business School écrivait : « Concernant la "
     "facturation, je transfère votre mail à la comptabilité étudiante. » (pièce J).",
 
-    "Encore faut-il expliquer comment SKEMA Business School est payée, puisque tout le reste en "
-    "dépend. Pour les boursiers de l'État gabonais, l'étudiant ne règle rien : SKEMA Business School "
+    "Le mode de règlement de SKEMA Business School commande le reste du dossier. Pour les boursiers de l'État gabonais, l'étudiant ne règle rien : SKEMA Business School "
     "établit une facture à l'ordre de Campus France et la dépose sur Chorus Pro (le portail public par "
     "lequel les administrations reçoivent et règlent leurs factures) ; Campus France contrôle les "
     "pièces, puis mandate le paiement au profit de SKEMA Business School. Cette règle a été écrite par "
@@ -327,13 +317,11 @@ RIT = [
     "de SKEMA Business School en a accusé réception le 25 janvier 2023 à 09:43. Un bon de commande est "
     "l'engagement de payer pris par l'organisme auprès de SKEMA Business School (pièces G, J).",
 
-    "L'année 2022/2023 a été difficile, et il faut la raconter exactement : les matières de l'année "
-    "étaient validées, et ce n'est pas un échec aux examens qui a arrêté le parcours. Le relevé de notes "
+    "L'année 2022/2023 s'est achevée sur une validation complète : les matières de l'année étaient validées, et aucun échec aux examens n'a arrêté le parcours. Le relevé de notes "
     "établi par SKEMA Business School le 6 novembre 2025 pour le Programme Grande École (PGE) M1 "
     "comporte un tableau de synthèse où, sous les titres « Crédits présentés » et « Crédits validés », "
     "les deux semestres de l'année 2022/2023 sont portés ligne à ligne : « 2022/2023 - Fall Semester - "
-    "Paris 30 30 12.50 » et « 2022/2023 - Spring Semester - Paris 30 30 12.80 », soit trente crédits "
-    "validés sur trente présentés à chaque semestre (pièce K). Ce que j'ignorais, c'est que le score de "
+    "Paris 30 30 12.50 » et « 2022/2023 - Spring Semester - Paris 30 30 12.80 », soit trente crédits validés sur trente présentés à chaque semestre (pièce K). Le Student Office de SKEMA Business School l'avait écrit le 7 mai 2024 : « a validé son année de Licence 3 (60 crédits obtenus) sur l'année scolaire 2022-2023 » (pièce F). Ce que j'ignorais, c'est que le score de "
     "langue anglaise conditionnait l'accès en M1. J'ai donc passé ce test et je l'ai obtenu : le "
     "certificat d'iCIMS Language Assessment produit en pièce K porte « Completed on: 17/10/2023 », "
     "« Points: 67 / 100 », « CEFR level: Upper intermediate » et « Expires on: 16/10/2025 », sous le "
@@ -341,30 +329,20 @@ RIT = [
     "notes du 6 novembre 2025 reprend ce résultat sous la forme « Meilleur score ICIMS 67 », à la même "
     "date du 18 octobre 2023. Mais la délibération du jury de SKEMA Business School était "
     "passée en juillet 2023, et il m'a été répondu qu'à cette date je ne pouvais intégrer le M1 qu'au "
-    "semestre suivant. Deux voies s'offraient : attendre la rentrée de septembre avec un semestre vide, "
-    "ou mettre ce temps à profit, chercher une expérience professionnelle et apprendre au moins sur le "
-    "terrain. J'ai choisi la seconde, et donc la césure — période classique, commune à la plupart des "
-    "écoles et des universités : l'étudiant "
-    "interrompt les cours pendant un an pour travailler en entreprise, il reste inscrit, il continue de "
-    "régler les frais de scolarité, et l'année est validée sur attestation de l'entreprise et non sur "
-    "des notes. Le 27 octobre 2023, SKEMA Business School a écrit : « Votre demande pour effectuer la "
+    "semestre suivant. Le semestre d'attente ne comportant aucun enseignement, j'ai demandé une césure et choisi d'employer ce temps en entreprise. La césure est une année au cours de laquelle l'étudiant interrompt les cours pour travailler, reste inscrit et continue de régler les frais de scolarité ; l'année est validée sur attestation de l'entreprise et non sur des notes. Le 27 octobre 2023, SKEMA Business School a écrit : « Votre demande pour effectuer la "
     "césure à partir de janvier 2024 a été acceptée. Je viens de mettre à jour votre dossier. » Le "
     "4 janvier 2024, SKEMA Business School a signé avec BPCE VIE la convention de stage : « Le stage se "
     "déroulera du 08/01/2024 au 05/07/2024 », cinq jours ouvrés par semaine, à Paris ; l'entreprise m'a "
     "délivré l'attestation de fin de stage (pièce H).",
 
-    "Sur ce point, je ne cherche pas d'excuse : le critère de langue, je l'ai négligé faute de savoir "
-    "qu'il bloquait l'accès en M1, et cette négligence m'incombe. Les conditions de diplomation du "
+    "Sur ce point, la négligence me revient : le critère de langue n'a pas été satisfait en temps utile, son effet bloquant pour l'accès en M1 m'étant inconnu. Les conditions de diplomation du "
     "Programme Grande École sont, d'une part, une expérience professionnelle de douze mois lorsque "
     "l'étudiant fait une césure, ou de huit mois au minimum lorsqu'il n'en fait pas et entre en L3 — "
     "c'est pourquoi la césure est optionnelle mais conseillée dans un marché de l'emploi tendu ; "
     "d'autre part, un score d'anglais exigé de tous les étudiants, quel que soit le parcours, par "
     "exemple 67 points au test iCIMS de SKEMA Business School, 7 à l'IELTS ou 870 au TOEIC. Le score a "
     "été obtenu trois mois après la délibération, et c'est ce seul décalage de dates qui a reporté "
-    "l'entrée en M1. Ce point n'est pas un détail de scolarité : la règle « un seul redoublement est "
-    "admis au cours d'un même cycle », que j'ai lue dans la foire aux questions de l'Agence nationale des "
-    "bourses du Gabon, est la seule base à ma portée pour expliquer le motif de « parcours "
-    "insoutenable » retenu contre mon dossier. Or je n'ai pas redoublé : les soixante crédits de la "
+    "l'entrée en M1. La règle « un seul redoublement est admis au cours d'un même cycle », lue dans la foire aux questions de l'Agence nationale des bourses du Gabon, est, à ma connaissance, le seul texte de portée générale susceptible d'éclairer le motif de « parcours insoutenable » retenu contre mon dossier. Or je n'ai pas redoublé : les soixante crédits de la "
     "L3 ont été validés, l'accès en M1 a été reporté d'un semestre, et le second semestre de l'année "
     "2023/2024 a été une césure acceptée par SKEMA Business School, avec inscription et frais de "
     "scolarité maintenus. Je rapporte ces éléments pour que le calendrier soit compris, non pour "
@@ -372,10 +350,7 @@ RIT = [
 
     "Le 14 mai 2024, le registraire de SKEMA Business School (le service qui tient les dossiers de "
     "scolarité) a certifié le parcours dans une attestation officielle : « 2023/2024 L3/M1 Paris Fall "
-    "23 / Césure Spring 24 ; 2024/2025 M1 Césure Fall 24 / Raleigh Spring 25 ; 2025/2026 PGE M2 ». En "
-    "clair : l'année 2023/2024 a été passée pour partie en cours à Paris au premier semestre, pour "
-    "partie en stage à compter de janvier 2024, et j'étais inscrit cette année-là comme la suivante "
-    "(pièce F).",
+    "23 / Césure Spring 24 ; 2024/2025 M1 Césure Fall 24 / Raleigh Spring 25 ; 2025/2026 PGE M2 ». Soit : l'année 2023/2024 a été suivie pour partie en cours à Paris au premier semestre, pour partie en stage à compter de janvier 2024, avec inscription maintenue la première année comme la seconde (pièce F).",
 
     "Campus France n'a d'ailleurs pas interrompu la prise en charge de cette année de césure : le "
     "6 mai 2024, Campus France a émis le bon de commande n° 721622, dossier 110584Z, objet « POUR LE "
@@ -386,12 +361,7 @@ RIT = [
     "Cette suppression est le point de départ du litige. Le 25 septembre 2024 à 16:37, la plateforme "
     "eBourse de l'ANBG (le site où l'étudiant dépose ses pièces et suit son dossier) a enregistré la "
     "suppression de ma bourse au motif « abs de releve de notes / perception de la bourse », "
-    "c'est-à-dire l'absence de relevé de notes. Ce relevé ne pouvait pas exister, pour la raison simple "
-    "que l'année 2023/2024 était une année de césure, sans examens, certifiée comme telle par SKEMA "
-    "Business School le 14 mai 2024. Je comprends l'interrogation, de l'un comme de l'autre côté : entre "
-    "la fin de la L3 en juillet 2023, le stage de six mois et l'entrée en M1 début 2025, l'année ne "
-    "produit en effet ni relevé de notes ni bulletin, et le dossier ne montre qu'une convention de stage "
-    "et deux attestations. C'est le propre d'une césure ; c'est aussi la raison pour laquelle j'ai "
+    "c'est-à-dire l'absence de relevé de notes. Ce relevé ne pouvait pas exister : l'année 2023/2024 était une année de césure, sans examens, et SKEMA Business School l'avait écrit le 7 mai 2024 — « est actuellement en césure (sur la période allant du 1er septembre 2023 au 31 août 2024) et n'a donc pas de notes sur cette période » —, comme l'attestation du registraire du 14 mai 2024 (pièce F). Le calendrier rendait donc ce document impossible à produire : entre la fin de la L3 en juillet 2023, le stage de six mois et l'entrée en M1 début 2025, l'année ne produit ni relevé de notes ni bulletin, et le dossier ne montre qu'une convention de stage et deux attestations. C'est la raison pour laquelle j'ai "
     "demandé, le 8 janvier 2024 puis le 11 mars 2024, que ce calendrier apparaisse clairement dans les "
     "documents destinés aux organismes financeurs. J'ai produit cette attestation, puis les documents "
     "réclamés en "
@@ -411,7 +381,7 @@ RIT = [
     "9 décembre 2025, SKEMA Business School a certifié par écrit que j'avais assisté aux cours et été "
     "présent aux examens de l'année (pièce F).",
 
-    "Le dossier de facturation a buté sur la même difficulté, en sens inverse. La facture n° 1281253, "
+    "Le dossier de facturation a rencontré la même difficulté, en sens inverse. La facture n° 1281253, "
     "établie par SKEMA Business School pour l'année 2024/2025, a été rejetée le 25 septembre 2025 à "
     "12:15 par le Service Financement et Bourses de Campus France, motif « Certificat de scolarité "
     "manquant ou non conforme », avec injonction de « remettre le « Bon à payer » ». Le 6 octobre 2025 "
@@ -428,7 +398,7 @@ RIT = [
     "janvier 2025, la facture n° 22223502, intitulée « Master 2 », portait 15 000,00 € ; le 20 février "
     "2025, une pièce comptable portait 4 000,00 € ; le 30 septembre 2026, 7 500,00 € ; le 5 octobre "
     "2026, un document comptable portait 14 840,00 €. Le 7 octobre 2026 à 15:04, la mise en demeure "
-    "n° 2026-SK.D-0002 — la relance formale qui fait courir un délai avant poursuites — a réclamé ce "
+    "n° 2026-SK.D-0002 — acte par lequel l'établissement enjoint de payer dans un délai fixé avant poursuites — a réclamé ce "
     "solde « au titre de l'année 2025/2026 », avec paiement sous dix jours, en précisant que « "
     "l'absence ou la cessation de prise en charge par un organisme tiers ne vous libère pas », sous "
     "menace de procédure et de cessation définitive de scolarité. Aucun de ces montants n'est accompagné "
@@ -437,14 +407,11 @@ RIT = [
 
     "Le 7 octobre 2026 à 21:06, la plateforme eBourse de l'ANBG affichait, pour la session 2025-2026 "
     "du dossier 110584Z : « DÉCISION : AVIS DÉFAVORABLE » et « VOUS ÊTES NON BOURSIER », avec "
-    "l'arborescence des sessions CA24B3, 1LMK24, 2E4C0B, LDPMRC, PNPXWG, 4E0O00, WEXQTG. Mon dossier est "
-    "donc tenu pour non boursier, pendant que SKEMA Business School me scolarise, m'inscrit aux examens "
-    "du semestre 5 et facture à Campus France (pièces E, F, I).",
+    "l'arborescence des sessions CA24B3, 1LMK24, 2E4C0B, LDPMRC, PNPXWG, 4EO0OO, WEXQTG. Mon dossier est donc tenu pour non boursier, pendant que SKEMA Business School me scolarise, m'inscrit aux examens du semestre 5, facture à Campus France et a délivré le 13 août 2025 un certificat de scolarité pour l'année académique 2025/2026 (pièces E, F, I).",
 ]
 
 FIN = [
-    "Je n'ai sollicité aucune somme pour moi-même : ce dossier porte uniquement sur l'argent dû à SKEMA "
-    "Business School. Le terme du cycle est fixé à décembre 2026. En vous remerciant de l'attention "
+    "Je n'ai sollicité aucune somme pour moi-même : ce dossier porte uniquement sur les frais dus à SKEMA Business School. Le terme du cycle est fixé à décembre 2026. En vous remerciant de l'attention "
     "portée à cet exposé, je vous prie d'agréer, Mesdames, Messieurs, l'expression de mes "
     "considérations distinguées.",
 ]
@@ -528,8 +495,9 @@ PIECES_INDEX = [
      "autour de la facture n° 1281253 rejetée"),
     ("E", "2024 → 2026", "Agence nationale des bourses du Gabon : notifications et validations de la "
      "plateforme eBourse, avec date et heure — à imprimer depuis l'espace étudiant"),
-    ("F", "14/05/2024 et 09/12/2025", "SKEMA Business School : attestation du registraire sur le "
-     "parcours, puis attestation d'assiduité"),
+    ("F", "07/05/2024 → 09/12/2025", "SKEMA Business School : certificat du Student Office sur la "
+     "réussite de la L3 et l'absence de notes pendant la césure, attestation du registraire sur "
+     "le parcours, certificat de scolarité 2025/2026, puis attestation d'assiduité"),
     ("G", "24/01/2023 et 06/05/2024", "Campus France : bons de commande n° 677745 et n° 721622, émis "
      "au profit de SKEMA Business School"),
     ("H", "04/01/2024", "SKEMA Business School et BPCE VIE : convention de stage du 08/01/2024 au "
@@ -664,7 +632,9 @@ ANNEX = {
     "C": ([("attestation-anbg-attribution-2021-2022.pdf", None)], None),
     "D": ([("contradiction-campus-france.pdf", None)], None),
     "E": ([], "à produire"),
-    "F": ([("attestation-PGE.pdf", None), ("attestation-assiduite-09-12-2025.pdf", None)], None),
+    "F": ([("attestation-reussite-L3-07-05-2024.pdf", None), ("attestation-PGE.pdf", None),
+          ("certificat-scolarite-2025-2026.pdf", None),
+          ("attestation-assiduite-09-12-2025.pdf", None)], None),
     "G": ([("bon-de-commande-M1.pdf", None)], None),
     "H": ([("convention-stage-bpce-2024.pdf", [0, 1, 2])], None),
     "I": ([("relance-skema-M1.pdf", [0]), ("mise-en-demeure.pdf", [0])], None),
