@@ -30,48 +30,41 @@ AVAIL = W - ML - MR
 OUT = os.path.join(BASE, "pdf")
 PIECES = os.path.join(BASE, "pieces")
 
-NOIR = (0.11, 0.12, 0.14)
-GRIS = (0.40, 0.42, 0.45)
-COL = {"A": (0.09, 0.38, 0.29),      # ANBG - vert
-       "S": (0.55, 0.15, 0.15),      # SKEMA Business School - bordeaux
-       "C": (0.10, 0.25, 0.50),      # Campus France - bleu nuit
-       "E": (0.32, 0.36, 0.44),      # État gabonais - ardoise
-       "T": NOIR,                     # titres
+NOIR = (0.11, 0.12, 0.14)          # corps du texte
+GRIS = (0.45, 0.46, 0.49)
+COL = {"A": (0.05, 0.05, 0.07),    # Agence Nationale des Bourses du Gabon : noir
+       "S": (0.45, 0.46, 0.49),     # SKEMA Business School : gris
+       "C": (0.13, 0.24, 0.42),     # Campus France : bleu nuit
+       "E": (0.58, 0.60, 0.63),     # État gabonais et ses textes : gris clair
+       "T": NOIR,
        "-": NOIR}
-GRAS = {"T"}
-# clé de style -> nom de police
-PNAME = {"A": "Fr", "S": "Fr", "C": "Fr", "E": "Fr", "T": "Fb", "-": "Fr"}
+PNAME = {k: "Fr" for k in COL}     # aucun italique, aucun gras dans le récit
 
-MOTS = [  # les noms d'acteurs seuls sont typographiés ; le récit reste noir
-    ("Agence nationale des bourses du Gabon", "A"),
+MOTS = [  # les noms d'institutions sont écrits en entier ; seuls eux portent le registre
+    ("Agence Nationale des Bourses du Gabon (ANBG)", "A"),
     ("Agence Nationale des Bourses du Gabon", "A"),
+    ("Agence nationale des bourses du Gabon", "A"),
+    ("Commission technique des bourses de l'ANBG", "A"),
     ("Commission technique des bourses", "A"),
-    ("Commission technique de l'Agence", "A"),
+    ("Commission technique de l'ANBG", "A"),
     ("la Commission technique", "A"),
-    ("plateforme de l'Agence", "A"),
+    ("plateforme eBourse de l'ANBG", "A"),
+    ("la plateforme eBourse", "A"),
+    ("la plateforme de l'ANBG", "A"),
     ("plateforme eBourse", "A"),
-    ("la plateforme", "A"),
     ("eBourse", "A"),
-    ("l'Agence", "A"),
     ("ANBG", "A"),
     ("SKEMA BUSINESS SCHOOL", "S"),
     ("SKEMA Business School", "S"),
-    ("comptabilité de SKEMA", "S"),
-    ("comptabilité de l'école", "S"),
-    ("comptabilité étudiante", "S"),
-    ("comptabilité étudiantes", "S"),
-    ("l'école", "S"),
     ("SKEMA", "S"),
     ("Service Financement et Bourses", "C"),
     ("Campus France", "C"),
     ("Chorus Pro", "C"),
-    ("le SFO", "C"),
     ("Journal officiel de la République gabonaise", "E"),
     ("Journal officiel", "E"),
     ("décret n° 0115/PR/MESRIT", "E"),
     ("décret n° 0065/PR/MESRSIT", "E"),
-    ("décret 0115/PR/MESRIT", "E"),
-    ("décret 0065/PR/MESRSIT", "E"),
+    ("gouvernement gabonais", "E"),
     ("État gabonais", "E"),
     ("l'État", "E"),
 ]
@@ -100,15 +93,24 @@ class Feuille:
 
 
 def style(texte):
+    """Découpe le récit en suites (texte, registre). L'élision reste collée au nom."""
     out, last = [], 0
     for m in RE.finditer(texte):
         if m.start() > last:
-            out.append((texte[last:m.start()], "-"))
-        out.append((m.group(0), KEY[m.group(0)]))
+            out.append([texte[last:m.start()], "-"])
+        out.append([m.group(0), KEY[m.group(0)]])
         last = m.end()
     if last < len(texte):
-        out.append((texte[last:], "-"))
-    return out
+        out.append([texte[last:], "-"])
+    for i in range(len(out) - 1):
+        txt = out[i][0]
+        if txt.rstrip() != txt or not txt:
+            continue
+        if txt.endswith(("'", "’")) and len(txt) > 1 and txt[-2].isalpha() \
+                and out[i + 1][0][:1].isalpha():
+            out[i + 1][0] = txt + out[i + 1][0]
+            out[i][0] = ""
+    return [(a, b) for a, b in out if a]
 
 
 def para(f, texte, size=11.0, lead=16.4, space=8.0, width=None, justifier=True, runs=None,
@@ -117,12 +119,18 @@ def para(f, texte, size=11.0, lead=16.4, space=8.0, width=None, justifier=True, 
     width = width or AVAIL
     ws = FONTS["r"].text_length(" ", size)
     mots = []
+    ouv = ""
     for txt, key in (runs if runs is not None else style(texte)):
         fname = PNAME[key]
         fo = FONTS["b"] if fname == "Fb" else FONTS["r"]
         col = couleur or COL[key]
         for mot in txt.split():
-            if mots and mot[0] in ",.;:!?»)" and mot not in (":", ";", "!", "?", "»", ")") \
+            if mot in ("(", "["):          # l'ouvrant se colle au mot suivant
+                ouv = mot
+                continue
+            if ouv:
+                mot, ouv = ouv + mot, ""
+            if mots and mot[0] in ",.;:!?»)" and mot not in (":", ";", "!", "?", "»") \
                     and mots[-1][0][-1] not in "(«":
                 mots[-1][0] += mot
                 mots[-1][3] = mots[-1][4].text_length(mots[-1][0], size)
@@ -197,7 +205,7 @@ EXPED = ["Né le 2 mai 2002 à Libreville (Gabon)",
          "Dossier de bourse n° 110584Z"]
 
 DEST = [("À la Direction générale de", True),
-        ("l'Agence nationale des bourses du Gabon", False),
+        ("l'Agence Nationale des Bourses du Gabon", False),
         ("et à la Commission technique des bourses", False),
         ("", False),
         ("À la Direction du Service Financement", True),
@@ -241,92 +249,94 @@ def entete(f):
 
 # ---------------------------------------------------------------------- récit
 RIT = [
-    "Je me permets de vous adresser un seul courrier à trois destinataires, parce que les mêmes "
-    "faits engagent à la fois l'Agence qui m'a accordé la bourse, le service qui paie l'école et "
-    "l'école qui me réclame aujourd'hui 14 840,00 € pour l'année 2025/2026. Je suis gabonais, "
-    "boursier de l'État depuis 2019, et j'achève en décembre 2026 le Programme Grande École de "
-    "SKEMA Business School — le diplôme principal de l'école, un master en gestion en cinq ans "
-    "après le baccalauréat. Les faits rapportés ci-dessous sont ceux qu'enregistrent vos documents "
-    "respectifs ; les passages entre guillemets en reproduisent exactement le texte, et les pièces "
-    "A à L les accompagnent.",
+    "Je me permets de vous adresser un seul courrier à trois destinataires, parce que les mêmes faits "
+    "engagent à la fois l'Agence Nationale des Bourses du Gabon (ANBG), qui m'a accordé la bourse, le "
+    "Service Financement et Bourses de Campus France, qui règle les frais de scolarité, et SKEMA "
+    "Business School, l'école où j'étudie, qui me réclame aujourd'hui 14 840,00 € pour l'année "
+    "2025/2026. Je suis gabonais, boursier de l'État depuis 2019, et j'achève en décembre 2026 le "
+    "Programme Grande École de SKEMA Business School (le diplôme principal de l'école, de niveau "
+    "master, préparé en cinq années après le baccalauréat). Les faits rapportés ci-dessous sont ceux "
+    "qu'enregistrent vos documents respectifs ; les passages entre guillemets en reproduisent "
+    "exactement le texte, et les pièces A à L les accompagnent.",
 
-    "Ce qui est en cause est la prise en charge des frais de scolarité, c'est-à-dire l'argent versé "
-    "à l'école pour que l'étudiant puisse s'inscrire, suivre les cours et se présenter aux examens. "
-    "La bourse nationale comprend aussi une allocation mensuelle, qui sert à se loger et à vivre : "
-    "je ne la réclame pas et ce courrier ne la concerne pas. Seule la question des frais de scolarité "
-    "est posée, parce que ces frais, payés directement par l'organisme payeur pour 2022/2023 puis "
-    "pour 2023/2024, sont aujourd'hui réclamés à l'étudiant pour 2025/2026.",
+    "Ce qui est en cause est la prise en charge des frais de scolarité, c'est-à-dire la somme versée à "
+    "SKEMA Business School pour que l'étudiant s'inscrive, suive les cours et se présente aux examens. "
+    "La bourse nationale comprend également une allocation mensuelle, destinée au logement et à la vie "
+    "courante : je ne la sollicite pas, et ce courrier ne la concerne pas. Seule la question des frais "
+    "de scolarité est posée, parce que ces frais, réglés directement par l'organisme payeur pour "
+    "2022/2023 puis pour 2023/2024, sont aujourd'hui réclamés à l'étudiant pour 2025/2026.",
 
     "Tout a commencé par les classes préparatoires. Admis au Groupe Scolaire La Résidence de "
     "Casablanca, en filière économique et commerciale, j'ai obtenu la bourse nationale pour l'année "
-    "2019-2020, sous la référence WEXQTG. Le 1er février 2021, la Commission technique de l'Agence a "
-    "confirmé cette bourse pour l'année suivante, en catégorie C — l'échelon qui fixe le montant "
-    "mensuel versé à l'étudiant. L'attestation du 4 février 2021 porte « montant mensuel [...] 165 "
-    "000 FCFA », mentionne « Classes Préparatoires 2 au/en MAROC / CASABLANCA » et « valable jusqu'au "
-    "30/09/2021 », et précise que le renouvellement est conditionné à la production des résultats de "
-    "l'année. Le 2 novembre 2021, l'Agence a accordé la bourse pour l'année 2021/2022, "
-    "établissement IPESUP, France/Paris, « pour une durée : 1 année(s), du 01/09/2021 au 31/08/2022 » "
-    "— alors que les sessions suivantes, sur la même plateforme, portent « deux années » (pièces B, "
-    "C, E).",
+    "2019-2020, sous la référence WEXQTG. Le 1er février 2021, la Commission technique des bourses de "
+    "l'ANBG a confirmé cette bourse pour l'année suivante, en catégorie C (l'échelon qui fixe le "
+    "montant mensuel versé à l'étudiant). L'attestation de maintien de paiement du 4 février 2021 "
+    "porte « montant mensuel [...] 165 000 FCFA », mentionne « Classes Préparatoires 2 au/en MAROC / "
+    "CASABLANCA » et « valable jusqu'au 30/09/2021 », et précise que le renouvellement est conditionné "
+    "à la production des résultats de l'année. Le 2 novembre 2021, l'ANBG a accordé la bourse pour "
+    "l'année 2021/2022, établissement IPESUP, France/Paris, « pour une durée : 1 année(s), du "
+    "01/09/2021 au 31/08/2022 » — alors que les sessions suivantes, sur la même plateforme, portent "
+    "« deux années » (pièces B, C, E).",
 
     "Admis à SKEMA Business School en 2022 par le concours BCE (le concours commun d'entrée en école "
     "de commerce), sous le numéro de candidat 21446, je me suis inscrit le 1er septembre 2022 en "
-    "troisième année du cycle. Le dossier d'inscription n° 2733904447 comporte un acte de "
-    "cautionnement : l'État gabonais s'y porte garant du paiement de mes études, pour un maximum de "
-    "« quarante six mille euros (46 000 €) » et une durée de « soixante (60) mois », soit cinq ans, "
-    "la durée normale du parcours du premier semestre jusqu'au master. Ce contrat de 2022 est le seul "
-    "contrat de tout le cycle ; son article 4.4 prévoit qu'il est rallongé si la scolarité se "
-    "prolonge. Le 25 août 2022, l'école écrivait déjà : « Concernant la facturation, je transfère "
-    "votre mail à la comptabilité étudiante. » (pièce J).",
+    "troisième année du cycle, notée L3 dans les documents de SKEMA Business School. Le dossier d'inscription "
+    "n° 2733904447 comporte un acte de cautionnement : l'État gabonais s'y porte garant du paiement de "
+    "mes études, pour un maximum de « quarante six mille euros (46 000 €) » et une durée de « soixante "
+    "(60) mois », soit cinq ans, la durée normale du parcours jusqu'au master. Ce contrat de 2022 est "
+    "le seul contrat signé pour l'ensemble du cycle ; son article 4.4 prévoit qu'il est rallongé si la "
+    "scolarité se prolonge. Le 25 août 2022, SKEMA Business School écrivait déjà : « Concernant la "
+    "facturation, je transfère votre mail à la comptabilité étudiante. » (pièce J).",
 
-    "Encore faut-il expliquer comment l'école est payée, puisque tout le reste en dépend. Pour les boursiers "
-    "du gouvernement gabonais, l'étudiant ne paie pas : l'établissement établit une facture à l'ordre "
-    "de Campus France et la dépose sur Chorus Pro, le portail public par lequel les administrations "
-    "reçoivent et règlent leurs factures ; Campus France vérifie les pièces, puis engage le paiement "
-    "au profit de l'école. Cette règle a été écrite par Campus France le 24 janvier 2023 : « Nous "
-    "vous invitons à établir une facture à l'ordre de campus France et à la déposer sur Chorus Pro », "
-    "avec cette précision « Dans l'hypothèse où l'étudiant aurait versé un acompte, merci de bien "
-    "vouloir le faire apparaître clairement ». Le même jour, Campus France a émis le bon de commande "
-    "n° 677745 pour mon dossier, objet « FRAIS DE FORMATION 22/23 », fournisseur SKEMA BUSINESS "
-    "SCHOOL n° 35025, d'un montant de 15 000,00 € ; la comptabilité de l'école en a accusé réception "
-    "le 25 janvier 2023 à 09:43. Un bon de commande est l'engagement de payer pris par l'organisme "
-    "auprès de l'école (pièces G, J).",
+    "Encore faut-il expliquer comment SKEMA Business School est payée, puisque tout le reste en dépend. Pour les "
+    "boursiers du gouvernement gabonais, l'étudiant ne paie pas : SKEMA Business School établit une "
+    "facture à l'ordre de Campus France et la dépose sur Chorus Pro (le portail public par lequel les "
+    "administrations reçoivent et règlent leurs factures) ; Campus France vérifie les pièces, puis "
+    "engage le paiement au profit de SKEMA Business School. Cette règle a été écrite par Campus France le 24 "
+    "janvier 2023 : « Nous vous invitons à établir une facture à l'ordre de campus France et à la "
+    "déposer sur Chorus Pro », avec cette précision « Dans l'hypothèse où l'étudiant aurait versé un "
+    "acompte, merci de bien vouloir le faire apparaître clairement ». Le même jour, Campus France a "
+    "émis le bon de commande n° 677745 pour mon dossier, objet « FRAIS DE FORMATION 22/23 », "
+    "fournisseur SKEMA BUSINESS SCHOOL n° 35025, d'un montant de 15 000,00 € ; la comptabilité "
+    "étudiante de SKEMA Business School en a accusé réception le 25 janvier 2023 à 09:43. Un bon de "
+    "commande est l'engagement de payer pris par l'organisme auprès de SKEMA Business School (pièces G, J).",
 
-    "L'année 2022/2023 a été difficile : en juillet 2023, les examens de la troisième année n'ont "
-    "pas été validés. J'ai alors demandé, et obtenu, à faire une année de césure — une année où "
-    "l'étudiant interrompt les cours pour travailler en entreprise, en restant inscrit à l'école et "
-    "en continuant de payer les frais de scolarité. Le 27 octobre 2023, l'école a écrit : « Votre "
-    "demande pour effectuer la césure à partir de janvier 2024 a été acceptée. Je viens de mettre à "
-    "jour votre dossier. » Cette année-là, je n'avais donc ni cours ni examens, et par conséquent pas "
-    "de relevé de notes : une césure se valide par l'attestation de stage de l'entreprise, pas par "
-    "des notes. Le 4 janvier 2024, l'école a signé avec BPCE VIE la convention de stage qui fixe la "
-    "mission : « Le stage se déroulera du 08/01/2024 au 05/07/2024 », cinq jours ouvrés par semaine, "
-    "à Paris. L'entreprise m'a remis l'attestation de fin de stage (pièce H).",
+    "L'année 2022/2023 a été difficile : en juillet 2023, les examens de la troisième année n'ont pas "
+    "été validés. J'ai alors demandé à effectuer une année de césure — c'est une période courante dans "
+    "la plupart des écoles, où l'étudiant interrompt les cours une année pour faire un stage en "
+    "entreprise, en restant inscrit et en acquittant les frais de scolarité. Le 27 octobre 2023, SKEMA "
+    "Business School a écrit : « Votre demande pour effectuer la césure à partir de janvier 2024 a été "
+    "acceptée. Je viens de mettre à jour votre dossier. » Cette année-là, je n'avais ni cours ni "
+    "examens, donc pas de relevé de notes : une césure se valide par l'attestation de stage délivrée "
+    "par l'entreprise. Le 4 janvier 2024, SKEMA Business School a signé avec BPCE VIE la convention de "
+    "stage fixant la mission : « Le stage se déroulera du 08/01/2024 au 05/07/2024 », cinq jours ouvrés "
+    "par semaine, à Paris ; l'entreprise m'a remis l'attestation de stage correspondante (pièce H).",
 
-    "Le 14 mai 2024, le service des inscriptions de l'école a certifié mon parcours dans une "
-    "attestation officielle : pour 2023/2024 « L3/M1 Paris Fall 23 / Césure Spring 24 », pour "
-    "2024/2025 « M1 Césure Fall 24 / Raleigh Spring 25 », pour 2025/2026 « PGE M2 ». Il faut traduire "
-    "ces mots : dans les documents de l'école, « Fall » désigne le premier semestre de l'année, de "
-    "septembre à décembre, et « Spring » le second, de janvier à mai ; « Césure » désigne le semestre "
-    "passé en entreprise. L'attestation dit donc, en clair, que l'année 2023/2024 a été consacrée au "
-    "stage, et que j'étais bien inscrit cette année-là (pièce F).",
+    "Le 14 mai 2024, le service de la scolarité de SKEMA Business School a certifié mon parcours par "
+    "une attestation officielle : « 2023/2024 L3/M1 Paris Fall 23 / Césure Spring 24 ; 2024/2025 M1 "
+    "Césure Fall 24 / Raleigh Spring 25 ; 2025/2026 PGE M2 ». Pour la lire : L3, M1 et M2 sont la "
+    "troisième année du cycle et les deux années de master ; « Fall » et « Spring » désignent, dans les "
+    "documents de SKEMA Business School, le premier semestre de l'année, de septembre à décembre, et le "
+    "second, de janvier à mai ; « Césure » signale le semestre passé en entreprise. Cette attestation "
+    "dit donc, en clair, que l'année 2023/2024 a été consacrée au stage et que j'étais bien inscrit "
+    "cette année-là (pièce F).",
 
-    "L'organisme payeur n'a d'ailleurs pas cessé de prendre en charge cette année de césure : le "
-    "6 mai 2024, Campus France a émis le bon de commande n° 721622, dossier 110584Z, objet « POUR LE "
-    "COMPTE DE L'ANBG FRAIS FORMATION 2023 2024 », d'un montant de 16 000,00 €. Cet acte, qui porte "
-    "sur l'année 2023/2024, est donc postérieur de six mois et un jour à la décision de l'Agence qui "
-    "m'a retiré la bourse pour la même année (pièce G).",
+    "Campus France n'a d'ailleurs pas cessé de prendre en charge cette année de césure : le 6 mai "
+    "2024, il a émis le bon de commande n° 721622, dossier 110584Z, objet « POUR LE COMPTE DE L'ANBG "
+    "FRAIS FORMATION 2023 2024 », d'un montant de 16 000,00 €. Cet acte porte sur l'année 2023/2024 : "
+    "il est donc postérieur de six mois et un jour à la décision de l'ANBG retirant la bourse pour "
+    "cette même année (pièce G).",
 
     "Cette suppression est le point de départ du litige. Le 25 septembre 2024 à 16:37, la plateforme "
-    "de l'Agence — le site eBourse où l'étudiant dépose ses pièces et suit son dossier — a enregistré "
-    "la suppression de ma bourse au motif « abs de releve de notes / perception de la bourse », "
-    "c'est-à-dire l'absence de relevé de notes. Le relevé demandé ne pouvait pas exister, pour la "
-    "simple raison que l'année en cause était une année de césure certifiée par l'école, sans "
-    "examens. J'ai produit l'attestation du 14 mai 2024, puis les documents demandés en janvier 2025. "
-    "Le 17 février 2025 à 11:06, la plateforme a validé la pièce ; cinq minutes plus tard, à 11:11, "
-    "elle enregistrait l'irrecevabilité de mon recours, motif « PARCOURS INSOUTENABLE (ARTICLE 4 "
-    "DECRET 065) ». Une irrecevabilité est un refus d'examiner le dossier sur le fond, pour une raison "
-    "de forme ou de réglementation (pièces E, F).",
+    "eBourse de l'ANBG (l'espace où l'étudiant dépose ses pièces et suit l'avancement de son dossier) a "
+    "enregistré la suppression de ma bourse au motif « abs de releve de notes / perception de la "
+    "bourse », c'est-à-dire l'absence de relevé de notes. Ce relevé ne pouvait pas exister, puisque "
+    "l'année en cause était une année de césure certifiée par SKEMA Business School, sans examens. "
+    "J'ai produit l'attestation du 14 mai 2024, puis les documents demandés en janvier 2025. Le 17 "
+    "février 2025 à 11:06, la plateforme de l'ANBG a validé la pièce ; cinq minutes plus tard, à 11:11, "
+    "elle enregistrait l'irrecevabilité de mon recours, sous le motif « PARCOURS INSOUTENABLE "
+    "(ARTICLE 4 DECRET 065) ». Une irrecevabilité est un refus d'examiner le dossier sur le fond, pour "
+    "un motif de forme ou de réglementation (pièces E, F).",
 
     "Le texte invoqué n'est plus en vigueur. Le décret n° 0065/PR/MESRSIT du 12 février 2024 a été "
     "abrogé par le décret n° 0115/PR/MESRIT du 21 février 2025, dont l'article 4 dispose qu'il "
@@ -334,85 +344,86 @@ RIT = [
     "PR/MESRSIT du 12 février 2024 » (Journal officiel de la République gabonaise n° 56 bis du 26 "
     "février 2025). La décision du 17 février 2025 a été prise la veille de cette abrogation ; en "
     "revanche, l'avis défavorable du 10 novembre 2025 à 15:47, référence CA24B3, qui reprend le même "
-    "motif de parcours, vise encore un texte abrogé depuis huit mois, sans référence au texte alors en "
-    "vigueur. Cet avis m'invitait du reste à renouveler ma demande. Vingt-neuf jours plus tard, le "
-    "9 décembre 2025, l'école a certifié par écrit que j'avais été présent aux cours et aux examens "
-    "de l'année (pièce F).",
+    "motif de parcours, vise un texte abrogé depuis huit mois, sans référence à celui alors en vigueur. "
+    "Cet avis invitait du reste à renouveler la demande. Vingt-neuf jours plus tard, le 9 décembre "
+    "2025, SKEMA Business School a certifié par écrit que j'avais assisté aux cours et aux examens de "
+    "l'année (pièce F).",
 
-    "Le dossier de facturation a buté sur la même difficulté, dans l'autre sens. La facture n° 1281253 "
-    "que l'école avait émise pour l'année 2024/2025 a été rejetée le 25 septembre 2025 à 12:15 par le "
-    "Service Financement et Bourses, motif « Certificat de scolarité manquant ou non conforme », avec "
-    "injonction de « remettre le « Bon à payer » ». Le 6 octobre 2025 à 15:19, le service a demandé "
-    "« le relevé de notes de l'année 2023-2024 ou un certificat de scolarité daté d'après le 1er "
-    "septembre 2023 » — le relevé de notes de l'année de césure ne pouvait pas plus être produit en "
-    "2025 qu'en 2024. Le 29 octobre 2025 à 12:34, le service a écarté « le document du 26/07 non "
-    "conforme », sans dire quelle pièce il attendait. J'ai répondu le 6 novembre 2025 à 12:01 en "
-    "joignant trois attestations de l'école, dont celle du 14 mai 2024 sur la césure. Ce message n'a "
-    "reçu aucune observation, et la facture n'est pas allée à son terme (pièce D).",
+    "Le dossier de facturation a buté sur la même difficulté, dans l'autre sens. La facture "
+    "n° 1281253, établie par SKEMA Business School pour l'année 2024/2025, a été rejetée le 25 "
+    "septembre 2025 à 12:15 par le Service Financement et Bourses de Campus France, motif « Certificat "
+    "de scolarité manquant ou non conforme », avec injonction de « remettre le « Bon à payer » ». Le 6 "
+    "octobre 2025 à 15:19, ce service a demandé « le relevé de notes de l'année 2023-2024 ou un "
+    "certificat de scolarité daté d'après le 1er septembre 2023 » — le relevé de notes de l'année de "
+    "césure ne pouvait pas davantage être produit en 2025 qu'en 2024. Le 29 octobre 2025 à 12:34, il a "
+    "écarté « le document du 26/07 non conforme », sans indiquer la pièce attendue. J'ai répondu le 6 "
+    "novembre 2025 à 12:01 en joignant trois attestations de SKEMA Business School, dont celle du 14 "
+    "mai 2024 relative à la césure. Ce message n'a reçu aucune observation, et la facture n'est pas "
+    "allée à son terme (pièce D).",
 
-    "Pour l'année 2025/2026, la somme due n'a pas cessé de changer de montant. Le 14 novembre 2024, "
-    "la comptabilité de l'école a rappelé une première échéance de 12 000,00 € ; le 20 février 2025, "
-    "une pièce portait 4 000,00 € ; le 15 janvier 2025, la facture n° 22223502, intitulée « Master 2 », "
-    "portait 15 000,00 € ; le 30 septembre 2026, 7 500,00 € ; le 5 octobre 2026, un document comptable "
-    "portait 14 840,00 €. Le 7 octobre 2026 à 15:04, la mise en demeure n° 2026-SK.D-0002 — la relance "
-    "formale qui fait courir un délai avant poursuites — a réclamé ce solde de 14 840,00 € « au titre "
-    "de l'année 2025/2026 », avec paiement sous dix jours, en précisant que « l'absence ou la cessation "
-    "de prise en charge par un organisme tiers ne vous libère pas », sous menace de procédure et de "
-    "cessation définitive de scolarité. Aucun de ces montants n'est accompagné d'un calcul, et "
-    "l'écart entre la somme réclamée et le plafond de 46 000,00 € prévu par le contrat de 2022 "
-    "n'est justifié par aucune pièce (pièces I, J).",
+    "Pour l'année 2025/2026, la somme réclamée a changé cinq fois de montant. Le 14 novembre 2024, la "
+    "comptabilité étudiante de SKEMA Business School a rappelé une première échéance de 12 000,00 € ; "
+    "le 15 janvier 2025, la facture n° 22223502, intitulée « Master 2 », portait 15 000,00 € ; le 20 "
+    "février 2025, une pièce comptable portait 4 000,00 € ; le 30 septembre 2026, 7 500,00 € ; le 5 "
+    "octobre 2026, un document comptable portait 14 840,00 €. Le 7 octobre 2026 à 15:04, la mise en "
+    "demeure n° 2026-SK.D-0002 — la relance formale qui fait courir un délai avant poursuites — a "
+    "réclamé ce solde de 14 840,00 € « au titre de l'année 2025/2026 », avec paiement sous dix jours, "
+    "en précisant que « l'absence ou la cessation de prise en charge par un organisme tiers ne vous "
+    "libère pas », sous menace de procédure et de cessation définitive de scolarité. Aucun de ces "
+    "montants n'est accompagné d'un calcul, et l'écart avec le plafond de 46 000,00 € prévu par le "
+    "contrat de 2022 n'est justifié par aucune pièce (pièces I, J).",
 
-    "Le 7 octobre 2026 à 21:06, sur la plateforme eBourse, la session 2025-2026 de mon dossier "
-    "affichait, pour la référence externe 110584Z : « DÉCISION : AVIS DÉFAVORABLE » et « VOUS ÊTES "
+    "Le 7 octobre 2026 à 21:06, la plateforme eBourse de l'ANBG affichait, pour la session 2025-2026 "
+    "de mon dossier et la référence externe 110584Z : « DÉCISION : AVIS DÉFAVORABLE » et « VOUS ÊTES "
     "NON BOURSIER », avec l'arborescence des sessions CA24B3, 1LMK24, 2E4C0B, LDPMRC, PNPXWG, 4E0O00, "
-    "WEXQTG. Ma situation administrative est donc celle d'un non-boursier, alors que l'école, qui a "
-    "émis et transmis les factures à Campus France, et qui a certifié mon assiduité, continue de "
-    "scolariser l'année en cours (pièces E, F, I).",
+    "WEXQTG. Ma situation vis-à-vis de la bourse est donc celle d'un non-boursier, alors que SKEMA "
+    "Business School a émis et transmis les factures à Campus France, a certifié mon assiduité, et me "
+    "scolarise pour l'année en cours (pièces E, F, I).",
 ]
 
 DEMANDES = [
-    ("À l'Agence nationale des bourses du Gabon", "A", [
-        "la transmission du présent dossier à la Commission technique, pour qu'il soit réexaminé sur "
-        "le fond ;",
+    ("À l'Agence Nationale des Bourses du Gabon (ANBG)", "A", [
+        "la transmission du présent dossier à la Commission technique des bourses, pour qu'il soit "
+        "réexaminé sur le fond ;",
         "la prise en compte du fait que mon cycle est engagé depuis le 1er septembre 2022, et que les "
         "mesures de maîtrise des coûts concernent les nouvelles attributions ;",
-        "la communication de la pièce, de la date et de la signature qui fondent l'avis défavorable "
-        "du 10 novembre 2025, et du détail du calcul des frais de scolarité pris en charge pour "
-        "2024/2025 et 2025/2026 ;",
-        "la confirmation écrite, à l'école et à Campus France, de ce qui reste pris en charge pour "
-        "l'année 2025/2026 ;",
-        "la copie certifiée au guichet de la décision qui indique pour combien d'années la bourse du "
-        "cycle master a été accordée, la plateforme portant « 1 année(s) » pour 2021 et « deux "
+        "la communication de la pièce, de la date et de la signature qui fondent l'avis défavorable du "
+        "10 novembre 2025, ainsi que le détail du calcul des frais de scolarité pris en charge pour "
+        "2024/2025 et pour 2025/2026 ;",
+        "la confirmation écrite, à SKEMA Business School et à Campus France, de ce qui reste pris en "
+        "charge pour l'année 2025/2026 ;",
+        "la copie certifiée au guichet de la décision indiquant pour combien d'années la bourse du "
+        "cycle de master a été accordée, la plateforme portant « 1 année(s) » pour 2021 et « deux "
         "années » pour 2023."]),
     ("Au Service Financement et Bourses de Campus France", "C", [
-        "l'état de la facture n° 1281253 dans Chorus Pro à la date de votre réponse, et, si elle doit "
+        "l'état de la facture n° 1281253 dans Chorus Pro à la date de votre réponse et, si elle doit "
         "être représentée, la désignation écrite de la pièce exacte attendue : les trois attestations "
         "envoyées le 6 novembre 2025 n'ont appelé aucune observation ;",
         "l'émission du bon de commande 2024/2025, les années 2022/2023 et 2023/2024 ayant donné lieu "
         "aux bons n° 677745 et n° 721622, ce dernier portant « POUR LE COMPTE DE L'ANBG FRAIS "
         "FORMATION 2023 2024 » ;",
-        "une attestation adressée à l'école rappelant la règle du 24 janvier 2023 — facture à votre "
-        "ordre, déposée sur Chorus Pro — et l'état des paiements faits à SKEMA Business School pour le "
-        "dossier 110584Z ;",
-        "que les demandes de pièces adressées à l'école lui soient transmises en même temps qu'à "
+        "une attestation adressée à SKEMA Business School rappelant la règle posée le 24 janvier 2023 "
+        "— facture à l'ordre de Campus France, déposée sur Chorus Pro — et l'état des paiements faits à "
+        "SKEMA Business School pour le dossier 110584Z ;",
+        "que les demandes de pièces adressées à SKEMA Business School le soient en même temps qu'à "
         "l'étudiant, et non après le rejet."]),
     ("À SKEMA Business School", "S", [
         "la communication de la pièce qui fonde 14 840,00 € au titre de l'année 2025/2026, et le "
         "rapprochement avec le contrat de 2022, de 46 000,00 € pour une durée de soixante mois ;",
         "la suspension des effets de la mise en demeure — interruption de scolarité et rétention des "
-        "documents — pendant l'examen du recours par l'Agence ;",
+        "documents — pendant l'examen du recours par l'ANBG ;",
         "à défaut de réponse avant le 19 octobre 2026, date d'expiration du délai de dix jours, la "
         "fixation d'un échéancier de 300,00 € par mois à compter de janvier 2027, sans reconnaissance "
         "de dette ;",
-        "la délivrance du certificat de scolarité de l'année 2025/2026, qui m'est nécessaire pour "
-        "renouveler mon titre de séjour avant son expiration, le 30 janvier 2027."]),
+        "la délivrance du certificat de scolarité de l'année 2025/2026, nécessaire au renouvellement de "
+        "mon titre de séjour avant son expiration, le 30 janvier 2027."]),
 ]
 
 FIN = [
     "Je n'ai sollicité aucune somme pour moi-même : ce dossier porte uniquement sur l'argent qui doit "
-    "être versé à l'école. Le terme du cycle est prévu en décembre 2026. En vous remerciant de "
-    "l'attention portée à cet exposé, je vous prie d'agréer, Madame, Monsieur, l'expression de mes "
-    "considérations distinguées.",
+    "être versé à SKEMA Business School. Le terme du cycle est prévu en décembre 2026. En vous "
+    "remerciant de l'attention portée à cet exposé, je vous prie d'agréer, Madame, Monsieur, "
+    "l'expression de mes considérations distinguées.",
 ]
 
 
@@ -450,14 +461,15 @@ PIECES_INDEX = [
      "quatre messages", "C"),
     ("E", "2024 → 2026", "ANBG", "Notifications et validations de la plateforme eBourse, avec date "
      "et heure — à imprimer depuis l'espace étudiant", "A"),
-    ("F", "14/05/2024 et 09/12/2025", "SKEMA Business School", "Attestation du service des "
-     "inscriptions sur le parcours ; attestation d'assiduité", "S"),
-    ("G", "24/01/2023 et 06/05/2024", "Campus France", "Bons de commande n° 677745 et n° 721622",
+    ("F", "2024 et 2025", "SKEMA Business School", "Attestation du service de la scolarité du "
+     "14/05/2024 ; attestation d'assiduité du 09/12/2025", "S"),
+    ("G", "2023 et 2024", "Campus France", "Bons de commande n° 677745 du 24/01/2023 et "
+     "n° 721622 du 06/05/2024",
      "C"),
     ("H", "04/01/2024", "SKEMA Business School", "Convention de stage avec BPCE VIE, du 08/01/2024 "
      "au 05/07/2024", "S"),
-    ("I", "14/11/2024 et 07/10/2026", "SKEMA Business School", "Rappel de frais de scolarité "
-     "2024/2025 ; mise en demeure n° 2026-SK.D-0002", "S"),
+    ("I", "2024 et 2026", "SKEMA Business School", "Rappel de frais de scolarité du "
+     "14/11/2024 ; mise en demeure n° 2026-SK.D-0002 du 07/10/2026", "S"),
     ("J", "2022 → 2025", "SKEMA Business School", "Contrat d'inscription, dossier d'inscription et "
      "acte de cautionnement de l'État", "S"),
     ("K", "08/10/2026", "Étudiant", "Procuration donnée à la personne qui remet le dossier", "-"),
@@ -492,7 +504,7 @@ def bordereau(f):
                       AVAIL, FONTS["r"]):
         ligne(f, ln, 9.4, lead=12.4, col=GRIS)
     f.y += 12
-    xs = {"cote": ML, "date": ML + 32, "emet": ML + 124, "pag": ML + 214, "obj": ML + 262}
+    xs = {"cote": ML, "date": ML + 30, "emet": ML + 122, "pag": ML + 226, "obj": ML + 272}
     for txt, x in (("Cote", xs["cote"]), ("Date", xs["date"]), ("Établie par", xs["emet"]),
                    ("Pages", xs["pag"]), ("Objet", xs["obj"])):
         f.pg.insert_text((x, f.y), txt, fontname="Fb", fontsize=8.5, color=GRIS)
