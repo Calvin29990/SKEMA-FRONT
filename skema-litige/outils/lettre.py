@@ -213,9 +213,8 @@ DEST = [("À la Direction générale de", True),
         ("SKEMA Business School,", False),
         ("service de la comptabilité étudiante", False),
         ("", False),
-        ("Copie pour information à la Direction des", False),
-        ("études et au service des relations", False),
-        ("avec les entreprises", False)]
+        ("Copie pour information à la Direction", False),
+        ("des études", False)]
 
 
 def entete(f):
