@@ -30,12 +30,10 @@ PIECES = os.path.join(BASE, "pieces")
 
 NOIR = (0.11, 0.12, 0.14)
 GRIS = (0.42, 0.43, 0.46)
-GRISCL = (0.48, 0.50, 0.54)
-BLEU = (0.13, 0.24, 0.42)
 COL = {"A": NOIR,          # ANBG : noir, en gras
-       "S": GRIS,           # SKEMA Business School : gris
-       "C": BLEU,           # Campus France : bleu nuit
-       "E": GRISCL,         # État gabonais et ses textes : gris clair
+       "S": GRIS,           # SKEMA Business School : gris, en gras
+       "C": NOIR,           # Campus France : noir, en gras
+       "E": NOIR,           # État gabonais et ses textes : noir, en gras
        "T": NOIR,           # titres
        "-": NOIR}
 PNAME = {"A": "Fb", "S": "Fb", "C": "Fb", "E": "Fb", "T": "Fb", "-": "Fr"}
