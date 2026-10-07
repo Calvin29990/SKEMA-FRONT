@@ -10,7 +10,7 @@
 | Dossier | Contenu | Quand l'utiliser |
 |---|---|---|
 | `candidatures/` | Suivi candidatures banques, debriefs, notes Arena | Candidatures, entretiens, runbooks |
-| `skema-litige/` | **Dossier de litige monté et sourcé** : reconstitution 2019-2026, courrier de réponse, index des annexes | Toute correspondance ANBG / Campus France / SKEMA |
+| `skema-litige/` | **Dossier de litige monté et sourcé** : reconstitution 2019-2026, réponse à la mise en demeure, **recours gracieux ANBG**, index des annexes | Toute correspondance ANBG / Campus France / SKEMA |
 | `SKEMA-DOSSIER-ARCHIVE.md` | **Dispute financière SKEMA** (bourse ANBG, €7,500 → €14 840) | Problème SKEMA / titre de séjour |
 | `cours/` | Cours S1 + S2 M2 CFM, syllabus, lectures | Devoirs, examens, révisions |
 | `exercices/` | Exercices Excel, CFP, comptabilité | Pratique cours |
