@@ -126,6 +126,11 @@
   *Constat n°4 : reconnaissance écrite, par le service comptable de SKEMA, de ce que le financeur des frais de scolarité est Campus France (État gabonais) — et de ce que la difficulté est un non-versement, non une absence de prise en charge.*
 - **20/01/2025 11:38** — Étudiant → `anbg.boursiers@campusfrance.org` et `c.ngari.anbg@gmail.com` : *« J'ai bien reçu le bon de commande (en pièce jointe) mais je n'ai toujours pas eu confirmation de réception des fonds par skema **depuis 7 mois**. […] pourriez-vous dans la mesure du possible communiquer à la comptabilité un délai ou une explication **afin que mes accès ne soient pas bloqués**. »* (3 pièces jointes, dont « Bon de commande M1.pdf ») → *Annexe 31*.
 - **04/02/2025 11:46** — **Clara Drouault** (Chargée de mobilité, DCG Service Afrique, Campus France) : *« Comme vous pouvez le voir ci-dessous, votre commande est à l'état **facturée** c'est-à-dire que **vos frais de scolarité 2023-2024 ont bien été réglés**. »* → *Annexe 31*.
+- **25/09/2025 12:15** — **Comptabilité Fournisseurs de Campus France → `anbg.boursiers@campusfrance.org`** : *« La facture N° **1281253** du fournisseur SKEMA BUSINESS SCHOOL N° 35025 est **rejetée** par le Service Financier Opérations sous Mandat pour le motif suivant : **Certificat de scolarité manquant ou non conforme.** Après vérification, vous devrez corriger les anomalies mentionnées et remettre le « Bon à payer ». »* (signé FABIEN LAVERGNE, SFO) → *Annexe 31bis* **← la pièce clef : SKEMA a bien facturé Campus France, et cette facture est restée bloquée sur une pièce administrative.**
+- **06/10/2025 15:19** — `anbg.boursiers@campusfrance.org` → l'étudiant : *« URGENT, Au plus vite, veuillez nous adresser : Il faut soit un relevé de note pour 2023-2024 soit un certificat de scolarité daté d'après le 1 septembre 2023 — Dossier 110584Z »*.
+- **06/10/2025 17:10** — l'étudiant transmet `2e4c0b_preinscription_inscription2023-2024.pdf` (225 Ko).
+- **29/10/2025 12:34** — **Alice CORTANA** (Chargée de mobilité du Service Afrique, +33 1 40 40 58 97) : *« Le document demandé doit être daté de septembre 2023, or là il est daté du 26/07. Merci de nous envoyer le document conforme ou bien vos résultats définitifs 23/24. »*
+- **06/11/2025 12:01** — l'étudiant : *« Je fais de mon mieux pour répondre à votre demande, mais **l'école ne comprend pas pourquoi mon attestation est rejetée et peine à m'apporter une réponse claire**. En début de M1, j'étais en année d'entreprise, comme le confirme l'attestation jointe. J'ai repris les cours en 2025. […] (J'ai opté pour une M1 en deux ans pour maximiser mon intégration au marché du travail) »*, avec trois documents : `MINANG Calvin - Attestation absence de notes M1.pdf`, `Attestation globale M1.pdf`, `Notes M1 SKEMA.pdf`. → *Aucune suite connue à ce jour dans mon dossier.*
 - **17/02/2025** — Portail ANBG : validation du document de recours « Recours / preuve validation M1 ». → *Annexe 32*.
 - **2025** — Recours ANBG **rejeté** — motif relevé sur le portail : **« Parcours insoutenable (article 4 décret 065) »**. → *Annexe 33* `[date exacte à relever sur la capture]`.
 
@@ -135,7 +140,14 @@
 - **22/09/2026** — Proposition écrite à la Comptabilité Étudiants : reconnaissance de dette de 7 500 €, échéancier 300 €/mois sur 25 mois à compter de janvier 2027, diplôme et relevés conservés en garantie, contre émission du certificat de scolarité S5. Virement symbolique de 10 € le même jour (libellé MINANG 0305476). → *Annexe 35* `[À RESSOURCER : le fil du 22/09/2026]`.
 - **26-28/09/2026** — Courriel d'information à `beatrice.marino@skema.edu` (état des démarches de financement, aucune piste mobilisable avant le 30/09/2026). → *Annexe 36*.
 - **30/09/2026** — **Maxime BELLONI** (Comptabilité Clients) : réclamation de **7 500 €** (échéances annoncées des 20/10 et 20/12/2026) et annonce d'une possible **cessation de scolarité**. → *Annexe 37*.
-- **Courant octobre 2026** — Dossier transmis au **service juridique** de SKEMA ; **créance de 14 840 €** mentionnée ; **mise en demeure** (`mise en demeure.pdf`). → *Annexe 38* `[SCAN — NON LU : date, signataire, montant et fondement à relire]`.
+- **Courant octobre 2026** — Dossier transmis au **service juridique / contentieux**.
+- **05/10/2026** — Édition du relevé de compte étudiant **Cegid** (`CEGID MINANG CALVIN 05-10-26.pdf`, 184 Ko) — **à lire en priorité : c'est le décompte qui fonde le chiffre de 14 840 €**. → *Annexe 38bis* `[dans Gmail, à déposer dans le repo]`
+- **07/10/2026 15:04** — **MISE EN DEMEURE** — `amandine.boucly@skema.edu` (Amandine BOUCLY, **Legal Expert**, SKEMA, Avenue Willy Brandt, 59777 Euralille), **réf. « Mise en demeure 2026-SK.D-0002 — MINANG Calvin »**, importance élevée, à `calvin.minang@skema.edu` + `blanchardminang00@gmail.com`, **3 pièces jointes (2 Mo)** : `contrat_2c969e2f81f11c59018227f437230391.pdf` (1 Mo), `FACTURE_MINANG_CALVIN_M2_2526.pdf` (94 Ko), `CEGID MINANG CALVIN 05-10-26.pdf` (184 Ko). Contenu (relu intégralement, Annexe 38) :
+  - « *votre compte étudiant présente à ce jour un solde débiteur de **14 840,00 €**, correspondant aux **frais de scolarité dus au titre de l'année académique 2025/2026**.* »
+  - « *Vous avez indiqué que ces frais devaient initialement être pris en charge par l'État gabonais. Toutefois, cette circonstance ne remet pas en cause les engagements contractuels souscrits lors de votre inscription. **Le contrat de scolarité a été conclu entre vous et SKEMA et l'absence ou la cessation de prise en charge par un organisme tiers ne vous libère pas de votre obligation de paiement.*** »
+  - « *Par ailleurs, SKEMA vous a permis de poursuivre votre parcours académique malgré les difficultés de financement rencontrées […] **Cette démarche d'accompagnement ne saurait être interprétée comme une renonciation au paiement des sommes dues.*** »
+  - « *nous vous mettons formellement en demeure de régler la somme de **14 840,00 € dans un délai de dix (10) jours** à compter de la réception du présent mail* » ; à défaut : « *d'engager toute procédure judiciaire utile au recouvrement de sa créance, avec les frais, intérêts et dépens* » et « *de prononcer votre **cessation définitive de scolarité*** ».
+  → **Échéance du délai : lundi 19/10/2026.** Réponse rédigée dans `REPONSE-MISE-EN-DEMEURE-2026-SK-D-0002.md`.
 - **Contexte administratif** — Titre de séjour expirant le **30/01/2027** ; le renouvellement requiert le **certificat de scolarité du semestre 5**.
 
 ---
@@ -148,9 +160,11 @@ Contrat PGE Fall 2022 : frais de scolarité du cycle = **46 000 €**. Déclarat
 |---|---|---|---|---|---|
 | 2022/2023 | PGE L3 (attestation du 26/08/2022, objet « 222235 / PGE L3 ») | `[à retrouver]` | **n° 677745 — 24/01/2023 — 15 000 €** | **Réglé** (attesté par Campus France) | Ann. 11, 17, 31 |
 | 2023/2024 | L3 — reprise/fin de cycle ; B2 17/10/2023 | `[à retrouver]` | **n° 721622 — 06/05/2024 — 16 000 €** | **Réglé** — « vos frais de scolarité 2023-2024 ont bien été réglés » (04/02/2025) | Ann. 26, 31 |
-| 2024/2025 | **M1** (certificat du 17/12/2024 : fall = césure, spring = Paris ; bulletin 2024-2025 « PGE M1 », 30 ECTS validés) | **Facture du 15/01/2025 : 15 000 €**, libellée « **Master 2** » | **Aucun** — aucun BC pour 2024/2025 dans le dossier | **Non réglé** par Campus France à ce titre ; relances SKEMA (4 000 € au 20/02/2025) | Ann. 28, 29, 30, 31 |
-| 2025/2026 | **M2** — PGE MSc CFM, Lille (en cours, S5) | `[à retrouver]` | **Aucun** | Bourse ANBG expirée au **31/08/2025** | Ann. 20, 34 |
-| **Total** | — | 15 000 € identifié | **31 000 €** engagés | **29 000 € payés** (15 000 + 16 000, sous réserve du décompte) | — |
+| 2024/2025 | **M1** (certificat du 17/12/2024 : fall = césure, spring = Paris ; bulletin 2024-2025 « PGE M1 », 30 ECTS validés ; attestation du 14/05/2024 : « M1 (2ème année), Césure Fall 24 / Raleigh Spring 25 ») | rappel de **12 000 €** le 14/11/2024 ; échéance de **4 000 €** au 20/02/2025 ; **facture n° 22223502 du 15/01/2025 : 15 000 €**, libellée « **Master 2** » | **Aucun** — aucun BC pour 2024/2025 dans le dossier | **Facture SKEMA à l'ordre de Campus France n° 1281253 rejetée le 25/09/2025** (certificat de scolarité manquant/non conforme) → « bon à payer » jamais remis | Ann. 28, 29, 30, 31, 31bis |
+| 2025/2026 | **M2** — PGE MSc CFM, Lille (en cours, S5) | `FACTURE_MINANG_CALVIN_M2_2526.pdf` (94 Ko, PJ du 07/10/2026 — **à récupérer**) + relevé **Cegid du 05/10/2026** | **Aucun** | Bourse ANBG expirée au **31/08/2025** ; **14 840,00 €** réclamés le 07/10/2026 | Ann. 20, 34, 38, 38bis |
+| **Total** | Cycle PGE contractuel = **46 000 €** | — | **31 000 €** commandés (15 000 + 16 000) | **29 000–31 000 € réglés par l'État via Campus France**, selon décompte à produire | — |
+
+> **Ce que ce tableau démontre factuellement (et rien de plus)** : les deux premiers tiers du cycle ont été commandés, facturés et payés dans le cadre Campus France / ANBG à la demande de l'établissement. **Le troisième n'a jamais fait l'objet d'un bon de commande** et la facture SKEMA établie à destination de Campus France pour 2024/2025 est **rejetée depuis le 25/09/2025 faute d'une pièce que seul le registraire peut produire**. La mise en demeure du 07/10/2026 ne mentionne ni ce rejet, ni cette facture.
 
 **Questions de cadrage qui découlent de ce tableau** (à poser, pas à trancher) :
 1. Quel exercice chacun des bons de commande a-t-il effectivement couvert (22/23, 23/24) et pour quel montant SKEMA a-t-elle émis une facture à l'ordre de Campus France sur Chorus Pro ?
@@ -176,8 +190,11 @@ Contrat PGE Fall 2022 : frais de scolarité du cycle = **46 000 €**. Déclarat
 | **C10** | Une **coupure d'accès aux cours** est attestée dès janvier 2023 par la question de Campus France (« peut de nouveau avoir accès aux cours »), sur un exercice pourtant couvert par un BC émis le 24/01/2023. | Ann. 16 | Politique de l'établissement : la suspension d'accès peut-elle porter sur un exercice faisant l'objet d'un bon de commande en cours de règlement. |
 | **C11** | Motif ANBG du rejet du recours : **« Parcours insoutenable (article 4 décret 065) »** (2025), postérieur à une validation de recours le 17/02/2025 et à un certificat de scolarité 2024/2025 délivré le 17/12/2024. | Ann. 28, 32, 33 | Les pièces précises ayant fondé la qualification, et leur compatibilité avec les décisions de l'établissement. |
 | **C12** | Le calendrier administratif est contraint par un élément hors de la créance : titre de séjour expirant le **30/01/2027**, renouvellement subordonné au **certificat S5**. | Ann. 34 + pièces titre de séjour | Délais et modalités d'émission du certificat S5. |
+| **C13** | **SKEMA a facturé Campus France** : la facture n° **1281253** (fournisseur SKEMA n° 35025) a été **rejetée le 25/09/2025** par le Service Financier Opérations sous Mandat, motif « *Certificat de scolarité manquant ou non conforme* », avec demande de « *corriger les anomalies […] et remettre le "Bon à payer"* ». Les pièces réclamées (certificat postérieur au 01/09/2023 ou relevé définitif 2023-2024) relèvent du seul registraire. | Ann. 31bis | État du dossier Chorus Pro ; possibilité de re-dépôt d'une facture rectificative ; qui, de SKEMA ou de l'étudiant, devait produire la pièce |
+| **C14** | Pour l'exercice **2024/2025**, trois assiettes différentes émanent du même service : **12 000 €** (rappel du 14/11/2024), **4 000 €** d'échéance au 20/02/2025, **15 000 €** (facture du 15/01/2025) — la relance du 17/01/2025 précisant elle-même que « *le montant indiqué tient compte des remises et peut différer de celui de votre échéancier contractuel* ». | Ann. 30, 31 | Échéancier contractuel de 2024/2025 et sort des remises ; quelle somme est effectivement demeurée due à l'issue de cet exercice |
+| **C15** | La créance de 2025/2026 (**14 840,00 €**) est assise, selon la mise en demeure, sur « *l'année académique 2025/2026* » ; or le seul contrat du dossier fixe **le prix du cycle** (46 000 €) pour **60 mois**, avec majoration « *le cas échéant* » en cas de césure (art. 4.4), sans avenant chiffré au dossier. | Ann. 07, 38 | La pièce contractuelle ou l'avenant fixant les frais 2025/2026 ; le décompte Cegid du 05/10/2026 |
 
-> **Note de méthode.** C6 et C9 sont les deux points les plus solides du dossier, parce qu'ils sont écrits **par SKEMA** et chiffrés **par SKEMA**. Ils doivent apparaître en tête du courrier. C8 est le point qui oblige l'établissement à requalifier sa propre facture : à citer, jamais à commenter.
+> **Note de méthode.** C13 et C6 sont les deux points les plus solides du dossier : le premier parce que c'est **l'école qui a facturé l'organisme payeur** — ce qui ruine la présentation d'un « tiers » étranger au contrat ; le second parce qu'il est écrit **par SKEMA**. C9/C15 (absence de décompte) et C8 (exercice M1/M2 contradictoire) sont les deux points qui obligent l'établissement à requalifier ses propres documents : à citer, jamais à commenter.
 
 ---
 
@@ -193,29 +210,20 @@ Contrat PGE Fall 2022 : frais de scolarité du cycle = **46 000 €**. Déclarat
 
 ---
 
-## 6. PIÈCES NON VÉRIFIABLES À CE STAGE — `[SCAN — NON LU]`
+## 6. STATUT DE LECTURE DES PIÈCES — mise à jour du 7 octobre 2026
 
-Ce sont des PDF sans couche de texte (photos de documents). Ils **ne peuvent pas** être cités de mémoire dans un courrier : à relire et à retranscrire avant envoi.
+**Relues et désormais citables** (texte extrait, ou scan rendu en image puis lu visuellement) :
+`mise en demeure.pdf` (réf. **2026-SK.D-0002**, 07/10/2026 15:04, 14 840,00 €, 10 jours, cessation définitive, A. BOUCLY) · `Contradiction campus france.pdf` (facture SKEMA n° 1281253 rejetée le 25/09/2025 + échanges des 06/10, 29/10 et 06/11/2025) · `Bon de commande M1.pdf` (BC n° 721622 du 06/05/2024, 16 000 €, « POUR LE COMPTE DE L'ANBG FRAIS FORMATION 2023 2024 ») · `Relance skema M1.pdf` (14/11/2024, 12 000 €, M. Despinasse) · `Attestation Programme Grande Ecole.pdf` (14/05/2024, registraire) · `facture MINANG Calvin M2.pdf` (15/01/2025) · `Document recours _ Preuve validation M1.pdf` (certificat du 17/12/2024) · `Notes M1 SKEMA.pdf` · `Dossier campus caution 1.pdf` (3 pages) · `2733904447-Contrat-Signe.pdf` · `Gmail - Urgent acte de caution.pdf` · `Pièce 2022 Garant 1.pdf` · `Mail caution 2 en 2022.pdf` · `110584Z_Commande (1).pdf` · `Attestation.pdf` · `Attestation d'attribution de bourse.pdf` · `Autre Document _ ATTESTATION DE REUSSITE CPGE.pdf` · `Gmail - Convocation Smart Africa en urgence_.pdf` · `Certificat B2 anglaispdf.pdf` (iCIMS **67/100**, B2, completed 17/10/2023, **expires 16/10/2025**, Erin Douglas) · `Echange M1 trio.pdf` · `premier jet.docx`.
 
-| Fichier | Where | À en tirer |
-|---|---|---|
-| `mise en demeure.pdf` (287 Ko, ajouté le 07/10/2026 18:16) | Drive › Documents importants › Dossier reconstitution échange | **Date, signataire, fondement juridique, montant exact, délai imparti, destination (étudiant seul ou copie ANBG/Campus France)** — c'est la pièce à laquelle le courrier répond |
-| `relance avant belo.pdf` (759 Ko) | idem | Date et contenu de la relance préalable — vérifie si l'alerte du 30/09 a été suivie d'une autre relance |
-| `Relance skema M1.pdf` (382 Ko) | idem | Le détail du décompte 2024/2025 (4 000 € et suite) |
-| `Echange skema campus et calvin.pdf` (570 Ko) | idem | Chronologie des échanges Campus France ↔ SKEMA — le seul document susceptible d'établir qui a relancé qui |
-| `echange M1.pdf` (+ son doublon `(1)`) (947 Ko) | idem | Échéancier contractuel 2024/2025 et remises accordées |
-| `Interaction campus skema 2.pdf` (750 Ko) | idem | Interventions Campus France auprès de SKEMA |
-| `Difficulté L3.pdf` (1,3 Mo) + `Echec semestre L3.png` | idem | Décision de jury juillet 2023 : dates et formulations exactes |
-| `Attestation bourse master anbg[1].pdf` (9 Ko — **extraction échouée**) + `Attestation d'attribution de bourse.pdf` *(celle-ci porte en réalité sur IPESUP 2021-2022, pas sur le master)* | idem | **À faire : la pièce maîtresse (06/09/2023, M1+M2, 2 ans) doit être relue, car le PDF disponible est suspect (9 Ko).** Sans elle, C3 s'effondre. |
-| `110584Z_Commande (1).pdf` | lu (Ann. 17) | — |
-| `Welcome pack proof.png` | repo + Drive | lu (Ann. 06) |
-| `Dossier campus caution 1.pdf` | repo | lu (3 pages, images : Ann. 16/17/18) |
+**Toujours non relues** (scans dans `skema-litige/pieces/`, page 2 blanche pour la mise en demeure) :
+`echange M1.pdf` (3 p.) · `Interaction campus skema 2.pdf` (3 p.) · `relance avant belo.pdf` (2 p.) · `relance-skema-M1.pdf` p. 2 · `Difficulté L3.pdf` · `Echec semestre L3.png` · `Echéancier 1/2 Calvin.jpeg`.
 
-**Deux actions préparatoires** (avant l'envoi) :
-1. Relire `mise en demeure.pdf` et en reporter date / signataire / montant dans §2 (2026) et en tête du courrier de réponse.
-2. Retrouver l'attestation ANBG du 06/09/2023 en **version lisible** (PDF texte ou photo nette) et la renuméroter en **Annexe 20** — c'est le fondement de toute la démonstration.
-
----
+**Absentes de toutes les sources — à récupérer dans Gmail (elles sont citées dans la mise en demeure du 07/10/2026) :**
+1. **`FACTURE_MINANG_CALVIN_M2_2526.pdf`** (94 Ko) — la facture 2025/2026 qui sert de titre à la créance de 14 840 €.
+2. **`CEGID MINANG CALVIN 05-10-26.pdf`** (184 Ko) — le relevé de compte étudiant au 05/10/2026 : **c'est le décompte**. Tant qu'il n'est pas lu, les montants 12 000 / 4 000 / 15 000 / 7 500 / 14 840 € restent des hypothèses.
+3. **`contrat_2c969e2f81f11c59018227f437230391.pdf`** (1 Mo) — la version du contrat retenue par le service juridique : à comparer avec `2733904447-Contrat-Signe.pdf` (17 p.) pour vérifier s'ils sont identiques.
+4. **L'attestation ANBG du 06/09/2023** (bourse Master, 2 années) — le PDF disponible fait 9 Ko, illisible. **Fondement de C3/C15 : sans pièce lisible, ne pas la citer en chiffre dans un courrier.**
+5. `Attestation globale M1.pdf`, `MINANG Calvin - Attestation absence de notes M1.pdf`, `2e4c0b_preinscription_inscription2023-2024.pdf` — les trois pièces que Campus France a refusées/acceptées en octobre-novembre 2025 : à joindre telles quelles, elles prouvent la bonne foi et le suivi du dossier par l'étudiant.
 
 ## 7. INDEX DES PIÈCES
 
