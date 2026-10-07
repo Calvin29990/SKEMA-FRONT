@@ -428,8 +428,8 @@ RIT = [
 FIN = [
     "Je n'ai sollicité aucune somme pour moi-même : ce dossier porte uniquement sur l'argent dû à SKEMA "
     "Business School. Le terme du cycle est fixé à décembre 2026. En vous remerciant de l'attention "
-    "portée à cet exposé, je vous prie d'agréer, Madame, Monsieur, l'expression de mes considérations "
-    "distinguées.",
+    "portée à cet exposé, je vous prie d'agréer, Mesdames, Messieurs, l'expression de mes "
+    "considérations distinguées.",
 ]
 
 DEMANDES = [
@@ -472,18 +472,21 @@ DEMANDES = [
 ]
 
 def corps(f):
-    para(f, "", runs=[("Madame, Monsieur,", "-")], lead=15.0, space=9.0, justifier=False)
+    para(f, "Mesdames, Messieurs de la Direction générale de l'Agence nationale des bourses du Gabon "
+            "et de la Commission technique des bourses, de la Direction du Service Financement et "
+            "Bourses de Campus France, de la Direction générale de SKEMA Business School,",
+         size=10.8, lead=15.4, space=9.0, justifier=False)
     for texte in RIT:
-        para(f, texte)
-    f.y += 2
+        para(f, texte, lead=16.0, space=7.2)
+    f.y += 1.0
     para(f, "", runs=[("Mes demandes.", "T")], space=7.0)
     for titre, key, items in DEMANDES:
         para(f, "", runs=style(titre) + [(",", key), (" je demande :", "-")], lead=15.4, space=3.5)
         _ = key
         for n, it in enumerate(items):
-            para(f, "", runs=[("%d° " % (n + 1), "-"), (it, "-")], size=10.7, lead=15.4,
-                 space=2.5, width=AVAIL - 22)
-        f.y += 4.0
+            para(f, "", runs=[("%d° " % (n + 1), "-"), (it, "-")], size=10.7, lead=15.0,
+                 space=2.4, width=AVAIL - 22)
+        f.y += 2.2
     for texte in FIN:
         para(f, texte)
     if f.y + 34.0 > H - MB:          # la signature ne se coupe pas, ne déborde pas
