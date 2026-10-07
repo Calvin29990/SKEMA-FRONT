@@ -116,9 +116,9 @@ Fait à Lille, le 8 octobre 2026.
 *Pièces jointes au dossier : copie de la pièce d'identité du porteur (à ajouter avant impression). La signature de l'étudiant figure au volet 1 et au volet 2.*
 
 <<<
-# 3. RÉCÉPISSÉ DE REMISE — à faire viser par l'agent
+# 3. ACCUSÉ DE REMISE — ÉTABLI EN DEUX EXEMPLAIRES
 
-| **Case à compléter au guichet** | **Inscription** |
+| **Mention** | **Portée au guichet** |
 |---|---|
 | **Document remis** | Recours gracieux de M. MINANG Calvin Blanchard, dossier ANBG n° 110584Z (sessions 2024-2025, réf. 1LMK24 et 2025-2026, réf. CA24B3), accompagné de ses pièces justificatives et de la procuration ci-jointe |
 | **Remis par** | le porteur de la procuration ci-dessus (père ou mère de l'étudiant), pièce d'identité présentée |

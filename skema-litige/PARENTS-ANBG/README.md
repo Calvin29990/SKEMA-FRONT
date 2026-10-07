@@ -1,4 +1,5 @@
-# PARENTS-ANBG — dossier de remise en main propre + courriel Campus France
+# PARENTS-ANBG — dossier de remise + courriel Campus France
+> **Depuis le 07/10/2026, le document de référence est unique** : `skema-litige/pdf/DOSSIER-UNIQUE-MINANG-2026.pdf` (62 p.) — page de garde, code de lecture par destinataire, annexes A à L comprises. Généré par `skema-litige/outils/dossier-unique.py` à partir de `skema-litige/DOSSIER-UNIQUE-2026.md`. Les fichiers de ce dossier restent utiles pour **les consignes du porteur** (absentes du document unique, par choix) : `pdf/DOSSIER-PARENTS-ANBG.pdf`.
 *Constitué le 07/10/2026. Ce dossier est **fait pour être imprimé** : les PDF de `pdf/` se suffisent à eux-mêmes, aucune pièce supplémentaire n'est requise pour le dépôt.*
 
 ---
