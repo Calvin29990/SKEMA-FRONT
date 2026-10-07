@@ -445,26 +445,30 @@ def corps(f):
 
 # ------------------------------------------------------------------ bordereau
 PIECES_INDEX = [
-    ("A", "08/10/2026", "Étudiant", "Recours gracieux contre les décisions des 25/09/2024 et "
-     "10/11/2025, avec procuration et accusé de remise", "A"),
-    ("B", "04/02/2021", "ANBG", "Attestation de maintien de paiement n° 100326-21-MAINTIEN", "A"),
-    ("C", "02/11/2021", "ANBG", "Attestation d'attribution de bourse n° 100057-22-ACCORD", "A"),
-    ("D", "25/09 → 06/11/2025", "Campus France", "Échanges autour de la facture n° 1281253 rejetée, "
-     "quatre messages", "C"),
-    ("E", "2024 → 2026", "ANBG", "Notifications et validations de la plateforme eBourse, avec date "
-     "et heure — à imprimer depuis l'espace étudiant", "A"),
-    ("F", "14/05/2024 et 09/12/2025", "SKEMA Business School", "Attestation du service des "
-     "inscriptions sur le parcours ; attestation d'assiduité", "S"),
-    ("G", "24/01/2023 et 06/05/2024", "Campus France", "Bons de commande n° 677745 et n° 721622",
-     "C"),
-    ("H", "04/01/2024", "SKEMA Business School", "Convention de stage avec BPCE VIE, du 08/01/2024 "
-     "au 05/07/2024", "S"),
-    ("I", "14/11/2024 et 07/10/2026", "SKEMA Business School", "Rappel de frais de scolarité "
-     "2024/2025 ; mise en demeure n° 2026-SK.D-0002", "S"),
-    ("J", "2022 → 2025", "SKEMA Business School", "Contrat d'inscription, dossier d'inscription et "
-     "acte de cautionnement de l'État", "S"),
-    ("K", "08/10/2026", "Étudiant", "Procuration donnée à la personne qui remet le dossier", "-"),
-    ("L", "08/10/2026", "Étudiant", "Accusé de remise du recours, deux exemplaires", "-"),
+    ("A", "08/10/2026", "Recours gracieux de Calvin B. MINANG à l'Agence nationale des bourses du "
+     "Gabon, contre les décisions du 25/09/2024 et du 10/11/2025 — avec la procuration et l'accusé de "
+     "remise"),
+    ("B", "04/02/2021", "Agence nationale des bourses du Gabon : attestation de maintien de paiement de "
+     "la bourse n° 100326-21-MAINTIEN"),
+    ("C", "02/11/2021", "Agence nationale des bourses du Gabon : attestation d'attribution de bourse "
+     "n° 100057-22-ACCORD"),
+    ("D", "25/09 → 06/11/2025", "Campus France, SKEMA Business School et l'étudiant : quatre messages "
+     "autour de la facture n° 1281253 rejetée"),
+    ("E", "2024 → 2026", "Agence nationale des bourses du Gabon : notifications et validations de la "
+     "plateforme eBourse, avec date et heure — à imprimer depuis l'espace étudiant"),
+    ("F", "14/05/2024 et 09/12/2025", "SKEMA Business School : attestation du registraire sur le "
+     "parcours, puis attestation d'assiduité"),
+    ("G", "24/01/2023 et 06/05/2024", "Campus France : bons de commande n° 677745 et n° 721622, émis "
+     "au profit de SKEMA Business School"),
+    ("H", "04/01/2024", "SKEMA Business School et BPCE VIE : convention de stage du 08/01/2024 au "
+     "05/07/2024"),
+    ("I", "14/11/2024 et 07/10/2026", "SKEMA Business School : rappel de frais de scolarité "
+     "2024/2025, puis mise en demeure n° 2026-SK.D-0002"),
+    ("J", "2022 → 2025", "SKEMA Business School : contrat d'inscription de Fall 2022, dossier "
+     "n° 2733904447 et acte de cautionnement de l'État gabonais"),
+    ("K", "08/10/2026", "Procuration donnée par l'étudiant à la personne qui remet le dossier"),
+    ("L", "08/10/2026", "Accusé de remise du recours à l'Agence nationale des bourses du Gabon, établi "
+     "en deux exemplaires"),
 ]
 
 ANNEX = {
@@ -495,31 +499,31 @@ def bordereau(f):
                       AVAIL, FONTS["r"]):
         ligne(f, ln, 9.4, lead=12.4, col=GRIS)
     f.y += 12
-    xs = {"cote": ML, "date": ML + 32, "emet": ML + 124, "pag": ML + 214, "obj": ML + 262}
-    for txt, x in (("Cote", xs["cote"]), ("Date", xs["date"]), ("Établie par", xs["emet"]),
-                   ("Pages", xs["pag"]), ("Objet", xs["obj"])):
-        f.pg.insert_text((x, f.y), txt, fontname="Fb", fontsize=8.5, color=GRIS)
+    x = {"cote": ML, "obj": ML + 26, "date": ML + 296, "pag": ML + 398}
+    for txt, key in (("Cote", "cote"), ("Pièce", "obj"), ("Date", "date"), ("Pages", "pag")):
+        f.pg.insert_text((x[key], f.y), txt, fontname="Fb", fontsize=8.5, color=GRIS)
     f.pg.draw_line(fitz.Point(ML, f.y + 5), fitz.Point(W - MR, f.y + 5), width=0.5, color=NOIR)
     f.y += 16
     del LIGNE_BORD[:]
-    wobj = W - MR - xs["obj"]
-    for cote, date, emet, objet, key in PIECES_INDEX:
+    wobj = x["date"] - x["obj"] - 8
+    wdate = x["pag"] - x["date"] - 6
+    for cote, date, objet in PIECES_INDEX:
         ln_obj = _lignes(objet, 8.9, wobj, FONTS["r"])
-        hh = max(1, len(ln_obj)) * 11.2 + 5.0
+        ln_dt = _lignes(date, 8.9, wdate, FONTS["r"])
+        hh = max(len(ln_obj), len(ln_dt)) * 11.2 + 5.2
         if f.y + hh > H - MB:
             f.new()
         base = f.y + 8.9 * 0.80
-        f.pg.insert_text((xs["cote"], base), cote, fontname="Fb", fontsize=9.6, color=NOIR)
-        f.pg.insert_text((xs["date"], base), date, fontname="Fr", fontsize=8.9, color=NOIR)
-        f.pg.insert_text((xs["emet"], base), emet, fontname="Fr", fontsize=8.9, color=COL.get(key, NOIR))
+        f.pg.insert_text((x["cote"], base), cote, fontname="Fb", fontsize=9.6, color=NOIR)
         for i, ln in enumerate(ln_obj):
-            f.pg.insert_text((xs["obj"], base + i * 11.2), ln, fontname="Fr", fontsize=8.9,
-                             color=NOIR)
+            f.pg.insert_text((x["obj"], base + i * 11.2), ln, fontname="Fr", fontsize=8.9, color=NOIR)
+        for i, ln in enumerate(ln_dt):
+            f.pg.insert_text((x["date"], base + i * 11.2), ln, fontname="Fr", fontsize=8.9, color=NOIR)
         LIGNE_BORD.append([cote, f.d.page_count - 1, base])
         f.y += hh
-        f.pg.draw_line(fitz.Point(ML, f.y - 3.2), fitz.Point(W - MR, f.y - 3.2), width=0.25,
+        f.pg.draw_line(fitz.Point(ML, f.y - 3.4), fitz.Point(W - MR, f.y - 3.4), width=0.25,
                        color=(0.66, 0.68, 0.71))
-    return xs["pag"]
+    return x["pag"]
 
 
 # ---------------------------------------------------------------------- annexes
