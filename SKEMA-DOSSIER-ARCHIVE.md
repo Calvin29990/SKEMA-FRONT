@@ -1,11 +1,32 @@
 # DOSSIER SKEMA — MINANG Calvin (0305476)
-_Dernière mise à jour : 30 septembre 2026_
+_Dernière mise à jour : 7 octobre 2026_
+
+> ## ⚠️ MAJ 07/10/2026 — à lire avant tout le reste
+> Le travail de fond a été repris et sourcé dans **`skema-litige/`** :
+> - `RECONSTITUTION-CHRONOLOGIQUE-2019-2026.md` — récit complet, chaque fait rattaché à une pièce (annexes 01-38), 12 contradictions/objectivations, tableau de financement.
+> - `COURRIER-REPONSE-ET-DEMANDE-DE-CONSTAT.md` — réponse à la mise en demeure + demande de confirmation du récit à l'ANBG, Campus France et SKEMA (à envoyer en même temps aux trois).
+> - `INDEX-ANNEXES.md` — statut de chaque pièce (lue / scan non lu / absente).
+>
+> **Faits nouveaux vérifiés dans les documents d'origine** (à ne plus contredire) :
+> 1. Le montant réclamé passe de **7 500 €** (Belloni, 30/09/2026) à **14 840 €** (service juridique, 2026, après transmission du dossier au juridique) — sur une facture de **15 000 €**. Aucun décompte communiqué.
+> 2. L'interlocuteur juridique est **Amandine BOUCLY, Legal Expert** (`amandine.boucly@skema.edu`) — signataire pressentie de la mise en demeure (`mise en demeure.pdf`, **scan non relu** : date + montant à vérifier).
+> 3. **Garant inscrit par SKEMA elle-même** au welcome pack (dossier 2733904447) : « ETAT GABONAIS », 28 rue de la Grange aux Belles 75010, `anbg.boursiers@campusfrance.org`, plafond **46 000 €**, durée **60 mois**. Le contrat d'inscription vise le même plafond et la même durée.
+> 4. Deux bons de commande Campus France identifiés avec leurs chiffres : **n° 677745 du 24/01/2023 — 15 000 €** (frais 22/23) et **n° 721622 du 06/05/2024 — 16 000 €**. Campus France a confirmé le règlement de 2023-2024 le 04/02/2025 (Clara Drouault).
+> 5. **SKEMA a écrit le 20/01/2025** (Marion Despinasse, Customer Accountant) : « J'ai bien connaissance qu'il s'agit de Campus France pour le financement de vos frais de scolarité. Je me suis permise de les relancer car nous n'avons toujours rien reçu de leur part. » → la reconnaissance la plus utile du dossier.
+> 6. **Contradiction interne SKEMA** : pour l'exercice 2024/2025, certificat de scolarité du 17/12/2024 = « M1, fall : césure » et bulletin = « PGE M1 » ; facture du 15/01/2025 = « Master 2, 15 000 € », **au nom de l'étudiant** alors que Campus France avait demandé le 24/01/2023 des factures **à son ordre** (Chorus Pro).
+> 7. 🚨 **Ne pas laisser en l'état la « reconnaissance de dette de 7 500 € » proposée le 22/09/2026** : elle est incompatible avec une contestation sur l'identité du débiteur. La retirer ou la conditionner par écrit.
+> 8. Ne jamais invoquer l'article 3.4.1 du contrat (pénalités 10 %/an + **annulation des réductions consenties**) : il ne peut qu'augmenter la somme.
+> 8bis. **Lettre recommandée du 8 octobre 2026** : `skema-litige/pdf/HISTORIQUE-DOCUMENTE-2019-2026-MINANG.pdf`, 45 pages. Courrier au format administratif — expéditeur en tête, destinataires au niveau direction (Direction générale de l'Agence nationale des bourses du Gabon et Commission technique des bourses ; Direction du Service Financement et Bourses de Campus France ; Direction générale de SKEMA Business School et comptabilité étudiante ; copie Direction des études) — `Objet`, `PJ`, exposé de 2019 à 2026 raconté année par année, `Mes demandes` par destinataire, formule de clôture, signature, bordereau des pièces (p. 6) et pièces A à L reproduites sans annotation (p. 7 à 45). Les noms des institutions sont écrits en entier à chaque fois (jamais « l'Agence », « l'école » ou « le service »), les noms de programmes et les formules des documents sont cités tels quels puis explicités entre parenthèses (PGE, L3/M1/M2, semestres « Fall » et « Spring », année de césure, bon de commande, Chorus Pro, irrecevabilité, mise en demeure). Police Lato 11 pt sur interligne 16,4, aucun italique ; trois registres sobrement colorés, appliqués aux seuls noms d'acteur : noir gras = ANBG, gris = SKEMA Business School, bleu nuit = Campus France, gris clair = État gabonais et ses textes. Rendu par `skema-litige/outils/lettre.py` ; polices Lato (SIL OFL 1.1) dans `skema-litige/polices/`.
+
+> 10. **Ordre d'envoi** : recours gracieux ANBG + réponse à Boucly **le même jour** (délai de 10 jours → 19/10), puis Robin CHARPENTIER (fonds social / bourse d'urgence SKEMA, comité fin octobre), puis préfecture pour le titre de séjour — file séparée.
+
+---
 
 ## SITUATION
 - M2 MSc Corporate Financial Management, Lille campus
 - Boursier ANBG (Agence Nationale des Bourses du Gabon)
 - Titre de séjour expire **30/01/2027** — besoin certificat S5 pour renouvellement
-- SKEMA réclame **€7,500** + menace "cessation de scolarité"
+- SKEMA réclame **€7,500** (compta, 30/09/2026) puis **€14 840** (service juridique, 2026) + menace "cessation de scolarité"
 
 ## ARGUMENT CLÉ
 **La bourse ANBG couvre 2 ans (M1+M2). SKEMA n'a facturé qu'1 an à Campus France/ANBG. C'est une erreur administrative de SKEMA, pas une dette de Calvin.**
@@ -38,11 +59,13 @@ _Dernière mise à jour : 30 septembre 2026_
 
 **Ton :** factuel, professionnel, respectueux. PAS de menace avocat en premier contact. PAS de "SKEMA cares about image". PAS de "je quitte SKEMA". Escalation progressive.
 
-## ESCALATION SI BLOCAGE
-1. **Mise en demeure avocat** (J+10, aide juridictionnelle gratuite)
-2. **Défenseur des droits** — defenseurdesdroits.fr (gratuit)
-3. **Référé tribunal administratif** — urgence titre de séjour, décision 15-30 jours
-4. **Préfecture** — expliquer situation, demander prolongation titre de séjour
+## ESCALATION SI BLOCAGE — ⚠️ corrigée le 07/10/2026
+> **Compétence.** SKEMA est une **association loi 1901 (personne privée)** ; l'art. 6 du contrat stipule la **loi française** et « les Tribunaux territorialement compétents » pour « toutes difficultés concernant l'interprétation ou l'exécution du présent contrat ». Le contentieux de la dette relève du **tribunal judiciaire**, **pas** du tribunal administratif — celui-ci (et la préfecture) ne concerne que le **volet titre de séjour**.
+1. **Réponse + demande de pièces du 07/10** (rédigée : `skema-litige/REPONSE-MISE-EN-DEMEURE-2026-SK-D-0002.md`) — vise à neutraliser la clause résolutoire (art. 3.4.1 : résiliation **de plein droit** pour inexécution de l'obligation de payer dans les délais).
+2. **Recours gracieux ANBG** (dossier CA24B3, « avis défavorable ») — fondé sur l'attestation du registraire du 14/05/2024 ; demander la décision motivée notifiée + voies de recours.
+3. **Défenseur des droits** — defenseurdesdroits.fr (gratuit), en cas de blocage prolongé.
+4. **Préfecture** — expliquer la situation, demander les pièces utiles au renouvellement (certificat S5) ; **ne pas** attendre la fin du litige financier.
+5. **Avocat / aide juridictionnelle** seulement si action envisagée. ⚠️ La clause « Cessation de scolarité » porte l'année à **100 % du montant annuel au-delà de 6 mois après la rentrée** : une exclusion prononcée maintenant **augmente** l'exposition financière et coupe le M2 — l'objectif prioritaire reste la **fin du cycle en décembre** et le certificat S5, pas la victoire d'audience.
 
 ## CONTACTS SKEMA
 - **Alice Guilhon** — Dean & Executive President, alice.guilhon@skema.edu (LinkedIn "En attente")
