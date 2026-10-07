@@ -2,9 +2,9 @@
 *Cette page et la dernière sont vos instructions. Tout le reste du dossier se remet tel quel, dans l'ordre, sans rien écrire : le dossier est déjà daté, nommé et complet.*
 
 ## Les 4 étapes
-1. **Imprimer le fichier en A4, en couleurs si possible**, en **deux exemplaires de la seule page du récépissé** (repérée « RÉCÉPISSÉ ») : un pour l'ANBG, un pour vous.
+1. **Imprimer le fichier en A4, en couleurs si possible**, en **deux exemplaires de la seule page du récépissé** (repérée « RÉCÉPISSÉ ») : un pour l'Agence nationale des bourses du Gabon, un pour vous.
 2. **Agrafer** dans cet ordre : recours (3 p.) — procuration (1 p.) — récépissé (1 p.) — liste des pièces (1 p.) — les annexes. Joindre la **photocopie de la pièce d'identité du porteur**.
-3. **Se présenter au guichet du courrier de l'ANBG (Direction Générale, Libreville)**, ou au service des bourses de l'étranger. Remettre la chemise. Demander trois choses, dans cet ordre : **un numéro d'enregistrement**, **la date sur votre exemplaire**, **le nom du service** qui traite.
+3. **Se présenter au guichet du courrier de l'Agence nationale des bourses du Gabon (Direction Générale, Libreville)**, ou au service des bourses de l'étranger. Remettre la chemise. Demander trois choses, dans cet ordre : **un numéro d'enregistrement**, **la date sur votre exemplaire**, **le nom du service** qui traite.
 4. **Envoyer une photo du récépissé daté** à Calvin (`calvin.minang@skema.edu`). C'est la seule chose qui compte pour la suite : sans ce papier daté, le recours n'existe pas administrativement.
 
 ## S'il y a un refus d'enregistrer
@@ -26,7 +26,7 @@ Dossiers eBourse : 2019-2020 WEXQTG · 2020-2021 4EO0OO · 2021-2022 PNPXWG · 2
 Courriel : calvin.minang@skema.edu / blanchardminang00@gmail.com — Téléphone : +33 7 52 97 58 09
 Adresse de scolarité (où le courrier peut être reçu) : SKEMA Business School, avenue Willy Brandt, 59777 Euralille, France
 
-**À l'attention de Monsieur le Directeur Général de l'Agence Nationale des Bourses du Gabon**
+**À l'attention de Monsieur le Directeur Général de l'Agence Nationale des Bourses du Gabon (ANBG)**
 **À Monsieur le Président de la Commission Technique des bourses d'études**
 Présidence de la République — Libreville, Gabon
 
@@ -45,38 +45,38 @@ J'ai l'honneur de former, par le présent courrier, un **recours gracieux** cont
 | Date et heure (plateforme) | Décision | Motif porté sur la notification |
 |---|---|---|
 | 25/09/2024 — 16:37 | Suppression du dossier 1LMK24 | « abs de releve de notes / perception de la bourse » |
-| 17/02/2025 — 11:06 | **Validation** du document « DOCUMENT RECOURS / PREUVE VALIDATION M1 » | « a été validé par l'ANBG » |
+| 17/02/2025 — 11:06 | **Validation** du document « DOCUMENT RECOURS / PREUVE VALIDATION M1 » | « a été validé par l'Agence nationale des bourses du Gabon » |
 | 17/02/2025 — 11:11 | Recours **irrecevable**, dossier « définitivement clôturé » | « PARCOURS INSOUTENABLE (ARTICLE 4 DECRET 065) » |
-| 23/07/2025 — 11:44 | Validation du document « RELEVÉ(S) DE NOTES DE(S) ANNÉE(S) PRÉCÉDENTE(S) » (CA24B3) | « a été validé par l'ANBG » |
+| 23/07/2025 — 11:44 | Validation du document « RELEVÉ(S) DE NOTES DE(S) ANNÉE(S) PRÉCÉDENTE(S) » (CA24B3) | « a été validé par l'Agence nationale des bourses du Gabon » |
 | 10/11/2025 — 15:47 | **Avis défavorable** sur le dossier CA24B3 (2025-2026) | « PARCOURS INSOUTENABLE (ARTICLE 4 DÉCRET 065) », avec invitation « à renouveler votre demande l'année prochaine » |
 
 ## Quatre moyens, chacun établi par une pièce
 
 ### Moyen 1 — Le motif du 25/09/2024 portait sur un document que la césure rendait impossible à produire
-L'année dont mon relevé de notes était réclamée comportait, selon le document de l'établissement lui-même, une **césure**. L'**attestation du registraire de SKEMA Business School du 14 mai 2024** indique pour 2023/2024 « *Campus de Paris en Fall 23 (L3) / Césure en Spring 24* », et le **certificat de scolarité du 17 décembre 2024** porte « *Fall Semester : Césure* ». Un semestre de césure n'appelle pas de relevé de notes. Cette seconde moitié de l'année 2023/2024 correspondait en outre à une **période d'activité en entreprise de six mois**, du **8 janvier 2024 au 5 juillet 2024**, effectuée auprès du groupe **BPCE** sous **convention de stage signée par SKEMA Business School** (convention « 23/24-PGE FI L3 RD — semestre Fall », établie le 4 janvier 2024, délégation de signature de Mme Alice Guilhon, directrice générale, à Mme Stéphanie Bianchi, responsable des relations entreprises et étudiants) : copie de cette convention est jointe au présent recours. **L'année dont le relevé m'était réclamé a donc été, pour sa seconde moitié, un stage en banque autorisé et organisé par l'établissement dans la filière même que vous financez.** J'avais dès le **8 janvier 2024**, puis le **11 mars 2024**, signalé par écrit à l'établissement la nécessité de faire apparaître ce calendrier dans les documents destinés aux organismes financeurs.
+L'année dont mon relevé de notes était réclamée comportait, comme SKEMA Business School l'a elle-même écrit, une **césure**. L'**attestation du registraire de SKEMA Business School du 14 mai 2024** indique pour 2023/2024 « *Campus de Paris en Fall 23 (L3) / Césure en Spring 24* », et le **certificat de scolarité du 17 décembre 2024** porte « *Fall Semester : Césure* ». Un semestre de césure n'appelle pas de relevé de notes. Cette seconde moitié de l'année 2023/2024 correspondait en outre à une **période d'activité en entreprise de six mois**, du **8 janvier 2024 au 5 juillet 2024**, effectuée auprès du groupe **BPCE** sous **convention de stage signée par SKEMA Business School** (convention « 23/24-PGE FI L3 RD — semestre Fall », établie le 4 janvier 2024, délégation de signature de Mme Alice Guilhon, directrice générale, à Mme Stéphanie Bianchi, responsable des relations entreprises et étudiants) : copie de cette convention est jointe au présent recours. **L'année dont le relevé m'était réclamé a donc été, pour sa seconde moitié, un stage en banque autorisé et organisé par SKEMA Business School dans la filière même que vous financez.** J'avais dès le **8 janvier 2024**, puis le **11 mars 2024**, signalé par écrit à SKEMA Business School la nécessité de faire apparaître ce calendrier dans les documents destinés aux organismes financeurs.
 
-### Moyen 2 — La pièce a été validée par l'ANBG cinq minutes avant que le recours ne soit déclaré irrecevable
-Le **17 février 2025 à 11:06**, la plateforme enregistre « Le document DOCUMENT RECOURS / PREUVE VALIDATION M1 a été **validé par l'ANBG** ». Le **même jour à 11:11**, elle enregistre « le recours a été statué **irrecevable** ». L'obstacle documentaire opposé le 25 septembre 2024 était donc **levé au moment même** de la clôture, sans que la validation ait été examinée dans la décision de clôture. Ce moyen est établi par les deux horodatages de la plateforme.
+### Moyen 2 — La pièce a été validée par l'Agence nationale des bourses du Gabon cinq minutes avant que le recours ne soit déclaré irrecevable
+Le **17 février 2025 à 11:06**, la plateforme enregistre « Le document DOCUMENT RECOURS / PREUVE VALIDATION M1 a été **validé par l'Agence nationale des bourses du Gabon** ». Le **même jour à 11:11**, elle enregistre « le recours a été statué **irrecevable** ». L'obstacle documentaire opposé le 25 septembre 2024 était donc **levé au moment même** de la clôture, sans que la validation ait été examinée dans la décision de clôture. Ce moyen est établi par les deux horodatages de la plateforme.
 
 ### Moyen 3 — L'établissement a certifié mon assiduité vingt-neuf jours après l'avis défavorable
-L'**attestation de SKEMA Business School signée par Sophie GAY, Directrice de l'Expérience Étudiant, en date du 9 décembre 2025**, est ainsi rédigée : « *Est régulièrement inscrit en Programme Grande Ecole pour l'année académique 2025-2026. L'étudiant est actuellement en Master 1. Suit régulièrement les cours sur le campus de Paris.* » Cette attestation a été **délivrée par l'établissement à ma demande, pour l'ANBG**, vingt-neuf jours après la décision du 10 novembre 2025. Un « parcours insoutenable » ne peut se déduire d'une assiduité et de validations que l'établissement et vos services constatent au contraire par écrit.
+L'**attestation de SKEMA Business School signée par Sophie GAY, Directrice de l'Expérience Étudiant, en date du 9 décembre 2025**, est ainsi rédigée : « *Est régulièrement inscrit en Programme Grande Ecole pour l'année académique 2025-2026. L'étudiant est actuellement en Master 1. Suit régulièrement les cours sur le campus de Paris.* » Cette attestation a été **délivrée par SKEMA Business School à ma demande, pour l'Agence nationale des bourses du Gabon**, vingt-neuf jours après la décision du 10 novembre 2025. Un « parcours insoutenable » ne peut se déduire d'une assiduité et de validations que SKEMA Business School et vos services constatent au contraire par écrit.
 
 ### Moyen 4 — La décision du 10/11/2025 vise un texte abrogé
 Le motif « PARCOURS INSOUTENABLE (**ARTICLE 4 DÉCRET 065**) » renvoie au **décret n° 0065/PR/MESRSIT du 12 février 2024** fixant les régimes de bourses d'études. Or le **décret n° 0115/PR/MESRIT du 21 février 2025** (Journal officiel n° 56 bis du 26 février 2025) abroge expressément, à son article 4, « *toutes dispositions antérieures contraires, notamment celles du décret n° 0065/PR/MESRSIT du 12 février 2024* ». **Ma demande d'année 2025-2026 a été instruite et tranchée neuf mois après cette abrogation, sur le fondement du texte abrogé.** Je ne soutiens pas ici que le nouveau texte me serait défavorable : je demande seulement que la décision indique le texte réellement applicable à sa date, et, si le décret du 21 février 2025 comporte une clause maintenant les droits des étudiants **déjà engagés dans un cycle**, qu'il en soit fait application à mon dossier.
 
 ## Ma situation relève des étudiants déjà engagés, non des nouvelles attributions
-Mon cycle a débuté le **1er septembre 2022** par une admission au Programme Grande École sur concours BCE, dans un établissement retenu par vos services. Mes droits m'ont été **accordés chaque année par des décisions successives de la Commission Technique**, catégorie C : attestation de maintien n° **100326-21-MAINTIEN** (Commission Technique du 01/02/2021), attestation d'attribution n° **100057-22-ACCORD** (01/09/2021 au 31/08/2022), puis pour l'entrée en Programme Grande École, avec une attestation couvrant **deux années** du 1er septembre 2023 au 31 août 2025. Deux **bons de commande ont été émis et réglés** pour mes années en France : n° **677745** (15 000,00 €, 2022/2023) et n° **721622** du 6 mai 2024 (16 000,00 €, 2023/2024), ce dernier portant expressément « **POUR LE COMPTE DE L'ANBG — FRAIS FORMATION 2023 2024** ». Je ne sollicite donc aucune attribution nouvelle : je demande la **régularisation de la fin d'un cycle engagé en 2022**, dont la dernière année a été placée en 2025/2026 par le calendrier **certifié par l'établissement**.
+Mon cycle a débuté le **1er septembre 2022** par une admission au Programme Grande École sur concours BCE, dans un établissement retenu par vos services. Mes droits m'ont été **accordés chaque année par des décisions successives de la Commission Technique**, catégorie C : attestation de maintien n° **100326-21-MAINTIEN** (Commission Technique du 01/02/2021), attestation d'attribution n° **100057-22-ACCORD** (01/09/2021 au 31/08/2022), puis pour l'entrée en Programme Grande École, avec une attestation couvrant **deux années** du 1er septembre 2023 au 31 août 2025. Deux **bons de commande ont été émis et réglés** pour mes années en France : n° **677745** (15 000,00 €, 2022/2023) et n° **721622** du 6 mai 2024 (16 000,00 €, 2023/2024), ce dernier portant expressément « **POUR LE COMPTE DE L'ANBG — FRAIS FORMATION 2023 2024** ». Je ne sollicite donc aucune attribution nouvelle : je demande la **régularisation de la fin d'un cycle engagé en 2022**, dont la dernière année a été placée en 2025/2026 par le calendrier **certifié par SKEMA Business School**.
 
 L'invitation à « renouveler votre demande l'année prochaine », portée par la notification du 10 novembre 2025, est devenue **sans portée utile** pour moi : mon cycle s'achève en **décembre 2026**. C'est la raison pour laquelle je sollicite une régularisation **sur l'année en cours**.
 
-**Je précise n'avoir perçu aucun versement direct de l'État au titre des frais de scolarité** : les sommes dues à l'établissement ont été réglées par bons de commande adressés à celui-ci. Ma demande ne porte que sur la prise en charge des frais de scolarité et sur les documents ci-après.
+**Je précise n'avoir perçu aucun versement direct de l'État au titre des frais de scolarité** : les sommes dues à SKEMA Business School ont été réglées par bons de commande émis à son profit. Ma demande ne porte que sur la prise en charge des frais de scolarité et sur les documents ci-après.
 
 ## Mes demandes
 1. **Communication des décisions écrites et motivées** des 25/09/2024, 17/02/2025 et 10/11/2025 : textes appliqués, faits retenus (année concernée, durée du cycle, nombre de redoublements éventuels), date de notification, **voies et délais de recours**.
 2. **Réexamen des dossiers 1LMK24 et CA24B3** au vu des quatre moyens ci-dessus, et **réintégration de mes droits** pour les années 2024-2025 et 2025-2026 ; à défaut, une **décision motivée répondant point par point** à chacun des quatre moyens.
-3. **Délivrance d'une attestation officielle** portant, pour chacune de mes sessions depuis 2019-2020 : (i) la date et la durée de la prise en charge accordée, (ii) la date et le motif de toute interruption, (iii) la mention des pièces que j'ai produites et **validées** par vos services. Ce document m'est **demandé par mon établissement**, qui me réclame par ailleurs, par mise en demeure du 7 octobre 2026 (réf. 2026-SK.D-0002), la somme de **14 840,00 €** au titre de l'année 2025/2026, alors que la facture que l'établissement a émise à votre destination (facture n° 1281253) a été **rejetée le 25 septembre 2025** par le service financier de Campus France pour défaut d'un certificat de scolarité que l'établissement seul peut établir.
+3. **Délivrance d'une attestation officielle** portant, pour chacune de mes sessions depuis 2019-2020 : (i) la date et la durée de la prise en charge accordée, (ii) la date et le motif de toute interruption, (iii) la mention des pièces que j'ai produites et **validées** par vos services. Ce document m'est **demandé par SKEMA Business School**, qui me réclame par ailleurs, par mise en demeure du 7 octobre 2026 (réf. 2026-SK.D-0002), la somme de **14 840,00 €** au titre de l'année 2025/2026, alors que la facture que SKEMA Business School a émise à votre destination (facture n° 1281253) a été **rejetée le 25 septembre 2025** par le service financier de Campus France pour défaut d'un certificat de scolarité que SKEMA Business School seule peut établir.
 4. **Délivrance d'une copie lisible et certifiée conforme de mon attestation du 6 septembre 2023** (bourse accordée pour la période du 1er septembre 2023 au 31 août 2025) : le fichier numérisé en ma possession est **illisible**, et ce document est le seul de mon dossier à établir la durée exacte de la prise en charge du cycle à cette date.
-5. Si la règle « *un seul redoublement est admis au cours d'un même cycle* » — que j'ai lue dans la foire aux questions de l'Agence — est celle qui a été appliquée à mon dossier, je demande qu'il me soit indiqué **à quelle année précise et sur quel relevé** elle a été appliquée, afin que je puisse répondre utilement.
+5. Si la règle « *un seul redoublement est admis au cours d'un même cycle* » — que j'ai lue dans la foire aux questions de l'Agence nationale des bourses du Gabon — est celle qui a été appliquée à mon dossier, je demande qu'il me soit indiqué **à quelle année précise et sur quel relevé** elle a été appliquée, afin que je puisse répondre utilement.
 6. Pour la période du 8 janvier au 5 juillet 2024, qu'il soit **tenu lieu de tout relevé de notes** par la convention de stage en entreprise ci-jointe, l'**attestation de stage** que l'entreprise d'accueil doit délivrer au stagiaire aux termes de cette convention étant en cours de demande auprès d'elle : je la produirai dès réception.
 7. Qu'il me soit délivré **double du présent recours portant numéro d'enregistrement et date**, seul document permettant à l'étudiant d'établir vis-à-vis de son établissement, qui le met en demeure, qu'une diligence est en cours devant vos services.
 
@@ -88,8 +88,6 @@ Fait à Lille, le 8 octobre 2026.
 
 **Calvin MINANG** — *lu et approuvé*
 
-<!-- Le seul geste restant à faire en France : la signature manuscrite ci-dessous.
-Le dossier est ensuite envoyé tel quel, rien d'autre n'est à compléter au Gabon. -->
 Signature : ______________________________________
 
 <<<
@@ -113,7 +111,7 @@ Fait à Lille, le 8 octobre 2026.
 
 **Calvin MINANG** *(signature)* — **Le porteur** *(à signer au guichet, précédée de la mention « bon pour acceptation »)*
 
-*Pièces jointes au dossier : copie de la pièce d'identité du porteur (à ajouter avant impression). La signature de l'étudiant figure au volet 1 et au volet 2.*
+*La signature de l'étudiant est portée au volet 1 et au volet 2 du présent dossier.*
 
 <<<
 # 3. ACCUSÉ DE REMISE — ÉTABLI EN DEUX EXEMPLAIRES
@@ -122,13 +120,13 @@ Fait à Lille, le 8 octobre 2026.
 |---|---|
 | **Document remis** | Recours gracieux de M. MINANG Calvin Blanchard, dossier ANBG n° 110584Z (sessions 2024-2025, réf. 1LMK24 et 2025-2026, réf. CA24B3), accompagné de ses pièces justificatives et de la procuration ci-jointe |
 | **Remis par** | le porteur de la procuration ci-dessus (père ou mère de l'étudiant), pièce d'identité présentée |
-| **Nombre de pièces remises** | **9** (dont le présent dossier de 8 feuillets) |
+| **Nombre de pièces remises** | **12** pièces cotées A à L, dont les trois volets du présent dossier |
 | **Reçu par (nom, fonction, service)** | *à compléter par l'agent* |
 | **Date** | **8 octobre 2026**, à ______ h ______ (heure relevée au guichet) |
 | **N° d'enregistrement / de courrier attribué** | *à compléter par l'agent — c'est la mention la plus importante* |
 | **Cachet et signature du service** | *(à apposer ici)* |
 
-*Le porteur demande en outre que lui soient indiqués : (i) le service et l'agent en charge du dossier, (ii) le délai indicatif de traitement, (iii) le numéro sous lequel le recours est enregistré. Si l'enregistrement est refusé, demander le tampon daté sur un double du présent récépissé.*
+Le numéro d'enregistrement, la date et l'heure de dépôt, le nom du service et le cachet constituent les seules mentions attendues du guichet.
 
 <<<
 # 4. CHEMISE À REMETTRE — 10 pièces, dans cet ordre

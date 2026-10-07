@@ -12,13 +12,11 @@ Polices Lato (SIL Open Font License 1.1) dans skema-litige/polices/.
 import os
 import re
 import sys
-import tempfile
 
 import pymupdf as fitz
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE, "outils"))
-import md2pdf  # noqa: E402
 
 PO = os.path.join(BASE, "polices")
 FFILE = {"r": os.path.join(PO, "Lato-Regular.ttf"), "b": os.path.join(PO, "Lato-Bold.ttf")}
@@ -106,29 +104,46 @@ def style(texte):
 
 def para(f, texte, size=11.0, lead=16.4, space=8.0, width=None, justifier=True, runs=None,
          couleur=None):
-    """Paragraphe aéré, justifié, ponctuation collée au mot, noms d'acteurs colorés."""
-    width = width or AVAIL
+    """Paragraphe du courrier : les noms d'acteurs sont saisis en gras, leur couleur les désigne."""
+    rs = runs if runs is not None else style(texte)
+    tri = [(txt, couleur or COL[key], key != "-") for txt, key in rs]
+    para3(f, tri, size=size, lead=lead, space=space, width=width, justifier=justifier)
+
+
+def para3(f, tri, size=11.0, lead=16.4, space=8.0, width=None, justifier=True, indent=0.0):
+    """Noyau de composition : triplets (texte, couleur, gras), ponctuation collée, élider collé."""
+    width = (width or AVAIL) - indent
     ws = FONTS["r"].text_length(" ", size)
-    mots = []
-    elision = None
-    for txt, key in (runs if runs is not None else style(texte)):
-        fname = PNAME[key]
-        fo = FONTS["b"] if fname == "Fb" else FONTS["r"]
-        col = couleur or COL[key]
-        for mot in txt.split():
-            if mots and mot[0] in ",.;:!?»)" and mot not in (":", ";", "!", "?", "»", ")") \
-                    and mots[-1][0][-1] not in "(«":
-                mots[-1][0] += mot
-                mots[-1][3] = mots[-1][4].text_length(mots[-1][0], size)
-                continue
-            if elision:                       # l'Agence, qu'enregistre, d'État…
+    mots, elision, fin = [], None, " "
+    for txt, col, gras in tri:
+        fo = FONTS["b"] if gras else FONTS["r"]
+        fname = "Fb" if gras else "Fr"
+        n = 0
+        for sp, mot in re.findall(r"(\s*)(\S+)", txt):
+            # un blanc dans la phrase d'origine sépare seul deux mots : la ponctuation
+            # ne se colle que si elle l'y était déjà, jamais par un saut de style
+            blanc = bool(sp) or (n == 0 and fin.endswith(" "))
+            n += 1
+            if elision:
                 mot = elision + mot
                 elision = None
+            if mots and not blanc and mot:
+                if mots[-1][0] in ("(", "\u00ab"):
+                    mot = mots.pop()[0] + mot
+                elif mots[-1][0].endswith(("(", "\u00ab")) and len(mots[-1][0]) > 1:
+                    mot = mots[-1][0][-1] + mot
+                    mots[-1][0] = mots[-1][0][:-1]
+                    mots[-1][3] = mots[-1][4].text_length(mots[-1][0], size)
+                elif mot[0] in ",.;:!?»)]" and mots[-1][0][-1] not in "(\u00ab":
+                    mots[-1][0] += mot
+                    mots[-1][3] = mots[-1][4].text_length(mots[-1][0], size)
+                    continue
             if mot.endswith("\u2019") or (mot.endswith("'") and len(mot) <= 3):
                 elision = mot
                 continue
             for part in _coupe(mot, size, width, fo):
                 mots.append([part, fname, col, fo.text_length(part, size), fo])
+        fin = txt
     lignes, cur, cw = [], [], 0.0
     for m in mots:
         if cur and cw + m[3] > width:
@@ -146,12 +161,23 @@ def para(f, texte, size=11.0, lead=16.4, space=8.0, width=None, justifier=True, 
         ecart = 0.0
         if justifier and i < len(lignes) - 1 and len(line) > 1:
             ecart = (width - lw) / (len(line) - 1)
-        x = ML
+        x = ML + (indent if i == 0 else 0.0)
         for mot, fname, col, wd, _fo in line:
             f.pg.insert_text((x, y), mot, fontname=fname, fontsize=size, color=col)
             x += wd + ws + ecart
         f.y += lead
     f.y += space
+
+
+def md_runs(texte, gras=False):
+    """Markdown inline -> triplets (texte, couleur, gras) ; italique retiré, titres en gras."""
+    out = []
+    for n, part in enumerate(re.split(r"\*\*", texte)):
+        part = part.replace("*", "").replace("`", "")
+        g = gras or (n % 2 == 1)
+        for txt, key in style(part):
+            out.append((txt, COL[key], g or key != "-"))
+    return [r for r in out if r[0].strip()] or [("", NOIR, False)]
 
 
 def _coupe(mot, size, width, fo):
@@ -247,8 +273,8 @@ RIT = [
     "Business School, et SKEMA Business School, qui me réclame aujourd'hui 14 840,00 € au titre de "
     "l'année 2025/2026. Je suis gabonais, boursier de l'État gabonais depuis 2019, et j'achève en "
     "décembre 2026 le Programme Grande École de SKEMA Business School (PGE M2, MSc Corporate Financial "
-    "Management), le diplôme principal de l'école, un master en gestion en cinq années après le "
-    "baccalauréat. Les faits rapportés ci-dessous sont ceux qu'enregistrent vos documents respectifs ; "
+    "Management), le diplôme principal du cycle : un master en gestion en trois années — L3, M1, "
+    "M2 —, auxquelles s'ajoute, quand l'étudiant la choisit, une année de césure. Les faits rapportés ci-dessous sont ceux qu'enregistrent vos documents respectifs ; "
     "les passages entre guillemets en reproduisent exactement le texte, et les pièces A à L les "
     "accompagnent.",
 
@@ -256,7 +282,8 @@ RIT = [
     "School pour que l'étudiant soit inscrit, suive les cours et se présente aux examens. La bourse "
     "nationale comprend aussi une allocation mensuelle, qui sert à se loger et à vivre : je ne la "
     "réclame pas et ce courrier ne la concerne pas. Seule la prise en charge des frais de scolarité est "
-    "discutée, parce que ces frais, payés à l'école par l'organisme payeur pour 2022/2023 puis pour "
+    "discutée, parce que ces frais, payés à SKEMA Business School par l'organisme payeur pour 2022/2023 "
+    "puis pour "
     "2023/2024, sont aujourd'hui réclamés à l'étudiant pour 2025/2026.",
 
     "Tout a commencé par les classes préparatoires. Admis au Groupe Scolaire La Résidence de Casablanca "
@@ -272,13 +299,15 @@ RIT = [
 
     "Admis à SKEMA Business School par le concours BCE (le concours commun d'entrée en école de "
     "commerce) sous le numéro de candidat 21446, je me suis inscrit le 1er septembre 2022 en L3 du "
-    "Programme Grande École, sur la rentrée Fall 2022. Il faut lire les mots de l'école : « Fall » y "
+    "Programme Grande École, sur la rentrée Fall 2022. Il faut lire les mots employés par "
+    "SKEMA Business School : « Fall » y "
     "désigne le premier semestre de l'année universitaire, de septembre à décembre, « Spring » le "
     "second, de janvier à mai. Le dossier d'inscription n° 2733904447 comporte un acte de "
     "cautionnement : l'État gabonais s'y porte garant du paiement de mes études, pour un maximum de "
-    "« quarante six mille euros (46 000 €) » et une durée de « soixante (60) mois », soit cinq années, "
-    "la durée normale du parcours de la première année au master. Ce contrat de Fall 2022 est le seul "
-    "contrat d'inscription de tout le cycle ; son article 4.4 prévoit qu'il est rallongé si la "
+    "« quarante six mille euros (46 000 €) » et une durée de « soixante (60) mois ». Soixante mois n'est "
+    "pas la durée des études, qui en compte trente-six : c'est la durée maximale sur laquelle "
+    "l'engagement de caution est pris, afin de couvrir l'année de césure et une éventuelle répétition. "
+    "Ce contrat de Fall 2022 est le seul contrat d'inscription de tout le cycle ; son article 4.4 prévoit qu'il est rallongé si la "
     "scolarité se prolonge. Le 25 août 2022, SKEMA Business School écrivait : « Concernant la "
     "facturation, je transfère votre mail à la comptabilité étudiante. » (pièce J).",
 
@@ -293,7 +322,7 @@ RIT = [
     "Campus France a émis le bon de commande n° 677745 pour mon dossier, objet « FRAIS DE FORMATION "
     "22/23 », fournisseur SKEMA BUSINESS SCHOOL n° 35025, d'un montant de 15 000,00 € ; la comptabilité "
     "de SKEMA Business School en a accusé réception le 25 janvier 2023 à 09:43. Un bon de commande est "
-    "l'engagement de payer pris par l'organisme auprès de l'école (pièces G, J).",
+    "l'engagement de payer pris par l'organisme auprès de SKEMA Business School (pièces G, J).",
 
     "L'année 2022/2023 a été difficile : en juillet 2023, la délibération du jury de SKEMA Business "
     "School n'a pas validé les deux semestres de L3. J'ai alors demandé, et obtenu, une année de "
@@ -305,6 +334,24 @@ RIT = [
     "4 janvier 2024, SKEMA Business School a signé avec BPCE VIE la convention de stage : « Le stage se "
     "déroulera du 08/01/2024 au 05/07/2024 », cinq jours ouvrés par semaine, à Paris ; l'entreprise m'a "
     "délivré l'attestation de fin de stage (pièce H).",
+
+    "Sur cette année de L3, je ne cherche pas d'excuse : l'année n'a pas été validée parce que j'ai "
+    "négligé un critère, celui de la langue anglaise, et je le reconnais. Je découvrais le Programme "
+    "Grande École et ses conditions de diplomation, qui ne sont pas celles d'une année ordinaire. Les "
+    "critères publiés par SKEMA Business School pour le PGE sont, d'une part, une expérience "
+    "professionnelle de "
+    "douze mois lorsque l'étudiant fait une césure, ou de huit mois au minimum lorsqu'il n'en fait pas "
+    "et entre en L3 — c'est pourquoi la césure est optionnelle mais conseillée dans un marché de "
+    "l'emploi tendu ; d'autre part, un score d'anglais exigé de tous les étudiants, quel que soit le "
+    "parcours, avec par exemple 67 points au test iCIMS de SKEMA Business School, 7 à l'IELTS ou "
+    "870 au TOEIC. J'ai "
+    "obtenu ce score de diplomation au cours de l'année de L3, le certificat iCIMS du 17 octobre 2023 "
+    "portant 67 points, valables jusqu'au 16 octobre 2025. Le calendrier explique le semestre "
+    "supplémentaire : le jury a délibéré en juillet 2023, le certificat est du 17 octobre 2023, et "
+    "cette différence de dates a fait que l'année a été reprise plutôt que validée. Je ne cherche pas "
+    "à rejeter sur SKEMA Business School une part qui me revient : ce score m'incombait et je m'y suis "
+    "pris trop tard. Je rapporte ces éléments pour que le calendrier soit compris, non pour contester "
+    "une décision pédagogique, qui relève de SKEMA Business School (pièces F, J).",
 
     "Le 14 mai 2024, le registraire de SKEMA Business School (le service qui tient les dossiers de "
     "scolarité) a certifié le parcours dans une attestation officielle : « 2023/2024 L3/M1 Paris Fall "
@@ -324,7 +371,13 @@ RIT = [
     "suppression de ma bourse au motif « abs de releve de notes / perception de la bourse », "
     "c'est-à-dire l'absence de relevé de notes. Ce relevé ne pouvait pas exister, pour la raison simple "
     "que l'année 2023/2024 était une année de césure, sans examens, certifiée comme telle par SKEMA "
-    "Business School le 14 mai 2024. J'ai produit cette attestation, puis les documents réclamés en "
+    "Business School le 14 mai 2024. Je comprends l'interrogation, de l'un comme de l'autre côté : entre "
+    "la fin de la L3 en juillet 2023, le stage de six mois et l'entrée en M1 début 2025, l'année ne "
+    "produit en effet ni relevé de notes ni bulletin, et le dossier ne montre qu'une convention de stage "
+    "et deux attestations. C'est le propre d'une césure ; c'est aussi la raison pour laquelle j'ai "
+    "demandé, le 8 janvier 2024 puis le 11 mars 2024, que ce calendrier apparaisse clairement dans les "
+    "documents destinés aux organismes financeurs. J'ai produit cette attestation, puis les documents "
+    "réclamés en "
     "janvier 2025. Le 17 février 2025 à 11:06, la plateforme de l'ANBG a validé la pièce ; cinq minutes "
     "plus tard, à 11:11, elle enregistrait l'irrecevabilité de mon recours, motif « PARCOURS "
     "INSOUTENABLE (ARTICLE 4 DECRET 065) ». Une irrecevabilité est un refus d'examiner le fond du "
@@ -419,11 +472,7 @@ DEMANDES = [
 ]
 
 def corps(f):
-    base = f.y + 11.0 * 0.80
-    f.pg.insert_text((ML, base), "Madame,", fontname="Fr", fontsize=11.0, color=NOIR)
-    f.pg.insert_text((W - MR - FONTS["r"].text_length("Monsieur,", 11.0), base), "Monsieur,",
-                     fontname="Fr", fontsize=11.0, color=NOIR)
-    f.y += 11.0 + 11.0
+    para(f, "", runs=[("Madame, Monsieur,", "-")], lead=15.0, space=9.0, justifier=False)
     for texte in RIT:
         para(f, texte)
     f.y += 2
@@ -437,7 +486,10 @@ def corps(f):
         f.y += 4.0
     for texte in FIN:
         para(f, texte)
-    f.y += 26
+    if f.y + 34.0 > H - MB:          # la signature ne se coupe pas, ne déborde pas
+        f.new()
+    else:
+        f.y += min(26.0, H - MB - f.y - 28.0)
     ligne(f, "Calvin B. MINANG", 11.0, gras=True, droite=True, lead=14.0)
     ligne(f, "né le 2 mai 2002 à Libreville — n° étudiant 0305476", 9.2, droite=True, lead=12.0,
           col=GRIS)
@@ -470,21 +522,6 @@ PIECES_INDEX = [
     ("L", "08/10/2026", "Accusé de remise du recours à l'Agence nationale des bourses du Gabon, établi "
      "en deux exemplaires"),
 ]
-
-ANNEX = {
-    "A": ([], "recours"),
-    "B": ([("attestation-anbg-maintien-2021.pdf", None)], None),
-    "C": ([("attestation-anbg-attribution-2021-2022.pdf", None)], None),
-    "D": ([("contradiction-campus-france.pdf", None)], None),
-    "E": ([], "à produire"),
-    "F": ([("attestation-PGE.pdf", None), ("attestation-assiduite-09-12-2025.pdf", None)], None),
-    "G": ([("bon-de-commande-M1.pdf", None)], None),
-    "H": ([("convention-stage-bpce-2024.pdf", [0, 1, 2])], None),
-    "I": ([("relance-skema-M1.pdf", [0]), ("mise-en-demeure.pdf", [0])], None),
-    "J": ([("contrat-signé.pdf", None), ("dossier-campus-caution.pdf", [0, 1, 2])], None),
-    "K": ([], "procuration"),
-    "L": ([], "recepisse"),
-}
 
 LIGNE_BORD = []
 
@@ -526,25 +563,115 @@ def bordereau(f):
     return x["pag"]
 
 
-# ---------------------------------------------------------------------- annexes
+# ------------------------------------------------ pièces jointes du courrier
+def rendu_md(f, texte):
+    """Rendu sobre d'un extrait markdown, dans la police du courrier : ni bandeau, ni italique."""
+    lignes = texte.split("\n")
+    i = 0
+
+    def amorces(s):
+        return (not s or s.startswith(("#", "|", "- ", "<<<")) or s in ("---", "***")
+                or bool(re.match(r"^\d+\. ", s)))
+
+    while i < len(lignes):
+        s = lignes[i].strip()
+        if not s:
+            i += 1
+            continue
+        if s == "<<<":
+            f.new()
+            i += 1
+            continue
+        if s in ("---", "***"):
+            f.pg.draw_line(fitz.Point(ML, f.y + 2), fitz.Point(W - MR, f.y + 2), width=0.4,
+                          color=(0.60, 0.62, 0.66))
+            f.y += 11.0
+            i += 1
+            continue
+        if s.startswith("#"):
+            niveau = len(s) - len(s.lstrip("#"))
+            txt = re.sub(r"^#+\s*", "", s)
+            if niveau == 1:
+                txt = re.sub(r"^\d+\.\s*", "", txt)
+            taille = {1: 13.0, 2: 11.4}.get(niveau, 10.8)
+            if f.y + taille * 4 > H - MB:
+                f.new()
+            f.y += 7 if niveau > 1 else 0
+            para3(f, [(txt, NOIR, True)], size=taille, lead=taille + 4.2,
+                  space=3.5 if niveau > 1 else 6.0, justifier=False)
+            i += 1
+            continue
+        if s.startswith("|"):
+            rangees = []
+            while i < len(lignes) and lignes[i].strip().startswith("|"):
+                cel = [c.strip() for c in lignes[i].strip().strip("|").split("|")]
+                if not all(re.fullmatch(r":?-{2,}:?", c or "-") for c in cel):
+                    rangees.append(cel)
+                i += 1
+            for num, cel in enumerate(rangees):
+                if num == 0:
+                    tri = [("   ·   ".join(c.replace("**", "").replace("*", "") for c in cel),
+                            GRIS, True)]
+                    para3(f, tri, size=9.2, lead=13.0, space=2.0, indent=12.0, justifier=False)
+                    continue
+                tri = []
+                for j, c in enumerate(cel):
+                    if j:
+                        tri.append(("   ·   ", NOIR, False))
+                    tri += [(x, col or NOIR, g) for x, col, g in md_runs(c, gras=(j == 0))]
+                para3(f, tri, size=10.2, lead=14.6, space=3.2, indent=12.0)
+            continue
+        if s.startswith("- ") or re.match(r"^\d+\. ", s):
+            if s.startswith("- "):
+                prefixe, reste = "•  ", s[2:]
+            else:
+                num, reste = s.split(". ", 1)
+                prefixe, reste = num + ".  ", reste
+            para3(f, [(prefixe, NOIR, False)] + md_runs(reste), size=10.4, lead=14.8,
+                  space=3.2, indent=16.0, justifier=False)
+            i += 1
+            continue
+        para3(f, md_runs(s), size=10.7, lead=15.8, space=5.0, justifier=False)
+        i += 1
+
+
+ANNEX = {
+    "A": ([], "recours"),
+    "B": ([("attestation-anbg-maintien-2021.pdf", None)], None),
+    "C": ([("attestation-anbg-attribution-2021-2022.pdf", None)], None),
+    "D": ([("contradiction-campus-france.pdf", None)], None),
+    "E": ([], "à produire"),
+    "F": ([("attestation-PGE.pdf", None), ("attestation-assiduite-09-12-2025.pdf", None)], None),
+    "G": ([("bon-de-commande-M1.pdf", None)], None),
+    "H": ([("convention-stage-bpce-2024.pdf", [0, 1, 2])], None),
+    "I": ([("relance-skema-M1.pdf", [0]), ("mise-en-demeure.pdf", [0])], None),
+    "J": ([("contrat-signé.pdf", None), ("dossier-campus-caution.pdf", [0, 1, 2])], None),
+    "K": ([], "procuration"),
+    "L": ([], "recepisse"),
+}
+
+BLOCS = (("A", "# 1. RECOURS GRACIEUX", "# 2. PROCURATION"),
+         ("K", "# 2. PROCURATION", "# 3. ACCUSÉ DE REMISE"),
+         ("L", "# 3. ACCUSÉ DE REMISE", "# 4. CHEMISE"))
+
+
 def annexes(f, xcol):
-    # le recours, la procuration et l'accusé sont rendus dans la même police que la lettre
-    md2pdf.FFILE = {"r": FFILE["r"], "b": FFILE["b"], "i": FFILE["r"], "bi": FFILE["b"]}
-    md2pdf.FONTS = {"r": FONTS["r"], "b": FONTS["b"], "i": FONTS["r"], "bi": FONTS["b"]}
-    rtmp = os.path.join(tempfile.gettempdir(), "actes-lettre.pdf")
-    src = open(os.path.join(BASE, "PARENTS-ANBG", "RECOURS-GRACIEUX-ANBG.md"), encoding="utf-8").read()
-    a0 = src.index("# 1. RECOURS GRACIEUX")
-    a1 = src.index("# 4. CHEMISE") if "# 4. CHEMISE" in src else len(src)
-    md2pdf.render(src[a0:a1].rstrip() + "\n", rtmp, "")
-    actes = fitz.open(rtmp)
-    ix = {}
-    for k in ("1. RECOURS GRACIEUX", "2. PROCURATION", "3. ACCUSÉ DE REMISE"):
-        j = next((i for i, pg in enumerate(actes)
-                  if k in pg.get_text().replace("\xa0", " ")), None)
-        if j is None:
-            print("  ! section introuvable dans le recours :", k)
-            j = 0
-        ix[k] = j
+    src = open(os.path.join(BASE, "PARENTS-ANBG", "RECOURS-GRACIEUX-ANBG.md"),
+               encoding="utf-8").read()
+    blocs = {}
+    for cote, a, b in BLOCS:
+        i0 = src.index(a)
+        i1 = src.index(b) if b in src else len(src)
+        blocs[cote] = re.sub(r"<!--.*?-->\s*", "", src[i0:i1], flags=re.S).rstrip() + "\n"
+    def emonde():
+        """Les blancs laissés par une coupe de page en fin de bloc ne se justifient pas."""
+        while f.d.page_count > 1:
+            q = f.d[-1]
+            if q.get_text().strip() or q.get_images() or q.get_drawings():
+                break
+            f.d.delete_page(-1)
+        f.pg = None
+
     ordre = [c for c, _p, _y in LIGNE_BORD]
     debut = {}
     for cote in ordre:
@@ -553,10 +680,9 @@ def annexes(f, xcol):
         if spec == "à produire":
             continue
         if spec:
-            a, b = {"recours": (ix["1. RECOURS GRACIEUX"], ix["2. PROCURATION"]),
-                    "procuration": (ix["2. PROCURATION"], ix["3. ACCUSÉ DE REMISE"]),
-                    "recepisse": (ix["3. ACCUSÉ DE REMISE"], len(actes))}[spec]
-            f.d.insert_pdf(actes, from_page=a, to_page=max(a, b - 1))
+            f.new()
+            rendu_md(f, blocs[cote])
+            emonde()
             continue
         for fn, keep in fichiers:
             path = os.path.join(PIECES, fn)
@@ -568,15 +694,12 @@ def annexes(f, xcol):
                 s.select([i for i in keep if i < s.page_count])
             f.d.insert_pdf(s)
             s.close()
-    while f.d and not f.d[-1].get_text().strip() and not f.d[-1].get_images():
-        f.d.delete_page(-1)
+    emonde()
     for k, (cote, pgn, y0) in enumerate(LIGNE_BORD):
         a = debut[cote]
         b = f.d.page_count if k == len(LIGNE_BORD) - 1 else debut[LIGNE_BORD[k + 1][0]] - 1
         txt = "non jointe" if b < a else (f"p. {a}" if b == a else f"p. {a} à {b}")
         f.d[pgn].insert_text((xcol, y0), txt, fontname="Fr", fontsize=8.9, color=NOIR)
-    actes.close()
-    os.remove(rtmp)
 
 
 def main():
