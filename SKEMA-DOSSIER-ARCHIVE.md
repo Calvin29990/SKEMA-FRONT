@@ -56,11 +56,13 @@ _Dernière mise à jour : 7 octobre 2026_
 
 **Ton :** factuel, professionnel, respectueux. PAS de menace avocat en premier contact. PAS de "SKEMA cares about image". PAS de "je quitte SKEMA". Escalation progressive.
 
-## ESCALATION SI BLOCAGE
-1. **Mise en demeure avocat** (J+10, aide juridictionnelle gratuite)
-2. **Défenseur des droits** — defenseurdesdroits.fr (gratuit)
-3. **Référé tribunal administratif** — urgence titre de séjour, décision 15-30 jours
-4. **Préfecture** — expliquer situation, demander prolongation titre de séjour
+## ESCALATION SI BLOCAGE — ⚠️ corrigée le 07/10/2026
+> **Compétence.** SKEMA est une **association loi 1901 (personne privée)** ; l'art. 6 du contrat stipule la **loi française** et « les Tribunaux territorialement compétents » pour « toutes difficultés concernant l'interprétation ou l'exécution du présent contrat ». Le contentieux de la dette relève du **tribunal judiciaire**, **pas** du tribunal administratif — celui-ci (et la préfecture) ne concerne que le **volet titre de séjour**.
+1. **Réponse + demande de pièces du 07/10** (rédigée : `skema-litige/REPONSE-MISE-EN-DEMEURE-2026-SK-D-0002.md`) — vise à neutraliser la clause résolutoire (art. 3.4.1 : résiliation **de plein droit** pour inexécution de l'obligation de payer dans les délais).
+2. **Recours gracieux ANBG** (dossier CA24B3, « avis défavorable ») — fondé sur l'attestation du registraire du 14/05/2024 ; demander la décision motivée notifiée + voies de recours.
+3. **Défenseur des droits** — defenseurdesdroits.fr (gratuit), en cas de blocage prolongé.
+4. **Préfecture** — expliquer la situation, demander les pièces utiles au renouvellement (certificat S5) ; **ne pas** attendre la fin du litige financier.
+5. **Avocat / aide juridictionnelle** seulement si action envisagée. ⚠️ La clause « Cessation de scolarité » porte l'année à **100 % du montant annuel au-delà de 6 mois après la rentrée** : une exclusion prononcée maintenant **augmente** l'exposition financière et coupe le M2 — l'objectif prioritaire reste la **fin du cycle en décembre** et le certificat S5, pas la victoire d'audience.
 
 ## CONTACTS SKEMA
 - **Alice Guilhon** — Dean & Executive President, alice.guilhon@skema.edu (LinkedIn "En attente")
