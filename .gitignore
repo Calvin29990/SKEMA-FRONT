@@ -34,3 +34,8 @@ skema-litige/PARENTS-ANBG/pdf/
 
 __pycache__/
 *.pyc
+
+# captures brutes de la plateforme eBourse : assemblées par le build, jamais versées
+skema-litige/pieces/ebourse/*.png
+skema-litige/pieces/ebourse/*.jpg
+skema-litige/pieces/ebourse/*.jpeg

@@ -60,3 +60,18 @@ Observation du **mercredi 07/10/2026 21:06:56** (capture) : `FICHE DE DEMANDE DE
 - [ ] **Récupérer dans Gmail** les 2 PJ du mail de Boucly : `FACTURE_MINANG_CALVIN_M2_2526.pdf`, `CEGID MINANG CALVIN 05-10-26.pdf` (+ `contrat_2c969e2f81f11c59018227f437230391.pdf`) → même dossier `skema-litige/pieces/`.
 - [ ] **Capturer le portail Campus France / Chorus Pro si tu y as un accès** : l'état de la facture n° **1281253** (rejetée, en attente, ou annulée). Si tu n'y as pas accès, c'est justement la demande n° 2 du courrier à SKEMA.
 - [ ] Ne pas modifier les fichiers déjà téléchargés : je m'appuie sur leur horodatage Drive/Git pour dater les pièces.
+
+---
+
+## 6. Ce qui a été relevé le 08/10/2026 (neuf impressions, 01:48:30 → 01:52:27)
+
+Les points 5 à 8 de la liste du § 1 sont couverts. Les images sont déposées dans `skema-litige/pieces/ebourse/` (noms numérotés `01-…` à `09-…`) ; `lettre.py` les assemble une par page, sans retouche, dans `skema-litige/pieces/impressions-ebourse.pdf`, et la cote **E** du bordereau se remplit alors seule. Le détail écran par écran est dans `INDEX-ANNEXES.md`, section A bis.
+
+**Ce que ces écrans apportent — et rien d'autre :**
+
+1. **L'Agence a validé les relevés de la licence avant d'accorder la session suivante.** Validation du « RELEVÉ(S) DES NOTES DU CYCLE PRÉCÉDENT » le **17 août 2023 à 09:25**, « DECISION : ACCORD » de la session 2023-2024, attestation générée le **6 septembre 2023 à 12:23** — soit après la délibération du jury de SKEMA Business School de juillet 2023.
+2. **Sa propre fiche du cursus ne mentionne aucun redoublement.** « Mon Cursus », consulté le 08/10/2026 : 2022-2023 « **LICENCE OBTENUE** », 2023-2024 « **ANNEE DE CESURE** », statut « Boursier » sur ces deux lignes ; « Non Boursier » sur 2024-2025 et 2025-2026.
+3. **La suppression du 25 septembre 2024 est un message de quatre lignes**, sans signataire, sans visa, sans référence à un texte — c'est l'appui du moyen 1 du recours et de la demande 3° de la lettre.
+4. **La plateforme annualise les pièces, non le droit.** Notification du **14 septembre 2022 à 15:35** : l'attestation de maintien « se délivre, à l'issue de douze (12) mois de perception de bourse, aux étudiants en intra-cycle ayant rempli les conditions de maintien de l'allocation pour l'année N+1 et ne saurait remplacer l'attestation d'attribution de bourse à double signatures, délivrée par la Commission Technique des Bourses » lors d'un changement de cycle.
+
+**Ce qu'ils ne disent pas.** Aucune de ces pages ne vaut décision pédagogique de SKEMA Business School, aucune ne résume une délibération, aucune ne détaille le motif au-delà de la ligne « abs de releve de notes / perception de la bourse » du 25/09/2024. Rien ne doit être extrapolé au-delà des quatre points ci-dessus.

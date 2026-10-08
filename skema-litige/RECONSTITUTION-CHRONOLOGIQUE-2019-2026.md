@@ -163,6 +163,12 @@
 
 ---
 
+- **26/08/2021 → 21/09/2021 — Plateforme eBourse, session 2021-2022 (dossier PNPXWG)** (`skema-litige/pieces/ebourse/`, vue le 08/10/2026) : validation horodatée de l'« ATTESTATION D'INSCRIPTION (APRÈS RÉSULTATS) » (26/08 à 11:41), de la « FACTURE IPESUP » (11:42), du « RELEVÉ DES NOTES DE L'ANNÉE PRÉCÉDENTE (À LA DEMANDE DE L'ANBG) » (11:44), puis de la préinscription pour l'année suivante (21/09 à 06:33) ; « **DECISION : ACCORD** » le 02/11/2021 17:26, attestation générée à 17:31.
+- **10/09/2022 → 14/09/2022 — Plateforme eBourse, session 2022-2023 (dossier LDPMRC)** : quatre pièces validées le 10/09 de 18:05 à 18:07, dont le « RELEVÉ(S) DES NOTES DE(S) ANNÉE(S) PRÉCÉDENTES » ; « **DECISION : MAINTIEN** ». La notification du 14/09 à 15:35 définit le maintien comme une pièce délivrée « à l'issue de douze (12) mois de perception de bourse, aux étudiants **en intra-cycle** », qui « ne saurait remplacer l'attestation d'attribution de bourse à double signatures » — **les pièces sont annualisées, le droit court sur le cycle**.
+- **17/08/2023 — Plateforme eBourse, session 2023-2024 (dossier 2E4C0B)** : validation du « RELEVÉ(S) DES NOTES DU CYCLE PRÉCÉDENT » à 09:25, des préinscriptions à 09:26 puis le 05/09/2023 à 12:00 ; attestation générée le 06/09/2023 à 12:23 ; « **DECISION : ACCORD** ». *Constat : l'Agence a statué **après** la délibération du jury de SKEMA Business School de juillet 2023 et sur production des relevés de la L3.*
+- **25/09/2024 — La notification de suppression, dans son texte entier** : « La Commission Technique de l'Agence Nationale des Bourses du Gabon (ANBG) est au regret de vous annoncer la suppression de votre bourse pour le motif suivant : abs de releve de notes / perception de la bourse. Nous vous remercions d'avoir choisi l'ANBG comme partenaire de vos études. » — **ni signataire, ni visa, ni référence à un texte** sur l'impression (dossier 1LMK24, 16:37).
+- **08/10/2026 01:52 — Fiche « Mon Cursus » du compte 110584Z** : SKEMA Business School 2022-2023 « **LICENCE OBTENUE** » et 2023-2024 « **ANNEE DE CESURE** », statut « Boursier » sur les deux lignes ; 2024-2025 et 2025-2026 « Non Boursier ». **Aucune ligne ne mentionne un redoublement.**
+
 ## 3. TABLEAU DE FINANCEMENT (à faire confirmer par chaque organisme)
 
 Contrat PGE Fall 2022 : frais de scolarité du cycle = **46 000 €**. Déclaration de l'étudiant du 17/01/2025 : engagement de l'État gabonais de régler « **en trois fois** ».

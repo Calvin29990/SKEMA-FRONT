@@ -1,5 +1,5 @@
 # INDEX DES ANNEXES — dossier MINANG 0305476 / ANBG 110584Z
-*État au 7 octobre 2026. Numérotation identique à celle de `RECONSTITUTION-CHRONOLOGIQUE-2019-2026.md`.*
+*État au 8 octobre 2026 (fin). Numérotation identique à celle de `RECONSTITUTION-CHRONOLOGIQUE-2019-2026.md`.*
 
 **Légende des statuts**
 - ✅ **LU** — texte extrait et vérifié à partir de la pièce elle-même (citation possible).
@@ -16,9 +16,25 @@
 | 03 | Attestation de **maintien** de paiement de bourse (C) n° **100326-21-MAINTIEN** | `Attestation.pdf` · Drive › Documents importants › Dossier reconstitution échange | 04/02/2021 | ✅ | Bourse nationale cat. C, CPGE 2 Casablanca, valable jusqu'au 30/09/2021, 165 000 FCFA/mois, signée du DG. Condition rappelée : reconduction N+1 soumise aux résultats annuels + inscription eBourse |
 | 05 | Attestation d'**attribution** de bourse (C) n° **100057-22-ACCORD** | `Attestation d'attribution de bourse.pdf` · même dossier | 02/11/2021 | ✅ | « ANNEE PREPARATOIRE / CPE », établissement **IPESUP**, **1 année du 01/09/2021 au 31/08/2022**, France/Paris ; signées DG + Président de la Commission Technique |
 | 20 | Attestation d'attribution de bourse **MASTER — 2 années, 01/09/2023 → 31/08/2025**, SKEMA | `Attestation%20bourse%20master%20anbg[1].pdf` (9 Ko) · même dossier + capture eBourse | 06/09/2023 | ❌ **priorité absolue** | **Pièce maîtresse.** Le PDF disponible est suspect (9 Ko, extraction en échec). Sans version lisible, la contradiction C3 ne tient pas |
-| 32 | Portail ANBG — validation du document « Recours / preuve validation M1 » | capture eBourse — non retrouvée en fichier autonome | 17/02/2025 | ❌ | La procédure de recours a produit un effet positif écrit |
-| 33 | Portail ANBG — suppression du dossier **1LMK24**, puis rejet « **Parcours insoutenable (art. 4 décret 065)** » | capture eBourse — non retrouvée | 25/09/2024 / 2025 | ❌ | Motif et date exacts de la décision défavorable — à demander à l'ANBG (point 3.b du courrier) |
+| 32 | Portail ANBG — validation du document « Recours / preuve validation M1 » | `impressions-ebourse.pdf` (vue le 08/10/2026) | 17/02/2025 | 🖼️ | La procédure de recours a produit un effet positif écrit |
+| 33 | Portail ANBG — suppression du dossier **1LMK24**, puis rejet « **Parcours insoutenable (art. 4 décret 065)** » | `impressions-ebourse.pdf`, 8ᵉ planche (vue le 08/10/2026) | 25/09/2024 / 2025 | 🖼️ **lue** | Motif et date exacts de la décision défavorable — à demander à l'ANBG (point 3.b du courrier) |
 | 03bis | Attestations ANBG 2019-2022 (`pnpxwg_attestation_bourse.pdf`, `ldpmrc_attestation_prise_en_charge.pdf`) | Drive › Documents importants › 02_Administration › **Gabon** | 2021-2022 | ⚠️ non lu | Continuité de la prise en charge depuis 2019 |
+
+### A bis. Pièce E — les neuf impressions de l'espace étudiant eBourse (consultées le 08/10/2026, entre 01:48:30 et 01:52:27)
+
+Elles sont déposées dans `skema-litige/pieces/ebourse/` sous des noms numérotés de `01` à `09`, dans l'ordre ci-dessous. Le build (`lettre.py`, fonction `plaques_ebourse`) en assemble **une par page au format de la lettre (page en largeur si la capture est horizontale), ajustée dans les marges, sans annotation ni recadrage**, dans `skema-litige/pieces/impressions-ebourse.pdf`, et la cote **E** du bordereau se remplit alors toute seule ; les captures ne sont pas versées au dépôt (poids).
+
+| Ann. | Écran de la plateforme | Date(s) de l'horodatage | Ce qu'il établit |
+|---|---|---|---|
+| 48 | Session **2021-2022 (PNPXWG)** › « Validation document » | 26/08/2021 11:41 · 11:42 · 11:44 ; 21/09/2021 06:33 | Validation de l'« ATTESTATION D'INSCRIPTION (APRÈS RÉSULTATS) », de la « FACTURE IPESUP », du « RELEVÉ DES NOTES DE L'ANNÉE PRÉCÉDENTE (À LA DEMANDE DE L'ANBG) », puis de la « PRÉINSCRIPTION OU ATTESTATION D'INSCRIPTION POUR L'ANNÉE SUIVANTE » |
+| 49 | Session 2021-2022 › « Attribution décision » | 02/11/2021 17:26 | « **DECISION : ACCORD** » ; « La Commission Technique de l'Agence Nationale des Bourses du Gabon (ANBG) a l'honneur de vous compter parmi la famille des étudiants boursiers de l'Etat Gabonais. » |
+| 50 | Session 2021-2022 › « Génération attestation » | 02/11/2021 17:31 | « Veuillez trouver votre attestation de bourse sur votre espace eBourse, garant de la prise en charge financière de l'Etat gabonais pour la pour le [sic] bon déroulement de vos études, en frais de vie, de santé et de scolarité. » |
+| 51 | Session **2022-2023 (LDPMRC)** › « Validation document » | 10/09/2022 18:05 · 18:05 · 18:06 · 18:07 | Quatre pièces validées : préinscription ou attestation d'inscription, relevé d'identité bancaire, facture scolarité, « RELEVÉ(S) DES NOTES DE(S) ANNÉE(S) PRÉCÉDENTES ». **DECISION : MAINTIEN** |
+| 52 | Session 2022-2023 › « Génération attestation » | 14/09/2022 15:35 | Définition du maintien par la plateforme : attestation délivrée « à l'issue de douze (12) mois de perception de bourse, aux étudiants **en intra-cycle** ayant rempli les conditions de maintien de l'allocation pour l'année N+1 », qui « ne saurait remplacer l'attestation d'attribution de bourse à double signatures, délivrée par la Commission Technique des Bourses » lors d'un changement de cycle |
+| 53 | Session **2023-2024 (2E4C0B)** › « Validation document » | 17/08/2023 09:25 · 09:26 ; 05/09/2023 12:00 | Validation du « RELEVÉ(S) DES NOTES DU CYCLE PRÉCÉDENT », **après la délibération du jury de SKEMA Business School de juillet 2023**, puis des préinscriptions. **DECISION : ACCORD** |
+| 54 | Session 2023-2024 › « Génération attestation » | 06/09/2023 12:23 | Attestation correspondant à l'annexe 20 (attribution MASTER couvrant deux années, du 01/09/2023 au 31/08/2025) |
+| 55 | Session **2024-2025 (1LMK24)** › « Attribution décision » | 25/09/2024 16:37 | « **DECISION : SUPPRESSION** » — texte intégral : « La Commission Technique de l'Agence Nationale des Bourses du Gabon (ANBG) est au regret de vous annoncer la suppression de votre bourse pour le motif suivant : abs de releve de notes / perception de la bourse. Nous vous remercions d'avoir choisi l'ANBG comme partenaire de vos études. » **Ni signataire, ni visa, ni référence à un texte** |
+| 56 | « **Mon Cursus** » (compte 110584Z) | consulté le 08/10/2026 01:52:27 | Lignes SKEMA Business School : **2022-2023, 3eme Annee, Résultats « LICENCE OBTENUE », statut « Boursier »** ; **2023-2024, 1ere Annee, « ANNEE DE CESURE », « Boursier »** ; 2024-2025 et 2025-2026 « Non renseigné », statut « Non Boursier ». Ligne IPESUP 2021-2022 : « RÉUSSITE », « Boursier ». **Aucune mention de redoublement sur aucune ligne** |
 
 ## B. Inscription SKEMA, garant, contrat
 
