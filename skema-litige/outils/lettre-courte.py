@@ -52,7 +52,9 @@ CORPS = [
      "ANNEE DE CESURE » pour 2023-2024, avec le statut « Boursier » sur ces deux lignes, et aucune de ces lignes ne mentionne un redoublement."),
 
     ("2° Les deux refus sont fondés sur un texte abrogé, après validation de la pièce réclamée.",
-     "Le 17 février 2025 à 11:06, la plateforme a enregistré la validation du document demandé ; à 11:11, cinq minutes plus tard, le recours a été déclaré irrecevable au motif « PARCOURS "
+     "Le 17 février 2025 à 11:06, la plateforme a enregistré la validation du document demandé "
+     "; à 11:11, cinq minutes plus tard, le recours a été déclaré irrecevable au motif « "
+     "PARCOURS "
      "INSOUTENABLE (ARTICLE 4 DECRET 065) ». L'avis défavorable du 10 novembre 2025 à 15:47, sur "
      "la session 2025-2026, reprend ce motif. Le décret n° 0065/PR/MESRSIT du 12 février 2024 a "
      "pourtant été abrogé par le décret n° 0115/PR/MESRIT du 21 février 2025 (Journal officiel de "
@@ -98,7 +100,8 @@ DEMANDES = [
 FIN = ("Je n'ai sollicité aucune somme pour moi-même et ne conteste aucune décision pédagogique. "
        "Les mesures de maîtrise des coûts annoncées en juillet 2025 portent sur les nouvelles "
        "attributions : ma bourse de l'État gabonais date de 2019 (session 2019-2020, référence "
-       "WEXQTG) et mon cycle du 1er septembre 2022. Chaque point est établi par les pièces cotées A à M, dont le bordereau figure en page 7 du "
+       "WEXQTG) et mon cycle du 1er septembre 2022. Chaque point est établi par les pièces "
+       "cotées A à M, dont le bordereau figure en page 7 du "
        "dossier joint. Je vous prie d'agréer, Mesdames, Messieurs, l'expression de mes "
        "considérations distinguées.")
 
