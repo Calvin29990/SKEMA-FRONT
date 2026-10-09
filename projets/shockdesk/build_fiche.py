@@ -57,6 +57,14 @@ def wrap(segs, size, first_x, cont_x):
     return lines
 
 
+URLS = {
+    "shockdesk.onrender.com": "https://shockdesk.onrender.com",
+    "github.com/Calvin29990/shockdesk": "https://github.com/Calvin29990/shockdesk",
+    "calvin.minang@skema.edu": "mailto:calvin.minang@skema.edu",
+    "linkedin.com/in/calvin-minang": "https://linkedin.com/in/calvin-minang",
+}
+
+
 def line(segs, size=9.2, color=INK, first_x=None, cont_x=None, center=False):
     global t
     first_x = ML if first_x is None else first_x
@@ -72,7 +80,13 @@ def line(segs, size=9.2, color=INK, first_x=None, cont_x=None, center=False):
         for w, f in words:
             c.setFont(f, size)
             c.drawString(x, H - (t + size * BASE), w)
-            x += stringWidth(w, f, size) + stringWidth(" ", REG, size)
+            ww = stringWidth(w, f, size)
+            for key, url in URLS.items():
+                if key in w:
+                    c.linkURL(url, (x, H - (t + size), x + ww, H - t + size * 0.3),
+                              relative=0, thickness=0)
+                    break
+            x += ww + stringWidth(" ", REG, size)
         t += LEAD
 
 
