@@ -6,6 +6,16 @@
 
 ## 🟢 ENCORE JOUABLE (pas de blacklist)
 
+### CACEIS Luxembourg — Stage Asset Servicing (6 mois, janv. 2027) ⭐ PREMIER ENTRETIEN
+- **Statut** : 🎉 **ENTRETIEN DÉCROCHÉ** avec Juliana Almeida (Group Campus Manager – RH) — ven. 16/10/2026, 10h00–10h30 (à revérifier sur l'invitation)
+- **Préparation** : `entretien/FICHE-ENTRETIEN-CACEIS-2026-10.md` (pitch 90 s, questions classiques, questions à poser, point permis de travail LU)
+- **Action** : ✅ Revérifier créneau · relire la fiche · mail de remercième dans les 24 h après
+
+### BNP CIB — Stage Front Office (vente/structuration, janv. 2027) via Wiam Qadouri
+- **Statut** : Mail 2 parties + CV ShockDesk + fiche envoyés (9/10) — en attente de rappel / démo 15 min
+- **Créneaux proposés** : mar. 13/10 15h00 · mer. 14/10 9h30 · ven. 16/10 10h30
+- **Action** : ⏳ Relance J+3 (mar. 13/10) si silence · script démo dans `candidatures/STRATEGIE-BNP-SHOCKDESK-DEMO.md`
+
 ### HSBC — Stage Origination & Structuration (fin/d)
 - **Statut** : Application reçue, tests à venir
 - **Deadline** : À recevoir (7 jours après réception)
