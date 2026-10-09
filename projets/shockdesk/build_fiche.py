@@ -59,7 +59,6 @@ def wrap(segs, size, first_x, cont_x):
 
 URLS = {
     "shockdesk.onrender.com": "https://shockdesk.onrender.com",
-    "github.com/Calvin29990/shockdesk": "https://github.com/Calvin29990/shockdesk",
     "calvin.minang@skema.edu": "mailto:calvin.minang@skema.edu",
     "linkedin.com/in/calvin-minang": "https://linkedin.com/in/calvin-minang",
 }
@@ -118,7 +117,7 @@ t = 60.9
 line([("Poste de trading & stress-testing — Fiche projet | Calvin MINANG", BLD)],
      size=9.8, color=INK, center=True)
 t = 75.9
-line([("Démo live : shockdesk.onrender.com | github.com/Calvin29990/shockdesk | calvin.minang@skema.edu", REG)],
+line([("Démo live : shockdesk.onrender.com | calvin.minang@skema.edu | +33 7 52 97 58 09", REG)],
      size=9.1, color=INK, center=True)
 
 # --------------------------------------------------------------- en une ------
@@ -165,9 +164,10 @@ bullet([("Le book ShockLab et ses chargements factoriels (SPX, OIL, RATES, GOLD,
 section("ACCÈS & SUIVI")
 bullet([("Démo live de 15 minutes possible (shockdesk.onrender.com) : le book choc pétrolier rejoué en direct, "
          "de la prévision publiée à l'attribution du P&L.", REG)])
-bullet([("Code source : github.com/Calvin29990/shockdesk (README, ROADMAP, journal de recherche).", REG)])
-bullet([("Support de formation complet disponible sur demande : « ShockDesk — Cours pratique des concepts de desk », "
-         "57 pages, 19 modules, 10 ateliers.", REG)])
+bullet([("Fonctionnalités démontrées en direct : publication du scénario, backtest avec coûts, "
+         "attribution du P&L ligne par ligne, passage prévision → structure.", REG)])
+bullet([("Je joins volontiers le support de formation « ShockDesk — Cours pratique des concepts de "
+         "desk » (57 pages, 19 modules, 10 ateliers) pour aller plus loin.", REG)])
 
 # ------------------------------------------------------------- footer ------
 # bandeau navy en bas de page (identité visuelle du portfolio)
@@ -179,11 +179,11 @@ c.setFont(BLD, 9.2)
 c.drawString(ML, H - band_top - 15.0, "Calvin MINANG — Stage Front Office (Vente / Structuration), janv. 2027")
 c.setFont(REG, 8.6)
 c.drawString(ML, H - band_top - 28.5,
-             "calvin.minang@skema.edu · +33 7 52 97 58 09 · linkedin.com/in/calvin-minang · github.com/Calvin29990")
+             "calvin.minang@skema.edu · +33 7 52 97 58 09 · linkedin.com/in/calvin-minang")
 c.setFont(BLD, 8.6)
 c.drawRightString(RIGHT, H - band_top - 15.0, "Démo 15 min : shockdesk.onrender.com")
 c.setFont(REG, 8.6)
-c.drawRightString(RIGHT, H - band_top - 28.5, "Cours complet (57 p.) sur demande")
+c.drawRightString(RIGHT, H - band_top - 28.5, "Support de formation (57 p.) joint si utile")
 
 print("bas de la dernière ligne : %.1f pt (limite utile ~ 801.9)" % t)
 c.showPage()
