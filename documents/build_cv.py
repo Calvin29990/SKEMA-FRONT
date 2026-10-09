@@ -205,7 +205,8 @@ def formation(d):
     d.entry("Ipesup — Classe préparatoire aux grandes écoles de commerce (CPGE)", "08/2021 – 08/2022")
     d.bullet([("Concours BCE :", BLD, None),
               (" dissertation culture générale 17/20 · mathématiques 2 16/20 · "
-               "dissertation ESH 2022 18/20 · épreuve d'entretien SKEMA 19/20", REG, None)])
+               "dissertation Ecricome 2022 « Peut-on ne rien aimer ? » 18/20 · "
+               "entretien de motivation SKEMA 19/20", REG, None)])
 
 
 def experience(d):
