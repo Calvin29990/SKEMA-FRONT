@@ -1,6 +1,22 @@
 # LINKEDIN — Axes d'amélioration & textes prêts à coller
 _9 oct. 2026 · Verdict : **ne pas le laisser tel quel** — 2 correctifs rouges, 2 oranges, le reste est bon._
 
+## ✅ GRILLE D'ALIGNEMENT PROFIL ↔ CV (à reprendre bloc par bloc)
+| Bloc LinkedIn | État (profil du 9/10) | Doit dire (comme les CV) | Priorité |
+|---|---|---|---|
+| Headline | « Global Markets Sales \| FX, Rates & Equities » | ✅ OK — option : ajouter « BMC · Disponible janv. 2027 » | 🟡 |
+| À propos | Parcours + LatAm — **pas de BMC, pas de CFA, pas de ShockDesk** | Texte §A ci-dessous (BMC + ICAN/CFA Level I + ShockDesk + démo) | 🔴 |
+| Projets | CalvinX + Greeks au max (ShockDesk **absent**) | Ajouter l'entrée ShockDesk §B (démo uniquement, **jamais le GitHub privé**) | 🔴 |
+| Compétences affichées | « Produits dérivés **(basiques)** » en tête | Retirer « basiques » ; ordre : Marchés financiers · Modélisation financiera · Produits dérivés | 🟠 |
+| Sélection (Featured) | 1 seul fichier (portfolio) | 1. Fiche projet · 2. Certificat BMC · 3. Portfolio · 4. Lien démo | 🟠 |
+| Licenses | BMC ✓ (oct. 2026) + QuantInsti ✓ | ✅ OK — pas de FRM : parfait, on garde CFA dans l'À propos | ✅ |
+| Formation Ipesup | « 18 en dissertation de Culture Générale Ecricome 2022 « Peut-on ne rien aimer ? » » | ✅ OK — **c'est la source qui a corrigé les CV** | ✅ |
+| Expérience | Chiffres (537 fiches, 103 Md€, 19 100 €) | ✅ OK — alignés | ✅ |
+| Posts | BMC ✓, choc pétrolier ✓ (excellent) — anciens posts avec #FRM | Éditer #FRM → #CFA si tu veux la cohérence CFA-only | 🟡 |
+
+**Rappel** : LinkedIn bloque le scraping (403) — cette grille est bâtie sur le profil collé le
+9/10. Si tu as déjà appliqué des correctifs, dis-le-moi et je mets la grille à jour.
+
 ## 🔴 Correctifs prioritaires
 
 ### 1. ShockDesk est absent de la section Projets (et de l'À propos)
