@@ -15,7 +15,8 @@
 | `exercices/` | Exercices Excel, CFP, comptabilité | Pratique cours |
 | `entretien/` | Questions entretien, fiches, guides (Jane Street, Optiver) | Préparation entretiens banques |
 | `livres/` | 35+ livres de finance (options, quant, fixed income...) | Recherche, approfondissement |
-| `documents/` | CV, Portfolio, conventions de stage, LinkedIn | Candidatures, admin |
+| `documents/` | CV (général + ShockDesk), Portfolio, certificats, conventions de stage, LinkedIn | Candidatures, admin |
+| `projets/` | **Artefacts projets marché** (ShockDesk : fiche projet, démo HTML, cours 57 p.) | Pitches, démos, preuves |
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
@@ -23,7 +24,13 @@
 
 ---
 
-## 🔥 PRIORITÉS ACTUELLES (30/09/2026)
+## 🔥 PRIORITÉS ACTUELLES (09/10/2026)
+
+### 0. BNP CIB — Envoi Wiam Qadouri (AUJOURD'HUI, promis « fin de matinée »)
+- **Mail prêt** : `candidatures/MAIL-BNP-WIAM-2026-10-09.md` (2 parties : ce que j'apporte / ce que j'attends du desk + offre démo 15 min)
+- **Stratégie + script démo** : `candidatures/STRATEGIE-BNP-SHOCKDESK-DEMO.md`
+- **Pièces jointes** : CV ShockDesk (1 p.) + Portfolio (3 p.) + Fiche projet (1 p.) — cours 57 p. sur demande
+- **CV différent centré uniquement ShockDesk** : `documents/CV_Calvin_MINANG_ShockDesk.pdf` (régénérable : `documents/build_cv.py`)
 
 ### 1. SKEMA — Dispute financière (URGENT)
 - **Fichier** : `SKEMA-DOSSIER-ARCHIVE.md`
@@ -103,9 +110,15 @@ Math : *Matrix Cookbook*, *Arbitrage-free smoothing implied volatility surface*
 |---|---|
 | `SKEMA-DOSSIER-ARCHIVE.md` | TOUT le dossier SKEMA (argument, preuves, stratégie, contacts) |
 | `candidatures/TRACKING-CANDIDATURES-2026-2027.md` | Audit candidatures (blacklist, retake policies) |
+| `candidatures/MAIL-BNP-WIAM-2026-10-09.md` | Mail 2 parties prêt à envoyer à Wiam (BNP) + liste PJ |
+| `candidatures/STRATEGIE-BNP-SHOCKDESK-DEMO.md` | Stratégie approche BNP : package, séquence, script démo 15 min |
 | `bnp-training/index.html` | Clone plateforme BNP Maki (test 7-9 octobre) |
-| `documents/CV_Calvin_MINANG.pdf` | CV à jour |
-| `documents/Portfolio_Calvin_MINANG.pdf` | Portfolio |
+| `documents/CV_Calvin_MINANG.pdf` | CV général (BMC + ShockDesk ajoutés) |
+| `documents/CV_Calvin_MINANG_ShockDesk.pdf` | **CV différent, 100 % ShockDesk** — pièce maîtresse de l'envoi BNP |
+| `documents/Portfolio_Calvin_MINANG.pdf` | Portfolio 3 pages (aussi sur LinkedIn) |
+| `documents/Certificat-BMC-Bloomberg-Market-Concepts.pdf` | Preuve BMC (Bloomberg for Education, 2026) |
+| `projets/shockdesk/FICHE-PROJET-ShockDesk.pdf` | Fiche 1 p. — format court à envoyer (au lieu des 57 p.) |
+| `projets/shockdesk/cours-shockdesk.pdf` | Cours ShockDesk complet (57 p.) — « sur demande » |
 
 ---
 
