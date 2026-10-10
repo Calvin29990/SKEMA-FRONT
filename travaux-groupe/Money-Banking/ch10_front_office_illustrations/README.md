@@ -2,7 +2,7 @@
 
 Ce dossier rassemble **huit illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; les quatre dernières sont des graphiques de données. La recommandation finale est désormais d’utiliser **05 pour la slide 9** et **08 pour la slide 10**. Les visuels 06 et 07 restent des fichiers de réserve, mais le panneau CDS à cinq banques n’est pas retenu pour le deck final. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
 
-> **Statut :** options de travail à sélectionner avant la création du PowerPoint final. Le deck des slides 9–10 n’est pas encore généré.
+> **Statut :** le dossier contient les deux visuels retenus et un [document Word éditable de deux pages](CH10_slides_9_10_editable.docx), prêt à être intégré au travail du groupe. Les titres, messages et notes du document Word sont modifiables ; les graphiques y sont insérés comme images remplaçables.
 
 ## Vue d’ensemble
 
@@ -12,10 +12,10 @@ Ce dossier rassemble **huit illustrations candidates** pour les slides 9–10 du
 | [02 — cash-flow et loss waterfalls](output/02_cashflow_and_loss_waterfalls.png) | Priorité des paiements et ordre inverse d’absorption des pertes | Slide 9 : rendre le tranching et la waterfall concrets |
 | [03 — cash-flows et protection d’un CDS](output/03_cds_cashflows_and_protection.png) | Prime, événement de crédit, recovery, LGD et paiement contingent | Slide 10 : transfert et couverture du risque de crédit |
 | [04 — crise, stress de liquidité et réponse prudentielle](output/04_crisis_to_basel_timeline.png) | Faiblesse d’origination → complexité → levier → défauts → liquidité/contagion → Basel | Slide 10 : relier le front office à la crise et à la régulation |
-| [05 — croissance du subprime : graphique combiné](output/05_subprime_growth_combo_chart.png) | Barres = volume annuel ; courbe = part des nouvelles origines hypothécaires | Slide 9 : montrer la croissance du marché sans schéma en cubes |
+| [05 — securitization fuels the growth of subprime lending](output/05_subprime_growth_combo_chart.png) | Barres = volume annuel ; courbe = part des nouvelles origines hypothécaires | Slide 9 : montrer la croissance du marché sans schéma en cubes |
 | [06 — cinq banques, spreads CDS et run de 2008](output/06_bank_cds_spreads_and_funding_stress.png) | Cinq lignes colorées, événements fléchés et niveaux clés de Goldman, Morgan Stanley, Merrill, Lehman et Bear | Réserve uniquement : trop dense pour le deck final |
 | [07 — de l’origination au repricing de marché](output/07_ch10_core_credit_to_market_risk.png) | Ancien visuel combiné : expansion du crédit subprime puis repricing CDS des cinq banques | Réserve de travail, non retenue |
-| [08 — prix immobiliers et défauts subprime](output/08_house_prices_and_subprime_delinquencies.png) | Indice national des prix immobiliers américains et jalons de serious delinquency des prêts subprime | **Slide 10 : recommandation finale** |
+| [08 — housing prices fall, mortgage losses rise](output/08_house_prices_and_subprime_delinquencies.png) | Indice national des prix immobiliers américains et jalons de serious delinquency des prêts subprime | **Slide 10 : recommandation finale** |
 
 Les huit fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
 
@@ -85,7 +85,7 @@ La bande réglementaire met en regard **Basel I**, **Basel II**, **Basel III** e
 
 **Pourquoi elle est pertinente pour la slide 10 :** elle relie l’activité de structuration et de distribution aux conséquences de marché, au risque systémique et aux réponses prudentielles. C’est l’option la plus adaptée si la slide 10 doit faire le lien avec la crise de 2008 et la régulation contemporaine.
 
-## 05 — Growth of subprime mortgage lending
+## 05 — Securitization fuels the growth of subprime lending
 
 ![Illustration 5 — graphique combiné de la croissance du subprime](output/05_subprime_growth_combo_chart.png)
 
@@ -148,7 +148,7 @@ Le graphique ne dit pas que la croissance du subprime est, à elle seule, une pr
 
 **Sources :** Panel 1 — Ashcraft & Schuermann, Federal Reserve Bank of New York Staff Report 318 (2008), Table 1 ; Panel 2 — Flannery, Houston & Partnoy, University of Pennsylvania Law Review (2010), Table 2 ; données Markit. Un spread CDS est un prix de protection de crédit et non automatiquement une probabilité de défaut.
 
-## 08 — House prices and subprime serious delinquencies
+## 08 — Housing prices fall, mortgage losses rise
 
 ![Illustration 8 — prix immobiliers et serious delinquencies subprime](output/08_house_prices_and_subprime_delinquencies.png)
 
@@ -161,7 +161,7 @@ Ce graphique est le visuel recommandé pour la **slide 10**. Il remplace le pann
 
 La définition est explicite : *serious delinquency* signifie un prêt avec **au moins 90 jours de retard ou en procédure de foreclosure**. Le graphique ne fabrique pas une série mensuelle à partir de quelques observations : les trois points de la courbe bordeaux sont des repères publiés — environ **5,6 % mi-2005**, **11 % en mai 2007** et **plus de 21 % en juillet 2008** — et la note de bas de page les présente comme tels.
 
-Le message n’est pas une preuve de causalité unique. La baisse des prix a réduit la valeur nette des emprunteurs et leurs possibilités de refinancement, mais les *rate resets*, la qualité de l’underwriting, le levier, les chocs de revenus, les conditions de liquidité et les incitations de la chaîne de titrisation sont également à discuter.
+Le bandeau inférieur fait explicitement le pont avec la titrisation : les défauts hypothécaires entraînent des pertes sur les **mortgage-backed securities (MBS)** détenus dans l’ensemble du système financier. Le message n’est pas une preuve de causalité unique. La baisse des prix a réduit la valeur nette des emprunteurs et leurs possibilités de refinancement, mais les *rate resets*, la qualité de l’underwriting, le levier, les chocs de revenus, les conditions de liquidité et les incitations de la chaîne de titrisation sont également à discuter.
 
 **Sources des données :**
 

@@ -250,8 +250,8 @@ def illustration_4():
 def illustration_5():
     """Create a simple volume-plus-share chart in the style of the user's reference."""
     fig, ax = setup(
-        "05  ·  Growth of subprime mortgage lending",
-        "Bars show annual originations; the line shows subprime originations as a share of all mortgage originations.",
+        "05  ·  Securitization fuels the growth of subprime lending",
+        "As credit becomes scalable and distributable, subprime originations expand in volume and share.",
     )
 
     # Same-source, directly reported figures from Table 1 of the NY Fed staff report.
@@ -615,8 +615,8 @@ def illustration_7():
 def illustration_8():
     """Create the housing-price / subprime-delinquency chart for slide 10."""
     fig, ax = setup(
-        "08  ·  House prices fall, serious subprime delinquencies rise",
-        "The housing-market channel: less borrower equity and less refinancing capacity turn credit stress into mortgage losses.",
+        "08  ·  Housing prices fall, mortgage losses rise",
+        "The housing downturn weakens borrower equity and refinancing capacity before mortgage losses spread through the system.",
     )
 
     # S&P/Case-Shiller national HPI: July observations, Jan 2000 = 100.
@@ -727,8 +727,8 @@ def illustration_8():
                                 facecolor=PALE_GOLD, edgecolor="#F0D99A", linewidth=0.9))
     ax.text(8.00, 1.27, "HOUSE PRICES ↓  →  BORROWER EQUITY ↓  →  REFINANCING HARDER  →  DELINQUENCIES ↑",
             fontsize=9.0, color=NAVY, weight="bold", ha="center")
-    ax.text(8.00, 1.04, "The housing-market channel behind the losses on mortgage-backed assets.",
-            fontsize=7.8, color=MUTED, ha="center")
+    ax.text(8.00, 1.04, "Falling house prices increased mortgage defaults → losses on MBS held throughout the financial system.",
+            fontsize=7.6, color=MUTED, ha="center")
 
     footer(ax, "House prices: S&P/Case-Shiller U.S. National HPI, FRED series CSUSHPINSA, July observations. Delinquencies: Federal Reserve FEDS 2008-59, FEDS 2008-63 and May 2007 speech; serious delinquency = 90+ days past due or foreclosure. Milestones, not a full monthly series.")
     save(fig, "08_house_prices_and_subprime_delinquencies.png")
