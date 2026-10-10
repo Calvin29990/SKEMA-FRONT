@@ -19,7 +19,9 @@ Juan reste responsable de **Part 2**. Calvin l'aide avec la sous-partie **CIB �
 - expliquer le rôle de CIB dans une banque universelle ;
 - présenter les clients et les besoins couverts ;
 - vérifier Global Banking, Global Markets et Securities Services ;
-- préparer 1 à 2 slides et environ 90 secondes de pitch ;
+- préparer une slide de comparaison France (BNP Paribas CIB vs CACIB) et une slide de cas Luxembourg (BNP local vs CACEIS local) ;
+- ajouter environ 90 secondes de pitch ;
+- vérifier le périmètre juridique exact des entités luxembourgeoises ;
 - envoyer les slides et les sources à Juan pour intégration.
 
 Ne pas empiéter sur la Part 3 de Manal consacrée aux activités internationales. Si Juan n'a finalement pas besoin de la sous-partie CIB, alternative propre : vérifier `1.3 Funding Structure` et préparer la slide sur la pertinence contemporaine / les risques de levier bancaire, sans réécrire la partie 1 de Meng et Jules. Voir `CIB-NOTES.md` pour le détail.

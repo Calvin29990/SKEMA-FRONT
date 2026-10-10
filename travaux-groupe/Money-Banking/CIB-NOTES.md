@@ -72,7 +72,18 @@ La phrase à retenir : **CIB ne vend pas seulement des produits ; elle organise 
 
 La logique de la banque universelle est de proposer plusieurs services au même écosystème de clients, tout en diversifiant les sources de revenus. Cette diversification ne supprime pas le risque : elle le répartit et crée aussi des interdépendances.
 
-## 7. Proposition de deux slides
+## 7. Benchmark à deux niveaux proposé
+
+Pour rendre la sous-partie non redondante :
+
+- **France :** BNP Paribas CIB France vs Crédit Agricole CIB France (CACIB), comparaison homogène ;
+- **Luxembourg :** entité BNP Paribas locale vs entité CACEIS locale, comparaison de fonctions et de business models.
+
+Le benchmark France peut prendre une slide de comparaison ; le cas Luxembourg une slide complémentaire. Avant d'ajouter des chiffres, identifier le nom juridique exact des entités luxembourgeoises et utiliser le même périmètre et la même année.
+
+Ne pas comparer directement les actifs du groupe BNP Paribas avec ceux d'une entité CACEIS locale. Ne pas utiliser de données confidentielles issues d'un entretien.
+
+## 8. Proposition de deux slides
 
 ### Slide 6 — What is CIB?
 
@@ -93,15 +104,15 @@ La logique de la banque universelle est de proposer plusieurs services au même 
 
 **Takeaway:** the value of CIB comes from combining financing, market access, liquidity and risk management for sophisticated clients.
 
-## 8. Short oral script — approximately 90 seconds
+## 9. Short oral script — approximately 90 seconds
 
 > Corporate and Institutional Banking, or CIB, is the part of a universal bank that serves large companies, financial institutions and institutional investors. Its role is to connect these clients to financing and capital markets. At BNP Paribas, the CIB model can be understood through three complementary activities: Global Banking, which provides loans, structured finance and capital-raising solutions; Global Markets, which gives clients access to rates, foreign exchange, credit, equities and derivatives; and Securities Services, which provides custody, clearing and asset-servicing infrastructure. CIB is important because clients do not only need money: they also need liquidity, market access and protection against financial risks. It therefore connects BNP Paribas to the real economy while generating interest income, fees and market-related revenues.
 
-## 9. À envoyer à Juan
+## 10. À envoyer à Juan
 
 > Juan, since you are leading Part 2, I can prepare the CIB subsection for you: definition, clients, Global Banking, Global Markets and Securities Services, plus two slides and a short speaking note. I will avoid duplicating Manal's Part 3 on international activities. Please confirm the number of slides and the source format you want in the final report.
 
-## 10. Vérifications avant intégration
+## 11. Vérifications avant intégration
 
 - [ ] Confirm the official BNP names and scope of CPBS/CIB/IPS.
 - [ ] Add one primary source for the organization and one source for any financial figure.

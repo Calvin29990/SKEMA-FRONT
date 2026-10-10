@@ -9,6 +9,39 @@ BNP Paribas doit rester le **cas principal** du devoir. Un benchmark peut enrich
 - **BNP Paribas Securities Services vs CACEIS Luxembourg** : comparaison plus homogène si l'objectif est l'asset servicing.
 - **BNP Paribas CIB vs CACEIS Luxembourg** : possible comme contraste de modèles dans la chaîne de valeur institutionnelle, mais il faut le présenter comme un *business-model contrast*, pas comme une comparaison de taille.
 
+## Plan recommandé — deux niveaux, sans redondance
+
+L'idée affinée est meilleure que la comparaison directe BNP/CACEIS :
+
+### Niveau 1 — France : comparaison homogène
+
+**BNP Paribas CIB France vs Crédit Agricole CIB France (CACIB)**
+
+- même pays ;
+- clients corporate et institutionnels comparables ;
+- Global Banking, Global Markets, financement, advisory et hedging ;
+- comparaison académique des business lines et du modèle de revenus.
+
+### Niveau 2 — Luxembourg : comparaison locale de modèles
+
+**Entité BNP Paribas au Luxembourg vs entité CACEIS au Luxembourg**
+
+- même pays et même écosystème financier ;
+- BNP : périmètre exact à identifier (BNP Paribas Luxembourg, BGL BNP Paribas ou entité Securities Services) ;
+- CACEIS : périmètre exact à identifier ;
+- comparaison des fonctions, clients, services et place dans la chaîne de valeur, **pas des actifs totaux du groupe**.
+
+Luxembourg est un choix pertinent pour un cas de finance transfrontalière et d'asset servicing, mais il faut éviter l'expression « BNP France vs CACEIS Luxembourg » : elle mélange un groupe/périmètre national avec une entité locale.
+
+### Structure conseillée pour le rendu
+
+1. BNP Paribas : cas principal et taille du groupe — Part 1.
+2. France : BNP Paribas CIB vs CACIB — Part 2, comparaison homogène.
+3. Luxembourg : BNP local vs CACEIS local — une slide de cas complémentaire, sans refaire l'analyse géographique de Manal.
+4. Conclusion : même univers financier, deux lectures — peer comparison en France et contraste de business models au Luxembourg.
+
+**Recommandation :** valider ce plan à deux niveaux avec Juan et Manal. Calvin peut préparer le benchmark CIB France et la slide Luxembourg, puis Juan intègre la sous-partie à la Part 2.
+
 ## Trois options à soumettre au groupe
 
 ### Option A — benchmark académique strict
@@ -72,12 +105,13 @@ Les chiffres et les noms exacts des divisions doivent être vérifiés dans les 
 
 ## Message WhatsApp pour demander l'aval
 
-> Hi guys, I have a proposal to make Part 2 more interesting while keeping BNP Paribas as the main case. Since I am also preparing for a CACEIS Luxembourg interview, I was thinking about adding a short benchmark on institutional banking.
+> Hi guys, I refined the comparison idea so that the work is more interesting without repeating anyone’s section.
 >
-> We have three possible options:
+> I suggest using two complementary levels:
 >
-> 1. BNP Paribas CIB vs Crédit Agricole CIB (CACIB) — the most comparable academic benchmark;
-> 2. BNP Paribas CIB vs CACEIS Luxembourg — a contrast between corporate/investment banking and asset servicing;
-> 3. My preferred option: keep BNP as the main case and add one slide comparing the roles of BNP Paribas CIB and CACEIS Luxembourg in the financial value chain.
+> 1. **France:** compare BNP Paribas CIB France with Crédit Agricole CIB France (CACIB). This is an academically comparable peer comparison because the country, clients and corporate/investment-banking perimeter are similar.
+> 2. **Luxembourg:** compare the relevant BNP Paribas entity in Luxembourg with the relevant CACEIS entity in Luxembourg. This would be a local business-model case, focusing on clients, services and the role in the financial value chain rather than total assets.
 >
-> I would cover the CIB part and prepare the comparison with public information only. I would not compare total assets directly because the business models and legal perimeters are different. Juan, since you are leading Part 2, would this fit the outline? Could everyone confirm which option you prefer before I start?
+> This would give us a non-redundant structure: a like-for-like comparison in France and a local contrast between corporate/investment banking and asset servicing in Luxembourg. BNP Paribas would remain the main case.
+>
+> I can prepare the CIB France comparison and the Luxembourg slide using public information only, then send them to Juan for integration into Part 2. Before I start, could Juan and Manal confirm that this does not overlap with Parts 2 and 3, and could everyone approve the two-level plan?
