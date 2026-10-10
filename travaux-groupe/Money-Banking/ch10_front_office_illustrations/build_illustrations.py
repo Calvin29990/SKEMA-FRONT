@@ -251,7 +251,7 @@ def illustration_5():
     """Create a simple volume-plus-share chart in the style of the user's reference."""
     fig, ax = setup(
         "05  ·  Securitization fuels the growth of subprime lending",
-        "As credit becomes scalable and distributable, subprime originations expand in volume and share.",
+        "Through securitization, banks were able to originate and distribute a growing volume of mortgage loans, including riskier subprime mortgages.",
     )
 
     # Same-source, directly reported figures from Table 1 of the NY Fed staff report.
@@ -309,12 +309,21 @@ def illustration_5():
     chart.legend(handles, labels, loc="upper left", bbox_to_anchor=(0.01, 0.99),
                  frameon=False, fontsize=8.3, handlelength=2.4)
 
+    # A deliberately small channel diagram makes the securitization mechanism
+    # visible without turning the data chart into a process diagram.
+    ax.add_patch(FancyBboxPatch((12.38, 6.18), 2.82, 0.98,
+                                boxstyle="round,pad=0.02,rounding_size=0.08",
+                                facecolor=PALE_TEAL, edgecolor="#B9E2DE", linewidth=0.9))
+    ax.text(12.58, 6.88, "SECURITIZATION CHANNEL", fontsize=6.9, color=TEAL, weight="bold")
+    ax.text(12.58, 6.53, "Bank  →  Mortgages  →  SPV  →  MBS  →  Investors",
+            fontsize=6.8, color=NAVY, weight="bold")
+
     # One short reading panel replaces the previous block diagrams with an explicit
     # market message: scale increases, but a chart is not a causal proof by itself.
     ax.add_patch(FancyBboxPatch((12.55, 1.42), 2.55, 4.62,
                                 boxstyle="round,pad=0.02,rounding_size=0.10",
                                 facecolor=WHITE, edgecolor=LINE, linewidth=1))
-    ax.text(12.82, 5.67, "WHAT THIS SHOWS", fontsize=9.5, color=TEAL, weight="bold")
+    ax.text(12.82, 5.67, "KEY IMPLICATIONS", fontsize=9.5, color=TEAL, weight="bold")
     ax.text(12.82, 5.22, "1", fontsize=15, color=GOLD, weight="bold")
     ax.text(13.17, 5.28, "Volume rises", fontsize=10.2, color=NAVY, weight="bold")
     ax.text(13.17, 4.91, "$190bn → $625bn\nfrom 2001 to 2005", fontsize=8.6, color=INK, linespacing=1.25)
@@ -630,7 +639,7 @@ def illustration_8():
     delinquency_dates = [datetime(2005, 6, 1), datetime(2007, 5, 17), datetime(2008, 7, 1)]
     delinquency_values = [5.6, 11.0, 21.0]
 
-    chart = fig.add_axes([0.095, 0.19, 0.78, 0.61], facecolor=WHITE)
+    chart = fig.add_axes([0.095, 0.19, 0.62, 0.61], facecolor=WHITE)
     delinquency_axis = chart.twinx()
     chart.set_axisbelow(True)
     chart.grid(axis="y", color=LINE, linewidth=0.8)
@@ -677,8 +686,8 @@ def illustration_8():
     chart.axhline(100, color=LINE, linewidth=0.9, linestyle=(0, (2, 3)), zorder=1)
     chart.text(datetime(2000, 2, 1), 101.8, "Jan 2000 = 100", fontsize=7.8,
                color=MUTED, va="bottom")
-    chart.text(datetime(2006, 11, 1), 195.5, "Housing peak → equity cushion weakens",
-               fontsize=8.5, color=GOLD, weight="bold", ha="center")
+    chart.text(datetime(2007, 6, 1), 195.5, "2007 slowdown",
+               fontsize=8.4, color=GOLD, weight="bold", ha="center")
 
     chart.annotate(
         "HPI peak: 184.6\nJuly 2006",
@@ -722,13 +731,35 @@ def illustration_8():
                  loc="upper left", bbox_to_anchor=(0.01, 0.99), frameon=False,
                  fontsize=8.4, handlelength=2.5)
 
+    # The right-hand card makes the bridge from household defaults to the
+    # securitized products held by banks and investors explicit.
+    ax.add_patch(FancyBboxPatch((11.95, 3.28), 3.35, 2.72,
+                                boxstyle="round,pad=0.02,rounding_size=0.10",
+                                facecolor=WHITE, edgecolor=LINE, linewidth=1.0))
+    ax.add_patch(Rectangle((11.95, 3.28), 0.09, 2.72, facecolor=MAGENTA,
+                           edgecolor=MAGENTA, linewidth=0))
+    ax.text(12.24, 5.66, "IMPACT ON SECURITIZED PRODUCTS", fontsize=8.6,
+            color=NAVY, weight="bold")
+    impact_lines = [
+        "Mortgage defaults increased",
+        "Cash flows to MBS investors weakened",
+        "MBS valuations declined",
+        "Losses spread through the financial system",
+    ]
+    for i, line in enumerate(impact_lines, start=1):
+        y = 5.17 - (i - 1) * 0.43
+        ax.text(12.24, y, str(i), fontsize=10.5, color=GOLD, weight="bold", va="center")
+        ax.text(12.56, y, line, fontsize=8.25, color=INK, va="center")
+    ax.text(12.24, 3.52, "LEHMAN BROTHERS  ·  SEPTEMBER 2008", fontsize=7.3,
+            color=GOLD, weight="bold")
+
     ax.add_patch(FancyBboxPatch((1.10, 0.84), 13.80, 0.60,
                                 boxstyle="round,pad=0.02,rounding_size=0.08",
                                 facecolor=PALE_GOLD, edgecolor="#F0D99A", linewidth=0.9))
-    ax.text(8.00, 1.27, "HOUSE PRICES ↓  →  BORROWER EQUITY ↓  →  REFINANCING HARDER  →  DELINQUENCIES ↑",
+    ax.text(8.00, 1.27, "HOUSE PRICES ↓  →  DEFAULTS ↑  →  MBS LOSSES ↑  →  FINANCIAL CRISIS ↑",
             fontsize=9.0, color=NAVY, weight="bold", ha="center")
-    ax.text(8.00, 1.04, "Falling house prices increased mortgage defaults → losses on MBS held throughout the financial system.",
-            fontsize=7.6, color=MUTED, ha="center")
+    ax.text(8.00, 1.04, "Falling house prices increased mortgage defaults, leading to losses on mortgage-backed securities held throughout the financial system.",
+            fontsize=7.25, color=MUTED, ha="center")
 
     footer(ax, "House prices: S&P/Case-Shiller U.S. National HPI, FRED series CSUSHPINSA, July observations. Delinquencies: Federal Reserve FEDS 2008-59, FEDS 2008-63 and May 2007 speech; serious delinquency = 90+ days past due or foreclosure. Milestones, not a full monthly series.")
     save(fig, "08_house_prices_and_subprime_delinquencies.png")

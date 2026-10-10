@@ -89,7 +89,7 @@ La bande réglementaire met en regard **Basel I**, **Basel II**, **Basel III** e
 
 ![Illustration 5 — graphique combiné de la croissance du subprime](output/05_subprime_growth_combo_chart.png)
 
-Ce graphique reprend la logique du modèle fourni :
+Ce graphique reprend la logique du modèle fourni et rend désormais la titrisation visible dès la slide : le petit bandeau **Bank → Mortgages → SPV → MBS → Investors** rappelle le canal de distribution du crédit. Le panneau latéral est intitulé **Key implications**.
 
 - les **barres orange** montrent le volume annuel de nouvelles origines subprime, en **milliards de dollars** ;
 - la **courbe bordeaux** montre la part des origines subprime dans l’ensemble des origines hypothécaires ;
@@ -97,7 +97,7 @@ Ce graphique reprend la logique du modèle fourni :
 
 La série est volontairement limitée à **2001–2006**, période pour laquelle une définition homogène et une table chiffrée sont disponibles dans la source retenue. Les volumes sont : **$190bn, $231bn, $335bn, $540bn, $625bn et $600bn**. La part est calculée à partir de la même table : subprime / (subprime + Alt-A + jumbo + agency), soit environ **9.0 %, 8.3 %, 8.9 %, 20.8 %, 22.7 % et 23.8 %**.
 
-Le graphique est plus simple à lire qu’un schéma de cubes : il montre immédiatement la **taille du marché**, son **accélération** et la **part croissante** du subprime. Il ne prétend pas démontrer à lui seul la causalité de la crise ; il donne l’échelle du phénomène et prépare ensuite l’explication de la titrisation, des incitations et du risque.
+Le graphique est plus simple à lire qu’un schéma de cubes : il montre immédiatement la **taille du marché**, son **accélération** et la **part croissante** du subprime. Le lien pédagogique est désormais explicite : la titrisation permet aux banques d’originer, de regrouper et de distribuer davantage de prêts, y compris des prêts plus risqués. Le graphique ne prétend pas démontrer à lui seul la causalité de la crise ; il donne l’échelle du phénomène et prépare ensuite l’analyse des incitations et du risque.
 
 **Pourquoi elle est pertinente pour la slide 9 :** c’est désormais le visuel recommandé si l’objectif est de faire comprendre le boom du subprime avant d’expliquer la structuration. Il peut remplacer les illustrations 01–02, qui restent disponibles pour une slide plus technique.
 
@@ -157,7 +157,8 @@ Ce graphique est le visuel recommandé pour la **slide 10**. Il remplace le pann
 - la courbe bleue montre l’indice national S&P/Case-Shiller des prix immobiliers américains ;
 - la courbe bordeaux montre des **jalons publiés** du taux de *serious delinquency* des prêts subprime ;
 - la zone 2006–2008 attire l’attention sur le retournement des prix et la détérioration du crédit ;
-- le bandeau résume la séquence pédagogique : **baisse des prix → perte d’equity → refinancement plus difficile → hausse des impayés → pertes sur le crédit hypothécaire**.
+- le bandeau résume la transmission vers la crise : **house prices ↓ → defaults ↑ → MBS losses ↑ → financial crisis ↑** ;
+- l’encadré de droite explicite les quatre étapes : défauts hypothécaires, cash-flows MBS affaiblis, valorisations MBS en baisse et pertes diffusées dans le système financier ; une référence discrète à **Lehman Brothers — September 2008** matérialise le basculement systémique.
 
 La définition est explicite : *serious delinquency* signifie un prêt avec **au moins 90 jours de retard ou en procédure de foreclosure**. Le graphique ne fabrique pas une série mensuelle à partir de quelques observations : les trois points de la courbe bordeaux sont des repères publiés — environ **5,6 % mi-2005**, **11 % en mai 2007** et **plus de 21 % en juillet 2008** — et la note de bas de page les présente comme tels.
 
@@ -174,8 +175,8 @@ La sélection finale recommandée est :
 
 | Slide | Choix recommandé | Message |
 |---|---|---|
-| 9 | **05 — croissance du subprime** | L’origination subprime augmente fortement en volume et en part du marché avant la crise. |
-| 10 | **08 — prix immobiliers et défauts subprime** | Le pic immobilier de 2006 est suivi d’une baisse des prix, d’une perte d’equity et d’une montée des serious delinquencies. |
+| 9 | **05 — securitization fuels subprime growth** | La titrisation permet d’originer, de regrouper et de distribuer un volume croissant de prêts subprime. |
+| 10 | **08 — housing prices fall, mortgage losses rise** | Le retournement immobilier augmente les défauts, affaiblit les cash-flows MBS et diffuse les pertes dans le système financier. |
 
 - **06** et **07** restent disponibles comme graphiques de réserve, mais ne sont pas recommandés dans le deck final : le suivi des spreads CDS de cinq banques est trop dense pour la slide 10.
 - **03** reste pertinent uniquement si la slide 10 doit définir précisément le fonctionnement contractuel d’un CDS.
