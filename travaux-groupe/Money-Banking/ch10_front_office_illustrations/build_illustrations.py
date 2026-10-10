@@ -332,117 +332,130 @@ def illustration_5():
 
 
 def illustration_6():
-    """Create a data-backed CDS stress chart with crisis events and bank comparison."""
+    """Create a zoomed five-bank CDS timeline with event arrows and key figures."""
     fig, ax = setup(
-        "06  ·  Bank CDS spreads: from calm to systemic stress",
-        "Five-year CDS spreads in basis points — market repricing, Bear's liquidity run and the Lehman shock.",
+        "06  ·  Five investment banks: CDS spreads and the 2008 run",
+        "Five-year senior CDS spreads in basis points — the market repriced risk before the balance sheets failed.",
     )
 
-    # NBER Working Paper 14904, Figure 1: exact observation dates and medians.
+    # Firm-level observations reproduced from Flannery, Houston & Partnoy (2010),
+    # University of Pennsylvania Law Review, Table 2. These are selected dates,
+    # not a fabricated daily interpolation; lines simply connect reported points.
     dates = [
-        datetime(2002, 7, 31), datetime(2003, 2, 26), datetime(2003, 9, 24),
-        datetime(2004, 4, 21), datetime(2004, 11, 17), datetime(2005, 6, 15),
-        datetime(2006, 1, 11), datetime(2006, 8, 9), datetime(2007, 3, 7),
-        datetime(2007, 10, 3), datetime(2008, 4, 30), datetime(2008, 11, 26),
+        datetime(2006, 1, 2), datetime(2007, 1, 1), datetime(2007, 4, 2),
+        datetime(2007, 7, 10), datetime(2007, 8, 17), datetime(2008, 1, 1),
+        datetime(2008, 3, 14), datetime(2008, 9, 12), datetime(2008, 9, 15),
+        datetime(2008, 9, 16), datetime(2008, 9, 17), datetime(2008, 9, 18),
+        datetime(2008, 9, 19), datetime(2008, 9, 22),
     ]
-    all_banks = [50, 45, 25, 23, 18, 20, 12, 10, 8, 35, 60, 110]
-    european_banks = [38, 33, 18, 18, 12, 13, 10, 9, 8, 30, 60, 95]
-    us_banks = [85, 55, 30, 33, 25, 33, 20, 18, 10, 40, 70, 200]
+    nan = float("nan")
+    bank_data = {
+        "Goldman Sachs": [21, 21, 32, 41, 81, 67, 240, 198, 324, 420, 596, 491, 369, 282],
+        "Morgan Stanley": [22, 22, 33, 41, 83, 99, 311, 265, 458, 681, 909, 875, 554, 422],
+        "Merrill Lynch": [21, 16, 35, 42, 83, 126, 339, 454, 343, 421, 530, 397, 331, 271],
+        "Lehman Brothers": [25, 21, 38, 45, 150, 120, 448, 702, 703, nan, nan, nan, nan, nan],
+        "Bear Stearns": [24, 21, 38, 57, 165, 176, 737, nan, nan, nan, nan, nan, nan, nan],
+    }
+    colors = {
+        "Goldman Sachs": BLUE,
+        "Morgan Stanley": NAVY,
+        "Merrill Lynch": MAGENTA,
+        "Lehman Brothers": CORAL,
+        "Bear Stearns": GOLD,
+    }
 
-    chart = fig.add_axes([0.085, 0.205, 0.555, 0.57], facecolor=WHITE)
+    chart = fig.add_axes([0.075, 0.205, 0.865, 0.58], facecolor=WHITE)
     chart.set_axisbelow(True)
     chart.grid(axis="y", color=LINE, linewidth=0.8)
     chart.grid(axis="x", color="#EEF1F5", linewidth=0.7)
-    chart.axvspan(datetime(2007, 7, 1), datetime(2008, 3, 1), color=PALE_GOLD, alpha=0.50, zorder=0)
-    chart.axvspan(datetime(2008, 3, 16), datetime(2008, 9, 15), color=PALE_MAGENTA, alpha=0.38, zorder=0)
+    chart.axhspan(0, 50, color=PALE_BLUE, alpha=0.62, zorder=0)
+    chart.text(datetime(2006, 2, 1), 34, "pre-crisis range\n≈ 20–50 bps", fontsize=8.2,
+               color=BLUE, weight="bold", linespacing=1.15)
 
-    all_line, = chart.plot(dates, all_banks, color="#8896A7", linewidth=2.0,
-                           marker="o", markersize=4, label="All 45 banks", zorder=4)
-    europe_line, = chart.plot(dates, european_banks, color=TEAL, linewidth=2.2,
-                              marker="o", markersize=4, label="European banks", zorder=4)
-    us_line, = chart.plot(dates, us_banks, color="#8B1E1E", linewidth=2.8,
-                          marker="o", markersize=4.8, label="U.S. banks", zorder=5)
+    lines = []
+    for name, values in bank_data.items():
+        line, = chart.plot(dates, values, color=colors[name], linewidth=2.7,
+                           marker="o", markersize=5.3, markerfacecolor=WHITE,
+                           markeredgewidth=1.8, label=name, zorder=5)
+        lines.append(line)
 
-    # NBER reports a 417 bp U.S.-bank median high in the week after Lehman.
-    peak_date = datetime(2008, 10, 1)
-    chart.scatter([peak_date], [417], s=42, color="#8B1E1E", edgecolor=WHITE,
-                  linewidth=1.2, zorder=7)
-    chart.annotate("417 bps\nU.S.-bank median peak",
-                   xy=(peak_date, 417), xytext=(datetime(2008, 7, 12), 390),
-                   fontsize=8.2, color="#8B1E1E", weight="bold",
-                   arrowprops=dict(arrowstyle="-|>", color="#8B1E1E", lw=1.1),
-                   bbox=dict(boxstyle="round,pad=0.25", facecolor=WHITE, edgecolor="#E7B6B6"))
-
-    events = [
-        (datetime(2007, 7, 1), "Subprime\nshock", GOLD),
-        (datetime(2008, 3, 16), "Bear run /\nJPM rescue", CORAL),
-        (datetime(2008, 9, 15), "Lehman\nbankruptcy", MAGENTA),
-    ]
-    for event_date, label, color in events:
-        chart.axvline(event_date, color=color, linewidth=1.25, linestyle=(0, (4, 3)), zorder=2)
-        chart.text(event_date, 18 if event_date.year == 2007 else 40, label,
-                   rotation=90, ha="right", va="bottom", fontsize=7.5,
-                   color=color, weight="bold")
-
-    chart.set_ylim(0, 450)
-    chart.set_xlim(datetime(2002, 5, 1), datetime(2008, 12, 20))
-    chart.set_ylabel("5-year CDS spread (basis points)", fontsize=9.5, color=INK, labelpad=8)
-    chart.set_yticks([0, 100, 200, 300, 400])
-    chart.tick_params(axis="y", labelsize=8.5, colors=INK)
-    chart.tick_params(axis="x", labelsize=8.5, colors=INK, length=0, pad=6)
-    chart.xaxis.set_major_locator(mdates.YearLocator())
-    chart.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+    chart.set_ylim(0, 1000)
+    chart.set_xlim(datetime(2005, 10, 1), datetime(2008, 10, 1))
+    chart.set_yticks([0, 200, 400, 600, 800, 1000])
+    chart.set_ylabel("5-year senior CDS spread (basis points)", fontsize=10, color=INK, labelpad=8)
+    chart.tick_params(axis="y", labelsize=8.8, colors=INK)
+    chart.tick_params(axis="x", labelsize=8.8, colors=INK, length=0, pad=7)
+    chart.xaxis.set_major_locator(mdates.MonthLocator(bymonth=[1, 7]))
+    chart.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+    for label in chart.get_xticklabels():
+        label.set_rotation(0)
     chart.spines["top"].set_visible(False)
     chart.spines["right"].set_visible(False)
     chart.spines["left"].set_color(LINE)
     chart.spines["bottom"].set_color(LINE)
-    chart.legend(handles=[all_line, europe_line, us_line], loc="upper left",
-                 frameon=False, fontsize=8.1, handlelength=2.4, ncol=3,
-                 bbox_to_anchor=(0.01, 0.99))
-    chart.text(datetime(2007, 10, 25), 430, "risk repricing", fontsize=8.3,
-               color=GOLD, weight="bold", ha="center")
+    chart.legend(handles=lines, loc="upper left", bbox_to_anchor=(0.01, 0.99),
+                 frameon=False, fontsize=8.4, handlelength=2.4, ncol=5)
 
-    # Selected maximum observations from NBER Table 1, 29 Jul 2002–28 Nov 2008.
-    bank_names = ["Morgan Stanley", "Wachovia", "Lehman Brothers", "Bear Stearns",
-                  "Goldman Sachs", "Merrill Lynch", "JPMorgan"]
-    max_spreads = [1153.09, 741.79, 641.91, 574.31, 437.37, 417.10, 174.98]
-    bar_colors = [NAVY, GOLD, MAGENTA, CORAL, TEAL, "#B96B85", BLUE]
-    bars = fig.add_axes([0.695, 0.205, 0.245, 0.57], facecolor=WHITE)
-    bars.barh(bank_names, max_spreads, color=bar_colors, edgecolor=WHITE, height=0.62)
-    bars.invert_yaxis()
-    bars.set_xlim(0, 1250)
-    bars.set_xticks([0, 250, 500, 750, 1000, 1250])
-    bars.set_xlabel("Maximum 5-year CDS spread (bps)", fontsize=8.8, color=INK, labelpad=7)
-    bars.tick_params(axis="x", labelsize=7.8, colors=INK, length=0, pad=4)
-    bars.tick_params(axis="y", labelsize=8.2, colors=INK, length=0, pad=5)
-    bars.grid(axis="x", color=LINE, linewidth=0.75)
-    bars.set_axisbelow(True)
-    for spine in ["top", "right", "left"]:
-        bars.spines[spine].set_visible(False)
-    bars.spines["bottom"].set_color(LINE)
-    bars.set_title("SELECTED BANKS", loc="left", fontsize=9.5, color=TEAL,
-                   weight="bold", pad=14)
-    bars.text(0, 1.015, "Observed maximum in the NBER sample", transform=bars.transAxes,
-              fontsize=7.8, color=MUTED, va="bottom")
-    for index, value in enumerate(max_spreads):
-        bars.text(value + 24, index, f"{value:,.0f}", va="center", fontsize=8.0,
-                  color=INK, weight="bold")
-    # Three professional takeaways instead of a block diagram.
+    # Crisis markers are explicit and point to reported CDS observations.
+    events = [
+        (datetime(2007, 8, 17), "Countrywide run", GOLD),
+        (datetime(2008, 3, 14), "Bear fails /\nJPM rescue", CORAL),
+        (datetime(2008, 9, 15), "Lehman files\nChapter 11", MAGENTA),
+    ]
+    for event_date, label, color in events:
+        chart.axvline(event_date, color=color, linewidth=1.25,
+                      linestyle=(0, (4, 3)), zorder=2)
+        chart.text(event_date, 970, label, rotation=90, ha="right", va="top",
+                   fontsize=7.8, color=color, weight="bold", linespacing=1.1)
+
+    def event_callout(text, xy, xytext, color):
+        chart.annotate(
+            text,
+            xy=xy,
+            xytext=xytext,
+            fontsize=8.2,
+            color=INK,
+            weight="bold",
+            linespacing=1.15,
+            arrowprops=dict(arrowstyle="-|>", color=color, lw=1.5,
+                            connectionstyle="arc3,rad=0.10"),
+            bbox=dict(boxstyle="round,pad=0.28", facecolor=WHITE,
+                      edgecolor=color, linewidth=1.0),
+            zorder=8,
+        )
+
+    event_callout(
+        "Bear: 165 bps\nCountrywide run, Aug 2007",
+        (datetime(2007, 8, 17), 165), (datetime(2006, 10, 15), 280), GOLD,
+    )
+    event_callout(
+        "Bear: 737 bps\nJPMorgan rescue; JPM +32 bps\nin the event window",
+        (datetime(2008, 3, 14), 737), (datetime(2007, 9, 15), 820), CORAL,
+    )
+    event_callout(
+        "Lehman: 703 bps\n15 Sep 2008",
+        (datetime(2008, 9, 15), 703), (datetime(2008, 5, 15), 760), MAGENTA,
+    )
+    event_callout(
+        "Morgan Stanley: 909 bps\n17 Sep 2008",
+        (datetime(2008, 9, 17), 909), (datetime(2008, 5, 15), 925), NAVY,
+    )
+
+    # Key figures make the chart readable without turning it into a block diagram.
     takeaway_cards = [
-        (0.65, "BEFORE JULY 2007", "U.S.-bank median: 10 bps\nin March 2007", PALE_BLUE, BLUE),
-        (5.72, "BEAR STEARNS · MARCH 2008", "A liquidity run forced an\nemergency JPMorgan rescue.", PALE_GOLD, GOLD),
-        (10.79, "LEHMAN · SEPTEMBER 2008", "After failure, U.S.-bank\nmedian reached 417 bps.", PALE_MAGENTA, MAGENTA),
+        (0.65, "START · JAN 2006", "Five banks trade around 21–25 bps.\nThe market sees little differentiation.", PALE_BLUE, BLUE),
+        (5.72, "BEAR · 14 MAR 2008", "Bear reaches 737 bps.\nJPMorgan takes over; JPM +32 bps in the event window.", PALE_GOLD, GOLD),
+        (10.79, "LEHMAN · 15–17 SEP 2008", "Lehman 703 bps · Goldman 596 · Morgan 909.\nThe repricing becomes systemic.", PALE_MAGENTA, MAGENTA),
     ]
     for x, title, body, fill, accent in takeaway_cards:
         ax.add_patch(FancyBboxPatch((x, 0.84), 4.55, 0.60,
                                     boxstyle="round,pad=0.02,rounding_size=0.08",
                                     facecolor=fill, edgecolor=fill))
         ax.text(x + 0.18, 1.28, title, fontsize=7.6, color=accent, weight="bold")
-        ax.text(x + 0.18, 1.03, body, fontsize=7.8, color=INK, linespacing=1.2)
+        ax.text(x + 0.18, 1.03, body, fontsize=7.7, color=INK, linespacing=1.2)
 
-    footer(ax, "Source: Eichengreen, Mody, Nedeljkovic & Sarno, NBER WP 14904 (2009), Figure 1 and Table 1; Bloomberg 5-year CDS. Event context: Federal Reserve Bank of New York. CDS spread ≠ probability of default; a run is a funding/liquidity event.")
+    footer(ax, "Source: Flannery, Houston & Partnoy, University of Pennsylvania Law Review (2010), Table 2; senior CDS spreads, Markit. Selected dates, not a daily series. CDS spread ≠ probability of default; a run is a funding/liquidity event.")
     save(fig, "06_bank_cds_spreads_and_funding_stress.png")
-
 
 def main():
     illustration_1()

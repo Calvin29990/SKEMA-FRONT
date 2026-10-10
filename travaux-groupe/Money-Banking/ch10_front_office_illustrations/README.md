@@ -13,7 +13,7 @@ Ce dossier rassemble **six illustrations candidates** pour les slides 9–10 du 
 | [03 — cash-flows et protection d’un CDS](output/03_cds_cashflows_and_protection.png) | Prime, événement de crédit, recovery, LGD et paiement contingent | Slide 10 : transfert et couverture du risque de crédit |
 | [04 — crise, stress de liquidité et réponse prudentielle](output/04_crisis_to_basel_timeline.png) | Faiblesse d’origination → complexité → levier → défauts → liquidité/contagion → Basel | Slide 10 : relier le front office à la crise et à la régulation |
 | [05 — croissance du subprime : graphique combiné](output/05_subprime_growth_combo_chart.png) | Barres = volume annuel ; courbe = part des nouvelles origines hypothécaires | Slide 9 : montrer la croissance du marché sans schéma en cubes |
-| [06 — CDS bancaires et stress de financement](output/06_bank_cds_spreads_and_funding_stress.png) | Médianes CDS US/Europe + comparaison des maxima observés pour plusieurs banques | Slide 10 : relier risque de crédit, run de Bear et choc Lehman |
+| [06 — cinq banques, spreads CDS et run de 2008](output/06_bank_cds_spreads_and_funding_stress.png) | Cinq lignes colorées, événements fléchés et niveaux clés de Goldman, Morgan Stanley, Merrill, Lehman et Bear | Slide 10 : relier pricing du risque, funding et choc Lehman |
 
 Les six fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
 
@@ -101,23 +101,29 @@ Le graphique est plus simple à lire qu’un schéma de cubes : il montre imméd
 
 **Source des données :** Ashcraft & Schuermann, *Understanding the Securitization of Subprime Mortgage Credit*, Federal Reserve Bank of New York Staff Report no. 318 (2008), Table 1 ; données d’origination Inside Mortgage Finance. Les parts sont calculées à partir de cette table, et non lues approximativement sur le graphique de référence.
 
-## 06 — Bank CDS spreads: from calm to systemic stress
+## 06 — Five investment banks: CDS spreads and the 2008 run
 
-![Illustration 6 — CDS bancaires et stress de financement](output/06_bank_cds_spreads_and_funding_stress.png)
+![Illustration 6 — cinq banques d’investissement, spreads CDS et run de 2008](output/06_bank_cds_spreads_and_funding_stress.png)
 
-Ce graphique traite la crise de 2008 par le **pricing du risque de crédit** plutôt que par des cubes :
+Cette version est volontairement **zoomée sur cinq banques** et utilise cinq couleurs constantes : **Goldman Sachs, Morgan Stanley, Merrill Lynch, Lehman Brothers et Bear Stearns**.
 
-- à gauche, les médianes des spreads CDS 5 ans pour les **45 banques**, les banques européennes et les banques américaines ;
-- les bandes verticales marquent le choc subprime, le run de Bear Stearns et la faillite de Lehman ;
-- à droite, les maxima observés dans l’échantillon pour **Morgan Stanley, Wachovia, Lehman Brothers, Bear Stearns, Goldman Sachs, Merrill Lynch et JPMorgan**.
+Le graphique donne une vraie chronologie de marché :
 
-Le message est lisible : le risque de crédit bancaire est faible avant juillet 2007, puis les spreads se tendent. Après le run de Bear Stearns et surtout la faillite de Lehman, les banques américaines évoluent dans un régime de stress systémique. La médiane des banques américaines atteint **417 bps** dans la semaine suivant Lehman selon le texte de la source, tandis que le point de fin novembre 2008 de la table est à **200 bps**.
+- en janvier 2006, les cinq spreads sont proches de **21–25 bps** ; le marché différencie encore peu les banques ;
+- en août 2007, après le run de Countrywide, Bear Stearns atteint **165 bps** ;
+- le 14 mars 2008, Bear Stearns atteint **737 bps** et JPMorgan reprend la banque ; le spread de JPMorgan augmente de **32 bps** dans la fenêtre d’événement étudiée ;
+- le 15 septembre 2008, Lehman dépose son bilan à **703 bps** ;
+- le 17 septembre, Morgan Stanley atteint **909 bps**, Goldman Sachs **596 bps** et Merrill Lynch **530 bps** dans la table de référence.
 
-Les barres de droite sont des **maxima sur la période de l’échantillon 2002–2008**, pas des niveaux observés le même jour et pas des probabilités de défaut. Un spread CDS est le prix de marché d’une protection contre un risque de crédit ; il ne se convertit pas automatiquement en probabilité de défaut. De même, le CDS signale la revalorisation du risque pendant un run, mais le run lui-même est un événement de **financement et de liquidité**.
+Les flèches et les lignes verticales ne sont pas décoratives : elles relient chaque événement à un **niveau de spread observable**. L’échelle linéaire **0–1 000 bps** est choisie pour conserver à la fois la zone pré-crise et l’explosion de septembre 2008. Les lignes relient des dates publiées dans la table ; elles ne prétendent pas reconstituer chaque cotation quotidienne.
 
-**Source des données :** Eichengreen, Mody, Nedeljkovic & Sarno, *How the Subprime Crisis Went Global: Evidence from Bank Credit Default Swap Spreads*, NBER Working Paper 14904 (2009), Figure 1 et Table 1 ; données Bloomberg. Le contexte du run de Bear Stearns et de la faillite de Lehman est recoupé avec la Federal Reserve Bank of New York.
+Le message Sales/Trading est le suivant : le risque devient d’abord **différencié** — Bear puis Lehman s’écartent — avant de devenir **systémique** après Lehman, lorsque Morgan Stanley, Goldman Sachs et Merrill Lynch repricent simultanément leur risque de crédit et de financement.
 
-**Pourquoi elle est pertinente pour la slide 10 :** elle donne un vrai angle Sales/Trading : le marché transforme progressivement une inquiétude sur les actifs en spread de crédit, en risque de financement et en risque de contrepartie. Elle permet de parler de la contagion sans confondre spread, défaut et run bancaire.
+Un spread CDS est un **prix de protection de crédit**, pas automatiquement une probabilité de défaut. Le run est un événement de financement et de liquidité ; le CDS enregistre la revalorisation du risque et de la protection demandée par le marché.
+
+**Source des données :** Flannery, Houston & Partnoy, *Credit Default Swap Spreads as Viable Substitutes for Credit Ratings*, University of Pennsylvania Law Review (2010), Table 2 ; données Markit. Les événements et variations autour de Bear Stearns, Lehman et JPMorgan sont décrits dans la même étude.
+
+**Pourquoi elle est pertinente pour la slide 10 :** elle transforme la crise en une lecture de marché concrète : un desk observe le spread, la vitesse de widening, la comparaison entre noms, le risque de contrepartie et l’effet d’un sauvetage sur le pricing.
 
 ## Quelle combinaison retenir pour deux slides ?
 
@@ -149,7 +155,7 @@ Les illustrations **01** et **02** restent utiles en réserve si la slide 9 doit
 - [Guide français des slides 9–10](../CH10-SLIDES-9-10-FRONT-OFFICE-FR.md)
 - [Financial Crisis Inquiry Commission Report](https://www.govinfo.gov/content/pkg/GPO-FCIC/pdf/GPO-FCIC.pdf)
 - [Federal Reserve History — The Great Recession and Its Aftermath](https://www.federalreservehistory.org/essays/great-recession-and-its-aftermath)
-- [Eichengreen et al. — NBER Working Paper 14904, bank CDS spreads](https://www.nber.org/system/files/working_papers/w14904/w14904.pdf)
+- [Flannery, Houston & Partnoy — CDS spreads and credit ratings](https://www.law.upenn.edu/live/files/22-flannery158upalrev20852010pdf)
 - [Federal Reserve Bank of New York — Bear Stearns and Lehman context](https://www.newyorkfed.org/newsevents/speeches/2010/bax100901)
 - [Basel Committee — Revisions to the Securitisation Framework](https://www.bis.org/bcbs/publ/d374.htm)
 - [Basel Committee — Basel III: Post-Crisis Reforms](https://www.bis.org/bcbs/publ/d424.htm)
