@@ -1,6 +1,6 @@
 # Illustrations — Chapter 10, slides 9–10
 
-Ce dossier rassemble **quatre illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Elles sont conçues comme des schémas de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
+Ce dossier rassemble **cinq illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; la cinquième est un graphique combiné de données. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
 
 > **Statut :** options de travail à sélectionner avant la création du PowerPoint final. Le deck des slides 9–10 n’est pas encore généré.
 
@@ -12,8 +12,9 @@ Ce dossier rassemble **quatre illustrations candidates** pour les slides 9–10 
 | [02 — cash-flow et loss waterfalls](output/02_cashflow_and_loss_waterfalls.png) | Priorité des paiements et ordre inverse d’absorption des pertes | Slide 9 : rendre le tranching et la waterfall concrets |
 | [03 — cash-flows et protection d’un CDS](output/03_cds_cashflows_and_protection.png) | Prime, événement de crédit, recovery, LGD et paiement contingent | Slide 10 : transfert et couverture du risque de crédit |
 | [04 — crise, stress de liquidité et réponse prudentielle](output/04_crisis_to_basel_timeline.png) | Faiblesse d’origination → complexité → levier → défauts → liquidité/contagion → Basel | Slide 10 : relier le front office à la crise et à la régulation |
+| [05 — croissance du subprime : graphique combiné](output/05_subprime_growth_combo_chart.png) | Barres = volume annuel ; courbe = part des nouvelles origines hypothécaires | Slide 9 : montrer la croissance du marché sans schéma en cubes |
 
-Les quatre fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central, exemple chiffré ou chaîne causale, puis une note de prudence en bas de page.
+Les cinq fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
 
 ## 01 — From a subprime mortgage to structured credit
 
@@ -81,21 +82,39 @@ La bande réglementaire met en regard **Basel I**, **Basel II**, **Basel III** e
 
 **Pourquoi elle est pertinente pour la slide 10 :** elle relie l’activité de structuration et de distribution aux conséquences de marché, au risque systémique et aux réponses prudentielles. C’est l’option la plus adaptée si la slide 10 doit faire le lien avec la crise de 2008 et la régulation contemporaine.
 
+## 05 — Growth of subprime mortgage lending
+
+![Illustration 5 — graphique combiné de la croissance du subprime](output/05_subprime_growth_combo_chart.png)
+
+Ce graphique reprend la logique du modèle fourni :
+
+- les **barres orange** montrent le volume annuel de nouvelles origines subprime, en **milliards de dollars** ;
+- la **courbe bordeaux** montre la part des origines subprime dans l’ensemble des origines hypothécaires ;
+- la zone jaune met en évidence l’accélération de **2004 à 2006**.
+
+La série est volontairement limitée à **2001–2006**, période pour laquelle une définition homogène et une table chiffrée sont disponibles dans la source retenue. Les volumes sont : **$190bn, $231bn, $335bn, $540bn, $625bn et $600bn**. La part est calculée à partir de la même table : subprime / (subprime + Alt-A + jumbo + agency), soit environ **9.0 %, 8.3 %, 8.9 %, 20.8 %, 22.7 % et 23.8 %**.
+
+Le graphique est plus simple à lire qu’un schéma de cubes : il montre immédiatement la **taille du marché**, son **accélération** et la **part croissante** du subprime. Il ne prétend pas démontrer à lui seul la causalité de la crise ; il donne l’échelle du phénomène et prépare ensuite l’explication de la titrisation, des incitations et du risque.
+
+**Pourquoi elle est pertinente pour la slide 9 :** c’est désormais le visuel recommandé si l’objectif est de faire comprendre le boom du subprime avant d’expliquer la structuration. Il peut remplacer les illustrations 01–02, qui restent disponibles pour une slide plus technique.
+
+**Source des données :** Ashcraft & Schuermann, *Understanding the Securitization of Subprime Mortgage Credit*, Federal Reserve Bank of New York Staff Report no. 318 (2008), Table 1 ; données d’origination Inside Mortgage Finance. Les parts sont calculées à partir de cette table, et non lues approximativement sur le graphique de référence.
+
 ## Quelle combinaison retenir pour deux slides ?
 
 Une sélection possible, à valider avant le PowerPoint :
 
-- **Slide 9 — 01 + 02 :** la première image explique la chaîne de titrisation ; la seconde explique la hiérarchie des flux et des pertes.
+- **Slide 9 — 05 :** commencer par le graphique combiné pour rendre le boom du subprime immédiatement lisible ; utiliser **01** ou **02** seulement si le texte doit ensuite détailler la chaîne de titrisation ou la waterfall.
 - **Slide 10 — 03 ou 04 :** choisir **03** si l’angle prioritaire est le hedging, le pricing et le transfert du risque ; choisir **04** si l’angle prioritaire est la crise, la liquidité et la régulation.
 
 Si une seule illustration doit être retenue par slide :
 
 | Slide | Choix recommandé | Raisonnement |
 |---|---|---|
-| 9 | **01** | Vue d’ensemble la plus complète du passage du crédit bancaire aux instruments de marché. |
+| 9 | **05** | Lecture immédiate de la croissance du volume et de la part de marché, sans schéma abstrait. |
 | 10 | **03** ou **04** | **03** pour le front office et le hedging ; **04** pour la crise et la réponse prudentielle. |
 
-L’illustration **02** peut remplacer une partie du texte de la slide 9 si la priorité est la compréhension des tranches et de la waterfall plutôt que la chaîne institutionnelle.
+Les illustrations **01** et **02** restent utiles en réserve si la slide 9 doit aller plus loin dans la mécanique de la titrisation.
 
 ## Précautions de contenu
 
@@ -122,4 +141,4 @@ Depuis la racine du dépôt, avec un environnement Python contenant `matplotlib`
 python travaux-groupe/Money-Banking/ch10_front_office_illustrations/build_illustrations.py
 ```
 
-Le script régénère les quatre fichiers dans `output/`.
+Le script régénère les cinq fichiers dans `output/`.

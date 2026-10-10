@@ -1,4 +1,4 @@
-"""Create four polished diagrams for the Chapter 10 securitisation section."""
+"""Create polished Chapter 10 visuals: diagrams and a data-backed combo chart."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -245,11 +245,96 @@ def illustration_4():
     save(fig, "04_crisis_to_basel_timeline.png")
 
 
+def illustration_5():
+    """Create a simple volume-plus-share chart in the style of the user's reference."""
+    fig, ax = setup(
+        "05  ·  Growth of subprime mortgage lending",
+        "Bars show annual originations; the line shows subprime originations as a share of all mortgage originations.",
+    )
+
+    # Same-source, directly reported figures from Table 1 of the NY Fed staff report.
+    # The percentage series is calculated from that table's origination columns so the
+    # denominator is explicit rather than mixing incompatible market definitions.
+    years = [2001, 2002, 2003, 2004, 2005, 2006]
+    volume = [190, 231, 335, 540, 625, 600]  # USD billions
+    total_originations = [2113, 2773, 3765, 2600, 2755, 2520]
+    share = [100 * value / total for value, total in zip(volume, total_originations)]
+
+    chart = fig.add_axes([0.095, 0.18, 0.665, 0.60], facecolor=WHITE)
+    share_axis = chart.twinx()
+    chart.set_axisbelow(True)
+    chart.grid(axis="y", color=LINE, linewidth=0.8)
+    chart.grid(axis="x", color="#EEF1F5", linewidth=0.7)
+
+    bars = chart.bar(years, volume, width=0.68, color="#E24A00", edgecolor="#B63B00",
+                     linewidth=0.5, label="Subprime originations ($bn)", zorder=3)
+    line, = share_axis.plot(years, share, color="#8B1E1E", linewidth=2.8,
+                            marker="o", markersize=5.5, markerfacecolor=WHITE,
+                            markeredgewidth=1.8, label="Share of all mortgage originations",
+                            zorder=5)
+
+    chart.set_xlim(2000.45, 2006.55)
+    chart.set_ylim(0, 700)
+    share_axis.set_ylim(0, 30)
+    chart.set_xticks(years)
+    chart.set_xticklabels([str(year) for year in years], fontsize=9, color=INK)
+    chart.set_yticks([0, 100, 200, 300, 400, 500, 600, 700])
+    share_axis.set_yticks([0, 5, 10, 15, 20, 25, 30])
+    chart.set_ylabel("Annual subprime originations ($bn)", fontsize=9.5, color=INK, labelpad=8)
+    share_axis.set_ylabel("Share of all mortgage originations (%)", fontsize=9.5, color="#8B1E1E", labelpad=10)
+    chart.tick_params(axis="y", labelsize=8.5, colors=INK)
+    share_axis.tick_params(axis="y", labelsize=8.5, colors="#8B1E1E")
+    chart.tick_params(axis="x", length=0, pad=6)
+    share_axis.tick_params(axis="x", length=0)
+    for spine in ["top", "right"]:
+        chart.spines[spine].set_visible(False)
+    chart.spines["left"].set_color(LINE)
+    chart.spines["bottom"].set_color(LINE)
+    share_axis.spines["top"].set_visible(False)
+    share_axis.spines["left"].set_visible(False)
+    share_axis.spines["right"].set_color("#8B1E1E")
+
+    chart.text(2006, volume[-1] + 28, "$600bn", fontsize=9, color="#B63B00",
+               weight="bold", ha="center")
+    share_axis.text(2006.08, share[-1] + 1.5, f"{share[-1]:.1f}%", fontsize=9,
+                    color="#8B1E1E", weight="bold", ha="left")
+    chart.axvspan(2003.5, 2006.5, color=PALE_GOLD, alpha=0.42, zorder=0)
+    chart.text(2005.0, 655, "Acceleration", fontsize=8.5, color=GOLD,
+               weight="bold", ha="center", va="top")
+
+    handles = [bars, line]
+    labels = ["Subprime originations ($bn)", "Share of all mortgage originations (%)"]
+    chart.legend(handles, labels, loc="upper left", bbox_to_anchor=(0.01, 0.99),
+                 frameon=False, fontsize=8.3, handlelength=2.4)
+
+    # One short reading panel replaces the previous block diagrams with an explicit
+    # market message: scale increases, but a chart is not a causal proof by itself.
+    ax.add_patch(FancyBboxPatch((12.55, 1.42), 2.55, 4.62,
+                                boxstyle="round,pad=0.02,rounding_size=0.10",
+                                facecolor=WHITE, edgecolor=LINE, linewidth=1))
+    ax.text(12.82, 5.67, "WHAT THIS SHOWS", fontsize=9.5, color=TEAL, weight="bold")
+    ax.text(12.82, 5.22, "1", fontsize=15, color=GOLD, weight="bold")
+    ax.text(13.17, 5.28, "Volume rises", fontsize=10.2, color=NAVY, weight="bold")
+    ax.text(13.17, 4.91, "$190bn → $625bn\nfrom 2001 to 2005", fontsize=8.6, color=INK, linespacing=1.25)
+    ax.text(12.82, 4.35, "2", fontsize=15, color=GOLD, weight="bold")
+    ax.text(13.17, 4.41, "Market share expands", fontsize=10.2, color=NAVY, weight="bold")
+    ax.text(13.17, 4.04, "about 9% → 23.8%\nin this table's definition", fontsize=8.6, color=INK, linespacing=1.25)
+    ax.text(12.82, 3.48, "3", fontsize=15, color=GOLD, weight="bold")
+    ax.text(13.17, 3.54, "Not a causal proof", fontsize=10.2, color=NAVY, weight="bold")
+    ax.text(13.17, 3.17, "Growth shows scale and\nfunding demand — not by itself\nwhy losses later occurred.", fontsize=8.6, color=INK, linespacing=1.25)
+    ax.text(12.82, 2.26, "DEFINITION", fontsize=8.5, color=MUTED, weight="bold")
+    ax.text(12.82, 1.88, "Share = subprime originations\n÷ total originations in Table 1", fontsize=8.1, color=MUTED, linespacing=1.25)
+
+    footer(ax, "Source: Ashcraft & Schuermann, Federal Reserve Bank of New York Staff Report 318 (2008), Table 1; Inside Mortgage Finance. Share calculated from the same table.")
+    save(fig, "05_subprime_growth_combo_chart.png")
+
+
 def main():
     illustration_1()
     illustration_2()
     illustration_3()
     illustration_4()
+    illustration_5()
 
 
 if __name__ == "__main__":
