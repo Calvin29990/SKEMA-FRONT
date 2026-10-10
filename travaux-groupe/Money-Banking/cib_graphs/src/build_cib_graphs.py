@@ -17,6 +17,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch, Polygon, FancyBboxPatch
 from matplotlib.collections import PatchCollection
+from matplotlib.colors import ListedColormap
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -277,9 +278,51 @@ def build_dotplot():
     return fig, path
 
 
+def build_luxembourg_matrix():
+    """Show why the Luxembourg comparison needs a perimeter check first."""
+    with (DATA / "luxembourg_perimeter.csv").open(newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    labels = [r["activity"] for r in rows]
+    matrix = [[int(r["bnp_local"]), int(r["cacib_local"])] for r in rows]
+    fig, ax = plt.subplots(figsize=(12.5, 8.3))
+    cmap = ListedColormap(["#EEF2F5", BNP, GOLD])
+    ax.imshow(matrix, cmap=cmap, vmin=0, vmax=2, aspect="auto")
+    ax.set_xticks([0, 1], ["BNP Paribas Luxembourg\nCIB offer", "CACIB Finance Luxembourg S.A.\npublic issuer perimeter"])
+    ax.set_yticks(range(len(labels)), labels)
+    ax.tick_params(axis="x", labelsize=10, pad=12, length=0)
+    ax.tick_params(axis="y", labelsize=9.8, pad=10, length=0)
+    ax.set_xticks([x - 0.5 for x in range(1, 2)], minor=True)
+    ax.set_yticks([y - 0.5 for y in range(1, len(labels))], minor=True)
+    ax.grid(which="minor", color="white", linewidth=2.2)
+    ax.tick_params(which="minor", length=0)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    for i, row in enumerate(matrix):
+        for j, value in enumerate(row):
+            symbol = "✓" if value == 1 else ("◆" if value == 2 else "—")
+            color = "white" if value in (1, 2) else MUTED
+            ax.text(j, i, symbol, ha="center", va="center", fontsize=17 if value else 15,
+                    color=color, weight="bold")
+    ax.set_title("Luxembourg: compare the perimeter before the performance", loc="left", pad=18)
+    # The title carries the message; keep the area above the matrix uncluttered for slide use.
+    legend = [
+        Patch(facecolor=BNP, edgecolor="none", label="Explicitly disclosed in the local CIB offer"),
+        Patch(facecolor=GOLD, edgecolor="none", label="Entity-specific activity: issuer / not full CIB platform"),
+        Patch(facecolor="#EEF2F5", edgecolor="none", label="Not disclosed as an activity of this entity"),
+    ]
+    fig.legend(handles=legend, loc="lower center", bbox_to_anchor=(0.58, 0.095), frameon=False, fontsize=8.8,
+               ncol=3, columnspacing=1.2, handlelength=1.2)
+    footer(fig, "Sources: BNP Paribas Luxembourg CIB offer; public CACIB Finance Luxembourg documentation. Local financial reports exist, but the entity scopes are not equivalent. See data/luxembourg_perimeter.csv.")
+    fig.subplots_adjust(left=0.31, right=0.98, bottom=0.22, top=0.80)
+    path = OUT / "04_luxembourg_perimeter_heatmap.png"
+    fig.savefig(path, dpi=240, bbox_inches="tight")
+    return fig, path
+
+
 def main():
     figures = []
-    for builder in (build_map, build_slope, build_dotplot):
+    for builder in (build_map, build_slope, build_dotplot, build_luxembourg_matrix):
         fig, _ = builder()
         figures.append(fig)
     pdf_path = OUT / "CIB_EXECUTIVE_GRAPHS.pdf"

@@ -5,7 +5,8 @@ Three Python-generated, director-ready visuals for the BNP Paribas / CACIB bench
 1. `output/01_europe_cib_footprint.png` — selected public European hubs, with Paris and Luxembourg highlighted;
 2. `output/02_q2_momentum_slope.png` — Q2 2025 rebased to 100, showing Q2 2026 reported momentum;
 3. `output/03_q2_business_engine_dotplot.png` — Q2 2026 year-on-year change by business engine;
-4. `output/CIB_EXECUTIVE_GRAPHS.pdf` — the three figures in a presentation-ready PDF.
+4. `output/04_luxembourg_perimeter_heatmap.png` — the local Luxembourg perimeter control;
+5. `output/CIB_EXECUTIVE_GRAPHS.pdf` — the four figures in a presentation-ready PDF.
 
 ## Rebuild
 
