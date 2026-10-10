@@ -1,6 +1,6 @@
 # Chapter 10 — proposition de répartition et plan de slides
 
-> Proposition de travail, à valider dans le groupe. Ce n'est pas une attribution officielle.
+> Répartition lue dans les messages WhatsApp : Part 1 = Meng + Jules ; Part 2 = Juan ; Part 3 = Manal. Calvin propose d'aider Juan sur la sous-partie CIB. Le plan de slides ci-dessous reste à valider dans le document partagé.
 
 ## À distinguer du travail de groupe
 
@@ -14,30 +14,30 @@ Le plan ci-dessous est donc le **plan hypothétique BNP**. Matteo a indiqué que
 
 ## Proposition pour Calvin
 
-Prendre **Part 2 — BNP Paribas business lines / business model** :
+Juan reste responsable de **Part 2**. Calvin l'aide avec la sous-partie **CIB — Corporate & Institutional Banking** :
 
-- expliquer le modèle de banque universelle ;
-- présenter CPBS, CIB et IPS ;
-- montrer pourquoi la diversification compte dans la finance contemporaine ;
-- préparer 2 slides et environ 2 minutes de pitch ;
-- citer le rapport annuel BNP Paribas sous les chiffres et les définitions.
+- expliquer le rôle de CIB dans une banque universelle ;
+- présenter les clients et les besoins couverts ;
+- vérifier Global Banking, Global Markets et Securities Services ;
+- préparer 1 à 2 slides et environ 90 secondes de pitch ;
+- envoyer les slides et les sources à Juan pour intégration.
 
-Si cette partie est déjà prise, alternative propre : vérifier `1.3 Funding Structure` et prendre la slide sur la pertinence contemporaine / les risques de levier bancaire, sans réécrire la partie 1 de Jules et Meng.
+Ne pas empiéter sur la Part 3 de Manal consacrée aux activités internationales. Si Juan n'a finalement pas besoin de la sous-partie CIB, alternative propre : vérifier `1.3 Funding Structure` et préparer la slide sur la pertinence contemporaine / les risques de levier bancaire, sans réécrire la partie 1 de Meng et Jules. Voir `CIB-NOTES.md` pour le détail.
 
 ## Plan de présentation — 10 slides / 10 minutes
 
 | Slide | Contenu | Responsable proposé |
 |---:|---|---|
-| 1 | Titre, équipe, question : pourquoi la taille et les lignes métier comptent-elles ? | Jules + Meng |
-| 2 | Définition du banking business et modèle de banque universelle | Meng |
-| 3 | BNP Paribas : profil, présence internationale, ordre de grandeur | Matteo — données |
-| 4 | Évolution des actifs 2016–2025 | Jules — Part 1 |
-| 5 | Funding structure : passifs, dépôts, fonds propres, levier | Matteo + vérification Calvin |
-| 6 | Vue d'ensemble des trois divisions : CPBS, CIB, IPS | Calvin — proposition |
-| 7 | CPBS : clients particuliers, entreprises, financement et services | Calvin — proposition |
-| 8 | CIB et IPS : marchés/corporate finance, gestion d'actifs, assurance | Manal |
-| 9 | Activités internationales et importance dans la finance contemporaine | Juan |
-| 10 | Conclusion, risques, sources et coordination du pitch | Juan + tous |
+| 1 | Titre, équipe, question : pourquoi la taille et les lignes métier comptent-elles ? | Meng + Jules — Part 1 |
+| 2 | Définition du banking business et modèle de banque universelle | Meng + Jules — Part 1 |
+| 3 | BNP Paribas : profil et ordre de grandeur | Meng + Jules, avec données Matteo — Part 1 |
+| 4 | Évolution des actifs 2016–2025 | Meng + Jules, avec données Matteo — Part 1 |
+| 5 | Funding structure : passifs, dépôts, fonds propres, levier | Meng + Jules, avec vérification Matteo — Part 1 |
+| 6 | Vue d'ensemble des business lines et rôle de CIB | Juan — Part 2 lead + Calvin — CIB |
+| 7 | CIB : Global Banking, Global Markets, Securities Services | Juan — Part 2 lead + Calvin — CIB |
+| 8 | Activités internationales de BNP Paribas | Manal — Part 3 |
+| 9 | Importance contemporaine et lien entre taille, business lines et international | Manal — Part 3 + Juan |
+| 10 | Conclusion, sources et coordination du pitch | Juan + tous |
 
 ## Audit indispensable du brouillon actuel
 

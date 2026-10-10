@@ -6,6 +6,7 @@
 
 Le groupe a clarifié l'ordre de travail dans WhatsApp :
 
+- **Répartition Bank Size visible :** Part 1 = Meng + Jules ; Part 2 = Juan ; Part 3 = Manal. Calvin propose d'aider Juan sur la sous-partie **CIB / Business Lines**.
 1. **Aujourd'hui et demain :** terminer **EN-ROAD** et le travail **Bank Size / BNP Paribas**.
 2. **Mardi :** deadline interne pour le chapitre / Bank Size.
 3. **Mercredi :** traiter les bonus séparément.
