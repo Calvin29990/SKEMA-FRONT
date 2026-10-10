@@ -205,6 +205,128 @@ def build_map():
     return fig, path
 
 
+
+def build_activity_map():
+    """Director-facing map: selected hubs plus the CIB activity architecture."""
+    fig = plt.figure(figsize=(15.4, 8.7))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.78, 0.82], wspace=0.025)
+    ax = fig.add_subplot(gs[0, 0])
+    panel = fig.add_subplot(gs[0, 1])
+    fig.patch.set_facecolor(PAPER)
+    panel.set_facecolor("#F4F7FA")
+
+    patches, _ = europe_polygons()
+    ax.add_collection(PatchCollection(patches, facecolor=LAND, edgecolor=LAND_EDGE, linewidth=0.45, zorder=1))
+    ax.set_xlim(-11.5, 25.5)
+    ax.set_ylim(35.0, 71.5)
+    ax.set_aspect("equal", adjustable="box")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    hubs = load_hubs()
+    coords = {(r["city"], r["organization"]): (float(r["longitude"]), float(r["latitude"])) for r in hubs}
+    for org, color in [("BNP Paribas", BNP), ("CACIB", CACIB)]:
+        paris = coords.get(("Paris", org))
+        if not paris:
+            continue
+        for (city, hub_org), point in coords.items():
+            if hub_org != org or city == "Paris":
+                continue
+            ax.plot([paris[0], point[0]], [paris[1], point[1]], color=color, alpha=0.14,
+                    linewidth=1.1, zorder=2)
+
+    offsets = {"BNP Paribas": (-0.23, 0.14), "CACIB": (0.23, -0.14)}
+    markers = {"BNP Paribas": "o", "CACIB": "D"}
+    colors = {"BNP Paribas": BNP, "CACIB": CACIB}
+    cities_seen = set()
+    for row in hubs:
+        org = row["organization"]
+        city = row["city"]
+        lon, lat = float(row["longitude"]), float(row["latitude"])
+        ax.scatter(lon + offsets[org][0], lat + offsets[org][1], s=74,
+                   marker=markers[org], color=colors[org], edgecolor="white", linewidth=1.1, zorder=5)
+        if city not in cities_seen:
+            dx, dy = (0.38, 0.34)
+            if city == "London": dx, dy = (-2.55, 0.48)
+            if city == "Madrid": dx, dy = (-2.1, -0.75)
+            if city == "Stockholm": dx, dy = (0.48, 0.5)
+            if city == "Luxembourg": dx, dy = (0.35, 0.45)
+            ax.text(lon + dx, lat + dy, city, fontsize=8.8, color=INK, weight="bold", zorder=6)
+            cities_seen.add(city)
+
+    # Geographic reading cues: the dots are hubs; the labels are the regions.
+    region_labels = [
+        ("UK / IRELAND", -5.1, 56.3),
+        ("FRANCE", 0.1, 44.0),
+        ("IBERIA", -6.2, 39.0),
+        ("DACH", 8.9, 53.0),
+        ("LUXEMBOURG", 5.25, 47.5),
+        ("ITALY", 10.0, 41.3),
+        ("NORDICS", 16.1, 64.8),
+    ]
+    for label, x, y in region_labels:
+        ax.text(x, y, label, fontsize=7.2, color=MUTED, weight="bold", alpha=0.78, zorder=3)
+
+    # Assignment comparison nodes: use rings and callouts rather than more prose.
+    paris = coords[("Paris", "BNP Paribas")]
+    lux = coords[("Luxembourg", "BNP Paribas")]
+    ax.scatter(*paris, s=360, facecolors="none", edgecolors=BNP, linewidths=2.0, zorder=4)
+    ax.scatter(*lux, s=430, facecolors="none", edgecolors=GOLD, linewidths=2.0, zorder=4)
+    ax.annotate("1  France peer", xy=paris, xytext=(0.8, 52.4), color=BNP, fontsize=8.6, weight="bold",
+                arrowprops=dict(arrowstyle="-", color=BNP, lw=0.9),
+                bbox=dict(boxstyle="round,pad=0.24", facecolor=PAPER, edgecolor="none", alpha=0.92), zorder=7)
+    ax.annotate("2  Luxembourg local", xy=lux, xytext=(9.0, 47.2), color=GOLD, fontsize=8.6, weight="bold",
+                arrowprops=dict(arrowstyle="-", color=GOLD, lw=0.9),
+                bbox=dict(boxstyle="round,pad=0.24", facecolor=PAPER, edgecolor="none", alpha=0.92), zorder=7)
+
+    legend = [
+        Line2D([0], [0], marker="o", color="none", markerfacecolor=BNP, markeredgecolor="white", markersize=8,
+               label="BNP Paribas CIB selected hub"),
+        Line2D([0], [0], marker="D", color="none", markerfacecolor=CACIB, markeredgecolor="white", markersize=7,
+               label="CACIB selected hub"),
+    ]
+    ax.legend(handles=legend, loc="lower left", bbox_to_anchor=(0.015, 0.015), frameon=False, fontsize=8.2,
+              handletextpad=0.6)
+
+    # Right-hand activity architecture panel.
+    panel.set_xlim(0, 1)
+    panel.set_ylim(0, 1)
+    panel.axis("off")
+    panel.text(0.07, 0.945, "CIB activity architecture", fontsize=14, weight="bold", color=INK)
+    panel.text(0.07, 0.905, "What the regional network is designed to deliver", fontsize=8.8, color=MUTED)
+
+    def activity_card(y, color, title, subtitle, lines):
+        height = 0.105
+        panel.add_patch(FancyBboxPatch((0.055, y - height), 0.89, height - 0.008,
+                                       boxstyle="round,pad=0.012,rounding_size=0.018",
+                                       facecolor="white", edgecolor=GRID, linewidth=0.8))
+        panel.add_patch(FancyBboxPatch((0.055, y - height), 0.018, height - 0.008,
+                                       boxstyle="round,pad=0.002,rounding_size=0.008",
+                                       facecolor=color, edgecolor=color))
+        panel.text(0.10, y - 0.030, title, fontsize=9.0, weight="bold", color=color)
+        panel.text(0.10, y - 0.057, subtitle, fontsize=7.0, color=MUTED)
+        panel.text(0.10, y - 0.082, lines, fontsize=6.9, color=INK)
+
+    panel.text(0.07, 0.855, "BNP PARIBAS CIB", fontsize=9.5, weight="bold", color=BNP)
+    activity_card(0.825, BNP, "Global Banking", "relationship + balance sheet", "financing  ·  advisory  ·  cash management")
+    activity_card(0.705, BNP_LIGHT, "Global Markets", "market access + risk management", "rates  ·  FX  ·  equities  ·  derivatives")
+    activity_card(0.585, BNP, "Securities Services", "post-trade infrastructure", "custody  ·  clearing  ·  asset servicing")
+
+    panel.text(0.07, 0.45, "CACIB", fontsize=9.5, weight="bold", color=CACIB)
+    activity_card(0.405, CACIB, "Financing activities", "structured + transaction banking", "structured finance  ·  cash management  ·  trade")
+    activity_card(0.285, CACIB_LIGHT, "Market activities", "origination + secondary markets", "origination  ·  structuring  ·  sales / trading")
+    activity_card(0.165, CACIB, "Investment banking", "advisory + strategic transactions", "large corporates  ·  financial institutions  ·  public sector")
+    fig.suptitle("European CIB footprint — one platform, several regional engines", x=0.055, y=0.978,
+                 ha="left", fontsize=19, weight="bold", color=INK)
+    fig.text(0.055, 0.925, "BNP Paribas and CACIB | selected public hubs + CIB activity architecture", fontsize=9.2, color=MUTED)
+    footer(fig, "Sources: BNP Paribas CIB at a glance / EMEA pages; CACIB 2025 activity report; selected hub sources in data/europe_hubs_public.csv. City dots show selected hubs, not line-by-line legal booking.")
+    fig.subplots_adjust(left=0.035, right=0.985, bottom=0.06, top=0.87)
+    path = OUT / "01_europe_cib_activity_map.png"
+    fig.savefig(path, dpi=240, bbox_inches="tight")
+    return fig, path
+
 def build_slope():
     fig, ax = plt.subplots(figsize=(12.5, 7.3))
     x0, x1 = 0, 1
@@ -322,7 +444,7 @@ def build_luxembourg_matrix():
 
 def main():
     figures = []
-    for builder in (build_map, build_slope, build_dotplot, build_luxembourg_matrix):
+    for builder in (build_activity_map, build_slope, build_dotplot, build_luxembourg_matrix):
         fig, _ = builder()
         figures.append(fig)
     pdf_path = OUT / "CIB_EXECUTIVE_GRAPHS.pdf"

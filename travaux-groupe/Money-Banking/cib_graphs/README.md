@@ -2,7 +2,7 @@
 
 Three Python-generated, director-ready visuals for the BNP Paribas / CACIB benchmark:
 
-1. `output/01_europe_cib_footprint.png` — selected public European hubs, with Paris and Luxembourg highlighted;
+1. `output/01_europe_cib_activity_map.png` — selected European hubs plus the BNP/CACIB CIB activity architecture;
 2. `output/02_q2_momentum_slope.png` — Q2 2025 rebased to 100, showing Q2 2026 reported momentum;
 3. `output/03_q2_business_engine_dotplot.png` — Q2 2026 year-on-year change by business engine;
 4. `output/04_luxembourg_perimeter_heatmap.png` — the local Luxembourg perimeter control;
@@ -26,8 +26,11 @@ python -m venv .venv
 
 ## Public source trail
 
+- BNP Paribas CIB at a glance: https://cib.bnpparibas/cib-at-a-glance/
+- BNP Paribas CIB EMEA: https://cib.bnpparibas/emea/
 - BNP Paribas: https://invest.bnpparibas/en/document/2q26-pr
 - BNP Paribas Securities Services locations: https://securities.cib.bnpparibas/who-we-are/our-locations/
+- CACIB 2025 activity report: https://activity-report.ca-cib.com/
 - CACIB Q2/H1 2026: https://www.ca-cib.com/en/news/financial-results-second-quarter-and-first-half-2026
 - CACIB selected European business-line locations: https://www.ca-cib.com/en/expertise/solutions-support-your-financing-strategy/supporting-your-financing-needs/leveraged-0
 - CACIB Finance Luxembourg public report: see the exact URL in `data/europe_hubs_public.csv`.
