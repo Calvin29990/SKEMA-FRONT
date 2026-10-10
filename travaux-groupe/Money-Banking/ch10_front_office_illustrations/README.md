@@ -1,6 +1,6 @@
 # Illustrations — Chapter 10, slides 9–10
 
-Ce dossier rassemble **cinq illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; la cinquième est un graphique combiné de données. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
+Ce dossier rassemble **six illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; les deux dernières sont des graphiques de données. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
 
 > **Statut :** options de travail à sélectionner avant la création du PowerPoint final. Le deck des slides 9–10 n’est pas encore généré.
 
@@ -13,8 +13,9 @@ Ce dossier rassemble **cinq illustrations candidates** pour les slides 9–10 du
 | [03 — cash-flows et protection d’un CDS](output/03_cds_cashflows_and_protection.png) | Prime, événement de crédit, recovery, LGD et paiement contingent | Slide 10 : transfert et couverture du risque de crédit |
 | [04 — crise, stress de liquidité et réponse prudentielle](output/04_crisis_to_basel_timeline.png) | Faiblesse d’origination → complexité → levier → défauts → liquidité/contagion → Basel | Slide 10 : relier le front office à la crise et à la régulation |
 | [05 — croissance du subprime : graphique combiné](output/05_subprime_growth_combo_chart.png) | Barres = volume annuel ; courbe = part des nouvelles origines hypothécaires | Slide 9 : montrer la croissance du marché sans schéma en cubes |
+| [06 — CDS bancaires et stress de financement](output/06_bank_cds_spreads_and_funding_stress.png) | Médianes CDS US/Europe + comparaison des maxima observés pour plusieurs banques | Slide 10 : relier risque de crédit, run de Bear et choc Lehman |
 
-Les cinq fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
+Les six fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
 
 ## 01 — From a subprime mortgage to structured credit
 
@@ -100,21 +101,39 @@ Le graphique est plus simple à lire qu’un schéma de cubes : il montre imméd
 
 **Source des données :** Ashcraft & Schuermann, *Understanding the Securitization of Subprime Mortgage Credit*, Federal Reserve Bank of New York Staff Report no. 318 (2008), Table 1 ; données d’origination Inside Mortgage Finance. Les parts sont calculées à partir de cette table, et non lues approximativement sur le graphique de référence.
 
+## 06 — Bank CDS spreads: from calm to systemic stress
+
+![Illustration 6 — CDS bancaires et stress de financement](output/06_bank_cds_spreads_and_funding_stress.png)
+
+Ce graphique traite la crise de 2008 par le **pricing du risque de crédit** plutôt que par des cubes :
+
+- à gauche, les médianes des spreads CDS 5 ans pour les **45 banques**, les banques européennes et les banques américaines ;
+- les bandes verticales marquent le choc subprime, le run de Bear Stearns et la faillite de Lehman ;
+- à droite, les maxima observés dans l’échantillon pour **Morgan Stanley, Wachovia, Lehman Brothers, Bear Stearns, Goldman Sachs, Merrill Lynch et JPMorgan**.
+
+Le message est lisible : le risque de crédit bancaire est faible avant juillet 2007, puis les spreads se tendent. Après le run de Bear Stearns et surtout la faillite de Lehman, les banques américaines évoluent dans un régime de stress systémique. La médiane des banques américaines atteint **417 bps** dans la semaine suivant Lehman selon le texte de la source, tandis que le point de fin novembre 2008 de la table est à **200 bps**.
+
+Les barres de droite sont des **maxima sur la période de l’échantillon 2002–2008**, pas des niveaux observés le même jour et pas des probabilités de défaut. Un spread CDS est le prix de marché d’une protection contre un risque de crédit ; il ne se convertit pas automatiquement en probabilité de défaut. De même, le CDS signale la revalorisation du risque pendant un run, mais le run lui-même est un événement de **financement et de liquidité**.
+
+**Source des données :** Eichengreen, Mody, Nedeljkovic & Sarno, *How the Subprime Crisis Went Global: Evidence from Bank Credit Default Swap Spreads*, NBER Working Paper 14904 (2009), Figure 1 et Table 1 ; données Bloomberg. Le contexte du run de Bear Stearns et de la faillite de Lehman est recoupé avec la Federal Reserve Bank of New York.
+
+**Pourquoi elle est pertinente pour la slide 10 :** elle donne un vrai angle Sales/Trading : le marché transforme progressivement une inquiétude sur les actifs en spread de crédit, en risque de financement et en risque de contrepartie. Elle permet de parler de la contagion sans confondre spread, défaut et run bancaire.
+
 ## Quelle combinaison retenir pour deux slides ?
 
 Une sélection possible, à valider avant le PowerPoint :
 
 - **Slide 9 — 05 :** commencer par le graphique combiné pour rendre le boom du subprime immédiatement lisible ; utiliser **01** ou **02** seulement si le texte doit ensuite détailler la chaîne de titrisation ou la waterfall.
-- **Slide 10 — 03 ou 04 :** choisir **03** si l’angle prioritaire est le hedging, le pricing et le transfert du risque ; choisir **04** si l’angle prioritaire est la crise, la liquidité et la régulation.
+- **Slide 10 — 06 :** retenir le graphique CDS si l’objectif est de montrer la revalorisation du risque, le run de Bear Stearns et le choc Lehman ; utiliser **03** si l’objectif est d’expliquer le contrat CDS lui-même, ou **04** si l’objectif est la régulation.
 
 Si une seule illustration doit être retenue par slide :
 
 | Slide | Choix recommandé | Raisonnement |
 |---|---|---|
 | 9 | **05** | Lecture immédiate de la croissance du volume et de la part de marché, sans schéma abstrait. |
-| 10 | **03** ou **04** | **03** pour le front office et le hedging ; **04** pour la crise et la réponse prudentielle. |
+| 10 | **06** | Le meilleur visuel pour relier risque de crédit, funding, contagion et crise de 2008. |
 
-Les illustrations **01** et **02** restent utiles en réserve si la slide 9 doit aller plus loin dans la mécanique de la titrisation.
+Les illustrations **01** et **02** restent utiles en réserve si la slide 9 doit aller plus loin dans la mécanique de la titrisation. L’illustration **03** reste la meilleure option si la slide 10 doit d’abord définir le fonctionnement contractuel d’un CDS.
 
 ## Précautions de contenu
 
@@ -130,6 +149,8 @@ Les illustrations **01** et **02** restent utiles en réserve si la slide 9 doit
 - [Guide français des slides 9–10](../CH10-SLIDES-9-10-FRONT-OFFICE-FR.md)
 - [Financial Crisis Inquiry Commission Report](https://www.govinfo.gov/content/pkg/GPO-FCIC/pdf/GPO-FCIC.pdf)
 - [Federal Reserve History — The Great Recession and Its Aftermath](https://www.federalreservehistory.org/essays/great-recession-and-its-aftermath)
+- [Eichengreen et al. — NBER Working Paper 14904, bank CDS spreads](https://www.nber.org/system/files/working_papers/w14904/w14904.pdf)
+- [Federal Reserve Bank of New York — Bear Stearns and Lehman context](https://www.newyorkfed.org/newsevents/speeches/2010/bax100901)
 - [Basel Committee — Revisions to the Securitisation Framework](https://www.bis.org/bcbs/publ/d374.htm)
 - [Basel Committee — Basel III: Post-Crisis Reforms](https://www.bis.org/bcbs/publ/d424.htm)
 
@@ -141,4 +162,4 @@ Depuis la racine du dépôt, avec un environnement Python contenant `matplotlib`
 python travaux-groupe/Money-Banking/ch10_front_office_illustrations/build_illustrations.py
 ```
 
-Le script régénère les cinq fichiers dans `output/`.
+Le script régénère les six fichiers dans `output/`.
