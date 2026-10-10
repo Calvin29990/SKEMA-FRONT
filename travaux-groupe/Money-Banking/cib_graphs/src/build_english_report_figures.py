@@ -46,10 +46,10 @@ def report_page(section, report_title, graph_path, intro, paragraphs, takeaway, 
                              fill=False, edgecolor="#C9D1D8", linewidth=0.8))
     fig.text(0.11, 0.955, section, fontsize=8.0, color=GOLD, weight="bold", ha="left")
     fig.text(0.11, 0.928, report_title, fontsize=17.0, color=INK, weight="bold", ha="left")
-    fig.text(0.11, 0.895, intro, fontsize=8.3, color=MUTED, ha="left")
+    fig.text(0.11, 0.895, intro, fontsize=8.3, color=MUTED, ha="left", style="italic")
 
     # The source graph is kept intact: no logos, axes or values are redrawn.
-    image_ax = fig.add_axes([0.085, 0.505, 0.83, 0.355])
+    image_ax = fig.add_axes([0.055, 0.485, 0.89, 0.385])
     image_ax.imshow(plt.imread(graph_path), aspect="auto")
     image_ax.axis("off")
 
@@ -79,9 +79,9 @@ def main():
 
     map_page, map_png = report_page(
         "1.1  EUROPEAN FOOTPRINT",
-        "European CIB footprint — selected hubs and activity architecture",
+        "Figure 1. European CIB footprint and platform architecture",
         MAP,
-        "Report figure 1 | Geographic context for the France–Luxembourg comparison",
+        "European network and publicly documented activity hubs.",
         [
             "The map presents a selected public footprint of BNP Paribas CIB and Crédit Agricole CIB across Europe. Its purpose is to establish the geographic context before the comparative view: Paris acts as a central reference point, while London, Frankfurt, Milan, Madrid, Stockholm and Luxembourg illustrate selected regional locations documented in public business-line sources.",
             "The right-hand architecture distinguishes BNP Paribas CIB's Global Banking, Global Markets and Securities Services from CACIB's Financing Activities, Market Activities and Investment Banking. These are operating capabilities, not revenue categories or market-share scores.",
@@ -95,9 +95,9 @@ def main():
 
     bubble_page, bubble_png = report_page(
         "1.2  EXECUTIVE COMPARATOR",
-        "Four franchises — client reach, offer breadth and operating weight",
+        "Figure 2. Four franchises: client reach, offer breadth and operating weight",
         BUBBLE,
-        "Report figure 2 | Simplified executive bubble chart for a first-year finance audience",
+        "Comparative positioning based on publicly available information.",
         [
             "The chart compares four public franchise signals: BNP CIB France, CACIB France, CACEIS Luxembourg and BNP CIB Luxembourg. The horizontal reading moves from a specialist offer to a broad offer; the vertical bands move from a local signal to a group platform. This categorical design avoids false precision and is intended to be understandable in a few seconds.",
             "The client figure written next to each bubble is the publicly quantified reach when a source discloses it. Bubble area is an operating-weight signal based on public staff figures; it is not revenue, assets, market share or client value. The cards on the right identify the core product offer behind each point.",

@@ -34,9 +34,12 @@ def draw_report_page(graph_path, figure_label, page_no, intro, bullets, takeaway
     fig.text(0.07, 0.965, "MONEY & BANKING · CIB BENCHMARK", fontsize=7.0, color=MUTED, weight="bold")
     fig.text(0.93, 0.965, f"{page_no}/2", fontsize=7.0, color=GOLD, weight="bold", ha="right")
     fig.text(0.07, 0.925, figure_label, fontsize=15.2, color=INK, weight="bold", va="top")
-    fig.text(0.07, 0.892, "Report-ready figure · public sources · illustrative perimeter", fontsize=7.7, color=MUTED)
+    subtitle = ("European network and publicly documented activity hubs."
+                if page_no == "1"
+                else "Comparative positioning based on publicly available information.")
+    fig.text(0.07, 0.892, subtitle, fontsize=7.7, color=MUTED, style="italic")
 
-    graph_ax = fig.add_axes([0.07, 0.515, 0.86, 0.34])
+    graph_ax = fig.add_axes([0.04, 0.49, 0.92, 0.385])
     graph_ax.imshow(plt.imread(graph_path), aspect="auto")
     graph_ax.axis("off")
     for spine in graph_ax.spines.values():
