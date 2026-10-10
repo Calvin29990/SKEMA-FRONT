@@ -1,0 +1,8 @@
+bank,metric,value_pct,metric_type,scope,period,source_url,source_note
+BNP Paribas,CIB total,12.7,total,BNP Paribas CIB,2Q26 vs 2Q25,https://invest.bnpparibas/en/document/2q26-pr,"CIB net banking income; group CIB perimeter"
+BNP Paribas,Global Banking,2.7,business_line,BNP Paribas CIB,2Q26 vs 2Q25,https://invest.bnpparibas/en/document/2q26-pr,"BNP business-line reporting"
+BNP Paribas,Global Markets,17.5,business_line,BNP Paribas CIB,2Q26 vs 2Q25,https://invest.bnpparibas/en/document/2q26-pr,"BNP business-line reporting"
+BNP Paribas,Securities Services,17.5,business_line,BNP Paribas CIB,2Q26 vs 2Q25,https://invest.bnpparibas/en/document/2q26-pr,"BNP business-line reporting"
+CACIB,Corporate & Investment Banking,4.4,total,Crédit Agricole S.A. Large Customers / CIB-related,2Q26 vs 2Q25,https://www.ca-cib.com/en/news/financial-results-second-quarter-and-first-half-2026,"CACIB-related corporate and investment banking revenue; Crédit Agricole S.A. reporting perimeter"
+CACIB,Capital Markets & Investment Banking,8.5,business_line,Crédit Agricole S.A. Large Customers / CIB-related,2Q26 vs 2Q25,https://www.ca-cib.com/en/news/financial-results-second-quarter-and-first-half-2026,"CACIB-related capital markets and investment banking revenue"
+CACIB,Financing activities,0.3,business_line,Crédit Agricole S.A. Large Customers / CIB-related,2Q26 vs 2Q25,https://www.ca-cib.com/en/news/financial-results-second-quarter-and-first-half-2026,"CACIB-related financing revenue"
