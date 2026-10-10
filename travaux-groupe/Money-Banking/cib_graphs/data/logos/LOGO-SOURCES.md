@@ -10,5 +10,6 @@ These files are used only as visual wordmarks inside an academic/presentation mo
 | `unicredit.png` | UniCredit / public mandate example S2 | <https://companieslogo.com/unicredit/logo/> |
 | `loccitane.png` | L’OCCITANE / public transaction example S4 | <https://freebiesupply.com/logos/loccitane-logo/> |
 | `enel-green-power.png` | Enel Green Power wordmark / Enel public transaction example S3 | <https://commons.wikimedia.org/wiki/File:Enel_Green_Power.svg> |
+| `caceis.png` | CACEIS Investor Services / local Luxembourg signal | <https://logowik.com/caceis-bank-logo-vector-33153.html> |
 
 The third-party logo pages are provenance for the downloaded presentation assets, not an assertion that they grant a blanket trademark licence. For a final public deck, replace them with brand-approved files or a permitted text-only treatment if required.
