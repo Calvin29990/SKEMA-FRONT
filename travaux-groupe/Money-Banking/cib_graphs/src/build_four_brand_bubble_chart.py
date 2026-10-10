@@ -56,10 +56,10 @@ LOGO_FACE = {
     "bnp_lu": BNP,
 }
 LOGO_ZOOM = {
-    "bnp_fr": 0.026,
-    "cacib_fr": 0.095,
-    "caceis_lu": 0.052,
-    "bnp_lu": 0.026,
+    "bnp_fr": 0.038,
+    "cacib_fr": 0.145,
+    "caceis_lu": 0.072,
+    "bnp_lu": 0.038,
 }
 LOGO_FILE = {
     "bnp_fr": "bnp-paribas.png",
@@ -101,18 +101,27 @@ def add_info_card(ax, row, y):
     brand_id = row["brand_id"]
     color = COLORS[brand_id]
     face = {"bnp_fr": "#F3F7FB", "cacib_fr": "#EFFAF8", "caceis_lu": "#FFF2F5", "bnp_lu": "#F3F7FB"}[brand_id]
+    metric = {
+        "bnp_fr": ("19k+", "clients"),
+        "cacib_fr": ("~3.6k", "clients"),
+        "caceis_lu": ("240+", "clients*"),
+        "bnp_lu": ("N/D", "clients"),
+    }[brand_id]
     ax.add_patch(FancyBboxPatch((0.015, y - 0.105), 0.97, 0.19,
                                 boxstyle="round,pad=0.009,rounding_size=0.018",
                                 facecolor=face, edgecolor=GRID, linewidth=0.7, zorder=1))
     ax.add_patch(FancyBboxPatch((0.015, y - 0.105), 0.012, 0.19,
                                 boxstyle="round,pad=0.002,rounding_size=0.006",
                                 facecolor=color, edgecolor=color, linewidth=0, zorder=2))
-    add_logo(ax, brand_id, 0.12, y + 0.035, frame=True, zorder=8)
-    ax.text(0.235, y + 0.055, row["brand_label"].upper(), fontsize=7.8, color=color, weight="bold", va="center")
-    ax.text(0.235, y + 0.022, row["territory"].upper() + " · " + row["offer_breadth_label"].upper(), fontsize=5.8, color=MUTED, weight="bold")
-    ax.text(0.235, y - 0.015, "CLIENTS: " + row["client_display"], fontsize=6.7, color=INK, weight="bold")
-    products = textwrap.fill("PRODUCTS: " + row["products"].replace(";", " ·"), width=42)
-    ax.text(0.235, y - 0.048, products, fontsize=6.3, color=MUTED, va="top", linespacing=1.08)
+    add_logo(ax, brand_id, 0.105, y + 0.035, frame=True, zorder=8)
+    ax.text(0.235, y + 0.060, row["brand_label"].upper(), fontsize=8.5, color=color, weight="bold", va="center")
+    ax.text(0.235, y + 0.030, row["territory"].upper() + " · " + row["offer_breadth_label"].upper(), fontsize=6.0, color=MUTED, weight="bold")
+    ax.text(0.235, y - 0.008, metric[0], fontsize=13.0, color=color, weight="bold", va="center")
+    ax.text(0.405, y - 0.008, metric[1], fontsize=6.8, color=INK, weight="bold", va="center")
+    ax.text(0.235, y - 0.043, row["staff_display"], fontsize=6.8, color=MUTED, weight="bold")
+    ax.text(0.53, y + 0.056, "PRODUCTS", fontsize=6.2, color=color, weight="bold", va="center")
+    products = textwrap.fill(row["products"].replace(";", " ·"), width=27)
+    ax.text(0.53, y + 0.026, products, fontsize=6.1, color=INK, va="top", linespacing=1.10)
 
 
 def build():
@@ -133,8 +142,8 @@ def build():
     ax.text(0.76, 64, "N/D BAND — local client count not disclosed", fontsize=7.2, color=MUTED,
             va="center", style="italic", zorder=3)
     ax.set_xticks([1, 2, 3], ["SPECIALIST", "MIXED", "UNIVERSAL"])
-    ax.set_xlabel("Public offer breadth (qualitative, not a score)", labelpad=12)
-    ax.set_ylabel("Publicly quantified client reach · log scale", labelpad=12)
+    ax.set_xlabel("PUBLIC OFFER BREADTH  ·  qualitative, not a score", labelpad=12, fontsize=9.2, weight="bold")
+    ax.set_ylabel("PUBLIC CLIENT REACH  ·  log scale", labelpad=12, fontsize=9.2, weight="bold")
     ax.set_yticks([100, 300, 1000, 3000, 10000, 30000])
     ax.set_yticklabels(["100", "300", "1k", "3k", "10k", "30k"])
     ax.grid(axis="y", color=GRID, linewidth=0.7, alpha=0.9)
@@ -143,7 +152,7 @@ def build():
         ax.spines[spine].set_visible(False)
     ax.spines["left"].set_color(GRID)
     ax.spines["bottom"].set_color(GRID)
-    ax.tick_params(colors=MUTED, length=0)
+    ax.tick_params(colors=MUTED, length=0, labelsize=8.6)
 
     # Visual area is proportional to the public employee signal using a square-
     # root display scale so the smallest local platform remains visible.
@@ -151,7 +160,7 @@ def build():
         brand_id = row["brand_id"]
         x = float(row["offer_breadth_position"])
         staff = float(row["public_staff"])
-        bubble_area = 12.0 * np.sqrt(staff)
+        bubble_area = 20.0 * np.sqrt(staff)
         color = COLORS[brand_id]
         if row["public_clients"]:
             y = float(row["public_clients"])
@@ -159,16 +168,16 @@ def build():
             add_logo(ax, brand_id, x, y, frame=True, zorder=8)
             # Alternating callouts keep the labels out of each other on the log scale.
             if brand_id == "bnp_fr":
-                text_xy = (x - 0.50, y * 1.58)
+                text_xy = (x - 0.58, y * 1.38)
             elif brand_id == "cacib_fr":
-                text_xy = (x - 0.45, y * 1.42)
+                text_xy = (x - 0.48, y * 1.34)
             else:
-                text_xy = (x + 0.13, y * 1.30)
+                text_xy = (x + 0.13, y * 1.28)
             ax.annotate(row["brand_label"], xy=(x, y), xytext=text_xy,
-                        fontsize=9.2, color=INK, weight="bold",
-                        arrowprops=dict(arrowstyle="-", color=color, linewidth=0.8), zorder=9)
-            ax.text(text_xy[0], text_xy[1] / 1.18,
-                    f"{row['client_display']} · {row['staff_display']}", fontsize=6.8, color=MUTED, zorder=9)
+                        fontsize=10.8, color=INK, weight="bold",
+                        arrowprops=dict(arrowstyle="-", color=color, linewidth=1.0), zorder=9)
+            ax.text(text_xy[0], text_xy[1] / 1.16,
+                    f"{row['client_display']} · {row['staff_display']}", fontsize=8.0, color=color, weight="bold", zorder=9)
         else:
             # N/D is plotted only inside the explicitly labelled band: its y
             # coordinate is a visual slot, not an invented client count.
@@ -176,10 +185,10 @@ def build():
             ax.scatter(x, y, s=bubble_area, facecolors="white", edgecolor=color,
                        linewidth=2.0, zorder=5)
             add_logo(ax, brand_id, x, y, frame=True, zorder=8)
-            ax.annotate(row["brand_label"], xy=(x, y), xytext=(x + 0.13, 94),
-                        fontsize=9.2, color=INK, weight="bold",
-                        arrowprops=dict(arrowstyle="-", color=color, linewidth=0.8), zorder=9)
-            ax.text(x + 0.13, 82, "client count N/D · 72 staff", fontsize=6.8, color=MUTED, zorder=9)
+            ax.annotate(row["brand_label"], xy=(x, y), xytext=(x + 0.13, 96),
+                        fontsize=10.8, color=INK, weight="bold",
+                        arrowprops=dict(arrowstyle="-", color=color, linewidth=1.0), zorder=9)
+            ax.text(x + 0.13, 83, "CLIENT COUNT N/D · 72 STAFF", fontsize=8.0, color=color, weight="bold", zorder=9)
 
     ax.text(0.78, 28000, "BUBBLE AREA ∝ PUBLIC STAFF SIGNAL", fontsize=7.4, color=GOLD, weight="bold")
     ax.text(0.78, 23800, "not revenue · not market share", fontsize=6.9, color=MUTED, style="italic")
