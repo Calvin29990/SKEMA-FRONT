@@ -250,19 +250,20 @@ def build_deck():
     add_header(slide, "Three companies", 4, "Three public emphases — not one universal score provider",
                "Mission statements are positioning; products, models and coverage must be verified separately.")
     columns = [
-        (0.60, "equifax_logo.png", EQUIFAX, "Financial wellbeing\n+ data-driven decisions", ["Credit information", "Decision support", "Identity and fraud"], "FDF5F7"),
-        (4.48, "experian_logo.png", EXPERIAN, "Financial inclusion\n+ consumer information", ["Credit information", "Decision analytics", "Fraud and identity"], "F2F7FB"),
-        (8.36, "transunion_logo.png", TRANSUNION, "Information for Good\n+ trust", ["Credit information", "Risk decisioning", "Fraud and identity"], "ECFBFC"),
+        (0.60, "equifax_logo.png", EQUIFAX, "Founded 1899", "Financial wellbeing\n+ data-driven decisions", ["Credit information", "Decision support", "Identity and fraud"], "FDF5F7"),
+        (4.48, "experian_logo.png", EXPERIAN, "Current group established 1996", "Financial inclusion\n+ consumer information", ["Credit information", "Decision analytics", "Fraud and identity"], "F2F7FB"),
+        (8.36, "transunion_logo.png", TRANSUNION, "Founded 1968", "Information for Good\n+ trust", ["Credit information", "Risk decisioning", "Fraud and identity"], "ECFBFC"),
     ]
-    for x, logo, accent, positioning, services, fill in columns:
+    for x, logo, accent, history, positioning, services, fill in columns:
         add_card(slide, x, 2.25, 3.55, 3.85, fill=fill, line=fill)
         add_logo(slide, logo, x + 0.30, 2.55, 1.58)
-        add_shape(slide, MSO_SHAPE.RECTANGLE, x + 0.30, 3.48, 2.92, 0.012, fill=accent)
-        add_text(slide, "PUBLIC POSITIONING", x + 0.30, 3.70, 2.8, 0.22, size=7.3, color=MUTED, bold=True, all_caps=True)
-        add_text(slide, positioning, x + 0.30, 4.00, 2.84, 0.62, size=13, color=NAVY, bold=True)
+        add_text(slide, history, x + 0.30, 3.25, 2.85, 0.20, size=8.2, color=accent, bold=True)
+        add_shape(slide, MSO_SHAPE.RECTANGLE, x + 0.30, 3.55, 2.92, 0.012, fill=accent)
+        add_text(slide, "PUBLIC POSITIONING", x + 0.30, 3.76, 2.8, 0.22, size=7.3, color=MUTED, bold=True, all_caps=True)
+        add_text(slide, positioning, x + 0.30, 4.04, 2.84, 0.62, size=13, color=NAVY, bold=True)
         add_text(slide, "SERVICES TO VERIFY", x + 0.30, 4.80, 2.8, 0.22, size=7.3, color=MUTED, bold=True, all_caps=True)
         add_multiline(slide, services, x + 0.30, 5.08, 2.82, 0.7, size=9.6, color=INK, bullet=True, line_gap=1.0)
-    add_footer(slide, "Sources: official Equifax, Experian and TransUnion pages listed on slide 6. Positioning language is paraphrased unless directly quoted by the source.", 4)
+    add_footer(slide, "History: official company information pages listed on slide 6. Positioning is paraphrased and is not a performance ranking.", 4)
 
     # Slide 5 — limits
     slide = slide_base(prs)
@@ -305,8 +306,10 @@ def build_deck():
              8.40, 2.94, 3.82, 0.78, size=14, color=NAVY, bold=True)
     add_text(slide, "VERIFIED SOURCES", 0.70, 4.70, 2.0, 0.22, size=8.2, color=MUTED, bold=True, all_caps=True)
     source_lines = [
-        "Equifax: https://www.equifax.com/about-equifax/ | https://www.equifax.com/personal/credit-report-services/",
-        "Experian: https://www.experianplc.com/about-us/ | https://www.experian.com/consumer-information/",
+        "Equifax: https://www.equifax.com/about-equifax/ | https://investor.equifax.com/company-information",
+        "Equifax services: https://www.equifax.com/personal/credit-report-services/",
+        "Experian: https://www.experianplc.com/about-us/ | https://www.experian.com/corporate/principal-businesses",
+        "Experian consumer information: https://www.experian.com/consumer-information/",
         "Experian score explainer: https://www.experian.com/blogs/ask-experian/what-is-a-credit-score/",
         "TransUnion: https://www.transunion.com/about-us",
         "TransUnion Information for Good: https://newsroom.transunion.com/transunion-announces-its-new-brand-platform--information-for-good/",
