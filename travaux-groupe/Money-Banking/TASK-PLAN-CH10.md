@@ -2,6 +2,16 @@
 
 > Proposition de travail, à valider dans le groupe. Ce n'est pas une attribution officielle.
 
+## À distinguer du travail de groupe
+
+- **Roadmap académique cette semaine :** Money Market.
+- **12 octobre :** Capital Structure — cours/évaluation à confirmer dans K2.
+- **Travail de groupe immédiat :** EN-ROAD et Bank Size / BNP Paribas aujourd'hui et demain ; deadline interne mardi.
+- **Book project :** en pause, car le groupe ne l'a pas encore commencé.
+- **Bonus :** à traiter séparément mercredi.
+
+Le plan ci-dessous est donc le **plan hypothétique BNP**. Matteo a indiqué que le BNP était déjà réparti, mais la répartition nominative n'apparaît pas encore dans les messages visibles. Il faut confirmer la partie de Calvin avant de commencer.
+
 ## Proposition pour Calvin
 
 Prendre **Part 2 — BNP Paribas business lines / business model** :
@@ -45,13 +55,9 @@ Si cette partie est déjà prise, alternative propre : vérifier `1.3 Funding St
 - Le pitch dure 10 minutes : viser 50–70 secondes par slide, avec moins de temps sur le titre et la conclusion.
 - Le bonus Experian / Equifax / TransUnion reste une annexe Excel séparée, seulement après la version principale.
 
-## Message à envoyer au groupe
+## Message à envoyer au groupe maintenant
 
-> Hi guys, since we are six in the WhatsApp group and the presentation plus 10-minute pitch are due for 15 October, I suggest that we lock the responsibilities now instead of leaving sections unassigned. I am not yet listed in the Excel team sheet, so could you please add Calvin to Team 5?
->
-> **Proposed split:** Jules and Meng — introduction and Part 1; Matteo — financial data and sources; Calvin — Part 2 on BNP Paribas' business lines/business model (CPBS, CIB and IPS), two slides; Manal — CIB/IPS and source consolidation; Juan — international activities, contemporary relevance, conclusion and final coordination.
->
-> I can add my two slides and speaking notes to the Google Doc this weekend. Could everyone please reply with “Confirmed — [role]” or suggest a change by tonight? Proposed internal deadlines: content and sources by Sunday evening, one complete deck by Monday/Tuesday, final review and 10-minute rehearsal by Wednesday 14 October. The optional Experian/Equifax/TransUnion bonus should come only after the main presentation is complete.
+> Great, thanks. Since the BNP work has already been divided, could someone please confirm my exact section and the corresponding slides? I was not included in the original Excel list, so I just want to make sure I do not duplicate anyone's work. If no section has been assigned to me yet, I can take the Business Lines / Business Model section and complete it with the sources this weekend. Please tag me in the Google Doc or send me the final division of the sections. I will finish my part before the internal deadline on Tuesday.
 
 ## Message séparé pour le bonus
 
