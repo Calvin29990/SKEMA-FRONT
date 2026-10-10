@@ -16,18 +16,18 @@ Si cette partie est déjà prise, alternative propre : vérifier `1.3 Funding St
 
 ## Plan de présentation — 10 slides / 10 minutes
 
-| Slide | Contenu | Responsable à confirmer |
+| Slide | Contenu | Responsable proposé |
 |---:|---|---|
-| 1 | Titre, équipe, question : pourquoi la taille et les lignes métier comptent-elles ? | Jules / Meng |
-| 2 | Définition du banking business et modèle de banque universelle | À attribuer |
-| 3 | BNP Paribas : profil, présence internationale, ordre de grandeur | Part 1 / financial data |
-| 4 | Évolution des actifs 2016–2025 | Part 1 / financial data |
-| 5 | Funding structure : passifs, dépôts, fonds propres, levier | Part 1 / financial data |
+| 1 | Titre, équipe, question : pourquoi la taille et les lignes métier comptent-elles ? | Jules + Meng |
+| 2 | Définition du banking business et modèle de banque universelle | Meng |
+| 3 | BNP Paribas : profil, présence internationale, ordre de grandeur | Matteo — données |
+| 4 | Évolution des actifs 2016–2025 | Jules — Part 1 |
+| 5 | Funding structure : passifs, dépôts, fonds propres, levier | Matteo + vérification Calvin |
 | 6 | Vue d'ensemble des trois divisions : CPBS, CIB, IPS | Calvin — proposition |
 | 7 | CPBS : clients particuliers, entreprises, financement et services | Calvin — proposition |
-| 8 | CIB et IPS : marchés/corporate finance, gestion d'actifs, assurance | À attribuer / Calvin si nécessaire |
-| 9 | Activités internationales et importance dans la finance contemporaine | À attribuer |
-| 10 | Conclusion : taille, diversification, risques, message final | Tous + relecture |
+| 8 | CIB et IPS : marchés/corporate finance, gestion d'actifs, assurance | Manal |
+| 9 | Activités internationales et importance dans la finance contemporaine | Juan |
+| 10 | Conclusion, risques, sources et coordination du pitch | Juan + tous |
 
 ## Audit indispensable du brouillon actuel
 
@@ -47,7 +47,11 @@ Si cette partie est déjà prise, alternative propre : vérifier `1.3 Funding St
 
 ## Message à envoyer au groupe
 
-> Hi guys, I saw that Team 5 is assigned to Chapter 10 and that the presentation and 10-minute pitch are for 15 October. I am not yet listed in the Excel team sheet, so could you please add Calvin to the group? I can take Part 2 on BNP Paribas' business lines and business model (CPBS, CIB and IPS), prepare two slides with sources, and help with the final pitch. If that section is already assigned, I can instead verify the funding-structure slide. Please let me know where you want me to work in the Google Doc.
+> Hi guys, since we are six in the WhatsApp group and the presentation plus 10-minute pitch are due for 15 October, I suggest that we lock the responsibilities now instead of leaving sections unassigned. I am not yet listed in the Excel team sheet, so could you please add Calvin to Team 5?
+>
+> **Proposed split:** Jules and Meng — introduction and Part 1; Matteo — financial data and sources; Calvin — Part 2 on BNP Paribas' business lines/business model (CPBS, CIB and IPS), two slides; Manal — CIB/IPS and source consolidation; Juan — international activities, contemporary relevance, conclusion and final coordination.
+>
+> I can add my two slides and speaking notes to the Google Doc this weekend. Could everyone please reply with “Confirmed — [role]” or suggest a change by tonight? Proposed internal deadlines: content and sources by Sunday evening, one complete deck by Monday/Tuesday, final review and 10-minute rehearsal by Wednesday 14 October. The optional Experian/Equifax/TransUnion bonus should come only after the main presentation is complete.
 
 ## Message séparé pour le bonus
 

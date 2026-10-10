@@ -8,7 +8,8 @@
 - **Document de travail :** [Google Doc — Group Work](https://docs.google.com/document/d/1HN0gNINA3P_4bwyhyfj9zKNJ6nINEfAMtTkbDx27uYg/edit?usp=sharing)
 - **Consigne K2 confirmée par capture :** présentation de 10 slides + pitch de 10 minutes le **jeudi 15 octobre 2026**.
 - **Deadline affichée :** jeudi 15 octobre 2026 à **00:00**. Comme 00:00 est le début de la journée, viser un dépôt interne le **mercredi 14 octobre au soir** et demander confirmation à l'enseignant.
-- **Équipe affichée dans `CFM G2 – Task Book.xlsx` :** Team 5 / Chapter 10, Jules Metayer, Manal Ouahmed, Matteo Patussi, Meng Qi et Juan Romeromejia. Calvin n'apparaît pas encore dans cette liste, alors qu'il est dans le groupe WhatsApp.
+- **Équipe affichée dans `CFM G2 – Task Book.xlsx` :** Team 5 / Chapter 10, Jules Metayer, Manal Ouahmed, Matteo Patussi, Meng Qi et Juan Romeromejia.
+- **Groupe WhatsApp :** six personnes avec Calvin en plus ; Calvin doit encore être ajouté au fichier de répartition K2/Excel.
 - **État visible :** Jules et Meng ont partagé la partie 1 ; Meng a terminé sa partie et ajouté l'introduction. Manal a envoyé une version mise à jour du fichier BNP fondée sur les données financières fournies par Matteo.
 - **Section actuellement visible dans la capture :** `1.3 Funding Structure`, avec un paragraphe sur le financement de BNP Paribas par les passifs, les dépôts clients et les fonds propres.
 
