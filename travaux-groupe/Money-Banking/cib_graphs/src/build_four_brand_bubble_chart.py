@@ -129,10 +129,10 @@ def add_simple_card(ax, row, y):
 def build():
     rows = load_rows()
     fig = plt.figure(figsize=(16.0, 8.8))
-    fig.suptitle("Four franchises — who they serve and what they offer",
-                 x=0.04, y=0.965, ha="left", fontsize=21, weight="bold", color=INK)
+    # Graph-only asset: the report wrapper supplies the title, sources and
+    # takeaway separately. Use the full canvas for a legible chart.
     # Main bubble chart.
-    ax = fig.add_axes([0.07, 0.22, 0.60, 0.62])
+    ax = fig.add_axes([0.055, 0.08, 0.635, 0.86])
     ax.set_xlim(0.65, 3.38)
     ax.set_ylim(0.55, 3.48)
     ax.set_xticks([1, 2, 3], ["SPECIALIST", "MIXED", "BROAD OFFER"])
@@ -188,7 +188,7 @@ def build():
     ], loc="lower right", frameon=False, fontsize=8.0)
 
     # Right-side read-out: one big number and one simple product sentence.
-    info = fig.add_axes([0.71, 0.22, 0.25, 0.62])
+    info = fig.add_axes([0.715, 0.08, 0.255, 0.86])
     info.set_xlim(0, 1)
     info.set_ylim(0, 1)
     info.axis("off")
@@ -200,23 +200,6 @@ def build():
     for brand_id, y in [("bnp_fr", 0.78), ("cacib_fr", 0.57), ("caceis_lu", 0.36), ("bnp_lu", 0.15)]:
         add_simple_card(info, row_by_id[brand_id], y)
 
-    bottom = fig.add_axes([0.07, 0.065, 0.89, 0.09])
-    bottom.set_xlim(0, 1)
-    bottom.set_ylim(0, 1)
-    bottom.axis("off")
-    bottom.add_patch(FancyBboxPatch((0, 0), 1, 1, boxstyle="round,pad=0.012,rounding_size=0.020",
-                                    facecolor="#F0F5F9", edgecolor="none"))
-    bottom.text(0.025, 0.68, "ONE-SENTENCE TAKEAWAY", fontsize=7.2, color=GOLD, weight="bold")
-    bottom.text(0.025, 0.36,
-                "BNP CIB and CACIB serve broad group platforms; CACEIS specialises in asset servicing; BNP CIB Luxembourg is a focused local CIB offer.",
-                fontsize=8.5, color=INK, weight="bold")
-    bottom.text(0.72, 0.68, "IMPORTANT", fontsize=6.8, color=MUTED, weight="bold")
-    bottom.text(0.72, 0.36, "N/D is not zero · scopes are not a four-way revenue ranking.", fontsize=7.0, color=MUTED)
-
-    fig.text(0.07, 0.025,
-             "Sources: BNP CIB at a glance / 2026 At a Glance; CACIB 2025 key figures; BNP Paribas Luxembourg CIB page; CACEIS Luxembourg Investor Services report. See data/four_brand_bubble_metrics.csv.",
-             fontsize=6.4, color=MUTED, ha="left", va="bottom")
-    fig.subplots_adjust(left=0.02, right=0.985, bottom=0.045, top=0.89)
     png = OUT / "FOUR_BRANDS_EXECUTIVE_BUBBLE.png"
     fig.savefig(png, dpi=240, bbox_inches="tight")
     plt.close(fig)

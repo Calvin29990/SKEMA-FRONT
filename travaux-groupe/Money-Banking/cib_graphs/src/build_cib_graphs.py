@@ -318,11 +318,10 @@ def build_activity_map():
     activity_card(0.405, CACIB, "Financing activities", "structured + transaction banking", "structured finance  ·  cash management  ·  trade")
     activity_card(0.285, CACIB_LIGHT, "Market activities", "origination + secondary markets", "origination  ·  structuring  ·  sales / trading")
     activity_card(0.165, CACIB, "Investment banking", "advisory + strategic transactions", "large corporates  ·  financial institutions  ·  public sector")
-    fig.suptitle("European CIB footprint — one platform, several regional engines", x=0.055, y=0.978,
-                 ha="left", fontsize=19, weight="bold", color=INK)
-    fig.text(0.055, 0.925, "BNP Paribas and CACIB | selected public hubs + CIB activity architecture", fontsize=9.2, color=MUTED)
-    footer(fig, "Sources: BNP Paribas CIB at a glance / EMEA pages; CACIB 2025 activity report; selected hub sources in data/europe_hubs_public.csv. City dots show selected hubs, not line-by-line legal booking.")
-    fig.subplots_adjust(left=0.035, right=0.985, bottom=0.06, top=0.87)
+    # Keep this asset graph-only: the report wrapper supplies the figure title,
+    # sources and takeaway separately. This maximises legibility when pasted
+    # into a document or slide.
+    fig.subplots_adjust(left=0.02, right=0.985, bottom=0.025, top=0.985)
     path = OUT / "01_europe_cib_activity_map.png"
     fig.savefig(path, dpi=240, bbox_inches="tight")
     return fig, path
