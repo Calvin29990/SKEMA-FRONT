@@ -457,6 +457,160 @@ def illustration_6():
     footer(ax, "Source: Flannery, Houston & Partnoy, University of Pennsylvania Law Review (2010), Table 2; senior CDS spreads, Markit. Selected dates, not a daily series. CDS spread ≠ probability of default; a run is a funding/liquidity event.")
     save(fig, "06_bank_cds_spreads_and_funding_stress.png")
 
+
+def illustration_7():
+    """Create one two-panel chart that expresses the central idea of slides 9–10."""
+    fig, ax = setup(
+        "07  ·  From credit origination to market repricing",
+        "Chapter 10 in one visual: securitization scales bank credit, redistributes risk and makes funding stress visible in market prices.",
+    )
+
+    # Panel 1: same-source series as illustration 5.
+    years = [2001, 2002, 2003, 2004, 2005, 2006]
+    volume = [190, 231, 335, 540, 625, 600]
+    total_originations = [2113, 2773, 3765, 2600, 2755, 2520]
+    share = [100 * value / total for value, total in zip(volume, total_originations)]
+
+    scale = fig.add_axes([0.075, 0.535, 0.86, 0.265], facecolor=WHITE)
+    scale_share = scale.twinx()
+    scale.set_axisbelow(True)
+    scale.grid(axis="y", color=LINE, linewidth=0.75)
+    scale.grid(axis="x", color="#EEF1F5", linewidth=0.65)
+    scale.axvspan(2003.5, 2006.5, color=PALE_GOLD, alpha=0.42, zorder=0)
+    bars = scale.bar(years, volume, width=0.68, color="#E24A00", edgecolor="#B63B00",
+                     linewidth=0.5, label="Subprime originations ($bn)", zorder=3)
+    share_line, = scale_share.plot(years, share, color="#8B1E1E", linewidth=2.4,
+                                   marker="o", markersize=4.8, markerfacecolor=WHITE,
+                                   markeredgewidth=1.5, label="Share of all mortgage originations (%)",
+                                   zorder=5)
+    scale.set_xlim(2000.45, 2006.55)
+    scale.set_ylim(0, 700)
+    scale_share.set_ylim(0, 30)
+    scale.set_xticks(years)
+    scale.set_xticklabels([str(year) for year in years], fontsize=8.3, color=INK)
+    scale.set_yticks([0, 200, 400, 600])
+    scale_share.set_yticks([0, 10, 20, 30])
+    scale.set_ylabel("Originations ($bn)", fontsize=8.5, color=INK, labelpad=6)
+    scale_share.set_ylabel("Share (%)", fontsize=8.5, color="#8B1E1E", labelpad=7)
+    scale.tick_params(axis="y", labelsize=7.8, colors=INK)
+    scale_share.tick_params(axis="y", labelsize=7.8, colors="#8B1E1E")
+    scale.tick_params(axis="x", length=0, pad=4)
+    scale_share.tick_params(axis="x", length=0)
+    for spine in ["top", "right"]:
+        scale.spines[spine].set_visible(False)
+    scale.spines["left"].set_color(LINE)
+    scale.spines["bottom"].set_color(LINE)
+    scale_share.spines["top"].set_visible(False)
+    scale_share.spines["left"].set_visible(False)
+    scale_share.spines["right"].set_color("#8B1E1E")
+    scale.text(0.01, 0.94, "1  ·  SCALE — subprime credit expands", transform=scale.transAxes,
+               fontsize=8.6, color=TEAL, weight="bold", va="top")
+    scale.text(2005, 650, "2004–06 acceleration", fontsize=8.0, color=GOLD,
+               weight="bold", ha="center")
+    scale.text(2005, 625, "$625bn peak", fontsize=8.0, color="#B63B00",
+               weight="bold", ha="center", va="top")
+    scale.text(2006.05, 600, "$600bn / 23.8%", fontsize=8.0, color="#8B1E1E",
+               weight="bold", ha="left", va="bottom")
+    scale.legend(handles=[bars, share_line], loc="upper left", bbox_to_anchor=(0.38, 0.98),
+                 frameon=False, fontsize=7.4, handlelength=2.0, ncol=2)
+
+    # Panel 2: the five-bank event timeline from Table 2 of Flannery et al.
+    cds_dates = [
+        datetime(2006, 1, 2), datetime(2007, 1, 1), datetime(2007, 4, 2),
+        datetime(2007, 7, 10), datetime(2007, 8, 17), datetime(2008, 1, 1),
+        datetime(2008, 3, 14), datetime(2008, 9, 12), datetime(2008, 9, 15),
+        datetime(2008, 9, 16), datetime(2008, 9, 17), datetime(2008, 9, 18),
+        datetime(2008, 9, 19), datetime(2008, 9, 22),
+    ]
+    nan = float("nan")
+    bank_data = {
+        "Goldman Sachs": [21, 21, 32, 41, 81, 67, 240, 198, 324, 420, 596, 491, 369, 282],
+        "Morgan Stanley": [22, 22, 33, 41, 83, 99, 311, 265, 458, 681, 909, 875, 554, 422],
+        "Merrill Lynch": [21, 16, 35, 42, 83, 126, 339, 454, 343, 421, 530, 397, 331, 271],
+        "Lehman Brothers": [25, 21, 38, 45, 150, 120, 448, 702, 703, nan, nan, nan, nan, nan],
+        "Bear Stearns": [24, 21, 38, 57, 165, 176, 737, nan, nan, nan, nan, nan, nan, nan],
+    }
+    colors = {
+        "Goldman Sachs": BLUE,
+        "Morgan Stanley": NAVY,
+        "Merrill Lynch": MAGENTA,
+        "Lehman Brothers": CORAL,
+        "Bear Stearns": GOLD,
+    }
+
+    risk = fig.add_axes([0.075, 0.165, 0.86, 0.285], facecolor=WHITE)
+    risk.set_axisbelow(True)
+    risk.grid(axis="y", color=LINE, linewidth=0.75)
+    risk.grid(axis="x", color="#EEF1F5", linewidth=0.65)
+    risk.axhspan(0, 50, color=PALE_BLUE, alpha=0.60, zorder=0)
+    risk.text(datetime(2006, 2, 1), 35, "pre-crisis range ≈ 20–50 bps", fontsize=7.8,
+              color=BLUE, weight="bold")
+    risk_lines = []
+    for name, values in bank_data.items():
+        line, = risk.plot(cds_dates, values, color=colors[name], linewidth=2.25,
+                          marker="o", markersize=4.1, markerfacecolor=WHITE,
+                          markeredgewidth=1.35, label=name, zorder=5)
+        risk_lines.append(line)
+
+    risk.set_xlim(datetime(2005, 10, 1), datetime(2008, 10, 1))
+    risk.set_ylim(0, 1000)
+    risk.set_yticks([0, 500, 1000])
+    risk.set_ylabel("5-year senior CDS (bps)", fontsize=8.5, color=INK, labelpad=6)
+    risk.tick_params(axis="y", labelsize=7.8, colors=INK)
+    risk.tick_params(axis="x", labelsize=8.0, colors=INK, length=0, pad=5)
+    risk.xaxis.set_major_locator(mdates.MonthLocator(bymonth=[1, 7]))
+    risk.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+    for label in risk.get_xticklabels():
+        label.set_rotation(0)
+    risk.spines["top"].set_visible(False)
+    risk.spines["right"].set_visible(False)
+    risk.spines["left"].set_color(LINE)
+    risk.spines["bottom"].set_color(LINE)
+    risk.text(0.01, 0.94, "2  ·  PRICING — CDS spreads reprice bank risk", transform=risk.transAxes,
+              fontsize=8.6, color=TEAL, weight="bold", va="top")
+    risk.legend(handles=risk_lines, loc="upper left", bbox_to_anchor=(0.38, 0.98),
+                frameon=False, fontsize=7.3, handlelength=2.0, ncol=5)
+
+    events = [
+        (datetime(2007, 8, 17), "Countrywide run", GOLD),
+        (datetime(2008, 3, 14), "Bear / JPM", CORAL),
+        (datetime(2008, 9, 15), "Lehman", MAGENTA),
+    ]
+    for event_date, label, color in events:
+        risk.axvline(event_date, color=color, linewidth=1.05,
+                     linestyle=(0, (3, 3)), zorder=2)
+        risk.text(event_date, 965, label, rotation=90, ha="right", va="top",
+                  fontsize=7.0, color=color, weight="bold")
+
+    def arrow_note(text, xy, xytext, color):
+        risk.annotate(
+            text, xy=xy, xytext=xytext, fontsize=7.7, color=INK,
+            weight="bold", linespacing=1.1,
+            arrowprops=dict(arrowstyle="-|>", color=color, lw=1.2,
+                            connectionstyle="arc3,rad=0.10"),
+            bbox=dict(boxstyle="round,pad=0.22", facecolor=WHITE,
+                      edgecolor=color, linewidth=0.9), zorder=8,
+        )
+
+    arrow_note("Bear 737 bps\nJPM rescue · JPM +32 bps",
+               (datetime(2008, 3, 14), 737), (datetime(2007, 9, 1), 800), CORAL)
+    arrow_note("Lehman 703 bps\n15 Sep 2008",
+               (datetime(2008, 9, 15), 703), (datetime(2008, 5, 1), 780), MAGENTA)
+    arrow_note("Morgan 909 bps\n17 Sep 2008",
+               (datetime(2008, 9, 17), 909), (datetime(2008, 5, 1), 925), NAVY)
+
+    # The bridge is the central idea of the two slides, not a claim of single-cause causality.
+    ax.add_patch(FancyBboxPatch((2.05, 4.04), 11.90, 0.40,
+                                boxstyle="round,pad=0.02,rounding_size=0.08",
+                                facecolor=PALE_GOLD, edgecolor="#F0D99A", linewidth=0.9))
+    ax.text(8.00, 4.31, "ORIGINATE  →  STRUCTURE / DISTRIBUTE  →  REPRICE CREDIT + FUNDING RISK",
+            fontsize=8.8, color=NAVY, weight="bold", ha="center")
+    ax.text(8.00, 4.12, "The bridge to discuss — not a claim that securitization alone caused 2008.",
+            fontsize=7.2, color=MUTED, ha="center")
+
+    footer(ax, "Panel 1: Ashcraft & Schuermann, Federal Reserve Bank of New York Staff Report 318, Table 1. Panel 2: Flannery, Houston & Partnoy, University of Pennsylvania Law Review (2010), Table 2; Markit. CDS spread ≠ probability of default.")
+    save(fig, "07_ch10_core_credit_to_market_risk.png")
+
 def main():
     illustration_1()
     illustration_2()
@@ -464,6 +618,7 @@ def main():
     illustration_4()
     illustration_5()
     illustration_6()
+    illustration_7()
 
 
 if __name__ == "__main__":

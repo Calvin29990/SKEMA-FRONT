@@ -1,6 +1,6 @@
 # Illustrations — Chapter 10, slides 9–10
 
-Ce dossier rassemble **six illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; les deux dernières sont des graphiques de données. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
+Ce dossier rassemble **sept illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; les trois dernières sont des graphiques de données. L’illustration 07 est la version combinée recommandée si un seul visuel doit faire le lien entre les deux slides. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
 
 > **Statut :** options de travail à sélectionner avant la création du PowerPoint final. Le deck des slides 9–10 n’est pas encore généré.
 
@@ -14,8 +14,9 @@ Ce dossier rassemble **six illustrations candidates** pour les slides 9–10 du 
 | [04 — crise, stress de liquidité et réponse prudentielle](output/04_crisis_to_basel_timeline.png) | Faiblesse d’origination → complexité → levier → défauts → liquidité/contagion → Basel | Slide 10 : relier le front office à la crise et à la régulation |
 | [05 — croissance du subprime : graphique combiné](output/05_subprime_growth_combo_chart.png) | Barres = volume annuel ; courbe = part des nouvelles origines hypothécaires | Slide 9 : montrer la croissance du marché sans schéma en cubes |
 | [06 — cinq banques, spreads CDS et run de 2008](output/06_bank_cds_spreads_and_funding_stress.png) | Cinq lignes colorées, événements fléchés et niveaux clés de Goldman, Morgan Stanley, Merrill, Lehman et Bear | Slide 10 : relier pricing du risque, funding et choc Lehman |
+| [07 — de l’origination au repricing de marché](output/07_ch10_core_credit_to_market_risk.png) | Un seul visuel combiné : expansion du crédit subprime puis repricing CDS des cinq banques | Slides 9–10 : visuel central recommandé |
 
-Les six fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
+Les sept fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
 
 ## 01 — From a subprime mortgage to structured credit
 
@@ -125,21 +126,42 @@ Un spread CDS est un **prix de protection de crédit**, pas automatiquement une 
 
 **Pourquoi elle est pertinente pour la slide 10 :** elle transforme la crise en une lecture de marché concrète : un desk observe le spread, la vitesse de widening, la comparaison entre noms, le risque de contrepartie et l’effet d’un sauvetage sur le pricing.
 
+## 07 — From credit origination to market repricing
+
+![Illustration 7 — visuel combiné central des slides 9–10](output/07_ch10_core_credit_to_market_risk.png)
+
+Cette illustration est la **version combinée recommandée** si un seul graphique doit résumer les slides 9–10.
+
+Elle se lit en deux temps :
+
+1. **Panel 1 — Scale :** le volume des origines subprime passe de **$190bn en 2001 à $625bn en 2005**, puis reste à **$600bn en 2006**, tandis que la part calculée dans la même définition atteint environ **23.8 %**.
+2. **Panel 2 — Pricing :** les spreads CDS senior 5 ans de cinq banques restent autour de **21–25 bps en janvier 2006**, puis s’écartent après 2007. Bear Stearns atteint **737 bps** le 14 mars 2008 ; après Lehman, Morgan Stanley atteint **909 bps**, Goldman Sachs **596 bps** et Lehman **703 bps** dans les observations de septembre 2008.
+
+Le bandeau central exprime l’idée de la partie :
+
+> **Originate → structure/distribute → reprice credit and funding risk.**
+
+Le graphique ne dit pas que la croissance du subprime est, à elle seule, une preuve de causalité de la crise. Il montre plutôt la chaîne pédagogique à discuter : montée en échelle du crédit, besoin de structuration et de distribution, puis repricing du risque de crédit et de financement par le marché.
+
+**Utilisation recommandée :** utiliser le visuel complet comme figure centrale ; expliquer le **Panel 1 sur la slide 9** et le **Panel 2 sur la slide 10**, ou afficher la figure entière en transition entre les deux. Les illustrations 05 et 06 deviennent des versions détaillées de réserve, mais il n’est pas nécessaire de les mettre toutes les deux dans le deck final.
+
+**Sources :** Panel 1 — Ashcraft & Schuermann, Federal Reserve Bank of New York Staff Report 318 (2008), Table 1 ; Panel 2 — Flannery, Houston & Partnoy, University of Pennsylvania Law Review (2010), Table 2 ; données Markit. Un spread CDS est un prix de protection de crédit et non automatiquement une probabilité de défaut.
+
 ## Quelle combinaison retenir pour deux slides ?
 
 Une sélection possible, à valider avant le PowerPoint :
 
-- **Slide 9 — 05 :** commencer par le graphique combiné pour rendre le boom du subprime immédiatement lisible ; utiliser **01** ou **02** seulement si le texte doit ensuite détailler la chaîne de titrisation ou la waterfall.
-- **Slide 10 — 06 :** retenir le graphique CDS si l’objectif est de montrer la revalorisation du risque, le run de Bear Stearns et le choc Lehman ; utiliser **03** si l’objectif est d’expliquer le contrat CDS lui-même, ou **04** si l’objectif est la régulation.
+- **Slides 9–10 — 07 :** utiliser un seul visuel combiné ; lire le panel supérieur comme l’expansion et la transformation du crédit, puis le panel inférieur comme le repricing du risque par le marché.
+- **Option technique :** remplacer le panel supérieur par **05** si la slide 9 doit détailler les données de volume, ou le panel inférieur par **06** si la slide 10 doit détailler les cinq banques et les événements.
+- **Option contractuelle :** utiliser **03** seulement si la slide 10 doit définir précisément le fonctionnement d’un CDS ; utiliser **04** si la priorité est la régulation.
 
-Si une seule illustration doit être retenue par slide :
+Si une seule illustration doit être retenue pour les deux slides :
 
-| Slide | Choix recommandé | Raisonnement |
+| Slides | Choix recommandé | Raisonnement |
 |---|---|---|
-| 9 | **05** | Lecture immédiate de la croissance du volume et de la part de marché, sans schéma abstrait. |
-| 10 | **06** | Le meilleur visuel pour relier risque de crédit, funding, contagion et crise de 2008. |
+| 9–10 | **07** | Un seul graphique lisible relie scale, structuration, distribution, repricing et funding risk. |
 
-Les illustrations **01** et **02** restent utiles en réserve si la slide 9 doit aller plus loin dans la mécanique de la titrisation. L’illustration **03** reste la meilleure option si la slide 10 doit d’abord définir le fonctionnement contractuel d’un CDS.
+Les illustrations **01**, **02**, **05** et **06** restent disponibles comme zooms de réserve, mais il n’est pas nécessaire de les mettre toutes dans le deck final.
 
 ## Précautions de contenu
 
@@ -168,4 +190,4 @@ Depuis la racine du dépôt, avec un environnement Python contenant `matplotlib`
 python travaux-groupe/Money-Banking/ch10_front_office_illustrations/build_illustrations.py
 ```
 
-Le script régénère les six fichiers dans `output/`.
+Le script régénère les sept fichiers dans `output/`.
