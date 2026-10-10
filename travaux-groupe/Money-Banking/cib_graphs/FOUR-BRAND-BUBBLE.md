@@ -2,8 +2,8 @@
 
 `output/four_brand_comparator/FOUR_BRANDS_EXECUTIVE_BUBBLE.png` follows the requested executive bubble-chart format.
 
-- **Vertical axis:** publicly quantified client reach, shown on a log scale because BNP CIB group client reach is much larger than the Luxembourg local signals.
-- **Horizontal axis:** qualitative breadth of the publicly named offer — specialist, mixed or universal. This is a positioning axis, not a performance score.
+- **Vertical reading:** three simple bands — local signal, public local reach and group platform. This avoids a misleading log scale for an M1 audience; the actual public client signal is written directly next to each bubble.
+- **Horizontal reading:** qualitative breadth of the publicly named offer — specialist, mixed or broad offer. This is a positioning axis, not a performance score.
 - **Bubble area:** public employee signal, used as a visual indication of operating weight; it is not revenue, assets, market share or client value.
 - **Right-hand read-outs:** the product families and client perimeter behind each bubble.
 
