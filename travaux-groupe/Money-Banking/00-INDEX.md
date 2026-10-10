@@ -2,7 +2,19 @@
 
 > Mise en ordre initiale : 10 octobre 2026. Les fichiers de cours ont été récupérés depuis `origin/main` sans changer de branche. Le travail de groupe lui-même reste dans Google Docs : ce fichier est le tableau de bord, pas le rendu final.
 
-## 1. Travail de groupe actif : Chapter 10 — *The Banking Business*
+## 1. Mise à jour opérationnelle du groupe — 10 octobre 2026
+
+Le groupe a clarifié l'ordre de travail dans WhatsApp :
+
+1. **Aujourd'hui et demain :** terminer **EN-ROAD** et le travail **Bank Size / BNP Paribas**.
+2. **Mardi :** deadline interne pour le chapitre / Bank Size.
+3. **Mercredi :** traiter les bonus séparément.
+4. **Book project :** mis en pause pour l'instant, car le groupe ne l'a pas encore commencé.
+5. **Semaine prochaine :** Meng signale un possible examen MCQ sur Money et Capital Structure ; date, périmètre et supports restent à confirmer.
+
+Conséquence : ne pas commencer le book project ni les bonus ce week-end. D'abord obtenir une partie précise de Bank Size, la terminer et la déposer dans le document partagé.
+
+## 2. Travail de groupe actif : Chapter 10 — *The Banking Business*
 
 - **Livrable annoncé dans WhatsApp :** présentation PowerPoint de **10 slides** sur le chapitre 10.
 - **Document de travail :** [Google Doc — Group Work](https://docs.google.com/document/d/1HN0gNINA3P_4bwyhyfj9zKNJ6nINEfAMtTkbDx27uYg/edit?usp=sharing)
@@ -27,7 +39,7 @@ Les chiffres visibles dans la capture (`€2.793 tn` d’actifs, `€2.661 tn` d
 
 Le fichier mentionné dans WhatsApp sous le nom `BNP_paribas_International_Activities.docx` n’est pas présent dans la branche de travail actuelle ni dans la liste des fichiers Money récupérés depuis GitHub. Il faudra le demander ou l’ajouter avant la relecture finale.
 
-## 2. Fichiers Money/Banking classés
+## 3. Fichiers Money/Banking classés
 
 ### Cours et supports
 
@@ -51,15 +63,16 @@ Le fichier mentionné dans WhatsApp sous le nom `BNP_paribas_International_Activ
 | `EN-ROAD` | Ancien projet à confirmer ; ne pas le confondre avec Chapter 10 |
 | `Test BNP partiel.docx` | Préparation de recrutement BNP, pas examen SKEMA |
 
-## 3. Règle de priorité pour le week-end et la semaine prochaine
+## 4. Règle de priorité pour le week-end et la semaine prochaine
 
-1. **Ce week-end :** sécuriser le midterm réellement annoncé — ne pas supposer qu'il s'agit de Money tant que K2 n'est pas explicite.
-2. **Dès maintenant :** demander à l'équipe de rattacher Calvin à Team 5 et proposer la section **Business Lines / Business Model**.
-3. **Avant lundi :** livrer 2 slides propres avec sources et une note orale de 60–90 secondes par slide.
-4. **Avant le 14 octobre au soir :** finaliser le PowerPoint de 10 slides, les références et le pitch de 10 minutes.
-5. **Bonus seulement après le rendu principal :** le test Excel sur le credit scoring (Experian, Equifax, TransUnion). Il ne doit pas consommer le temps du travail obligatoire.
+1. **Aujourd'hui et demain :** finir EN-ROAD et Bank Size / BNP Paribas, comme convenu dans WhatsApp.
+2. **Ce week-end :** obtenir une partie précise, terminer les slides ou le texte associé et déposer les sources dans le document partagé.
+3. **Mardi :** respecter la deadline interne du chapitre / Bank Size.
+4. **Mercredi :** traiter les bonus séparément, uniquement après vérification du travail principal.
+5. **En parallèle, sans laisser tomber :** demander la date et le périmètre du MCQ Money + Capital Structure prévu la semaine prochaine, puis réserver des créneaux de révision après les urgences de groupe.
+6. **Book project :** le laisser en pause pour l'instant, conformément au message du groupe.
 
-## 4. Bonus credit scoring — à séparer du rendu principal
+## 5. Bonus credit scoring — à séparer du rendu principal
 
 Le message mentionne un test de credit scoring à déposer sur OneDrive, présenté comme une initiative/bonus. Le livre local de Money, Banking and International Finance est utile pour les banques, le crédit et les agences de notation, mais la recherche textuelle du PDF ne renvoie pas les noms **Experian**, **Equifax** ou **TransUnion**. Pour ce bonus, utiliser donc le fichier Excel et des sources propres aux trois bureaux, plutôt que d'inventer à partir du livre.
 
@@ -71,9 +84,11 @@ Le message mentionne un test de credit scoring à déposer sur OneDrive, présen
 - comparaison claire dans Excel ;
 - sources et date d'accès.
 
-## 5. État de certitude
+## 6. État de certitude
 
-- **Certain :** le groupe travaille sur une présentation de 10 slides consacrée au chapitre 10 et doit préparer un pitch de 10 minutes le 15 octobre.
-- **Certain :** Team 5 est affectée au chapitre 10 — *The Banking Business* ; la liste visible contient cinq membres et ne contient pas encore Calvin.
-- **À confirmer :** le rattachement officiel de Calvin, l'interprétation de la deadline affichée à 00:00 et la décision de faire ou non le bonus credit scoring.
-- **Toujours non démontré :** l'existence d'un midterm Money prévu demain. Le syllabus/mémo actuels décrivent surtout l'évaluation finale ; une annonce K2 ou un message du professeur doit primer.
+- **Certain :** le groupe veut terminer EN-ROAD et Bank Size / BNP Paribas aujourd'hui et demain.
+- **Certain :** la deadline interne annoncée pour le chapitre / Bank Size est mardi ; les bonus sont repoussés à mercredi.
+- **Certain :** le book project est mis en pause pour le moment.
+- **Certain :** Meng signale un MCQ Money + Capital Structure la semaine prochaine.
+- **À confirmer :** la date exacte et le périmètre du MCQ, la partie précise de Calvin dans Bank Size et le format final de chaque bonus.
+- **À maintenir :** le rendu K2 du 15 octobre reste la deadline officielle de la présentation de 10 slides et du pitch de 10 minutes.
