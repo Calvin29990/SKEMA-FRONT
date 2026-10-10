@@ -29,6 +29,14 @@ Si cette partie est déjà prise, alternative propre : vérifier `1.3 Funding St
 | 9 | Activités internationales et importance dans la finance contemporaine | À attribuer |
 | 10 | Conclusion : taille, diversification, risques, message final | Tous + relecture |
 
+## Audit indispensable du brouillon actuel
+
+- **Unités :** `€2.077 billion` doit probablement être écrit `€2,077 billion` ou `€2.077 trillion`. De même, les passages qui écrivent `€2,164.7 trillion`, `€2,663.7 trillion` ou `€2,591.5 trillion` semblent devoir être en **billion** (ou en trillion avec le point décimal). Il faut choisir une seule convention et la garder partout.
+- **Ratio de 4,7 % :** `€132.2 bn / €2.793 tn` est un ratio equity/assets, pas automatiquement le ratio réglementaire CET1 ou le CAR de Bâle. Ne pas l'appeler capital adequacy ratio sans source réglementaire.
+- **Section 1.2 :** elle est vide dans le brouillon ; la supprimer ou la compléter avant de faire les slides.
+- **Sources :** Refinitiv est mentionné, mais il faut ajouter la référence exacte, la date et idéalement le rapport annuel BNP Paribas 2025 pour les chiffres clés.
+- **Analyse :** le brouillon décrit bien la banque, mais doit expliquer explicitement pourquoi la taille, le levier, la diversification et l'internationalisation comptent pour la finance contemporaine.
+
 ## Règles de production
 
 - Une idée principale par slide ; pas de paragraphe dense.
