@@ -611,6 +611,128 @@ def illustration_7():
     footer(ax, "Panel 1: Ashcraft & Schuermann, Federal Reserve Bank of New York Staff Report 318, Table 1. Panel 2: Flannery, Houston & Partnoy, University of Pennsylvania Law Review (2010), Table 2; Markit. CDS spread ≠ probability of default.")
     save(fig, "07_ch10_core_credit_to_market_risk.png")
 
+
+def illustration_8():
+    """Create the housing-price / subprime-delinquency chart for slide 10."""
+    fig, ax = setup(
+        "08  ·  House prices fall, serious subprime delinquencies rise",
+        "The housing-market channel: less borrower equity and less refinancing capacity turn credit stress into mortgage losses.",
+    )
+
+    # S&P/Case-Shiller national HPI: July observations, Jan 2000 = 100.
+    hpi_dates = [datetime(year, 7, 1) for year in range(2000, 2011)]
+    hpi_values = [105.724, 114.229, 123.688, 134.647, 152.338, 174.099,
+                  184.608, 180.992, 165.710, 150.747, 147.560]
+
+    # Published milestones for serious delinquency among subprime mortgages.
+    # Serious delinquency = 90+ days past due or in foreclosure; this is not a
+    # full monthly series, so the line is explicitly labelled as milestones.
+    delinquency_dates = [datetime(2005, 6, 1), datetime(2007, 5, 17), datetime(2008, 7, 1)]
+    delinquency_values = [5.6, 11.0, 21.0]
+
+    chart = fig.add_axes([0.095, 0.19, 0.78, 0.61], facecolor=WHITE)
+    delinquency_axis = chart.twinx()
+    chart.set_axisbelow(True)
+    chart.grid(axis="y", color=LINE, linewidth=0.8)
+    chart.grid(axis="x", color="#EEF1F5", linewidth=0.7)
+    chart.axvspan(datetime(2006, 7, 1), datetime(2008, 7, 1),
+                  color=PALE_GOLD, alpha=0.45, zorder=0)
+
+    hpi_line, = chart.plot(hpi_dates, hpi_values, color=BLUE, linewidth=3.0,
+                           marker="o", markersize=4.4, markerfacecolor=WHITE,
+                           markeredgewidth=1.4, label="U.S. house price index (July observations)",
+                           zorder=5)
+    delinquency_line, = delinquency_axis.plot(
+        delinquency_dates, delinquency_values, color=MAGENTA, linewidth=2.8,
+        linestyle=(0, (5, 2)), marker="o", markersize=6.0,
+        markerfacecolor=WHITE, markeredgewidth=1.8,
+        label="Subprime serious delinquency milestones", zorder=6,
+    )
+
+    chart.set_xlim(datetime(1999, 10, 1), datetime(2010, 10, 1))
+    chart.set_ylim(90, 200)
+    delinquency_axis.set_ylim(0, 25)
+    chart.set_yticks([100, 125, 150, 175, 200])
+    delinquency_axis.set_yticks([0, 5, 10, 15, 20, 25])
+    chart.set_ylabel("S&P/Case-Shiller national HPI\n(Index Jan 2000 = 100)", fontsize=9.5,
+                     color=INK, labelpad=8)
+    delinquency_axis.set_ylabel("Subprime serious delinquency (%)", fontsize=9.5,
+                                color=MAGENTA, labelpad=9)
+    chart.tick_params(axis="y", labelsize=8.4, colors=INK)
+    delinquency_axis.tick_params(axis="y", labelsize=8.4, colors=MAGENTA)
+    chart.tick_params(axis="x", labelsize=8.7, colors=INK, length=0, pad=6)
+    delinquency_axis.tick_params(axis="x", length=0)
+    chart.xaxis.set_major_locator(mdates.YearLocator())
+    chart.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+    for label in chart.get_xticklabels():
+        label.set_rotation(0)
+    for spine in ["top", "right"]:
+        chart.spines[spine].set_visible(False)
+    chart.spines["left"].set_color(LINE)
+    chart.spines["bottom"].set_color(LINE)
+    delinquency_axis.spines["top"].set_visible(False)
+    delinquency_axis.spines["left"].set_visible(False)
+    delinquency_axis.spines["right"].set_color(MAGENTA)
+
+    chart.axhline(100, color=LINE, linewidth=0.9, linestyle=(0, (2, 3)), zorder=1)
+    chart.text(datetime(2000, 2, 1), 101.8, "Jan 2000 = 100", fontsize=7.8,
+               color=MUTED, va="bottom")
+    chart.text(datetime(2006, 11, 1), 195.5, "Housing peak → equity cushion weakens",
+               fontsize=8.5, color=GOLD, weight="bold", ha="center")
+
+    chart.annotate(
+        "HPI peak: 184.6\nJuly 2006",
+        xy=(datetime(2006, 7, 1), 184.608),
+        xytext=(datetime(2004, 9, 1), 193),
+        fontsize=8.8, color=BLUE, weight="bold", linespacing=1.15,
+        arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=1.35),
+        bbox=dict(boxstyle="round,pad=0.28", facecolor=WHITE, edgecolor=BLUE),
+        zorder=8,
+    )
+    delinquency_axis.annotate(
+        "≈5.6%\nmid-2005",
+        xy=(delinquency_dates[0], delinquency_values[0]),
+        xytext=(datetime(2003, 6, 1), 9.5),
+        fontsize=8.5, color=MAGENTA, weight="bold", linespacing=1.15,
+        arrowprops=dict(arrowstyle="-|>", color=MAGENTA, lw=1.25),
+        bbox=dict(boxstyle="round,pad=0.25", facecolor=WHITE, edgecolor=MAGENTA),
+        zorder=8,
+    )
+    delinquency_axis.annotate(
+        "≈11%\nMay 2007",
+        xy=(delinquency_dates[1], delinquency_values[1]),
+        xytext=(datetime(2006, 2, 1), 15.0),
+        fontsize=8.5, color=MAGENTA, weight="bold", linespacing=1.15,
+        arrowprops=dict(arrowstyle="-|>", color=MAGENTA, lw=1.25),
+        bbox=dict(boxstyle="round,pad=0.25", facecolor=WHITE, edgecolor=MAGENTA),
+        zorder=8,
+    )
+    delinquency_axis.annotate(
+        ">21%\nJuly 2008",
+        xy=(delinquency_dates[2], delinquency_values[2]),
+        xytext=(datetime(2008, 10, 1), 22.5),
+        fontsize=8.8, color=MAGENTA, weight="bold", linespacing=1.15,
+        arrowprops=dict(arrowstyle="-|>", color=MAGENTA, lw=1.35),
+        bbox=dict(boxstyle="round,pad=0.28", facecolor=WHITE, edgecolor=MAGENTA),
+        zorder=8,
+    )
+
+    handles = [hpi_line, delinquency_line]
+    chart.legend(handles, ["U.S. house price index", "Subprime serious delinquency milestones"],
+                 loc="upper left", bbox_to_anchor=(0.01, 0.99), frameon=False,
+                 fontsize=8.4, handlelength=2.5)
+
+    ax.add_patch(FancyBboxPatch((1.10, 0.84), 13.80, 0.60,
+                                boxstyle="round,pad=0.02,rounding_size=0.08",
+                                facecolor=PALE_GOLD, edgecolor="#F0D99A", linewidth=0.9))
+    ax.text(8.00, 1.27, "HOUSE PRICES ↓  →  BORROWER EQUITY ↓  →  REFINANCING HARDER  →  DELINQUENCIES ↑",
+            fontsize=9.0, color=NAVY, weight="bold", ha="center")
+    ax.text(8.00, 1.04, "The housing-market channel behind the losses on mortgage-backed assets.",
+            fontsize=7.8, color=MUTED, ha="center")
+
+    footer(ax, "House prices: S&P/Case-Shiller U.S. National HPI, FRED series CSUSHPINSA, July observations. Delinquencies: Federal Reserve FEDS 2008-59, FEDS 2008-63 and May 2007 speech; serious delinquency = 90+ days past due or foreclosure. Milestones, not a full monthly series.")
+    save(fig, "08_house_prices_and_subprime_delinquencies.png")
+
 def main():
     illustration_1()
     illustration_2()
@@ -619,6 +741,7 @@ def main():
     illustration_5()
     illustration_6()
     illustration_7()
+    illustration_8()
 
 
 if __name__ == "__main__":

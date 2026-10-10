@@ -1,6 +1,6 @@
 # Illustrations — Chapter 10, slides 9–10
 
-Ce dossier rassemble **sept illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; les trois dernières sont des graphiques de données. L’illustration 07 est la version combinée recommandée si un seul visuel doit faire le lien entre les deux slides. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
+Ce dossier rassemble **huit illustrations candidates** pour les slides 9–10 du Chapter 10 — *The Banking Business*. Les quatre premières sont des schémas de mécanisme ; les quatre dernières sont des graphiques de données. La recommandation finale est désormais d’utiliser **05 pour la slide 9** et **08 pour la slide 10**. Les visuels 06 et 07 restent des fichiers de réserve, mais le panneau CDS à cinq banques n’est pas retenu pour le deck final. Elles sont conçues comme des visuels de présentation, et non comme de simples éléments décoratifs : chaque image relie un mécanisme financier à une question de banque, de front office ou de gestion des risques.
 
 > **Statut :** options de travail à sélectionner avant la création du PowerPoint final. Le deck des slides 9–10 n’est pas encore généré.
 
@@ -13,10 +13,11 @@ Ce dossier rassemble **sept illustrations candidates** pour les slides 9–10 du
 | [03 — cash-flows et protection d’un CDS](output/03_cds_cashflows_and_protection.png) | Prime, événement de crédit, recovery, LGD et paiement contingent | Slide 10 : transfert et couverture du risque de crédit |
 | [04 — crise, stress de liquidité et réponse prudentielle](output/04_crisis_to_basel_timeline.png) | Faiblesse d’origination → complexité → levier → défauts → liquidité/contagion → Basel | Slide 10 : relier le front office à la crise et à la régulation |
 | [05 — croissance du subprime : graphique combiné](output/05_subprime_growth_combo_chart.png) | Barres = volume annuel ; courbe = part des nouvelles origines hypothécaires | Slide 9 : montrer la croissance du marché sans schéma en cubes |
-| [06 — cinq banques, spreads CDS et run de 2008](output/06_bank_cds_spreads_and_funding_stress.png) | Cinq lignes colorées, événements fléchés et niveaux clés de Goldman, Morgan Stanley, Merrill, Lehman et Bear | Slide 10 : relier pricing du risque, funding et choc Lehman |
-| [07 — de l’origination au repricing de marché](output/07_ch10_core_credit_to_market_risk.png) | Un seul visuel combiné : expansion du crédit subprime puis repricing CDS des cinq banques | Slides 9–10 : visuel central recommandé |
+| [06 — cinq banques, spreads CDS et run de 2008](output/06_bank_cds_spreads_and_funding_stress.png) | Cinq lignes colorées, événements fléchés et niveaux clés de Goldman, Morgan Stanley, Merrill, Lehman et Bear | Réserve uniquement : trop dense pour le deck final |
+| [07 — de l’origination au repricing de marché](output/07_ch10_core_credit_to_market_risk.png) | Ancien visuel combiné : expansion du crédit subprime puis repricing CDS des cinq banques | Réserve de travail, non retenue |
+| [08 — prix immobiliers et défauts subprime](output/08_house_prices_and_subprime_delinquencies.png) | Indice national des prix immobiliers américains et jalons de serious delinquency des prêts subprime | **Slide 10 : recommandation finale** |
 
-Les sept fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
+Les huit fichiers sont au format **16:9**, avec un style cohérent et une hiérarchie adaptée à une slide de cours : titre, mécanisme central ou série de données, exemple chiffré, puis une note de prudence en bas de page.
 
 ## 01 — From a subprime mortgage to structured credit
 
@@ -126,11 +127,11 @@ Un spread CDS est un **prix de protection de crédit**, pas automatiquement une 
 
 **Pourquoi elle est pertinente pour la slide 10 :** elle transforme la crise en une lecture de marché concrète : un desk observe le spread, la vitesse de widening, la comparaison entre noms, le risque de contrepartie et l’effet d’un sauvetage sur le pricing.
 
-## 07 — From credit origination to market repricing
+## 07 — From credit origination to market repricing (réserve, non retenue)
 
 ![Illustration 7 — visuel combiné central des slides 9–10](output/07_ch10_core_credit_to_market_risk.png)
 
-Cette illustration est la **version combinée recommandée** si un seul graphique doit résumer les slides 9–10.
+Cette illustration est une **ancienne version combinée de travail**. Elle est conservée comme réserve documentaire, mais n’est pas retenue pour le deck final : le panneau CDS à cinq banques est trop chargé pour la lecture de la slide 10.
 
 Elle se lit en deux temps :
 
@@ -143,25 +144,44 @@ Le bandeau central exprime l’idée de la partie :
 
 Le graphique ne dit pas que la croissance du subprime est, à elle seule, une preuve de causalité de la crise. Il montre plutôt la chaîne pédagogique à discuter : montée en échelle du crédit, besoin de structuration et de distribution, puis repricing du risque de crédit et de financement par le marché.
 
-**Utilisation recommandée :** utiliser le visuel complet comme figure centrale ; expliquer le **Panel 1 sur la slide 9** et le **Panel 2 sur la slide 10**, ou afficher la figure entière en transition entre les deux. Les illustrations 05 et 06 deviennent des versions détaillées de réserve, mais il n’est pas nécessaire de les mettre toutes les deux dans le deck final.
+**Statut :** ne pas utiliser ce visuel comme figure principale. La slide 9 conserve le graphique 05 et la slide 10 utilise désormais le graphique 08, plus lisible et directement centré sur le mécanisme immobilier et les défauts subprime.
 
 **Sources :** Panel 1 — Ashcraft & Schuermann, Federal Reserve Bank of New York Staff Report 318 (2008), Table 1 ; Panel 2 — Flannery, Houston & Partnoy, University of Pennsylvania Law Review (2010), Table 2 ; données Markit. Un spread CDS est un prix de protection de crédit et non automatiquement une probabilité de défaut.
 
-## Quelle combinaison retenir pour deux slides ?
+## 08 — House prices and subprime serious delinquencies
 
-Une sélection possible, à valider avant le PowerPoint :
+![Illustration 8 — prix immobiliers et serious delinquencies subprime](output/08_house_prices_and_subprime_delinquencies.png)
 
-- **Slides 9–10 — 07 :** utiliser un seul visuel combiné ; lire le panel supérieur comme l’expansion et la transformation du crédit, puis le panel inférieur comme le repricing du risque par le marché.
-- **Option technique :** remplacer le panel supérieur par **05** si la slide 9 doit détailler les données de volume, ou le panel inférieur par **06** si la slide 10 doit détailler les cinq banques et les événements.
-- **Option contractuelle :** utiliser **03** seulement si la slide 10 doit définir précisément le fonctionnement d’un CDS ; utiliser **04** si la priorité est la régulation.
+Ce graphique est le visuel recommandé pour la **slide 10**. Il remplace le panneau CDS à cinq banques par une vraie lecture économique du mécanisme :
 
-Si une seule illustration doit être retenue pour les deux slides :
+- la courbe bleue montre l’indice national S&P/Case-Shiller des prix immobiliers américains ;
+- la courbe bordeaux montre des **jalons publiés** du taux de *serious delinquency* des prêts subprime ;
+- la zone 2006–2008 attire l’attention sur le retournement des prix et la détérioration du crédit ;
+- le bandeau résume la séquence pédagogique : **baisse des prix → perte d’equity → refinancement plus difficile → hausse des impayés → pertes sur le crédit hypothécaire**.
 
-| Slides | Choix recommandé | Raisonnement |
+La définition est explicite : *serious delinquency* signifie un prêt avec **au moins 90 jours de retard ou en procédure de foreclosure**. Le graphique ne fabrique pas une série mensuelle à partir de quelques observations : les trois points de la courbe bordeaux sont des repères publiés — environ **5,6 % mi-2005**, **11 % en mai 2007** et **plus de 21 % en juillet 2008** — et la note de bas de page les présente comme tels.
+
+Le message n’est pas une preuve de causalité unique. La baisse des prix a réduit la valeur nette des emprunteurs et leurs possibilités de refinancement, mais les *rate resets*, la qualité de l’underwriting, le levier, les chocs de revenus, les conditions de liquidité et les incitations de la chaîne de titrisation sont également à discuter.
+
+**Sources des données :**
+
+- indice immobilier : [S&P/Case-Shiller U.S. National Home Price Index, FRED CSUSHPINSA](https://fred.stlouisfed.org/series/CSUSHPINSA), source S&P Dow Jones Indices LLC via FRED ; le visuel retient les observations de juillet et conserve la base janvier 2000 = 100 ;
+- défauts : [Federal Reserve, FEDS 2008-59](https://www.federalreserve.gov/pubs/feds/2008/200859/200859pap.pdf), [FEDS 2008-63](https://www.federalreserve.gov/pubs/feds/2008/200863/200863pap.pdf) et [le discours de mai 2007](https://www.federalreserve.gov/newsevents/speech/bernanke20070517a.htm), données First American LoanPerformance ; la définition et les séries séparées variable-rate/fixed-rate sont décrites par la Federal Reserve.
+
+## Quelle combinaison retenir pour les deux slides ?
+
+La sélection finale recommandée est :
+
+| Slide | Choix recommandé | Message |
 |---|---|---|
-| 9–10 | **07** | Un seul graphique lisible relie scale, structuration, distribution, repricing et funding risk. |
+| 9 | **05 — croissance du subprime** | L’origination subprime augmente fortement en volume et en part du marché avant la crise. |
+| 10 | **08 — prix immobiliers et défauts subprime** | Le pic immobilier de 2006 est suivi d’une baisse des prix, d’une perte d’equity et d’une montée des serious delinquencies. |
 
-Les illustrations **01**, **02**, **05** et **06** restent disponibles comme zooms de réserve, mais il n’est pas nécessaire de les mettre toutes dans le deck final.
+- **06** et **07** restent disponibles comme graphiques de réserve, mais ne sont pas recommandés dans le deck final : le suivi des spreads CDS de cinq banques est trop dense pour la slide 10.
+- **03** reste pertinent uniquement si la slide 10 doit définir précisément le fonctionnement contractuel d’un CDS.
+- **04** reste pertinent si la priorité devient la crise systémique et la régulation plutôt que la séquence prix immobiliers–défauts.
+
+Le lien entre la baisse des prix et les défauts doit être présenté comme un **mécanisme économique à discuter**, pas comme une explication exhaustive ni comme une preuve causale unique.
 
 ## Précautions de contenu
 
@@ -179,6 +199,9 @@ Les illustrations **01**, **02**, **05** et **06** restent disponibles comme zoo
 - [Federal Reserve History — The Great Recession and Its Aftermath](https://www.federalreservehistory.org/essays/great-recession-and-its-aftermath)
 - [Flannery, Houston & Partnoy — CDS spreads and credit ratings](https://www.law.upenn.edu/live/files/22-flannery158upalrev20852010pdf)
 - [Federal Reserve Bank of New York — Bear Stearns and Lehman context](https://www.newyorkfed.org/newsevents/speeches/2010/bax100901)
+- [FRED — S&P/Case-Shiller U.S. National Home Price Index](https://fred.stlouisfed.org/series/CSUSHPINSA)
+- [Federal Reserve — The Past, Present, and Future of Subprime Mortgages](https://www.federalreserve.gov/pubs/feds/2008/200863/index.html)
+- [Federal Reserve — The Subprime Mortgage Market, May 2007](https://www.federalreserve.gov/newsevents/speech/bernanke20070517a.htm)
 - [Basel Committee — Revisions to the Securitisation Framework](https://www.bis.org/bcbs/publ/d374.htm)
 - [Basel Committee — Basel III: Post-Crisis Reforms](https://www.bis.org/bcbs/publ/d424.htm)
 
@@ -190,4 +213,4 @@ Depuis la racine du dépôt, avec un environnement Python contenant `matplotlib`
 python travaux-groupe/Money-Banking/ch10_front_office_illustrations/build_illustrations.py
 ```
 
-Le script régénère les sept fichiers dans `output/`.
+Le script régénère les huit fichiers dans `output/`.
