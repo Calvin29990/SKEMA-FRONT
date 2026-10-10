@@ -1,0 +1,8 @@
+bank,metric,q1_yoy_pct,q2_yoy_pct,scope,source_q1,source_q2
+BNP Paribas,CIB total,-0.8,12.7,BNP Paribas CIB,https://invest.bnpparibas/en/document/1q26-pr,https://invest.bnpparibas/en/document/2q26-pr
+BNP Paribas,Global Banking,-9.8,2.7,BNP Paribas CIB,https://invest.bnpparibas/en/document/1q26-pr,https://invest.bnpparibas/en/document/2q26-pr
+BNP Paribas,Global Markets,2.5,17.5,BNP Paribas CIB,https://invest.bnpparibas/en/document/1q26-pr,https://invest.bnpparibas/en/document/2q26-pr
+BNP Paribas,Securities Services,6.5,17.5,BNP Paribas CIB,https://invest.bnpparibas/en/document/1q26-pr,https://invest.bnpparibas/en/document/2q26-pr
+CACIB,Corporate & Investment Banking,-4.0,4.4,Crédit Agricole S.A. Large Customers / CIB-related,https://www.ca-cib.com/en/news/financial-results-first-quarter-2026,https://www.ca-cib.com/en/news/financial-results-second-quarter-and-first-half-2026
+CACIB,Capital Markets & Investment Banking,-2.2,8.5,Crédit Agricole S.A. Large Customers / CIB-related,https://www.ca-cib.com/en/news/financial-results-first-quarter-2026,https://www.ca-cib.com/en/news/financial-results-second-quarter-and-first-half-2026
+CACIB,Financing activities,-6.0,0.3,Crédit Agricole S.A. Large Customers / CIB-related,https://www.ca-cib.com/en/news/financial-results-first-quarter-2026,https://www.ca-cib.com/en/news/financial-results-second-quarter-and-first-half-2026
