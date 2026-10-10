@@ -131,10 +131,6 @@ def build():
     fig = plt.figure(figsize=(16.0, 8.8))
     fig.suptitle("Four franchises — who they serve and what they offer",
                  x=0.04, y=0.965, ha="left", fontsize=21, weight="bold", color=INK)
-    fig.text(0.04, 0.928,
-             "Read the chart in 20 seconds: left → right = offer breadth · up = public reach · bubble size = operating weight.",
-             fontsize=10.0, color=MUTED)
-
     # Main bubble chart.
     ax = fig.add_axes([0.07, 0.22, 0.60, 0.62])
     ax.set_xlim(0.65, 3.38)
