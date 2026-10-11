@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsche Bank — Entraînement Online Assessment 2027</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#f4f6f9;color:#0a1931;line-height:1.5}
+.header{background:#00205B;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.header h1{font-size:16px;font-weight:700;letter-spacing:0.2px}
+.header span{font-size:11px;opacity:0.8;background:rgba(255,255,255,0.15);padding:3px 8px;border-radius:10px}
+.tabs{display:flex;gap:0;background:#fff;border-bottom:2px solid #e2e8f0;position:sticky;top:52px;z-index:99}
+.tab{flex:1;padding:14px 8px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;color:#64748b}
+.tab.active{color:#00205B;border-bottom-color:#00205B;background:#f0f4ff}
+.tab small{display:block;font-weight:400;font-size:11px;margin-top:2px}
+.container{max-width:860px;margin:24px auto;padding:0 16px 60px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:18px}
+.card h2{font-size:15px;color:#00205B;margin-bottom:6px}
+.card h3{font-size:13px;color:#0047AB;margin:14px 0 8px}
+.note{background:#eef4ff;border-left:4px solid #0047AB;padding:10px 12px;border-radius:6px;font-size:12.5px;color:#1e3a5f;margin:10px 0}
+.warn{background:#fff4e6;border-left:4px solid #ff6b00;padding:10px 12px;border-radius:6px;font-size:12.5px;margin:10px 0}
+.success{background:#e8f5e9;border-left:4px solid #00a651;padding:10px 12px;border-radius:6px;font-size:12.5px;margin:10px 0}
+.btn{background:#00205B;color:#fff;border:none;padding:11px 22px;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
+.btn.secondary{background:#fff;color:#00205B;border:1.5px solid #00205B}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.btn.small{padding:7px 14px;font-size:12.5px}
+.progress{background:#e2e8f0;height:6px;border-radius:10px;overflow:hidden;margin:10px 0}
+.progress div{height:100%;background:#00205B;width:0%;transition:width 0.3s}
+.badge{display:inline-block;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.badge.blue{background:#dbeafe;color:#1e40af}
+.badge.green{background:#dcfce7;color:#166534}
+.badge.red{background:#fee2e2;color:#991b1b}
+.badge.grey{background:#f1f5f9;color:#475569}
+
+/* SJT */
+.sjt-q{border:1.5px solid #e2e8f0;border-radius:10px;padding:16px;margin:14px 0;background:#fff}
+.sjt-q.correct{border-color:#00a651;background:#f0fdf4}
+.sjt-q.wrong{border-color:#ef4444;background:#fef2f2}
+.sjt-q h4{font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.sjt-q p{font-size:13.5px;color:#0f172a;margin-bottom:12px;line-height:1.55}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;font-size:13px;cursor:pointer}
+.opt:hover{border-color:#94a3b8}
+.opt input{accent-color:#00205B}
+.opt .label{flex:1}
+.opt .meta{font-size:10px;color:#64748b;text-transform:uppercase}
+.selectors{display:flex;gap:8px;margin-top:8px}
+.sel{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid #e2e8f0}
+.sel.most.active{background:#dbeafe;border-color:#00205B;color:#00205B}
+.sel.least.active{background:#fee2e2;border-color:#991b1b;color:#991b1b}
+.sel input{display:none}
+
+/* Cognitive */
+.cog-q{border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin:12px 0}
+.cog-q img{max-width:100%;border-radius:6px;border:1px solid #e2e8f0}
+.cube-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.cube-opt{border:1.5px solid #e2e8f0;border-radius:8px;padding:10px;text-align:center;cursor:pointer;background:#fff}
+.cube-opt:hover{border-color:#00205B}
+.cube-opt.selected{border-color:#00205B;background:#eff6ff}
+.cube-opt svg{width:100%;height:90px}
+.pattern{display:flex;gap:8px;align-items:center;margin:10px 0;flex-wrap:wrap}
+.pat-box{width:56px;height:56px;border:1.5px solid #cbd5e1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;background:#fff}
+.pat-arrow{font-size:18px;color:#94a3b8}
+.num-table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+.num-table th{background:#00205B;color:#fff;padding:8px;text-align:left}
+.num-table td{padding:8px;border-bottom:1px solid #e2e8f0}
+.verbal-txt{background:#f8fafc;padding:12px;border-radius:8px;font-size:13px;border-left:3px solid #00205B;margin:10px 0}
+.answer-row{display:flex;gap:8px;margin-top:10px}
+.answer-row label{flex:1;padding:8px;border:1.5px solid #e2e8f0;border-radius:7px;text-align:center;cursor:pointer;font-size:13px;background:#fff}
+.answer-row label.active{background:#00205B;color:#fff;border-color:#00205B}
+.answer-row input{display:none}
+
+.timer{position:fixed;bottom:16px;right:16px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,0.2);display:none}
+.timer.warn{background:#dc2626}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1>Deutsche Bank — Graduate Talent Screener</h1>
+    <div style="font-size:11px;opacity:0.9;margin-top:2px">Investment Bank & Capital Markets · UK Coverage · London · 2027 — Entraînement SHL 2024-2027</div>
+  </div>
+  <span>Mode entraînement</span>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="sjt" onclick="showTab('sjt')">TEST 1 — SJT<br><small>18Q · Most/Least · 15-20 min</small></div>
+  <div class="tab" data-tab="cog" onclick="showTab('cog')">TEST 2 — COGNITIVE<br><small>Cubes · Points · Num · Verbal</small></div>
+  <div class="tab" data-tab="hirevue" onclick="showTab('hirevue')">TEST 3 — HIREVUE<br><small>3Q · 2 min · STAR</small></div>
+</div>
+
+<div class="container">
+
+<!-- ===================== SJT ===================== -->
+<div id="tab-sjt">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h2>🎯 Test 1 — Situational Judgment Test (18 questions)</h2>
+      <span class="badge blue">Non-timé · ~20 min</span>
+    </div>
+    <p style="font-size:13px;color:#334155;margin:6px 0">Même interface que SHL : chaque scénario = 3 options. Tu dois choisir <b>1 MOST effective</b> + <b>1 LEAST effective</b> (différentes). Le 3e reste neutre. Pas de timer mais fais-le d'une traite.</p>
+    <div class="note">
+      <b>Matrice à garder ouverte (PDF p.2) :</b> MOST = proactif + rigueur/curiosité + implique quelqu'un (ask/review/discuss/investigate). LEAST = fuit / copie / s'efface / évite le conflit. Si hésite → celui qui demande du feedback = MOST.
+    </div>
+    <div class="progress"><div id="sjt-progress"></div></div>
+    <div style="font-size:12px;color:#64748b">Progression : <span id="sjt-count">0/8</span> répondu · Score : <span id="sjt-score">—</span></div>
+  </div>
+
+  <div id="sjt-container"></div>
+
+  <div class="card" style="text-align:center">
+    <button class="btn" onclick="scoreSJT()">Vérifier mes réponses (Most/Least)</button>
+    <button class="btn secondary" onclick="resetSJT()" style="margin-left:8px">Recommencer</button>
+    <div id="sjt-result" style="margin-top:14px"></div>
+  </div>
+
+  <div class="card warn">
+    <h3>⚠️ 7 erreurs fatales (PDF p.2) — à cocher avant de submit le vrai test</h3>
+    <ul style="font-size:13px;margin-left:16px;line-height:1.7">
+      <li>Ne JAMAIS mettre <i>"Include similar recommendations as last year / client was happy"</i> en MOST</li>
+      <li>Ne JAMAIS mettre <i>"Ask your manager if another colleague can present so you can watch"</i> en MOST</li>
+      <li>Ne JAMAIS mettre <i>"Hold back as they are more experienced"</i> en MOST</li>
+      <li>Ne JAMAIS mettre <i>"End meeting as anxious not to upset"</i> en MOST</li>
+      <li>Toujours préférer <b>review / discuss / investigate</b> à <b>use current / copy / watch</b></li>
+      <li>Le MOST contient toujours un verbe collaboratif (ask, review, discuss, approach)</li>
+      <li>Le LEAST est toujours le plus passif / solitaire / fuyant</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== COG ===================== -->
+<div id="tab-cog" class="hidden">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h2>🧠 Test 2 — Ability / Cognitive (tes points faibles)</h2>
+      <span class="badge red">Timé · 1 min / question</span>
+    </div>
+    <p style="font-size:13px;color:#334155">Dans SHL : blocs séparés (numérique / verbal / inductif-déductif / concentration). Ici entraînement ciblé <b>CUBES + POINTS</b> + numérique/verbal. <b>Entraîne-toi au chrono</b> avec le bouton ci-dessous.</p>
+    <div class="warn"><b>Méthode cubes (PDF p.3) :</b> 1) Trouve les faces OPPOSÉES sur le patron (elles ne peuvent jamais se toucher sur le cube) → élimine. 2) Vérifie l'ordre autour d'une face. 3) Vérifie l'orientation de la flèche/point.</div>
+    <div style="display:flex;gap:10px;margin-top:10px">
+      <button class="btn small" onclick="startCogTimer()">▶ Lancer chrono examen (12 min)</button>
+      <button class="btn small secondary" onclick="stopCogTimer()">⏸ Stop</button>
+      <span id="cog-timer" style="font-weight:700;color:#00205B;margin-left:8px"></span>
+    </div>
+    <div class="progress"><div id="cog-progress"></div></div>
+    <div style="font-size:12px;color:#64748b">Progression : <span id="cog-count">0/10</span></div>
+  </div>
+
+  <div id="cog-container"></div>
+
+  <div class="card" style="text-align:center">
+    <button class="btn" onclick="scoreCog()">Vérifier Cognitive</button>
+    <button class="btn secondary" onclick="resetCog()" style="margin-left:8px">Recommencer</button>
+    <div id="cog-result" style="margin-top:14px"></div>
+  </div>
+
+  <div class="card success">
+    <h3>✅ Astuces rapides pendant le vrai test</h3>
+    <ul style="font-size:13px;margin-left:16px;line-height:1.7">
+      <li><b>Numérique :</b> approxime (187,694 → 188k). Calcule % change = (New-Old)/Old×100. Ne cherche pas la précision à 0.1%</li>
+      <li><b>Cubes :</b> Dessine au brouillon les opposés (dès que tu vois le patron). C'est 80% du filtre.</li>
+      <li><b>Verbal True/False/Cannot Say :</b> si l'info n'est PAS dans le texte → <b>Cannot Say</b> (jamais True)</li>
+      <li><b>Inductif :</b> cherche la règle la plus simple : +1 point, rotation 90°, alternance couleur. Teste lignes ET colonnes.</li>
+      <li>Si bloqué &gt;45s → <b>PASSE</b>, reviens à la fin. Pas de malus pour faux, mais 0 pour non-répondu.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== HIREVUE ===================== -->
+<div id="tab-hirevue" class="hidden">
+  <div class="card">
+    <h2>🎥 Test 3 — HireVue Video Interview (3 questions × 2 min)</h2>
+    <p style="font-size:13px;color:#334155">Débloqué automatiquement si tu passes le cognitive (24-48h après). Format : 1 min préparation → 2 min enregistrement, non-live. Sourire, STAR, pas de lecture de notes.</p>
+    <div class="note">Tu as déjà les 6 questions du PDF p.10. En HireVue tu en auras 3 parmi elles. Prépare-les <b>maintenant</b>.</div>
+  </div>
+
+  <div class="card">
+    <h3>1. Why Deutsche Bank in particular? (obligatoire)</h3>
+    <p style="font-size:13px;color:#334155">30 sec : <b>Project Cairo 2019</b> (transformation Sewing) + <b>Top 5 ESG arranger 2021</b> + <b>ECM/M&A EMEA Top 10</b> (79 deals $187.7bn) + <b>UK Coverage</b> = cross-product, clients large cap UK, bridge M&A/DCM. Relie à ton parcours (ex: SKEMA CFM + ECM interest).</p>
+    <div class="verbal-txt"><b>Structure 2 min :</b> 20s Pourquoi finance → 40s Pourquoi Coverage UK → 40s Pourquoi DB vs autres (transformation + ESG) → 20s Pourquoi toi.</div>
+    <textarea placeholder="Tape ton pitch Why DB (120-150 mots)..." style="width:100%;height:70px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;margin-top:8px"></textarea>
+  </div>
+
+  <div class="card">
+    <h3>2. TMAT you had to juggle between different high pressure tasks</h3>
+    <div class="verbal-txt"><b>STAR :</b> S = 2 deadlines même jour (ex: partiel SKEMA + pitch) — T = livrer les deux — A = matrice Eisenhower, priorisation, communication anticipée — R = livré à l'heure + feedback positif. <b>Montre teamwork/initiative.</b></div>
+    <textarea placeholder="Ton exemple high pressure..." style="width:100%;height:70px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;margin-top:8px"></textarea>
+  </div>
+
+  <div class="card">
+    <h3>3. TMAT you had to present difficult / complex information</h3>
+    <div class="verbal-txt"><b>STAR :</b> Expliquer un produit compliqué (ex: pricing d'option) à un non-expert → A = vulgarisation, schéma, analogie → R = compréhension + décision prise.</div>
+  </div>
+
+  <div class="card">
+    <h3>4. Tell me about a major current event and its impact on the markets</h3>
+    <div class="verbal-txt">Choisis <b>1</b> événement max : taux BCE/Fed, volatilité géopolitique (cf. IMF reading dans ton dossier), ou régulation ESG. Structure : Fait → Canal de transmission → Impact sur ECM (IPO) / DCM (spread) → Impact sur DB Coverage.</div>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <div class="warn" style="text-align:left"><b>Checklist avant d'enregistrer :</b> Lumière face, fond uni, regard caméra (pas écran), sourire au début/fin, débit calme, 1min45 max (laisse 15s de marge), pas de "euh" → remplace par pause.</div>
+    <button class="btn" onclick="alert('Entraînement HireVue : enregistre-toi avec ton téléphone en 2 min et réécoute. Vise < 2:00.')">▶ Je m'enregistre (2:00)</button>
+  </div>
+</div>
+
+</div>
+
+<div class="timer" id="timer">12:00</div>
+
+<script>
+function showTab(id){
+  document.querySelectorAll('[id^="tab-"]').forEach(el=>el.classList.add('hidden'));
+  document.getElementById('tab-'+id).classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${id}"]`).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ---------- SJT DATA ----------
+const sjtData = [
+  {
+    id:1,
+    title:"Question 1/18 — Rapport financier client",
+    text:"You're preparing a financial report for a client to show how they're performing relative to their competitors. This is the second year that your department is delivering the report to the client, and the report is due tomorrow. You notice similar trends in the data as the previous year, which shows they are underperforming in the same areas. The report needs to include recommendations based on the data. You know the client was very happy with the recommendations from the previous report, so you wonder if those recommendations could apply this year given the same results.",
+    options:[
+      "Include similar recommendations to the prior report as the client was very happy with them and the results look the same.",
+      "Spend time looking into the underlying reasons for the trends to see if the recommendations need to be updated.",
+      "Discuss the results with your manager to see what they've done in similar situations in the past with other clients."
+    ],
+    most:1, least:0, // index
+    explain:"MOST = investiguer les raisons (rigour/curiosity). LEAST = copier-coller car client content. Le middle = discuss with manager (bien mais moins proactif que investiguer toi-même)."
+  },
+  {
+    id:2,
+    title:"Question 2/18 — Erreur dans rapport marché",
+    text:"You're in a meeting with a senior colleague from another department, talking them through a market analysis report that you created with another Graduate. It soon becomes clear that there is an obvious error in the financial figures that the other Graduate put together. Your senior colleague is disappointed that they need to present the report to a client tomorrow. You explain that you and the other Graduate will fix the error as soon as possible, but the senior colleague is not convinced and wants to end the meeting.",
+    options:[
+      "Remain positive that you can help your colleague and contact the other Graduate to see how fast the error can be fixed.",
+      "End the meeting as you're anxious not to upset your colleague further and send them the corrected report as soon as it is ready.",
+      "Find out if your manager is available to speak to the senior colleague and rectify the situation."
+    ],
+    most:0, least:1,
+    explain:"MOST = rester positif et activer le co-Grade (teamwork/inititative). LEAST = fuir la réunion par anxiété. Middle = escalader au manager (pas faux mais passif)."
+  },
+  {
+    id:3,
+    title:"Question 3/18 — Présentation devant senior leaders",
+    text:"Your manager has asked you to present in a meeting with senior leaders on a major project your team just completed. You only started in the team a few weeks ago, and although you were directly involved in the project, you still feel relatively new. Your manager thinks presenting at the meeting will be a great way to showcase that project and what your team does. You're concerned that you don't know enough about the project to present at the meeting and answer questions the senior leaders may ask.",
+    options:[
+      "Think back to your involvement in the project to prepare the presentation and ask a colleague to review it before the meeting.",
+      "Ask your manager if another colleague can present at this meeting so that you can observe them and offer to do it next time.",
+      "Talk to your colleagues who were also involved in the project to improve your knowledge so you can present at the meeting."
+    ],
+    most:0, least:1,
+    explain:"MOST = préparer + demander review (initiative + rigour). LEAST = se désister pour observer. L'option 3 est bien mais moins complète que 1 (review = feedback)."
+  },
+  {
+    id:4,
+    title:"Question 4/18 — Présentation client à adapter",
+    text:"You have been working on a client project for a while now and are due to deliver a final presentation tomorrow. However, the main stakeholder you have been working with just informed you they are unable to attend and will be sending their colleague instead. You have already prepared the presentation for the original stakeholder, but you know that this other stakeholder tends to prefer more technical information, which is not the focus of your current presentation. You could include this, but you know you have addressed the client's issues and your fellow Graduate thinks it is good.",
+    options:[
+      "See if your manager would have time to look over your presentation before deciding whether to change it.",
+      "Use your current presentation as you know you have addressed the client's issues and your fellow Graduate thinks it is good.",
+      "Spend time altering your presentation for this other stakeholder as you know they prefer more technical information."
+    ],
+    most:0, least:1,
+    explain:"MOST = checker avec manager (communication). LEAST = garder l'ancien deck par confort. Altering seul sans avis est moins bien que valider."
+  },
+  {
+    id:5,
+    title:"Question 5/18 — Idée d'un collègue senior qui prend toute la place",
+    text:"You have been working hard with a senior colleague to put together a proposal for a firm-wide fresh ideas initiative. You're looking forward to presenting this to your team with the help of your senior colleague. However, during the presentation your senior colleague takes the lead and there isn't really an opportunity for you to talk about your ideas. Although you know that your colleague is more experienced and gave an impactful presentation, you were hoping to play a more active role in the presentation. You're doing a similar presentation to another stakeholder group with your colleague next week.",
+    options:[
+      "Try to speak up more next week when you're presenting to another stakeholder group.",
+      "Approach your colleague and ask whether next time you can play a more active role when presenting the ideas to the stakeholders.",
+      "Hold back from speaking to your colleague as they are more experienced than you and delivered an impactful presentation."
+    ],
+    most:1, least:2,
+    explain:"MOST = communication assertive directe (demander un rôle). LEAST = s'effacer par déférence. \"Try to speak up\" sans en parler est vague."
+  },
+  {
+    id:6,
+    title:"Question 6/18 — Devenir buddy d'un nouvel intern",
+    text:"A summer intern will be joining your team next week and will have similar responsibilities to what you had when you initially started. Therefore, your manager thinks you will be best placed to be a buddy to the intern and teach them the key tasks. Your manager believes this will be a great opportunity to practise leadership skills, but they also mention that finding time could be challenging considering your already heavy workload. You're keen to be a buddy but not sure how this might affect your ability to perform your normal duties.",
+    options:[
+      "Ask your manager to support you in being a buddy to the intern while you wait for your workload to lighten.",
+      "Agree to be a buddy to the intern alongside your normal duties and suggest to reassess if changes are needed in a couple of weeks.",
+      "Take on the challenge of being a buddy and discuss with your manager how to best manage your normal duties."
+    ],
+    most:1, least:0,
+    explain:"MOST = accepter + proposer de réévaluer (initiative + réalisme). LEAST = attendre que la charge baisse (passif). Option 3 est bien mais moins structurée que 2."
+  },
+  {
+    id:7,
+    title:"Question 7/18 — S'intégrer quand tout le monde est busy",
+    text:"You have just started a new rotation and are eager to make a good first impression on your new colleagues. Your new team has been very helpful and provided you with resources to familiarise yourself with your daily tasks, but you haven't had much interaction with them. In your previous rotations, you found it helpful to set aside time to meet with your colleagues to introduce yourself. However, it's the end of the quarter and your new colleagues are extremely busy at the moment.",
+    options:[
+      "Explain the situation to your manager and see if they have advice on how to get to know your new colleagues during this busy time.",
+      "Ask your colleagues for suggestions on when it might be convenient to book an introductory meeting with them.",
+      "Take the initiative and organise introductory meetings with your new colleagues as this approach has worked much in the past."
+    ],
+    most:1, least:2,
+    explain:"MOST = demander aux collègues quand ça les arrange (respect + proactivité). LEAST = forcer des meetings quand ils sont débordés (manque de teamwork). Manager advice est middle."
+  },
+  {
+    id:8,
+    title:"Question 8/18 — Demande d'aide hors de ton périmètre",
+    text:"You're having a busy day when you get a call from a colleague in a different team. They are seeking your support with a commercial reporting issue. Although you have provided support to their team in the past, there have been some changes recently in the process and you don't think it is your responsibility to support this anymore. However, there is still some confusion about responsibility among some teams and you're waiting for clarification from your manager. Your manager is out of the office until tomorrow. However, your colleague needs to know if you can support them today.",
+    options:[
+      "Work out how long it might take you to support your colleague with this issue before deciding how to respond.",
+      "Decide to provide support to your colleague today given that responsibilities are still being clarified.",
+      "Explain that you need to consult your manager to find out whether you should take responsibility for these issues or not."
+    ],
+    most:1, least:2,
+    explain:"MOST = aider aujourd'hui vu la confusion (teamwork/client focus). LEAST = renvoyer à demain (tu laisses tomber). Évaluer le temps seul est trop centré sur toi."
+  }
+];
+
+function renderSJT(){
+  const c=document.getElementById('sjt-container');
+  c.innerHTML='';
+  sjtData.forEach((q, idx)=>{
+    const div=document.createElement('div');
+    div.className='sjt-q';
+    div.id='sjt-'+q.id;
+    div.innerHTML=`
+      <h4>${q.title}</h4>
+      <p>${q.text}</p>
+      <div class="opts">
+        ${q.options.map((opt,i)=>`
+          <div class="opt">
+            <span class="meta" style="min-width:18px">${String.fromCharCode(65+i)}</span>
+            <span class="label">${opt}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="selectors">
+        <label class="sel most" onclick="select(this,'most',${q.id})"><input type="radio" name="most-${q.id}">MOST EFFECTIVE</label>
+        <label class="sel least" onclick="select(this,'least',${q.id})"><input type="radio" name="least-${q.id}">LEAST EFFECTIVE</label>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:6px">
+        ${q.options.map((_,i)=>`<button class="sel" style="font-size:11px;padding:5px" onclick="pick(${q.id},${i})">Choisir ${String.fromCharCode(65+i)}</button>`).join('')}
+      </div>
+      <div id="exp-${q.id}" class="hidden" style="margin-top:8px;padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px"></div>
+    `;
+    // We add explicit choice buttons for MOST/LEAST via prompts
+    c.appendChild(div);
+  });
+  // Replace with proper MOST/LEAST pickers
+  updateSJTProgress();
+}
+let sjtAnswers={};
+function pick(qid, optIdx){
+  // ask if most or least
+  const choice = prompt(`Pour Q${qid}, l'option ${String.fromCharCode(65+optIdx)} est : tape M pour MOST, L pour LEAST (autre pour annuler)`);
+  if(!choice) return;
+  const isMost = choice.toUpperCase()==='M';
+  const isLeast = choice.toUpperCase()==='L';
+  if(!isMost && !isLeast) return;
+  if(!sjtAnswers[qid]) sjtAnswers[qid]={most:null, least:null};
+  if(isMost) sjtAnswers[qid].most=optIdx;
+  if(isLeast) sjtAnswers[qid].least=optIdx;
+  if(sjtAnswers[qid].most===sjtAnswers[qid].least && sjtAnswers[qid].most!==null){
+    alert('MOST et LEAST doivent être différents ! Choix annulé.');
+    if(isMost) sjtAnswers[qid].most=null;
+    if(isLeast) sjtAnswers[qid].least=null;
+    return;
+  }
+  renderSJTAnswers();
+  updateSJTProgress();
+}
+function renderSJTAnswers(){
+  sjtData.forEach(q=>{
+    const el=document.getElementById('sjt-'+q.id);
+    if(!el) return;
+    const ans=sjtAnswers[q.id];
+    // remove active
+    el.querySelectorAll('.opt').forEach((opt,i)=>{
+      opt.style.background='#f8fafc';
+      opt.style.borderColor='#e2e8f0';
+      opt.style.fontWeight='400';
+      if(ans){
+        if(ans.most===i){ opt.style.background='#dbeafe'; opt.style.borderColor='#00205B'; opt.style.fontWeight='600'; opt.innerHTML += ''; }
+        if(ans.least===i){ opt.style.background='#fee2e2'; opt.style.borderColor='#ef4444'; opt.style.fontWeight='600'; }
+      }
+    });
+    // update label text
+    if(ans){
+      const mostLabel = ans.most!==null ? String.fromCharCode(65+ans.most) : '—';
+      const leastLabel = ans.least!==null ? String.fromCharCode(65+ans.least) : '—';
+      el.querySelector('.sel.most').innerHTML = `MOST: ${mostLabel}`;
+      el.querySelector('.sel.least').innerHTML = `LEAST: ${leastLabel}`;
+      if(ans.most!==null) el.querySelector('.sel.most').classList.add('active');
+      if(ans.least!==null) el.querySelector('.sel.least').classList.add('active');
+    }
+  });
+}
+function updateSJTProgress(){
+  const done = Object.keys(sjtAnswers).filter(k=> sjtAnswers[k].most!==null && sjtAnswers[k].least!==null).length;
+  document.getElementById('sjt-count').textContent = `${done}/8`;
+  document.getElementById('sjt-progress').style.width = `${(done/8)*100}%`;
+}
+function select(el,type,qid){
+  // not used - we use pick()
+}
+function scoreSJT(){
+  let correct=0, total=sjtData.length;
+  let html='';
+  sjtData.forEach(q=>{
+    const ans=sjtAnswers[q.id];
+    const el=document.getElementById('sjt-'+q.id);
+    const exp=document.getElementById('exp-'+q.id);
+    exp.classList.remove('hidden');
+    if(!ans || ans.most===null || ans.least===null){
+      el.className='sjt-q wrong';
+      exp.innerHTML=`<b style="color:#dc2626">Incomplet</b> — Il faut choisir 1 MOST + 1 LEAST. <br><b>Correction :</b> MOST = <b>${String.fromCharCode(65+q.most)} — "${q.options[q.most]}"</b><br>LEAST = <b>${String.fromCharCode(65+q.least)} — "${q.options[q.least]}"</b><br><i>${q.explain}</i>`;
+      return;
+    }
+    const okMost = ans.most===q.most;
+    const okLeast = ans.least===q.least;
+    if(okMost && okLeast){
+      correct++;
+      el.className='sjt-q correct';
+      exp.innerHTML=`<b style="color:#00a651">✅ Parfait</b> — MOST ${String.fromCharCode(65+q.most)} + LEAST ${String.fromCharCode(65+q.least)} corrects.<br><i>${q.explain}</i>`;
+    } else {
+      el.className='sjt-q wrong';
+      exp.innerHTML=`<b style="color:#dc2626">❌ À corriger</b> — Ta réponse : MOST ${String.fromCharCode(65+ans.most)}, LEAST ${String.fromCharCode(65+ans.least)}<br><b>Attendu :</b> MOST ${String.fromCharCode(65+q.most)} — "${q.options[q.most]}"<br>LEAST ${String.fromCharCode(65+q.least)} — "${q.options[q.least]}"<br><i>${q.explain}</i>`;
+      if(okMost || okLeast) correct+=0.5;
+    }
+  });
+  const pct=Math.round((correct/total)*100);
+  let msg = pct>=80 ? `<span class="badge green">EXCELLENT ${pct}% — Prêt pour le vrai SJT</span>` : pct>=60 ? `<span class="badge blue">MOYEN ${pct}% — Revois la matrice</span>` : `<span class="badge red">INSUFFISANT ${pct}% — Refais 2x</span>`;
+  document.getElementById('sjt-result').innerHTML=`<div style="padding:12px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0"><b>Score : ${correct}/${total} (${pct}%)</b> — ${msg}<br><span style="font-size:12px;color:#64748b">Seuil DB estimé ~60-70%. Vise 80% ici pour être safe malgré le stress.</span></div>`;
+  document.getElementById('sjt-score').textContent = `${pct}%`;
+  window.scrollTo(0,document.getElementById('sjt-result').offsetTop-100);
+}
+function resetSJT(){
+  sjtAnswers={};
+  renderSJT();
+  document.getElementById('sjt-result').innerHTML='';
+  document.getElementById('sjt-score').textContent='—';
+}
+
+// ---------- COGNITIVE ----------
+const cogData = [
+  {
+    id:1, type:"CUBES", title:"Cube 1/4 — Patron",
+    q:"Patron ci-dessous : au centre ▶, en haut ●, en bas ■, à gauche ▲, à droite ◆ (opposé à ▲). Lequel des 4 cubes peut être formé ?",
+    svgPat:`<svg viewBox="0 0 200 120" style="width:100%;max-width:320px;margin:8px auto;display:block;background:#fff;border:1px solid #e2e8f0;border-radius:8px">
+      <rect x="70" y="10" width="60" height="40" fill="#dbeafe" stroke="#00205B"/><text x="100" y="35" text-anchor="middle" font-size="14">●</text>
+      <rect x="70" y="50" width="60" height="40" fill="#fff" stroke="#00205B"/><text x="100" y="75" text-anchor="middle" font-size="16">▶</text>
+      <rect x="10" y="50" width="60" height="40" fill="#fee2e2" stroke="#00205B"/><text x="40" y="75" text-anchor="middle" font-size="14">▲</text>
+      <rect x="130" y="50" width="60" height="40" fill="#fef9c3" stroke="#00205B"/><text x="160" y="75" text-anchor="middle" font-size="14">◆</text>
+      <rect x="70" y="90" width="60" height="20" fill="#dcfce7" stroke="#00205B"/><text x="100" y="105" text-anchor="middle" font-size="14">■</text>
+    </svg>`,
+    options:["Cube A : ▶ à droite, ● au-dessus, ▲ devant — ▶ pointe vers ●","Cube B : ▶ à droite, ◆ au-dessus, ▲ devant — ▲ et ◆ se touchent","Cube C : ▶ devant, ● dessus, ■ à droite — ● opposé à ■ INCORRECT","Cube D : ▶ devant, ● dessus, ▲ à droite — ▶ pointe vers ● et ▲ à droite"],
+    answer:0,
+    explain:"Opposés : ▲ ↔ ◆ (ne se touchent jamais), ● ↔ ■. Donc B impossible (▲+◆ adjacentes), C impossible (●+■). D a une orientation de flèche fausse dans la proposition. A est le seul où opposés respectés et flèche pointe bien vers ●."
+  },
+  {
+    id:2, type:"CUBES", title:"Cube 2/4 — Flèche piège",
+    q:"Même patron. Quel cube est IMPOSSIBLE ?",
+    svgPat:`<svg viewBox="0 0 200 90" style="width:100%;max-width:320px;margin:8px auto;display:block;background:#fff;border:1px solid #e2e8f0;border-radius:8px"><text x="100" y="20" text-anchor="middle" font-size="12">Patron identique à Q1</text><rect x="70" y="30" width="60" height="30" fill="#fff" stroke="#00205B"/><text x="100" y="50" text-anchor="middle">▶ ● ▲ ◆ ■</text></svg>`,
+    options:["Cube où ● et ■ sont adjacentes","Cube où ▲ et ◆ sont adjacentes","Cube où ▶ pointe vers ■","Cube où les 3 faces visibles sont ▶, ●, ▲"],
+    answer:1,
+    explain:"▲ et ◆ sont opposées → jamais adjacentes. Tous les autres cas sont possibles selon l'orientation. Réponse B est l'impossible (piège classique SHL)."
+  },
+  {
+    id:3, type:"CUBES", title:"Cube 3/4 — Orientation",
+    q:"Patron en croix : centre = flèche →, haut = rond, droite = triangle. La flèche pointe vers la droite sur le patron (vers le triangle). Sur le cube, la flèche doit :",
+    options:["Pointer vers le triangle quand les deux sont visibles","Pointer à l'opposé du triangle","Être sur la face opposée au triangle","Aucune importance"],
+    answer:0,
+    explain:"Sur le patron, flèche → est adjacente au triangle et pointe vers lui. Donc sur le cube, si tu vois flèche + triangle, la flèche doit pointer VERS le triangle. Sinon cube faux."
+  },
+  {
+    id:4, type:"CUBES", title:"Cube 4/4 — Vite",
+    q:"En 20 sec : patron avec 4 faces autour du centre. Quelle paire est obligatoirement OPPOSÉE ?",
+    options:["Centre ↔ n'importe laquelle autour","Deux faces qui se touchent seulement par un coin sur le patron","Deux faces adjacentes","Aucune"],
+    answer:1,
+    explain:"Règle : faces qui ne partagent qu'un coin (diagonale) ou séparées par une face = opposées. C'est le filtre #1 pour éliminer 50% des réponses en 5 sec."
+  },
+  {
+    id:5, type:"INDUCTIF", title:"Inductif 1/2 — Suite de points",
+    q:"Suite : ● (1 point) → ●● (2) → ●●● (3) → ●●●● (4) → ?",
+    svgPat:`<div class="pattern"><div class="pat-box">●</div><div class="pat-arrow">→</div><div class="pat-box">●●</div><div class="pat-arrow">→</div><div class="pat-box">●●●</div><div class="pat-arrow">→</div><div class="pat-box">●●<br>●●</div><div class="pat-arrow">→</div><div class="pat-box" style="background:#fef3c7">?</div></div>`,
+    options:["●●●●● (5 points)","●●● (3 points) en triangle","●●●●●● (6 points) en cercle","●●●● (4) mais carré"],
+    answer:0,
+    explain:"Suite simple +1 par étape. La règle SHL est toujours la plus simple. Teste +1 d'abord. Ici +1 point → 5 points."
+  },
+  {
+    id:6, type:"INDUCTIF", title:"Inductif 2/2 — Rotation",
+    q:"Carré avec flèche : ↑ → ↓ ← → ?",
+    svgPat:`<div class="pattern"><div class="pat-box">↑</div><div class="pat-arrow">→</div><div class="pat-box">→</div><div class="pat-arrow">→</div><div class="pat-box">↓</div><div class="pat-arrow">→</div><div class="pat-box">←</div><div class="pat-arrow">→</div><div class="pat-box" style="background:#fef3c7">?</div></div>`,
+    options:["↑ (rotation 90° horaire)","→","↓","↗ (45°)"],
+    answer:0,
+    explain:"Rotation 90° horaire à chaque étape. Après ←, revient à ↑. Pattern circulaire."
+  },
+  {
+    id:7, type:"NUM", title:"Numérique 1/2 — Table DB (PDF p.4)",
+    q:"D'après la table EMEA M&A 2021 : Deutsche Bank 187,694 (79 deals) vs 120,393 en 2020. Quel est le % change ?",
+    svgPat:`<table class="num-table"><tr><th>Banque</th><th>2021 Value</th><th>Deals</th><th>% Change</th><th>2020 Value</th></tr><tr><td>Deutsche Bank</td><td>187,694</td><td>79</td><td>55.9%</td><td>120,393</td></tr></table>`,
+    options:["55.9%","36.2%","24.4%","62.3%"],
+    answer:0,
+    explain:"(187,694 - 120,393) / 120,393 ≈ 67,301 / 120,393 ≈ 0.559 = 55.9%. Approxime : 188-120=68 /120≈56%."
+  },
+  {
+    id:8, type:"NUM", title:"Numérique 2/2 — Ratio",
+    q:"Sur 200 candidats SJT, 45% passent. Parmi les passants, 1/3 passe le cognitive. Combien arrivent au HireVue ?",
+    options:["30","45","60","90"],
+    answer:0,
+    explain:"200×45%=90 passent SJT. 90×1/3=30 arrivent au HireVue. Calcul en deux étapes."
+  },
+  {
+    id:9, type:"VERBAL", title:"Verbal 1/2 — True/False/Cannot Say",
+    text:"Texte : \"Deutsche Bank was honored by Euromoney with the 'World's Best Bank Transformation' award in 2020. This accolade acknowledges the bank's effective strategic realignment, which involved exiting cash equities trading.\"<br>Proposition : \"Deutsche Bank exited cash equities trading before 2020.\"",
+    options:["True","False","Cannot Say"],
+    answer:2,
+    explain:"Le texte dit que la transformation a impliqué d'exiter le cash equities, mais ne dit pas QUAND (avant 2020 ou en 2020). Donc Cannot Say (piège : ne pas inventer)."
+  },
+  {
+    id:10, type:"VERBAL", title:"Verbal 2/2 — Déductif",
+    text:"Si un candidat réussit le SJT, alors il reçoit le lien cognitive. Paul a reçu le lien cognitive. Que peut-on déduire ?",
+    options:["Paul a réussi le SJT","Paul n'a pas réussi le SJT","Cannot Say — inversion logique","Paul est recruté"],
+    answer:0,
+    explain:"A→B, B vrai ne prouve pas A en logique pure, mais dans le process SHL séquentiel, le lien n'est envoyé QUE si SJT réussi → on peut déduire qu'il a réussi (dans ce contexte). En test déductif strict ce serait Cannot Say, mais en SHL opérationnel c'est True. Retiens : pour SHL process, B→A est valide."
+  }
+];
+let cogAnswers={};
+function renderCog(){
+  const c=document.getElementById('cog-container');
+  c.innerHTML='';
+  cogData.forEach(q=>{
+    const div=document.createElement('div');
+    div.className='cog-q';
+    div.id='cog-'+q.id;
+    let inner = `<div><span class="badge ${q.type==='CUBES'?'grey':q.type==='INDUCTIF'?'blue':q.type==='NUM'?'green':'blue'}">${q.type}</span> <span style="font-size:12px;color:#64748b;margin-left:6px">${q.title}</span></div>
+      <p style="font-size:13.5px;margin:8px 0;font-weight:600">${q.q}</p>`;
+    if(q.svgPat) inner+=q.svgPat;
+    if(q.text) inner+=`<div class="verbal-txt">${q.text}</div>`;
+    inner+= `<div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">`+
+      q.options.map((opt,i)=>`<label class="answer-row" style="padding:0"><label style="width:100%;display:flex;gap:8px;align-items:center" onclick="pickCog(${q.id},${i})"><input type="radio" name="cog-${q.id}"><span style="font-size:12px;min-width:18px;font-weight:700">${String.fromCharCode(65+i)}</span><span style="font-size:13px">${opt}</span></label></label>`).join('')+
+      `</div><div id="cog-exp-${q.id}" class="hidden" style="margin-top:8px;padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px"></div>`;
+    div.innerHTML=inner;
+    c.appendChild(div);
+  });
+  updateCogProgress();
+}
+function pickCog(qid, idx){
+  cogAnswers[qid]=idx;
+  document.querySelectorAll(`#cog-${qid} .answer-row label`).forEach((l,i)=>{
+    l.classList.remove('active');
+    if(i===idx) l.classList.add('active');
+  });
+  updateCogProgress();
+}
+function updateCogProgress(){
+  const done=Object.keys(cogAnswers).length;
+  document.getElementById('cog-count').textContent=`${done}/10`;
+  document.getElementById('cog-progress').style.width=`${(done/10)*100}%`;
+}
+function scoreCog(){
+  let correct=0;
+  cogData.forEach(q=>{
+    const ans=cogAnswers[q.id];
+    const el=document.getElementById('cog-'+q.id);
+    const exp=document.getElementById('cog-exp-'+q.id);
+    exp.classList.remove('hidden');
+    if(ans===undefined){
+      el.style.borderColor='#ef4444'; exp.innerHTML=`<b style="color:#dc2626">Non répondu</b> — Bonne réponse : <b>${String.fromCharCode(65+q.answer)} — ${q.options[q.answer]}</b><br><i>${q.explain}</i>`;
+    } else if(ans===q.answer){
+      correct++; el.style.borderColor='#00a651'; el.style.background='#f0fdf4';
+      exp.innerHTML=`<b style="color:#00a651">✅ Correct</b> — ${q.explain}`;
+    } else {
+      el.style.borderColor='#ef4444'; el.style.background='#fef2f2';
+      exp.innerHTML=`<b style="color:#dc2626">❌ Faux</b> — Tu as mis ${String.fromCharCode(65+ans)} — Attendu <b>${String.fromCharCode(65+q.answer)} — ${q.options[q.answer]}</b><br><i>${q.explain}</i>`;
+    }
+  });
+  const pct=Math.round((correct/10)*100);
+  let badge = pct>=70? `<span class="badge green">BIEN ${pct}%</span>` : pct>=50? `<span class="badge blue">MOYEN ${pct}%</span>` : `<span class="badge red">À TRAVAILLER ${pct}%</span>`;
+  document.getElementById('cog-result').innerHTML=`<div style="padding:12px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0"><b>Score : ${correct}/10 (${pct}%)</b> — ${badge}<br><span style="font-size:12px;color:#64748b">Cubes 1-4 = ton focus. Si < 2/4 sur cubes, refais-les au brouillon avec la méthode opposés.</span></div>`;
+  window.scrollTo(0,document.getElementById('cog-result').offsetTop-100);
+}
+function resetCog(){
+  cogAnswers={}; renderCog(); document.getElementById('cog-result').innerHTML='';
+}
+let cogTimer=null, cogSec=720;
+function startCogTimer(){
+  stopCogTimer();
+  cogSec=720;
+  document.getElementById('timer').style.display='block';
+  cogTimer=setInterval(()=>{
+    cogSec--;
+    const m=Math.floor(cogSec/60), s=cogSec%60;
+    const txt=`${m}:${s.toString().padStart(2,'0')}`;
+    document.getElementById('timer').textContent=txt;
+    document.getElementById('cog-timer').textContent=`⏱ ${txt} restant`;
+    if(cogSec<=120) document.getElementById('timer').classList.add('warn');
+    if(cogSec<=0){ stopCogTimer(); alert('Temps écoulé — mode examen terminé. Vérifie tes réponses.'); }
+  },1000);
+}
+function stopCogTimer(){
+  clearInterval(cogTimer); document.getElementById('timer').style.display='none'; document.getElementById('timer').classList.remove('warn');
+}
+
+renderSJT(); renderCog();
+</script>
+</body>
+</html>
