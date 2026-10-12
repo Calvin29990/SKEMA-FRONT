@@ -100,33 +100,20 @@ Voir section 4.
 
 ---
 
-## 4. 🇬🇧 Anglais — la complexification sérieuse (C1 opérationnel → C2 ciblé)
+## 4. 🇬🇧 Anglais — plan v2 SPECIALISÉ (dossier [`english/`](english/))
 
-**Principe** : tu ne « révises » pas l'anglais, tu **changes de registre**. Objectif : penser et répondre en anglais professionnel de la finance, sans traduction mentale, avant les HireVue (Barclays) et les interviews DB.
+**Diagnostic acté (12 oct)** : B2+ à l'oral (l'atout HireVue/AC), écrit faible → **on ne travaille PLUS l'écrit général**. On construit : **zéro mot inconnu dans le Hull/front office**, du natif anti-Frenglish, une prononciation propre, les maths/prog en anglais, la culture UK.
 
-### La routine quotidienne (60-90 min, non négociable)
-| Bloc | Durée | Contenu |
-|---|---|---|
-| **Input dense** | 20-30 min | **Financial Times** (1 article long, lu 2× : 1er pour le sens, 2e pour les structures) + notes de 10 collocations (ex. *“the deal is expected to close”*, *“underpin valuations”*) |
-| **Listening rapide** | 15 min | Bloomberg TV / CNBC en fond actif : reprendre à voix haute 3 phrases entendues (shadowing) |
-| **Output forcé** | 20 min | 1 question HireVue enregistrée en vidéo (90 s prep, 2-3 min réponse) — ex. « Why Barclays? », « Walk me through your CV », « A time you worked under pressure » |
-| **SRS vocab** | 10 min | Anki : deck “Finance & Banking C1” — 10 cartes nouvelles/jour, révision espacée. Sources des cartes : tes lectures du jour |
+→ Tout est dans [`english/00-PLAN-ANGLO.md`](english/00-PLAN-ANGLO.md) + 5 fichiers :
+1. [`01-hull-front-office-vocab.md`](english/01-hull-front-office-vocab.md) — ~180 termes (Hull-Zero), 15/jour → Anki
+2. [`02-faux-amis-frenglish.md`](english/02-faux-amis-frenglish.md) — pièges FR→EN + remplacements natifs
+3. [`03-prononciation.md`](english/03-prononciation.md) — 55 mots trappes + paires de stress + les chiffres
+4. [`04-maths-prog-english.md`](english/04-maths-prog-english.md) — opérations, stats, Python, Excel (pivot table ≠ TCD)
+5. [`05-uk-culture-actu-auteurs.md`](english/05-uk-culture-actu-auteurs.md) — institutions, Chancellor Healey, tracker quotidien, auteurs à citer
 
-### L'échelle de complexité de lecture (monter d'un cran chaque semaine)
-1. BBC Business (base) → 2. The Economist (Britain/finance) → 3. **FT & Lex** (défaut quotidien) → 4. Rapports BoE / FCA / prospec­tus (langue réglementaire) → 5. Equity research (Valeant-style dense, jargon)
+**Stack quotidien (~90-110 min dès le 13 oct)** : 30 min vocab Hull · 10 min prononciation · 5 min dé-Frenglish · 30 min Bloomberg/débats actifs · **1 HireVue filmé/jour** (rotation de 14 questions dans le plan).
 
-### Les 6 structures à maîtriser pour briller (interview + SJT réponses)
-- Past→Result : *“I was tasked with…, which resulted in…”*
-- Hypothèse au passé : *“Had the model been wrong, we would have…”*
-- Nuance : *“That said…”, “to a large extent”, “on balance”*
-- Voix passive technique : *“the data were triangulated across three sources”*
-- Connecteurs de concession : *“while acknowledging…, I nonetheless…”*
-- Chiffres à l'oral : *“roughly a quarter”, “just under £50k”, “a threefold increase”*
-
-### Métriques
-- **Semaine 1** : 7 enregistrements vidéo, 70 cartes Anki, 7 articles FT
-- **Test objectif fin octobre** : EF SET (gratuit, 50 min) — cible ≥ 65 (C1) ; TOEIC si l'école l'exige
-- **Critère de réussite réel** : tenir 20 min d'interview technique anglais sans note ni trou > 3 s
+**Métriques du 26 oct** : 14 HireVue filmées · 0 mot inconnu (1 résumé Hull + 1 article FT Markets) · 210 cartes Anki · liste des 55 mots prononcée sans erreur 3 jours de suite.
 
 ---
 
