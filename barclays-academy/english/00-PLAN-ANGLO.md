@@ -11,6 +11,8 @@
 
 > **Doctrine** : tu ne deviendras pas « C1 écrit » — inutile. Tu vas devenir **le candidat qui parle finance en anglais comme un natif du desk**, parce que ton oreille et ta bouche sont déjà bonnes. C'est le profil que les interviewers retiennent.
 
+🧰 **LE CŒUR DE L'ARSENAL : [`06-la-boite-a-outils.md`](06-la-boite-a-outils.md) — ~790 entrées** : 200 phrasal verbs (l'anglais est verbal !), 90 verbe+préposition, 100 expressions de salle de marché (mot → traduction → expression type), 45 verbes de presse, 40 adjectifs, 55 idioms business, 80 phrases toutes faites (réunion/email/interview/marchés), jargon deals, produits, compliance, bureau UK et 35 questions qu'on t'entend poser au desk. Avec les modules 01-05 : **~1 170 mots/expressions au total**.
+
 ---
 
 ## Le stack quotidien (~90-110 min, à partir du 13 oct)
