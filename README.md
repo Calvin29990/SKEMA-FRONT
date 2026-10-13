@@ -19,6 +19,7 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
+| `delegues/` | Réunion délégués CFM 13/10/2026 : transcription, ébauche CR (EN), résumé WhatsApp FR/EN | Communication promo, suivi des demandes à l'administration |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
