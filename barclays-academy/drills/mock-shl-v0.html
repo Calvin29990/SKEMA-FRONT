@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barclays Academy — Mock SHL v0</title>
+<style>
+  :root { --navy:#001a4e; --blue:#0064d2; --green:#00823c; --red:#c81e1e; --grey:#5a5a5a; }
+  * { box-sizing:border-box; font-family:'Segoe UI',system-ui,Arial,sans-serif; }
+  body { margin:0; background:#f4f6f9; color:#1a1a1a; }
+  header { background:var(--navy); color:#fff; padding:14px 22px; display:flex; justify-content:space-between; align-items:center; }
+  header h1 { font-size:17px; margin:0; font-weight:600; }
+  .wrap { max-width:860px; margin:22px auto; padding:0 16px; }
+  .card { background:#fff; border-radius:12px; padding:26px 30px; box-shadow:0 2px 10px rgba(0,0,0,.07); margin-bottom:18px; }
+  .btn { background:var(--navy); color:#fff; border:0; border-radius:24px; padding:12px 26px; font-size:15px; cursor:pointer; margin:6px 6px 0 0; }
+  .btn.sec { background:var(--blue); }
+  .btn.ghost { background:#e8ecf2; color:var(--navy); }
+  .btn:disabled { opacity:.4; cursor:default; }
+  .timerbar { height:8px; background:#e3e7ee; border-radius:4px; overflow:hidden; margin:14px 0 4px; }
+  .timerfill { height:100%; background:var(--green); width:100%; transition:width .5s linear; }
+  .timerfill.warn { background:#e6a700; } .timerfill.crit { background:var(--red); }
+  .timertext { font-size:13px; color:var(--grey); text-align:right; }
+  .qmeta { font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--blue); font-weight:700; }
+  .qtext { font-size:18px; margin:10px 0 16px; line-height:1.5; }
+  .data { background:#f0f4fa; border-left:4px solid var(--blue); padding:12px 16px; border-radius:6px; margin-bottom:16px; font-size:15px; }
+  .data table { border-collapse:collapse; margin:8px 0; }
+  .data td,.data th { border:1px solid #c9d4e5; padding:5px 12px; font-size:14px; text-align:center; }
+  .opt { display:block; width:100%; text-align:left; background:#fff; border:2px solid #d5dbe6; border-radius:10px; padding:13px 16px; font-size:16px; margin:9px 0; cursor:pointer; transition:all .12s; }
+  .opt:hover { border-color:var(--blue); background:#f4f9ff; }
+  .opt.sel { border-color:var(--navy); background:#eef3ff; }
+  .progress { font-size:12px; color:var(--grey); margin-top:14px; }
+  .hidden { display:none; }
+  .big { font-size:44px; font-weight:800; color:var(--navy); }
+  .secrow { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0; }
+  .secbox { flex:1; min-width:150px; background:#f0f4fa; border-radius:10px; padding:14px; text-align:center; }
+  .secbox .n { font-size:30px; font-weight:800; color:var(--navy); }
+  .wrongs { border-top:2px solid #eee; margin-top:8px; padding-top:6px; }
+  .wrongq { border-bottom:1px solid #eee; padding:12px 0; }
+  .wrongq b { color:var(--navy); }
+  .expl { background:#f7faf7; border-left:4px solid var(--green); padding:10px 14px; border-radius:6px; font-size:14px; margin-top:8px; }
+  .causes { margin-top:8px; font-size:14px; }
+  .causes select { padding:6px 10px; border-radius:6px; border:1px solid #ccc; margin-left:8px; }
+  textarea { width:100%; height:130px; font-family:monospace; font-size:12px; margin-top:10px; border:1px solid #ccc; border-radius:8px; padding:10px; }
+  .pill { display:inline-block; background:#eef; color:var(--navy); border-radius:12px; padding:2px 10px; font-size:12px; margin-left:8px; }
+</style>
+</head>
+<body>
+<header><h1>🎯 Barclays Academy — Mock SHL v0 (20 questions)</h1><span id="clock">—</span></header>
+<div class="wrap">
+
+<div id="startCard" class="card">
+  <h2>Simulation du test cognitif SHL</h2>
+  <p>Format réel : <b>raisonnement numérique, déductif, inductif</b>, ~90 s par question, drag & drop remplacé par clics (v0).<br>
+  À la fin : score par section, explications, et <b>génération automatique des lignes CSV</b> (<code>shl_sessions.csv</code> + <code>error_log.csv</code>) à coller dans ta data.</p>
+  <p><b>Règles</b> : consigne lue 2×, calcul posé, jamais > 60 s sans avoir posé une opération, ne jamais laisser vide.</p>
+  <button class="btn" onclick="start(true)">🥷 Mode examen (90 s/question)</button>
+  <button class="btn ghost" onclick="start(false)">📚 Mode entraînement (sans chrono)</button>
+</div>
+
+<div id="quizCard" class="card hidden">
+  <div class="qmeta" id="qsec"></div>
+  <div class="qtext" id="qtext"></div>
+  <div class="data" id="qdata"></div>
+  <div id="qopts"></div>
+  <div class="timerbar hidden" id="tbar"><div class="timerfill" id="tfill"></div></div>
+  <div class="timertext hidden" id="ttxt"></div>
+  <div class="progress" id="qprog"></div>
+</div>
+
+<div id="endCard" class="card hidden">
+  <h2>Résultats</h2>
+  <div class="big" id="score"></div>
+  <div class="secrow" id="secrow"></div>
+  <div id="wrongs" class="wrongs"></div>
+  <h3 style="margin-top:22px">📤 Export data (barclays-academy/data/)</h3>
+  <p style="font-size:14px">Choisis la cause de chaque erreur (taxonomie du spec), puis copie les lignes dans tes CSV.</p>
+  <button class="btn sec" onclick="genCsv()">⚙️ Générer les lignes CSV</button>
+  <button class="btn ghost" onclick="navigator.clipboard.writeText(document.getElementById('csvbox').value);this.textContent='✅ Copié !'">📋 Copier</button>
+  <textarea id="csvbox" readonly placeholder="Les lignes CSV apparaîtront ici…"></textarea>
+  <br><button class="btn ghost" onclick="location.reload()">↻ Refaire le mock</button>
+</div>
+
+</div>
+<script>
+const QS = [
+ // ===== NUMÉRIQUE (8) =====
+ {sec:"numerical", q:"Quelle branche a la MARGE la plus élevée (revenus − coûts, en % des revenus) ?",
+  data:"<table><tr><th>Branche</th><th>Revenus</th><th>Coûts</th></tr><tr><td>Londres</td><td>£2,4 m</td><td>£1,8 m</td></tr><tr><td>Paris</td><td>£1,5 m</td><td>£1,05 m</td></tr><tr><td>Madrid</td><td>£0,8 m</td><td>£0,60 m</td></tr><tr><td>Francfort</td><td>£1,2 m</td><td>£0,96 m</td></tr></table>",
+  opts:["Londres (25 %)","Paris (30 %)","Madrid (25 %)","Francfort (20 %)"], a:1,
+  ex:"Formule : (Revenus−Coûts)/Revenus. Londres : 0,6/2,4 = 25 % · Paris : 0,45/1,5 = 30 % · Madrid : 0,2/0,8 = 25 % · Francfort : 0,24/1,2 = 20 %. Maximum unique = Paris. Astuce SHL : 2 des 4 options partagent le même % — calcule-les TOUTES, ne choisis pas au flair."},
+ {sec:"numerical", q:"Le revenu passe de £3,2 m à £4,0 m. Hausse en % ?",
+  data:"", opts:["+20 %","+25 %","+31 %","+80 %"], a:1,
+  ex:"(4,0−3,2)/3,2 = 0,8/3,2 = 25 %. Piège classique : diviser par la NOUVELLE valeur (4,0) → 20 %. Toujours diviser par la valeur de DÉPART."},
+ {sec:"numerical", q:"Société X : 40 employés, dont 12 à temps partiel. Quel % est à temps PLEIN ?",
+  data:"", opts:["28 %","30 %","70 %","72 %"], a:2,
+  ex:"Plein temps = 40−12 = 28 → 28/40 = 70 %. Piège : calculer 12/40 = 30 % (temps partiel). Lis ce qu'on te demande."},
+ {sec:"numerical", q:"GBP/USD = 1,27. £8 500 = combien en $ ?",
+  data:"", opts:["$6 693","$10 690","$10 795","$10 979"], a:2,
+  ex:"8 500 × 1,27 = 10 795 $. Les réponses proches = SHL style : pose le calcul (8 500 × 1,27 = 8 500 + 8 500×0,27 = 8 500 + 2 295)."},
+ {sec:"numerical", q:"Un prix hausse de 25 %, puis baisse de 20 %. Effet net ?",
+  data:"", opts:["0 %","+5 %","−5 %","+2,5 %"], a:0,
+  ex:"1,25 × 0,80 = 1,00 → 0 %. Piège : additionner (+25−20 = +5 %) — FAUX, les % ne s'additionnent pas sur des bases différentes."},
+ {sec:"numerical", q:"5 commandes : moyenne £240. Une 6e porte la moyenne à £250. Montant de la 6e ?",
+  data:"", opts:["£290","£300","£310","£250"], a:1,
+  ex:"Total voulu : 6×250 = 1 500. Total actuel : 5×240 = 1 200. → 6e = £300."},
+ {sec:"numerical", q:"(Mirror de la Q6 camembert) Total = 3 M$. A = 0,6 M$. B = 150 k PAR TRIMESTRE. C = la moitié de B. D = le reste. Part de D ?",
+  data:"", opts:["40 %","45 %","50 %","55 %"], a:2,
+  ex:"B = 150k×4 = 0,6 M$ (20 %) ; C = 0,3 (10 %) ; D = 3−0,6−0,6−0,3 = 1,5 → 50 %. Vérifie que la somme = 100 %."},
+ {sec:"numerical", q:"Bank Rate = 4,00 %. Deux baisses de 25 bp. Nouveau taux ?",
+  data:"", opts:["3,25 %","3,50 %","3,75 %","4,50 %"], a:1,
+  ex:"4,00 − 0,25 − 0,25 = 3,50 %. 1 bp = 0,01 %."},
+ // ===== DÉDUCTIF (6) =====
+ {sec:"deductive", q:"Quel jour TOUTES les équipes peuvent-elles se réunir ?",
+  data:"Alex : absent le lundi · Bea : absente le vendredi · Chris : absent mercredi et vendredi · Dana : absente jeudi",
+  opts:["Lundi","Mardi","Mercredi","Jeudi"], a:1,
+  ex:"Élimine par personne (exclusions d'abord) : lun ✗ (Alex), mer ✗ (Chris), jeu ✗ (Dana), ven ✗ (Bea & Chris) → MARDI."},
+ {sec:"deductive", q:"3 tâches à placer dans la matinée (9h-12h). Contraintes : la formation APRÈS la réunion ; l'appel à 10h pile. Ordre ?",
+  data:"Réunion 1 h · Formation 1 h · Appel 1 h",
+  opts:["Réunion(9h) → Appel(10h) → Formation(11h)","Appel(9h) → Réunion(10h) → Formation(11h)","Réunion(9h) → Formation(10h) → Appel(11h)","Formation(9h) → Réunion(10h) → Appel(11h)"], a:0,
+  ex:"Appel fixé à 10h. Formation après réunion → réunion à 9h, formation à 11h. Blocs fixes d'abord, déduction ensuite."},
+ {sec:"deductive", q:"« Tous les analystes qui passent le test ont un entretien. Certains analystes ont passé le test. » Conclusion valide ?",
+  data:"", opts:["Certains analystes ont un entretien","Tous les analystes ont un entretien","Aucun analyste a un entretien","Tous ceux qui ont un entretien ont passé le test"], a:0,
+  ex:"Modus ponens partiel : les analystes qui ont passé → entretien ; il en existe au moins un → « certains ont un entretien ». Le renversement (D) est le piège classique."},
+ {sec:"deductive", q:"5 personnes classées 1er-5e. Faits : Bea devant Alex · Chris juste après Bea · Dana dernier · Edy devant Alex. Qui est 3e ?",
+  data:"", opts:["Bea","Chris","Edy","Alex"], a:0,
+  ex:"Dana 5e. Edy < Alex < Bea et Chris = Bea+1 → si Bea = 4e alors Chris = 5e ✗ (Dana). Donc Bea = 3e, Chris = 4e, Edy = 1er, Alex = 2e. → 3e = BEA. Méthode : verrouiller le dernier (Dana), tester les positions de la paire contrainte (Bea-Chris), déduire le reste."},
+ {sec:"deductive", q:"« Si le yield monte, les gilts se vendent. Le yield a monté. » Que déduis-tu ?",
+  data:"", opts:["Les gilts se sont vendus","Si les gilts se sont vendus, le yield a monté","Les gilts n'ont pas bougé","Rien ne peut être déduit"], a:0,
+  ex:"Modus ponens : A→B, A ⇒ B. La réponse B est l'affirmation du CONSEQUENT (piège SHL récurrent : renverser A→B en B→A est invalide)."},
+ {sec:"deductive", q:"Un rapport est dû le 2e lundi de mars. Le 1er mars est un SAMEDI. Date du deadline ?",
+  data:"", opts:["8 mars","9 mars","10 mars","15 mars"], a:2,
+  ex:"1er = samedi → lundi = 3 mars (1er lundi) → 2e lundi = 10 mars. Pose le mini-calendrier au brouillon, toujours."},
+ // ===== INDUCTIF (6) =====
+ {sec:"inductive", q:"Suite : → ↘ ↓ ↙ … ? (rotation de 90° horaire à chaque pas)",
+  data:"", opts:["←","↑","↖","→"], a:0,
+  ex:"Chaque pas tourne la flèche de 90° vers la droite : → puis ↘ puis ↓ puis ↙ puis ← ."},
+ {sec:"inductive", q:"Suite : 🔵🔺 🔺🟩 🟩🟨 … ? (le 1er symbole sort, le 2e rejoint le front, un nouveau entre)",
+  data:"", opts:["🟨🔵","🔵🟩","🟨🔺","🟩🔵"], a:0,
+  ex:"Mécanique de file (queue) : 🔵🔺 → 🔺🟩 → 🟩🟨 → le suivant = 🟨 + nouveau 🔵 ? Non : le pattern est un cycle de 4 éléments 🔵→🔺→🟩→🟨 ; la paire suivante = 🟨🔵 (retour au début du cycle). PÉRIODE d'abord !"},
+ {sec:"inductive", q:"Suite : 2, 6, 12, 20, 30, ?",
+  data:"", opts:["36","40","42","44"], a:2,
+  ex:"Écarts : +4, +6, +8, +10 → prochain écart +12 → 42. (Aussi n²+n.) Cherche les ÉCARTS avant les formules savantes."},
+ {sec:"inductive", q:"Suite : A, C, F, J, O, ?",
+  data:"", opts:["S","T","U","V"], a:2,
+  ex:"Écarts : +2, +3, +4, +5 → +6 → U. (A→C→F→J→O→U.)"},
+ {sec:"inductive", q:"Suite : 🌕 🌖 🌗 🌘 … ?",
+  data:"", opts:["🌗","🌑","🌕","🌘"], a:1,
+  ex:"Cycle lunaire : la lune décroît d'un huitième → 🌑 (nouvelle lune). Période visuelle : 5 étapes du cycle affiché ; la suite logique du décroissement = 🌑."},
+ {sec:"inductive", q:"Paires : (◼◻) (◻◼) (◼◻) (◻◼) … ?",
+  data:"", opts:["(◼◻)","(◻◼)","(◼◼)","(◻◻)"], a:0,
+  ex:"Alternance périodique de période 2 → après (◻◼) revient (◼◻). Teste TOUJOURS la période 2 d'abord, puis 3, puis 4."},
+];
+let order, cur, answers, times, timer, t0, tleft, exam=false;
+const TOTAL=QS.length;
+function start(withTimer){ exam=withTimer; order=QS.map((_,i)=>i); answers=Array(TOTAL).fill(null); times=Array(TOTAL).fill(0);
+  document.getElementById('startCard').classList.add('hidden'); document.getElementById('quizCard').classList.remove('hidden'); cur=0; show(); }
+function fmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function show(){
+  const q=QS[cur];
+  document.getElementById('qsec').textContent = `Question ${cur+1}/${TOTAL} · ${q.sec}`;
+  document.getElementById('qtext').textContent = q.q;
+  document.getElementById('qdata').innerHTML = q.data;
+  document.getElementById('qdata').style.display = q.data ? 'block':'none';
+  const box=document.getElementById('qopts'); box.innerHTML='';
+  q.opts.forEach((o,i)=>{ const b=document.createElement('button'); b.className='opt'; b.textContent=String.fromCharCode(65+i)+'.  '+o;
+    b.onclick=()=>lock(i); box.appendChild(b); });
+  document.getElementById('qprog').textContent = `${exam?'Mode examen':'Entraînement'} · réponse enregistrée au clic, pas de retour`;
+  clearInterval(timer);
+  if(exam){ tleft=90; const bar=document.getElementById('tbar'), fill=document.getElementById('tfill'), txt=document.getElementById('ttxt');
+    bar.classList.remove('hidden'); txt.classList.remove('hidden');
+    t0=Date.now();
+    timer=setInterval(()=>{ tleft--; const qm=1-tleft/90; fill.style.width=(100-qm*100)+'%';
+      fill.className='timerfill'+(tleft<=20?' crit':tleft<=45?' warn':''); txt.textContent='⏱ '+fmt(tleft);
+      if(tleft<=0){ clearInterval(timer); lock(answers[cur]!==null?answers[cur]:-1); } },1000);
+  }
+}
+function lock(i){
+  if(answers[cur]!==null) return; // déjà répondu
+  clearInterval(timer); times[cur]=Math.round((Date.now()-(t0||Date.now()))/1000); answers[cur]=i;
+  cur++;
+  if(cur>=TOTAL) finish(); else show();
+}
+function finish(){
+  clearInterval(timer); document.getElementById('quizCard').classList.add('hidden'); document.getElementById('endCard').classList.remove('hidden');
+  let score=0; const per={numerical:[0,0],deductive:[0,0],inductive:[0,0]};
+  QS.forEach((q,i)=>{ per[q.sec][1]++; if(answers[i]===q.a){score++; per[q.sec][0]++;} });
+  document.getElementById('score').textContent = score+'/'+TOTAL;
+  const sr=document.getElementById('secrow'); sr.innerHTML='';
+  Object.entries(per).forEach(([k,[ok,tot]])=>{ sr.innerHTML+=`<div class="secbox"><div class="n">${ok}/${tot}</div><div>${k}</div></div>`; });
+  const w=document.getElementById('wrongs');
+  w.innerHTML = score===TOTAL ? '<p style="color:var(--green);font-weight:700">🏆 Sans faute — passe au mode examen chronométré et note ton temps.</p>' : '<h3>Erreurs — qualifie chaque cause</h3>';
+  QS.forEach((q,i)=>{ if(answers[i]!==q.a){ const correct = answers[i]===null?'⏱ TEMPS ÉCOULÉ (non répondu)':`Ta réponse : ${String.fromCharCode(65+answers[i])}. ${q.opts[answers[i]]||'—'}`;
+    w.innerHTML+=`<div class="wrongq"><b>Q${i+1} (${q.sec})</b> — ${q.q}<br><span style="color:var(--red)">${correct}</span> · <span style="color:var(--green)">Bonne réponse : ${String.fromCharCode(65+q.a)}. ${q.opts[q.a]}</span>
+    <div class="expl">${q.ex}</div>
+    <div class="causes">Cause : <select id="cause${i}"><option value="">— choisir —</option><option value="calc">calc (calcul faux)</option><option value="lecture">lecture (mauvaise donnée)</option><option value="methode">méthode (raisonnement non trouvé)</option><option value="temps">temps (non traité)</option><option value="panique">panique (pression)</option></select></div></div>`; } });
+}
+function genCsv(){
+  const today=new Date().toISOString().slice(0,10);
+  const per={numerical:[0,0,0],deductive:[0,0,0],inductive:[0,0,0]};
+  QS.forEach((q,i)=>{ per[q.sec][1]++; per[q.sec][2]+=times[i]||0; if(answers[i]===q.a) per[q.sec][0]++; });
+  let csv='# shl_sessions.csv\ndate,session_id,section,nb_questions,nb_correct,temps_total_min,temps_moyen_s,source,notes\n';
+  Object.entries(per).forEach(([k,[ok,tot,s]],ix)=>{ csv+=`${today},M001_${ix+1},${k},${tot},${ok},${(s/60).toFixed(1)},${tot?Math.round(s/tot):0},mock_shl_v0,"mock maison 20q"\n`; });
+  csv+='\n# error_log.csv (erreurs + causes sélectionnées)\ndate,session_id,section,type_erreur,cause,detail\n';
+  QS.forEach((q,i)=>{ if(answers[i]!==q.a){ const c=document.getElementById('cause'+i); const cause=c&&c.value?c.value:'non_qualifiee';
+    csv+=`${today},M001,${q.sec},${answers[i]===null?'temps':cause.split('_')[0]},${cause},"Q${i+1}: ${q.q.replace(/"/g,"'").slice(0,80)}"\n`; } });
+  document.getElementById('csvbox').value=csv;
+}
+</script>
+</body>
+</html>
