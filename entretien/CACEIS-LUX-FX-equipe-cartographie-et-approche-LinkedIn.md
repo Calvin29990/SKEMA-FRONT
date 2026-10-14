@@ -115,7 +115,7 @@ La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 ### A — Vincenzo Ricco (Étape 1 : la question métier)
 > Bonjour Monsieur Ricco,
 > Je suis étudiant en M2 à SKEMA (Master Finance de marché) et je candidate au **stage Forex Officer de CACEIS Bank Luxembourg Branch**.
-> Je trade le FX pour mon compte depuis 18 mois, mais c'est **l'autre face** du métier qui m'intéresse : comment on industrialise l'exécution et le dénouement de flux réels pour des gérants.
+> J'étudie le FX et je suis certifié **BMC Bloomberg** ; j'ai codé mes propres outils d'analyse. **Je n'ai jamais passé un ordre** — et c'est **l'autre face** du métier qui m'intéresse : comment on industrialise l'exécution et le dénouement de flux réels pour des gérants.
 > Une question qui m'aiderait beaucoup : **quand on recrute sur le desk FX, qu'est-ce qui pèse le plus — la connaissance produit, la rigueur du contrôle, ou la relation client ?**
 > Merci pour votre temps,
 > Calvin
@@ -130,7 +130,7 @@ La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 ### C — David Ranc ❌ **NE PAS ENVOYER** (Kevin n'est pas chez CACEIS → aucune introduction possible)
 > Bonjour Monsieur Ranc,
 > Kevin, avec qui je suis en relation, m'a conseillé de vous écrire.
-> Je candidate au **stage Forex Officer de votre branche de Luxembourg**. Je trade le FX pour mon compte depuis 18 mois ; ce que je veux découvrir, c'est la **face industrielle** du change — exécution, cut-offs, dénouement — c'est-à-dire votre métier, pas le mien.
+> Je candidate au **stage Forex Officer de votre branche de Luxembourg**. J'étudie le FX, je suis certifié BMC Bloomberg, je code mes propres outils — mais **je n'ai jamais passé un ordre**. Ce que je veux découvrir, c'est la **face industrielle** du change : exécution, cut-offs, dénouement.
 > **Je ne sollicite rien** : si vous avez un conseil à donner à quelqu'un qui veut construire une carrière sur le FX en asset servicing, je le prends.
 > Bien à vous,
 > Calvin
@@ -155,7 +155,7 @@ La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 | « Je veux du côté où le produit rencontre le client » | « Je veux faire du carry » (éliminatoire : le carry est déjà dans les points de terme, et ce n'est pas leur modèle) |
 | « On ne vend pas bien ce qu'on n'a jamais vu dénouer » | « **Je ne veux pas rester en ops** » (tu es en train de postuler en ops) |
 | « Philippe Bourgues est passé du front office solutions au comité exécutif » | « J'ai regardé le LinkedIn de votre équipe » |
-| « Je trade le FX depuis 18 mois et je veux voir l'échelle industrielle » | Vocabulaire retail (lots, levier, TP/SL) |
+| « J'étudie le FX, je suis certifié BMC, je code mes outils — mais **je n'ai jamais passé un ordre** » | Vocabulaire retail (lots, levier, TP/SL) · **toute affirmation d'expérience de trading** |
 
 ---
 
