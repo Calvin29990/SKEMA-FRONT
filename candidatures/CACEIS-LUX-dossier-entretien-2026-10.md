@@ -351,6 +351,10 @@ Sociétés de gestion (asset managers), compagnies d'assurance, **fonds de pensi
 
 ## 11. ANNEXE — AUDIT DE TES LIENS GITHUB (14/10/2026) ⚠️
 
+> ### ✅ CORRECTIF DU 14/10 (soir) — tes deux démos SONT en ligne
+> Tes captures d'écran montrent **CalvinX** (`calvin-minibloomberg.netlify.app`) et **ShockDesk** (`shockdesk.onrender.com`) **pleinement fonctionnels**. Les tests automatisés qui renvoyaient une erreur venaient du **sandbox Arena** (accès réseau limité à GitHub/npm/pypi), **pas de tes sites**. Le CV à jour pointe désormais vers ces **démos** (et non plus vers des repos GitHub) : **c'est le bon choix** — à condition de vérifier **depuis ton téléphone en 4G** la veille de l'entretien que les deux s'ouvrent bien.
+> **Le seul point qui reste** : ton profil `github.com/Calvin29990` (présent dans ta ligne de contact CV) n'affiche qu'**un seul repo public, `SKEMA-FRONT`** — qui contient des documents personnels (dossier SKEMA, cours, CV), pas du code. Régler ça prend 20 minutes : créer un repo `calvinx-market-terminal` et un repo `shockdesk` avec un `README.md` qui **pointe vers les démos**. Le profil raconte alors la même histoire que le CV.
+
 > Vérification faite avec un accès authentifié à ton compte `Calvin29990` : ce qui suit n'est pas une supposition.
 
 | Lien affiché sur ton CV | Résultat | Problème |
