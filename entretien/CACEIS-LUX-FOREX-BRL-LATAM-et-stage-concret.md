@@ -17,6 +17,19 @@
 
 **Donc : le Brésil ne traite pas ton FX. Il ne s'occupe que de la conservation locale.** Le change BRL pour les clients européens se **quote et se dénoue à Luxembourg** — et c'est précisément pour ça que l'offre 116280 (« suivi des contreparties et sous-dépositaires en cas de non-réception de fonds en bonne date valeur ») est intéressante : tu es au point où les deux mondes se rencontrent.
 
+### ➜ L'ANGLE À GARDER (rectifié le 14/10 au soir)
+
+Tu ne postules **pas** au Brésil. Tu postules à **CACEIS Luxembourg**, et ton intérêt pour le BRL se justifie **à Luxembourg même** :
+
+> « CACEIS Luxembourg m'intéresse parce que je suis **passionné de FX** et que je m'intéresse aux **devises latino-américaines, dont le BRL** — et c'est **votre salle des marchés de Luxembourg** qui traite ces devises pour les clients européens. C'est aussi **vous qui êtes venus à mon école**, donc oui, je me suis renseigné. »
+
+**Pourquoi ça tient tout seul :**
+1. **Le BRL est un sujet de la salle de Luxembourg**, pas de São Paulo : le desk y traite les devises **non convertibles via NDF/NDS** — c'est écrit sur leur propre page « Fx solutions » ;
+2. **Le lien école→CACEIS est factuel et daté** : c'est **CACEIS Luxembourg** qui exposait à la **SKEMA Online Career Fair**, avec l'offre « Opportunités – S1 2027 – Luxembourg » (Juliana). Tu ne t'intéresses pas au groupe « en général » : tu t'intéresses à **l'entité qui est venue te voir** ;
+3. **C'est rare et technique** : très peu de candidats savent ce qu'est le PTAX, ni pourquoi le non-livrable est l'instrument naturel sur le BRL. **C'est un différenciateur, pas une anecdote.**
+
+⚠️ **Une seule nuance de formulation** : « je m'intéresse aux devises latino-américaines / j'ai des connaissances sur le BRL » — **pas** « je veux travailler au Brésil ». Même fond, mais la seconde phrase envoie un signal de **mobilité géographique** que tu n'as pas, et qui te ferait sortir du sujet (le poste est à **Luxembourg**).
+
 ---
 
 ## 2. LA CHAÎNE FX DE CACEIS LUXEMBOURG (qui fait quoi)
@@ -101,10 +114,10 @@ Le Brésil est **l'un des marchés où l'accès au change comptant est le plus f
 
 **En août 2026, State Street a annoncé l'acquisition de la coentreprise Santander CACEIS Latam Securities Services (Brésil, Mexique, Colombie)** — environ **470 Md$ d'actifs en conservation** et **225 Md$ sous administration** ; **closing attendu en 2027**, sous réserve des autorisations réglementaires.
 
-**Ce que ça change pour toi — et ce que ça ne change pas :**
-- ❌ **Ne construis pas ton pitch sur « je veux rejoindre CACEIS Brésil »** : cette entité est en train de sortir du groupe.
-- ✅ **Ne construis pas ton pitch sur le Brésil du tout** — construis-le sur **le change**, dont le BRL est l'illustration la plus intéressante.
-- ✅ **Ce que ça ne change pas** : le **desk FX de Luxembourg** continue de traiter des flux en BRL et de couvrir ses clients avec des NDF. La cession porte sur la **conservation locale**, pas sur la capacité de la salle des marchés à coter du change.
+**Ce que ça change pour toi : rien sur ton pitch — et voici pourquoi.**
+- ✅ **Ton intérêt pour le BRL/LATAM est un atout de compétence, pas un projet de mobilité.** Tu ne demandes pas à partir au Brésil : tu postules à **Luxembourg**, précisément la salle qui **cote ces devises** pour les clients européens (NDF/NDS sur devises non convertibles). Les deux sujets sont **indépendants**.
+- ✅ **Ce qui reste vrai** : la cession porte sur la **conservation locale** brésilienne — **pas** sur la capacité de la salle de Luxembourg à faire du change en BRL.
+- ⚠️ **Une seule nuance de formulation** : « je m'intéresse aux devises latino-américaines, j'ai des connaissances sur le BRL » — **pas** « je veux travailler au Brésil ». Même fond, mais la seconde envoie un signal de mobilité hors sujet.
 - ✅ **En entretien**, c'est un excellent sujet si on te demande « suivez-vous l'actualité du groupe ? » : *« J'ai vu que la JV Latam partait chez State Street avec un closing attendu en 2027 — ça ne change rien à la salle des marchés de Luxembourg, qui reste le centre d'exécution pour les clients européens. »* **Tu montres que tu lis, et que tu comprends la différence entre le métier (le change) et la structure (la conservation).**
 
 ---
