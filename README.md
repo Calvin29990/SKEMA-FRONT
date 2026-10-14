@@ -97,6 +97,7 @@
 | `CACEIS-LUX-2-equipes-metier-en-profondeur.md` | Les 2 équipes cibles (PERES Coverage, Investor Services/FDS) |
 | `CACEIS-LUX-QUESTIONS-RH-reponses-2026-10.md` | Les 15 Q&R du call de 30 minutes |
 | `CACEIS-LUX-fiche-express.md` | Fiche 1 page à relire la veille |
+| `CACEIS-LUX-ENTRETIEN-BLANC-GEMINI-Juliana.pdf` | **Entretien blanc** : brief à donner à Gemini (il joue Juliana) + CV inclus |
 
 ### `livres/` — 35+ références finance
 
