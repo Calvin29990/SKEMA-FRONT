@@ -83,6 +83,21 @@
 - `Jane Street Guide.pdf`, `Optiver Guide (2023).pdf`
 - `Glassdoor Quant Trader Interview Questions.txt`
 
+### `entretien/` — CACEIS LUXEMBOURG (dossier complet, octobre 2026)
+
+| Fichier | Contenu |
+|---|---|
+| `CACEIS-LUX-ENTRETIEN-PREPA-pitch-questions-chiffres.md` | **À lire en premier** : pitch vrai (zéro expérience inventée), 12 questions RH, 10 questions métier, questions pièges, chiffres clés, grille de matching des offres |
+| `CACEIS-LUX-offres-liens-2026-10.md` | Les 3 offres vérifiées (liens + réfs) et les 14 stages LU |
+| `CACEIS-LUX-FOREX-deep-dive.md` | Le desk FX : équipe, missions, clients, produits (Spot/Forward/Swap/Options/NDF), carry = points de terme |
+| `CACEIS-LUX-FOREX-BRL-LATAM-et-stage-concret.md` | Chaîne FX (desk / middle / correspondants / CLS), **le BRL comme devise non livrable** (NDF, PTAX, règlement du différentiel), journée type du stagiaire, réseau SKEMA chez CACEIS |
+| `CACEIS-LUX-STRATEGIE-pipeline-SKEMA-Seekube.md` | L'offre campus de Juliana décodée, le V.I.E. non éligible, la route « Jeunes diplômés » |
+| `CACEIS-LUX-FX-equipe-cartographie-et-approche-LinkedIn.md` | Cartographie nominative de la salle + protocole d'approche LinkedIn |
+| `CACEIS-LUX-PLAN-CARRIERE-3-5-ANS.md` | Le plan complet, de l'offre campus au desk de vente FX |
+| `CACEIS-LUX-2-equipes-metier-en-profondeur.md` | Les 2 équipes cibles (PERES Coverage, Investor Services/FDS) |
+| `CACEIS-LUX-QUESTIONS-RH-reponses-2026-10.md` | Les 15 Q&R du call de 30 minutes |
+| `CACEIS-LUX-fiche-express.md` | Fiche 1 page à relire la veille |
+
 ### `livres/` — 35+ références finance
 
 Quant : *Heard on The Street*, *A Practical Guide To Quant Finance Interviews*, *Quant Job Interview Questions*, *Fifty Challenging Problems in Probability*, *A Collection of Dice Problems*

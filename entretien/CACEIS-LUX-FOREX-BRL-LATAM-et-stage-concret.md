@@ -28,7 +28,7 @@ Tu ne postules **pas** au Brésil. Tu postules à **CACEIS Luxembourg**, et ton 
 2. **Le lien école→CACEIS est factuel et daté** : c'est **CACEIS Luxembourg** qui exposait à la **SKEMA Online Career Fair**, avec l'offre « Opportunités – S1 2027 – Luxembourg » (Juliana). Tu ne t'intéresses pas au groupe « en général » : tu t'intéresses à **l'entité qui est venue te voir** ;
 3. **C'est rare et technique** : très peu de candidats savent ce qu'est le PTAX, ni pourquoi le non-livrable est l'instrument naturel sur le BRL. **C'est un différenciateur, pas une anecdote.**
 
-⚠️ **Une seule nuance de formulation** : « je m'intéresse aux devises latino-américaines / j'ai des connaissances sur le BRL » — **pas** « je veux travailler au Brésil ». Même fond, mais la seconde phrase envoie un signal de **mobilité géographique** que tu n'as pas, et qui te ferait sortir du sujet (le poste est à **Luxembourg**).
+**Et le cadrage correct, c'est celui-ci : le BRL est une devise, rien de plus.** Une devise **non livrable**, donc traitée par le desk FX **avec la même logique que le KRW, l'INR ou le TWD** — c'est-à-dire un NDF, un fixing et un règlement de différentiel. Ce n'est ni un pays, ni une géographie, ni une mobilité : **c'est un produit de change**, et c'est à ce titre qu'il tombe dans le périmètre de la salle de Luxembourg.
 
 ---
 
@@ -115,9 +115,9 @@ Le Brésil est **l'un des marchés où l'accès au change comptant est le plus f
 **En août 2026, State Street a annoncé l'acquisition de la coentreprise Santander CACEIS Latam Securities Services (Brésil, Mexique, Colombie)** — environ **470 Md$ d'actifs en conservation** et **225 Md$ sous administration** ; **closing attendu en 2027**, sous réserve des autorisations réglementaires.
 
 **Ce que ça change pour toi : rien sur ton pitch — et voici pourquoi.**
-- ✅ **Ton intérêt pour le BRL/LATAM est un atout de compétence, pas un projet de mobilité.** Tu ne demandes pas à partir au Brésil : tu postules à **Luxembourg**, précisément la salle qui **cote ces devises** pour les clients européens (NDF/NDS sur devises non convertibles). Les deux sujets sont **indépendants**.
+- ✅ **Le BRL est une devise non livrable parmi d'autres** (KRW, INR, TWD, IDR, PHP…) : ce qui compte, c'est la **mécanique NDF**, pas le pays.
 - ✅ **Ce qui reste vrai** : la cession porte sur la **conservation locale** brésilienne — **pas** sur la capacité de la salle de Luxembourg à faire du change en BRL.
-- ⚠️ **Une seule nuance de formulation** : « je m'intéresse aux devises latino-américaines, j'ai des connaissances sur le BRL » — **pas** « je veux travailler au Brésil ». Même fond, mais la seconde envoie un signal de mobilité hors sujet.
+- ✅ **Ce que ça ne change pas non plus** : le desk de Luxembourg peut coter du BRL demain comme aujourd'hui. Une devise ne dépend pas de la structure de conservation d'un pays.
 - ✅ **En entretien**, c'est un excellent sujet si on te demande « suivez-vous l'actualité du groupe ? » : *« J'ai vu que la JV Latam partait chez State Street avec un closing attendu en 2027 — ça ne change rien à la salle des marchés de Luxembourg, qui reste le centre d'exécution pour les clients européens. »* **Tu montres que tu lis, et que tu comprends la différence entre le métier (le change) et la structure (la conservation).**
 
 ---
