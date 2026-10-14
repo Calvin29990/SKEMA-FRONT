@@ -349,4 +349,27 @@ Sociétés de gestion (asset managers), compagnies d'assurance, **fonds de pensi
 
 ---
 
+## 11. ANNEXE — AUDIT DE TES LIENS GITHUB (14/10/2026) ⚠️
+
+> Vérification faite avec un accès authentifié à ton compte `Calvin29990` : ce qui suit n'est pas une supposition.
+
+| Lien affiché sur ton CV | Résultat | Problème |
+|---|---|---|
+| `github.com/Calvin29990/calvinx-market-terminal` | **404** | Repo inexistant (supprimé ou jamais publié) |
+| `github.com/Calvin29990/ShockLab-Fade-or-Cascade-` | **404** | Repo inexistant |
+| `calvin-minibloomberg.netlify.app` (démo) | **KO** (aucune réponse DNS) | Démo hors ligne |
+| `github.com/Calvin29990` | **200** — **1 seul repo public : `SKEMA-FRONT`** | C'est le seul actif technique visible |
+
+**Conséquence concrète** : un recruteur CACEIS qui clique sur ton CV — et ils le font, c'est même le réflexe n°1 d'un manager pour un profil « data/tech » — **ne trouve rien**. Pire : ça transforme un point fort (trois projets marché) en doute (« il annonce des projets qu'on ne peut pas voir »).
+
+**Ce qu'il faut faire, dans l'ordre :**
+1. **Republier `calvinx-market-terminal`** (dashboard cross-asset JS) — le plus rapide : un `index.html` + README avec captures et une démo GitHub Pages (gratuite, l'URL devient `https://calvin29990.github.io/calvinx-market-terminal/`).
+2. **Republier `ShockLab`** (stress-test Python/ML) — repo avec `requirements.txt`, notebook/script et un `README.md` qui explique le **cas d'usage** (choc géopolitique → VaR/analogues de marché), pas seulement le code.
+3. **Déployer la démo Netlify** (ou pointer vers GitHub Pages) et **remplacer le lien mort** sur le CV + LinkedIn.
+4. En entretien, si le sujet vient : ne jamais dire « c'est privé » — dire **« voici le repo, la démo est en ligne, je peux vous montrer l'architecture en 2 minutes »**.
+
+**Pourquoi ça compte spécifiquement pour CACEIS** : leurs postes ouverts au Luxembourg incluent **Regulatory Reporting, OTC Derivatives Collateral, Client Invoicing** — des rôles où l'on valorise **l'automatisation de reportings**. Un repo public qui montre « je prends un fichier brut → je produis un reporting fiable » vaut plus que trois lignes de CV.
+
+---
+
 *Dossier généré par Arena le 14/10/2026 pour Calvin MINANG. Les montants et procédures administratives évoluent : vérifier systématiquement guichet.lu / service-public.fr avant tout dépôt.*
