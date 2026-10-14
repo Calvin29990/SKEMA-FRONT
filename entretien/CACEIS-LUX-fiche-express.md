@@ -7,7 +7,7 @@
 1. « CACEIS, c'est la filiale d'*asset servicing* du Crédit Agricole — **100 % Crédit Agricole depuis le rachat des 30,5 % de Santander en juillet 2025**, et **Crédit Agricole CACEIS depuis le 1er octobre 2026**. »
 2. « **~5 900 Md€ conservés et 3 700 Md€ administrés** à fin 2025 ; **6 190 Md€ d'encours conservés au 30 juin 2026, +12 % sur un an**. »
 3. « Au **S1-2026**, le métier *Services financiers aux institutionnels* affiche revenus **+6,6 %**, résultat brut d'exploitation **+33,5 %**, coefficient d'exploitation à **62,6 %** : l'effet plein des synergies de l'intégration ISB/RBC. »
-4. « **Luxembourg = le hub majeur** : ~**2 000 collaborateurs** — contre 850 en 2023 — **top 3 du marché**, **n°2 du transfer agency**, **n°3 de la conservation** (Monterey Insight). »
+4. « **Luxembourg = le hub majeur** : ~**2 000 collaborateurs** — contre 850 en 2023 — **n°1 du transfer agency** (1 059 Md€ servis, devant State Street), **n°3 en administration de fonds** (724,5 Md€) et **n°3 en conservation** (945 Md€), sur une place de **9 400 Md€** (Monterey Insight 2026). »
 5. « Et l'actualité de la semaine dernière : **rachat de l'asset servicing d'Edmond de Rothschild au Luxembourg, annoncé le 6 octobre**, sous réserve de l'accord CSSF. »
 6. « L'ambition ACT 2028 : **succursale à Singapour**, accélération ETF / actifs réels / retraite / **actifs digitaux — ×4 les encours conservés en 3 ans**, agrément MiCA. »
 

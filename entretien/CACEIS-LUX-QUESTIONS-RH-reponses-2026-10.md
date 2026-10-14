@@ -4,7 +4,7 @@
 > **Pour :** Calvin MINANG — candidature **stage 6 mois, CACEIS Luxembourg**, dispo **mi-décembre 2026**
 > **Interviewer :** Juliana (RH / Talent Acquisition très probablement)
 > **Call probable :** **vendredi 16/10/2026 à 10h00** (créneaux proposés : mar. 13/10 15h, mer. 14/10 9h30, **ven. 16/10 10h**)
-> **Créé le 14/10/2026** — chiffres et procédures vérifiés ce jour. Doc compagnon : `CACEIS-LUX-dossier-entretien-2026-10.md` + `CACEIS-LUX-fiche-express.md`
+> **Créé le 14/10/2026** — chiffres et procédures vérifiés ce jour. Docs compagnons : `CACEIS-LUX-dossier-entretien-2026-10.md` (le fond) + `CACEIS-LUX-fiche-express.md` (10 min avant) + **`CACEIS-LUX-2-equipes-metier-en-profondeur.md`** (les 2 équipes cibles & le métier expliqué)
 > **But de ce doc :** te donner les **12-15 réponses prêtes à dire**, LE **squelette** réutilisable pour n'importe quelle question, les **chiffres à savoir**, et la **stratégie CFA**.
 
 ---
@@ -98,10 +98,10 @@
 🅰️ **À dire :**
 > « L'entité, c'est **CACEIS Bank, Luxembourg Branch**, avec deux implantations : **5 allée Scheffer** à Luxembourg et **14 Porte de France à Esch-sur-Alzette**.
 > Vous êtes passés de **850 à environ 2 000 collaborateurs** avec l'intégration de **RBC Investor Services** en 2023 — c'est la plus grosse opération de l'histoire du groupe au Luxembourg — puis Degroof Petercam en 2025, et Edmond de Rothschild maintenant.
-> Au dernier classement Monterey Insight, vous êtes **top 3 conservation du pays**, **n°2 en transfer agency** et **n°2 sur les actifs privés** avec près de **1 169 fonds et compartiments** — derrière Citco, devant beaucoup d'autres.
+> Au dernier classement **Monterey Insight 2026**, vous êtes **n°1 du transfer agency au Luxembourg** — **1 059 Md€ servis**, devant State Street — **n°3 en administration de fonds** (724,5 Md€) et **n°3 en conservation** (945 Md€), sur une place qui pèse aujourd'hui **9 400 Md€**. Et **n°2 sur les actifs privés**, avec plus de **1 100 fonds et compartiments**. »
 > Votre force, c'est la **migration de clients et d'équipes sans rupture de service** — c'est écrit dans les interviews de votre direction, et honnêtement, intégrer 1 000 personnes en deux ans sans casser le service, c'est un exploit opérationnel. »
 
-🔢 Chiffres : 2 000 · 850 (2023) · 1 169 fonds · n°2 TA · 5 allée Scheffer / Esch
+🔢 Chiffres : 2 000 · 850 (2023) · **n°1 TA (1 059 Md€)** · n°3 FA (724,5) · n°3 custody (945) · 9 400 Md€ · 5 allée Scheffer / Esch
 
 ---
 
@@ -217,7 +217,7 @@
 | 3 | **+6,6 % · +33,5 % · 62,6 %** | Revenus S1-2026 / RBE S1-2026 / coefficient d'exploitation (−7,5 pts) |
 | 4 | **563 M€ (+8,4 %) · 223 M€ (+41,2 %) · 60,4 %** | Revenus / RBE / C/I **du T2-2026** (les chiffres trimestriels) |
 | 5 | **~2 000 · 850 (2023)** | Effectif Luxembourg aujourd'hui / avant RBC |
-| 6 | **Top 3 · n°2 TA · n°2 actifs privés** | Rangs Monterey Insight (nov. 2025) |
+| 6 | **n°1 TA (1 059 Md€) · n°3 FA (724,5) · n°3 custody (945)** | Rangs Monterey Insight **2026** (place : 9 400 Md€) |
 | 7 | **1ᵉʳ octobre 2026 · 6 octobre 2026** | Rebranding Crédit Agricole CACEIS / annonce Edmond de Rothschild |
 | 8 | **100 % Crédit Agricole depuis juillet 2025** | Rachat des 30,5 % de Santander |
 
@@ -335,7 +335,7 @@ Ce n'est pas grave : **Access Scholarship (400 $)** ou **Student Scholarship (60
 | Chiffres S1/T2-2026 CACEIS (SFI) + encours 6 190 Md€ | Communiqué Crédit Agricole S.A. T2/S1-2026 (PDF CA-CIB) | 31/07/2026 |
 | Rebranding, Edmond de Rothschild, ACT 2028 | caceis.com / presse.credit-agricole.com | 21/09 et 06/10/2026 |
 | Effectif ~2 000 LU, EDR, calendrier CSSF | Luxembourg Times | 08/10/2026 |
-| Rangs Monterey Insight (n°3 custody, n°2 TA, n°2 actifs privés) | Monterey Insight | 11/2025 |
+| Rangs LU : **n°1 TA (1 059 Md€)**, n°3 FA (724,5), n°3 custody (945), place 9 400 Md€ | Monterey Insight **2026** (via post B. Huart, 14/10) | 10/2026 |
 | Procédure « stagiaire » pays tiers (art. 61), ressources 80 % REVIS, attestation de prise en charge, dispense frontalier | guichet.public.lu (note explicative stagiaire + page entreprise) | maj 2026 |
 | REVIS 2026 (972,20 €/adulte + 972,20 € frais communs = 1 944,40 € ; 80 % ≈ 1 555,52 €) | CSL / virgule.lu | 06/2026 |
 | Grille d'indemnisation des stages (30 % / 40 % / 75 % du SSM ; SSM qualifié 3 325,59 €) | CSL, Euroguidance, pixie.lu | 2026 |
