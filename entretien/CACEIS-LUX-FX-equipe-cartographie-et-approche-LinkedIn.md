@@ -68,7 +68,13 @@ Tu ne dis **jamais** : « j'ai regardé les profils de votre équipe ».
 
 ---
 
-## 5. ⭐ TON MEILLEUR ATOUT EST DANS TA CAPTURE : « KEVIN »
+## 5. ⚠️ RECTIFICATIF (14/10/2026) : « KEVIN » EST HORS SUJET
+
+> **Vérification faite : Kevin n'est PAS chez CACEIS.** Tout ce qui suit dans cette section est donc **caduc**.
+> Un contact qui ne connaît pas la maison ne peut pas te présenter à son Global Head FX — et solliciter un inconnu pour atteindre un dirigeant est le meilleur moyen de te griller.
+> **➜ David Ranc sort des cibles** (message C neutralisé). **Levier n°1 = Juliana** ; levier n°2 = Ricco puis Sauvage, avec une question précise à chacun.
+
+### (Analyse initiale, conservée pour mémoire — ne plus appliquer)
 
 La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 
@@ -90,8 +96,8 @@ La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 | 1 | **Vincenzo Ricco** — Head of Sales FX LU | Comprendre le métier que tu vises | **Une question à laquelle on répond en 2 lignes** |
 | 2 | **Aurélien Sauvage** — FX Trader LU | Le quotidien du desk | Message différent du précédent |
 | 3 | **Le hiring manager du stage** (inconnu) | C'est lui qui décide | À obtenir via l'étape 0 |
-| 4 | **David Ranc** | ⚠️ **Seulement via Kevin, ou après une réponse d'un contact de l'étape 1-2** | 3 lignes maximum, aucune demande |
-| — | **Kevin** (contact en commun) | **Priorité absolue** | Demande franche, issue de secours incluse |
+| 4 | ~~David Ranc~~ | ❌ **Hors cible** (voir §5 — Kevin n'est pas chez CACEIS) | On n'envoie rien |
+| — | ~~Kevin~~ | ❌ **Hors sujet** (pas chez CACEIS) | — |
 
 **Règles de forme :**
 - **5 lignes maximum.** Pas de paragraphe de motivation, pas de CV en pièce jointe au premier message.
@@ -121,7 +127,7 @@ La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 > Merci,
 > Calvin
 
-### C — David Ranc (Étape 4 : **uniquement** si Kevin ouvre, ou après une réponse)
+### C — David Ranc ❌ **NE PAS ENVOYER** (Kevin n'est pas chez CACEIS → aucune introduction possible)
 > Bonjour Monsieur Ranc,
 > Kevin, avec qui je suis en relation, m'a conseillé de vous écrire.
 > Je candidate au **stage Forex Officer de votre branche de Luxembourg**. Je trade le FX pour mon compte depuis 18 mois ; ce que je veux découvrir, c'est la **face industrielle** du change — exécution, cut-offs, dénouement — c'est-à-dire votre métier, pas le mien.
@@ -129,9 +135,9 @@ La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 > Bien à vous,
 > Calvin
 
-*(Si Kevin n'ouvre pas la porte : **n'envoie pas la version sans intro.** Le rapport coût/bénéfice est défavorable.)*
+*(Règle maintenue : sans introduction, **on n'écrit pas à un Global Head.** Le rapport coût/bénéfice est défavorable.)*
 
-### D — Kevin (⭐ à envoyer en premier)
+### D — Kevin ❌ **OBSOLÈTE** — message à ne pas envoyer (Kevin n'est pas chez CACEIS)
 > Bonjour Kevin,
 > Je vois que tu es en relation avec **David Ranc, Global Head FX Sales & Trading chez CACEIS**, à Luxembourg.
 > Je candidate à un stage dans la **salle des marchés de CACEIS Luxembourg** et je cherche à comprendre comment y entrer.
@@ -155,11 +161,11 @@ La capture affiche : **« Kevin est une relation en commun »** avec David Ranc.
 
 ## 9. RÉCAP — 5 ACTIONS CETTE SEMAINE
 
-1. **Identifier Kevin** et lui envoyer le message D. (C'est la seule action à fort effet de levier.)
+1. **Fixer le call avec Juliana** : cadrage du périmètre + **question de routage** vers Banking Services. *(Levier n°1.)*
 2. **Postuler aux 3 refs** (116280, 116276, 116273) sur jobs.caceis.com — mentionner « disponible mi-décembre 2026 ou 01/01/2027 ».
-3. **Call Juliana** : cadrage du périmètre + **question de routage** vers Banking Services.
-4. **Message A (Ricco) puis, 3-4 jours après une éventuelle réponse, message B (Sauvage).** Jamais les deux le même jour.
-5. **Message C (Ranc) : seulement si Kevin débloque.** Sinon, on n'y va pas.
+3. **Message A (Ricco) puis, 3-4 jours après une éventuelle réponse, message B (Sauvage).** Jamais les deux le même jour.
+4. **Créer les alertes** « Sales & Trader Assistant », « Trader Assistant », « Assistant Sales Front Office », « Market Operations » (filtres Stage + Luxembourg).
+5. **Ne pas écrire à David Ranc**, et ne pas solliciter Kevin pour cela.
 
 ---
 
