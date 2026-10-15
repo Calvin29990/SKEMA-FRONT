@@ -545,3 +545,47 @@ Une seule bonne réponse sauf mention « TWO ». Seuil de réussite réel : 24/3
 2. **Mode drill** : *« Interroge-moi en désordre sur les questions ★ du MOCK A. Après chaque réponse, corrige immédiatement et explique en français. »*
 3. **Mode flash** : *« Génère-moi 20 nouvelles questions du même style que le MOCK B en t'inspirant des justifications [M1]-[M6], avec corrigé séparé. »*
 4. **Mode explication** : *« Pour chaque question où j'ai faux, reformule la règle produit concernée en une phrase simple et donne un moyen mnémotechnique. »*
+
+---
+---
+
+# 🔴 RETOUR EXAMEN RÉEL — 30 questions remontées de session (Oct 2026)
+
+> Questions réellement tombées à l'examen, avec la réponse retenue par le candidat et le verdict de vérification.
+> Légende : ✅✅ = confirmé par doc officielle LSEG/Refinitiv · ✅ = probable (cohérent produit) · ⚠ = invérifiable publiquement.
+
+| # | Question (résumé) | Réponse retenue | Verdict |
+|---|---|---|---|
+| Q1 | Accès possibles à Workspace | Desktop + Web + Mobile | ✅✅ apps mobiles officielles (iOS/Android) + navigateur + desktop |
+| Q2 | Raccourci Launcher hors Workspace | **Ctrl + Space** | ✅ probable |
+| Q3 | Ouvrir/fermer la barre de bookmarks | Hide (fermer) / Menu haut-gauche (ouvrir) | ⚠ invérifiable mais cohérent |
+| Q4 | Paramètres réglables dans Settings | Profil pro + langue d'affichage + thèmes de couleur | ✅ |
+| Q5 | Page de news personnalisée | **News Digest** | ✅✅ page LSEG officielle : digests personnalisés multiples (listes/portefeuilles) |
+| Q6 | Ajouter un article au Briefcase | Survoler le titre → icône Add to Briefcase | ✅✅ Quick Start Guide officiel |
+| Q7 | Identifier le breaking news | Icône cercle rouge à côté du titre | ✅ probable (aucune doc publique) |
+| Q8 | NON personnalisable dans News Monitor | **Headline Color** | ✅ (pool : paramétrable = gras, alertes sonores, story layout) |
+| Q9 | Modifier la toolbar du Chart | Icône engrenage (avant Reset) | ✅ probable |
+| Q10 | Plusieurs analyses sur un même chart | Oui, lignes/analyses supplémentaires | ✅ |
+| Q11 | Exporter les données d'un chart vers Excel | Export to Excel + Formula Builder + Copier/Coller | ✅ probable (si multi-sélection) |
+| Q12 | Événements corporates sur les charts | Reuters Briefs, Earnings, Dividends, Research, Capital Changes… | ✅ |
+| Q13 | Où s'affiche le Same Store Sales | **Peers** | ⚠ invérifiable — point de doute n°1 |
+| Q14 | Changer la devise de tout le rapport Peer Analysis | Engrenage en haut à droite | ✅ |
+| Q15 | Module Recommendations contient | Price targets + Upgrades/Downgrades + Recos analystes + EPS estimates | ✅ |
+| Q16 | Fenêtre d'activité de Watchlist Pulse | **24 heures précédentes** | ✅✅ QRC officielle : « over the last 24 hours » |
+| Q17 | Dimensions d'un bubble chart | X + Y + Taille de bulle | ✅ |
+| Q18 | Modes d'affichage I/B/E/S Statement View | Mean + SmartEstimate + Median + Single Contributor | ✅ |
+| Q19 | Source des données I/B/E/S | **Sell-Side Analysts** | ✅✅ certain |
+| Q20 | Comparer résultats publiés vs estimates | **Earnings Season** | ✅ |
+| Q21 | IMPOSSIBLE dans Economic Monitor | Suivre la variation de prix 10 jours d'un indice après une release | ✅ |
+| Q22 | Comparer des secteurs en barres | Sector Analysis → cases → bar chart en dessous | ✅ probable |
+| Q23 | Code de l'Advanced Research Search | **ADVRES** | ✅✅ documenté |
+| Q24 | Visualisation année en cours vs N-1 | **Moving Grid** | ⚠ invérifiable — point de doute n°2 |
+| Q25 | App affichant les releases éco de tous les pays | **EM (Economic Monitor)** | ✅✅ certain |
+| Q26 | Sauvegarder un set pays/région dans Aggregates | **Save as Custom Set** | ✅ probable |
+| Q27 | Énoncé FAUX sur les templates Excel | « Templates are Read-Only and cannot be edited » | ✅✅ logique produit (les templates sont modifiables) |
+| Q28 | Sélection de la plage de dates historiques dans Formula Builder | **Parameters & Quick Functions** | ✅✅ QSG officielle add-in Excel 12/2024 |
+| Q29 | Ajouter un nouveau panneau dans Workspace Browser | Menu en haut à droite du Browser | ✅ probable |
+| Q30 | Raccourci de sélection de filtres dans Smart Search | **Tab** | ✅ probable |
+
+**Estimation de score sur ces 30 réponses** : ~26-29 correctes (≈ 87-95 %) — au-dessus du seuil de 24/30.
+**Les 2 vrais points de doute** : Q13 (Same Store Sales) et Q24 (Moving Grid) — invérifiables publiquement.
