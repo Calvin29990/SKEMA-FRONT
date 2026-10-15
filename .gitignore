@@ -27,3 +27,5 @@ desktop.ini
 
 # Node (pour bnp-training si besoin)
 node_modules/
+__pycache__/
+*.pyc
