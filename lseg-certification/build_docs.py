@@ -393,7 +393,7 @@ REV_BLOCKS = [
     ("h1", "MODULE 1 [M1] — Getting Started : navigation Workspace"),
     ("p", "Workspace = suite d'**apps flottantes** organisées en **workspaces** (onglets). L'examen adore les chemins exacts et les comportements par défaut : mémorise-les."),
     ("bullets", [
-     "**Search box** (en haut) : propulsée par **Autosuggest** — trouve des apps, instruments, personnes, et même des **réponses (Answers)**. Astuce officielle : taper « **Nom + OV** » ouvre la **Company Overview** (ex. « Apple OV ») ; « TOPNEWS » = Top News ; « NEWSD » = News Discovery ; « INDUS » = Industry Overviews.",
+     "**Search box** (en haut) : propulsée par **Autosuggest** — trouve des apps, des instruments/données, et même des **réponses (Answers)**. Astuce officielle : taper « **Nom + OV** » ouvre la **Company Overview** (ex. « Apple OV ») ; « TOPNEWS » = Top News ; « NEWSD » = News Discovery ; « INDUS » = Industry Overviews.",
      "**App Library** : catalogue de toutes les apps par catégorie/asset class. Toute app ouverte (menu, Library ou Search) rejoint **automatiquement le workspace actif**.",
      "**Workspaces** : jusqu'à **10 workspaces ouverts en même temps** ; onglet = clic droit → **Save** pour sauvegarder/partager. Une app ouverte s'ajoute au workspace actif.",
      "**Active symbol** : une app nouvellement ouverte affiche par défaut **l'instrument actif** = le **dernier instrument consulté** (pas le 1er de ta liste !).",

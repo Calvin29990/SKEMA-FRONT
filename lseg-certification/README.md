@@ -12,12 +12,14 @@
 | **Mock Exam — 40 questions + corrigé** (8 pages) | PDF | [📥 Télécharger le PDF](https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/afe70aec-skema-front/lseg-certification/MOCK-EXAM-Certification-LSEG-Workspace.pdf) |
 | **Mock Exam — 40 questions + corrigé** | Word | [📥 Télécharger le DOCX](https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/afe70aec-skema-front/lseg-certification/MOCK-EXAM-Certification-LSEG-Workspace.docx) |
 | **★ MOCKS A (40 Q) + B (30 Q) + CORRIGÉS** (fichier Copilot) | Markdown | [📥 Télécharger le MD](https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/afe70aec-skema-front/lseg-certification/MOCK-EXAMS-ET-CORRIGES.md) |
+| **★ MOCKS A + B + CORRIGÉS + MÉMO VISUEL** (16 pages, schémas) | PDF | [📥 Télécharger le PDF](https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/afe70aec-skema-front/lseg-certification/MOCKS-AB-Certification-LSEG-Workspace.pdf) |
 
 ## 👀 Version consultable en ligne (page GitHub)
 
 - [Fiche de révision — PDF](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/afe70aec-skema-front/lseg-certification/REVISION-Certification-LSEG-Workspace.pdf)
 - [Mock Exam — PDF](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/afe70aec-skema-front/lseg-certification/MOCK-EXAM-Certification-LSEG-Workspace.pdf)
 - [Mocks A+B + Corrigés — Markdown (pour Copilot)](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/afe70aec-skema-front/lseg-certification/MOCK-EXAMS-ET-CORRIGES.md)
+- [Mocks A+B + Corrigés + Mémo visuel — PDF (pour Copilot)](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/afe70aec-skema-front/lseg-certification/MOCKS-AB-Certification-LSEG-Workspace.pdf)
 - [Fiche de révision — DOCX](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/afe70aec-skema-front/lseg-certification/REVISION-Certification-LSEG-Workspace.docx)
 - [Mock Exam — DOCX](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/afe70aec-skema-front/lseg-certification/MOCK-EXAM-Certification-LSEG-Workspace.docx)
 

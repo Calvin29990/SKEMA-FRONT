@@ -334,7 +334,7 @@ Une seule bonne réponse sauf mention « TWO ». Seuil de réussite réel : 24/3
 - A. Apps and instruments only
 - B. People only
 - C. Answers to your questions
-- D. Apps, instruments, people AND answers
+- D. Apps, instruments, data AND answers
 
 **Q4.** Typing "NEWSD" in the Search box opens:
 - A. Top News
