@@ -642,3 +642,23 @@ Une seule bonne réponse sauf mention « TWO ». Seuil de réussite réel : 24/3
 8. **Recommendations** = price targets + upgrades/downgrades + summary — **SANS EPS estimates** (ça, c'est Estimates).
 9. **Relative Valuation** = **NTM PE**.
 10. **Multi-sélection** : s'il y a N bonnes pratiques officielles, il faut cocher les N — ne pas en retirer « par prudence ».
+
+---
+
+# 🟡 ROUND 3 — FEUILLE DE BATAILLE VÉRIFIÉE (check rapide)
+
+## 🔒 Prouvés — ne plus toucher
+Desktop/Web/Mobile · **Ctrl+Shift+Space** · **« ! »** Smart Search · Briefcase hover · **Blue Flame** · Pulse 24h · Multiple analysis YES · Corporate events · **NTM PE** · Sell-Side · **ADVRES** · Formula Builder (3 types) · Template Library=share · My Files=perso · TEMP inexistant · Cogwheel toolbar · Gear box devise peer report.
+
+## 🚨 Corrections imposées par les preuves
+1. **Same Store Sales = Fundamentals SEUL** (réponse unique ; jamais « Research »).
+2. **Recommendations module (multi) = Price targets + Recent upgrades/downgrades + Sell-side analyst recommendation summary — SANS EPS estimates.**
+
+## 🧩 Doutes résolus par les captures
+- **Add Panel to Layout** : cocher « From the panel menu » **ET** « top right menu of the Workspace browser window » (les deux).
+- **Custom news pages = Quicklinks** (pas News Digest).
+- **Chart → Excel = Export chart to Excel + formule add-in Excel. Jamais de sélection manuelle.**
+- **Recommendations** : voir ci-dessus (3 éléments).
+
+## ⚠️ À trancher demain dans les vidéos (non prouvables)
+Navigation Menu = Job Role · **Open Application = New Window vs active workspace (contradiction round 1/2 — vérifier)** · Alerts (TAB + bell, pas mobile) · Magnet Mode · Export Values/Formulas/Selected Period · Important Headlines (Top/Significant/Popular/Breaking) · Positive Sentiment = NOT important · Classification Exchange+HQ + TRUE · Top Down (GICS Sector Analysis) · Scatter X/Y/Bubble · **Moving Grid (3+ indicateurs)** · Tree Map = Display Region Detail · Fundamentals = Standardised + As Reported · Templates Workspace/Templates/Open · Search Bar (Name/Identifier/Description) · Merge Documents = NO · Red headlines = Breaking.
