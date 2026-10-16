@@ -589,3 +589,56 @@ Une seule bonne réponse sauf mention « TWO ». Seuil de réussite réel : 24/3
 
 **Estimation de score sur ces 30 réponses** : ~26-29 correctes (≈ 87-95 %) — au-dessus du seuil de 24/30.
 **Les 2 vrais points de doute** : Q13 (Same Store Sales) et Q24 (Moving Grid) — invérifiables publiquement.
+
+---
+---
+
+# 🟢 ROUND 2 — LE CORRIGÉ PROUVÉ PAR LES CAPTURES D'ÉCRAN (33 images analysées)
+
+> Les captures de la session 2 montrent le feedback Correct/Incorrect de la plateforme + les cartes de remédiation.
+> Ce qui suit n'est plus de la déduction : ce sont les **vraies réponses, prouvées écran par écran**.
+
+## Corrigé définitif (17 premières questions, preuves à l'appui)
+
+| Q | Question | Réponse donnée | Verdict | ✅ BONNE RÉPONSE (prouvée) |
+|---|---|---|---|---|
+| 1 | Comment Workspace est accessible ? | Desktop + Web + Mobile | ✅ Correct | **Les 3** |
+| 2 | Combo Windows pour le Launcher HORS Workspace | Ctrl+Space | ❌ Incorrect | **Ctrl+Shift+Space** (vidéo : « Use CTRL + Shift + Space to open launcher » ; Mac : Cmd+Shift+Space) |
+| 3 | Ouvrir/fermer la barre de bookmarks | Hide en haut à droite / menu en haut à gauche | ✅ Correct | idem |
+| 4 | Ajouter un panneau à un Layout (multi) | Seulement « top right menu of the Workspace browser window » | ❌ Incorrect | Il manquait au moins **« From the panel menu »** → cocher LES DEUX |
+| 5 | Touche pour sélectionner les filtres Smart Search | Tab | ❌ Incorrect | **« ! »** (tip officiel : « Type ! to select a category to search in ») |
+| 6 | Paramètres réglables dans Settings | Profil pro + langue + thèmes | ✅ Correct | **Les 3** |
+| 7 | Un set personnalisé de pages Top News se configure sous… | News Digest | ❌ Incorrect | **Quicklinks** (vidéo : « click Quick Links and choose Edit ») |
+| 8 | Ajouter une story au Briefcase | Hover → icône Add to briefcase | ✅ Correct | idem |
+| 9 | Comment une story importante est indiquée ? | Red circle | ❌ Incorrect | **Blue flame** 🔥 (flammes bleues visibles sur les stories importantes) |
+| 10 | Réglage NON personnalisable dans News Monitor | Headline color | ❌ Incorrect | **Default app size** (text size & headline height : personnalisables) |
+| 11 | Modifier la toolbar du Chart App | Cogwheel avant Reset | ✅ Correct | idem |
+| 12 | Plusieurs analyses sur un même chart ? | Yes, any additional lines | ✅ Correct | idem |
+| 13 | Données du Chart → Excel (multi) | Export + Formula + **Manuel** | ❌ Incorrect | **Export chart to Excel + Creating a formula in Workspace Excel add-in** (PAS de sélection manuelle) |
+| 14 | Événements corporates sur les charts | Reuters Briefs, Earnings, Dividends, Research, Capital Changes | ✅ Correct | idem |
+| 15 | Pane de Company Overview avec le Same Store Sales | Key Ratios | ❌ Incorrect | **Fundamentals** (vidéo : pane FUNDAMENTALS, 1re ligne « Same Store Sales ») |
+| 16 | Devise du rapport Peer Analysis | Gear box en haut à droite | ✅ Correct | idem (carte verte) |
+| 17 | Module « Recommendations » (multi) | Les 4 dont **EPS estimates** | ❌ Incorrect | **Price targets + Recent upgrades/downgrades + Sell-side analyst recommendation summary** (EPS estimates = module ESTIMATES, pas Recommendations) |
+
+## Autres réponses prouvées par cartes de remédiation
+
+- **« Relative Valuation » (Company Overview)** → **NTM PE** (Next 12M Price to Earnings) ✅ — pas Revenue Growth, ni EPS Growth, ni Market Cap.
+- **Customiser le chart affiché (multi)** → **clic droit sur le chart → Settings** ✅ — PAS « Templates », PAS « Customise menu », PAS « double-clic sur la série », PAS « hexagone ».
+
+## Bilan honnête round 2
+
+- Sur les 17 questions capturées : **8 ✅ / 9 ❌**. Même avec 13/13 sur la fin, le total restait sous 24/30 → échec logique.
+- Les 9 erreurs viennent toutes de détails d'interface **invérifiables publiquement** — mais la plateforme les a maintenant révélés via les remédiations.
+
+## 🔑 LES RÈGLES D'OR pour la prochaine tentative
+
+1. **Ctrl+Shift+Space** = Launcher (jamais sans Shift). Mac : Cmd+Shift+Space.
+2. **« ! »** = sélection des catégories Smart Search (Tab = navigation, PAS sélection).
+3. **Quicklinks** = pages Top News personnalisées (News Digest = briefing IA par e-mail, autre chose).
+4. **Blue flame** = story importante. Breaking = titre en rouge. Jamais « red circle ».
+5. **Default app size** = seul réglage NON personnalisable de News Monitor.
+6. **Chart → Excel** : Export chart to Excel + formule add-in. **Jamais de sélection manuelle.**
+7. **Same Store Sales** = pane **FUNDAMENTALS** de Company Overview.
+8. **Recommendations** = price targets + upgrades/downgrades + summary — **SANS EPS estimates** (ça, c'est Estimates).
+9. **Relative Valuation** = **NTM PE**.
+10. **Multi-sélection** : s'il y a N bonnes pratiques officielles, il faut cocher les N — ne pas en retirer « par prudence ».
