@@ -113,3 +113,20 @@
 ---
 
 *Mis à jour : 30/09/2026*
+
+---
+
+## ➕ ADDENDUM 17/10/2026 — nouvelles cibles issues de la base missions SKEMA (K2)
+
+> ⚠️ Les statuts ci-dessus datent du 30/09 (avant les tests d'octobre) — **à rafraîchir par Calvin avant toute nouvelle candidature**. Détail : [`K2-RECHERCHE-EMPLOI-2026-10-17.md`](K2-RECHERCHE-EMPLOI-2026-10-17.md).
+
+| Nouvelle cible | Preuve SKEMA (base 2021-2025) | 1ʳᵉ action |
+|---|---|---|
+| Convera Europe (Courbevoie) | Assistant FX Sales/Structuring Derivatives, 2024 ×2 | Alumni des 2 stagiaires 2024 + spontanée junior |
+| Marex SA (Paris) | 19 missions 2023+, Junior Broker CDI 2024 | Talent Acquisition directe + alumni |
+| Aurel BGC / TP ICAP / GFI / Tradition (Paris) | Assistant broker récurrent ; swap de change (GFI, 2024) ; Madrid : Junior Broker CDI 2025 | Spontanées + réseau |
+| HSBC FX & Rates Corporate Sales | Desk FX sales SKEMA 2023 + 2025 | En plus du processus HSBC en cours |
+| MUFG Paris · Commerzbank Paris · LCL · CA-IDF · BRED | Lignes FX sales 2023-2025 | Veille offres off-cycle + alumni |
+| iBanFirst (Paris + Bruxelles) | Assistant Sales FX par un CFM, 2024 | Business case prêt, offre junior dès parution |
+
+🚫 **VIE : ne pas candidater** (ex. ligne « VIE Corporate Sales – IRD and FX » CACIB 2025) — nationalité gabonaise hors périmètre France/EEE du VIE.

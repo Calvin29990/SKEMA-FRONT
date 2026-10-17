@@ -56,3 +56,16 @@
 ## ⛓️ Verrous (toujours)
 
 La semaine 39 reste : réponse Marino attendue (mail parti le 26) · dépôt FNAU · mail Charpentier · test BCS. **Un CDI FX ne vaut rien sans le titre de séjour — ces deux mondes avancent ensemble.**
+
+---
+
+## ➕ ADDENDUM 17/10/2026 — croisement base missions SKEMA (K2)
+
+> Détail complet : [`K2-RECHERCHE-EMPLOI-2026-10-17.md`](K2-RECHERCHE-EMPLOI-2026-10-17.md) + shortlist [`K2-SHORTLIST-DB-SKEMA-2026-10-17.csv`](K2-SHORTLIST-DB-SKEMA-2026-10-17.csv) (base 2021-2025, 39 824 missions lues).
+
+- **Convera Paris ↑ PRIORITÉ 1** (était P2 « veille ») : 2 stagiaires SKEMA en 2024 sur le desk hedging Courbevoie (*Assistant Sales Forex Derivatives* ; *Assistant FX Sales/Structuring Derivatives*). Offres live plutôt seniors → alumni + spontanée.
+- **iBanFirst ↑ PRIORITÉ 1** : 13 missions, dont *Assistant Sales FX – Vente indirecte* par un CFM à Paris (2024). Garder aussi l'angle Bruxelles (8/13 lignes).
+- **Ebury reste P1 mais « à froid »** : **0 mission SKEMA** dans la base → aucun alumni, candidature directe + Glassdoor. **StoneX : 0 mission** (veille inchangée). **Monex ↓** : 1 mission hors desk.
+- **NOUVEAU Track A2 — brokers/intermédiaires de marché parisiens** : Marex SA (19 missions en 2023+, Junior Broker en CDI 2024) · Aurel BGC (+ Madrid : Junior Broker CDI 2025 — angle ES) · TP ICAP Europe · GFI (swap de change) · Tradition/TSAF · Kepler Cheuvreux (Junior Sales CDI 2025).
+- **Track B complété par les lignes FX sales de la base** : HSBC FX & Rates Corporate Sales (2025) · MUFG Paris FX Global Sales · Commerzbank Paris FX/IR/Commodities · LCL Marchés · CA Île-de-France (salle des marchés) · BRED · Natixis e-FX. 🚫 *VIE Corporate Sales IRD & FX @ CACIB* : **non éligible** (VIE = France/EEE uniquement).
+- Micro-spécialistes change PME avec stagiaires SKEMA (réseau, pas plan visa) : Finomie/Mondial Change (*Corporate FX Sales* 2025), Kamix (*FX Sales* 2024).

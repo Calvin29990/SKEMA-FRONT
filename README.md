@@ -42,6 +42,7 @@
 - Barclays Off-Cycle Sales Paris 2027 — Under Consideration (referral Olivier Moser)
 - Barclays Graduate Banking Paris 2027 — Under Consideration
 - Crédit Agricole CIB — test AON reçu, code `b6x-kkd-ssr`
+- **17/10/2026 — Ressources K2 exploitées** : `candidatures/K2-RECHERCHE-EMPLOI-2026-10-17.md` (page K2 International Students Job Search + base missions SKEMA 2021-2025 lue : Convera/iBanFirst/Marex ↑, track brokers parisiens créé, plan 18→31/10) + shortlist `candidatures/K2-SHORTLIST-DB-SKEMA-2026-10-17.csv`. Les 3 sources K2 (`Finance (1) (2).pdf`, `Finance (2) (1).pdf`, base missions `.xlsx`) sont à la racine.
 
 ---
 
