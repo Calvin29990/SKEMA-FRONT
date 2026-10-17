@@ -130,3 +130,15 @@
 | iBanFirst (Paris + Bruxelles) | Assistant Sales FX par un CFM, 2024 | Business case prêt, offre junior dès parution |
 
 🚫 **VIE : ne pas candidater** (ex. ligne « VIE Corporate Sales – IRD and FX » CACIB 2025) — nationalité gabonaise hors périmètre France/EEE du VIE.
+
+---
+
+## ➕ ADDENDUM 17/10/2026 (n°2) — Top 20 passé en mode candidature + réseau
+
+> Détail complet (liens d'offres vérifiés, profils LinkedIn, messages prêts à copier) : [`TOP20-CDI-STAGE-RESEAU-2026-10-17.md`](TOP20-CDI-STAGE-RESEAU-2026-10-17.md).
+
+**À déposer en priorité (offres datées compatibles fin de scolarité)** : iBanFirst Stage FX Sales Paris (déc. 2026→févr. 2027, CDI possible) · Ebury Junior FX Business Developer (**CDI**, fixe à faire confirmer) · BRED Stage Sales Trader FX Frontier (banques africaines) · CACIB Assistant Sales Bordeaux (début 28/12/2026) · Natixis Assistant Sales Commodities (déc. 2026) + Sales Produits Structurés (janv. 2027, par mail).
+
+**Réseau d'abord (pas d'offre junior vérifiée au 17/10)** : Convera Hedging Paris · Marex Paris · MUFG Paris · LCL OMC (Graduate CDI clos le 17/08/2026) · Kepler Cheuvreux (2 offres sales **fermées** au contrôle : alerte + alumni) · Commerzbank Paris · CA Île-de-France (front fermé, dépriorisé).
+
+**Ne pas dupliquer sans statut clarifié** : Barclays (déjà 2 dossiers), BNP (issue test/process d'octobre), CACIB (même compte candidat que le test), HSBC.
