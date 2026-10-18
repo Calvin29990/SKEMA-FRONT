@@ -1,80 +1,84 @@
-# AUDIT DES PROFS SKEMA (M2 CFM LILLE) — À QUI DEMANDER TES 2 LETTRES DE RECOMMANDATION FRONT OFFICE ?
+# SÉLECTION CIBLÉE DES PROFS SKEMA POUR UNE CARRIÈRE **SALES OU TRADER FX** (2 LETTRES DE RECOMMANDATION)
 
-> **Mis à jour le 18/10/2026** — Recherche croisée à partir des métadonnées des supports de cours (`pptx`, `docx`, `pdf`), des syllabus officiels SKEMA, du compte-rendu de la réunion des délégués du 13/10 et des profils publics (LinkedIn, SKEMA Faculty, ResearchGate, AMF/Viadeo).
-
----
-
-## 🎯 VERDICT RAPIDE : LE DUO IDÉAL POUR LE FRONT OFFICE (SALES & TRADING / FX / STRUCTURATION)
-
-En finance de marché (Front Office CIB : Sales, Trading, Structuring, Asset Management), la combinaison la plus puissante pour **2 lettres de recommandation** est :
-1. **Une caution institutionnelle & marchés ("Le Directeur du Master")** : **Prof. Dhafer SAIDANE**
-2. **Une caution praticien de banque / marchés ("Le Banquier en poste")** ou **le prof quantitatif qui t'a sur 3 matières** : **Mohamed Ali KAMMOUN (BNP Paribas)** / **Sabrine AOUIDA (ex-AMF / Indosuez / WeeFin)** / **Prof. Muhammad Farooq AHMAD**.
+> **Objectif :** Obtenir **2 lettres de recommandation à fort impact pour un desk FX (Sales ou Trading)** en combinant :
+> - **Tes profs directs (vus en classe à Lille)**
+> - **Tes profs indirects (inscrits officiellement sur tes syllabus CFM)**, auprès desquels il est 100 % légitime de demander un RDV / call technique de 15 min puis une lettre de recommandation en leur montrant ton niveau réel (ex. ton dossier `ShockDesk`, ta maîtrise du Hull et ton projet IA/FX).
 
 ---
 
-## 📊 1. RADIîOSCOPIE COMPLÈTE DE TES PROFESSEURS À LILLE (EN PRÉSENTIEL)
+## 🏆 1. LE VERDICT : LES 3 PROFILS À CIBLER POUR **SALES OU TRADER FX**
 
-| Professeur & Matière(s) à Lille | Vrai Profil & Parcours Vérifié | Crédibilité Front Office | Pourquoi & comment lui demander une Lettre (LOR) |
+Pour une carrière **Sales ou Trader FX**, parmi les 9 intervenants liés à ton M2 CFM (Lille + Syllabus officiels), **3 noms sortent nettement du lot** (les autres — *Farooq Ahmad*, *Heri Rakotovololona*, *Sabrine Aouida*, *Antoine Derrien* — sont excellents pour du M&A, du Crédit/Compta ou de l'ESG, mais **pas** pour une salle des marchés FX) :
+
+| Rôle dans ton duo de lettres | Professeur | Lien officiel avec tes docs CFM | Pourquoi c'est le meilleur choix pour **Sales / Trader FX** |
 |---|---|---|---|
-| **1. Dhafer SAIDANE**<br>*• Directeur du MSc CFM (Lille)*<br>*• Money, Banking & Financial Markets*<br>*• Hybrid Banking & ESG*<br>📧 `dhafer.saidane@skema.edu` | • **Full Professor of Finance à SKEMA**, PhD Économie + **HDR Université Paris 1 Panthéon-Sorbonne**.<br>• **Directeur du programme MSc CFM à Lille**.<br>• Conseiller scientifique du **Club des Dirigeants des Banques d'Afrique**, expert **BAD (African Development Bank)**, **CNUCED**, **CEA**, **Prix Turgot 2012**.<br>• Enseigne le cours le plus **Front Office** du MSc (*FX, Money Markets, Repo, Bonds, Duration/Convexité, Futures, Options, Greeks, Structured Products*). | ⭐⭐⭐⭐⭐<br>**TOP CHOIX #1**<br>*(Caution Institutionnelle + Marchés / FX Émergents)* | **Indispensable en Lettre #1.**<br>• Une lettre signée par le **Directeur du MSc + Full Professor (HDR Sorbonne)** qui enseigne *Money, Banking & Financial Markets* et qui supervise ton mémoire sur **IA & Gestion de portefeuille FX Marchés Émergents** coche toutes les cases RH et Desk.<br>• **Angle de la lettre** : capacité à relier macro/banques centrales, pricing dérivés/taux/FX et recherche quantitative appliquée aux desks FX. |
-| **2. Mohamed Ali KAMMOUN**<br>*• Corporate Treasury Management (CTM)*<br>*(Débute mardi 20/10 à 09:45, salle A 407 EXEC)*<br>*(Identifié via les métadonnées auteur de `CTM Course Chp 1 2.pptx` et `Exercise 1.docx`)* | • **Praticien en poste chez BNP Paribas Personal Finance (ALM-Treasury / Finance, Paris)**.<br>• **Ingénieur diplômé de CY Tech** (ex-EISTI, école d'ingénieurs très reconnue en finance quantitative / IT bancaire).<br>• L'**ALM-Treasury (ALMT)** chez BNP Paribas est le desk transversal qui gère la liquidité du groupe, le risque de taux (IRRBB) et le risque de change (FX spot, forwards, swaps) sur les marchés financiers. | ⭐⭐⭐⭐⭐<br>**TOP CHOIX #2 (Praticien Banque / BNPP)**<br>*(Idéal pour FX Sales, Corporate Derivatives, ALM/Treasury, CIB)* | **Pépite pour ta Lettre #2 (surtout pour BNP Paribas, CACIB, SG, Natixis, Ebury, StoneX).**<br>• Son cours parle à 100 % le langage d'un **Corporate FX & Rates Sales** (couverture par FX Forward, risque de sur-couverture, swaps de taux, liquidité intraday, covenants).<br>• **Comment verrouiller sa lettre dès demain (mardi 20/10)** : participe à fond sur `Exercise 1.docx` (tu as déjà tout le corrigé et le modèle Excel prêt), prends le lead sur le **Case 1 en Session 3**, puis demande-lui une recommandation fin octobre/début novembre. |
-| **3. Sabrine AOUIDA**<br>*• Sustainable Finance & Impact Investing (Module 1 & Oraux du 28/10)* | • Master Finance (Paris 13).<br>• **Ex-Autorité des Marchés Financiers (AMF, 2015–2018)** : analyste spécialisée en **Gestion d'Actifs (Asset Management)**.<br>• **Ex-Indosuez Wealth Management** (CA Indosuez).<br>• Co-fondatrice & **Chief Impact Officer de WeeFin** (Fintech ESG élue Fintech de l'année, fondée avec l'ex-Head of Product R&D de BNP Paribas) et **Colville Capital Partners**. | ⭐⭐⭐⭐<br>**Très fort en Asset Management / Buy-Side / ESG Structuring** | **Excellente option praticienne (Buy-Side / Régulateur AMF).**<br>• Le tampon **ex-AMF (Asset Management) + Indosuez + C-Level Fintech/Capital Partners** est très respecté à Paris.<br>• **Quand lui demander** : juste après les **oraux du mercredi 28 octobre** et le rendu du One-Pager. |
-| **4. Muhammad Farooq AHMAD**<br>*• Corporate Valuation Methods*<br>*• Capital Structure & Dividend Policy*<br>*• Capital Budgeting*<br>📧 `farooq.ahmad@skema.edu` | • **Associate Professor of Finance à SKEMA Lille**, PhD Finance (Univ. Lille 2 / SKEMA, 2016).<br>• **Pur chercheur académique en Corporate Finance, M&A & Governance** (publications dans *Review of Financial Studies*, *Journal of Banking & Finance*, *JIBS*, *British Journal of Management* ; conférencier EFA / INSEAD / Bayes M&A Centre). | ⭐⭐⭐<br>**Excellent pour M&A / ECM / DCM / Rigor académique** *(mais pas un profil Salle des Marchés)* | **Meilleure caution de rigueur technique si tu cartonnes à son test de Capital Budgeting la semaine prochaine.**<br>• Comme il t'enseigne **3 matières fondamentales** (*Valuation*, *Capital Structure*, *Capital Budgeting*), il est le seul prof à pouvoir écrire : *« Calvin fait partie du top X% de ma cohorte sur 3 cours quantitatifs distincts »*.<br>• **Quand lui demander** : juste après le test de **Capital Budgeting** la semaine prochaine. |
-| **5. Heritiana (Heri) RAKOTOVOLOLONA**<br>*• Financial Reporting & Analysis (FRA)*<br>📧 `heri.rakoto-ext@skema.edu` | • **Chartered Accountant (CA)**, **Master 224 Paris Dauphine**, **LL.M**, certificat **Columbia Business School (CSEP)**.<br>• Ex-**CFO d'une société d'investissement** & **Senior Audit Manager**.<br>• Visiting Professor à l'**University of Victoria (Canada)**, auteur d'un ouvrage de référence (2023) sur la **dette souveraine et les agences de notation** (*Sovereign Debt Sustainability & the Credit Rating Impasse*). | ⭐⭐⭐<br>**Très bon pour Credit Research / DCM Sovereign / Corporate Finance** *(moins pour du Trading/Sales actions ou FX)* | • Son pedigree (**Dauphine 224 + Columbia + CA + livre sur les Sovereign Credit Ratings**) est beaucoup plus fort qu'un simple prof de compta !<br>• Si tu vises un desk **Credit / DCM / Fixed Income / Emerging Markets Sovereign**, son profil est très pertinent. |
-| **6. Antoine DERRIEN**<br>*• Sustainable Finance & Impact Investing (Oraux du 28/10)*<br>📧 `antoine.derrien-ext@skema.edu` | • Diplômé SKEMA (2015) & Master 2 Finance (Nantes).<br>• Passé par **Société Générale** puis **BNP Paribas Wealth Management (Gestion de Fortune > 5 M€ à Paris : allocation d'actifs)**, formateur finance durable (SFAF / SKEMA). | ⭐⭐⭐<br>**Bon profil Private Banking / Wealth Management** | • Très accessible et bienveillant, mais plus junior/orienté Gestion de Fortune & ESG que Dhafer Saidane ou Mohamed Ali Kammoun pour du Front Office CIB. |
+| **LETTRE #1 (Direct — Vu en cours à Lille)**<br>*La caution institutionnelle + Thèse FX* | **Prof. Dhafer SAIDANE**<br>📧 `dhafer.saidane@skema.edu` | • **Directeur du MSc CFM à Lille**<br>• **Course Leader** inscrit en p. 1 de `syllabus_MONEY, BANKING AND FINANCIAL MARKETS (104632202260SM1).pdf`<br>• Vu en cours en oct. + réunion délégués / CFM Connect du 13/10 | • **Full Professor (HDR Paris 1 Sorbonne)** et **Directeur de ton Master** [1](https://www.skema.edu/sites/default/files/cv/documents/cv_8088_fr_0.pdf).<br>• Enseigne *Money, Banking & Financial Markets* (FX, taux, repo, dérivés) et encadre les banques centrales/commerciales sur les marchés émergents [3](https://www.researchgate.net/profile/Dhafer-Saidane).<br>• Tu l'as déjà approché pour ta thèse **« IA & Gestion de portefeuille sur un desk FX Marchés Émergents »** : il peut attester à la fois ton niveau dans le MSc et ta spécialisation FX. |
+| **LETTRE #2 — OPTION A (Indirect mais inscrit sur ton syllabus CFM)**<br>*Le "Vrai Trader FX Options" de Londres/Zurich* | **M. Petros GEROULANOS**<br>🌐 `petrosgeroulanos.com`<br>*(Contact via SKEMA / LinkedIn)* | • Inscrit officiellement en **page 6 de ton syllabus `syllabus_MONEY, BANKING AND FINANCIAL MARKETS (104632202260SM1).pdf`** (`Teaching team : GEROULANOS Petros`) — c'est lui qui a conçu le programme *FX, Futures, Options, Greeks & Dynamic Option Trading* du syllabus ! | • **Le meilleur profil "Salle des Marchés FX" de toute l'école** : diplômé de **St. Gallen (HSG)**, il a débuté chez **Swiss Bank Corporation O'Connor (aujourd'hui UBS) à Zurich et Londres** comme **Trader, Sales & Structureur sur les Options de Change (FX Options)**, les dérivés exotiques et les swaps de taux, a dirigé **EPIGON Capital comme Head Derivatives Trader** jusqu'en 2022, et a publié **plus de 400 articles sur le marché des changes (FX)** [2](https://petrosgeroulanos.com/)[8](https://www.epigon.co.uk.lombok.iway.ch/index.php?id=51).<br>• **Légitimité 100 %** : son nom est sur ton syllabus officiel `104632202260SM1`. En lui demandant un **RDV Teams de 15–20 min** (avec ton travail *ShockDesk* / pricing options FX en appui), tu obtiens la recommandation d'un **ancien Trader FX Options d'UBS Londres**. |
+| **LETTRE #2 — OPTION B (Direct — Vu en cours à Lille dès demain mardi 20/10)**<br>*Le Praticien Trésorerie / Hedging FX Corporate chez BNP Paribas* | **M. Mohamed Ali KAMMOUN**<br>*(En cours avec toi mardi 20/10 de 09:45 à 13:00, salle A 407 EXEC)* | • **Auteur / Créateur** de tes supports officiels `CTM Course Chp 1 2.pptx` et `Exercise 1.docx` (*Corporate Treasury Management*) | • **En poste chez BNP Paribas Personal Finance (Finance / ALM-Treasury, Paris)** + **Ingénieur CY Tech (ex-EISTI)** [1](https://www.linkedin.com/in/mohamed-ali-kammoun5/).<br>• Son cours traite directement du **métier des clients d'un FX Sales Corporate** : couverture par **FX Forward**, risque de **sur-couverture (over-hedging)** quand les volumes d'export baissent, swaps de taux, liquidité et risque de contrepartie bancaire.<br>• **Avantage massif** : tu l'as **en face de toi demain matin (mardi 20/10)** ! Tu peux lui montrer ton niveau en direct dès la Session 1. |
+
+> **Alternative Indirecte #3 (sur ton syllabus CVM)** : **M. Torben SOMMER** (`torben.sommer-ext@skema.edu`, inscrit en page 1 de `syllabus_CORPORATE VALUATION METHODS (103964202260SM1).pdf`). Il a **30 ans de Front Office** (**ex-Sales Investment Banker chez UBS & Carnegie à Londres**, **ex-Trading Investment Bank chez CPR & ABN Amro à Paris**, ex-Head of Research chez Piper Jaffray à Londres, Equity Research chez HCP AM à Genève) [1](https://www.linkedin.com/in/torben-sommer-396254/). Très fort pour le côté *Institutional Sales*, mais plus orienté **Equities / Valuation** que **FX pur** (contrairement à Petros Geroulanos).
 
 ---
 
-## 💡 2. BONUS RÉSEAU : LES 3 PROFS "FRONT OFFICE PURS" DES SYLLABUS PARISIENS (À INVITER À LILLE !)
+## 🎯 2. LA STRATÉGIE RECOMMANDÉE EN 3 ÉTAPES (DIRECT + INDIRECT)
 
-Lors de la réunion des délégués du 13/10, **M. Dhafer Saidane vous a explicitement dit** :
-> *« Si vous me proposez 2 ou 3 noms de professionnels ou d'intervenants que vous voulez faire venir à Lille (pour un CFM Connect ou le déjeuner de début novembre), l'école l'organise ! »*
-
-Or, sur les syllabus officiels K2 de tes matières figurent **3 intervenants SKEMA (campus Grand Paris)** qui ont un pedigree **Front Office / Trading / Quant** exceptionnel :
-
-1. **Petros GEROULANOS** *(Course Leader Paris sur ton syllabus `Money, Banking and Financial Markets`)* :
-   - **35 ans de Front Office Dérivés (Zurich & Londres)** : diplômé de **St. Gallen (HSG)**, ancien Trader, Sales & Structureur chez **Swiss Bank Corporation O'Connor (aujourd'hui UBS)** à Londres sur les **Options de Change (FX Options), Dérivés Actions Exotiques (Equity Exotics) et Swaps de Taux (IRS)**, puis Head Derivatives Trader chez EPIGON Capital.
-2. **Torben SOMMER** (`torben.sommer-ext@skema.edu` — *Course Leader officiel sur ton syllabus `Corporate Valuation Methods`*) :
-   - **30 ans de Front Office (Londres, Paris, Genève, Copenhague)** : ancien **Sales Investment Banker chez UBS & Carnegie à Londres**, ancien **Trader / Investment Banker chez CPR & ABN Amro à Paris**, ancien **Head of CleanTech Equity Research chez Piper Jaffray à Londres**, ancien analyste chez **S&P / Nordea**, et aujourd'hui **Equity Research Analyst chez HCP Asset Management à Genève** (Dauphine MBA + Aarhus Law).
-3. **Engin IYIDOGAN** (`engin.iyidogan@skema.edu` — *Course Leader de `Corporate Finance Prerequisites` et de `Python & Algorithm Design`*) :
-   - **PhD in Finance d'Imperial College London**, BSc Electrical Engineering, **Médaille d'argent aux Olympiades Nationales de Mathématiques**, spécialiste **Algorithmic Trading, FinTech, Crypto & Agentic AI**.
-
-👉 **Coup double stratégique pour toi** : tu peux proposer à Dhafer Saidane d'inviter **Petros Geroulanos** (ex-UBS FX Options & Exotic Derivatives Trader à Londres) ou **Torben Sommer** (ex-UBS Sales / ABN Amro Trading) pour le prochain *CFM Connect* à Lille !
+1. **Verrouiller ta Lettre Directe #1 avec le Prof. Dhafer SAIDANE (Directeur MSc CFM + Prof Money, Banking & FM)** :
+   - Tu l'as déjà vu en cours et au *CFM Connect* du 13/10.
+   - Envoie-lui la note d'une page sur ta thèse **IA & Gestion de portefeuille FX Marchés Émergents** et demande-lui sa recommandation officielle de Directeur du Master.
+2. **Briller demain matin (mardi 20/10, 09:45–13:00) devant M. Mohamed Ali KAMMOUN (CTM — BNP Paribas)** :
+   - Utilise le corrigé complet (`cours/S1_CTM/CORRIGE-Exercise-1-et-FICHE-Chp1-2-CTM.md`) et le modèle Excel (`cours/S1_CTM/CTM_Exercise_1_Model.xlsx`) pendant la séance pour répondre aux questions sur les 5 profils et sur le cas de couverture FX Forward (Chapitre 1, slide 8 : l'exportateur qui couvre 80 % de 50 M$ et subit un risque de sur-couverture si les ventes chutent de 25 %).
+   - À la fin du cours (ou après la Session 2/3), échange avec lui sur ton projet **FX Sales / Trading** et demande-lui s'il accepterait d'être ta référence praticien.
+3. **Décrocher un RDV de 15 min avec M. Petros GEROULANOS (inscrit sur ton syllabus `Money, Banking & Financial Markets`)** :
+   - Comme il est co-titulaire sur ton syllabus officiel `104632202260SM1`, ta démarche est **100 % légitime**.
+   - **Bonus Délégués** : en parallèle, propose son nom à Dhafer Saidane parmi les « 2–3 intervenants/pros à inviter à Lille » (demandés lors de la réunion des délégués du 13/10). Dire à Petros Geroulanos que la promo de Lille souhaite aussi l'inviter pour un *CFM Connect* sur le FX & les Dérivés est le meilleur brise-glace possible !
 
 ---
 
-## 🏆 3. PLAN D'ACTION CONCRET POUR TES 2 LETTRES DE RECOMMANDATION
+## ✉️ 3. LES 3 MAILS PRÊTS À ENVOYER (SPÉCIAL SALES & TRADER FX)
 
-### Quelle combinaison choisir selon le poste visé ?
+### Mail 1 — Pour M. Petros GEROULANOS (Prof indirect inscrit sur ton syllabus `Money, Banking & Financial Markets` — Demande de RDV 15 min + Recommandation FX)
 
-| Cible de candidature | Lettre de Recommandation #1 | Lettre de Recommandation #2 |
-|---|---|---|
-| **Sales & Trading / FX Sales / Listed Derivatives / Structuring** *(BNP, CACIB, Barclays, SG, Ebury, StoneX)* | **Prof. Dhafer SAIDANE**<br>*(Directeur MSc CFM + Prof Money, Banking & Financial Markets + superviseur thèse IA/FX)* | **M. Mohamed Ali KAMMOUN**<br>*(BNP Paribas ALM-Treasury / Ingénieur CY Tech / Prof Corporate Treasury Management)* |
-| **Investment Banking / M&A / ECM / DCM / Corporate Finance** | **Prof. Dhafer SAIDANE** | **Prof. Muhammad Farooq AHMAD**<br>*(Prof de tes 3 cours : Corporate Valuation, Capital Structure, Capital Budgeting — juste après ton test de la semaine prochaine)* |
-| **Asset Management / Buy-Side / Wealth Management / Impact** | **Prof. Dhafer SAIDANE** | **Mme Sabrine AOUIDA**<br>*(Ex-AMF Asset Management, ex-Indosuez, CIO WeeFin / Colville Capital Partners — juste après l'oral du 28/10)* |
+**Objet :** SKEMA MSc CFM (`104632202260SM1`) – Quick 15-min Exchange on FX Derivatives / Career Advice – Calvin Minang
+
+```text
+Dear Professor Geroulanos,
+
+I am currently a Master 2 student in the MSc Corporate Financial Management at SKEMA Business School (Lille campus), following the Money, Banking and Financial Markets module (course code 104632202260SM1), on which you are listed as the Paris teaching lead.
+
+I am preparing for a career in Foreign Exchange (FX Sales & Trading / FX Derivatives), and your background as a former FX Options and Exotic Derivatives trader at SBC O'Connor (UBS) in Zurich and London, as well as Head Derivatives Trader at EPIGON Capital, is directly aligned with the desks I am targeting.
+
+Alongside our coursework on forward rates, cash-and-carry futures pricing, Black-Scholes, Greeks, and dynamic option trading strategies, I have built a personal technical training manual and simulation framework on desk concepts and FX/options shocks (attached to this email along with my CV).
+
+Would you be open to a brief 15-minute call (or a coffee in Paris at your convenience) so I could ask for your feedback on my technical preparation for FX desks—and, if you find my level solid, discuss the possibility of a recommendation for my upcoming FX Sales & Trading applications?
+
+(Additionally, following our cohort meeting with Professor Dhafer Saidane last week, our Lille cohort would be thrilled to invite you as a guest speaker for an upcoming CFM Connect session on FX and Derivatives markets.)
+
+Thank you very much for your time and consideration.
+
+Best regards,
+
+Calvin Minang
+MSc Corporate Financial Management – SKEMA Business School
+```
 
 ---
 
-## ✉️ 4. MODÈLES D'E-MAILS PRÊTS À ENVOYER (POUR OBTENIR UNE LETTRE "FRONT OFFICE")
+### Mail 2 — Pour le Prof. Dhafer SAIDANE (Directeur du MSc CFM Lille — Vu en cours)
 
-> **Règle d'or** : un professeur écrit une excellente lettre quand tu lui fournis **3 éléments clés** (ton CV, les 3 points techniques qu'il peut mettre en avant, et un pré-brouillon / bullet points pour lui faire gagner du temps).
-
-### Modèle 1 — Pour le Prof. Dhafer SAIDANE (Directeur MSc CFM & Prof Money, Banking & FM)
-
-**Objet :** Request for a Letter of Recommendation – Front Office / Global Markets Applications – Calvin Minang (MSc CFM)
+**Objet :** Request for a Letter of Recommendation (FX Sales & Trading Applications) – Calvin Minang (MSc CFM)
 
 ```text
 Dear Professor Saidane,
 
 I hope this email finds you well.
 
-Following our recent classes in Money, Banking and Financial Markets and our exchange during CFM Connect regarding my research interest in AI-driven FX portfolio management in emerging markets, I am writing to kindly ask if you would be willing to write a brief Letter of Recommendation to support my upcoming applications for Front Office (FX & Derivatives Sales / Trading) internships and graduate programmes.
+Following our sessions in Money, Banking and Financial Markets and our discussion during CFM Connect regarding my research project on AI-driven FX portfolio management in emerging markets, I am writing to kindly ask if you would be willing to write a Letter of Recommendation to support my applications for Front Office FX Sales and Trading roles.
 
-In particular, a recommendation from you as Programme Director of the MSc Corporate Financial Management and Professor of Money, Banking and Financial Markets—highlighting my quantitative rigor, my understanding of fixed income, FX, and derivatives mechanics, and my active engagement in the cohort—would carry immense weight with recruiting desks in Paris and London.
+A recommendation from you as Programme Director of the MSc Corporate Financial Management and Course Leader of Money, Banking and Financial Markets—highlighting my quantitative rigor, my grasp of FX, fixed income, and derivatives mechanics, and my research focus on emerging-market FX desks—would carry decisive weight with recruiting teams in Paris and London.
 
-To make this as effortless as possible for you, I have attached my updated CV and can gladly provide a short bullet-point summary (or a draft template) tailored to the roles I am targeting.
+To save you time, I have attached my CV and a short bullet-point draft that you can freely adapt or sign at your convenience.
 
-Thank you very much for your time, your commitment to our cohort, and your support.
+Thank you very much for your commitment to our cohort and for your support.
 
 Best regards,
 
@@ -84,22 +88,22 @@ MSc Corporate Financial Management – SKEMA Business School (Lille)
 
 ---
 
-### Modèle 2 — Pour M. Mohamed Ali KAMMOUN (Prof CTM / BNP Paribas) — *à envoyer après les 2 premières séances de CTM*
+### Mail 3 — Pour M. Mohamed Ali KAMMOUN (Prof CTM / BNP Paribas — *à envoyer après les premières séances de CTM*)
 
-**Objet :**Corporate Treasury Management – Request for Recommendation (Front Office / FX & Treasury) – Calvin Minang
+**Objet :** Corporate Treasury Management – Request for Recommendation (FX Sales & Trading / Corporate Hedging) – Calvin Minang
 
 ```text
 Dear Professor Kammoun,
 
 I hope you are doing well.
 
-I am really enjoying your Corporate Treasury Management sessions—especially the practical focus on FX forward hedging, liquidity vs. funding risk, and the EBITDA-to-cash conversion bridge, which directly echo the realities of corporate sales and treasury desks.
+I am thoroughly enjoying your Corporate Treasury Management module—particularly the practical casework on FX forward hedging, over-hedging risk when commercial forecasts shift, interest rate swaps, and liquidity management, which mirror the exact challenges I aim to solve for corporate clients on an FX Sales & Trading desk.
 
-As I am currently in the recruitment process for Front Office roles (FX & Derivatives Sales / Corporate Risk Solutions, notably at tier-one banks including BNP Paribas), I wanted to ask if you would be open to writing a short Letter of Recommendation (or acting as a reference) based on my work and participation in your module.
+As I am currently interviewing for Front Office FX Sales and Derivatives roles (including at tier-one CIBs such as BNP Paribas, CACIB, and Barclays), I wanted to ask if you would be open to providing a brief Letter of Recommendation based on my analytical work and participation in your course.
 
-Given your background in banking and treasury alongside your engineering training, your endorsement of my analytical modeling and understanding of corporate hedging needs would be particularly impactful. I have attached my CV and would be happy to share a brief summary of key points to save you time.
+Given your engineering background and your experience within the BNP Paribas Group, your endorsement of my modeling rigor and practical understanding of corporate treasury and FX hedging would be hugely impactful. I have attached my CV and can gladly share a short draft template to save you time.
 
-Thank you very much in advance for your consideration.
+Thank you very much in advance for your support.
 
 Best regards,
 
@@ -109,25 +113,16 @@ MSc Corporate Financial Management – SKEMA Business School (Lille)
 
 ---
 
-### Modèle 3 — Pour le Prof. Muhammad Farooq AHMAD (après le test de Capital Budgeting la semaine prochaine)
+## 📋 4. RÉCAPITULATIF COMPLET DE TOUS LES PROFS DE TON DOSSIER CFM (POUR RÉFÉRENCE)
 
-**Objet :** Request for Academic Letter of Recommendation – Calvin Minang (MSc CFM)
-
-```text
-Dear Professor Ahmad,
-
-I hope this email finds you well.
-
-Having had the privilege of following three of your core modules this semester—Corporate Valuation Methods, Capital Structure & Dividend Policy, and Capital Budgeting—I am writing to kindly ask if you would be willing to provide a Letter of Recommendation to support my applications in Investment Banking and Global Markets.
-
-Because you have been able to observe my work across three distinct quantitative and analytical courses, your perspective on my financial modeling skills, valuation rigor, and performance on the mid-term assessments would be invaluable to my applications.
-
-I have attached my CV for your reference, and I would be happy to provide any additional information or a draft outline at your convenience.
-
-Thank you very much for your teaching and support this semester.
-
-Best regards,
-
-Calvin Minang
-MSc Corporate Financial Management – SKEMA Business School (Lille)
-```
+| Professeur | Statut (Direct Lille vs Indirect Syllabus) | Spécialité & Parcours | Pertinence pour **Sales / Trader FX** |
+|---|---|---|---|
+| **Dhafer SAIDANE** | **Direct (Lille)** — Directeur MSc CFM & Prof *Money, Banking & FM* | Full Professor (HDR Sorbonne), Banques, Stabilité financière, Marchés émergents, FX & Dérivés | ⭐⭐⭐⭐⭐ **Top #1 (Direct)** |
+| **Petros GEROULANOS** | **Indirect (inscrit p. 6 du syllabus `Money, Banking & FM`)** | Ex-Trader/Sales/Structureur **FX Options & Exotic Derivatives chez SBC O'Connor / UBS (Zurich & Londres)**, Head Derivatives Trader EPIGON Capital, 400+ articles FX [2](https://petrosgeroulanos.com/)[8](https://www.epigon.co.uk.lombok.iway.ch/index.php?id=51) | ⭐⭐⭐⭐⭐ **Top #1 (Indirect — Pur FX/Options)** |
+| **Mohamed Ali KAMMOUN** | **Direct (Lille, dès mardi 20/10)** — Prof *Corporate Treasury Management* | **BNP Paribas Personal Finance (ALM-Treasury / Finance)**, Ingénieur **CY Tech**, expert FX Forwards, Swaps de taux, Liquidité & BFR [1](https://www.linkedin.com/in/mohamed-ali-kammoun5/) | ⭐⭐⭐⭐⭐ **Top #2 (Direct — Corporate FX & BNPP)** |
+| **Torben SOMMER** | **Indirect (Course Leader p. 1 du syllabus `Corporate Valuation Methods`)** | 30 ans de Front Office : ex-**Sales IB chez UBS & Carnegie (Londres)**, ex-**Trading IB chez CPR & ABN Amro (Paris)**, ex-Head of Research Piper Jaffray (Londres), HCP AM (Genève) [1](https://www.linkedin.com/in/torben-sommer-396254/) | ⭐⭐⭐⭐ **Très bon profil Sales/Trading Actions (Londres/Paris)** |
+| **Engin IYIDOGAN** | **Indirect (Course Leader p. 1 du syllabus `CFP` & `Python`)** | **PhD in Finance (Imperial College London)**, BSc Electrical Engineering, Médaille d'argent Olympiades de Maths, **Algorithmic Trading, FinTech & AI** [1](https://www.skema.edu/en/faculty-and-research/professors/engin-iyidogan) | ⭐⭐⭐⭐ **Excellent si tu vises un desk e-FX / Algo FX / Quant** |
+| **Heritiana RAKOTOVOLOLONA** | **Direct (Lille)** — Prof *FRA* | CA, Master 224 Dauphine, Columbia CSEP, ex-CFO, auteur sur la dette souveraine et les agences de notation [4](https://www.linkedin.com/in/heri-rakotovo-ca-ll-m-85421315/)[10](https://www.zoominfo.com/p/Heri-Rakotovo/6896796831) | ⭐⭐⭐ Plus orienté Credit / DCM Souverain que FX |
+| **Sabrine AOUIDA** | **Direct (Lille)** — Prof *Sustainable Finance* | Ex-AMF (Asset Management), ex-Indosuez, CIO WeeFin & Colville Capital Partners [7](https://www.linkedin.com/in/alexisboisard/)[22](https://evenements.optionfinance.fr/time-to-change-2024/speaker/9a197265-11ae-ee11-8928-000d3a2d9223/sabrine-aouida) | ⭐⭐⭐ Orientée Asset Management / ESG |
+| **Muhammad Farooq AHMAD** | **Direct (Lille)** — Prof *Valuation, Capital Structure, Capital Budgeting* | Associate Professor SKEMA, PhD Finance, chercheur M&A & Corporate Governance [1](https://www.researchgate.net/profile/Muhammad-Farooq-Ahmad)[13](https://onlinelibrary.wiley.com/doi/10.1111/1467-8551.12692) | ⭐⭐⭐ Orienté M&A / Corporate Finance (pas FX) |
+| **Antoine DERRIEN** | **Direct (Lille)** — Prof *Sustainable Finance* | Ex-BNP Paribas Wealth Management (Gestion de Fortune Paris) & SG, formateur ESG [1](https://viadeo.journaldunet.com/p/antoine-derrien-1703906) | ⭐⭐ Orienté Banque Privée / ESG |
