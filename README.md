@@ -51,8 +51,9 @@
 
 | Sous-dossier | Matière | Contenu |
 |---|---|---|
-| `S1_FRA/` | Financial Reporting & Analysis | 6 readings (HBS, IMF, PwC, IFRS, Latham Watkins) |
-| `S1_CF/` | Corporate Finance | Sessions, corrigés, syllabus FRA |
+| `S1_FRA/` | Financial Reporting & Analysis | Readings S1–S3 (HBS, IMF, PwC, IFRS, Grant Thornton, HLB IFRS 16) + **Fiche & Corrigé intégral Sessions 2 & 3 (`CORRIGE-ET-FICHE-FRA-Sessions-2-et-3.md`)** |
+| `S1_CF/` | Financial Reporting & Analysis (Packs) | Packs Sessions 1, 2, 3, corrigé S1, syllabus FRA |
+| `S1_CTM/` | Corporate Treasury Management | `CTM Course Chp 1  2.pptx`, `Exercise 1.docx` + **Fiche Chp 1-2 & Corrigé intégral (`CORRIGE-Exercise-1-et-FICHE-Chp1-2-CTM.md`)** |
 | `S1_MoneyBanking/` | Money, Banking & Financial Markets | Prerequisites, microeconomics |
 | `S2_CorpVal/` | Corporate Valuation Methods | Sessions 1-2, exercices, student copies |
 | `S2_CapitalStructure/` | Capital Structure & Dividend Policy | Session 2, exercices |
