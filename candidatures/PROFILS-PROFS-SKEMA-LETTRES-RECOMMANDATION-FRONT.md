@@ -65,25 +65,91 @@ MSc Corporate Financial Management – SKEMA Business School
 
 ### Mail 2 — Pour le Prof. Dhafer SAIDANE (Directeur du MSc CFM Lille — Vu en cours)
 
-**Objet :** Request for a Letter of Recommendation (FX Sales & Trading Applications) – Calvin Minang (MSc CFM)
+#### 📱 A. Le Message WhatsApp « Délégué + Lettre FX » (Respecte à 100 % le *"Don't abuse, but use it !"*)
+
+> **Pourquoi cet angle est redoutable :** En commençant par une phrase de **suivi de délégué** (suite à votre réunion du 13/10), tu légitimes immédiatement ton message WhatsApp. Et en lui disant que **tu as déjà préparé le brouillon par mail pour lui faire gagner du temps**, il te répondra oui en 30 secondes.
+
+**Option 1 — En Français (naturel, respectueux, direct entre francophones) :**
+```text
+Bonjour Monsieur Saidane, j’espère que vous avez passé un très bon week-end.
+
+C’est Calvin (délégué MSc CFM). Suite à notre réunion de mardi dernier, nous avons bien partagé le compte-rendu à toute la promo et lancé le sondage pour vous proposer 2-3 noms d’intervenants (notamment en FX / marchés) ainsi que pour le déjeuner multiculturel de début novembre.
+
+Je me permets aussi d'utiliser votre conseil ("don't abuse, but use it" 😄) pour une courte demande personnelle : je suis en plein process de recrutement en Front Office (Sales & Trading FX), et une lettre de recommandation de votre part en tant que Directeur du MSc CFM et professeur de Money, Banking & Financial Markets aurait un poids énorme pour mes candidatures.
+
+Pour ne vous faire perdre aucun temps, je peux vous envoyer par mail aujourd'hui mon CV ainsi qu'un projet de lettre déjà rédigé (et une courte note sur mon projet de thèse IA & portefeuille FX émergents) que vous n'auriez plus qu'à ajuster ou signer si cela vous convient.
+
+Merci beaucoup pour votre soutien et très bonne semaine à vous !
+Calvin Minang
+```
+
+**Option 2 — En Anglais (si vous échangez habituellement en anglais à l'écrit) :**
+```text
+Good morning Professor Saidane, I hope you had a great weekend.
+
+This is Calvin (MSc CFM class delegate). Following up on our meeting last Tuesday, we shared the summary with the cohort and started collecting 2–3 speaker suggestions (especially in FX / financial markets) as well as feedback for the early November multicultural lunch.
+
+Taking you up on your kind words ("don't abuse, but use it" 😄), I also wanted to ask you a quick personal favour: I am currently in the middle of recruitment processes for Front Office FX Sales & Trading roles, and a Letter of Recommendation from you as Programme Director of the MSc CFM and Professor of Money, Banking & Financial Markets would carry tremendous weight.
+
+To take zero time out of your schedule, I can email you my CV along with a ready-to-adapt draft letter (and a one-page outline for my thesis idea on AI & Emerging Markets FX portfolio management) so you would only need to review and sign it if you agree.
+
+Thank you very much for your trust and support, and have a great week!
+Calvin Minang
+```
+
+---
+
+#### 📧 B. Le Mail d'accompagnement + Le Brouillon de Lettre de Recommandation (Prêt à signer par M. Saidane)
+
+**Objet :** Letter of Recommendation Draft (FX Sales & Trading) & Thesis Note – Calvin Minang (MSc CFM Delegate)
 
 ```text
 Dear Professor Saidane,
 
-I hope this email finds you well.
+Following my WhatsApp message, thank you very much for your support.
 
-Following our sessions in Money, Banking and Financial Markets and our discussion during CFM Connect regarding my research project on AI-driven FX portfolio management in emerging markets, I am writing to kindly ask if you would be willing to write a Letter of Recommendation to support my applications for Front Office FX Sales and Trading roles.
-
-A recommendation from you as Programme Director of the MSc Corporate Financial Management and Course Leader of Money, Banking and Financial Markets—highlighting my quantitative rigor, my grasp of FX, fixed income, and derivatives mechanics, and my research focus on emerging-market FX desks—would carry decisive weight with recruiting teams in Paris and London.
-
-To save you time, I have attached my CV and a short bullet-point draft that you can freely adapt or sign at your convenience.
-
-Thank you very much for your commitment to our cohort and for your support.
+To make this as quick and seamless as possible for you, please find attached my updated CV and, just below, a suggested draft for the Letter of Recommendation tailored to Front Office FX Sales & Trading roles, which you can freely edit and place on SKEMA letterhead.
 
 Best regards,
 
 Calvin Minang
-MSc Corporate Financial Management – SKEMA Business School (Lille)
+Class Representative (Délégué) – MSc Corporate Financial Management
+SKEMA Business School (Lille)
+```
+
+---
+
+#### 📄 C. Le Texte de la Lettre de Recommandation (À mettre en PJ Word ou dans le corps du mail pour qu'il n'ait qu'à le signer)
+
+```text
+[SKEMA BUSINESS SCHOOL LETTERHEAD]
+
+Date: October 2026
+
+To Whom It May Concern,
+
+Subject: Letter of Recommendation for Mr. Calvin MINANG — Front Office (FX Sales & Trading / Global Markets)
+
+In my capacity as Full Professor of Finance and Programme Director of the MSc in Corporate Financial Management at SKEMA Business School (Lille Campus), it is my great pleasure to strongly recommend Mr. Calvin Minang for a Front Office position in Foreign Exchange (FX) Sales & Trading and Global Markets.
+
+I have had the opportunity to teach Calvin in the core module "Money, Banking and Financial Markets" and the "Fundamentals of Banking, Risk & ESG" seminar, as well as to work closely with him in his elected role as Class Representative (Délégué) for the MSc cohort.
+
+Academically and technically, Calvin stands out among the top tier of our Master 2 students. In my course covering money markets, fixed income pricing (duration and convexity), repurchase agreements (repos), foreign exchange mechanics, and derivatives pricing (futures, options, Greeks, and structured products), he has consistently demonstrated sharp quantitative intuition and a genuine passion for market microstructure. Unlike students who merely memorize formulas, Calvin thinks like a market practitioner—connecting central bank monetary policy, macroeconomic flows, and volatility regimes directly to desk-level pricing and hedging decisions.
+
+Furthermore, Calvin is developing his Master's research thesis on the application of Artificial Intelligence to FX portfolio management and risk stability in emerging markets, a topic that bridges quantitative modeling, foreign exchange dynamics, and banking stability.
+
+Beyond his technical rigor, Calvin exhibits the exact personal qualities required on a trading floor. As an elected Class Representative for a multicultural international cohort, he has shown remarkable leadership, maturity, proactive communication, and composure under pressure. He is articulate, reliable, and driven by results.
+
+I therefore recommend Mr. Calvin Minang without reservation for any demanding Front Office role in FX Sales, Trading, or Structuring. Please do not hesitate to contact me should you require any further information.
+
+Sincerely,
+
+Prof. Dhafer SAIDANE
+Ph.D. in Economics, HDR (Université Paris 1 Panthéon-Sorbonne)
+Full Professor of Finance
+Programme Director — MSc Corporate Financial Management (Lille)
+SKEMA Business School
+Email: dhafer.saidane@skema.edu
 ```
 
 ---
