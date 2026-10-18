@@ -1,20 +1,17 @@
-# MAIL & BROUILLON DE LETTRE DE RECOMMANDATION — PROF. DHAFER SAIDANE
+# MAIL & BROUILLON DE LETTRE DE RECOMMANDATION (VERSION CONCISE & PASSE-PARTOUT) — PROF. DHAFER SAIDANE
 
-> **Suite à sa réponse WhatsApp de 18h45 :** *« Bonjour Calvin. Oui. Avec plaisir. Envoyez moi par mail un brouillon. Bonne continuation »*
-> **Fichiers Word (`.docx`) prêts à joindre dans le repo :**
-> - 🇬🇧 Version Anglaise (recommandée pour toutes les CIB Paris/Londres) : `candidatures/Lettre_Recommandation_Calvin_MINANG_Prof_Dhafer_SAIDANE_EN.docx`
-> - 🇫🇷 Version Française : `candidatures/Lettre_Recommandation_Calvin_MINANG_Prof_Dhafer_SAIDANE_FR.docx`
-> - 📄 Ton CV à joindre aussi : `documents/CV_Calvin_MINANG.pdf`
+> **Calibrage :** Court (~260 mots, 1 page aérée), naturel, et **100 % passe-partout** — utilisable aussi bien pour **Sales & Trading (FX, Taux, Actions, Dérivés)**, **Structuration**, **Quant / Market Risk**, **Investment Banking**, que pour une **admission en école d'ingénieurs / Master quantitatif**.
+>
+> **Liens GitHub directs vers les fichiers `.docx` modifiables :**
+> - 📥 **Téléchargement direct `.docx` Anglais :** https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/3f12518f-skema-front/candidatures/Lettre_Recommandation_Calvin_MINANG_Prof_Dhafer_SAIDANE_EN.docx
+> - 📥 **Téléchargement direct `.docx` Français :** https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/3f12518f-skema-front/candidatures/Lettre_Recommandation_Calvin_MINANG_Prof_Dhafer_SAIDANE_FR.docx
 
 ---
 
 ## 1. LE MAIL D'ACCOMPAGNEMENT À ENVOYER À `dhafer.saidane@skema.edu`
 
-**À :** `dhafer.saidane@skema.edu`
-**Objet :** Projet de lettre de recommandation (Sales & Trading FX) – Calvin MINANG (Délégué MSc CFM)
-**Pièces jointes :**
-1. `Lettre_Recommandation_Calvin_MINANG_Prof_Dhafer_SAIDANE_EN.docx` *(et/ou la version `_FR.docx`)*
-2. `CV_Calvin_MINANG.pdf`
+**Objet :** Projet de lettre de recommandation – Calvin MINANG (Délégué MSc CFM)
+**Pièces jointes :** `Lettre_Recommandation_Calvin_MINANG_Prof_Dhafer_SAIDANE_EN.docx` *(et/ou `_FR.docx`)* + `CV_Calvin_MINANG.pdf`
 
 ```text
 Bonjour Monsieur Saidane,
@@ -22,12 +19,12 @@ Bonjour Monsieur Saidane,
 Un grand merci pour votre réactivité et votre accord sur WhatsApp.
 
 Comme convenu, je vous joins à ce mail :
-1. Le projet de lettre de recommandation en format Word modifiable (en version anglaise pour les banques internationales et en version française, selon votre préférence), ainsi que le texte directement dans le corps du mail ci-dessous.
+1. Un projet de lettre de recommandation court et modifiable sous Word (en version anglaise et en version française selon votre préférence), également copié ci-dessous.
 2. Mon CV à jour pour référence.
 
-N’hésitez évidemment pas à modifier ou ajuster le texte comme vous le souhaitez avant de le signer (idéalement sur papier à en-tête SKEMA en PDF).
+N’hésitez évidemment pas à modifier ce projet comme vous le souhaitez avant de le signer.
 
-Encore merci pour votre confiance et votre soutien précieux pour mes candidatures Front Office FX.
+Encore merci pour votre confiance et votre soutien précieux.
 
 Très belle soirée à vous,
 
@@ -38,9 +35,7 @@ Délégué MSc Corporate Financial Management – SKEMA Business School (Lille)
 
 ---
 
-## 2. VERSION ANGLAISE (LA PLUS UTILISÉE EN SALLE DES MARCHÉS — PARIS / LONDRES / GENÈVE)
-
-> *Pourquoi ce brouillon est ultra-impactant :* Il est 100 % calé sur ton vrai CV (`BPCE Assurances`, `IPESUP`, `CalvinX Market Terminal`, `ShockLab`, `Pricer Black-Scholes & Greeks`, `FRM/AMF`), sur le programme exact de son cours (`Money, Banking and Financial Markets` + `Hybrid Banking & Risks`), sur le fait que tu as déjà avancé jusqu'au Chapitre 10 du livre recommandé, et sur ton rôle de **Délégué élu**.
+## 2. VERSION ANGLAISE (CONCISE & PASSE-PARTOUT — ~260 MOTS)
 
 ```text
 Prof. Dhafer SAIDANE
@@ -51,21 +46,19 @@ Email: dhafer.saidane@skema.edu
 
                                                                         Lille, October 19, 2026
 
-Subject: Letter of Recommendation for Mr. Calvin MINANG — Front Office (FX Sales & Trading / Global Markets)
+Subject: Letter of Recommendation for Mr. Calvin MINANG
 
 To Whom It May Concern,
 
-In my capacity as Full Professor of Finance and Programme Director of the MSc in Corporate Financial Management at SKEMA Business School (Lille Campus), I am writing to give my highest and most enthusiastic recommendation for Mr. Calvin Minang for a Front Office position in Foreign Exchange (FX) Sales & Trading, Derivatives, or Market Risk.
+In my capacity as Full Professor of Finance and Programme Director of the MSc in Corporate Financial Management at SKEMA Business School, I am delighted to write this letter of strong recommendation for Mr. Calvin Minang.
 
-I have had the pleasure of teaching Calvin in our core market finance module, "Money, Banking and Financial Markets", as well as in the "Fundamentals of Banking, Financial & Extra-Financial Risks" seminar. I also work closely with him in his elected role as Class Representative (Délégué) for the MSc cohort. Coming from an intensive French preparatory class background (CPGE ECE at IPESUP Paris) and pursuing the selective dual track combining SKEMA’s Master in Management (Grande École) and the MSc Corporate Financial Management, Calvin ranks among the most technically gifted and market-driven students in our programme.
+I have had the pleasure of teaching Calvin in our core module "Money, Banking and Financial Markets" as well as in the "Fundamentals of Banking & Financial Risks" seminar, and I work closely with him in his elected role as Class Representative (Délégué) for the M2 cohort. Building on a rigorous mathematical and economic background in French preparatory classes (CPGE at IPESUP Paris) and pursuing the dual Master in Management (Grande École) and MSc track, Calvin ranks among the most analytically gifted and driven students in our programme.
 
-What sets Calvin apart in classroom discussions and practical market exercises is that he already thinks and operates like a Front Office practitioner. Throughout my course—which covers foreign exchange markets (spot, forwards, swaps), money market instruments and repo operations, fixed income pricing (duration and convexity), futures cash-and-carry arbitrage, and options pricing and Greeks—Calvin has consistently shown a deep, intuitive grasp of how macroeconomic catalysts, central bank monetary policy, and liquidity conditions translate into desk-level pricing and client hedging strategies. His intellectual curiosity goes well beyond syllabus requirements, as reflected both in his rapid personal mastery of the reference literature on international money and FX markets and in our exchanges regarding his research interest in AI-driven FX portfolio management and banking stability.
+Academically and technically, Calvin stands out for his quantitative rigor and his ability to connect theory to real-world financial problems. Across fixed income, foreign exchange, money markets, derivatives pricing (options, Greeks, and structured products), and risk management, he demonstrates sharp mathematical intuition and genuine intellectual curiosity—consistently going well beyond syllabus requirements in both his independent reading and his quantitative modeling in Python and VBA. He is currently developing research under my guidance on quantitative and AI-driven approaches to portfolio and risk management.
 
-Calvin pairs this academic excellence with strong hands-on technical execution. Following his experience as a Multi-Asset Reporting Analyst at BPCE Assurances in Paris—where he monitored FX majors, interest rate swap curves, credit spreads, and equity indices using Bloomberg (BQL) and automated workflows via Excel/VBA—he independently built three impressive quantitative tools: a cross-asset trading desk dashboard tracking FX, volatility, and Risk-On/Risk-Off regimes (CalvinX Market Terminal), a Python/SQL machine-learning portfolio stress-testing engine for geopolitical and macro shocks (ShockLab), and a Black-Scholes-Merton options and Greeks pricer modeling short-gamma tail risk. Combined with his preparation for the GARP FRM and AMF certifications, this gives him immediate operational readiness on a trading floor.
+Beyond his technical abilities, Calvin possesses remarkable personal and leadership qualities. As an elected Class Representative for an international cohort, he is a reliable, articulate, and constructive intermediary between students and faculty. He works with maturity, composure under pressure, and a strong team spirit.
 
-Finally, on a personal level, Calvin possesses the exact temperament required to succeed in Sales & Trading. As an elected Class Representative for an international M2 cohort, he acts as a trusted, constructive bridge between students and faculty. He is articulate in both English and French, proactive, resilient under pressure, and combines quantitative rigor with genuine commercial flair.
-
-I therefore recommend Mr. Calvin Minang without reservation for a Front Office role within your Global Markets division. Please feel free to contact me directly should you require any additional information.
+I therefore recommend Mr. Calvin Minang without reservation, whether for a demanding position in financial markets, structuring, quantitative finance, or investment banking, or for admission to a selective academic or engineering programme. Please feel free to contact me should you require any further information.
 
 Sincerely,
 
@@ -79,7 +72,7 @@ dhafer.saidane@skema.edu
 
 ---
 
-## 3. VERSION FRANÇAISE (AU CAS OÙ IL SOUHAITE AUSSI SIGNER EN FRANÇAIS)
+## 3. VERSION FRANÇAISE (CONCISE & PASSE-PARTOUT — ~250 MOTS)
 
 ```text
 Prof. Dhafer SAIDANE
@@ -90,23 +83,21 @@ Email : dhafer.saidane@skema.edu
 
                                                                      Lille, le 19 octobre 2026
 
-Objet : Lettre de recommandation pour M. Calvin MINANG — Front Office (Sales & Trading FX / Global Markets)
+Objet : Lettre de recommandation en faveur de M. Calvin MINANG
 
 Madame, Monsieur,
 
-En ma qualité de Professeur de Finance (Docteur en Économie, Habilité à Diriger des Recherches de l’Université Paris 1 Panthéon-Sorbonne) et de Directeur du programme MSc Corporate Financial Management à SKEMA Business School (Campus de Lille), j’ai le plaisir de recommander très chaleureusement Monsieur Calvin Minang pour un poste en Front Office (Sales & Trading FX, Produits Dérivés ou Market Risk).
+En ma qualité de Professeur de Finance (Docteur en Économie, Habilité à Diriger des Recherches de l’Université Paris 1 Panthéon-Sorbonne) et de Directeur du programme MSc Corporate Financial Management à SKEMA Business School, j’ai le plaisir de recommander très chaleureusement Monsieur Calvin Minang.
 
-J’ai eu l’opportunité d’enseigner à Calvin dans le cadre du cours fondamental « Money, Banking and Financial Markets » ainsi que lors du séminaire « Fundamentals of Banking, Financial & Extra-Financial Risks », et je collabore étroitement avec lui dans le cadre de son mandat de Délégué élu de la promotion MSc. Issu de classe préparatoire économique et commerciale (IPESUP Paris) et suivant le double cursus sélectif Programme Grande École (M2) et MSc Corporate Financial Management, Calvin figure parmi les éléments les plus brillants, rigoureux et passionnés par les marchés financiers de notre cohorte.
+J’ai eu l’opportunité d’enseigner à Calvin dans le cadre du module fondamental « Money, Banking and Financial Markets » ainsi que lors du séminaire « Fundamentals of Banking & Financial Risks », et je collabore directement avec lui dans le cadre de son mandat de Délégué élu de la promotion de Master 2. Fort d’une formation mathématique et économique exigeante en classe préparatoire (CPGE IPESUP Paris) et suivant le double cursus Programme Grande École et MSc, Calvin figure parmi les étudiants les plus rigoureux et performants de notre cohorte.
 
-Ce qui distingue immédiatement Calvin lors des séances et des travaux pratiques est sa maturité de praticien de salle des marchés. Sur l’ensemble des thématiques de mon cours — marché des changes (FX spot, forwards, swaps), marché monétaire et opérations de repo, pricing obligataire (duration, convexité), futures (cost-of-carry) ainsi que pricing d’options (Black-Scholes, Grecques, stratégies dynamiques de volatilité et produits structurés) — il fait preuve d’une intuition quantitative remarquable. Il sait relier instantanément les décisions des banques centrales, les flux macroéconomiques et les contraintes prudentielles (Bâle III, liquidité) aux problématiques concrètes de cotation et de couverture d’un desk FX et dérivés. Sa curiosité intellectuelle va bien au-delà des attendus académiques, tant dans son avance personnelle sur les ouvrages de référence du cours que dans sa réflexion de recherche sur l’application de l’intelligence artificielle à la gestion de portefeuille FX et à la stabilité bancaire.
+Sur le plan académique et technique, Calvin se distingue par sa maîtrise quantitative et sa capacité à relier les modèles théoriques aux problématiques concrètes de marché et d’ingénierie financière. Qu’il s’agisse des marchés de taux et de change, du pricing de produits dérivés et structurés (options, Grecques) ou de la gestion des risques, il fait preuve d’une excellente intuition analytique et d’une curiosité intellectuelle qui dépasse largement les attendus du cursus, tant dans ses lectures avancées que dans ses travaux de modélisation sous Python et VBA.
 
-Cette solidité conceptuelle s’appuie sur de réelles compétences opérationnelles. Fort d’une première expérience chez BPCE Assurances à Paris en tant qu’Analyste Reporting Multi-Actifs (suivi quotidien des devises majeures FX, courbes de taux et swaps sous Bloomberg BQL, indices et spreads, automatisation VBA), Calvin a développé de manière autonome trois outils quantitatifs particulièrement aboutis : un terminal cross-asset de suivi de marché et de régimes Risk-On/Risk-Off (CalvinX Market Terminal), un moteur de stress-test macroéconomique et géopolitique en Python/SQL et Machine Learning (ShockLab), ainsi qu’un pricer d’options et de Grecques modélisant les chocs de convexité (short-gamma). Sa préparation parallèle aux certifications FRM (GARP) et AMF confirme sa capacité à être immédiatement opérationnel sur un desk.
+Sur le plan humain, Calvin réunit de grandes qualités de leadership et de fiabilité. Élu Délégué d’une promotion internationale, il assure le lien entre les étudiants et la direction du programme avec maturité, écoute, sang-froid et un sens aigu des responsabilités.
 
-Enfin, sur le plan humain et relationnel, Calvin réunit toutes les qualités indispensables en Front Office. Élu Délégué de notre promotion internationale de Master 2, il fait preuve d’un leadership naturel, d’un grand sens des responsabilités, d’une communication claire et impactante (en français comme en anglais) et d’un excellent sang-froid.
+Je recommande donc Monsieur Calvin Minang sans la moindre réserve, tant pour un poste exigeant en finance de marché, structuration, analyse quantitative ou banque d’investissement que pour son intégration au sein d’un cursus sélectif d’ingénieur ou de recherche. Je reste à votre entière disposition pour tout renseignement complémentaire.
 
-Je recommande donc Monsieur Calvin Minang sans la moindre réserve pour intégrer vos équipes Front Office en Sales & Trading. Je reste à votre entière disposition pour tout renseignement complémentaire.
-
-Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.
+Veuillez agréer, Madame, Monsieur, l’expression de mes salutations distinguées.
 
 
 Prof. Dhafer SAIDANE
