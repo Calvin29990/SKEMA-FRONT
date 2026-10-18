@@ -47,3 +47,15 @@ D'après ta capture YEP (`planning/EDT-semaine-19-10-au-25-10.png`), tu as **10h
 | **Money, Banking & Financial Markets** | Dhafer Saidane | • **Final Exam : 100 %** (calculatrice **TI BA II Plus physique obligatoire**)<br>• Travaux de groupe / chapitres en séances 2–6 | Pas de cours cette semaine | 🟢 **Examen Final en fin de semestre** (pas d'exam écrit immédiat) |
 | **Hybrid — Fundamentals of Banking & ESG** | Dhafer Saidane & intervenants | Wooclap + Teamwork ESG LSEG + **MCQ 60 min** (selon `Hybrid ROADMAP.pdf`, sessions du 05/10 au 15/10) | Module de 6 séances bouclé le 15/10 ✅ | ✅ Terminé |
 | **Capital Budgeting** | Muhammad Farooq Ahmad | Section *« Test an Exam »* sur K2 | Pas de cours cette semaine | 🟢 Rien d'annoncé pour l'instant |
+
+---
+
+## 📂 4. RÉCAPITULATIF DES FICHIERS PRÉPARÉS POUR TES COURS DE LA SEMAINE
+
+| Jour / Cours | Fichier de préparation dans le repo | Ce qu'il contient |
+|---|---|---|
+| **Lun 19/10 & Mar 20/10 (FRA S2 & S3)** | `cours/S1_FRA/CORRIGE-ET-FICHE-FRA-Sessions-2-et-3.md` | Fiche complète Sessions 2 & 3 + **tous les exercices et problèmes corrigés** (Kissner, Battery, Tech-IT, Michelin, Dr. Branson, Calafate, Canton, Searcy, Canfor, Chang, Tyson, Lakadeo, Desai, Halvor, Wildcat, **IFRS 16 Lease schedule**) + **Corrigé des 15 QCM du Mini-Quiz**. |
+| **Préparation Mid-Term FRA (S1–S3 + S4)** | `cours/S1_FRA/CORRIGE-FRA-Session-1-Complet-et-MOCK-MIDTERM-S4.md` | **Corrigé des exercices manquants de la Session 1** (Ex 2.1, 2.2, 2.3, Ex 3, **Ex 4 MBONG Corporation** omis du PDF du prof) + **Synthèse des 9 Readings obligatoires S1–S3** + **Sujet blanc complet de Mid-Term Exam (1h, /40 pts) avec corrigé détaillé**. |
+| **Mar 20/10 matin (CTM Chp 1 & 2)** | `cours/S1_CTM/CORRIGE-Exercise-1-et-FICHE-Chp1-2-CTM.md` | Synthèse complète des 45 slides (Chp 1 & 2) + **Corrigé intégral de `Exercise 1.docx`** (tableaux WCR, DSO, DIO, DPO, CCC, Net Debt/EBITDA, simulation à $\pm 5\text{ jours}$, matching des 5 secteurs A–E, recommandations CFO). |
+| **Mar 20/10 matin (Modèle Excel CTM)** | `cours/S1_CTM/CTM_Exercise_1_Model.xlsx` | **Modèle Excel dynamique** avec toutes les formules (`WCR`, `DSO`, `DIO`, `DPO`, `CCC`, `Net Debt`, `Net Debt / EBITDA`, `Interest Coverage`) et le simulateur de **Cash Release à $\pm 5\text{ jours}$** prêt à ouvrir en cours. |
+| **Mer 21/10 après-midi (Capital Structure S2)** | `cours/S2_CapitalStructure/FICHE-ET-CORRIGE-CAS-Capital-Structure-Session-2.md` | Synthèse des 41 slides (Operating vs Financial Leverage, Trade-Off Theory, *Make-or-Break Co.*, *Risk Shifting*, *Debt Overhang*, *Rest-&-Shirk Co.*, *Pecking Order*) + **Corrigés chiffrés des 4 études de cas en classe** (**AeroNova**, **Helix Pharma**, **LumiTech**, **NovaRetail**). |
