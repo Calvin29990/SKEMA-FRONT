@@ -24,10 +24,10 @@ dgeo=json.load(open('/tmp/france-geojson-master/departements-version-simplifiee.
 # Base stricte : 7 relations clientes FR publiquement nommées
 #   Kantox (filiale BNPP 07/2023) : Théa, Fareva, HMY, AnimalBox = 4
 #   iBanFirst : Guard Industrie, Mobile Club, Bensimon = 3
-# Base élargie : + Amaris → BNP Paribas direct (siège groupe CH) = 8 relations
+#   + extensions v2 (VeryChic, Aurlane, Snetor, Chrono Carpe) et v3 : GT Company → Moneycorp (21/10/2026)
 STRICT = {'Kantox (BNP Paribas)':4,'iBanFirst':3}
 ELARGI = {'Groupe BNP Paribas (Kantox 4 + direct 1)':5,'iBanFirst':3}
-NAMED_FR = 12                      # entreprises FR distinctes nommées publiquement (comptées dans le modèle)
+NAMED_FR = 13                      # entreprises FR distinctes nommées publiquement (comptées dans le modèle)
 ELIGIBLES = 64646 + 2316251        # univers Orbis ≥5M€ + requête <5M€
 PCT_VIERGE = (1 - NAMED_FR/ELIGIBLES)*100
 
@@ -59,6 +59,7 @@ PINS=[
  (12,PX+1.55,PY+1.25, GREY,  'VeryChic'),
  (13,PX-0.50,PY+1.40, GREY,  'Aurlane'),
  (14,PX-1.60,PY+0.90, GREY,  'Snetor'),
+ (15,PX+0.45,PY-0.28, GREY,  'GT Company'),
 ]
 
 fig=plt.figure(figsize=(16.54,11.69), dpi=170)
@@ -92,29 +93,31 @@ fig.text(rx,0.934,"Hypothèses (demandées) : H1 = cas publiquement nommés = 10
 fig.text(rx,0.919,"H2 = tout silence public = client VIERGE (aucun prestataire)",fontsize=8.8,color='#444')
 
 fig.text(rx,0.893,"PARTS PUBLIQUES (modèle)",fontsize=12,fontweight='bold')
-tbl=[('Groupe BNP Paribas (Kantox 6 + Amaris 1)','7 / 12','58,3 %'),
-     ('iBanFirst (5 : Guard, Mobile Club, Bensimon, Aurlane, Chrono Carpe)','6','41,7 %').__class__ and ('iBanFirst','5 / 12','41,7 %'),
-     ('Ebury (Santander) — 2 canaux actifs : LBP · Mondial Change','0 nommé','0 % *'),
+tbl=[('Groupe BNP Paribas (Kantox 6 + Amaris 1)','7 / 13','53,8 %'),
+     ('iBanFirst (5 clients FR nommés)','5 / 13','38,5 %'),
+     ('Moneycorp (GT Company — cas bilatéral)','1 / 13','7,7 %'),
+     ('Ebury (Santander) — canaux : LBP · Mondial Chge · sport','0 nommé','0 % *'),
      ('J.P. Morgan · Barclays · HSBC · SG · CA CIB','0 FR publié','0 % *'),
-     ('AFEX/Corpay · Moneycorp · Amnis · autres','0 FR publié','0 % *')]
+     ('AFEX/Corpay · Amnis · Wise · OFX · Nium · autres','0 FR publié','0 % *')]
 ay=0.870
 for a,b,c in tbl:
     fig.text(rx,ay,a,fontsize=9.6)
     fig.text(rx+0.255,ay,b,fontsize=9.6,fontweight='bold')
     fig.text(rx+0.315,ay,c,fontsize=9.6,fontweight='bold',color=('#0e7a3d' if '%' in c and c!='0 % *' else '#a33'))
     ay-=0.0215
-fig.text(rx,ay-0.004,"* 0 % publié ≠ 0 % réel — c'est exactement le piège du modèle (voir cadre rouge).",
+ay-=0.004
+fig.text(rx,ay,"* 0 % publié ≠ 0 % réel — c'est exactement le piège du modèle (voir cadre rouge).",
         fontsize=8.4,style='italic',color='#666')
-fig.text(rx,ay-0.026,"Base stricte sans Amaris (siège CH) : Kantox-BNPP 54,5 % · iBanFirst 45,5 % (11 relations). Docshipper non compté (agrégateur).",
+fig.text(rx,ay-0.020,"Base stricte sans Amaris : Kantox-BNPP 50,0 % · iBanFirst 41,7 % · Moneycorp 8,3 % (12 relations). Docshipper exclu (agrégateur).",
         fontsize=8.4,style='italic',color='#666')
 
-fig.text(rx,0.721,"PROFIL TYPE DU CLIENT (d'après les cas)",fontsize=12,fontweight='bold')
+fig.text(rx,0.698,"PROFIL TYPE DU CLIENT (d'après les cas)",fontsize=12,fontweight='bold')
 prof=[('BNP Paribas / Kantox','ETI→grand groupe (3,8–862 M$) ; trésorerie assise ; hedging automatisé ; multi-pays (Amaris 35 pays).'),
       ('iBanFirst','TPE/PME import/retail (achats Asie/UK) ; le public déclaré: 500 k€–50 M€ de flux/an ; seuil 200 k€/an.'),
       ('Ebury','PME 1–20 M€ CA (70 % de ses clients EU) ; 140 devises au comptant ; atteinte via banque magasin (LBP).'),
       ('J.P. Morgan / Barclays','Grands comptes globalisés primés aux awards — cas confirmés hors FR (NTT DATA, Honeywell, L\u2019Oréal BR).'),
       ('Banques FR (SG, CA CIB, HSBC…)','Aucun cas FX mid-market nominatif publié en FR — présence réelle connue, preuve publique absente.')]
-ay=0.698
+ay=0.677
 for a,b in prof:
     fig.text(rx,ay,a,fontsize=9.6,fontweight='bold')
     fig.text(rx+0.185,ay,b,fontsize=9.2,va='top',wrap=True)
@@ -123,21 +126,22 @@ for a,b in prof:
 fig.text(rx,0.486,"CLIENTS VIERGES (modèle)",fontsize=12,fontweight='bold')
 fig.text(rx,0.461,f"{PCT_VIERGE:,.4f} %".replace(',','X').replace('.',',').replace('X',' '),
          fontsize=26,fontweight='bold',color='#1F3864')
-fig.text(rx,0.419,f"= 12 entreprises nommées publiquement sur {ELIGIBLES:,} éligibles".replace(',',' '),
+fig.text(rx,0.419,f"= 13 entreprises nommées publiquement sur {ELIGIBLES:,} éligibles".replace(',',' '),
          fontsize=9.4,color='#444')
 fig.text(rx,0.404,"(64 646 ≥ 5 M€ + 2 316 251 < 5 M€, requêtes Orbis du 20-21/10)",fontsize=8.2,color='#666')
 
 fig.text(rx,0.373,"LÉGENDE DES PINS",fontsize=12,fontweight='bold')
-leg=[(RED,'CHANGEMENT FORT (explicite)','(1) Bensimon → iBanFirst (pool bancaire, 2019)  (2) Amaris → BNP Paribas unique 35 pays (ASA 2017)'),
-     (ORANGE,'ADOPTION / BASCULE IMPLICITE','(3) Mobile Club → iBanFirst (frais banques cités, 2025) · (8) Théa → Kantox algo (manuel abandonné)'),
-     (GREY,'Citation client sans signal de changement','(4) AnimalBox (9) Guard (10) Fareva (11) HMY (12) VeryChic (14) Snetor → Kantox · (13) Aurlane → iBanFirst'),
-     (BLUE,'Événement structurel (canal / rachat)','(5) LBP × Ebury (2021) · (6) Euler Hermes × iBanFirst (2022) · (7) Kantox rachetée par BNP Paribas (2023)')]
+leg=[(RED,'CHANGEMENT FORT (explicite)',['(1) Bensimon → iBanFirst (pool bancaire, 2019)  (2) Amaris → BNP Paribas unique 35 pays (ASA 2017)']),
+     (ORANGE,'ADOPTION / BASCULE IMPLICITE',['(3) Mobile Club → iBanFirst (frais banques cités, 2025) · (8) Théa → Kantox algo (manuel abandonné)']),
+     (GREY,'Citation client sans signal de changement',['(4) AnimalBox (9) Guard (10) Fareva (11) HMY (12) VeryChic (14) Snetor → Kantox · (13) Aurlane → iBanFirst','(15) GT Company → Moneycorp — cas bilatéral : le client cite lui-même son prestataire']),
+     (BLUE,'Événement structurel (canal / rachat)',['(5) LBP × Ebury (2021) · (6) Euler Hermes × iBanFirst (2022) · (7) Kantox rachetée par BNP Paribas (2023)'])]
 ay=0.350
-for c,t,d in leg:
+for c,t,ds in leg:
     fig.text(rx,ay,'■',fontsize=11,color=c)
     fig.text(rx+0.013,ay,t,fontsize=9.4,fontweight='bold')
-    fig.text(rx+0.013,ay-0.0175,d,fontsize=8.4,color='#333')
-    ay-=0.0435
+    for i,d in enumerate(ds):
+        fig.text(rx+0.013,ay-0.0175-0.0135*i,d,fontsize=8.4,color='#333')
+    ay-=0.0435+0.0135*(len(ds)-1)
 
 # cadre disclaimer rouge
 import matplotlib.patches as mpatches
