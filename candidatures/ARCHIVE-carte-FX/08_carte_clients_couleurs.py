@@ -44,7 +44,8 @@ ok=u[u['lon'].notna() & u['reg_code'].isin(METRO)].copy()
 plot=ok[(~ok['fin']) & (ok['classe'].isin(['CŒUR','CONTINGENT']))].copy()
 plot['nom_p']=plot['nom'].map(pretty); plot['nom_n']=plot['nom'].map(norm); plot['vn']=plot['ville'].map(norm)
 
-VI='#7d3ac1'; V='#0e7a3d'; BL='#2d5aa7'; RO='#c0392b'   # iBanFirst violet · BNPP/Kantox vert · Ebury bleu · Moneycorp rouge
+VI='#7d3ac1'; V='#0e7a3d'; BL='#2d5aa7'; RO='#c0392b'; TL='#0e8c8c'; MG='#d81b8f'
+# iBanFirst violet · BNPP/Kantox vert · Ebury bleu · Moneycorp rouge · Corpay teal · SWITCH magenta
 COULEURS={'CŒUR':'#0e7a3d','CONTINGENT':'#e8a020'}
 TAILLES={'>1 Md$':26,'250 M$-1 Md$':15,'100-250 M$':6.0,'25-100 M$':2.6,'5-25 M$':1.1}
 rgeo=json.load(open('/tmp/france-geojson-master/regions-version-simplifiee.geojson'))
@@ -102,19 +103,26 @@ def dropmask(df):
     return m
 # (nom affiché, couleur, x, y, tx, ty) — carte principale (hors IDF) / zoom (IDF)
 FX_MAIN=[('Théa',V,3.115,45.786,2.35,46.05),('Fareva',V,4.830,45.060,4.00,44.45),
-         ('HMY',V,3.589,47.850,2.42,47.50),('Amaris',V,4.836,45.755,5.55,45.42),
+         ('HMY',V,3.589,47.850,2.42,47.50),('Amaris¹',MG,4.836,45.755,5.55,45.42),
          ('Guard Industrie',VI,4.835,45.764,3.75,45.40),('Olympique Lyonnais',BL,4.961,45.772,5.85,46.05),
-         ('Stade de Reims',BL,4.060,49.295,4.55,49.85)]
-FX_IDF=[('Bensimon',VI,2.300,48.840,1.90,49.14),('Mobile Club',VI,2.450,48.870,2.95,49.20),
+         ('Stade de Reims',BL,4.060,49.295,4.55,49.85),
+         ('Olympique de Marseille',BL,5.400,43.300,6.15,43.62),('AS Monaco',BL,7.420,43.740,7.95,44.12),
+         ('Toulouse FC',TL,1.444,43.604,0.30,42.95)]
+FX_IDF=[('Bensimon¹',MG,2.300,48.840,1.90,49.14),
+        ('Mobile Club¹',MG,2.450,48.870,2.95,49.20),
         ('AnimalBox',V,2.390,48.840,3.00,49.02),('VeryChic',V,2.343,48.856,2.75,48.55),
         ('Aurlane',VI,2.343,48.856,1.80,48.60),('Snetor',V,2.255,48.898,2.38,49.28),
         ('GT Company',RO,2.771,48.873,3.72,48.92),('Chrono Carpe',VI,2.490,48.790,2.75,48.36)]
 def fx_labels(ax,fx,fs=7.6):
-    for nom,c,x,y,tx,ty in fx:
+    for row in fx:
+        nom,c,x,y,tx,ty=row[:6]; sub,sc=(row[6],row[7]) if len(row)>6 else (None,None)
         ax.scatter([x],[y],s=46,facecolor=c,edgecolor='white',linewidth=1.0,zorder=40)
         ax.annotate(nom,xy=(x,y),xytext=(tx,ty),fontsize=fs,fontweight='bold',color=c,zorder=41,
                     ha='center',va='center',arrowprops=dict(arrowstyle='-',color=c,lw=0.7,alpha=0.75),
                     path_effects=HALO)
+        if sub:
+            ax.text(tx,ty-0.155 if fs>7 else ty-0.085,sub,fontsize=fs-1.5,color=sc,zorder=41,
+                    ha='center',va='center',path_effects=HALO)
 
 p=plot[(plot['ca_kusd']>=250000)&(plot['reg_code']!='11')&(~dropmask(plot))].copy()
 p['cx']=(p['lon']/0.50).astype(int); p['cy']=(p['lat']/0.34).astype(int)
@@ -142,26 +150,29 @@ ax.text(0.015,0.035,f"GRAND SUD — Nouvelle-Aquitaine + Occitanie + PACA\n{SUD_
         transform=ax.transAxes,fontsize=9.5,fontweight='bold',color='#6b3d00',va='bottom',
         bbox=dict(boxstyle='round,pad=0.5',fc='#fdf1dc',ec='#c9a25e',lw=1.1))
 fig.text(0.02,0.975,"LES CLIENTS FX PUBLIQUEMENT NOMMÉS — SUR LA CARTE DU MARCHÉ",fontsize=21,fontweight='bold')
-fig.text(0.02,0.952,"Sièges sociaux ≥ 5 M€ de CA (Orbis) — un point = une entreprise — les noms NOIRS = comptes ≥ 250 M$ — les noms EN COULEUR = relations client→prestataire FX prouvées publiquement (15), colorées par prestataire",
+fig.text(0.02,0.952,"Sièges sociaux ≥ 5 M€ de CA (Orbis) — un point = une entreprise — les noms NOIRS = comptes ≥ 250 M$ — les noms EN COULEUR = relations client→prestataire FX prouvées publiquement (18, dont 3 clubs hors univers), colorées par prestataire",
          fontsize=10.3,color='#333')
 fig.text(0.02,0.030,f"64 646 sociétés ≥ 5 M€ (Orbis, 20/10/2026) — 61 199 hors financières — {GEO_ALL:,} géolocalisées (70,9 % ; ≥99 % dès 25 M$) — {len(plot):,} points tracés — Île-de-France : {fr1(IDF_PCT)} % des sièges, {fr1(IDF_CAPCT)} % du CA.".replace(","," "),
          fontsize=6.8,color='#555')
-fig.text(0.02,0.014,"Relations FX en couleur : URL + citation + date au classeur ORBIS (ATTRIBUTIONS-FX). Hors univers : Bensimon · Mobile Club · Guard Industrie · AnimalBox · Chrono Carpe (<5 M€ — siège public) ; Fareva : siège groupe Tournon. OM et TFC nommés mais hors univers → non tracés. Carte nominative — usage restreint · étude académique.",
-         fontsize=6.8,color='#555')
+fig.text(0.02,0.016,"Relations FX en couleur : URL + citation + date au classeur ORBIS (ATTRIBUTIONS-FX). MAGENTA = changement de fournisseur publié (3). Fareva : siège groupe Tournon (export). Vert = CŒUR, orange = CONTINGENT ; noms noirs = comptes ≥ 250 M$. Carte nominative — usage restreint · étude académique.",
+         fontsize=7.6,color='#444')
+fig.text(0.02,0.003,"² OM · AS Monaco (Principauté) · Toulouse FC : hors univers Orbis (club < 5 M€ / hors France), tracés à la demande. Balayage clubs L1/L2 au 21/10/2026 — PSG · Lille · Lens · Rennes · Nantes · Nice · Saint-Étienne · Montpellier · Brest · Le Havre · Auxerre · Strasbourg · Paris FC : aucun partenaire FX corporate publié ; Nice×Robinhood = sponsor retail, non retenu.",
+         fontsize=7.1,color='#666')
 lx=0.735
 fig.text(lx,0.925,"LÉGENDE — COULEURS DES NOMS FX",fontsize=11,fontweight='bold')
-leg=[('iBanFirst','Bensimon · Mobile Club · Guard Industrie · Aurlane · Chrono Carpe',VI,5),
-     ('BNP Paribas / Kantox','Théa · Fareva · HMY · AnimalBox · VeryChic · Snetor · Amaris',V,7),
-     ('Ebury','Olympique Lyonnais · Stade de Reims',BL,2),
+leg=[('iBanFirst','Bensimon¹ · Mobile Club¹ · Guard Industrie · Aurlane · Chrono Carpe',VI,5),
+     ('BNP Paribas / Kantox','Théa · Fareva · HMY · AnimalBox · VeryChic · Snetor · Amaris¹',V,7),
+     ('Ebury','Olympique Lyonnais · Stade de Reims · OM² · AS Monaco²',BL,4),
+     ('Corpay','Toulouse FC²',TL,1),
      ('Moneycorp','GT Company',RO,1),
-     ('TOUT LE RESTE EN NOIR','points CŒUR (vert) / CONTINGENT (ambre) + comptes ≥ 250 M$ nommés','#1a1a1a',None)]
-yy=0.888
+     ('A CHANGÉ DE FOURNISSEUR (publié)','¹ Bensimon→iBanFirst (2019) · Mobile Club→iBanFirst (2025) · Amaris→BNPP (2017)',MG,3)]
+yy=0.910
 for prov,names,c,n in leg:
-    fig.text(lx,yy,'■',fontsize=11,color=c)
-    fig.text(lx+0.014,yy,f"{prov}"+(f" ({n})" if n else ''),fontsize=9.6,fontweight='bold',color=c)
-    fig.text(lx+0.014,yy-0.0165,names,fontsize=7.6,color='#333')
-    yy-=0.040
-axidf=fig.add_axes([lx,0.375,0.25,0.395])
+    fig.text(lx,yy,'■',fontsize=9.0,color=c)
+    fig.text(lx+0.013,yy,f"{prov}"+(f" ({n})" if n else ''),fontsize=8.4,fontweight='bold',color=c)
+    fig.text(lx+0.013,yy-0.0108,names,fontsize=6.7,color='#333')
+    yy-=0.0240
+axidf=fig.add_axes([lx,0.375,0.25,0.385])
 axidf.set_xlim(1.55,3.85); axidf.set_ylim(48.30,49.32)
 axidf.set_aspect(1/np.cos(np.radians(48.8)))
 for code in ['11','24','27','28','44','52','84']:
