@@ -23,6 +23,8 @@ Fusion dédupliquée (12 001 lignes) : feuille `SOUS-5ME-12K` du classeur ; synt
 
 **Nouveau livrable : `candidatures/CARTE-2026-10-21-gateau-regions-PME.pdf/.png`** — gâteau régional de la tranche 3,8–5 M€, comparaison directe avec l'univers ≥5M€ (régénération : `04_carte_simplifiee_PME.py` lisant `/tmp/seg5.pkl`, produit par la fusion des deux exports ; geojson identiques).
 
+**Nouveau livrable (21/10) : `candidatures/CARTE-2026-10-21-modele-parts-FX.pdf/.png`** — « QUI EST CLIENT DE QUI » en MODÈLE COMPTABLE HÉROÏQUE (hypothèses du commanditaire : public = 100 % des clients, silence = vierge) : parts publiques par prestataire (groupe BNPP 62,5 % / iBanFirst 37,5 % / autres 0 % publié), profil type client par boîte, % vierge = 99,9997 %, et pins **rouges = changements de fournisseur** (Bensimon, Amaris) / orange = adoption (Mobile Club, Théa) / bleu = événements structurels. DISCLAIMER ROUGE OBLIGATOIRE en pied de carte. Régénération : `05_carte_modele_parts.py` (pins ville en dur, geojson identiques) ; sources = feuille `ATTRIBUTIONS-FX` du classeur univers.
+
 **Couverture restante** : 6 000/1 254 798 (0,5 %) → pour aller plus loin, **découper la requête** (par région ou NACE) avec colonnes Ville + CP conservées — `01_pipeline_geo.py`  et `04` s'appliquent ensuite tels quels.
 
 ## Chiffres clés validés (contrôle après régénération)
