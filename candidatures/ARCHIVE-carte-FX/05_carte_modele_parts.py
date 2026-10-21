@@ -3,7 +3,7 @@
 05_carte_modele_parts.py — MODÈLE COMPTABLE SPÉCULATIF (demande utilisateur du 21/10)
 Hypothèse volontairement irréaliste, posée par le commanditaire :
   (H1) les relations prestataire↔client publiquement documentées = 100 % des clients ;
-  (H2) toute entreprise sans déclaration publique = VIERGE (aucun prestataire).
+  (H2 « silence = vierge » ÉCARTÉE le 21/10 : cadrage rejeté — on présente le su, pas l'insu.)
 Sorties : candidatures/CARTE-2026-10-21-modele-parts-FX.pdf + .png
 Périphérie inchangée : carte = exercice pédagogique de lecture en sales FX.
 """
@@ -93,7 +93,7 @@ rx=0.585
 fig.text(rx,0.955,"« QUI EST CLIENT DE QUI » — MODÈLE COMPTABLE",fontsize=15.5,fontweight='bold')
 fig.text(rx,0.934,"Hypothèses (demandées) : H1 = cas publiquement nommés = 100 % des clients",
          fontsize=8.8,color='#444')
-fig.text(rx,0.919,"H2 = tout silence public = client VIERGE (aucun prestataire)",fontsize=8.8,color='#444')
+fig.text(rx,0.919,"Base = preuves publiques nommées ; absence de preuve ≠ absence de prestataire.",fontsize=8.8,color='#444')
 
 fig.text(rx,0.893,"PARTS PUBLIQUES (modèle)",fontsize=12,fontweight='bold')
 tbl=[('Groupe BNP Paribas (Kantox 6 + Amaris 1)','7 / 15','46,7 %'),
@@ -127,12 +127,11 @@ for a,b in prof:
     fig.text(rx+0.185,ay,b,fontsize=9.2,va='top',wrap=True)
     ay-=0.041
 
-fig.text(rx,0.470,"CLIENTS VIERGES (modèle)",fontsize=12,fontweight='bold')
-fig.text(rx,0.445,f"{PCT_VIERGE:,.4f} %".replace(',','X').replace('.',',').replace('X',' '),
-         fontsize=26,fontweight='bold',color='#1F3864')
-fig.text(rx,0.403,f"= {NAMED_FR} entreprises nommées publiquement sur {ELIGIBLES:,} éligibles".replace(',',' '),
-         fontsize=9.4,color='#444')
-fig.text(rx,0.388,"(64 646 ≥ 5 M€ + 2 316 251 < 5 M€, requêtes Orbis du 20-21/10)",fontsize=8.2,color='#666')
+fig.text(rx,0.472,"PÉRIMÈTRE DE CONNAISSANCE",fontsize=12,fontweight='bold')
+fig.text(rx,0.448,f"{NAMED_FR} relations client→prestataire prouvées",fontsize=15,fontweight='bold',color='#1F3864')
+fig.text(rx,0.426,"(noms + sources publiques vérifiables — feuilles URL/ATTRIBUTIONS du classeur)",fontsize=8.4,color='#666')
+fig.text(rx,0.406,"Marché adressable : 64 646 PME/ETI ≥ 5 M€ (Orbis 20-21/10) — la carte mesure la",fontsize=8.8,color='#444')
+fig.text(rx,0.391,"VISIBILITÉ PUBLIQUE des fintech, pas la part réelle (banques non-publiantes).",fontsize=8.8,color='#444')
 
 fig.text(rx,0.358,"LÉGENDE DES PINS",fontsize=12,fontweight='bold')
 leg=[(RED,'CHANGEMENT FORT (explicite)',['(1) Bensimon → iBanFirst (pool bancaire, 2019)  (2) Amaris → BNP Paribas unique 35 pays (ASA 2017)']),
@@ -163,4 +162,4 @@ for dl in disc:
 
 plt.savefig('candidatures/CARTE-2026-10-21-modele-parts-FX.pdf')
 plt.savefig('candidatures/CARTE-2026-10-21-modele-parts-FX.png')
-print('carte modèle écrite — vierge =', f"{PCT_VIERGE:.5f} %")
+print('carte modèle écrite — connaissance =', NAMED_FR, 'relations prouvées')

@@ -12,7 +12,7 @@ LAYERC='#2456a0'
 XLIM=1.65
 
 BANDS=[
- ("CLIENT FINAL",["PME/ETI export — 64 646 ≥ 5 M€ + 2,3 M < 5 M€ (Orbis) — « vierge » à 99,999 %"],
+ ("CLIENT FINAL",["PME/ETI export — marché adressable : 64 646 ≥ 5 M€ + 2,3 M < 5 M€ (Orbis)"],
   [],'#dcebe3'),
  ("CFO / DAF\nEXTERNALISÉ",["décideur interne · les DAF à temps","partagé prescrivent à leurs portefeuilles"],
   [('B',"Acting (réseau FR de DAF externalisés) → iBanFirst — écosystème affiché")],'#eef3f9'),
