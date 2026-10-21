@@ -13,6 +13,11 @@ Ce dossier permet de **régénérer à l'identique** toutes les cartes et donné
 | `CARTE-2026-10-20-gateau-regions.pdf/.png` | Carte **simplifiée sans noms** : choroplèthe régionale, % sièges + % CA, IDF (vert) vs Grand Sud (or) vs reste (neutre), barres 100 % |
 | `ORBIS-2026-10-20-univers-FX-64646-geo.xlsx` | Classeur : univers 64 646 lignes (région/dép/ville/INSEE/lon-lat/classe FX) + GRAND SUD mesuré 8 718 + PRESTIGE 3 149 + PIVOTS |
 
+## Extension prévue : segment <5M€ (pas encore géolocalisable)
+
+Export Orbis `Export 21_10_2026 09_33.xlsx` (origin/main) = actives × France × CA **max 5 m€** → requête **2 316 251** entités, export plafonné à **45 000 lignes triées par CA décroissant** (couvre ≈ 2,2–5,6 M€ seulement). Aucune colonne de localisation → pas de carte avec cet export.
+**Recette :** ré-exporter avec colonnes « Adresse du siège — Ville » + « Code postal » (+ « BvD ID number »), en découpant la requête (région ou NACE) pour passer le plafond 45k — ensuite `01_pipeline_geo.py` s'applique tel quel. Détail : feuille `SEGMENT-SOUS-5ME` du classeur univers.
+
 ## Chiffres clés validés (contrôle après régénération)
 
 - Univers Orbis (actives, France, CA ≥ 5 M€, derniers comptes) : **64 646** ; hors financières (NACE 64‑66) : **61 199**
