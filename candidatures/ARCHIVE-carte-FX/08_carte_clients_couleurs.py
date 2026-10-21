@@ -152,12 +152,14 @@ ax.text(0.015,0.035,f"GRAND SUD — Nouvelle-Aquitaine + Occitanie + PACA\n{SUD_
 fig.text(0.02,0.975,"LES CLIENTS FX PUBLIQUEMENT NOMMÉS — SUR LA CARTE DU MARCHÉ",fontsize=21,fontweight='bold')
 fig.text(0.02,0.952,"Sièges sociaux ≥ 5 M€ de CA (Orbis) — un point = une entreprise — les noms NOIRS = comptes ≥ 250 M$ — les noms EN COULEUR = relations client→prestataire FX prouvées publiquement (18, dont 3 clubs hors univers), colorées par prestataire",
          fontsize=10.3,color='#333')
-fig.text(0.02,0.030,f"64 646 sociétés ≥ 5 M€ (Orbis, 20/10/2026) — 61 199 hors financières — {GEO_ALL:,} géolocalisées (70,9 % ; ≥99 % dès 25 M$) — {len(plot):,} points tracés — Île-de-France : {fr1(IDF_PCT)} % des sièges, {fr1(IDF_CAPCT)} % du CA.".replace(","," "),
+fig.text(0.02,0.0310,f"64 646 sociétés ≥ 5 M€ (Orbis, 20/10/2026) — 61 199 hors financières — {GEO_ALL:,} géolocalisées (70,9 % ; ≥99 % dès 25 M$) — {len(plot):,} points tracés — Île-de-France : {fr1(IDF_PCT)} % des sièges, {fr1(IDF_CAPCT)} % du CA.".replace(","," "),
          fontsize=6.8,color='#555')
-fig.text(0.02,0.016,"Relations FX en couleur : URL + citation + date au classeur ORBIS (ATTRIBUTIONS-FX). MAGENTA = changement de fournisseur publié (3). Fareva : siège groupe Tournon (export). Vert = CŒUR, orange = CONTINGENT ; noms noirs = comptes ≥ 250 M$. Carte nominative — usage restreint · étude académique.",
+fig.text(0.02,0.0185,"Relations FX en couleur : URL + citation + date au classeur ORBIS (ATTRIBUTIONS-FX). MAGENTA = changement de fournisseur publié (3). Fareva : siège groupe Tournon (export). Vert = CŒUR, orange = CONTINGENT ; noms noirs = comptes ≥ 250 M$. Carte nominative — usage restreint · étude académique.",
          fontsize=7.6,color='#444')
-fig.text(0.02,0.003,"² OM · AS Monaco (Principauté) · Toulouse FC : hors univers Orbis (club < 5 M€ / hors France), tracés à la demande. Balayage clubs L1/L2 au 21/10/2026 — PSG · Lille · Lens · Rennes · Nantes · Nice · Saint-Étienne · Montpellier · Brest · Le Havre · Auxerre · Strasbourg · Paris FC : aucun partenaire FX corporate publié ; Nice×Robinhood = sponsor retail, non retenu.",
-         fontsize=7.1,color='#666')
+fig.text(0.02,0.0085,"² OM · AS Monaco (Principauté) · Toulouse FC : hors univers Orbis (club < 5 M€ / hors France), tracés à la demande. Balayage clubs L1/L2 au 21/10/2026 — PSG · Lille · Lens · Rennes · Nantes · Nice · Saint-Étienne · Montpellier · Brest · Le Havre · Auxerre · Strasbourg · Paris FC : aucun partenaire FX corporate publié ; Nice×Robinhood = sponsor retail, non retenu. Racing 92×Natixis = banque partenaire, non FX.",
+         fontsize=7.0,color='#666')
+fig.text(0.02,0.0003,"Autres sports balayés au 21/10/2026 : rugby TOP 14 · handball LNH · basket LNB · voile — aucun partenariat FX corporate publié ; iBanFirst · Kantox · Moneycorp : aucun sponsoring sportif trouvé en France ; le FOOT capte les partenariats FX sport publiés en France (4 Ebury · 1 Corpay : OL · Reims · OM · Monaco · TFC).",
+         fontsize=7.0,color='#666',va='baseline')
 lx=0.735
 fig.text(lx,0.925,"LÉGENDE — COULEURS DES NOMS FX",fontsize=11,fontweight='bold')
 leg=[('iBanFirst','Bensimon¹ · Mobile Club¹ · Guard Industrie · Aurlane · Chrono Carpe',VI,5),
