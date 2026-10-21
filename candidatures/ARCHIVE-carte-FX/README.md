@@ -13,10 +13,17 @@ Ce dossier permet de **régénérer à l'identique** toutes les cartes et donné
 | `CARTE-2026-10-20-gateau-regions.pdf/.png` | Carte **simplifiée sans noms** : choroplèthe régionale, % sièges + % CA, IDF (vert) vs Grand Sud (or) vs reste (neutre), barres 100 % |
 | `ORBIS-2026-10-20-univers-FX-64646-geo.xlsx` | Classeur : univers 64 646 lignes (région/dép/ville/INSEE/lon-lat/classe FX) + GRAND SUD mesuré 8 718 + PRESTIGE 3 149 + PIVOTS |
 
-## Extension prévue : segment <5M€ (pas encore géolocalisable)
+## Extension : segment <5M€ (21/10 — trois exports Moody's)
 
-Export Orbis `Export 21_10_2026 09_33.xlsx` (origin/main) = actives × France × CA **max 5 m€** → requête **2 316 251** entités, export plafonné à **45 000 lignes triées par CA décroissant** (couvre ≈ 2,2–5,6 M€ seulement). Aucune colonne de localisation → pas de carte avec cet export.
-**Recette :** ré-exporter avec colonnes « Adresse du siège — Ville » + « Code postal » (+ « BvD ID number »), en découpant la requête (région ou NACE) pour passer le plafond 45k — ensuite `01_pipeline_geo.py` s'applique tel quel. Détail : feuille `SEGMENT-SOUS-5ME` du classeur univers.
+Trois exports Orbis « Export 21_10_2026 09_33 / 09_56 / 09_59.xlsx » (origin/main), requête actives × France × CA **max 5 m€** (2 316 251 entités ; + tendance positive = 1 254 798) :
+- **09_33** : 45 000 lignes, tranche ≈2,2–5,6 M€, **sans** colonne de localisation → profil NACE/CA seulement.
+- **09_56** : 6 000 lignes (limite Moody's 6k/page) avec **Ville + Code postal + GUO**, tri descendant → **tranche 3,8–5 M€, contiguë à la carte principale** → géocodée par CP (5 853 métropole) : **IDF 27,4 % sièges / 27,4 % CA ; Grand Sud 22,9 % / 22,9 %** — vs 32,9/68,1 et 20,3/9,0 sur l'univers ≥5M€.
+- **09_59** : 6 001 lignes toutes au plancher 90 k€ (bas de requête) → usage limité (pas de profil).
+Fusion dédupliquée (12 001 lignes) : feuille `SOUS-5ME-12K` du classeur ; synthèse : `SEGMENT-SOUS-5ME`.
+
+**Nouveau livrable : `candidatures/CARTE-2026-10-21-gateau-regions-PME.pdf/.png`** — gâteau régional de la tranche 3,8–5 M€, comparaison directe avec l'univers ≥5M€ (régénération : `04_carte_simplifiee_PME.py` lisant `/tmp/seg5.pkl`, produit par la fusion des deux exports ; geojson identiques).
+
+**Couverture restante** : 6 000/1 254 798 (0,5 %) → pour aller plus loin, **découper la requête** (par région ou NACE) avec colonnes Ville + CP conservées — `01_pipeline_geo.py`  et `04` s'appliquent ensuite tels quels.
 
 ## Chiffres clés validés (contrôle après régénération)
 
