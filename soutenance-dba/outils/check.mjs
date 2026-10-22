@@ -132,9 +132,16 @@ check("fichiers référencés présents et non vides", () => {
     assert.ok(existsSync(p), "fichier manquant : " + f);
     if (f !== "sources.html") assert.ok(statSync(p).size > 0, "fichier vide : " + f);
   }
-  for (const f of ["style.css", "deck.js", "doc.css", "sources.html", "medias/gabon.svg", "medias/logo-upl.png", "data/gab_adm1.geojson", "outils/build-carte.py"]) {
+  for (const f of ["style.css", "deck.js", "doc.css", "sources.html", "medias/gabon.svg", "medias/logo-upl.png", "data/gab_adm1.geojson", "outils/build-carte.py", "guide-soutenance.md"]) {
     assert.ok(existsSync(join(ROOT, f)), "pièce du dossier manquante : " + f);
   }
+});
+
+check("version PowerPoint présente et complète", () => {
+  const pptx = join(ROOT, "export/Soutenance-DBA-MINANG-Serge-Patrick.pptx");
+  assert.ok(existsSync(pptx), "fichier .pptx manquant (outils/build-pptx.py)");
+  assert.ok(statSync(pptx).size > 200_000, "fichier .pptx suspect (trop petit)");
+  assert.ok(existsSync(join(ROOT, "outils/build-pptx.py")), "script de génération manquant");
 });
 
 check("page de sources : provenance du fond de carte et licence", () => {

@@ -9,7 +9,28 @@ Diaporama de soutenance doctorale, 26 diapositives 16:9, en HTML/CSS/SVG pur :
 
 ---
 
-## 1. Ouvrir la présentation
+## 0. Le fichier PowerPoint (à télécharger)
+
+**`export/Soutenance-DBA-MINANG-Serge-Patrick.pptx`** — 26 diapositives 16:9, **entièrement
+éditables** (textes, couleurs, cartes, tableaux), notes de l'orateur incluses.
+
+- S'ouvre dans PowerPoint, Keynote, LibreOffice Impress et **Google Slides** (Fichier → Importer).
+- **Canva** : *Créer → Importer un fichier* → choisir le `.pptx`. Canva convertit chaque
+  diapositive en page modifiable ; le fond sombre, la typographie et les encarts sont conservés.
+  C'est le moyen le plus rapide de retrouver un rendu « type Canva » tout en gardant le contenu DBA.
+- Régénérer après modification des textes :
+
+  ```bash
+  python3 -m venv .venv && .venv/bin/pip install python-pptx
+  .venv/bin/python outils/build-pptx.py     # → export/…pptx + contrôle de mise en page
+  ```
+
+Le script imprime un avertissement pour chaque texte qui risque de déborder : « aucun
+avertissement de mise en page » signifie que tout tient dans les 26 diapositives.
+
+---
+
+## 1. Ouvrir la présentation HTML
 
 Deux façons, au choix :
 
@@ -56,6 +77,8 @@ soutenance-dba/
 ├── sources.html        Provenance de chaque chiffre et de chaque visuel (à montrer au jury)
 ├── doc.css             Mise en forme des pages documentaires
 ├── guide-soutenance.md Plan de l'oral, minutage et questions attendues
+├── export/
+│   └── Soutenance-DBA-MINANG-Serge-Patrick.pptx   PowerPoint éditable (26 diapositives)
 ├── medias/
 │   ├── gabon.svg       Carte des 9 provinces (province du siège mise en évidence)
 │   ├── gabon.png       même carte en 1500 px (PowerPoint, impression)
@@ -64,7 +87,8 @@ soutenance-dba/
 │   └── gab_adm1.geojson  Fond de carte geoBoundaries GAB ADM1 (GAUL 2001, CC BY 4.0)
 └── outils/
     ├── build-carte.py  Régénère medias/gabon.svg depuis le GeoJSON
-    └── check.mjs       Contrôle du dossier (15 vérifications, sans dépendance)
+    ├── build-pptx.py   Régénère le PowerPoint éditable (python-pptx)
+    └── check.mjs       Contrôle du dossier (16 vérifications, sans dépendance)
 ```
 
 ### Vérifier le dossier
