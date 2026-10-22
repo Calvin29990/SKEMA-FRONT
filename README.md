@@ -19,6 +19,7 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
+| `soutenance-dba/` | **Diaporama de soutenance DBA (Serge Patrick MINANG)** — 26 diapos, HTML/SVG autonome | Soutenance, présentation, export PDF |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
@@ -115,3 +116,22 @@ Math : *Matrix Cookbook*, *Arbitrage-free smoothing implied volatility surface*
 2. **BNP training** : repo privé, entraînement Calvin uniquement, à supprimer après validation du test
 3. **SKEMA dispute** : ton factuel et professionnel. Avocat = dernier recours seulement
 4. **Candidatures** : toujours vérifier le tracking avant de postuler (blacklist, retake policies)
+
+---
+
+## 🎓 SOUTENANCE DBA — `soutenance-dba/`
+
+Diaporama de soutenance doctorale (26 diapositives 16:9, HTML/CSS/SVG sans dépendance),
+carte du Gabon, modèle exploratoire, repères chiffrés et page de sources.
+
+```bash
+cd soutenance-dba
+node outils/check.mjs        # 15 contrôles (structure, chiffres, sources, confidentialité)
+python3 -m http.server 8080  # aperçu local
+```
+
+- Notice : `soutenance-dba/README.md`
+- Conduite de l'oral : `soutenance-dba/guide-soutenance.md`
+- Provenance des chiffres : `soutenance-dba/sources.html`
+
+*Règle du dossier : rien d'inventé, aucun résultat présumé, établissements sous codes EPES-A à EPES-E.*
