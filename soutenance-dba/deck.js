@@ -85,7 +85,7 @@
       try {
         var h = "#" + (index + 1);
         if (window.location.hash !== h) history.replaceState(null, "", h);
-        localStorage.setItem(KEY, String(index));
+        try { localStorage.setItem(KEY, String(index)); } catch (e) { /* stockage refusé : sans effet */ }
       } catch (e) { /* mode fichier local : on ignore */ }
     }
     var active = slides[index];
@@ -180,11 +180,15 @@
   }, { passive: true });
 
   /* ---------- démarrage ---------- */
+  function stored() {
+    try { return localStorage.getItem(KEY); } catch (e) { return null; }
+  }
+
   function start() {
     body.classList.add("is-deck");
     try { autofitAll(); } catch (e) { /* mesure impossible : on garde la taille de base */ }
     var fromHash = parseInt((window.location.hash || "").replace("#", ""), 10);
-    var saved = parseInt(localStorage.getItem(KEY) || "1", 10);
+    var saved = parseInt(stored() || "1", 10);
     var i = !isNaN(fromHash) && fromHash >= 1 ? fromHash - 1 : (!isNaN(saved) ? saved : 0);
     show(i, false);
     window.addEventListener("hashchange", function () {
