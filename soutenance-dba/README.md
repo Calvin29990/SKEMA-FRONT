@@ -4,29 +4,37 @@
 supérieur au Gabon : articulation entre intelligence artificielle et intelligence émotionnelle
 en situation de polycrise.*
 
-Diaporama de soutenance doctorale, 26 diapositives 16:9, en HTML/CSS/SVG pur :
-**aucune dépendance, aucune ressource distante, fonctionne hors ligne.**
+Deux formats : un **PowerPoint de 18 diapositives dans la mise en page du modèle de l'auteur**
+(section 0), et un diaporama web de 26 diapositives en HTML/CSS/SVG pur, sans dépendance ni
+ressource distante, qui fonctionne hors ligne (sections suivantes).
 
 ---
 
-## 0. Le fichier PowerPoint (à télécharger)
+## 0. Le fichier PowerPoint — mise en page du modèle
 
-**`export/Soutenance-DBA-MINANG-Serge-Patrick.pptx`** — 26 diapositives 16:9, **entièrement
-éditables** (textes, couleurs, cartes, tableaux), notes de l'orateur incluses.
+**`export/Soutenance-DBA-MINANG-modele-canva-18.pptx`** — **18 diapositives 16:9**, dans la
+**mise en page exacte du modèle** fourni par l'auteur (`modele/template-canva.pdf`).
 
-- S'ouvre dans PowerPoint, Keynote, LibreOffice Impress et **Google Slides** (Fichier → Importer).
-- **Canva** : *Créer → Importer un fichier* → choisir le `.pptx`. Canva convertit chaque
-  diapositive en page modifiable ; le fond sombre, la typographie et les encarts sont conservés.
-  C'est le moyen le plus rapide de retrouver un rendu « type Canva » tout en gardant le contenu DBA.
-- Régénérer après modification des textes :
+- **Le modèle n'est pas redessiné.** Pour chaque diapositive, on reprend la page du modèle
+  (photos, formes, dégradés, illustrations, pastilles, graphiques) telle quelle ; seul le texte
+  est remplacé. Rien n'est déplacé, ajouté ni supprimé.
+- Les textes sont de vrais blocs PowerPoint **éditables**, posés aux coordonnées du modèle,
+  avec ses couleurs et ses graisses.
+- **Carte du Gabon** à la place de la carte de l'Afrique (diapositive 2).
+- **Notes de l'orateur** sur les 18 diapositives.
+- Retouches de données : les 45 participants (15 / 20 / 10) remplacent les 30 du modèle, le
+  numéro de page répété dans les pastilles est corrigé en « 01 », et les champs à compléter
+  (directeur de thèse, date de soutenance) restent signalés en couverture.
 
-  ```bash
-  python3 -m venv .venv && .venv/bin/pip install python-pptx
-  .venv/bin/python outils/build-pptx.py     # → export/…pptx + contrôle de mise en page
-  ```
+Régénérer après modification d'un texte :
 
-Le script imprime un avertissement pour chaque texte qui risque de déborder : « aucun
-avertissement de mise en page » signifie que tout tient dans les 26 diapositives.
+```bash
+python3 -m venv .venv && .venv/bin/pip install python-pptx pymupdf pillow
+.venv/bin/python outils/build-pptx-modele.py
+```
+
+Le script mesure chaque ligne avant de l'écrire et réduit la taille de police si la police de
+substitution est plus large que celle du modèle : il n'y a donc pas de débordement.
 
 ---
 
@@ -77,8 +85,10 @@ soutenance-dba/
 ├── sources.html        Provenance de chaque chiffre et de chaque visuel (à montrer au jury)
 ├── doc.css             Mise en forme des pages documentaires
 ├── guide-soutenance.md Plan de l'oral, minutage et questions attendues
+├── modele/
+│   └── template-canva.pdf            Modèle de l'auteur (32 pages), source de la mise en page
 ├── export/
-│   └── Soutenance-DBA-MINANG-Serge-Patrick.pptx   PowerPoint éditable (26 diapositives)
+│   └── Soutenance-DBA-MINANG-modele-canva-18.pptx   PowerPoint, 18 diapositives, mise en page du modèle
 ├── medias/
 │   ├── gabon.svg       Carte des 9 provinces (province du siège mise en évidence)
 │   ├── gabon.png       même carte en 1500 px (PowerPoint, impression)
@@ -87,7 +97,7 @@ soutenance-dba/
 │   └── gab_adm1.geojson  Fond de carte geoBoundaries GAB ADM1 (GAUL 2001, CC BY 4.0)
 └── outils/
     ├── build-carte.py  Régénère medias/gabon.svg depuis le GeoJSON
-    ├── build-pptx.py   Régénère le PowerPoint éditable (python-pptx)
+    ├── build-pptx-modele.py  Régénère le PowerPoint en remplissant le modèle (python-pptx + pymupdf)
     └── check.mjs       Contrôle du dossier (16 vérifications, sans dépendance)
 ```
 

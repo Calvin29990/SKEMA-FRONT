@@ -146,7 +146,7 @@
   <h2>6. Vérifier et reproduire</h2>
   <pre style="background:#101821;border:1px solid #1F2C38;border-radius:8px;padding:1rem;overflow:auto;font-family:var(--mono);font-size:.82rem;color:#D8D3C8">cd soutenance-dba
 node outils/check.mjs        # contrôle du dossier : 26 diapositives, pieds de page, chiffres, liens, images
-.venv/bin/python outils/build-pptx.py   # (re)génère export/…pptx et vérifie la mise en page
+.venv/bin/python outils/build-pptx-modele.py   # remplit le modèle et régénère export/…pptx
 python3 outils/build-carte.py  # régénère medias/gabon.svg depuis data/gab_adm1.geojson</pre>
   <p class="small">Le contrôle vérifie notamment : 8 + 61 + 8 = 77 sections ; 4 + 10 + 17 + 17 + 22 + 25 + 20 = 115 supports ;
   1 + 5 + 6 + 6 + 7 + 9 + 6 = 40 supports ; 27 + 13 = 40 ; 15 + 20 + 10 = 45 participants.</p>
@@ -155,22 +155,23 @@ python3 outils/build-carte.py  # régénère medias/gabon.svg depuis data/gab_ad
   <table>
     <thead><tr><th>Format</th><th>Fichier</th><th>Usage</th></tr></thead>
     <tbody>
-      <tr><td>PowerPoint éditable</td><td><code>export/Soutenance-DBA-MINANG-Serge-Patrick.pptx</code></td>
-          <td>Modification, import Canva / Google Slides, projection depuis un poste équipé d'Office.</td></tr>
+      <tr><td>PowerPoint — mise en page du modèle</td><td><code>export/Soutenance-DBA-MINANG-modele-canva-18.pptx</code></td>
+          <td>18 diapositives dans le modèle de l'auteur, textes éditables, notes de l'orateur.</td></tr>
       <tr><td>Diaporama web autonome</td><td><code>index.html</code></td>
           <td>Projection sans installation, navigation, notes de l'orateur, export PDF (touche <kbd>P</kbd>).</td></tr>
       <tr><td>Carte seule</td><td><code>medias/gabon.svg</code> et <code>medias/gabon.png</code></td>
           <td>Réutilisation dans un autre support (1500 px de large pour le PNG).</td></tr>
     </tbody>
   </table>
-  <p class="small">Le PowerPoint est produit par script (<code>outils/build-pptx.py</code>) à partir des mêmes textes :
-  aucun contenu n'est saisi deux fois, donc aucun écart de chiffre entre les deux formats.</p>
+  <p class="small">Le PowerPoint est produit par script (<code>outils/build-pptx-modele.py</code>) : il reprend les pages
+  du modèle (<code>modele/template-canva.pdf</code>), en efface le texte et y repose les textes de la thèse
+  aux mêmes coordonnées. Le modèle n'est pas redessiné.</p>
 
   <h2>8. Versions</h2>
   <table>
     <thead><tr><th>Date</th><th>Version</th><th>Contenu</th></tr></thead>
     <tbody>
-      <tr><td>22/10/2026</td><td>v1.1</td><td>Ajout de la version PowerPoint éditable (<code>export/…pptx</code>), générée par script ; mise en page contrôlée diapositive par diapositive.</td></tr>
+      <tr><td>22/10/2026</td><td>v1.1</td><td>Version PowerPoint <strong>dans la mise en page du modèle de l'auteur</strong> : 18 diapositives, textes éditables, aucune forme déplacée.</td></tr>
       <tr><td>22/10/2026</td><td>v1.0</td><td>Première version complète : 26 diapositives, carte du Gabon, modèle exploratoire, repères chiffrés, page de sources.</td></tr>
     </tbody>
   </table>

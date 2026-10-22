@@ -137,11 +137,12 @@ check("fichiers référencés présents et non vides", () => {
   }
 });
 
-check("version PowerPoint présente et complète", () => {
-  const pptx = join(ROOT, "export/Soutenance-DBA-MINANG-Serge-Patrick.pptx");
-  assert.ok(existsSync(pptx), "fichier .pptx manquant (outils/build-pptx.py)");
-  assert.ok(statSync(pptx).size > 200_000, "fichier .pptx suspect (trop petit)");
-  assert.ok(existsSync(join(ROOT, "outils/build-pptx.py")), "script de génération manquant");
+check("version PowerPoint dans la mise en page du modèle", () => {
+  const pptx = join(ROOT, "export/Soutenance-DBA-MINANG-modele-canva-18.pptx");
+  assert.ok(existsSync(pptx), "fichier .pptx manquant (outils/build-pptx-modele.py)");
+  assert.ok(statSync(pptx).size > 1_000_000, "fichier .pptx suspect (trop petit)");
+  assert.ok(existsSync(join(ROOT, "outils/build-pptx-modele.py")), "script de génération manquant");
+  assert.ok(existsSync(join(ROOT, "modele/template-canva.pdf")), "modèle source manquant");
 });
 
 check("page de sources : provenance du fond de carte et licence", () => {
