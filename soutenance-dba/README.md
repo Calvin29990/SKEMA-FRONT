@@ -58,7 +58,7 @@ soutenance-dba/
 ├── guide-soutenance.md Plan de l'oral, minutage et questions attendues
 ├── medias/
 │   ├── gabon.svg       Carte des 9 provinces (province du siège mise en évidence)
-│   ├── gabon.png       Same, 1500 px (usage bureautique : PowerPoint, impression)
+│   ├── gabon.png       même carte en 1500 px (PowerPoint, impression)
 │   └── logo-upl.png    Logo de l'Université Privée de Libreville
 ├── data/
 │   └── gab_adm1.geojson  Fond de carte geoBoundaries GAB ADM1 (GAUL 2001, CC BY 4.0)
