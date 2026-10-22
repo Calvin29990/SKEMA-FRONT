@@ -19,12 +19,20 @@ ressource distante, qui fonctionne hors ligne (sections suivantes).
   (photos, formes, dégradés, illustrations, pastilles, graphiques) telle quelle ; seul le texte
   est remplacé. Rien n'est déplacé, ajouté ni supprimé.
 - Les textes sont de vrais blocs PowerPoint **éditables**, posés aux coordonnées du modèle,
-  avec ses couleurs et ses graisses.
-- **Carte du Gabon** à la place de la carte de l'Afrique (diapositive 2).
+  avec ses couleurs et ses graisses : 18 diapositives = 18 fonds-image + ~180 zones de texte
+  modifiables (aucun texte n'est « aplati » dans l'image).
+- **Couverture** : photo « main robotique » du modèle (page 22), logos **Mundiapolis** et
+  **IAE de Nice / Université Côte d'Azur**, mention DBA, titre, direction de thèse,
+  date de soutenance, jury et coordonnées — tous éditables.
+- **Carte du Gabon** à la place de la carte de l'Afrique (diapositive 2), neuf provinces,
+  Libreville / Port-Gentil / Franceville et l'Estuaire nommés sans chevauchement.
+- **Mots inventés par l'IA du modèle effacés** (pages 6, 7, 9 et 19 : « Bitariddion »,
+  « Gelvcininship », « Emellional Insllient », « Dynamic Cacpabilities », « Auguieated »,
+  « Researcheitions », « Tesperative »…) et remplacés par les libellés français corrects,
+  **en texte éditable** par-dessus l'illustration d'origine.
 - **Notes de l'orateur** sur les 18 diapositives.
-- Retouches de données : les 45 participants (15 / 20 / 10) remplacent les 30 du modèle, le
-  numéro de page répété dans les pastilles est corrigé en « 01 », et les champs à compléter
-  (directeur de thèse, date de soutenance) restent signalés en couverture.
+- Retouches de données : les 45 participants (15 / 20 / 10) remplacent les 30 du modèle,
+  le numéro de page répété dans les pastilles est corrigé en « 01 ».
 
 Régénérer après modification d'un texte :
 

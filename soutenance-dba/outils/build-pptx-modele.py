@@ -26,10 +26,12 @@ import re
 import sys
 from pathlib import Path
 
+import numpy as np
 import pymupdf
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from pptx import Presentation
 from pptx.dml.color import RGBColor
+from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
@@ -38,6 +40,10 @@ PDF = ROOT / "modele" / "template-canva.pdf"
 OUT = ROOT / "export" / "Soutenance-DBA-MINANG-modele-canva-18.pptx"
 GEOJSON = ROOT / "data" / "gab_adm1.geojson"
 CACHE = Path("/tmp/build")
+MEDIA = ROOT / "medias"
+COVER = MEDIA / "fond-couverture.jpg"        # photo « main robotique » du modèle (page 22)
+LOGO_MUNDIAPOLIS = MEDIA / "logo-mundiapolis.png"
+LOGO_IAE = MEDIA / "logo-iae-nice.png"
 
 PDF_W, PDF_H = 1440.0, 810.0
 SLIDE_W, SLIDE_H = 13.333, 7.5
@@ -101,7 +107,7 @@ OVR: dict[int, dict[str, str]] = {
                        "Directeur de thèse : [à compléter]|Date de soutenance : [à compléter]"},
     4: {"« Comment la gouvernance":
             "Comment l'articulation IA–IE transforme-t-elle la gouvernance des EPES gabonais en "
-            "polycrise, et avec quels effets sur la performance, la RSE et la durabilité ?"},
+            "polycrise, et quels effets sur la performance, la RSE et la durabilité\u00a0?"},
     5: {"Comment la gouvernance augmentée, intégrant IA": QUESTION_COURTE,
         "Dans quelle mesure l'intelligence artificielle":
             "Comment les EPES gabonais gouvernent-ils en situation de polycrise : arbitrages, "
@@ -134,6 +140,102 @@ NUM_FIX: dict[int, dict[str, str]] = {
     19: {"Limites identifiées": "01"},
     20: {"Originalité scientifique": "01"},
     21: {"Jensen & Meckling": "01"},
+}
+
+# --- Retouches du fond : mots inventés par l'IA du modèle -------------------------
+# Chaque zone est nettoyée par remplissage local (les pixels du texte sont remplacés par
+# la couleur voisine), donc les formes, dégradés et contours du modèle restent intacts.
+# mode : "light" = texte clair sur fond sombre ; "dark" = texte sombre sur fond clair.
+ZONES: dict[int, list[tuple]] = {
+    # page : (x0, y0, x1, y1, forme, couleur de fond ou None = médiane du pourtour)
+    6: [(94, 283, 386, 336, "rect", (15, 43, 91)),       # en-tête de la carte d'agence
+        (92, 358, 248, 410, "rect", (255, 255, 255)),    # « Principal Agent »
+        (264, 358, 396, 410, "rect", (255, 255, 255)),   # « Relationship »
+        (681, 393, 765, 477, "ellipse", (10, 84, 119)),  # pastille centrale
+        (1053, 363, 1201, 511, "ellipse", (19, 48, 92)), # engrenage bleu
+        (1220, 374, 1334, 488, "ellipse", (40, 166, 165))],  # engrenage turquoise
+    7: [(166, 414, 320, 464, "rect", (255, 255, 255)),   # « Organizational Resilience »
+        (594, 290, 842, 320, "rect", (255, 255, 255)),   # « Dynamic Cacpabilities »
+        (555, 425, 620, 462, "rect", (255, 255, 255)),   # « Sensing Seizing »
+        (780, 426, 885, 460, "rect", (255, 255, 255)),   # « Reconfiguring Resources »
+        (219, 303, 270, 328, "plane", None),             # étiquette haute de l'anneau
+        (225, 539, 272, 564, "plane", None),             # étiquette basse de l'anneau
+        (1056, 382, 1153, 419, "rect", (252, 252, 252)), # bulle gauche
+        (1252, 360, 1362, 385, "plane", None),            # débord du texte, au-dessus
+        (1251, 385, 1353, 417, "rect", (252, 252, 252))],# bulle droite
+    9: [(578, 486, 834, 646, "ellipse", (38, 116, 240))],# ellipse « Auguieated Governance »
+    19: [(300, 414, 486, 450, "plane", None),     # pastille « Researcheitions »
+         (955, 414, 1138, 449, "plane", None)],  # pastille « Tesperative »
+}
+
+def clean_zone(img: Image.Image, box: tuple, shape: str = "rect",
+               colour: tuple | None = None) -> None:
+    """Efface un texte incrusté en le recouvrant de la couleur unie du fond.
+
+    Les illustrations du modèle sont des aplats : recouvrir la zone (et elle seule) de
+    la couleur du pourtour efface le texte sans rien redessiner. La couleur est mesurée
+    sur la bande extérieure de la zone, jamais sur le texte.
+    """
+    ss = img.width / PDF_W
+    x0, y0, x1, y1 = (int(round(v * ss)) for v in box)
+    x0, y0 = max(0, x0), max(0, y0)
+    x1, y1 = min(img.width, x1), min(img.height, y1)
+    if x1 - x0 < 2 or y1 - y0 < 2:
+        return
+    if colour is None:                        # médiane du pourtour
+        band = max(3, int(min(x1 - x0, y1 - y0) * 0.12))
+        arr = np.array(img.crop((x0, y0, x1, y1))).astype(np.float32)
+        ring = np.ones(arr.shape[:2], dtype=bool)
+        ring[band:arr.shape[0] - band, band:arr.shape[1] - band] = False
+        colour = tuple(int(v) for v in np.median(arr[ring], axis=0)) if ring.any() \
+            else (255, 255, 255)
+    if shape == "plane":
+        # plan de couleur ajusté sur le pourtour (hors texte) : reproduit un dégradé
+        # 2D sans laisser de couture, invisible sur l'anneau ou les pastilles du modèle
+        arr = np.array(img.crop((x0, y0, x1, y1))).astype(np.float32)
+        h, w = arr.shape[:2]
+        band = max(2, int(min(h, w) * 0.25))
+        yy, xx = np.mgrid[0:h, 0:w]
+        ring = (xx < band) | (xx >= w - band) | (yy < band) | (yy >= h - band)
+        ref = np.median(arr[ring], axis=0)
+        keep = ring & (np.abs(arr - ref).sum(axis=2) < 90)
+        if keep.sum() < 30:
+            img.paste(Image.fromarray(np.broadcast_to(ref, arr.shape).astype(np.uint8)), (x0, y0))
+            return
+        A = np.stack([np.ones(keep.sum()), xx[keep], yy[keep]], axis=1)
+        out = np.zeros_like(arr)
+        for c in range(3):
+            coef, *_ = np.linalg.lstsq(A, arr[..., c][keep], rcond=None)
+            out[..., c] = coef[0] + coef[1] * xx + coef[2] * yy
+        img.paste(Image.fromarray(out.clip(0, 255).astype(np.uint8)), (x0, y0))
+        return
+    draw = ImageDraw.Draw(img)
+    if shape == "ellipse":
+        draw.ellipse([x0, y0, x1 - 1, y1 - 1], fill=colour)
+    else:
+        draw.rectangle([x0, y0, x1 - 1, y1 - 1], fill=colour)
+
+
+# (page, texte ("|" = retour à la ligne), centre x, centre y, largeur, taille pt,
+#  couleur, gras) — libellés reposés sur les illustrations du modèle
+FIG_LABELS: dict[int, list[tuple]] = {
+    6: [("Relation d'agence", 241, 310, 270, 16.0, "#ffffff", True),
+        ("Mandant", 167, 384, 120, 10.5, "#0b2f5c", True),
+        ("Mandataire", 330, 384, 130, 10.5, "#0b2f5c", True),
+        ("Interaction", 723, 435, 84, 9.5, "#ffffff", True),
+        ("Intelligence|artificielle", 1124, 449, 132, 10.5, "#ffffff", True),
+        ("Intelligence|émotionnelle", 1277, 431, 108, 10.5, "#ffffff", True)],
+    7: [("Résilience|organisationnelle", 243, 439, 160, 13.0, "#00355e", True),
+        ("Capacités dynamiques", 718, 305, 240, 12.5, "#00355e", True),
+        ("Détecter|saisir", 587, 443, 70, 7.5, "#00355e", True),
+        ("Reconfigurer", 832, 443, 100, 7.5, "#00355e", True),
+        ("Absorber", 243, 316, 40, 7.0, "#ffffff", True),
+        ("S'adapter", 246, 552, 46, 7.0, "#ffffff", True),
+        ("Intelligence|émotionnelle", 1104, 400, 92, 8.0, "#0b2f5c", True),
+        ("Gouvernance|résiliente", 1302, 399, 96, 8.0, "#0b2f5c", True)],
+    9: [("Gouvernance|augmentée", 706, 566, 200, 13.0, "#ffffff", True)],
+    19: [("Recherche", 389, 431, 200, 12.0, "#ffffff", False),
+         ("Perspectives", 1046, 425, 220, 12.0, "#ffffff", False)],
 }
 
 NOTES = {
@@ -269,7 +371,11 @@ NUDGE = {"Ogooué-Maritime": (-0.03, 0.02), "Ngounié": (0.01, 0.02),
 
 
 def carte_gabon_claire(size: tuple[int, int]) -> Image.Image:
-    """Carte du Gabon (9 provinces) en version claire, aux couleurs du modèle."""
+    """Carte du Gabon (9 provinces) en version claire, aux couleurs du modèle.
+
+    Aucune étiquette ne se chevauche : les libellés sont décalés par rapport aux villes
+    et l'Estuaire est nommé à côté de Libreville, jamais dessous.
+    """
     data = json.loads(GEOJSON.read_text(encoding="utf-8"))
     polys: list[tuple[str, list, bool]] = []
     for f in data["features"]:
@@ -320,18 +426,36 @@ def carte_gabon_claire(size: tuple[int, int]) -> Image.Image:
               ("Franceville", 13.58, -1.63)]
     city_pts = [proj(lon, lat) for _, lon, lat in cities]
 
-    for name, (cx, cy, area) in centroids.items():
-        if area < 0.02 * W * H:                     # Estuaire : trop étroit, étiqueté par ville
-            continue
-        if any((cx - x) ** 2 + (cy - y) ** 2 < 26 ** 2 for x, y in city_pts):
-            continue
-        dx, dy = NUDGE.get(name, (0.0, 0.0))
-        d.text((cx + dx * W, cy + dy * H), name.upper(), font=f_lab,
-               fill=(0, 53, 94, 225), anchor="mm")
-
+    # libellés des villes d'abord : ils sont prioritaires
+    occupied: list[tuple[float, float, float, float]] = []
     for (label, _, _), (X, Y) in zip(cities, city_pts):
         d.ellipse([X - 4, Y - 4, X + 4, Y + 4], fill=(0, 53, 94, 255))
-        d.text((X + 7, Y), label, font=f_cit, fill=(0, 53, 94, 255), anchor="lm")
+        wlab = d.textlength(label, font=f_cit)
+        d.text((X + 9, Y - 10), label, font=f_cit, fill=(0, 53, 94, 255), anchor="lm")
+        occupied.append((X + 4, Y - 24, X + 14 + wlab, Y + 2))
+
+    # l'Estuaire : sous Libreville, jamais sur le nom de la capitale
+    est = "ESTUAIRE"
+    wlab = d.textlength(est, font=f_lab)
+    lx, ly = city_pts[0]
+    d.text((lx + 9, ly + 25), est, font=f_lab, fill=(0, 53, 94, 210), anchor="lm")
+    occupied.append((lx + 4, ly + 12, lx + 14 + wlab, ly + 39))
+
+    # puis les provinces, en évitant tout ce qui est déjà écrit
+    for name, (cx, cy, area) in centroids.items():
+        if name == "Estuaire" or area < 0.015 * W * H:
+            continue
+        dx, dy = NUDGE.get(name, (0.0, 0.0))
+        wlab = d.textlength(name.upper(), font=f_lab)
+        for ox, oy in [(0, 0), (0, 14), (0, -14), (10, 0), (-10, 0), (0, 28), (0, -28)]:
+            x = cx + dx * W + ox
+            y = cy + dy * H + oy
+            box = (x - wlab / 2 - 3, y - 8, x + wlab / 2 + 3, y + 8)
+            if not any(box[0] < o[2] and box[2] > o[0] and box[1] < o[3] and box[3] > o[1]
+                       for o in occupied):
+                d.text((x, y), name.upper(), font=f_lab, fill=(0, 53, 94, 225), anchor="mm")
+                occupied.append(box)
+                break
     return img
 
 
@@ -357,6 +481,9 @@ def make_background(page_no: int) -> Path:
         ImageDraw.Draw(masque).rounded_rectangle([0, 0, carte.width - 1, carte.height - 1],
                                                  radius=int(26 * s), fill=255)
         img.paste(carte, (x0, y0), masque)
+
+    for x0, y0, x1, y1, shape, colour in ZONES.get(page_no, []):
+        clean_zone(img, (x0, y0, x1, y1), shape, colour)
 
     img.save(out, quality=84, subsampling=2)
     return out
@@ -418,6 +545,78 @@ def available_height(blocks, page_obstacles, idx, x0, x1, y0) -> float:
     return max(best, 20)
 
 
+
+def add_label(slide, text: str, cx: float, cy: float, width: float, size: float,
+              colour: str, bold: bool) -> None:
+    """Petit libellé posé au centre exact d'une zone du modèle (texte éditable)."""
+    lines = text.split("|")
+    height = len(lines) * size / 72.0 * 1.35
+    tf = add_box(slide, cx - width / 2, cy - height / 2 * 72 / 1, width, height * 72)
+    for i, part in enumerate(lines):
+        put(tf, part, size, colour, "Arial", bold, PP_ALIGN.CENTER, 1.0, first=(i == 0))
+
+
+def add_cover(slide) -> None:
+    """Couverture : photo « main robotique » du modèle, logos et mentions de soutenance.
+
+    C'est la seule page recomposée avec la carte du Gabon : le reste du modèle est
+    conservé au pixel. Le texte est posé en navy sur l'aplat clair de la photo, donc
+    lisible en projection comme à l'impression.
+    """
+    NAVY, CYAN, GREY = "#0b2a5b", "#1fa8c4", "#40536e"
+
+    # logos, alignés sur la marge de la page
+    h = 44
+    slide.shapes.add_picture(str(LOGO_MUNDIAPOLIS), Inches(72 * K), Inches(52 * K),
+                             height=Inches(h * K))
+    slide.shapes.add_picture(str(LOGO_IAE), Inches(210 * K), Inches(52 * K),
+                             height=Inches(h * K))
+
+    # add_box travaille dans le repère du modèle (1440 pt de large) mais les tailles de
+    # police sont en points réels : elles sont donc données ici en points de diapositive.
+    tf = add_box(slide, 72, 112, 700, 18)
+    put(tf, "DOCTORAT DE BUSINESS ADMINISTRATION (DBA)", 10.5, CYAN, "Arial", True,
+        PP_ALIGN.LEFT)
+
+    tf = add_box(slide, 72, 146, 900, 120)
+    for i, ligne in enumerate(["Gouvernance augmentée par l'IA et l'IE",
+                               "dans les EPES au Gabon en situation",
+                               "de polycrise"]):
+        put(tf, ligne, 20, NAVY, "Arial", True, PP_ALIGN.LEFT, 1.0, first=(i == 0))
+
+    tf = add_box(slide, 72, 266, 900, 24)
+    put(tf, "Enjeux de performance globale, de responsabilité sociétale et de "
+            "développement durable", 12, GREY, "Arial", False, PP_ALIGN.LEFT, 1.1)
+
+    bar = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(72 * K), Inches(300 * K),
+                                 Inches(96 * K), Inches(3 * K))
+    bar.fill.solid()
+    bar.fill.fore_color.rgb = rgb(CYAN)
+    bar.line.fill.background()
+    bar.shadow.inherit = False
+
+    tf = add_box(slide, 72, 316, 620, 40)
+    put(tf, "Serge Patrick MINANG", 18.5, NAVY, "Arial", True, PP_ALIGN.LEFT)
+
+    tf = add_box(slide, 72, 356, 640, 50)
+    put(tf, "Direction de thèse : Pr Jérôme CHABANNE-RIVE", 10, GREY, "Arial", False,
+        PP_ALIGN.LEFT, 1.4)
+    put(tf, "Soutenance publique — 21 décembre 2026", 10, GREY, "Arial", False,
+        PP_ALIGN.LEFT, 1.4, first=False)
+
+    tf = add_box(slide, 72, 408, 700, 50)
+    put(tf, "JURY", 9, CYAN, "Arial", True, PP_ALIGN.LEFT, 1.4)
+    put(tf, "Marc VALAX (Président) · Jérôme CHABANNE-RIVE (Rapporteur) · "
+            "Michel PLANE (Suffragant) · Sabrina (Suffragant)", 9.5, GREY, "Arial",
+        False, PP_ALIGN.LEFT, 1.4, first=False, wrap_on=True)
+
+    tf = add_box(slide, 72, 700, 720, 60)
+    put(tf, "contact@upl-gabon.com · +241 02 62 19 78 · Libreville, Gabon", 9, GREY,
+        "Arial", False, PP_ALIGN.LEFT, 1.4)
+    put(tf, "EXCELLENCE  •  RESPONSABILITÉ  •  IMPACT", 8.5, NAVY, "Arial", True,
+        PP_ALIGN.LEFT, 1.4, first=False)
+
+
 def build(preview: Path | None = None) -> None:
     prs = Presentation()
     prs.slide_width = Inches(SLIDE_W)
@@ -433,6 +632,12 @@ def build(preview: Path | None = None) -> None:
 
     for pos, page_no in enumerate(PAGES, 1):
         slide = prs.slides.add_slide(blank)
+        if pos == 1:                                 # couverture recomposée (autorisée)
+            slide.shapes.add_picture(str(COVER), 0, 0, Inches(SLIDE_W), Inches(SLIDE_H))
+            add_cover(slide)
+            if pos in NOTES:
+                slide.notes_slide.notes_text_frame.text = NOTES[pos]
+            continue
         slide.shapes.add_picture(str(make_background(page_no)), 0, 0,
                                  Inches(SLIDE_W), Inches(SLIDE_H))
 
@@ -504,6 +709,9 @@ def build(preview: Path | None = None) -> None:
                 for i, part in enumerate(override.split("|")):
                     put(tf, part, size, colour, font, bold, align, pitch,
                         first=(i == 0), wrap_on=True)
+
+        for text, cx, cy, width, size, colour, bold in FIG_LABELS.get(page_no, []):
+            add_label(slide, text, cx, cy, width, size, colour, bold)
 
         if pos in NOTES:
             slide.notes_slide.notes_text_frame.text = NOTES[pos]
