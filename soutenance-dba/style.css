@@ -121,9 +121,11 @@ body.is-deck .slide.is-measuring {
   visibility: hidden; transform: none !important;
 }
 body.is-deck .slide.is-active { display: flex; animation: slidein 0.34s ease both; }
+/* attention : la propriété transform est pilotée par deck.js (mise à
+   l'échelle) ; l'animation ne touche donc QUE l'opacité. */
 @keyframes slidein {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   body.is-deck .slide.is-active { animation: none; }
