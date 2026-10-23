@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le risque de change dans le football — carte interactive</title>
+<meta name="description" content="Carte interactive : où vit le risque de change en France, et quels clubs de football ont un partenaire FX annoncé publiquement.">
+<style>
+  :root{
+    --ink:#0E1F17;
+    --green:#12624A;
+    --green-l:#3E9A72;
+    --green-ll:#BFDCCB;
+    --cream:#F4F1E7;
+    --paper:#FCFBF7;
+    --amber:#C9821F;
+    --grey:#66736D;
+    --line:#DDD9CB;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid var(--green-ll)}
+  a:hover{border-bottom-color:var(--green)}
+
+  .bar{
+    background:var(--green);color:var(--green-ll);
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:10px 28px;font-size:11px;letter-spacing:.10em;text-transform:uppercase;font-weight:700;
+  }
+  .bar b{color:#fff}
+
+  header.head{max-width:1400px;margin:0 auto;padding:36px 28px 8px}
+  h1{
+    font-size:clamp(26px,3.4vw,44px);line-height:1.06;margin:0 0 12px;
+    letter-spacing:-.015em;font-weight:800;max-width:900px;
+  }
+  .sub{font-size:clamp(13px,1.3vw,16px);color:var(--grey);max-width:760px;margin:0}
+
+  .kpis{
+    max-width:1400px;margin:22px auto 0;padding:0 28px;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;
+  }
+  .kpi{background:var(--cream);border-radius:10px;padding:14px 16px}
+  .kpi .n{font-size:26px;font-weight:800;color:var(--green);line-height:1.1}
+  .kpi .l{font-size:11.5px;color:var(--ink);margin-top:4px}
+  .kpi.warn .n{color:var(--amber)}
+
+  main{
+    max-width:1400px;margin:0 auto;padding:12px 28px 40px;
+    display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;
+    align-items:start;
+  }
+  @media (max-width:980px){ main{grid-template-columns:1fr} }
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card h2{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--green);margin:0 0 12px}
+
+  /* ---------------- carte ---------------- */
+  .mapwrap{position:relative}
+  svg#map{width:100%;height:auto;display:block;touch-action:manipulation}
+  .region{stroke:#fff;stroke-width:.16;cursor:default;transition:opacity .15s}
+  .region:hover{opacity:.82}
+  .club{cursor:pointer}
+  .club circle{stroke:#fff;stroke-width:.22;transition:r .12s}
+  .club:hover circle{r:1.15}
+  .club text{
+    font-size:.72px;font-weight:700;fill:var(--ink);
+    paint-order:stroke;stroke:#fff;stroke-width:.22px;stroke-linejoin:round;
+    pointer-events:none;
+  }
+  .club.dim{opacity:.22}
+  .region.dim{opacity:.55}
+
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+  .chip{
+    border:1px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:600;cursor:pointer;
+    font-family:inherit;
+  }
+  .chip:hover{border-color:var(--green-l)}
+  .chip.on{background:var(--green);border-color:var(--green);color:#fff}
+
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:11px;color:var(--grey)}
+  .legend .sw{display:flex;align-items:center;gap:5px}
+  .legend .sq{width:12px;height:12px;border-radius:2px;display:inline-block}
+
+  #tip{
+    position:fixed;pointer-events:none;z-index:50;opacity:0;transition:opacity .12s;
+    background:var(--ink);color:#fff;font-size:11.5px;padding:7px 10px;border-radius:7px;max-width:250px;
+    transform:translate(-50%,-120%);
+  }
+  #tip b{color:var(--green-ll)}
+
+  /* ---------------- panneau ---------------- */
+  .panel{position:sticky;top:16px}
+  #clubcard{min-height:210px}
+  .club-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:2px}
+  .club-name{font-size:20px;font-weight:800;line-height:1.15}
+  .club-meta{font-size:12px;color:var(--grey);margin-bottom:12px}
+  .badge{
+    display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    padding:3px 8px;border-radius:999px;background:var(--green-ll);color:var(--green);
+  }
+  .badge.none{background:#EDEAE0;color:var(--grey)}
+  .deal{border-left:3px solid var(--green-l);padding:2px 0 2px 11px;margin:0 0 14px}
+  .deal .f{font-size:15px;font-weight:800;color:var(--green)}
+  .deal .r{font-size:12.5px;margin:2px 0}
+  .deal .s{font-size:11px;color:var(--grey)}
+  .deal .s a{font-size:11px}
+  .empty{background:var(--cream);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--ink)}
+  .empty b{color:var(--amber)}
+
+  table{width:100%;border-collapse:collapse;font-size:11.5px}
+  th,td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);font-weight:700}
+  td.fw{font-weight:700;white-space:nowrap}
+  .scroll{max-height:290px;overflow:auto}
+
+  .note{font-size:11.5px;color:var(--grey);margin:10px 0 0}
+  .note b{color:var(--ink)}
+
+  section.bout{max-width:1400px;margin:0 auto;padding:0 28px 30px;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start}
+  .method{font-size:12.5px;color:var(--ink)}
+  .method ul{margin:6px 0 0 18px;padding:0}
+  .method li{margin-bottom:5px}
+  footer{max-width:1400px;margin:0 auto;padding:0 28px 50px;font-size:11px;color:var(--grey)}
+  .src-list{font-size:11.5px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span>Note de recherche · <b>Orbis 20/10/2026</b> · mise en forme personnelle</span>
+  <span><b>Calvin Minang</b> · 23/10/2026</span>
+</div>
+
+<header class="head">
+  <h1>Qui paie en devise dans le football français&nbsp;?</h1>
+  <p class="sub">
+    Les entreprises sont agrégées : aucun nom, aucune commune, aucun montant individuel.
+    Les clubs, eux, sont nommés — uniquement lorsqu'un partenariat FX a été annoncé publiquement.
+  </p>
+  <div class="kpis">
+    <div class="kpi"><div class="n">64 646</div><div class="l">sociétés françaises ≥ 5 M€ de CA</div></div>
+    <div class="kpi"><div class="n">45 837</div><div class="l">sièges géolocalisés (INSEE)</div></div>
+    <div class="kpi"><div class="n">5</div><div class="l">clubs de Ligue 1 avec un partenaire FX public</div></div>
+    <div class="kpi warn"><div class="n">7</div><div class="l">clubs sans partenariat FX annoncé</div></div>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h2>France · densité de sièges d'entreprises (agrégée) + clubs de Ligue 1</h2>
+    <div class="chips" id="chips">
+      <button class="chip on" data-f="all">Tous les clubs</button>
+      <button class="chip" data-f="Ebury">Ebury</button>
+      <button class="chip" data-f="Sokin">Sokin</button>
+      <button class="chip" data-f="Corpay Cross-Border">Corpay</button>
+      <button class="chip" data-f="none">Sans partenaire FX public</button>
+    </div>
+    <div class="mapwrap">
+      <svg id="map" viewBox="0 0 10 10" role="img" aria-label="Carte de France : densité de sièges par région et clubs de football"></svg>
+    </div>
+    <div class="legend">
+      <span class="sw"><span class="sq" style="background:#12624A"></span>&gt; 10 000 sièges</span>
+      <span class="sw"><span class="sq" style="background:#47936F"></span>3 000 – 4 000</span>
+      <span class="sw"><span class="sq" style="background:#93BFA3"></span>2 000 – 3 000</span>
+      <span class="sw"><span class="sq" style="background:#C9DBCC"></span>1 000 – 2 000</span>
+      <span class="sw"><span class="sq" style="background:#E6E2D3"></span>&lt; 1 000</span>
+      <span class="sw"><span class="sq" style="background:#C9821F;border-radius:50%"></span>club avec partenaire FX</span>
+      <span class="sw"><span class="sq" style="background:#fff;border:2px solid #9A968A;border-radius:50%"></span>sans partenaire public</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="card" id="clubcard">
+      <h2>Détail du club</h2>
+      <p class="note" style="margin-top:0">Cliquez sur un point de la carte. Les informations affichées proviennent toutes de communiqués publics du club ou de la fintech.</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>Accords annoncés publiquement</h2>
+      <div class="scroll">
+        <table id="deals">
+          <thead><tr><th>Club</th><th>Partenaire FX</th><th>Date</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="note">Hors France : Servette, Botafogo, Parma, Cluj, Fulham, Aston Villa, Southampton, Rangers, PSV, Copenhague (Ebury) · Everton et Fulham (Sokin) · Everton (CMC Markets), Nottingham Forest (Marex), Hearts (OFX).</p>
+    </div>
+  </div>
+</main>
+
+<section class="bout">
+  <div class="card">
+    <h2>Ce que la carte dit — et ce qu'elle ne dit pas</h2>
+    <div class="method">
+      <ul>
+        <li><b>Public :</b> le nombre de sociétés du périmètre, la répartition par région en classes, les ratios nationaux, l'identité des clubs et de leurs partenaires FX annoncés.</li>
+        <li><b>Non public :</b> les communes, les noms d'entreprises, les montants société par société, le croisement flux récurrents / épisodiques.</li>
+        <li>La classe de densité est un <b>ordre de grandeur</b>, pas une valeur exacte.</li>
+        <li>« Sans partenaire FX public » signifie : <b>aucune annonce trouvée</b> sur le site du club ou dans la presse au 23/10/2026. Ce n'est pas une preuve d'absence de prestataire.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Pourquoi ça compte pour une fintech FX</h2>
+    <div class="method">
+      <p style="margin:0 0 8px">Un club de football encaisse dans une devise, paie dans une autre, et signe aujourd'hui ce qu'il paiera dans trois ans (échéanciers de transfert, salaires, droits TV, merchandising).</p>
+      <p style="margin:0 0 8px">Les clubs de Premier League ont dépensé plus de <b>1,7 Md£</b> sur des joueurs venus de la zone euro en un seul mercato ; une étude de 2026 chiffre à plus de <b>22 M£</b> les frais de change cachés sur 89 jours.</p>
+      <p style="margin:0">C'est un segment à cycle de vente court, à décision concentrée, et encore peu équipé en France : <b>7 des 12 clubs listés ici n'ont aucun partenaire FX annoncé</b>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Sources</h2>
+    <div class="src-list">
+      Orbis (Bureau van Dijk), extraction 20/10/2026 · INSEE, géolocalisation des sièges<br>
+      Communiqués : ol.fr, asmonaco.com, stade-de-reims.com, toulousefc.com, businesswire (Corpay), La Provence (OM)<br>
+      Ebury Sports · Sokin · Corpay Cross-Border · FXC Intelligence (Premier League, 2026)<br>
+      The Fintech Times / Finance Magnates (étude Glyde, 2026)
+    </div>
+    <p class="note"><b>Données téléchargeables :</b>
+      <a href="../linkedin/2026-10-23-FX-football/data/carte-FX.xlsx">classeur Excel</a> ·
+      <a href="../linkedin/2026-10-23-FX-football/data/clubs_partenaires_fx.csv">CSV clubs &amp; FX</a> ·
+      <a href="../linkedin/2026-10-23-FX-football/data/entreprises_par_region.csv">CSV entreprises (agrégé)</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  Étude personnelle réalisée hors mission, sur données publiques et licences académiques. Aucune donnée client, aucune donnée confidentielle.
+  La carte détaillée (communes, noms, montants) n'est pas diffusée.
+</footer>
+
+<div id="tip"></div>
+
+<script id="payload" type="application/json">__DATA__</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('payload').textContent);
+
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var fill = {0:'#E6E2D3',1:'#C9DBCC',2:'#93BFA3',3:'#47936F',4:'#12624A'};
+  var svg = document.getElementById('map');
+  var tip = document.getElementById('tip');
+
+  // ---- bounds
+  var minx=1e9,miny=1e9,maxx=-1e9,maxy=-1e9;
+  D.regions.forEach(function(r){
+    var nums = r.d.match(/-?\d+(\.\d+)?/g) || [];
+    for (var i=0;i<nums.length;i+=2){
+      var x=parseFloat(nums[i]), y=parseFloat(nums[i+1]);
+      if(x<minx)minx=x; if(x>maxx)maxx=x;
+      if(y<miny)miny=y; if(y>maxy)maxy=y;
+    }
+  });
+  D.clubs.forEach(function(c){
+    if(c.x<minx)minx=c.x; if(c.x>maxx)maxx=c.x;
+    if(c.y<miny)miny=c.y; if(c.y>maxy)maxy=c.y;
+  });
+  minx-=2.4; maxx+=1.4; miny-=0.7; maxy+=0.7;
+  var W = maxx-minx, H = maxy-miny;
+  svg.setAttribute('viewBox', minx+' '+miny+' '+W+' '+H);
+  svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+  svg.style.aspectRatio = W+' / '+H;
+
+  // ---- régions
+  var gReg = document.createElementNS(SVGNS,'g');
+  D.regions.forEach(function(r){
+    var p = document.createElementNS(SVGNS,'path');
+    p.setAttribute('d', r.d);
+    p.setAttribute('fill', fill[r.cls] || fill[0]);
+    p.setAttribute('class','region');
+    p.dataset.code = r.code;
+    p.dataset.name = r.name;
+    p.dataset.label = r.label;
+    p.addEventListener('mousemove', function(ev){
+      tip.innerHTML = '<b>'+r.name+'</b><br>'+r.label+'<br><span style="opacity:.7">agrégé · aucun nom publié</span>';
+      tip.style.opacity = 1;
+      tip.style.left = ev.clientX+'px';
+      tip.style.top = ev.clientY+'px';
+    });
+    p.addEventListener('mouseleave', function(){ tip.style.opacity = 0; });
+    gReg.appendChild(p);
+  });
+  svg.appendChild(gReg);
+
+  // ---- clubs
+  var gClubs = document.createElementNS(SVGNS,'g');
+  var R = W * 0.0072;
+
+  // direction des étiquettes : on évite les chevauchements en comparant les points proches
+  var dirs = D.clubs.map(function(){ return 1; });
+  for (var i=0;i<D.clubs.length;i++){
+    for (var j=0;j<D.clubs.length;j++){
+      if(i===j) continue;
+      var a=D.clubs[i], b=D.clubs[j];
+      if(Math.abs(a.y-b.y) < 0.22 && b.x > a.x && (b.x-a.x) < 0.34){ dirs[i] = -1; }
+    }
+  }
+  D.clubs.forEach(function(c, idx){
+    var g = document.createElementNS(SVGNS,'g');
+    g.setAttribute('class','club');
+    g.dataset.idx = idx;
+    var has = c.partners.length > 0;
+    var circle = document.createElementNS(SVGNS,'circle');
+    circle.setAttribute('cx', c.x); circle.setAttribute('cy', c.y);
+    circle.setAttribute('r', has ? R : R*0.78);
+    circle.setAttribute('fill', has ? '#C9821F' : '#FFFFFF');
+    if(!has){ circle.setAttribute('stroke','#9A968A'); circle.setAttribute('stroke-width', W*0.0016); }
+    g.appendChild(circle);
+
+    var t = document.createElementNS(SVGNS,'text');
+    var dir = dirs[idx];
+    t.setAttribute('x', c.x + dir * R * 1.45);
+    t.setAttribute('y', c.y + R * 0.38);
+    t.setAttribute('text-anchor', dir > 0 ? 'start' : 'end');
+    t.textContent = c.short;
+    g.appendChild(t);
+
+    g.addEventListener('click', function(){ select(idx); });
+    g.addEventListener('mousemove', function(ev){
+      tip.innerHTML = '<b>'+c.club+'</b><br>'+ (has ? c.partners.map(function(p){return p.fintech;}).join(' · ') : 'aucun partenaire FX public identifié');
+      tip.style.opacity = 1;
+      tip.style.left = ev.clientX+'px';
+      tip.style.top = ev.clientY+'px';
+    });
+    g.addEventListener('mouseleave', function(){ tip.style.opacity = 0; });
+    gClubs.appendChild(g);
+  });
+  svg.appendChild(gClubs);
+
+  // ---- panneau
+  var card = document.getElementById('clubcard');
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function select(idx){
+    var c = D.clubs[idx];
+    var html = '<h2>Détail du club</h2>';
+    html += '<div class="club-h"><div class="club-name">'+esc(c.club)+'</div>';
+    html += c.partners.length ? '<span class="badge">partenaire FX public</span>'
+                              : '<span class="badge none">aucun annoncé</span>';
+    html += '</div><div class="club-meta">'+esc(c.city)+' · '+esc(c.league)+'</div>';
+
+    if(c.partners.length){
+      c.partners.forEach(function(p){
+        html += '<div class="deal">'
+             +  '<div class="f">'+esc(p.fintech)+'</div>'
+             +  '<div class="r">'+esc(p.role)+'</div>'
+             +  '<div class="s">'+esc(p.season)+' · '+esc(p.date)+' · <a href="'+p.url+'" target="_blank" rel="noopener">'+esc(p.src)+'</a></div>'
+             +  '</div>';
+      });
+    } else {
+      html += '<div class="empty"><b>Aucun partenariat FX annoncé publiquement</b> au 23/10/2026. '
+           +  'Le club a forcément des flux en devise (transferts, salaires, droits TV) : c\'est précisément le point de départ d\'une conversation commerciale.<br><br>'
+           +  '<span style="font-size:11.5px;color:#66736D">Recherche : site du club, communiqués, presse spécialisée. Absence d\'annonce ≠ absence de prestataire.</span></div>';
+    }
+    card.innerHTML = html;
+  }
+
+  // ---- tableau
+  var tbody = document.querySelector('#deals tbody');
+  D.clubs.forEach(function(c, idx){
+    c.partners.forEach(function(p){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="fw">'+esc(c.short)+'</td><td>'+esc(p.fintech)+'</td><td>'+esc(p.date)+'</td>';
+      tr.style.cursor='pointer';
+      tr.addEventListener('click', function(){ select(idx); });
+      tbody.appendChild(tr);
+    });
+  });
+
+  // ---- filtres
+  var chips = document.querySelectorAll('.chip');
+  chips.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      chips.forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      var f = btn.dataset.f;
+      document.querySelectorAll('.club').forEach(function(g, i){
+        var c = D.clubs[i];
+        var ok;
+        if(f === 'all') ok = true;
+        else if(f === 'none') ok = c.partners.length === 0;
+        else ok = c.partners.some(function(p){ return p.fintech === f; });
+        g.classList.toggle('dim', !ok);
+        g.style.display = ok ? '' : 'none';
+      });
+    });
+  });
+
+  select(0);
+})();
+</script>
+</body>
+</html>
