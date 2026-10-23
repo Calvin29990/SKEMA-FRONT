@@ -53,26 +53,31 @@ C_PARTNER = "#0B7A4B"        # vert plus visible, reste sobre
 C_NO = "#6E6E6E"
 
 # Offsets uniformes du bloc texte, relatifs au centre du logo
-DX = 0.78                    # distance horizontale logo -> texte
+DX = 0.88                    # distance horizontale logo -> texte
 DY_AMOUNT = 0.175            # montant au-dessus du centre
 DY_PARTNER = -0.175          # partenaire sous le centre
 F_AMOUNT = 14.6              # +12 % par rapport à 13.0
 F_PARTNER = 8.5
 
+METHOD = [
+    "Soldes de transferts : mercato été 2026 (Transfermarkt, compilations presse spécialisée).",
+    "Partenariats FX : informations publiquement documentées à la date de référence.",
+    "Cette carte constitue une photographie à un instant donné.",
+]
+
 # slug, lon, lat (centre logo), montant, partenaire, sens du texte (+1 droite / -1 gauche)
 CLUBS = [
-    ("losc", 3.40, 50.62, "+120,4 M€", NO_PARTNER, +1),
-    ("rcl",  2.35, 50.18, "+46,7 M€",  NO_PARTNER, -1),
-    ("psg",  2.15, 48.85, "+182,3 M€", NO_PARTNER, -1),
-    ("pfc",  3.62, 48.08, "-72,2 M€",  NO_PARTNER, +1),
-    ("sdr",  4.70, 49.42, "n.d.",      "Ebury",     +1),
-    ("rcsa", 7.02, 48.90, "+101,5 M€", NO_PARTNER, +1),
-    ("srfc", -1.90, 48.20, "+33,7 M€", NO_PARTNER, +1),
-    ("ol",   5.20, 45.90, "+44,0 M€",  "Ebury",      +1),
-    ("tfc",  1.60, 43.90, "+25,5 M€",  "Corpay",     -1),
-    ("om",   5.15, 43.55, "+49,9 M€",  "Ebury",     -1),
-    ("ogcn", 6.75, 44.30, "+14,9 M€",  NO_PARTNER, +1),
-    ("asm",  7.45, 43.40, "+56,0 M€",  "Ebury · Sokin", +1),
+    ("losc",  3.58, 50.70, "+120,4 M€",  NO_PARTNER, +1),
+    ("rcl",   2.35, 50.18, "+43,2 M€",   NO_PARTNER, -1),
+    ("psg",   2.15, 48.85, "+182,3 M€",  NO_PARTNER, -1),
+    ("pfc",   3.62, 48.08, "−72,2 M€",  NO_PARTNER, +1),
+    ("rcsa",  7.02, 48.90, "≈ +100 M€", NO_PARTNER, +1),
+    ("srfc", -1.90, 48.20, "≈ +60 M€",  NO_PARTNER, +1),
+    ("ol",    5.20, 45.90, "≈ +42 M€",  "Ebury (2025/26)", +1),
+    ("tfc",   1.60, 43.90, "+37,0 M€",   "Corpay",    -1),
+    ("om",    5.15, 43.55, "+49,9 M€",   "Ebury (2025/26)", -1),
+    ("ogcn",  6.75, 44.30, "≈ +45 M€",  NO_PARTNER, +1),
+    ("asm",   7.30, 43.40, "+56,0 M€",   NO_PARTNER, +1),
 ]
 
 FEATS = json.load(open(os.path.join(ASSETS, "regions.geojson")))["features"]
@@ -103,7 +108,7 @@ def build():
     fig = plt.figure(figsize=(W, H), dpi=DPI)
     fig.patch.set_facecolor(BG)
 
-    ax = fig.add_axes([0.0, 0.045, 1.0, 0.955])
+    ax = fig.add_axes([0.0, 0.072, 1.0, 0.928])
     ax.set_facecolor(BG)
     ax.axis("off")
 
@@ -117,7 +122,7 @@ def build():
             ax.add_patch(MPoly(ring, closed=True, fc=fc, ec="#FFFFFF", lw=2.6,
                                alpha=REGION_ALPHA, zorder=2))
 
-    ax.set_xlim(-5.6, 10.2)
+    ax.set_xlim(-5.6, 10.9)
     ax.set_ylim(41.2, 51.4)
     ax.set_aspect(AZ, adjustable="box")
 
@@ -151,12 +156,12 @@ def build():
                 style="normal" if covered else "italic",
                 ha=ha, va="center", zorder=8, path_effects=halo)
 
-    # ---- pied de page
-    fig.text(0.010, 0.017,
-             "Source : Orbis (Bureau van Dijk) 20/10/2026 · INSEE · sites des clubs et des fintechs",
-             fontsize=8.2, color="#2A2A2A", ha="left", va="center")
-    fig.text(0.990, 0.017, "Montants = solde mercato été 2026",
-             fontsize=7.0, color="#5A5A5A", ha="right", va="center",
+    # ---- pied de page : methodologie + date d'arret
+    for i, line in enumerate(METHOD):
+        fig.text(0.010, 0.010 + (len(METHOD) - 1 - i) * 0.0198, line,
+                 fontsize=7.0, color="#4A4A4A", ha="left", va="center")
+    fig.text(0.990, 0.010, "Arrêté au 1er septembre 2026",
+             fontsize=7.6, color="#4A4A4A", ha="right", va="center",
              style="italic")
 
     out = os.path.join(ASSETS, "10-carte-clubs-couleurs.png")
