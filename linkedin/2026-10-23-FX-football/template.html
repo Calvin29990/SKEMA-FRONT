@@ -65,14 +65,14 @@
   /* ---------------- carte ---------------- */
   .mapwrap{position:relative}
   svg#map{width:100%;height:auto;display:block;touch-action:manipulation}
-  .region{stroke:#fff;stroke-width:.16;cursor:default;transition:opacity .15s}
+  .region{stroke:#fff;stroke-width:.035;cursor:default;transition:opacity .15s}
   .region:hover{opacity:.82}
   .club{cursor:pointer}
-  .club circle{stroke:#fff;stroke-width:.22;transition:r .12s}
-  .club:hover circle{r:1.15}
+  .club circle{stroke:#fff;stroke-width:.05;transition:opacity .12s}
+  .club:hover circle{opacity:.86}
   .club text{
-    font-size:.72px;font-weight:700;fill:var(--ink);
-    paint-order:stroke;stroke:#fff;stroke-width:.22px;stroke-linejoin:round;
+    font-size:.185px;font-weight:700;fill:var(--ink);
+    paint-order:stroke;stroke:#fff;stroke-width:.05px;stroke-linejoin:round;
     pointer-events:none;
   }
   .club.dim{opacity:.22}
@@ -229,9 +229,9 @@
       The Fintech Times / Finance Magnates (étude Glyde, 2026)
     </div>
     <p class="note"><b>Données téléchargeables :</b>
-      <a href="../linkedin/2026-10-23-FX-football/data/carte-FX.xlsx">classeur Excel</a> ·
-      <a href="../linkedin/2026-10-23-FX-football/data/clubs_partenaires_fx.csv">CSV clubs &amp; FX</a> ·
-      <a href="../linkedin/2026-10-23-FX-football/data/entreprises_par_region.csv">CSV entreprises (agrégé)</a>
+      <a href="https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/b1d047d9-skema-front/linkedin/2026-10-23-FX-football/data/carte-FX.xlsx">classeur Excel</a> ·
+      <a href="https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/b1d047d9-skema-front/linkedin/2026-10-23-FX-football/data/clubs_partenaires_fx.csv">CSV clubs &amp; FX</a> ·
+      <a href="https://github.com/Calvin29990/SKEMA-FRONT/raw/arena/b1d047d9-skema-front/linkedin/2026-10-23-FX-football/data/entreprises_par_region.csv">CSV entreprises (agrégé)</a>
     </p>
   </div>
 </section>
@@ -252,6 +252,7 @@
   var fill = {0:'#E6E2D3',1:'#C9DBCC',2:'#93BFA3',3:'#47936F',4:'#12624A'};
   var svg = document.getElementById('map');
   var tip = document.getElementById('tip');
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
   // ---- bounds
   var minx=1e9,miny=1e9,maxx=-1e9,maxy=-1e9;
@@ -267,7 +268,7 @@
     if(c.x<minx)minx=c.x; if(c.x>maxx)maxx=c.x;
     if(c.y<miny)miny=c.y; if(c.y>maxy)maxy=c.y;
   });
-  minx-=2.4; maxx+=1.4; miny-=0.7; maxy+=0.7;
+  minx-=0.38; maxx+=1.15; miny-=0.38; maxy+=0.38;
   var W = maxx-minx, H = maxy-miny;
   svg.setAttribute('viewBox', minx+' '+miny+' '+W+' '+H);
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
@@ -280,11 +281,8 @@
     p.setAttribute('d', r.d);
     p.setAttribute('fill', fill[r.cls] || fill[0]);
     p.setAttribute('class','region');
-    p.dataset.code = r.code;
-    p.dataset.name = r.name;
-    p.dataset.label = r.label;
     p.addEventListener('mousemove', function(ev){
-      tip.innerHTML = '<b>'+r.name+'</b><br>'+r.label+'<br><span style="opacity:.7">agrégé · aucun nom publié</span>';
+      tip.innerHTML = '<b>'+esc(r.name)+'</b><br>'+esc(r.label)+'<br><span style="opacity:.7">agrégé · aucun nom publié</span>';
       tip.style.opacity = 1;
       tip.style.left = ev.clientX+'px';
       tip.style.top = ev.clientY+'px';
@@ -296,17 +294,10 @@
 
   // ---- clubs
   var gClubs = document.createElementNS(SVGNS,'g');
-  var R = W * 0.0072;
+  var R = W * 0.0092;
 
-  // direction des étiquettes : on évite les chevauchements en comparant les points proches
-  var dirs = D.clubs.map(function(){ return 1; });
-  for (var i=0;i<D.clubs.length;i++){
-    for (var j=0;j<D.clubs.length;j++){
-      if(i===j) continue;
-      var a=D.clubs[i], b=D.clubs[j];
-      if(Math.abs(a.y-b.y) < 0.22 && b.x > a.x && (b.x-a.x) < 0.34){ dirs[i] = -1; }
-    }
-  }
+  var dirs = D.clubs.map(function(c){ return c.ldir || 1; });
+  var dy = D.clubs.map(function(c){ return (c.ldy || 0) * 0.13; });
   D.clubs.forEach(function(c, idx){
     var g = document.createElementNS(SVGNS,'g');
     g.setAttribute('class','club');
@@ -316,13 +307,13 @@
     circle.setAttribute('cx', c.x); circle.setAttribute('cy', c.y);
     circle.setAttribute('r', has ? R : R*0.78);
     circle.setAttribute('fill', has ? '#C9821F' : '#FFFFFF');
-    if(!has){ circle.setAttribute('stroke','#9A968A'); circle.setAttribute('stroke-width', W*0.0016); }
+    if(!has){ circle.setAttribute('stroke','#9A968A'); circle.setAttribute('stroke-width', W*0.0022); }
     g.appendChild(circle);
 
     var t = document.createElementNS(SVGNS,'text');
     var dir = dirs[idx];
     t.setAttribute('x', c.x + dir * R * 1.45);
-    t.setAttribute('y', c.y + R * 0.38);
+    t.setAttribute('y', c.y + dy[idx] + R * 0.36);
     t.setAttribute('text-anchor', dir > 0 ? 'start' : 'end');
     t.textContent = c.short;
     g.appendChild(t);
@@ -341,7 +332,6 @@
 
   // ---- panneau
   var card = document.getElementById('clubcard');
-  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
   function select(idx){
     var c = D.clubs[idx];

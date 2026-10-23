@@ -63,7 +63,7 @@ CLUBS = [
         }],
     },
     {
-        "club": "AS Monaco", "short": "ASM", "city": "Monaco", "league": "Ligue 1",
+        "club": "AS Monaco", "short": "ASM", "city": "Monaco", "ldir": 1, "ldy": -1, "league": "Ligue 1",
         "lat": 43.7275, "lon": 7.4156,
         "partners": [
             {"fintech": "Ebury", "role": "Partenaire fintech / FX",
@@ -77,7 +77,7 @@ CLUBS = [
         ],
     },
     {
-        "club": "Olympique de Marseille", "short": "OM", "city": "Marseille", "league": "Ligue 1",
+        "club": "Olympique de Marseille", "short": "OM", "city": "Marseille", "ldir": -1, "ldy": 1, "league": "Ligue 1",
         "lat": 43.2697, "lon": 5.3959,
         "partners": [{
             "fintech": "Ebury", "role": "Fournisseur officiel (paiements internationaux, FX)",
@@ -111,11 +111,11 @@ CLUBS = [
         "lat": 48.8414, "lon": 2.2531, "partners": [],
     },
     {
-        "club": "LOSC Lille", "short": "LOSC", "city": "Lille", "league": "Ligue 1",
+        "club": "LOSC Lille", "short": "LOSC", "city": "Lille", "ldir": 1, "ldy": -1, "league": "Ligue 1",
         "lat": 50.6119, "lon": 3.1322, "partners": [],
     },
     {
-        "club": "RC Lens", "short": "RCL", "city": "Lens", "league": "Ligue 1",
+        "club": "RC Lens", "short": "RCL", "city": "Lens", "ldir": -1, "ldy": 0, "league": "Ligue 1",
         "lat": 50.4327, "lon": 2.8151, "partners": [],
     },
     {
@@ -123,7 +123,7 @@ CLUBS = [
         "lat": 48.1173, "lon": -1.6778, "partners": [],
     },
     {
-        "club": "OGC Nice", "short": "OGCN", "city": "Nice", "league": "Ligue 1",
+        "club": "OGC Nice", "short": "OGCN", "city": "Nice", "ldir": -1, "ldy": 1, "league": "Ligue 1",
         "lat": 43.5610, "lon": 7.1926, "partners": [],
     },
     {
@@ -198,6 +198,7 @@ def build_html(geo, clubs):
         "clubs": [
             {
                 "club": c["club"], "short": c["short"], "city": c["city"], "league": c["league"],
+                "ldir": c.get("ldir", 1), "ldy": c.get("ldy", 0),
                 "x": round(project(c["lon"], c["lat"])[0], 3),
                 "y": round(project(c["lon"], c["lat"])[1], 3),
                 "partners": c["partners"],

@@ -4,6 +4,9 @@
 **Format :** carrousel 3 pages (`assets/01-carte.png`, `02-flux.png`, `03-methode.png` — aussi en PDF)
 **Objectif :** répondre publiquement à la question posée par le RH de Convera (« pourquoi cette passion pour le FX ? ») sans avoir l'air de répondre à un entretien, et faire en sorte qu'iBanFirst / Ebury / Convera / Kantox voient le post.
 
+**Carte interactive :** `https://htmlpreview.github.io/?https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/b1d047d9-skema-front/docs/index.html`
+**Excel / Power BI + méthode + corrections factuelles :** voir `CARTE.md`
+
 ---
 
 ## 1. LE POST (version à publier)
@@ -47,7 +50,11 @@ Source : Orbis (Bureau van Dijk), extraction du 20/10/2026.
 
 Je ne diffuse pas la carte détaillée : les noms, les montants et les corridors restent chez moi. Le constat macro, lui, se partage.
 
-Ce que cette carte m'a appris : le sport professionnel n'apparaît dans aucun radar FX. C'est exactement pour ça qu'il faut y aller.
+La carte interactive (clubs nommés, entreprises agrégées) est ici : [lien]
+
+Ce que cette carte m'a appris : trois des grands acteurs du change B2B sont déjà dans le football français. Ebury chez Lyon, Monaco, Marseille et Reims. Corpay chez Toulouse. Sokin chez Monaco. Et sept des douze clubs que j'ai regardés n'ont, à ce jour, aucun partenaire FX annoncé.
+
+Le sponsoring est le cheval de Troie du change B2B. La place est encore libre.
 ```
 
 **Hashtags (dans le post, 5 seulement) :**
@@ -105,8 +112,8 @@ Calvin
 **« Le football, c'est du business de riches, ils ont des banques qui s'en occupent. »**
 > Justement. Les banques facturent le service, elles ne benchmarkent pas le spread. Le sujet n'est pas de savoir s'ils sont couverts, c'est de savoir à quel prix. Sur 25 M€, 3 points de spread, c'est 750 000 €.
 
-**« Et Toulouse FC, ils sont clients de qui ? »**
-> Je ne nomme personne, et je ne le ferai pas : les relations clients ne sont pas publiques et je ne travaille pas sur des données qui le sont. Ce que je peux dire, c'est que la structure de flux d'un club de Ligue 1 — ventes de joueurs en €, achats en £ et en BRL, salaires en devise — rend l'usage d'un PSP spécialisé rationnel, indépendamment du nom du prestataire.
+**« Et Toulouse FC, ils sont clients de qui ? »** (tu peux répondre factuellement, c'est public)
+> Corpay Cross-Border, fournisseur officiel de services de change, annoncé en février 2025. C'est public, c'est dans le communiqué du club. Et c'est cohérent avec la structure de flux d'un club de Ligue 1 : ventes de joueurs en €, achats en £ et en BRL, salaires en devise.
 
 **« Tu as fait ça avec Orbis ? C'est cher. »**
 > Licence académique via SKEMA. Et le vrai travail n'est pas l'extraction, c'est le nettoyage : les codes NAF ne disent rien de l'exposition au change. Une société de négoce et un éditeur de logiciels peuvent avoir le même code et des expositions opposées.
@@ -121,6 +128,7 @@ Calvin
 | À faire | À éviter |
 |---|---|
 | Citer Orbis, FIFA, INSEE, la presse spécialisée | Affirmer qu'un club nommé est client d'iBanFirst / Convera sans source publique — c'est le seul point qui peut te coûter un entretien |
+| Nommer les clubs quand le partenariat est **annoncé par le club** (OL, ASM, OM, TFC, Reims) | Écrire « le top 5 des fintech » ou « iBanFirst est chez Toulouse » : c'est faux et vérifiable en 10 secondes |
 | Publier la carte **agrégée par région** | Republier la carte de 170 noms d'entreprises de ton visuel d'origine |
 | Garder un ton « méthode » | Le ton « je cherche un stage / une alternance » |
 | Répondre à tous les commentaires dans l'heure | Balancer 20 hashtags dans le post |
@@ -156,4 +164,8 @@ Calvin
 - `assets/02-flux.png` — les 5 flux FX d'un club (page 2)
 - `assets/03-methode.png` — ce qui est public / ce qui est gardé (page 3)
 - `assets/carrousel-FX-football.pdf` — les 3 pages en un seul fichier
-- `build_visuels.py` — le script de génération (relançable pour modifier les textes)
+- `assets/04-carte-interactive-preview.png` — aperçu de la carte interactive
+- `build_visuels.py` — génération des 3 visuels
+- `CARTE.md` — **liens GitHub, version interactive, Excel / Power BI, et la correction sur l'angle « top 5 fintech »**
+- `build_map.py` + `template.html` — génération de la page `docs/index.html` et des exports de données
+- `data/carte-FX.xlsx`, `data/clubs_partenaires_fx.csv`, `data/entreprises_par_region.csv`
