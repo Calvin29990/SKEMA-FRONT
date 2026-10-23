@@ -19,6 +19,7 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
+| `linkedin/` | Posts LinkedIn, carrousels, visuels générés | Personal branding, contenu public |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
