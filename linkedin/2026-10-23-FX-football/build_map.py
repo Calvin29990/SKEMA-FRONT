@@ -97,7 +97,7 @@ CLUBS = [
         }],
     },
     {
-        "club": "Stade de Reims", "short": "SDR", "city": "Reims", "league": "Ligue 1",
+        "club": "Stade de Reims", "short": "SDR", "city": "Reims", "league": "Ligue 2",
         "lat": 49.2465, "lon": 4.0500,
         "partners": [{
             "fintech": "Ebury", "role": "Partenaire Premium",
@@ -131,8 +131,8 @@ CLUBS = [
         "lat": 48.5601, "lon": 7.7553, "partners": [],
     },
     {
-        "club": "FC Nantes", "short": "FCN", "city": "Nantes", "league": "Ligue 1",
-        "lat": 47.2560, "lon": -1.5244, "partners": [],
+        "club": "Paris FC", "short": "PFC", "city": "Paris", "league": "Ligue 1",
+        "lat": 48.8405, "lon": 2.2450, "ldir": -1, "ldy": -1, "partners": [],
     },
 ]
 

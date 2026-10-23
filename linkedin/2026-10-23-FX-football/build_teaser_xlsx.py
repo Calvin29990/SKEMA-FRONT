@@ -30,7 +30,7 @@ ROWS = [
 ]
 
 HEAD = ["club", "championnat", "ville", "partenaire_fx", "role_annonce", "date_annonce",
-        "saison", "source", "source_url",
+        "saison", "source", "source_url", "solde_mercato_2026_M_eur",
         "volumes_fx_estimes", "nb_echeances_transfert", "devises_principales", "score_priorite"]
 
 PERIMETRE = [
@@ -39,6 +39,7 @@ PERIMETRE = [
     ["Sièges géolocalisés", "PUBLIC", "45 837 (géolocalisation INSEE)"],
     ["Répartition régionale", "PUBLIC", "5 classes de densité — voir la carte"],
     ["Clubs et partenaires FX annoncés", "PUBLIC", "6 accords, 5 clubs — onglet « Clubs couverts »"],
+    ["Soldes mercato été 2026", "PUBLIC", "Transfermarkt, relevés au 02/09/2026 (via Sportune / 20 Minutes)"],
     ["Volumes FX par club", "NON DIFFUSÉ", "Modèle interne, non publiable"],
     ["Échéanciers de transfert", "NON DIFFUSÉ", "Modèle interne, non publiable"],
     ["Devises par club", "PARTIEL", "Déduites des marchés de transfert, non vérifiées club par club"],
@@ -52,16 +53,23 @@ def main():
     ws = wb.active
     ws.title = "Clubs couverts"
     ws.append(HEAD)
+    SOLDE = {
+        "Olympique Lyonnais": 44.0,
+        "AS Monaco": 56.0,
+        "Olympique de Marseille": 49.9,
+        "Toulouse FC": 25.5,
+        "Stade de Reims": None,
+    }
     for r in ROWS:
-        ws.append(r + ["non communiqué", "non communiqué", "non communiqué", "non diffusé"])
+        ws.append(r + [SOLDE.get(r[0]), "non communiqué", "non communiqué", "non communiqué", "non diffusé"])
     for c in ws[1]:
         c.font = Font(bold=True, color="FFFFFF", size=10)
         c.fill = PatternFill("solid", fgColor=GREEN)
         c.alignment = Alignment(wrap_text=True, vertical="center")
-    for i, w in enumerate([26, 12, 12, 22, 44, 13, 12, 20, 62, 20, 20, 20, 16], 1):
+    for i, w in enumerate([26, 12, 12, 22, 44, 13, 12, 18, 62, 22, 20, 20, 20, 16], 1):
         ws.column_dimensions[get_column_letter(i)].width = w
     ws.freeze_panes = "A2"
-    ws.auto_filter.ref = f"A1:M{ws.max_row}"
+    ws.auto_filter.ref = f"A1:N{ws.max_row}"
 
     ws2 = wb.create_sheet("Périmètre")
     for r in PERIMETRE:
