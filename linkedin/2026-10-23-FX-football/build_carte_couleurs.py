@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Carte plein cadre, v2 :
-- chaque région prend la couleur du club qui y joue (Paris bleu foncé, Marseille bleu ciel…)
-- à côté de chaque logo : le montant (solde mercato 2026, en M€) et le partenaire FX
-- ni titre, ni légende, ni encadré
+Carte plein cadre, v3 (finitions) :
+- montants +12 % (premier élément lu)
+- régions légèrement désaturées (opacité 93 %) pour faire ressortir les logos
+- halo blanc très léger autour des logos
+- bloc [Montant] / [Partenaire FX] toujours au même offset relatif au logo
+- « aucun partenaire FX identifié »
+- vert des partenaires plus visible mais sobre
+- ligne de sources plus contrastée + note discrète en bas à droite
+- PSG / Paris FC décollés
 
 Sortie : assets/10-carte-clubs-couleurs.png (1200 x 1200)
 """
@@ -25,7 +30,8 @@ ASSETS = os.path.join(HERE, "assets")
 LOGOS = os.path.join(ASSETS, "logos")
 
 BG = "#FFFFFF"
-TXT = "#4E4E4E"
+TXT = "#3D3D3D"
+TXT_SOFT = "#666666"
 
 # ---------------------------------------------------------------- couleur du territoire = couleur du club
 REGION_FILL = {
@@ -38,27 +44,59 @@ REGION_FILL = {
     "93": "#35A7DE",   # PACA — bleu ciel Marseille
 }
 PALE = "#EFF2E7"
+REGION_ALPHA = 0.93          # les logos ressortent mieux
 
-# slug, lon, lat (centre logo), montant, partenaire, (x, y, ha) du bloc texte
+# tokens
+NO_PARTNER = "aucun partenaire FX identifié"
+C_AMOUNT = "#0E2A3A"
+C_PARTNER = "#0B7A4B"        # vert plus visible, reste sobre
+C_NO = "#6E6E6E"
+
+# Offsets uniformes du bloc texte, relatifs au centre du logo
+DX = 0.78                    # distance horizontale logo -> texte
+DY_AMOUNT = 0.175            # montant au-dessus du centre
+DY_PARTNER = -0.175          # partenaire sous le centre
+F_AMOUNT = 14.6              # +12 % par rapport à 13.0
+F_PARTNER = 8.5
+
+# slug, lon, lat (centre logo), montant, partenaire, sens du texte (+1 droite / -1 gauche)
 CLUBS = [
-    ("losc", 3.40, 50.62, "+120,4 M€", "aucun partenaire",   4.30, 50.80, "left"),
-    ("rcl",  2.35, 50.18, "+46,7 M€",  "aucun partenaire",   1.30, 50.05, "right"),
-    ("psg",  2.15, 48.85, "+182,3 M€", "aucun partenaire",   0.95, 48.86, "right"),
-    ("pfc",  3.30, 48.42, "-72,2 M€",  "aucun partenaire",   4.30, 47.85, "left"),
-    ("sdr",  4.70, 49.42, "n.d.",      "Ebury",              4.95, 49.88, "left"),
-    ("rcsa", 7.20, 48.90, "+101,5 M€", "aucun partenaire",   7.00, 47.70, "left"),
-    ("srfc", -1.90, 48.20, "+33,7 M€", "aucun partenaire",  -2.45, 47.75, "right"),
-    ("ol",   5.20, 45.90, "+44,0 M€",  "Ebury",              6.60, 46.45, "left"),
-    ("tfc",  1.60, 43.90, "+25,5 M€",  "Corpay",             2.75, 44.05, "left"),
-    ("om",   5.15, 43.55, "+49,9 M€",  "Ebury",              4.45, 43.10, "right"),
-    ("ogcn", 6.75, 44.30, "+14,9 M€",  "aucun partenaire",   7.55, 44.55, "left"),
-    ("asm",  7.45, 43.40, "+56,0 M€",  "Ebury · Sokin",      8.30, 43.75, "left"),
+    ("losc", 3.40, 50.62, "+120,4 M€", NO_PARTNER, +1),
+    ("rcl",  2.35, 50.18, "+46,7 M€",  NO_PARTNER, -1),
+    ("psg",  2.15, 48.85, "+182,3 M€", NO_PARTNER, -1),
+    ("pfc",  3.62, 48.08, "-72,2 M€",  NO_PARTNER, +1),
+    ("sdr",  4.70, 49.42, "n.d.",      "Ebury",     +1),
+    ("rcsa", 7.02, 48.90, "+101,5 M€", NO_PARTNER, +1),
+    ("srfc", -1.90, 48.20, "+33,7 M€", NO_PARTNER, +1),
+    ("ol",   5.20, 45.90, "+44,0 M€",  "Ebury",      +1),
+    ("tfc",  1.60, 43.90, "+25,5 M€",  "Corpay",     -1),
+    ("om",   5.15, 43.55, "+49,9 M€",  "Ebury",     -1),
+    ("ogcn", 6.75, 44.30, "+14,9 M€",  NO_PARTNER, +1),
+    ("asm",  7.45, 43.40, "+56,0 M€",  "Ebury · Sokin", +1),
 ]
 
 FEATS = json.load(open(os.path.join(ASSETS, "regions.geojson")))["features"]
 
 W, H, DPI = 12.0, 12.0, 100
+AZ = 1.0 / math.cos(math.radians(46.5))   # correction de latitude de la projection
 plt.rcParams.update({"font.family": "DejaVu Sans"})
+
+
+# ---------------------------------------------------------------- halo blanc derrière un logo
+def halo_image(img, px=3):
+    """Renvoie un calque blanc dont l'alpha est le masque du logo dilaté."""
+    rgb = img[..., :3]
+    alpha = img[..., 3] if img.shape[-1] == 4 else np.ones(rgb.shape[:2])
+    m = (alpha > 0.05).astype(np.float32)
+    for _ in range(px):
+        m = np.maximum.reduce([
+            m,
+            np.roll(m, 1, 0), np.roll(m, -1, 0),
+            np.roll(m, 1, 1), np.roll(m, -1, 1),
+        ])
+    out = np.ones((m.shape[0], m.shape[1], 4), dtype=np.float32)
+    out[..., 3] = m * 0.85
+    return out
 
 
 def build():
@@ -69,43 +107,57 @@ def build():
     ax.set_facecolor(BG)
     ax.axis("off")
 
+    # ---- régions
     for f in FEATS:
         code = f["properties"]["code"]
         fc = REGION_FILL.get(code, PALE)
         geom = f["geometry"]
         polys = [geom["coordinates"][0]] if geom["type"] == "Polygon" else [p[0] for p in geom["coordinates"]]
         for ring in polys:
-            ax.add_patch(MPoly(ring, closed=True, fc=fc, ec="#FFFFFF", lw=2.6, zorder=2))
+            ax.add_patch(MPoly(ring, closed=True, fc=fc, ec="#FFFFFF", lw=2.6,
+                               alpha=REGION_ALPHA, zorder=2))
 
     ax.set_xlim(-5.6, 10.2)
     ax.set_ylim(41.2, 51.4)
-    ax.set_aspect(1.0 / math.cos(math.radians(46.5)), adjustable="box")
+    ax.set_aspect(AZ, adjustable="box")
 
-    for slug, x, y, amount, partner, tx, ty, ha in CLUBS:
+    # ---- clubs
+    for slug, x, y, amount, partner, direction in CLUBS:
         p = os.path.join(LOGOS, slug + ".png")
         if os.path.exists(p):
             img = mpimg.imread(p)
             h, w = img.shape[0], img.shape[1]
-            sz = 0.92
-            ww, hh = sz * w / max(w, h), sz * h / max(w, h)
-            ax.imshow(img, extent=(x - ww / 2, x + ww / 2, y - hh / 2, y + hh / 2),
-                      zorder=6, interpolation="lanczos", aspect="auto")
+            sz = 1.02
+            ww = sz * w / max(w, h)
+            hh = sz * h / max(w, h) / AZ   # corrige l'aspect des degres (lat corrigee)
+            ext = (x - ww / 2, x + ww / 2, y - hh / 2, y + hh / 2)
+            # contour blanc très léger
+            ax.imshow(halo_image(img), extent=ext, zorder=5,
+                      interpolation="bilinear", aspect="auto")
+            ax.imshow(img, extent=ext, zorder=6,
+                      interpolation="lanczos", aspect="auto")
 
-        covered = "aucun" not in partner
-        halo = [pe.withStroke(linewidth=3.0, foreground="#FFFFFF")]
+        ha = "left" if direction > 0 else "right"
+        tx = x + direction * DX
+        halo = [pe.withStroke(linewidth=3.2, foreground="#FFFFFF")]
 
-        ax.text(tx, ty + 0.16, amount, fontsize=13.0, color="#0E2A3A", fontweight="bold",
-                ha=ha, va="center", zorder=8, path_effects=halo)
-        ax.text(tx, ty - 0.16, partner, fontsize=8.8,
-                color="#12624A" if covered else "#7C7C7C",
+        ax.text(tx, y + DY_AMOUNT, amount, fontsize=F_AMOUNT, color=C_AMOUNT,
+                fontweight="bold", ha=ha, va="center", zorder=8, path_effects=halo)
+
+        covered = partner != NO_PARTNER
+        ax.text(tx, y + DY_PARTNER, partner, fontsize=F_PARTNER,
+                color=C_PARTNER if covered else C_NO,
                 fontweight="bold" if covered else "normal",
                 style="normal" if covered else "italic",
                 ha=ha, va="center", zorder=8, path_effects=halo)
 
+    # ---- pied de page
     fig.text(0.010, 0.017,
-             "Source : Orbis (Bureau van Dijk) 20/10/2026 · INSEE · sites des clubs et des fintechs · "
-             "montants = solde mercato été 2026 (Transfermarkt, 02/09/2026)",
-             fontsize=6.6, color=TXT, ha="left", va="center")
+             "Source : Orbis (Bureau van Dijk) 20/10/2026 · INSEE · sites des clubs et des fintechs",
+             fontsize=8.2, color="#2A2A2A", ha="left", va="center")
+    fig.text(0.990, 0.017, "Montants = solde mercato été 2026",
+             fontsize=7.0, color="#5A5A5A", ha="right", va="center",
+             style="italic")
 
     out = os.path.join(ASSETS, "10-carte-clubs-couleurs.png")
     fig.savefig(out, dpi=DPI, facecolor=BG)
