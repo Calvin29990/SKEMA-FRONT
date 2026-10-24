@@ -1,8 +1,8 @@
 # RUNBOOK JOBS ÉTUDIANT & CDI TEMPS PARTIEL — Cléanne MINANG (24/10/2026)
 
-> **Cible géographique** : Rayon **5 à 15 min à pied / tram** autour du **47 rue Vantroyen, 59800 Lille** (Gare Lille Europe · Gare Lille Flandres · Westfield Euralille · Rue de Béthune · La Madeleine · Lille Fives).
+> **Cible géographique** : Rayon **2 à 12 min à pied / tram** autour du **51 rue de Tournai, 59800 Lille** (Gare Lille Flandres · Westfield Euralille · Gare Lille Europe · Rue de Béthune · La Madeleine · Lille Fives).
 > **Contrats visés** : **CDI Étudiant / CDI Temps Partiel (8h à 25h/sem.)** + **CDD Renfort Fin d'Année (Novembre–Décembre 2026)** transformables en CDI.
-> **Atout n°1 décisif de Cléanne** : Elle habite à **7 minutes à pied d'Euralille et des deux gares**, sans dépendre du métro → elle peut prendre les shifts de **6h00 du matin** (ouverture rayon Primark / Carrefour / Leclerc) et de **21h30 le soir** que 80 % des étudiants de Villeneuve-d'Ascq refusent.
+> **Atout n°1 décisif de Cléanne** : Elle habite au **51 rue de Tournai**, littéralement **à 2 minutes à pied de la Gare Lille Flandres et 3-4 min d'Euralille**, sans dépendre du métro → elle peut prendre les shifts de **6h00 du matin** (ouverture rayon Primark / Carrefour / Leclerc) et de **21h30 le soir** que 80 % des étudiants de Villeneuve-d'Ascq refusent.
 
 ---
 
@@ -142,9 +142,9 @@ Elle a **déjà** fait 2 missions d'agent d'accueil événementiel en stade (ao�
 >
 > Étudiante en Licence Économie et Gestion à l'Université de Lille (après une classe préparatoire ECG au lycée Gaston Berger), je vous adresse ma candidature pour un poste d'employée / vendeuse polyvalente (caisse, rayon, vente et accueil) en contrat étudiant / temps partiel.
 >
-> Résidant au 47 rue Vantroyen à Lille (à 7 minutes à pied des gares Lille Flandres / Lille Europe et du centre Westfield Euralille), je suis immédiatement disponible et totalement autonome dans mes déplacements, y compris pour les prises de poste matinales dès 6h00, en soirée, le week-end (samedi et dimanche) ainsi qu'à temps plein durant les vacances universitaires.
+> Résidant au 51 rue de Tournai à Lille (à 2 minutes à pied de la gare Lille Flandres et du centre Westfield Euralille), je suis immédiatement disponible et totalement autonome dans mes déplacements, y compris pour les prises de poste matinales dès 6h00, en soirée, le week-end (samedi et dimanche) ainsi qu'à temps plein durant les vacances universitaires.
 >
-> Mes récentes missions d'agent d'accueil événementiel au Stade Bollaert-Delelis (août et octobre 2026) m'ont habituée à accueillir, orienter et renseigner avec le sourire un flux très important de clients tout en respectant strictement les consignes de rapidité et de qualité de service. Rigoureuse, ponctuelle et à l'aise avec les chiffres, je m'intégrerai rapidement au sein de votre équipe.
+> Forte de plus de 3 mois d'expérience cumulée en accueil et relation client (dont mes récentes missions grand flux au Stade Bollaert-Delelis en août et octobre 2026 ainsi qu'en cabinet de conseil) et de 2 ans d'engagement associatif incluant la formation de nouveaux membres, je suis habituée à accueillir, orienter et renseigner avec le sourire un flux important de clients. Rigoureuse, ponctuelle et à l'aise avec les chiffres, je m'intégrerai rapidement au sein de votre équipe.
 >
 > Je reste à votre entière disposition pour un entretien à votre convenance.
 >
@@ -165,4 +165,4 @@ Elle a **déjà** fait 2 missions d'agent d'accueil événementiel en stade (ao�
   3. **H&M**, **Uniqlo**, **Zara**, **New Yorker**, **Normal**, **Rituals**, **Kusmi Tea**, **Pandora**
   4. **Quick Euralille**, **Burger King Euralille**, **McDonald's Gare Lille Flandres**
 - **Pitch oral de 20 secondes devant le/la manager** :
-  > *« Bonjour, excusez-moi de vous déranger, le/la responsable est disponible 30 secondes ? Je m'appelle Cléanne Minang, je suis étudiante en Éco-Gestion à Lille et j'habite juste à côté rue Vantroyen, à 7 minutes à pied d'ici. Je cherche un contrat étudiant temps partiel — je peux commencer dès 6h du matin, les soirs, tout le week-end et les vacances, et j'ai déjà fait de l'accueil grand flux en stade. Je vous laisse mon CV avec toutes mes disponibilités dessus ! »*
+  > *« Bonjour, excusez-moi de vous déranger, le/la responsable est disponible 30 secondes ? Je m'appelle Cléanne Minang, je suis étudiante en Éco-Gestion à Lille et j'habite juste à côté au 51 rue de Tournai, à 2 minutes à pied d'ici. Je cherche un contrat étudiant temps partiel — je peux commencer dès 6h du matin, les soirs, tout le week-end et les vacances, j'ai déjà plus de 3 mois d'expérience en accueil client et 2 ans d'asso où j'ai formé des équipes. Je vous laisse mon CV avec mes disponibilités dessus ! »*
