@@ -20,11 +20,11 @@
 
 - [ ] **#4 — Primark Westfield Euralille (3 min à pied)** — *Vendeur(se) Polyvalent(e) Temps Partiel / Étudiant (8h, 12h ou 25h/sem)*
   👉 Offre directe Euralille : https://careers.primark.com/fr/emploi/lille/vendeur-polyvalent/8171/95715092304
-  👉 Toutes les offres Primark Lille : https://fr.emploi.primark.com/recherche-d'offres/France+ *(filtrer Ville = Lille)*
+  👉 Toutes les offres Primark Lille : https://fr.emploi.primark.com/recherche-d%27offres/France *(filtrer Ville = Lille)*
   *Astuce :* Bien cocher **Oui** à la prise de poste à **6h00 du matin** (elle y est en 3 min à pied !).
 
 - [ ] **#5 — Lagardère Travel Retail (Relay / Monop' / Fnac EN GARE Lille Flandres & Lille Europe — 2 min à pied !)** — *Employé(e) Libre-Service H/F CDI / Temps partiel*
-  👉 Portail offres (filtrer Ville = **Lille** — 3 postes ouverts) : https://www.emploi-lagardere-travel-retail.fr/recherche-d'offres
+  👉 Portail offres (filtrer Ville = **Lille** — 3 postes ouverts) : https://www.emploi-lagardere-travel-retail.fr/recherche-d%27offres
   *Pourquoi elle passe :* Formation interne rémunérée certifiée, son Anglais B1 + accueil grand flux Stade de Lens matchent à 100 % avec la clientèle gare/Eurostar.
 
 - [ ] **#6 — Burger King Westfield Euralille & Lille Centre (3 min à pied)** — *Équipier(ère) Polyvalent(e) CDI Temps Partiel (78 % de temps partiels, recrutement sans expérience exigée)*
