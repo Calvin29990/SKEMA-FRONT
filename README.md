@@ -10,6 +10,7 @@
 | Dossier | Contenu | Quand l'utiliser |
 |---|---|---|
 | `candidatures/` | Suivi candidatures banques, debriefs, notes Arena | Candidatures, entretiens, runbooks |
+| `candidatures/PREPARATION-ENTRETIEN-GESTION21-ASSISTANT-SALES-JAN2027.md` | **Guide entretien Gestion 21** : motivation, pont vers FX sales, jargon et exercice Excel débutant | Préparation entretien de janvier 2027 |
 | `SKEMA-DOSSIER-ARCHIVE.md` | **Dispute financière SKEMA** (bourse ANBG, €7,500) | Problème SKEMA / titre de séjour |
 | `cours/` | Cours S1 + S2 M2 CFM, syllabus, lectures | Devoirs, examens, révisions |
 | `exercices/` | Exercices Excel, CFP, comptabilité | Pratique cours |
