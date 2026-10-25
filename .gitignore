@@ -20,6 +20,9 @@ desktop.ini
 *.temp
 *.log
 
+# Local Google Drive downloads (retain in workspace; do not commit)
+google_drive/
+
 # Archives (sauf si explicitement ajoutées)
 *.zip
 *.rar

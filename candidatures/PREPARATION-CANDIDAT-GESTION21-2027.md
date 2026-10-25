@@ -11,6 +11,7 @@
 - Les **faits de société** viennent prioritairement des pages et rapports officiels de Gestion 21.
 - Les performances de fonds présentées ici sont celles de **l’année civile 2025**, sauf mention contraire. Elles ne préjugent jamais des performances futures.
 - Les encours sont datés et leur périmètre est explicité : ne pas confondre les actifs des fonds avec les actifs sous gestion de la société, mandats compris.
+- Les comptes sociaux 2024–2025 proviennent des trois exports Orbis fournis ; les montants convertis en euros sont approximatifs, car les fichiers les présentent en USD avec un taux EUR/USD par exercice.
 - Les opinions sur les décotes, les perspectives et les risques sont attribuées aux gérants quand elles proviennent de leurs rapports.
 - Les noms de concurrents sont des **pairs de comparaison partielle**, pas un classement officiel ni l’affirmation d’une concurrence parfaitement symétrique.
 - Le guide technique détaillé du classeur est conservé séparément : [Guide Excel Gestion 21 — débutant et corrigé](GUIDE-EXCEL-GESTION21-DEBUTANT.md). Le présent dossier explique surtout ce que l’exercice cherche à tester et comment le relier à la société.
@@ -53,6 +54,33 @@ La page officielle d’histoire raconte la création de la société et des fond
 | Équipe | 9 collaborateurs | Chiffre publié sur la page société, à la même date de référence. |
 
 La somme des trois encours de fonds nommés atteint environ 214 M€, tandis que la société affiche 215 M€ d’encours. Les chiffres sont arrondis et le périmètre peut différer, notamment du fait des mandats ; le site ne fournit pas de rapprochement détaillé. La société annonce « 4 fonds et mandats », mais les sources publiques consultées ne nomment que **trois fonds collectifs**. Ne pas inventer le quatrième véhicule : demander en entretien s’il correspond à un mandat ou à une stratégie institutionnelle non publiée.
+
+### Ce que les trois exports Orbis ajoutent
+
+Les fichiers fournis (« Export 25_10_2026 17_15 », « 17_16 » et « 17_18 ») sont trois vues de la même fiche Orbis/Bureau van Dijk : chiffres clés et effectifs, entités rattachées à la rubrique « Fonds gérés », puis bilan et compte de résultat. Ils indiquent des exercices de douze mois clos au 31 décembre et des comptes sociaux en référentiel local. Les montants sont présentés en **USD**, avec un taux EUR/USD pour chaque année ; les valeurs en euros ci-dessous sont donc des conversions indicatives (USD divisé par le taux affiché), arrondies au millier d’euros. Ce sont les comptes de **la société de gestion**, pas les valeurs liquidatives ni les performances des fonds.
+
+| Donnée société | 2024 | 2025 | Lecture prudente |
+|---|---:|---:|---|
+| Chiffre d’affaires net | ≈ 3,78 M€ | ≈ 3,36 M€ | Baisse d’environ 11 % sur un an. |
+| Résultat d’exploitation (EBIT) | ≈ +0,86 M€ | ≈ −0,20 M€ | Passage d’un bénéfice d’exploitation à une perte d’exploitation. |
+| Résultat financier | ≈ +0,11 M€ | ≈ +0,52 M€ | La ligne financière contribue davantage au résultat 2025 ; le fichier ne permet pas d’en isoler ici la cause économique. |
+| Résultat net | ≈ +0,61 M€ | ≈ +0,30 M€ | Le bénéfice net reste positif, mais baisse d’environ 50 %. |
+| Total du bilan | ≈ 4,87 M€ | ≈ 3,72 M€ | Contraction d’environ 24 %. |
+| Capitaux propres | ≈ 3,63 M€ | ≈ 1,96 M€ | Baisse d’environ 46 % ; le jeu de fichiers ne suffit pas à en expliquer les mouvements. |
+| Autonomie financière (fonds propres / actif) | 74,5 % | 52,6 % | Ratio en recul, mais fonds propres toujours positifs. |
+| Liquidité générale | 3,45x | 1,98x | En baisse, mais supérieur à 1 dans l’export. |
+
+**Ce que cela change dans l’analyse.** Le chiffre d’affaires et le résultat d’exploitation reculent nettement en 2025, tandis que le résultat net demeure positif avec une contribution plus forte du résultat financier. Le bilan et les capitaux propres se contractent ; il faut donc éviter de décrire l’activité comme une croissance financière régulière. Mais ces seuls agrégats ne suffisent pas à conclure à une difficulté de solvabilité : le résultat net est positif, les fonds propres restent positifs et le ratio de liquidité ressort à 1,98x. Il manque notamment l’explication des mouvements de capitaux propres et le détail de la composition des produits financiers.
+
+Pour un candidat, la bonne posture est **lucidité sans spéculation** : ces chiffres sont un contexte à connaître, pas un motif pour diagnostiquer l’entreprise à distance ni une question agressive à l’entretien. Ils ne doivent jamais être confondus avec les 215 M€ d’actifs gérés : les comptes sociaux de Gestion 21 retracent sa propre société, les encours correspondent aux portefeuilles gérés pour les investisseurs.
+
+L’export d’effectifs est incomplet : il donne notamment 8 personnes en 2023 et 11 en 2021, mais pas de valeur renseignée pour 2024 ni 2025. Le chiffre actuel à retenir reste celui de la société : 9 collaborateurs au 30/09/2026. Les effectifs de bases de données ne sont pas interchangeables avec une photographie récente de l’équipe.
+
+### Prudence sur la liste Orbis « Fonds gérés »
+
+L’export 17_16 associe à Gestion 21 ACTIONS 21, OCC 21 et une entité nommée « 21 IMMOBILIER ». Cette dernière est identifiée par le SIREN/BvD ID **807 933 957**, sous la forme d’une société civile, à une adresse de Chenôve ; le registre d’entreprise la décrit comme une SCI de location immobilière. Ce n’est donc pas, sur la base des éléments vérifiés, le même instrument que le FCP public **IMMOBILIER 21** géré par Gestion 21. L’association de cette SCI dans une rubrique Orbis « Fonds gérés » ne prouve pas qu’elle soit un fonds de Gestion 21.
+
+L’export ne résout donc pas la question du « quatrième fonds et mandat ». Il confirme surtout qu’il faut vérifier les identifiants juridiques et les formes des entités, plutôt que de rapprocher deux noms similaires. Le registre BvD de produits est une donnée de fournisseur, pas un inventaire réglementaire faisant autorité.
 
 ---
 
@@ -315,6 +343,7 @@ Choisir deux ou trois questions, selon la conversation :
 - **Trois fonds identifiés :** ACTIONS 21 (actions surtout françaises, value), IMMOBILIER 21 (foncières cotées diversifiées zone euro), OCC 21 (foncières de commerces, investisseurs professionnels).
 - **Philosophie :** gestion active de conviction, analyse fondamentale, cash-flows, valorisation et horizon long.
 - **Encours société :** 215 M€ au 30/09/2026 ; trois fonds nommés totalisent environ 214 M€ sur la même date ; société mentionne également des mandats.
+- **Comptes sociaux 2025 (exports Orbis) :** chiffre d’affaires net converti ≈ 3,36 M€ contre 3,78 M€ en 2024 ; EBIT ≈ −0,20 M€ et résultat net ≈ +0,30 M€. Résultats de la société de gestion, distincts des rendements et encours des fonds.
 - **Clients / distribution :** institutionnels, catégories SG/GP, CGP et particuliers ; canaux de distribution à distinguer des investisseurs finaux.
 - **2025 :** ACTIONS 21 I +19,94 % ; IMMOBILIER 21 IC +10,1 % ; OCC 21 IC +24,63 %. Résultats historiques, non prédictifs.
 - **Bilan 2024 :** ACTIONS 21 −6,6 % ; IMMOBILIER 21 +2,5 % contre −2,6 % pour le secteur ; exercice Excel OCC 21 IC +10,04 %.
@@ -325,31 +354,26 @@ Choisir deux ou trois questions, selon la conversation :
 
 ## Sources principales et limites
 
-Sources officielles consultées le **25 octobre 2026** ; pour les performances et rapports, l’année de référence est indiquée dans le texte.
+Sources consultées le **25 octobre 2026** ; pour les performances et rapports, l’année de référence est indiquée dans le texte.
 
-### Société, équipe, stratégie, accès
+### Fichiers transmis par le candidat
 
-- [La société et son historique](https://gestion-21.fr/societe/) — création, dirigeants, chronologie, chiffres de société au 30/09/2026.
-- [L’équipe](https://gestion-21.fr/equipe/) — fonctions et biographies des fondateurs.
-- [Principes d’investissement](https://gestion-21.fr/principes-investissement/) — gestion value, cash-flows, conviction, horizon long et intégration ESG.
-- [Souscrire aux fonds](https://gestion-21.fr/souscrire/) — accès investisseurs, PEA, fréquence et référencements.
-- [ACTIONS 21](https://gestion-21.fr/funds/actions-21/) · [IMMOBILIER 21](https://gestion-21.fr/funds/immobilier-21/) · [OCC 21](https://gestion-21.fr/funds-occ-21/) — caractéristiques, documents et risques.
-- [Communiqué Label ISR initial](https://gestion-21.fr/nos-fonds-actions-21-et-immobilier-21-obtiennent-le-label-isr/) — contexte historique des labels obtenus en 2021.
-- [Communiqué Emergence](https://gestion-21.fr/emergence-selectionne-gestion-21-pour-son-21e-investissement/) — investissement historique de 50 M€ et signification du « 21e investissement » dans le programme Emergence.
+- Exports Orbis du 25/10/2026 : [17_15 — chiffres clés / effectifs](https://docs.google.com/spreadsheets/d/1AFIwAzWXVzyw16uuHXsRJ74oQkDhAi29/edit), [17_16 — entités « Fonds gérés »](https://docs.google.com/spreadsheets/d/1_Z9i3iVBLmqpOxfhQkVOxWqfOZ5WouBX/edit) et [17_18 — comptes, bilan et résultat](https://docs.google.com/spreadsheets/d/17V6Wi_34RCtebIGLKGt5wl2PXlhZCqxi/edit). Les fichiers sont conservés localement dans `google_drive/` ; les montants comptables sont en USD et les euros du dossier sont des conversions arrondies au taux indiqué dans chaque export.
+- [Recoupement de la SCI 21 IMMOBILIER](https://www.pappers.fr/entreprise/21-immobilier-807933957) et [comptes sociaux de Gestion 21](https://www.pappers.fr/entreprise/gestion-21-497763979) — sources secondaires pour distinguer l’entité de Chenôve et vérifier l’ordre de grandeur des chiffres publiés.
 
-### Rapports de fonds
+### Société, équipe et produits
 
-- [Rapport annuel ACTIONS 21 2025](https://gestion-21.fr/wp-content/uploads/2026/05/ACTIONS-21-Rapport-annuel-global-2025.pdf) — performances, portefeuille, évolution ISR/ESG, risques.
-- [Rapport IMMOBILIER 21 / OCC 21 2025](https://gestion-21.fr/wp-content/uploads/2026/02/IMMOBILIER-21-2025.pdf) — analyse immobilière, classements et commentaires de gestion.
-- [Rapport annuel OCC 21 2025](https://gestion-21.fr/wp-content/uploads/2026/05/OCC-21-Rapport-annuel-global-2025.pdf) — performances, parts, positions, distribution et risques professionnels.
-- [Bilan 2024 et perspectives 2025](https://gestion-21.fr/publication-des-rapports-2024-des-fcp-actions-21-immobilier-21-occ-21/) — commentaire de gestion 2024 utilisé dans la section 7.
-- [Guide Excel détaillé du classeur transmis](GUIDE-EXCEL-GESTION21-DEBUTANT.md) — dates retenues, formules, performances et limites des sept questions.
+- [Société / historique](https://gestion-21.fr/societe/) · [équipe](https://gestion-21.fr/equipe/) · [principes d’investissement](https://gestion-21.fr/principes-investissement/) · [souscription et distribution](https://gestion-21.fr/souscrire/).
+- Fiches officielles : [ACTIONS 21](https://gestion-21.fr/funds/actions-21/) · [IMMOBILIER 21](https://gestion-21.fr/funds/immobilier-21/) · [OCC 21](https://gestion-21.fr/funds-occ-21/).
+- [Historique Label ISR](https://gestion-21.fr/nos-fonds-actions-21-et-immobilier-21-obtiennent-le-label-isr/) · [communiqué Emergence](https://gestion-21.fr/emergence-selectionne-gestion-21-pour-son-21e-investissement/) (investissement historique, 2020).
 
-### Exemples de pairs, pas de classement
+### Rapports et dossier de travail
 
-- [Moneta Multi Caps](https://www.moneta.fr/fonds/moneta-multi-caps) — fonds d’actions multi-capitalisations, majoritairement français.
-- [Janus Henderson Pan European Property Equities](https://www.janushenderson.com/en-gb/investor/product/janus-henderson-horizon-pan-european-property-equities-fund/) — fonds d’actions immobilières européennes cotées.
-- [BNP Paribas Europe Real Estate Securities](https://docfinder.bnpparibas-am.com/api/files/210db40c-aa80-4a43-8024-01ffa1006737/512) — fonds actif de foncières cotées européennes.
-- [Cohen & Steers European Real Estate Securities](https://www.cohenandsteers.com/funds/european-real-estate-securities-fund/) — stratégie d’actions immobilières européennes cotées.
+- Rapports 2025 : [ACTIONS 21](https://gestion-21.fr/wp-content/uploads/2026/05/ACTIONS-21-Rapport-annuel-global-2025.pdf) · [IMMOBILIER 21 / OCC 21](https://gestion-21.fr/wp-content/uploads/2026/02/IMMOBILIER-21-2025.pdf) · [rapport annuel OCC 21](https://gestion-21.fr/wp-content/uploads/2026/05/OCC-21-Rapport-annuel-global-2025.pdf).
+- [Bilan 2024 et perspectives 2025](https://gestion-21.fr/publication-des-rapports-2024-des-fcp-actions-21-immobilier-21-occ-21/) · [guide Excel détaillé](GUIDE-EXCEL-GESTION21-DEBUTANT.md).
 
-**Limites :** les données commerciales sur la composition de la clientèle sont publiées par la société et leur méthode de calcul n’est pas entièrement détaillée dans le support consulté. Les encours sont arrondis et datés. Les classements cités proviennent des rapports de Gestion 21 et sont limités à la période / catégorie qu’ils décrivent. Les prévisions, décotes, multiples sectoriels et scénarios sont des analyses de la société de gestion, pas des certitudes. Vérifier les prospectus et documents d’informations clés en vigueur avant toute décision d’investissement.
+### Pairs cités, sans classement
+
+[Moneta Multi Caps](https://www.moneta.fr/fonds/moneta-multi-caps) · [Janus Henderson Pan European Property Equities](https://www.janushenderson.com/en-gb/investor/product/janus-henderson-horizon-pan-european-property-equities-fund/) · [BNP Paribas Europe Real Estate Securities](https://docfinder.bnpparibas-am.com/api/files/210db40c-aa80-4a43-8024-01ffa1006737/512) · [Cohen & Steers European Real Estate Securities](https://www.cohenandsteers.com/funds/european-real-estate-securities-fund/).
+
+**Limites :** les données de clientèle et les catégories publiées par la société n’ont pas de méthodologie détaillée dans le support consulté. Encours et classements sont datés ; les prévisions et décotes sont les analyses du gérant, pas des certitudes. Vérifier les DIC et prospectus en vigueur avant toute décision d’investissement.

@@ -185,7 +185,7 @@ class CandidateDoc(BaseDocTemplate):
             canvas.drawString(17*mm, h - 10.2*mm, "GESTION 21  /  PRÉPARATION CANDIDAT")
             canvas.setFont("DejaVu", 7.2)
             canvas.setFillColor(MUTED)
-            canvas.drawRightString(w - 17*mm, h - 10.2*mm, "Sources publiques · 25 octobre 2026")
+            canvas.drawRightString(w - 17*mm, h - 10.2*mm, "Sources consultées · 25 octobre 2026")
         canvas.setStrokeColor(GRID)
         canvas.setLineWidth(0.5)
         canvas.line(17*mm, 12*mm, w - 17*mm, 12*mm)
