@@ -13,6 +13,7 @@
 | `candidatures/PREPARATION-ENTRETIEN-GESTION21-ASSISTANT-SALES-JAN2027.md` | **Guide entretien Gestion 21** : motivation, pont vers FX sales, jargon et exercice Excel débutant | Préparation entretien de janvier 2027 |
 | `candidatures/GUIDE-EXCEL-GESTION21-DEBUTANT.md` | **Questionnaire Excel Gestion 21 — corrigé complet** : explication des 3 onglets, calculs exacts, formules Excel, base 100, corrélation, jargon et trois exemples d’actions | Préparation au cas Excel |
 | `candidatures/GUIDE-COPILOT-QUESTIONNAIRE-GESTION21.pdf` | **Pack PDF Copilot à télécharger** : prompt de tutorat, données exactes, série mensuelle taux/VL, méthode d’apprentissage et corrigé de contrôle | Travailler dans Excel avec Copilot |
+| `candidatures/GLOSSAIRE-SIGLES-FONDS-GESTION21.pdf` | **Glossaire PDF — sigles et fonds Gestion 21** : fonds ACTIONS 21, IMMOBILIER 21 et OCC 21, catégories de parts, codes ISIN, dates de création et définitions en langage simple | Décoder le vocabulaire du document |
 | `SKEMA-DOSSIER-ARCHIVE.md` | **Dispute financière SKEMA** (bourse ANBG, €7,500) | Problème SKEMA / titre de séjour |
 | `cours/` | Cours S1 + S2 M2 CFM, syllabus, lectures | Devoirs, examens, révisions |
 | `exercices/` | Exercices Excel, CFP, comptabilité | Pratique cours |
