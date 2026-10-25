@@ -11,6 +11,7 @@
 |---|---|---|
 | `candidatures/` | Suivi candidatures banques, debriefs, notes Arena | Candidatures, entretiens, runbooks |
 | `candidatures/PREPARATION-ENTRETIEN-GESTION21-ASSISTANT-SALES-JAN2027.md` | **Guide entretien Gestion 21** : motivation, pont vers FX sales, jargon et exercice Excel débutant | Préparation entretien de janvier 2027 |
+| `candidatures/GUIDE-EXCEL-GESTION21-DEBUTANT.md` | **Questionnaire Excel Gestion 21** : explication des onglets, jargon, méthodes et résolution guidée des 7 questions à partir des captures | Préparation au cas Excel |
 | `SKEMA-DOSSIER-ARCHIVE.md` | **Dispute financière SKEMA** (bourse ANBG, €7,500) | Problème SKEMA / titre de séjour |
 | `cours/` | Cours S1 + S2 M2 CFM, syllabus, lectures | Devoirs, examens, révisions |
 | `exercices/` | Exercices Excel, CFP, comptabilité | Pratique cours |
