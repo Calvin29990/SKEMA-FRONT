@@ -10,6 +10,9 @@
 | Dossier | Contenu | Quand l'utiliser |
 |---|---|---|
 | `candidatures/` | Suivi candidatures banques, debriefs, notes Arena | Candidatures, entretiens, runbooks |
+| `candidatures/PREPARATION-CANDIDAT-GESTION21-2027.pdf` | **Dossier complet de préparation Gestion 21** : histoire, nom, fondateurs, stratégie, 3 fonds, performances datées, clientèle, pairs, risques, bilan 2024 et questionnaire Excel | Livrable principal de préparation candidat |
+| `candidatures/PREPARATION-CANDIDAT-GESTION21-2027.md` | Source éditable du dossier complet | Mettre à jour le PDF via le script associé |
+| `candidatures/build_preparation_gestion21_pdf.py` | Générateur reproductible du dossier PDF (ReportLab) | Régénérer le PDF après modification de la source |
 | `candidatures/PREPARATION-ENTRETIEN-GESTION21-ASSISTANT-SALES-JAN2027.md` | **Guide entretien Gestion 21** : motivation, pont vers FX sales, jargon et exercice Excel débutant | Préparation entretien de janvier 2027 |
 | `candidatures/GUIDE-EXCEL-GESTION21-DEBUTANT.md` | **Questionnaire Excel Gestion 21 — corrigé complet** : explication des 3 onglets, calculs exacts, formules Excel, base 100, corrélation, jargon et trois exemples d’actions | Préparation au cas Excel |
 | `candidatures/GUIDE-COPILOT-QUESTIONNAIRE-GESTION21.pdf` | **Pack PDF Copilot à télécharger** : prompt de tutorat, données exactes, série mensuelle taux/VL, méthode d’apprentissage et corrigé de contrôle | Travailler dans Excel avec Copilot |
