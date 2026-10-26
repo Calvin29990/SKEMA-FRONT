@@ -153,9 +153,13 @@
     if (!window.fetch) { Data.status = 'sim'; paintDataBar(); return Promise.resolve(null); }
     var url = '/api/quotes?symbols=' + Object.keys(Data.tickers).join(',');
     return fetch(url, { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (r) {
+        if (r.status === 404) { Data.status = 'sim'; paintDataBar(); return null; }   // hébergement statique
+        return r.ok ? r.json() : null;
+      })
       .then(function (j) {
-        if (!j || !j.ok) { Data.status = 'offline'; paintDataBar(); return null; }
+        if (!j) return null;
+        if (!j.ok) { Data.status = 'offline'; paintDataBar(); return null; }
         var anchors = {}, got = 0;
         (j.items || []).forEach(function (it) {
           if (it.error || !it.price) return;
