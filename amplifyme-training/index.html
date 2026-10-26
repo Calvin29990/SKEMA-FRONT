@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AmplifyME Trainer — CFA Investing Simulator Challenge 2026</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ================================================================ HUB -->
+  <section class="screen active" id="screen-hub">
+    <div class="hub-top">
+      <div class="brand-lg"><span class="tri">▲</span> AMPLIFY<span class="brand-dim">ME</span> <span class="brand-slash">//</span> TRAINER</div>
+      <div class="hub-event">CFA INSTITUTE × SKEMA · INVESTING SIMULATOR CHALLENGE · 27 OCT 2026 · 18:00 GMT</div>
+    </div>
+
+    <div class="hub-body">
+      <div class="hub-kicker">SIMULATION D'ENTRAÎNEMENT · HORS LIGNE · ZÉRO DONNÉE LIVE</div>
+      <h1>Les bons réflexes <em>avant</em> 18:00.</h1>
+      <p class="hub-lead">
+        Un clone fonctionnel du desk Sales &amp; Trading AmplifyME : tu quotes, le client tape,
+        tu hedges, tu tiens ta limite de risque. Même boucle, mêmes métriques
+        (<b>NUMT · COMM · FFC · SSRM</b>), mêmes erreurs qui coûtent des points.
+      </p>
+
+      <div class="hub-cards">
+        <button class="hub-card" data-go="brief">
+          <div class="hc-ico hc-live">▦</div>
+          <div class="hc-body">
+            <h3>Session complète</h3>
+            <p>Le format réel enchaîné : round 1 Asset Manager, puis le desk Investment Bank (market maker + sales trader).</p>
+            <div class="hc-meta"><span class="pill pill-teal">8 à 14 min</span><span class="pill">score AmplifyME</span></div>
+          </div>
+          <div class="hc-arrow">→</div>
+        </button>
+
+        <button class="hub-card" data-start="am">
+          <div class="hc-ico hc-am">◧</div>
+          <div class="hc-body">
+            <h3>Desk Asset Manager</h3>
+            <p>Le round buy-side : $20M, 5 lignes, news en continu. Alpha vs benchmark, drawdown, concentration.</p>
+            <div class="hc-meta"><span class="pill pill-violet">round 1 du vrai event</span><span class="pill">240 s</span></div>
+          </div>
+          <div class="hc-arrow">→</div>
+        </button>
+
+        <button class="hub-card" data-go="drills">
+          <div class="hc-ico hc-drill">⚡</div>
+          <div class="hc-body">
+            <h3>Drills réflexes</h3>
+            <p>Bid/offer, P&amp;L, hedge, notionnel, fat finger, limite de risque. Chrono 60 s.</p>
+            <div class="hc-meta"><span class="pill pill-amber">6 exercices</span><span class="pill">clavier</span></div>
+          </div>
+          <div class="hc-arrow">→</div>
+        </button>
+
+        <button class="hub-card" data-go="cheat">
+          <div class="hc-ico hc-cheat">✎</div>
+          <div class="hc-body">
+            <h3>Fiche de bataille</h3>
+            <p>Les critères du jeu, la boucle en 5 gestes, les 12 réflexes, le plan des 2 heures.</p>
+            <div class="hc-meta"><span class="pill pill-blue">à relire demain 17:40</span></div>
+          </div>
+          <div class="hc-arrow">→</div>
+        </button>
+      </div>
+
+      <div class="hub-note">
+        <b>Demain, mardi 27 octobre, 18:00–20:00 GMT</b> (20:00–22:00 Paris) · rôles <b>Asset Manager</b> puis
+        <b>Investment Bank Trader</b> · les <b>300 premiers</b> vont à la finale du 17 novembre (bourse CFA®).<br>
+        <b>Objectif : top 100.</b> Ce trainer installe les gestes pour ne pas perdre les 10 premières minutes
+        à chercher les boutons — il ne remplace pas les vidéos de pré-lecture.
+      </div>
+    </div>
+
+    <div class="hub-foot">
+      <span>▲ SKEMA M2 CFM · Calvin MINANG</span>
+      <span>Outil d'entraînement local — non affilié à AmplifyME / CFA Institute</span>
+    </div>
+  </section>
+
+  <!-- ============================================================= BRIEFING -->
+  <section class="screen" id="screen-brief">
+    <div class="page">
+      <a class="back" data-go="hub">← Hub</a>
+      <div class="kicker">AVANT DE CLIQUER</div>
+      <div class="round-banner" style="border-left-color:var(--violet);background:linear-gradient(90deg,rgba(157,140,255,.13),transparent)">
+        <b>Format du vrai event :</b> round 1 = <b>Asset Manager</b> ($20M à investir, 5 lignes, news en continu),
+        puis le desk <b>Investment Bank</b> (market maker + sales trader). Cette session enchaîne les deux,
+        comme le 27 octobre. Le round buy-side se lance aussi seul depuis le hub.
+      </div>
+      <h2 class="page-title">Ton rôle : <em>tout le desk</em>.</h2>
+      <p class="page-sub">
+        Le mode <b>Single User Mode / all roles</b> te fait tourner sur les trois casquettes.
+        Le score ne récompense pas le héros qui prend du risque : il récompense celui qui
+        fait tourner le flux <b>sans jamais se faire sortir par une position</b>.
+      </p>
+
+      <div class="brief-grid">
+        <div class="brief-card">
+          <div class="bc-tag">RÔLE 1</div>
+          <h4>Market Maker</h4>
+          <p>Tu affiches un <b>bid</b> et un <b>offer</b> à deux sens. Tu gagnes le spread,
+          tu perds si ton prix est vieux ou trop agressif.</p>
+        </div>
+        <div class="brief-card">
+          <div class="bc-tag">RÔLE 2</div>
+          <h4>Sales Trader</h4>
+          <p>Les clients (HF1, HF2, …) demandent un prix. Répondre vite, serré, juste.
+          C'est ça qui génère <b>NUMT</b> et <b>COMM</b>.</p>
+        </div>
+        <div class="brief-card">
+          <div class="bc-tag">RÔLE 3</div>
+          <h4>Risk Manager</h4>
+          <p>Chaque trade te laisse une position. Tu la hedges au marché. Tu restes sous
+          <b>100 000 actions</b> par ligne, et à plat à la cloche.</p>
+        </div>
+      </div>
+
+      <div class="brief-metrics">
+        <div class="bm"><span>NUMT</span><p>Nombre de trades client. Le flux se gagne en répondant à <i>toutes</i> les RFQ.</p></div>
+        <div class="bm"><span>COMM</span><p>Commission générée. 8 bps du notionnel, uniquement sur le flux client.</p></div>
+        <div class="bm"><span>FFC</span><p>Fat Finger Count. Prix croisé, prix à 5 % du mid, volume ×10 : chaque erreur coûte.</p></div>
+        <div class="bm"><span>SSRM</span><p>Sell-Side Risk Management. Temps passé proche de la limite + positions ouvertes à la cloche.</p></div>
+      </div>
+
+      <div class="brief-loop">
+        <div class="bl-step"><b>1</b><span>RFQ arrive<br><small>chat + bannière</small></span></div>
+        <div class="bl-arr">→</div>
+        <div class="bl-step"><b>2</b><span>Tu quotes<br><small>bid &lt; mid &lt; offer</small></span></div>
+        <div class="bl-arr">→</div>
+        <div class="bl-step"><b>3</b><span>Client tape<br><small>tu prends la position</small></span></div>
+        <div class="bl-arr">→</div>
+        <div class="bl-step"><b>4</b><span>Tu hedges<br><small>au marché, par petits blocs</small></span></div>
+        <div class="bl-arr">→</div>
+        <div class="bl-step"><b>5</b><span>Tu reprices<br><small>surtout après une news</small></span></div>
+      </div>
+
+      <div class="setup">
+        <div class="setup-row">
+          <label>Rounds</label>
+          <div class="seg" id="optRounds">
+            <button data-val="1">1</button><button data-val="2" class="on">2</button>
+          </div>
+        </div>
+        <div class="setup-row">
+          <label>Durée / round</label>
+          <div class="seg" id="optDuration">
+            <button data-val="120">2 min</button><button data-val="180" class="on">3 min</button><button data-val="300">5 min</button><button data-val="480">8 min</button>
+          </div>
+        </div>
+        <div class="setup-row">
+          <label>Densité</label>
+          <div class="seg" id="optDiff">
+            <button data-val="calme">Calme</button><button data-val="normal" class="on">Normal</button><button data-val="chaos">Chaos</button>
+          </div>
+        </div>
+        <div class="setup-row">
+          <label>Roues stabilisatrices</label>
+          <div class="seg" id="optWheels">
+            <button data-val="on" class="on">ON — prix pré-remplis</button><button data-val="off">OFF — je price seul</button>
+          </div>
+        </div>
+        <div class="setup-row">
+          <label>Son</label>
+          <div class="seg" id="optSound">
+            <button data-val="on" class="on">🔊 ON</button><button data-val="off">OFF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="brief-start">
+        <button class="btn btn-teal btn-xl" id="btnStartSim">Lancer la session →</button>
+        <div class="brief-hint">Astuce : première session en <b>2 rounds × 3 min</b>, roues ON. Deuxième session roues OFF.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ SIMULATION -->
+  <section class="screen" id="screen-sim">
+    <header class="sim-top">
+      <div class="brand-sm"><span class="tri">▲</span> AMPLIFY <span class="brand-dim">SIM</span></div>
+      <div class="top-clock" id="marketClock">13:22:62</div>
+      <div class="top-metric"><label>Realised P&amp;L</label><b id="mRealised">0</b></div>
+      <div class="top-metric"><label>Unrealised P&amp;L</label><b id="mUnrealised">0</b></div>
+      <div class="top-metric"><label>Commission</label><b id="mCommission" class="c-teal">0</b></div>
+      <div class="top-metric"><label>Total P&amp;L</label><b id="mTotal" class="c-amber">0</b></div>
+      <div class="top-spacer"></div>
+      <div class="round-chip" id="roundChip">
+        <span class="rc-lbl">ROUND <b id="roundNo">1</b>/<span id="roundTot">2</span></span>
+        <span class="rc-clock" id="roundClock">03:00</span>
+      </div>
+      <button class="icon-btn" id="btnSound" title="Son">🔊</button>
+      <button class="icon-btn" id="btnPause" title="Pause (Espace)">❚❚</button>
+      <button class="icon-btn" id="btnHelp" title="Raccourcis (?)">?</button>
+      <button class="icon-btn icon-danger" id="btnQuit" title="Quitter">✕</button>
+    </header>
+
+    <div class="sim-grid">
+      <!-- EQUITIES -->
+      <section class="panel equities" id="panelEquities" style="grid-area:eq">
+        <div class="panel-h"><span>1. EQUITIES</span><span class="ph-r" id="eqClock">·</span></div>
+        <div class="panel-b">
+          <table class="tbl eq-table">
+            <thead><tr><th>TICKER</th><th class="r">BID</th><th class="r">OFFER</th><th class="r">% CHG</th><th class="r">POS</th></tr></thead>
+            <tbody id="equitiesBody"></tbody>
+          </table>
+          <div class="eq-foot" id="eqFoot"></div>
+        </div>
+      </section>
+
+      <!-- NEWS -->
+      <section class="panel news" style="grid-area:news">
+        <div class="panel-h"><span>2. NEWS</span><span class="ph-r" id="newsCount">0</span></div>
+        <div class="panel-b" id="newsList">
+          <div class="news-empty">Les headlines arrivent ici. Chaque news déplace le mid — et peut sniper tes quotes laissées en vie.</div>
+        </div>
+      </section>
+
+      <!-- POSITIONS -->
+      <section class="panel pos" style="grid-area:pos">
+        <div class="panel-h tabs" id="posTabs">
+          <button class="tab on" data-tab="positions">POSITIONS</button>
+          <button class="tab" data-tab="blotter">TRADE BLOTTER</button>
+          <span class="ph-r" id="posCount">0</span>
+        </div>
+        <div class="panel-b" id="posBodyWrap">
+          <div id="positionsView">
+            <table class="tbl pos-table">
+              <thead><tr><th>SECURITY</th><th class="r">NET POS</th><th class="r">AVG.</th><th class="r">UNREAL</th><th class="r">REALISED</th><th class="r">RISK</th></tr></thead>
+              <tbody id="positionsBody"></tbody>
+            </table>
+            <div class="risk-block">
+              <div class="risk-line"><span>Limite par ligne</span><b id="riskLimitTxt">100 000</b></div>
+              <div class="risk-bar"><i id="riskBar"></i></div>
+              <div class="risk-line"><span>Exposition brute</span><b id="exposureTxt">$0</b></div>
+            </div>
+          </div>
+          <table class="tbl blotter-table" id="blotterView" style="display:none">
+            <thead><tr><th>TIME</th><th>SEC</th><th>SIDE</th><th class="r">QTY</th><th class="r">PRICE</th><th class="r">NOTIONAL</th></tr></thead>
+            <tbody id="blotterBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CHAT -->
+      <section class="panel chat" style="grid-area:chat">
+        <div class="panel-h tabs" id="chatTabs"></div>
+        <div class="panel-b chat-body" id="chatBody">
+          <div class="chat-list" id="chatList"></div>
+        </div>
+        <div class="chat-input-row">
+          <input id="chatInput" type="text" placeholder="Message ou @quote…" autocomplete="off">
+          <button class="btn btn-blue btn-sm" id="chatSend">ENVOYER</button>
+        </div>
+      </section>
+
+      <!-- QUOTE TICKET -->
+      <section class="panel ticket" id="panelTicket" style="grid-area:ticket">
+        <div class="panel-h"><span>3. QUOTE TICKET</span><span class="ph-r" id="ticketHint">prêt</span></div>
+        <div class="rfq-banner" id="rfqBanner">
+          <div class="rb-main">
+            <span class="rb-dot"></span>
+            <span id="rbText">Aucune RFQ en cours</span>
+          </div>
+          <div class="rb-bar"><i id="rbBar"></i></div>
+        </div>
+        <div class="ticket-body">
+          <div class="tk-row">
+            <div class="field">
+              <label>Ticket</label>
+              <select id="qTicker">
+                <option>BABA</option><option>MSFT</option><option>VW</option><option>HSBC</option><option selected>BP</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Valid for seconds</label>
+              <input id="qValid" type="number" min="5" max="120" step="5" value="45">
+            </div>
+          </div>
+          <div class="tk-row">
+            <div class="field">
+              <label>Bid Price <small>← tu achètes</small></label>
+              <input id="qBid" type="number" step="0.01" inputmode="decimal" placeholder="0.00">
+            </div>
+            <div class="field">
+              <label>Offer Price <small>← tu vends</small></label>
+              <input id="qOffer" type="number" step="0.01" inputmode="decimal" placeholder="0.00">
+            </div>
+          </div>
+          <div class="tk-row">
+            <div class="field">
+              <label>Bid Volume</label>
+              <input id="qBidVol" type="number" step="1000" value="50000">
+            </div>
+            <div class="field">
+              <label>Offer Volume</label>
+              <input id="qOfferVol" type="number" step="1000" value="50000">
+            </div>
+          </div>
+          <div class="tk-calc" id="tkCalc">
+            <span>spread —</span><span>mid —</span><span>notionnel —</span>
+          </div>
+          <div class="tk-actions">
+            <button class="btn btn-ghost" id="btnMid" title="M — centrer sur le mid (± 5 bps)">MID ± 5 bps</button>
+            <button class="btn btn-teal btn-quote" id="btnSendQuote">SEND QUOTE <kbd>↵</kbd></button>
+          </div>
+        </div>
+        <div class="panel-h sub"><span>LIVE CHAT QUOTES</span><span class="ph-r" id="liveCount">0</span></div>
+        <div class="live-wrap">
+          <table class="tbl live-table">
+            <thead><tr><th>SEC</th><th class="r">BID VOL</th><th class="r">BID</th><th class="r">OFFER</th><th class="r">VOL</th><th class="r">VALID</th><th></th></tr></thead>
+            <tbody id="liveQuotesBody"></tbody>
+          </table>
+          <div class="live-empty" id="liveEmpty">Aucune quote en vie. Une quote oubliée après une news = pick-off garanti.</div>
+        </div>
+      </section>
+
+        <section class="panel exchange" style="grid-area:exch">
+          <div class="panel-h"><span>4. EXCHANGE</span><span class="ph-r">hedge au marché</span></div>
+          <div class="pb-body">
+            <div class="x-head">
+              <select id="xTicker"><option>BABA</option><option>MSFT</option><option>VW</option><option>HSBC</option><option selected>BP</option></select>
+              <input id="xQty" type="number" step="1000" value="0" title="Quantité">
+              <button class="btn btn-ghost btn-flat" id="xFlatten" title="F — flat la ligne">FLAT</button>
+            </div>
+            <div class="x-prices">
+              <button class="x-side sell" id="xSellBtn">
+                <span class="xs-lbl">SELL <small>tu vends au bid</small></span>
+                <span class="xs-px" id="xSell">0.00</span>
+              </button>
+              <button class="x-side buy" id="xBuyBtn">
+                <span class="xs-lbl">BUY <small>tu achètes à l'offer</small></span>
+                <span class="xs-px" id="xBuy">0.00</span>
+              </button>
+            </div>
+            <div class="x-meta">
+              <div><label>Notional</label><b id="xNotional">$0</b></div>
+              <div><label>Impact spread</label><b id="xImpact">—</b></div>
+            </div>
+            <div class="depth" id="depth"></div>
+          </div>
+        </section>
+
+        <section class="panel chart" style="grid-area:chart">
+          <div class="panel-h">
+            <span id="chartTitle">BP</span>
+            <span class="chart-tools">
+              <button class="chip" data-tf="60">1m</button>
+              <button class="chip on" data-tf="180">3m</button>
+              <button class="chip" data-tf="600">ALL</button>
+              <button class="chip on" data-mode="line">LINE</button>
+              <button class="chip" data-mode="candle">CDL</button>
+              <button class="chip on" data-sma="1">SMA</button>
+            </span>
+          </div>
+          <div class="chart-wrap"><canvas id="chartCanvas"></canvas></div>
+        </section>
+    </div>
+
+    <footer class="sim-foot">
+      <span><kbd>1</kbd>–<kbd>5</kbd> ticker</span>
+      <span><kbd>M</kbd> mid ±5 bps</span>
+      <span><kbd>↵</kbd> send quote</span>
+      <span><kbd>S</kbd> sell</span>
+      <span><kbd>B</kbd> buy</span>
+      <span><kbd>F</kbd> flat</span>
+      <span><kbd>X</kbd> cancel quotes</span>
+      <span><kbd>Espace</kbd> pause</span>
+      <span class="foot-right" id="deskStatus">Desk ouvert</span>
+    </footer>
+  </section>
+
+  <!-- ============================================================ ASSET MANAGER -->
+  <section class="screen" id="screen-am">
+    <header class="sim-top">
+      <div class="brand-sm"><span class="tri">▲</span> AMPLIFY <span class="brand-dim">BUY-SIDE</span></div>
+      <div class="top-clock" id="amClock">13:22:62</div>
+      <div class="top-metric"><label>Portfolio value</label><b id="amValue">20,000,000</b></div>
+      <div class="top-metric"><label>P&amp;L</label><b id="amPnl">0</b></div>
+      <div class="top-metric"><label>Return</label><b id="amRet" class="c-teal">0.00%</b></div>
+      <div class="top-metric"><label>vs Benchmark</label><b id="amAlpha">0.00%</b></div>
+      <div class="top-metric"><label>Cash</label><b id="amCash">20,000,000</b></div>
+      <div class="top-spacer"></div>
+      <div class="round-chip">
+        <span class="rc-lbl">ROUND <b>1</b>/2 · AM</span>
+        <span class="rc-clock" id="amRoundClock">04:00</span>
+      </div>
+      <button class="icon-btn" id="amBtnHelp" title="Aide">?</button>
+      <button class="icon-btn" id="amBtnPause" title="Pause">❚❚</button>
+      <button class="icon-btn icon-danger" id="amBtnQuit" title="Quitter">✕</button>
+    </header>
+
+    <div class="am-grid">
+      <section class="panel am-watch">
+        <div class="panel-h"><span>WATCHLIST · 5 NOMS</span><span class="ph-r" id="amExposure">0 % investi</span></div>
+        <div class="panel-b">
+          <table class="tbl eq-table">
+            <thead><tr><th>TICKER</th><th class="r">BID</th><th class="r">OFFER</th><th class="r">%</th><th class="r">POS</th></tr></thead>
+            <tbody id="amWatchBody"></tbody>
+          </table>
+          <div class="panel-h sub" style="margin-top:6px"><span>POSITIONS</span><span class="ph-r" id="amPosCount">0</span></div>
+          <table class="tbl pos-table">
+            <thead><tr><th>SEC</th><th class="r">QTY</th><th class="r">AVG</th><th class="r">P&amp;L</th><th class="r">WEIGHT</th></tr></thead>
+            <tbody id="amPosBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel am-chart">
+        <div class="panel-h">
+          <span id="amChartTitle">BABA</span>
+          <span class="chart-tools">
+            <button class="chip on" data-amtf="60">1m</button>
+            <button class="chip" data-amtf="240">4m</button>
+            <button class="chip" data-amtf="600">ALL</button>
+            <button class="chip on" data-ammode="line">LINE</button>
+            <button class="chip" data-ammode="candle">CDL</button>
+          </span>
+        </div>
+        <div class="chart-wrap"><canvas id="amChart"></canvas></div>
+        <div class="am-perf" id="amPerf"></div>
+        <div class="panel-h sub"><span>ORDERS</span><span class="ph-r" id="amFeeTxt">frais 0 $</span></div>
+        <div class="panel-b" style="max-height:120px">
+          <table class="tbl blotter-table">
+            <thead><tr><th>TIME</th><th>SEC</th><th>SIDE</th><th class="r">QTY</th><th class="r">PX</th><th class="r">SLIP</th></tr></thead>
+            <tbody id="amBlotterBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="am-right">
+        <section class="panel am-ticket">
+          <div class="panel-h"><span>ORDER TICKET</span><span class="ph-r" id="amTkHint">marché ouvert</span></div>
+          <div class="pb-body">
+            <div class="field">
+              <label>Ticker</label>
+              <select id="amTicker"><option>BABA</option><option>MSFT</option><option>VW</option><option>HSBC</option><option selected>BP</option></select>
+            </div>
+            <div class="am-chips" id="amSizeChips">
+              <button data-amt="250000">250k</button>
+              <button data-amt="500000">500k</button>
+              <button data-amt="1000000" class="on">1M</button>
+              <button data-amt="2000000">2M</button>
+              <button data-amt="pct15">15 % PM</button>
+            </div>
+            <div class="field">
+              <label>Montant ($)</label>
+              <input id="amAmount" type="number" step="50000" value="1000000">
+            </div>
+            <div class="am-sides">
+              <button class="x-side buy" id="amBuyBtn"><span class="xs-lbl">BUY <small>à l'offer</small></span><span class="xs-px" id="amBuyPx">0.00</span></button>
+              <button class="x-side sell" id="amSellBtn"><span class="xs-lbl">SELL <small>au bid</small></span><span class="xs-px" id="amSellPx">0.00</span></button>
+            </div>
+            <div class="am-estim">
+              <div><label>Quantité</label><b id="amQty">0</b></div>
+              <div><label>Impact</label><b id="amSlip">—</b></div>
+              <div><label>Poids après</label><b id="amWeight">—</b></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="amSellAll">SELL ALL · la ligne entière</button>
+          </div>
+        </section>
+
+        <section class="panel am-news">
+          <div class="panel-h"><span>NEWSFEED</span><span class="ph-r" id="amNewsCount">0</span></div>
+          <div class="panel-b" id="amNewsList">
+            <div class="news-empty">Les headlines tombent toutes les 20–28 s. Achète la bonne, coupe la mauvaise — vite.</div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer class="sim-foot">
+      <span><kbd>1</kbd>–<kbd>5</kbd> ticker</span>
+      <span><kbd>B</kbd> acheter</span>
+      <span><kbd>S</kbd> vendre</span>
+      <span><kbd>F</kbd> tout vendre la ligne</span>
+      <span><kbd>Espace</kbd> pause</span>
+      <span class="foot-right" id="amStatus">DESK OUVERT</span>
+    </footer>
+  </section>
+
+  <!-- ================================================================= DRILLS -->
+  <section class="screen" id="screen-drills">
+    <div class="page page-narrow">
+      <a class="back" data-go="hub">← Hub</a>
+      <div class="kicker">RÉFLEXES · CHRONO</div>
+      <h2 class="page-title">Le geste avant la <em>théorie</em>.</h2>
+
+      <div id="drillMenu">
+        <p class="page-sub">60 secondes par exercice. Clavier obligatoire : c'est la vitesse qui compte demain.
+          Chaque question a une explication de 10 secondes après la réponse.</p>
+        <div class="drill-grid" id="drillGrid"></div>
+        <button class="btn btn-teal btn-xl" id="btnDrillAll">Tout enchaîner — 6 × 60 s →</button>
+      </div>
+
+      <div id="drillRun" style="display:none">
+        <div class="drill-top">
+          <div class="drill-name" id="drillName">—</div>
+          <div class="drill-clock" id="drillClock">60</div>
+          <div class="drill-score"><b id="drillScore">0</b> pts · <span id="drillStreak">0</span> série</div>
+          <button class="btn btn-ghost btn-sm" id="btnDrillQuit">Quitter</button>
+        </div>
+        <div class="drill-stage" id="drillStage"></div>
+        <div class="drill-foot" id="drillFoot"></div>
+      </div>
+
+      <div id="drillResult" style="display:none"></div>
+    </div>
+  </section>
+
+  <!-- ================================================================== SCORE -->
+  <section class="screen" id="screen-score">
+    <div class="page page-narrow" id="scoreContent"></div>
+  </section>
+
+  <!-- ================================================================== CHEAT -->
+  <section class="screen" id="screen-cheat">
+    <div class="page">
+      <a class="back" data-go="hub">← Hub</a>
+      <div class="kicker">FICHE DE BATAILLE · 27 OCTOBRE 2026 · 18:00 GMT</div>
+      <h2 class="page-title">Tout ce qui te fait gagner <em>des points</em>.</h2>
+
+      <div class="cheat-cols">
+        <div class="cheat-col">
+          <h3>① Les 4 objectifs du jeu</h3>
+          <ol class="cheat-list">
+            <li><b>Maintenir la relation client</b> — répondre à 100 % des RFQ, vite, sans erreur.</li>
+            <li><b>Maximiser la commission</b> — plus de flux client, plus de COMM. 8 bps du notionnel.</li>
+            <li><b>Faire des prix justes</b> — au bon endroit vs le mid, pas de prix croisé, pas de stale quote.</li>
+            <li><b>Limiter l'exposition</b> — hedger après chaque trade, finir à plat.</li>
+          </ol>
+
+          <h3>② La boucle, en 5 gestes</h3>
+          <div class="loop-mini">
+            <div><b>RFQ</b><span>chat + bannière</span></div>
+            <div><b>QUOTE</b><span>bid &lt; mid &lt; offer</span></div>
+            <div><b>TRADE</b><span>le client tape</span></div>
+            <div><b>HEDGE</b><span>au marché</span></div>
+            <div><b>REPRICE</b><span>après news</span></div>
+          </div>
+
+          <h3>③ Les 12 réflexes</h3>
+          <ol class="cheat-list tight">
+            <li>Le <b>bid est toujours sous le mid</b>, l'offer toujours au-dessus. Jamais croisé.</li>
+            <li>Spread de départ : <b>8 à 12 bps</b>. 4 bps = tu te fais ramasser, 30 bps = tu ne trades pas.</li>
+            <li><b>50 000 actions</b> = volume par défaut. Pas 500 000. Jamais.</li>
+            <li>Une RFQ = <b>une réponse en moins de 10 secondes</b>. Le client va voir ailleurs.</li>
+            <li>Client achète → <b>tu es short</b> → tu <b>rachètes</b> au marché. Client vend → tu es long → tu vends.</li>
+            <li><b>Flatte tout de suite</b>, pas “après”. Le risque, c'est le temps.</li>
+            <li>Hedge en <b>petits blocs</b> (25–50k) : un gros ordre déplace le mid contre toi.</li>
+            <li><b>News = reprice.</b> Avant : annule tes quotes en vie (<kbd>X</kbd>). Après : recentre (<kbd>M</kbd>).</li>
+            <li>Une quote laissée en vie après une news est <b>sniper</b> : tu vends 1 % sous le marché.</li>
+            <li><b>Limite 100 000 par ligne.</b> Tu ne rajoutes jamais au-delà : tu réduis d'abord.</li>
+            <li><b>Fin de round = position 0.</b> Une position ouverte est clôturée au mid + coût : points perdus.</li>
+            <li>Le client dit “too wide” ? <b>Tightens de 2–3 bps</b>, mais jamais sous 5 bps de spread.</li>
+          </ol>
+        </div>
+
+        <div class="cheat-col">
+          <h3>④ Formules à connaître par cœur</h3>
+          <div class="formula-box">
+            <div><span>Bid</span><code>mid × (1 − s/2)</code></div>
+            <div><span>Offer</span><code>mid × (1 + s/2)</code></div>
+            <div><span>Notionnel</span><code>prix × quantité</code></div>
+            <div><span>Commission</span><code>notionnel × 8 bps</code></div>
+            <div><span>P&amp;L long</span><code>(sortie − entrée) × qté</code></div>
+            <div><span>P&amp;L court</span><code>(entrée − sortie) × qté</code></div>
+            <div><span>Spread bps</span><code>(offer − bid) / mid × 10 000</code></div>
+          </div>
+
+          <h3>⑤ Chiffres de référence</h3>
+          <table class="mini-tbl">
+            <tr><td>Spread marché</td><td>6 bps</td></tr>
+            <tr><td>Spread que TU quotes</td><td>8–12 bps</td></tr>
+            <tr><td>Commission client</td><td>8 bps</td></tr>
+            <tr><td>Volume RFQ typique</td><td>10k – 75k</td></tr>
+            <tr><td>Limite par ligne</td><td>100 000</td></tr>
+            <tr><td>Validité quote</td><td>45 s</td></tr>
+            <tr><td>Temps de réponse cible</td><td>&lt; 8 s</td></tr>
+          </table>
+
+          <h3>⑥ Phrases à taper dans le chat</h3>
+          <div class="phrase-box">
+            <div><code>Coming up.</code><span>accusé de réception immédiat</span></div>
+            <div><code>Working on it.</code><span>tu gagnes 3 secondes</span></div>
+            <div><code>Done — 50k at 37.76.</code><span>confirmation</span></div>
+            <div><code>I can tighten the offer.</code><span>si “too wide”</span></div>
+            <div><code>I have to pull my quote.</code><span>avant une news</span></div>
+            <div><code>Flat now, thanks.</code><span>clôture propre</span></div>
+          </div>
+
+          <h3>⑦ Les erreurs qui tuent le score</h3>
+          <ul class="cheat-bullets">
+            <li>Répondre <b>trop large</b> : “your price is too wide”, zéro trade, relation qui baisse.</li>
+            <li>Répondre <b>trop serré</b> : le client tape tout, tu perds le spread au hedge.</li>
+            <li>Laisser <b>une quote en vie</b> pendant une news : pick-off, perte sèche.</li>
+            <li>Entrer <b>500 000</b> au lieu de 50 000 : FFC + position impossible à sortir.</li>
+            <li>Oublier de <b>flatten avant la cloche</b> : close-out au mid, SSRM massacré.</li>
+            <li>Ne pas <b>répondre du tout</b> : NUMT = 0, COMM = 0, relation = 0.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="cheat-h3">⑧ Le round Asset Manager — la moitié du score</h3>
+      <div class="cheat-cols" style="gap:24px">
+        <div class="cheat-col">
+          <p class="page-sub" style="margin-bottom:10px">Côté buy-side, tu ne fais pas de prix : tu <b>prends</b> le marché.
+            Tu pars avec <b>20 M$ cash</b> sur 5 lignes, et le benchmark = les 5 lignes à poids égal.
+            Ton score, c'est l'<b>alpha</b> — pas le P&amp;L brut.</p>
+          <div class="loop-mini" style="margin-bottom:12px">
+            <div><b>20 M$</b><span>cash au départ</span></div>
+            <div><b>5</b><span>lignes max</span></div>
+            <div><b>15–25 %</b><span>par ligne</span></div>
+            <div><b>250k–1M</b><span>par ordre</span></div>
+            <div><b>5 bps</b><span>coût + impact</span></div>
+          </div>
+          <ol class="cheat-list tight">
+            <li><b>Investis dans les 30 premières secondes.</b> Rester en cash = alpha négatif dès la première news macro.</li>
+            <li><b>15–25 % par ligne, 70–95 % investi.</b> Un seul nom à 60 % et un headline te sort du top 300.</li>
+            <li><b>News positive → renforce. News négative → coupe.</b> En moins de 10 secondes, sans discuter.</li>
+            <li><b>Ne chasse pas.</b> Tu achètes l'offer, pas 2 % au-dessus. Si tu es en retard, tu passes.</li>
+            <li><b>Pas de levier.</b> Le cash suffit ; l'exposition &gt; 100 % n'est jamais demandée.</li>
+            <li><b>Peu mais gros.</b> 6–12 ordres de 500k–1M battent 30 ordres de 100k après les frais.</li>
+          </ol>
+        </div>
+        <div class="cheat-col">
+          <h3 style="margin-top:0">Comment le buy-side est noté</h3>
+          <table class="mini-tbl">
+            <tr><td>Alpha vs benchmark</td><td>55 %</td></tr>
+            <tr><td>Risque (drawdown, concentration)</td><td>25 %</td></tr>
+            <tr><td>Activité (nombre de décisions)</td><td>10 %</td></tr>
+            <tr><td>Discipline (cash drag, taille)</td><td>10 %</td></tr>
+          </table>
+          <p class="page-sub" style="margin:12px 0 0;font-size:12px">
+            Chez AmplifyME, le round buy-side est jugé sur le <b>rendement du portefeuille</b>,
+            la <b>gestion du risque</b> et la <b>qualité des décisions</b> face aux news — même logique.
+            Le repère à battre : les 5 lignes à poids égal, réinvesties à chaque mouvement.
+          </p>
+          <div class="phrase-box" style="margin-top:12px">
+            <div><code>20 M$ · 5 lignes</code><span>taille du portefeuille</span></div>
+            <div><code>70–95 %</code><span>exposition cible</span></div>
+            <div><code>≤ 25 %</code><span>poids maximum par titre</span></div>
+            <div><code>&lt; 10 s</code><span>temps de réaction à la news</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="cheat-h3">⑨ Objectif top 100 : ce qui sépare vraiment</h3>
+      <div class="cheat-cols" style="gap:24px">
+        <div class="cheat-col">
+          <ol class="cheat-list tight">
+            <li><b>100 % des RFQ répondues.</b> C'est la métrique la plus facile à gagner et la plus facile à perdre.</li>
+            <li><b>Zéro fat finger.</b> Un prix croisé ou un volume ×10 efface dix trades propres.</li>
+            <li><b>Flat à la cloche.</b> La position ouverte est soldée au mid + coût : points gratuits perdus.</li>
+            <li><b>Spread 8–12 bps.</b> Trop serré, tu paies le hedge ; trop large, le client passe.</li>
+          </ol>
+        </div>
+        <div class="cheat-col">
+          <ol class="cheat-list tight" style="counter-reset:c 4">
+            <li><b>Annule avant la news.</b> Une quote en vie = une option gratuite offerte au client.</li>
+            <li><b>Hedge en petits blocs.</b> Le gros ordre déplace le mid contre toi (impact 0,22 bp / 100k).</li>
+            <li><b>Ne t'endette pas en position.</b> 100 000 max par ligne, jamais plus, même « pour un instant ».</li>
+            <li><b>Reste investi côté AM.</b> Le cash ne bat pas le marché dans une phase haussière.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="cheat-h3">⑩ Le plan des 2 heures — demain</h3>
+      <table class="timeline">
+        <tr><td>17:30</td><td>Ouvrir ce trainer. 10 min de drills. Un round buy-side pour chauffer l'œil sur les headlines.</td></tr>
+        <tr><td>17:50</td><td>Relire les 12 réflexes + les 6 réflexes AM. Fermer tout le reste. Eau. Casque. Plein écran.</td></tr>
+        <tr><td>18:00</td><td>Intro AmplifyME. Noter <b>le rôle et le nombre de rounds</b>. Ne pas toucher au clavier.</td></tr>
+        <tr><td>18:15</td><td><b>Round 1 — Asset Manager.</b> Investi en 30 s, 15–25 % par ligne, réagir aux news en &lt; 10 s.</td></tr>
+        <tr><td>18:45</td><td><b>Round 2 — Investment Bank.</b> 100 % des RFQ répondues, zéro fat finger, hedge immédiat.</td></tr>
+        <tr><td>19:15</td><td>Round 3 s'il y en a un : mêmes réflexes, quotes +2 bps, tu es déjà chaud.</td></tr>
+        <tr><td>19:45</td><td>Débrief. Noter les 2 métriques les plus faibles et une action pour chacune.</td></tr>
+      </table>
+
+      <div class="cheat-warn">
+        <b>À ne pas faire :</b> cliquer “quote” sans avoir lu le ticker ; laisser le champ volume à 500 000 ;
+        hedger avec un ordre de 200 000 ; garder une position ouverte en espérant un rebond.
+        Le simulateur récompense la <b>discipline</b>, pas le hero trade.
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Paired overlay -->
+<div class="overlay" id="overlayHelp">
+  <div class="modal">
+    <div class="modal-h"><h3>Raccourcis &amp; boucle</h3><button class="icon-btn" data-close="overlayHelp">✕</button></div>
+    <div class="modal-b">
+      <div class="keys-grid">
+        <div><kbd>1</kbd>…<kbd>5</kbd><span>sélectionner BABA / MSFT / VW / HSBC / BP</span></div>
+        <div><kbd>M</kbd><span>pré-remplir bid/offer à mid ± 5 bps</span></div>
+        <div><kbd>↵</kbd><span>envoyer la quote</span></div>
+        <div><kbd>B</kbd><span>acheter la quantité au marché (offer)</span></div>
+        <div><kbd>S</kbd><span>vendre la quantité au marché (bid)</span></div>
+        <div><kbd>F</kbd><span>flatten la ligne sélectionnée</span></div>
+        <div><kbd>X</kbd><span>annuler toutes les quotes en vie</span></div>
+        <div><kbd>Échap</kbd><span>fermer / pause</span></div>
+      </div>
+      <p class="modal-note">Le client tape sur TON prix. Si tu vends, tu es short : tu rachètes au marché.
+        Si tu achètes, tu es long : tu revends. La position se lit dans le panneau POSITIONS.</p>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayPause">
+  <div class="modal modal-center">
+    <div class="pause-big">PAUSE</div>
+    <p class="modal-note">Le marché est arrêté. Profite-en pour relire tes positions.</p>
+    <button class="btn btn-teal btn-lg" id="btnResume">Reprendre (Espace)</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlayIntro">
+  <div class="modal modal-wide" id="introModal"></div>
+</div>
+
+<div class="overlay" id="overlayRound">
+  <div class="modal modal-wide" id="roundModal"></div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="engine.js"></script>
+<script src="engine-am.js"></script>
+<script src="drills.js"></script>
+<script src="app.js"></script>
+<script src="app-am.js"></script>
+</body>
+</html>

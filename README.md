@@ -19,6 +19,7 @@
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
+| `amplifyme-training/` | **Simulateur AmplifyME** — desk Asset Manager + Investment Bank, drills réflexes, fiche de bataille | Prep Investing Simulator Challenge CFA 27/10 |
 | `scratch/` | Fichiers temporaires / archives | Nettoyage |
 
 ---
@@ -37,7 +38,13 @@
 - **Contrainte** : One shot only. Blacklist si échec. Pas avant le 7, pas après le 13/10.
 - **Plateforme** : Maki People (PAS AON). Training en cours pour clone pixel-perfect.
 
-### 3. Candidatures banques
+### 3. CFA × AmplifyME — Investing Simulator Challenge (27 octobre, 18:00 GMT)
+- **Dossier** : `amplifyme-training/` (`index.html` s'ouvre directement, zéro dépendance)
+- **Objectif** : top 100 → top 300 qualifiés pour la finale mondiale du 17/11 (bourse CFA)
+- **Contenu** : round Asset Manager ($20M, 5 lignes, alpha vs benchmark) → round Investment Bank (market maker / sales trader / risk), drills clavier 60 s, fiche de bataille
+- **Usage** : 2 sessions de 12 min + 10 min de drills la veille, 10 min de drills le jour J à 17:30
+
+### 4. Candidatures banques
 - **Fichier** : `candidatures/TRACKING-CANDIDATURES-2026-2027.md`
 - Barclays Off-Cycle Sales Paris 2027 — Under Consideration (referral Olivier Moser)
 - Barclays Graduate Banking Paris 2027 — Under Consideration
@@ -104,6 +111,7 @@ Math : *Matrix Cookbook*, *Arbitrage-free smoothing implied volatility surface*
 | `SKEMA-DOSSIER-ARCHIVE.md` | TOUT le dossier SKEMA (argument, preuves, stratégie, contacts) |
 | `candidatures/TRACKING-CANDIDATURES-2026-2027.md` | Audit candidatures (blacklist, retake policies) |
 | `bnp-training/index.html` | Clone plateforme BNP Maki (test 7-9 octobre) |
+| `amplifyme-training/index.html` | Simulateur AmplifyME (CFA challenge 27 octobre) — ouvrir dans le navigateur |
 | `documents/CV_Calvin_MINANG.pdf` | CV à jour |
 | `documents/Portfolio_Calvin_MINANG.pdf` | Portfolio |
 
