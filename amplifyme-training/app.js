@@ -135,7 +135,7 @@
     };
     var m = map[Data.status] || map.sim;
     dot.className = 'db-dot ' + m[0];
-    label.textContent = label.textContent.startsWith('Données') ? m[1] : label.textContent;
+    label.textContent = m[1];
     if (Data.status === 'live' && Data.anchors) {
       var parts = Object.keys(Data.anchors).map(function (t) {
         var a = Data.anchors[t];
