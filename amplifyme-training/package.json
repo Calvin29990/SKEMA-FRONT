@@ -1,0 +1,11 @@
+{
+  "name": "amplifyme-trainer",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Clone d'entraînement AmplifyME (CFA Investing Simulator Challenge) avec passerelle de données de marché",
+  "scripts": {
+    "start": "node server.js",
+    "mock": "MOCK=1 node server.js"
+  },
+  "engines": { "node": ">=18" }
+}

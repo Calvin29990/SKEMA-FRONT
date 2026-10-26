@@ -18,7 +18,12 @@
     </div>
 
     <div class="hub-body">
-      <div class="hub-kicker">SIMULATION D'ENTRAÎNEMENT · HORS LIGNE · ZÉRO DONNÉE LIVE</div>
+      <div class="hub-kicker">SIMULATION D'ENTRAÎNEMENT · MÊME LOGIQUE QUE SHOCKDESK</div>
+      <div class="data-bar">
+        <span class="db-dot" id="dataDot"></span>
+        <b id="dataLabel">Données : vérification…</b>
+        <span id="dataDetail" class="db-detail">Prix d'ouverture réels si le serveur répond, sinon simulation.</span>
+      </div>
       <h1>Les bons réflexes <em>avant</em> 18:00.</h1>
       <p class="hub-lead">
         Un clone fonctionnel du desk Sales &amp; Trading AmplifyME : tu postes tes axes sur un
@@ -172,6 +177,18 @@
             <button data-val="on" class="on">🔊 ON</button><button data-val="off">OFF</button>
           </div>
         </div>
+        <div class="setup-row">
+          <label>Source des prix</label>
+          <div class="seg" id="optFeed">
+            <button data-val="sim" class="on">Simulé</button><button data-val="live">Réel (Yahoo, replay)</button>
+          </div>
+        </div>
+        <div class="setup-row">
+          <label>Journal d'erreurs</label>
+          <div class="seg" id="optErr">
+            <button data-val="on" class="on">Actif — je veux voir mes fautes</button>
+          </div>
+        </div>
       </div>
 
       <div class="brief-start">
@@ -199,6 +216,7 @@
       </div>
       <button class="icon-btn" id="btnSound" title="Son">🔊</button>
       <button class="icon-btn" id="btnPause" title="Pause (Espace)">❚❚</button>
+      <button class="icon-btn err-btn" id="btnErrors" title="Journal de mes erreurs (E)">⚠ <span id="errCount">0</span></button>
       <button class="icon-btn" id="btnHelp" title="Raccourcis (?)">?</button>
       <button class="icon-btn icon-danger" id="btnQuit" title="Quitter">✕</button>
     </header>
@@ -697,6 +715,19 @@
     </div>
   </section>
 
+</div>
+
+<!-- Journal d'erreurs -->
+<div class="overlay" id="overlayErrors">
+  <div class="modal modal-wide">
+    <div class="modal-h"><h3>Journal de mes erreurs</h3><button class="icon-btn" data-close="overlayErrors">✕</button></div>
+    <div class="modal-b">
+      <p class="modal-note" style="margin-top:0">Chaque point perdu est daté, chiffré et classé. C'est la liste à relire entre deux sessions : elle dit exactement quoi corriger.</p>
+      <div class="err-summary" id="errSummary"></div>
+      <div class="err-table-wrap"><table class="tbl err-table"><thead><tr><th>HEURE</th><th>TYPE</th><th>CE QUI S'EST PASSÉ</th><th class="r">COÛT ESTIMÉ</th></tr></thead><tbody id="errBody"></tbody></table></div>
+      <div class="err-empty" id="errEmpty">Aucune erreur pour l'instant. Poste des axes et laisse le board travailler.</div>
+    </div>
+  </div>
 </div>
 
 <!-- Paired overlay -->

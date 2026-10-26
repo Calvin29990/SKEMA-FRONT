@@ -45,8 +45,11 @@
       stocks: STOCKS.map(function (d) {
         return {
           t: d.t, name: d.name, ref: d.ref, ref0: d.ref, vol: d.vol,
-          mid: d.ref, pos: 0, avg: 0, realised: 0,
-          hist: [d.ref], drift: 0, lastDir: 0
+          mid: (opts.series && opts.series[d.t] && opts.series[d.t][0]) || d.ref,
+          pos: 0, avg: 0, realised: 0,
+          hist: [(opts.series && opts.series[d.t] && opts.series[d.t][0]) || d.ref],
+          drift: 0, lastDir: 0,
+          series: (opts.series && opts.series[d.t]) || null
         };
       }),
       news: [],
@@ -70,6 +73,9 @@
       benchHist: [],
       valueHist: [],
       oversize: 0,
+      errors: [],
+      series: opts.series || null,
+      seriesAt: {},
       slipSum: 0, weightSum: 0, slipN: 0,
       expoSum: 0, expoTime: 0,
       breachMs: 0,
@@ -108,7 +114,46 @@
   function alpha() { return portfolioReturn() - benchReturn(); }
 
   /* ---------------------------------------------------------------- prices */
+  // Replay : avance dans les vraies barres (Yahoo) et transforme les gros
+  // mouvements réels en headlines.
+  function seriesTick() {
+    var shocks = [];
+    S.stocks.forEach(function (st) {
+      var ser = st.series;
+      if (!ser || !ser.length) return;
+      var i = S.seriesAt[st.t] || 0;
+      if (i >= ser.length - 1) {
+        st.mid = Math.max(0.5, st.mid * (1 + st.drift + n2() * 0.00048 * st.vol));
+        st.drift *= 0.88;
+        st.hist.push(st.mid);
+        return;
+      }
+      S.seriesAt[st.t] = i + 1;
+      var px = ser[i + 1], prev = st.mid;
+      if (!px || !isFinite(px) || px <= 0) return;
+      st.mid = px;
+      st.hist.push(px);
+      if (st.hist.length > 1200) st.hist.shift();
+      var mv = (px - prev) / prev;
+      if (Math.abs(mv) > 0.0035) shocks.push({ ticker: st.t, move: mv });
+    });
+    if (shocks.length) {
+      shocks.sort(function (a, b) { return Math.abs(b.move) - Math.abs(a.move); });
+      var big = shocks[0];
+      S.news.unshift({
+        tag: 'MARCHÉ RÉEL',
+        text: 'Mouvement de ' + (big.move >= 0 ? '+' : '') + (big.move * 100).toFixed(2) + ' % sur ' + big.ticker + '.',
+        dir: big.move > 0 ? 1 : -1, all: false,
+        impacts: shocks.reduce(function (o, sh) { o[sh.ticker] = sh.move * 10000; return o; }, {}),
+        clock: fmtClock(S.clockMs), t: S.ms
+      });
+      if (S.news.length > 60) S.news.pop();
+      emit('news', S.news[0]);
+    }
+  }
+
   function priceTick() {
+    if (S.series) { seriesTick(); return; }
     var mult = S.opts.difficulty === 'chaos' ? 1.7 : S.opts.difficulty === 'calme' ? 0.65 : 1;
     var sigma = 0.00048 * mult;
     S.stocks.forEach(function (st) {
@@ -204,7 +249,10 @@
       return { ok: false, error: 'Pas de position à vendre. Vends ' + Math.max(0, st.pos) + ' max.' };
     }
 
-    if (gross > v * 0.35) S.oversize++;
+    if (gross > v * 0.35) {
+      S.oversize++;
+      logError('oversize', 'Clip de ' + Math.round(gross / v * 100) + ' % du portefeuille sur ' + st.t + ' : impact et slippage explosent', { ticker: st.t, cost: gross * 0.0002 });
+    }
     S.slipSum += slip; S.weightSum += gross / Math.max(1, v); S.slipN++;
 
     var signed = side === 'BUY' ? qty : -qty;
@@ -252,7 +300,7 @@
     while (S.priceAcc >= 620) { S.priceAcc -= 620; priceTick(); }
 
     S.newsTimer -= dt;
-    if (S.newsTimer <= 0) {
+    if (S.newsTimer <= 0 && !S.series) {
       newsTick();
       var cfg = S.opts.difficulty === 'calme' ? [34000, 46000]
         : S.opts.difficulty === 'chaos' ? [12000, 18000] : [20000, 28000];
@@ -264,7 +312,13 @@
     S.expoSum += (investedValue() / Math.max(1, v)) * dt;
     S.expoTime += dt;
     S.stocks.forEach(function (st) {
-      if (st.pos > 0 && st.avg > 0 && st.mid < st.avg * 0.988) S.breachMs += dt;
+      if (st.pos > 0 && st.avg > 0 && st.mid < st.avg * 0.988) {
+        S.breachMs += dt;
+        if (!st.stopLogged) {
+          st.stopLogged = true;
+          logError('stop', 'Stop-loss touché sur ' + st.t + ' : ' + ((st.mid / st.avg - 1) * 100).toFixed(2) + ' % vs PRU — tu ne coupes pas', { ticker: st.t, cost: 0 });
+        }
+      } else if (st.pos === 0) st.stopLogged = false;
     });
     if (v > S.peak) S.peak = v;
     var dd = (S.peak - v) / S.peak;
@@ -390,6 +444,20 @@
 
   function toast(text, kind) { emit('toast', { text: text, kind: kind || 'info' }); }
 
+  function logError(type, text, meta) {
+    if (!S) return null;
+    var e = {
+      t: S.ms, clock: fmtClock(S.clockMs), round: 1,
+      type: type, text: text,
+      ticker: (meta && meta.ticker) || null,
+      cost: (meta && meta.cost) || 0
+    };
+    S.errors.push(e);
+    if (S.errors.length > 200) S.errors.shift();
+    emit('error', e);
+    return e;
+  }
+
   var api = {
     init: init,
     start: start,
@@ -409,6 +477,8 @@
     benchReturn: benchReturn,
     alpha: alpha,
     executionScore: executionScore,
+    errors: function () { return S ? S.errors : []; },
+    logError: logError,
     bsrmScore: bsrmScore,
     percentileOfRoi: percentileOfRoi,
     fmtClock: fmtClock,

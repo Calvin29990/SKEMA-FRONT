@@ -26,7 +26,13 @@
     M.started = true;
 
     var roundSec = M.opts.roundSec === 180 ? 240 : M.opts.roundSec === 120 ? 150 : M.opts.roundSec || 240;
-    A.init({ roundSec: roundSec, difficulty: M.opts.difficulty || 'normal' });
+    var initOpts = { roundSec: roundSec, difficulty: M.opts.difficulty || 'normal' };
+    if (M.opts._replay) {
+      initOpts.series = M.opts._replay.series;
+      initOpts.anchors = M.opts._replay.anchors;
+      initOpts.dataSource = 'replay';
+    }
+    A.init(initOpts);
     A.on(onEvent);
     A.start();
 
@@ -75,6 +81,11 @@
   /* ---------------------------------------------------------------- events */
   function onEvent(type, data) {
     if (type === 'toast') { C.toast(data.text, data.kind); return; }
+    if (type === 'error') {
+      if (C.addError) C.addError(data);
+      if (data.type === 'stop' || data.type === 'oversize') C.beep('bad');
+      return;
+    }
     if (type === 'news') { C.beep('news'); flashNews(); return; }
     if (type === 'trade') { C.beep('fill'); return; }
     if (type === 'roundEnd') {

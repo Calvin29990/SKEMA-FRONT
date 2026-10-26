@@ -1,13 +1,28 @@
 # AmplifyME Trainer — CFA Investing Simulator Challenge 2026
 
-Simulateur d'entraînement **hors ligne** pour la session du **mardi 27 octobre 2026, 18:00–20:00 GMT**
-(Investing Simulator Challenge, CFA Institute × AmplifyME). Zéro dépendance, zéro donnée live.
+Simulateur d'entraînement pour la session du **mardi 27 octobre 2026, 18:00–20:00 GMT**
+(Investing Simulator Challenge, CFA Institute × AmplifyME). Zéro dépendance ; fonctionne hors ligne, et sur données réelles si le serveur tourne.
 
 ## Lancer
 
-Ouvrir `index.html` dans le navigateur (double-clic suffit).
-Tout tient dans 7 fichiers statiques : `index.html`, `styles.css`, `engine.js`, `engine-am.js`,
-`drills.js`, `app.js`, `app-am.js`.
+**Mode simulé (aucune installation)** — double-cliquer `index.html`.
+Le moteur marche aléatoire + news prend le relais, le journal d'erreurs reste actif.
+
+**Mode données réelles (recommandé pour l'entraînement)** — un petit serveur Node, sans aucune
+dépendance, qui va chercher les vrais prix côté serveur (même logique que ShockDesk) :
+
+```bash
+cd amplifyme-training
+node server.js            # → http://localhost:8787
+PORT=9000 node server.js  # autre port
+MOCK=1 node server.js     # données de test, sans réseau
+```
+
+Le serveur : sert l'appli, interroge Yahoo Finance (`/api/quotes`, `/api/bars`, `/api/replay`),
+met en cache 8 s, et **retombe proprement sur la simulation** si le réseau est coupé.
+Dans l'écran de briefing, passer *Source des prix* sur **Réel (Yahoo, replay)**.
+
+Déploiement type ShockDesk : `render.yaml` à la racine → Render → New → Blueprint.
 
 ## Ce qu'il y a dedans
 
@@ -18,6 +33,7 @@ Tout tient dans 7 fichiers statiques : `index.html`, `styles.css`, `engine.js`, 
 | **Desk Investment Bank** | Poster ses axes sur le board, répondre aux RFQ blocs, dénouer au marché | NUMT, COMM, ETM, SSRM, FFC |
 | **Drills réflexes** | 6 exercices chronométrés de 60 s | bid/offer de tête, hedge, P&L, notionnel, fat finger, limite |
 | **Fiche de bataille** | À relire la veille et 20 min avant | les critères du jeu, les 12 réflexes, le plan des 2 h |
+| **Journal d'erreurs** | Bouton ⚠ ou touche `E` pendant le round | chaque faute horodatée, classée et chiffrée |
 
 ## Les raccourcis (desk Investment Bank)
 
@@ -56,6 +72,41 @@ Le score composite est traduit en percentile estimé (courbe calibrée sur les r
 participants : ~90 % est déjà très bon) puis en rang sur une cohorte de **2 100 joueurs**
 (édition 2025). Repère : **top 100 ≈ P95**, finale mondiale = **top 10 % de chaque compétition régionale**.
 
+## Journal d'erreurs — « voir mes erreurs »
+
+Chaque faute est enregistrée avec l'heure, le type, le détail et un coût estimé :
+
+| Type | Déclencheur | Coût |
+|---|---|---|
+| `FAT FINGER` | prix croisé, prix à 8 % du mid, volume > 500k | 16 pts de FFC |
+| `PICK-OFF` | quote restée en vie pendant une news | perte réelle (prix vs mid) |
+| `QUOTE TUÉE` | prix > 1,2 % du mid après news (trade annulé) | 0 $ mais crédibilité |
+| `RFQ MANQUÉE` | pas de réponse en 20 s | flux + confiance |
+| `BLOC PERDU` | prix moins bon que la banque rivale | commission manquée |
+| `HEDGE LENT` | > 10 s entre le trade client et le dénouement | ETM |
+| `LIMITE` | position > 100 000 actions | SSRM |
+| `POSITION OUVERTE` | ligne non soldée à la cloche | mid + 2 bps |
+| `CLIP TROP GROS` (AM) | ordre > 35 % du portefeuille | slippage |
+| `STOP IGNORÉ` (AM) | ligne sous −1,2 % non coupée | BSRM |
+
+Le débrief final affiche le récapitulatif par type : c'est la liste des défauts à corriger,
+pas une note vague.
+
+## Données en ligne (architecture, comme ShockDesk)
+
+| Endpoint | Rôle |
+|---|---|
+| `GET /api/health` | état du service, liste des lignes |
+| `GET /api/quotes?symbols=BP,MSFT` | dernier prix + clôture précédente |
+| `GET /api/bars?symbol=MSFT&range=1d&interval=1m` | barres pour le replay |
+| `GET /api/replay?roundSec=180` | séries alignées prêtes pour le moteur, en un appel |
+
+Les 5 lignes suivent les vrais instruments : **BABA** (NYSE), **MSFT** (NASDAQ), **VW3.DE**,
+**HSBA.L**, **BP.L**. En mode replay, **1 barre réelle 1 min = 1 tick de jeu**, et les mouvements
+réels de plus de 0,32 % redeviennent des headlines qui peuvent sniper tes quotes.
+
+Si le serveur ne répond pas : bandeau *« mode simulé »*, aucune fonctionnalité perdue.
+
 ## Ce qui est fidèle au vrai jeu (sources)
 
 - **Format** : AM puis IB, simulation live de 2 h ; cohorte de ~2 100 participants en 2025 ;
@@ -87,4 +138,6 @@ pas sur un coup d'éclat.
   recalibrée sur cette durée compressée.
 - Le poids exact des composantes n'est pas public (40/30/30 côté AM, 25/25/20/20/10 côté IB sont
   des hypothèses affichées, pas des chiffres officiels).
+- Le mode « données réelles » dépend de Yahoo Finance (endpoint public non contractuel) : si le
+  fournisseur change, le mode replay retombe sur la simulation.
 - Non affilié à AmplifyME ni au CFA Institute.

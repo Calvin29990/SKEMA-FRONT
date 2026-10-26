@@ -1,0 +1,14 @@
+# Déploiement identique à ShockDesk : un service web Node gratuit sur Render.
+# 1. pousser ce fichier  2. render.com → New → Blueprint → choisir ce repo
+services:
+  - type: web
+    name: amplifyme-trainer
+    runtime: node
+    plan: free
+    rootDir: amplifyme-training
+    buildCommand: "echo 'aucune dépendance à installer'"
+    startCommand: "node server.js"
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

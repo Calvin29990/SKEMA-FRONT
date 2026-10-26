@@ -8,7 +8,7 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  var settings = { rounds: 2, roundSec: 180, difficulty: 'normal', wheels: true, sound: true };
+  var settings = { rounds: 2, roundSec: 180, difficulty: 'normal', wheels: true, sound: true, feed: 'sim' };
   var UI = {
     screen: 'hub', sel: 'BP', chat: 'DEAL', posTab: 'positions',
     tf: 180, mode: 'line', sma: true, unread: {}, chatSig: '', last: 0,
@@ -110,12 +110,204 @@
   seg('optDiff', 'difficulty');
   seg('optWheels', 'wheels');
   seg('optSound', 'sound');
+  seg('optFeed', 'feed');
+
+  /* ---------------------------------------------------------------- données en ligne */
+  // Même logique que ShockDesk : un petit serveur va chercher les prix réels
+  // (Yahoo Finance) et les sert en JSON. Si le serveur ne répond pas, on reste
+  // en simulation pure — l'entraînement ne s'arrête jamais.
+  var Data = {
+    status: 'idle',      // idle | live | mock | offline | sim
+    source: 'sim',
+    at: 0,
+    anchors: null,
+    tickers: {}
+  };
+
+  function paintDataBar() {
+    var dot = $('#dataDot'); if (!dot) return;
+    var label = $('#dataLabel'), detail = $('#dataDetail');
+    var map = {
+      live: ['on', 'Données en ligne — prix réels (Yahoo Finance)'],
+      mock: ['sim', 'Données de test (MOCK=1) — pas de réseau, pas de vraie cotation'],
+      offline: ['off', 'Serveur injoignable — mode simulé'],
+      sim: ['sim', 'Mode simulé — ouvre index.html via node server.js pour les prix réels']
+    };
+    var m = map[Data.status] || map.sim;
+    dot.className = 'db-dot ' + m[0];
+    label.textContent = label.textContent.startsWith('Données') ? m[1] : label.textContent;
+    if (Data.status === 'live' && Data.anchors) {
+      var parts = Object.keys(Data.anchors).map(function (t) {
+        var a = Data.anchors[t];
+        return t + ' ' + Number(a.price).toFixed(2) + ' ' + (a.currency || '');
+      });
+      detail.textContent = parts.join(' · ') + ' — figées à l\'ouverture du round, puis le carnet simule.';
+    } else if (Data.status === 'offline') {
+      detail.textContent = 'node server.js n\'a pas répondu. L\'entraînement reste 100 % fonctionnel sur les prix simulés.';
+    } else if (Data.status === 'sim') {
+      detail.textContent = 'Ouvre le dossier avec « node server.js » (ou la preview Arena) pour caler les 5 lignes sur les prix d\'ouverture réels.';
+    }
+  }
+
+  function fetchQuotes() {
+    if (!window.fetch) { Data.status = 'sim'; paintDataBar(); return Promise.resolve(null); }
+    var url = '/api/quotes?symbols=' + Object.keys(Data.tickers).join(',');
+    return fetch(url, { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j || !j.ok) { Data.status = 'offline'; paintDataBar(); return null; }
+        var anchors = {}, got = 0;
+        (j.items || []).forEach(function (it) {
+          if (it.error || !it.price) return;
+          anchors[it.symbol] = { price: it.price, prevClose: it.prevClose, currency: it.currency, yahoo: it.yahoo };
+          got++;
+        });
+        Data.anchors = anchors;
+        Data.at = j.at;
+        Data.source = j.source;
+        Data.status = j.source === 'mock' ? 'mock' : (got ? 'live' : 'offline');
+        paintDataBar();
+        return anchors;
+      })
+      .catch(function () { Data.status = 'offline'; paintDataBar(); return null; });
+  }
+
+  function initData() {
+    var defs = (window.EngineData && window.EngineData.STOCK_DEFS) || [];
+    Data.tickers = {};
+    defs.forEach(function (d) { Data.tickers[d.t] = true; });
+    paintDataBar();
+    // on tente dès le chargement, sans bloquer l'UI
+    if (window.fetch && location.protocol !== 'file:') return fetchQuotes();
+    Data.status = 'sim'; paintDataBar();
+    return Promise.resolve(null);
+  }
+
+  // Replay : on récupère les barres réelles (1 min sur la dernière séance) et on
+  // les donne au moteur. 1 barre réelle = 1 tick de jeu.
+  var TICKS_PER_ROUND = function (sec) { return Math.round(sec * 1000 / 620); };
+
+  function fetchBars(symbols, roundSec) {
+    if (!window.fetch || location.protocol === 'file:') return Promise.resolve(null);
+    return fetch('/api/replay?roundSec=' + roundSec, { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j || !j.ok || !j.series) return null;
+        var n = 0;
+        Object.keys(j.series).forEach(function (k) { n += j.series[k].length; });
+        return { series: j.series, anchors: j.anchors || {}, bars: n, at: j.at, source: j.source };
+      })
+      .catch(function () { return null; });
+  }
+
+  var replay = null;   // dernier jeu de données réelles chargé
+
+  function ensureReplay(roundSec) {
+    if (settings.feed !== 'live') { replay = null; return Promise.resolve(null); }
+    if (replay && Object.keys(replay.series).length) return Promise.resolve(replay);
+    var defs = (window.EngineData && window.EngineData.STOCK_DEFS) || [];
+    return fetchBars(defs.map(function (d) { return d.t; }), roundSec).then(function (r) {
+      replay = r;
+      if (!r) {
+        settings.feed = 'sim';
+        refreshFeedSeg();
+        toast('Prix réels indisponibles — passage en simulation.', 'warn');
+      } else {
+        Data.status = r.source === 'mock' ? 'mock' : 'live';
+        Data.anchors = r.anchors;
+        Data.source = r.source;
+        paintDataBar();
+        toast('Replay chargé : ' + (r.source === 'mock' ? 'données de test' : 'vraies barres 1 min') +
+          ' sur ' + Object.keys(r.series).length + ' lignes.', r.source === 'mock' ? 'warn' : 'good');
+      }
+      return r;
+    });
+  }
+
+  function refreshFeedSeg() {
+    var box = $('#optFeed'); if (!box) return;
+    Array.prototype.forEach.call(box.querySelectorAll('button'), function (b) {
+      b.classList.toggle('on', b.dataset.val === settings.feed);
+    });
+  }
+
+  /* ---------------------------------------------------------------- journal d'erreurs */
+  var Err = { list: [], byType: {} };
+
+  var ERR_LABEL = {
+    ffc: 'FAT FINGER', pickoff: 'PICK-OFF', busted: 'QUOTE TUÉE', rfq: 'RFQ MANQUÉE',
+    wide: 'BLOC PERDU', slow: 'HEDGE LENT', limit: 'LIMITE', close: 'POSITION OUVERTE',
+    oversize: 'CLIP TROP GROS', stop: 'STOP IGNORÉ'
+  };
+
+  function addError(e) {
+    Err.list.push(e);
+    Err.byType[e.type] = (Err.byType[e.type] || 0) + 1;
+    if (Err.list.length > 300) Err.list.shift();
+    var btn = $('#btnErrors');
+    if (btn) {
+      var n = Err.list.length;
+      $('#errCount').textContent = n;
+      btn.className = 'icon-btn err-btn ' + (n === 0 ? 'clean' : 'has-err');
+    }
+  }
+
+  function resetErrors() {
+    Err.list = []; Err.byType = {};
+    var btn = $('#btnErrors');
+    if (btn) { $('#errCount').textContent = '0'; btn.className = 'icon-btn err-btn clean'; }
+    var body = $('#errBody'); if (body) body.innerHTML = '';
+    var empty = $('#errEmpty'); if (empty) empty.style.display = 'block';
+    var sum = $('#errSummary'); if (sum) sum.innerHTML = '';
+  }
+
+  function renderErrors() {
+    var body = $('#errBody'), empty = $('#errEmpty'), sum = $('#errSummary');
+    if (!body) return;
+    if (!Err.list.length) {
+      body.innerHTML = '';
+      empty.style.display = 'block';
+      sum.innerHTML = '<div><label>ERREURS</label><b>0</b></div>' +
+        '<div><label>COÛT ESTIMÉ</label><b>$0</b></div>';
+      return;
+    }
+    empty.style.display = 'none';
+    var totalCost = 0;
+    Err.list.forEach(function (e) { totalCost += Math.abs(e.cost || 0); });
+    var kinds = Object.keys(Err.byType).sort(function (a, b) { return Err.byType[b] - Err.byType[a]; });
+    sum.innerHTML =
+      '<div><label>ERREURS</label><b class="bad">' + Err.list.length + '</b></div>' +
+      '<div><label>COÛT ESTIMÉ</label><b class="bad">' + money(totalCost) + '</b></div>' +
+      kinds.slice(0, 3).map(function (k) {
+        return '<div><label>' + (ERR_LABEL[k] || k) + '</label><b>' + Err.byType[k] + '×</b></div>';
+      }).join('');
+    body.innerHTML = Err.list.slice().reverse().map(function (e) {
+      return '<tr><td class="muted">' + e.clock + '</td>' +
+        '<td><span class="err-type et-' + e.type + '">' + (ERR_LABEL[e.type] || e.type) + '</span></td>' +
+        '<td>' + esc(e.text) + '</td>' +
+        '<td class="r ' + (e.cost ? 'num-neg' : 'muted') + '">' + (e.cost ? '−' + money(Math.abs(e.cost)) : '—') + '</td></tr>';
+    }).join('');
+  }
+
+  function openErrors() { renderErrors(); showOverlay('overlayErrors'); }
 
   /* ---------------------------------------------------------------- session */
   var sessionStarted = false;
 
+  initData();
+
   function startIB() {
-    E.init(settings);
+    var opts = Object.assign({}, settings);
+    var rep = settings._replay || replay;
+    if (rep) {
+      opts.series = rep.series;
+      opts.anchors = rep.anchors;
+      opts.dataSource = 'replay';
+      opts.dataAt = rep.at;
+    } else if (Data.anchors && Data.status !== 'offline') {
+      opts.anchors = Data.anchors; opts.dataSource = Data.source; opts.dataAt = Data.at;
+    }
+    E.init(opts);
     E.on(onEngineEvent);
     E.start();
     UI.sel = 'BP';
@@ -125,6 +317,7 @@
     UI.chatSig = '';
     UI.tf = settings.roundSec === 300 ? 300 : 180;
     sessionStarted = true;
+    resetErrors();
 
     $('#qTicker').value = 'BP';
     $('#xTicker').value = 'BP';
@@ -167,24 +360,48 @@
 
   var chainAM = null;
 
+  // Démarrage : immédiat en simulation, avec un aller-retour serveur en mode réel.
   function startSession() {
     stopSession();
-    go('am');
-    window.AM.start(settings, {
-      chained: true,
-      onContinue: function (res) { chainAM = res; startIB(); },
-      onFinish: function (res) { chainAM = res; }
-    });
+    resetErrors();
+    function begin(res) {
+      settings._replay = res;
+      go('am');
+      window.AM.start(settings, {
+        chained: true,
+        onContinue: function (resp) {
+          chainAM = resp;
+          replay = null;
+          if (settings.feed !== 'live') { settings._replay = null; startIB(); return; }
+          toast('Chargement du replay pour le desk…', 'info');
+          ensureReplay(settings.roundSec || 180).then(function (r) {
+            settings._replay = r;
+            startIB();
+          });
+        },
+        onFinish: function (resp) { chainAM = resp; }
+      });
+    }
+    if (settings.feed !== 'live') { begin(null); return; }
+    toast('Chargement des prix réels…', 'info');
+    ensureReplay(240).then(begin);
   }
 
   function startAMOnly() {
     stopSession();
-    go('am');
-    window.AM.start(settings, {
-      chained: false,
-      onContinue: null,
-      onFinish: function (res) { chainAM = res; }
-    });
+    resetErrors();
+    function begin(res) {
+      settings._replay = res;
+      go('am');
+      window.AM.start(settings, {
+        chained: false,
+        onContinue: null,
+        onFinish: function (resp) { chainAM = resp; }
+      });
+    }
+    if (settings.feed !== 'live') { begin(null); return; }
+    toast('Chargement des prix réels…', 'info');
+    ensureReplay(240).then(begin);
   }
 
   function stopSession() {
@@ -226,6 +443,11 @@
   /* ---------------------------------------------------------------- engine events */
   function onEngineEvent(type, data) {
     if (type === 'toast') { toast(data.text, data.kind); return; }
+    if (type === 'error') {
+      addError(data);
+      if (data.type === 'ffc' || data.type === 'pickoff') beep('bad');
+      return;
+    }
     if (type === 'chat') { UI.chatSig = ''; return; }
     if (type === 'news') {
       beep('news');
@@ -879,6 +1101,7 @@
       '<li><b>ETM</b> : dénoue dans les 10 s, en clips de 25–50k. Une position portée coûte 15 % de l\'ETM.</li>' +
       '<li><b>SSRM</b> : jamais &gt; 85 % de la limite de 100k par ligne, et <kbd>X</kbd> avant chaque news.</li>' +
       '</ol></div>' +
+      errorDebrief() +
       '<div class="score-fixes"><h4>Les 4 choses à corriger avant demain</h4><ol>' + fixList + '</ol></div>' +
       '<div class="score-actions">' +
       '<button class="btn btn-teal btn-lg" data-action="replay">Refaire une session</button>' +
@@ -925,6 +1148,26 @@
       '<button class="btn btn-ghost btn-lg" data-go="brief">Session complète (AM + IB)</button>' +
       '</div>';
     go('score');
+  }
+
+  function errorDebrief() {
+    if (!Err.list.length) {
+      return '<div class="score-fixes" style="border-left-color:var(--green)"><h4 style="color:var(--green)">Journal d\'erreurs</h4>' +
+        '<p style="font-size:12px;color:#b9cfdf">Aucune erreur enregistrée sur cette session : zéro fat finger, zéro pick-off, ' +
+        'zéro RFQ manquée, zéro position ouverte. C\'est exactement le profil qui passe le cut.</p></div>';
+    }
+    var cost = 0;
+    Err.list.forEach(function (e) { cost += Math.abs(e.cost || 0); });
+    var kinds = Object.keys(Err.byType).sort(function (a, b) { return Err.byType[b] - Err.byType[a]; });
+    var rows = kinds.slice(0, 6).map(function (k) {
+      return '<tr><td><span class="err-type et-' + k + '">' + (ERR_LABEL[k] || k) + '</span></td>' +
+        '<td class="r">' + Err.byType[k] + '</td></tr>';
+    }).join('');
+    return '<div class="score-fixes" style="border-left-color:var(--red)"><h4 style="color:#ff8f99">Journal d\'erreurs — ' +
+      Err.list.length + ' événement(s), ' + money(cost) + ' de coût estimé</h4>' +
+      '<div class="err-debrief"><table class="mini-tbl"><tr><th>TYPE</th><th class="r">FOIS</th></tr>' + rows + '</table>' +
+      '<p style="font-size:11.5px;color:#9fb8ca;margin:0">Chaque ligne est horodatée : clique sur <b>⚠</b> pendant le round ' +
+      'ou appuie sur <kbd>E</kbd> pour voir le détail et corriger la cause.</p></div></div>';
   }
 
   function kv(k, v, good) {
@@ -1163,6 +1406,7 @@
     else if (k === 'b') hedge('BUY');
     else if (k === 's') hedge('SELL');
     else if (k === 'f') flattenSel();
+    else if (k === 'e') { openErrors(); }
     else if (k === '?') showOverlay('overlayHelp');
     else if (e.code === 'Space') { e.preventDefault(); togglePause(); }
   });
@@ -1229,6 +1473,7 @@
     if (eq) { selectTicker(eq.dataset.ticker); return; }
 
     var cx = e.target.closest('[data-cancel]');
+    if (e.target.closest('#btnErrors')) { openErrors(); return; }
     if (cx) { E.cancelQuote(cx.dataset.cancel); uiTick(); return; }
 
     var opt = e.target.closest('[data-opt]');
@@ -1349,6 +1594,10 @@
     showOverlay: showOverlay,
     closeAllOverlays: closeAllOverlays,
     renderScore: renderScore,
+    addError: addError,
+    openErrors: openErrors,
+    data: Data,
+    ensureReplay: ensureReplay,
     startIB: startIB,
     showIntro: showIntro,
     getChainAM: function () { return chainAM; },

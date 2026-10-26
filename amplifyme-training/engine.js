@@ -86,21 +86,47 @@
   }
   function toast(text, kind) { emit('toast', { text: text, kind: kind || 'info' }); }
 
+  // Journal d'erreurs : chaque point perdu est daté, nommé et chiffré.
+  function logError(type, text, meta) {
+    if (!S) return null;
+    var e = {
+      t: S.ms, clock: fmtClock(S.clockMs), round: S.round,
+      type: type, text: text,
+      ticker: (meta && meta.ticker) || null,
+      cost: (meta && meta.cost) || 0
+    };
+    S.errors.push(e);
+    if (S.errors.length > 200) S.errors.shift();
+    emit('error', e);
+    return e;
+  }
+
   /* ---------------------------------------------------------------- init */
   function init(opts) {
     opts = Object.assign({ rounds: 2, roundSec: 180, difficulty: 'normal', wheels: true, sound: true }, opts || {});
     S = {
       opts: opts,
       stocks: STOCK_DEFS.map(function (d) {
+        var a = opts.anchors && opts.anchors[d.t];
+        var px = a && isFinite(a.price) && a.price > 0 ? Number(a.price) : d.ref;
+        var base = a && isFinite(a.prevClose) && a.prevClose > 0 ? Number(a.prevClose) : px;
         return {
-          t: d.t, name: d.name, ref: d.ref, vol: d.vol,
-          mid: d.ref, pos: 0, avg: 0, realised: 0, hist: [d.ref],
+          t: d.t, name: d.name, ref: base, vol: d.vol,
+          mid: px, pos: 0, avg: 0, realised: 0, hist: [px],
           drift: 0, lastDir: 0,
           rivalBid: 0, rivalOffer: 0, rivalSpread: 0,
           riskAt: 0, riskQty: 0, riskLots: [],
-          axeShare: 0, axeTime: 0
+          axeShare: 0, axeTime: 0,
+          live: !!(a && a.price), currency: (a && a.currency) || 'USD',
+          series: (opts.series && opts.series[d.t]) || null
         };
       }),
+      dataSource: opts.dataSource || 'sim',
+      dataAt: opts.dataAt || 0,
+      series: opts.series || null,      // { TICKER: [prix...] } → replay sur données réelles
+      seriesAt: {},
+      seriesPrev: {},
+      errors: [],
       clients: CLIENTS.map(function (c) { return Object.assign({}, c); }),
       chat: { DEAL: [], HF1: [], HF2: [], HF3: [] },
       news: [],
@@ -240,7 +266,57 @@
   }
 
   /* ---------------------------------------------------------------- prices */
+  // Mode replay : on avance dans la vraie série de prix (Yahoo) au lieu d'un
+  // marche aléatoire. Les plus gros mouvements réels redeviennent des headlines.
+  function seriesTick() {
+    var shocks = [];
+    S.stocks.forEach(function (st) {
+      var ser = st.series;
+      if (!ser || !ser.length) return;
+      var i = S.seriesAt[st.t] || 0;
+      if (i >= ser.length - 1) {
+        // série épuisée → on reprend la simulation pour ne jamais figer le carnet
+        st.mid = Math.max(0.5, st.mid * (1 + st.drift + n2() * 0.00042 * st.vol));
+        st.drift *= 0.88;
+        st.hist.push(st.mid);
+        return;
+      }
+      S.seriesAt[st.t] = i + 1;
+      var px = ser[i + 1];
+      var prev = st.mid;
+      if (!px || !isFinite(px) || px <= 0) return;
+      st.mid = px;
+      st.hist.push(px);
+      if (st.hist.length > 900) st.hist.shift();
+      var move = (px - prev) / prev;
+      if (Math.abs(move) > 0.0032) {
+        shocks.push({ ticker: st.t, move: move, px: px });
+      }
+    });
+    if (shocks.length) {
+      S.newsSeq++;
+      shocks.sort(function (a, b) { return Math.abs(b.move) - Math.abs(a.move); });
+      var big = shocks[0];
+      var item = {
+        tag: 'MARCHÉ RÉEL',
+        text: 'Mouvement de ' + (big.move >= 0 ? '+' : '') + (big.move * 100).toFixed(2) + ' % sur ' + big.ticker +
+          ' — le carnet suit le prix réel.',
+        dir: big.move > 0 ? 1 : -1,
+        all: false,
+        impacts: shocks.reduce(function (o, sh) { o[sh.ticker] = sh.move * 10000; return o; }, {}),
+        clock: fmtClock(S.clockMs),
+        t: S.ms
+      };
+      S.news.unshift(item);
+      if (S.news.length > 60) S.news.pop();
+      emit('news', item);
+      var snap = item;
+      at(S.ms + 900, function () { pickOffStale(snap); });
+    }
+  }
+
   function priceTick() {
+    if (S.series) { seriesTick(); return; }
     var mult = S.opts.difficulty === 'chaos' ? 1.7 : S.opts.difficulty === 'calme' ? 0.65 : 1;
     var sigma = 0.00042 * mult;
     S.stocks.forEach(function (st) {
@@ -316,13 +392,19 @@
       if (qty >= 5000 && qty <= 75000) S.etm.goodClips++;
       // FIFO : on associe chaque action dénouée au lot de risque client le plus ancien
       var remaining = unwound;
+      var worstWait = 0;
       while (remaining > 0 && st.riskLots.length) {
         var lot = st.riskLots[0];
         var take = Math.min(lot.qty, remaining);
-        S.etm.timeWeighted += take * (S.ms - lot.at);
+        var waited = S.ms - lot.at;
+        S.etm.timeWeighted += take * waited;
+        if (waited > worstWait) worstWait = waited;
         lot.qty -= take;
         remaining -= take;
         if (lot.qty <= 0) st.riskLots.shift();
+      }
+      if (worstWait > 10000) {
+        logError('slow', 'Dénouement lent sur ' + st.t + ' : ' + (worstWait / 1000).toFixed(1) + ' s entre le trade client et le hedge', { ticker: st.t, cost: 0 });
       }
       if (after === 0) { st.riskAt = 0; st.riskQty = 0; st.riskLots = []; }
     }
@@ -381,6 +463,7 @@
       if (gap > 0.012) {
         q.dead = true;
         push(q.client || 'HF1', 'CLIENT', 'That price is miles off the market — pull it. I won\'t trade an obvious error.', 'alert');
+        logError('busted', 'Quote tuée sur ' + st.t + ' : ' + (gap * 100).toFixed(1) + '% hors du mid après la news (erreur évidente, non tradée)', { ticker: st.t, cost: 0 });
         emit('busted', { ticker: st.t, quote: q });
         return;
       }
@@ -397,7 +480,9 @@
         ? 'I\'ll take your offer — ' + fmtInt(qty) + ' ' + st.t + ' at ' + price.toFixed(2) + '.'
         : 'I\'ll hit your bid — ' + fmtInt(qty) + ' ' + st.t + ' at ' + price.toFixed(2) + '.'), 'alert');
       push('DEAL', 'SYS', 'Quote picked off on the ' + st.t + ' news. You were showing a stale price.', 'alert');
-      emit('picked', { ticker: st.t, qty: qty, price: price, clientSide: clientSide, client: client });
+      var pickCost = Math.abs(price - st.mid) * qty;
+      logError('pickoff', 'Pick-off sur ' + st.t + ' : ' + fmtInt(qty) + ' @ ' + price.toFixed(2) + ' vs mid ' + st.mid.toFixed(2), { ticker: st.t, cost: pickCost });
+      emit('picked', { ticker: st.t, qty: qty, price: price, clientSide: clientSide, client: client, cost: pickCost });
       toast('PICK-OFF — ' + fmtInt(qty) + ' ' + st.t + ' à ' + price.toFixed(2) + ' : quote trop loin du nouveau mid.', 'bad');
       hits++;
     });
@@ -414,11 +499,11 @@
     var valid = clamp(Number(p.valid) || 30, 5, 120);
 
     if (!isFinite(bid) || !isFinite(offer) || bid <= 0 || offer <= 0) return { ok: false, error: 'Prix manquant ou invalide' };
-    if (bid >= offer) { S.ffc++; return { ok: false, error: 'Bid ≥ Offer — marché croisé (Fat Finger)', ffc: true }; }
+    if (bid >= offer) { S.ffc++; logError('ffc', 'Prix croisé : bid ' + bid + ' ≥ offer ' + offer + ' sur ' + p.ticker, { ticker: p.ticker, cost: 16 }); return { ok: false, error: 'Bid ≥ Offer — marché croisé (Fat Finger)', ffc: true }; }
     if (!isFinite(bv) || !isFinite(ov) || bv < 100 || ov < 100) return { ok: false, error: 'Volume minimum : 100 actions' };
-    if (bv > 500000 || ov > 500000) { S.ffc++; return { ok: false, error: 'Volume > 500 000 — Fat Finger bloqué', ffc: true }; }
+    if (bv > 500000 || ov > 500000) { S.ffc++; logError('ffc', 'Volume ' + fmtInt(Math.max(bv, ov)) + ' sur ' + p.ticker + ' (> 500k)', { ticker: p.ticker, cost: 16 }); return { ok: false, error: 'Volume > 500 000 — Fat Finger bloqué', ffc: true }; }
     var dev = Math.max(Math.abs(bid - st.mid), Math.abs(offer - st.mid)) / st.mid;
-    if (dev > 0.08) { S.ffc++; return { ok: false, error: 'Prix à ' + (dev * 100).toFixed(1) + '% du mid — Fat Finger bloqué', ffc: true }; }
+    if (dev > 0.08) { S.ffc++; logError('ffc', 'Prix à ' + (dev * 100).toFixed(1) + '% du mid sur ' + p.ticker, { ticker: p.ticker, cost: 16 }); return { ok: false, error: 'Prix à ' + (dev * 100).toFixed(1) + '% du mid — Fat Finger bloqué', ffc: true }; }
 
     var openRfq = null;
     for (var i = S.rfqs.length - 1; i >= 0; i--) {
@@ -533,6 +618,7 @@
         var c = clientById(r.client);
         if (c) c.trust = clamp(c.trust - 9, 0, 100);
         push(r.client, 'CLIENT', 'Forget it — I\'ll go elsewhere.', 'alert');
+        logError('rfq', 'RFQ manquée — ' + r.client + ' · ' + fmtInt(r.size) + ' ' + r.ticker + ' (pas de réponse en 20 s)', { ticker: r.ticker, cost: 0 });
         toast('RFQ manquée — ' + r.client + ' · ' + fmtInt(r.size) + ' ' + r.ticker, 'bad');
         emit('missed', r);
       }
@@ -586,6 +672,7 @@
       if (edgeBps < -2) {
         push(rfq.client, 'CLIENT', 'Your price is away from the market — I got a better one. Nothing done.', 'alert');
         if (client) client.trust = clamp(client.trust - 2, 0, 100);
+        logError('wide', 'Bloc perdu sur ' + rfq.ticker + ' : ' + Math.abs(edgeBps).toFixed(1) + ' bps derrière la banque rivale (' + fmtInt(rfq.size) + ' actions)', { ticker: rfq.ticker, cost: rfq.size * st.mid * COMM_BPS / 10000 });
         emit('pass', { rfq: rfq, quote: q, reason: 'wide' });
         toast('Flux perdu : ta quote était ' + Math.abs(edgeBps).toFixed(1) + ' bps moins bonne que le marché.', 'warn');
       } else if (rfq.attempts < 1 && Math.random() < 0.45) {
@@ -722,11 +809,13 @@
     if (S.rfqTimer <= 0) spawnRfq();
 
     S.newsTimer -= dt;
-    if (S.newsTimer <= 0) {
+    if (S.newsTimer <= 0 && !S.series) {
       spawnNews();
       var cfg = S.opts.difficulty === 'calme' ? [38000, 52000]
         : S.opts.difficulty === 'chaos' ? [15000, 22000] : [24000, 34000];
       S.newsTimer = rand(cfg[0], cfg[1]) * (S.round > 1 ? 0.82 : 1);
+    } else if (S.series) {
+      S.newsTimer = 60000;          // le replay tire ses headlines des vrais mouvements
     }
 
     processClientDecisions();
@@ -751,7 +840,16 @@
     S.riskSum += util * dt; S.riskTime += dt;
     S.roundRiskSum += util * dt; S.roundRiskTime += dt;
     if (util > S.maxUtil) S.maxUtil = util;
-    if (util > 1) S.breachMs += dt;
+    if (util > 1) {
+      S.breachMs += dt;
+      S.stocks.forEach(function (st) {
+        var u = Math.abs(st.pos) / POS_LIMIT;
+        if (u > 1 && !st.breachLogged) {
+          st.breachLogged = true;
+          logError('limit', 'Limite dépassée sur ' + st.t + ' : ' + fmtInt(Math.abs(st.pos)) + ' / ' + fmtInt(POS_LIMIT) + ' actions', { ticker: st.t, cost: 0 });
+        } else if (u <= 1) st.breachLogged = false;
+      });
+    }
 
     if (S.timers.length) {
       var due = S.timers.filter(function (x) { return x.at <= S.ms; });
@@ -796,6 +894,7 @@
         st.realised -= cost;
         closeCost += cost;
         openLines.push({ t: st.t, pos: st.pos });
+        logError('close', 'Position ouverte à la cloche sur ' + st.t + ' (' + fmtInt(st.pos) + ') soldée au mid + 2 bps', { ticker: st.t, cost: cost });
         st.pos = 0; st.avg = 0;
       }
     });
@@ -951,6 +1050,8 @@
     netExposure: netExposure, grossExposure: grossExposure,
     etmScore: etmScore, ssrmScore: ssrmScore, percentileOf: percentileOf,
     fmtClock: fmtClock, fmtInt: fmtInt, fmtSigned: fmtSigned,
+    logError: logError,
+    errors: function () { return S ? S.errors : []; },
     POS_LIMIT: POS_LIMIT, COMM_BPS: COMM_BPS, push: push
   };
 
