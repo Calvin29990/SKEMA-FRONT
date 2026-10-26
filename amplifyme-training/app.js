@@ -131,7 +131,7 @@
     $('#xQty').value = 0;
     $('#qBid').value = '';
     $('#qOffer').value = '';
-    $('#qValid').value = 45;
+    $('#qValid').value = 30;
     $('#qBidVol').value = 50000;
     $('#qOfferVol').value = 50000;
     $('#newsList').innerHTML = '';
@@ -147,16 +147,16 @@
     E.get().paused = true;
     showIntro({
       title: 'Round — Investment Bank',
-      lead: 'Tu es le desk. Les clients t\'envoient des RFQ dans le chat, tu leur donnes un prix à deux sens, ils tapent, tu hedges.',
+      lead: 'Tu es le desk. Le flux ne vient pas de toi : il vient du <b>quote board</b>. Si ton prix est le meilleur, le client tape. Si tu es dehors, il va chez la banque rivale.',
       points: [
-        'Une <b>RFQ arrive</b> (chat + bannière ambre) : tu quotes <b>bid &lt; mid &lt; offer</b> en moins de 10 s.',
-        'Le client tape : tu prends la position. <b><kbd>B</kbd> / <kbd>S</kbd></b> pour te hedger au marché, <kbd>F</kbd> pour flat.',
-        '<b>News = reprice.</b> <kbd>X</kbd> annule toutes tes quotes avant qu\'elles ne soient snipées.',
-        'Objectif : <b>100 % des RFQ répondues</b>, zéro fat finger, <b>flat à la cloche</b>.'
+        'Poste <b>2–3 axes en permanence</b> (<kbd>M</kbd> puis <kbd>↵</kbd>). Prix plus agressif que le rival de 0–2 bps = flux garanti.',
+        'Une <b>RFQ bloc</b> arrive (chat + bannière ambre) : tu as 20 s, et le prix doit être meilleur que le board rival.',
+        'Le client tape : tu prends la position. <b><kbd>B</kbd> / <kbd>S</kbd></b> pour dénouer au marché, <kbd>F</kbd> pour flat. C\'est l\'ETM.',
+        '<b>News = reprice.</b> <kbd>X</kbd> annule toutes tes quotes avant qu\'elles ne soient snipées.'
       ],
       keys: [
         ['<kbd>1</kbd>–<kbd>5</kbd>', 'choisir le ticker'],
-        ['<kbd>M</kbd>', 'prix au mid ± 5 bps'],
+        ['<kbd>M</kbd>', 'prix au mid ± 4 bps'],
         ['<kbd>↵</kbd>', 'envoyer la quote'],
         ['<kbd>X</kbd>', 'tout annuler']
       ],
@@ -240,10 +240,10 @@
       UI.unread[data.client] = (UI.unread[data.client] || 0) + 1;
       UI.chatSig = '';
       selectTicker(data.ticker, true);
-      $('#qValid').value = 45;
+      $('#qValid').value = 30;
       $('#qBidVol').value = data.size;
       $('#qOfferVol').value = data.size;
-      if (settings.wheels) fillFromMid(10);
+      if (settings.wheels) fillFromMid(8);
       else { $('#qBid').value = ''; $('#qOffer').value = ''; }
       UI.qtyTouched = false;
       var panel = $('#panelTicket');
@@ -257,6 +257,7 @@
       $('#xQty').value = Math.abs(data.pos);
       UI.qtyTouched = false;
       if (data.pos === 0) $('#xQty').value = 0;
+      UI.chatSig = '';
       return;
     }
     if (type === 'picked') { beep('bad'); return; }
@@ -284,11 +285,16 @@
   function renderTop(S) {
     $('#marketClock').textContent = E.fmtClock(S.clockMs);
     var real = E.totalRealised(), un = E.totalUnrealised(), comm = S.commission, tot = E.totalPnl();
-    var mr = $('#mRealised'), mu = $('#mUnrealised'), mc = $('#mCommission'), mt = $('#mTotal');
-    mr.textContent = numSigned(real); mr.className = cls(real);
-    mu.textContent = numSigned(un); mu.className = cls(un);
-    mc.textContent = numSigned(comm);
-    mt.textContent = numSigned(tot); mt.className = 'c-amber';
+    $('#mRealised').textContent = numSigned(real); $('#mRealised').className = cls(real);
+    $('#mUnrealised').textContent = numSigned(un); $('#mUnrealised').className = cls(un);
+    $('#mCommission').textContent = numSigned(comm);
+    $('#mTotal').textContent = numSigned(tot); $('#mTotal').className = 'c-amber';
+    var expo = E.netExposure();
+    var el = $('#mExposure');
+    if (el) { el.textContent = numSigned(Math.round(expo)); el.className = expo >= 0 ? 'c-green' : 'c-red'; }
+    var etm = E.etmScore();
+    var et = $('#mEtm');
+    if (et) { et.textContent = Math.round(etm.score) + '%'; et.className = etm.score >= 70 ? 'c-teal' : etm.score >= 45 ? 'c-amber' : 'c-red'; }
 
     var rem = Math.max(0, S.opts.roundSec * 1000 - S.ms);
     var rc = $('#roundClock');
@@ -309,44 +315,46 @@
   function renderEquities(S) {
     var html = '';
     S.stocks.forEach(function (st) {
-      var m = E.quoteMarket(st);
       var chg = (st.mid / st.ref - 1) * 100;
-      var posTxt = st.pos === 0 ? '—' : numSigned(st.pos);
+      var q = E.boardFor(st.t);
+      var axe = q ? (q.bid > st.rivalBid ? 'BID' : (q.offer < st.rivalOffer ? 'OFR' : '')) : '';
       html += '<tr data-ticker="' + st.t + '" class="' + (UI.sel === st.t ? 'sel' : '') + '">' +
-        '<td>' + st.t + '</td>' +
-        '<td class="r num-pos">' + m.bid.toFixed(2) + '</td>' +
-        '<td class="r num-neg">' + m.offer.toFixed(2) + '</td>' +
+        '<td>' + st.t + (axe ? '<span class="axe-tag">' + axe + '</span>' : '') + '</td>' +
+        '<td class="r num-pos">' + st.rivalBid.toFixed(2) + '</td>' +
+        '<td class="r num-neg">' + st.rivalOffer.toFixed(2) + '</td>' +
+        '<td class="r muted">' + st.rivalSpread.toFixed(1) + '</td>' +
         '<td class="r ' + cls(chg) + '">' + (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%</td>' +
-        '<td class="r ' + cls(st.pos) + '">' + posTxt + '</td></tr>';
+        '<td class="r ' + cls(st.pos) + '">' + (st.pos === 0 ? '—' : numSigned(st.pos)) + '</td></tr>';
     });
     $('#equitiesBody').innerHTML = html;
     $('#eqClock').textContent = E.fmtClock(S.clockMs).slice(0, 5);
-    var total = S.stocks.reduce(function (a, st) { return a + st.pos * st.mid; }, 0);
-    $('#eqFoot').innerHTML = '<span>' + S.stocks.length + ' lignes · spread ~6 bps</span><span>NET ' + numSigned(total) + '</span>';
+    $('#eqFoot').innerHTML = '<span>MARCHÉ CONCURRENT</span><span>NET ' + numSigned(Math.round(E.grossExposure())) + '</span>';
   }
 
   /* ---------------------------------------------------------------- render: positions */
   function renderPositions(S) {
-    var html = '', count = 0, maxUtil = 0, gross = 0;
+    var html = '', count = 0, maxUtil = 0;
     S.stocks.forEach(function (st) {
       var un = st.pos * (st.mid - st.avg);
       var util = Math.abs(st.pos) / E.POS_LIMIT;
       maxUtil = Math.max(maxUtil, util);
-      gross += Math.abs(st.pos * st.mid);
       if (st.pos !== 0) count++;
-      html += '<tr class="' + (UI.sel === st.t ? 'sel' : '') + '">' +
+      var net = st.realised + un;
+      html += '<tr class="' + (UI.sel === st.t ? 'sel' : '') + '" data-ticker="' + st.t + '">' +
         '<td>' + st.t + '</td>' +
         '<td class="r ' + cls(st.pos) + '">' + (st.pos === 0 ? '—' : numSigned(st.pos)) + '</td>' +
         '<td class="r ' + (st.pos === 0 ? 'muted' : '') + '">' + (st.pos === 0 ? '—' : st.avg.toFixed(2)) + '</td>' +
+        '<td class="r ' + (st.pos === 0 ? 'muted' : '') + '">' + (st.pos === 0 ? '—' : fmt(Math.round(st.pos * st.mid))) + '</td>' +
         '<td class="r ' + cls(un) + '">' + (st.pos === 0 ? '—' : numSigned(Math.round(un))) + '</td>' +
         '<td class="r ' + cls(st.realised) + '">' + (st.realised === 0 ? '—' : numSigned(Math.round(st.realised))) + '</td>' +
-        '<td class="r ' + (util > 1 ? 'num-neg' : util > 0.7 ? '' : 'muted') + '">' + (st.pos === 0 ? '0%' : Math.round(util * 100) + '%') + '</td></tr>';
+        '<td class="r ' + cls(net) + '">' + (net === 0 ? '—' : numSigned(Math.round(net))) + '</td></tr>';
     });
     $('#positionsBody').innerHTML = html;
     $('#posCount').textContent = count + ' open';
     $('#riskBar').style.width = Math.min(100, maxUtil * 100) + '%';
     $('#riskLimitTxt').textContent = fmt(E.POS_LIMIT) + ' / ligne';
-    $('#exposureTxt').textContent = money(gross);
+    var etm = E.etmScore();
+    $('#exposureTxt').innerHTML = Math.round(etm.unwound * 100) + ' % dénoué';
   }
 
   function renderBlotter(S) {
@@ -356,30 +364,38 @@
         '<td class="r">' + fmt(b.qty) + '</td><td class="r">' + b.price.toFixed(2) + '</td>' +
         '<td class="r">' + fmt(b.notional) + '</td></tr>';
     }).join('');
-    if (!rows) rows = '<tr><td colspan="6" class="muted" style="padding:12px;font-family:var(--sans)">Aucun trade. Réponds à la RFQ en cours.</td></tr>';
+    if (!rows) rows = '<tr><td colspan="6" class="muted" style="padding:12px;font-family:var(--sans)">Aucun trade. Poste une axe sur le board.</td></tr>';
     $('#blotterBody').innerHTML = rows;
   }
 
-  /* ---------------------------------------------------------------- render: quotes */
+  /* ---------------------------------------------------------------- render: quote board */
   function renderLiveQuotes(S) {
-    var qs = E.liveQuotes();
-    $('#liveCount').textContent = qs.length;
-    if (!qs.length) {
-      $('#liveQuotesBody').innerHTML = '';
-      $('#liveEmpty').style.display = 'block';
-      return;
-    }
-    $('#liveEmpty').style.display = 'none';
-    var html = qs.map(function (q) {
-      var left = Math.max(0, (q.expiresAt - S.ms) / 1000);
-      var pct = Math.max(0, Math.min(100, (q.expiresAt - S.ms) / (q.valid * 1000) * 100));
-      return '<tr><td>' + q.ticker + '</td><td class="r">' + fmt(q.bidVol) + '</td>' +
-        '<td class="r num-pos">' + q.bid.toFixed(2) + '</td><td class="r num-neg">' + q.offer.toFixed(2) + '</td>' +
-        '<td class="r">' + fmt(q.offerVol) + '</td>' +
-        '<td class="r">' + Math.ceil(left) + 's<div class="valid-bar"><i style="width:' + pct + '%"></i></div></td>' +
-        '<td><button class="live-x" data-cancel="' + q.id + '" title="Annuler">✕</button></td></tr>';
-    }).join('');
+    var live = E.liveQuotes();
+    $('#liveCount').textContent = live.length + '/5';
+    var html = '';
+    S.stocks.forEach(function (st) {
+      var q = E.boardFor(st.t);
+      var isAxeBid = q && q.bid > st.rivalBid;
+      var isAxeOff = q && q.offer < st.rivalOffer;
+      var edge = '';
+      if (q) {
+        var eb = (q.bid - st.rivalBid) / st.mid * 10000;
+        var eo = (st.rivalOffer - q.offer) / st.mid * 10000;
+        var best = Math.max(eb, eo);
+        edge = '<span class="' + (best > 0 ? 'edge-good' : 'edge-bad') + '">' + (best >= 0 ? '+' : '') + best.toFixed(1) + '</span>';
+      }
+      html += '<tr data-ticker="' + st.t + '">' +
+        '<td>' + st.t + '</td>' +
+        '<td class="r">' + (q ? fmt(q.bidVol) : '—') + '</td>' +
+        '<td class="r ' + (isAxeBid ? 'axe-on' : (q ? 'num-pos' : 'muted')) + '">' + (q ? q.bid.toFixed(2) : '—') + '</td>' +
+        '<td class="r ' + (isAxeOff ? 'axe-on' : (q ? 'num-neg' : 'muted')) + '">' + (q ? q.offer.toFixed(2) : '—') + '</td>' +
+        '<td class="r">' + (q ? fmt(q.offerVol) : '—') + '</td>' +
+        '<td class="r">' + (q ? edge : '<span class="muted">pas d\'axe</span>') + '</td>' +
+        '<td class="r">' + (q ? Math.max(0, Math.ceil((q.expiresAt - S.ms) / 1000)) + 's' : '') + '</td>' +
+        '<td>' + (q ? '<button class="live-x" data-cancel="' + st.t + '" title="Retirer">✕</button>' : '') + '</td></tr>';
+    });
     $('#liveQuotesBody').innerHTML = html;
+    $('#liveEmpty').style.display = 'none';
   }
 
   function renderRfqBanner(S) {
@@ -388,7 +404,7 @@
     var b = $('#rfqBanner');
     if (!open.length) {
       b.classList.remove('live');
-      $('#rbText').textContent = 'Aucune RFQ en cours — surveille le chat.';
+      $('#rbText').textContent = 'Aucune RFQ en cours — le board travaille pour toi.';
       $('#rbBar').style.width = '0%';
       return;
     }
@@ -396,8 +412,8 @@
     b.classList.add('live');
     var left = Math.max(0, (r.deadline - S.ms) / 1000);
     var pct = Math.max(0, Math.min(100, (r.deadline - S.ms) / 20000 * 100));
-    var sideTxt = r.hint ? (r.side === 'BUY' ? ' · ACHETEUR' : ' · VENDEUR') : '';
-    $('#rbText').innerHTML = '<b>' + r.client + '</b> · ' + fmt(r.size) + ' ' + r.ticker + sideTxt + ' · <b>' + Math.ceil(left) + 's</b>' +
+    $('#rbText').innerHTML = '<b>' + r.client + '</b> · ' + fmt(r.size) + ' ' + r.ticker +
+      ' · <b>' + Math.ceil(left) + 's</b>' +
       (open.length > 1 ? ' <span class="muted">(+' + (open.length - 1) + ')</span>' : '');
     $('#rbBar').style.width = pct + '%';
   }
@@ -410,20 +426,22 @@
     var parts = [];
     if (bid > 0 && offer > 0 && offer > bid) {
       var spreadBps = (offer - bid) / st.mid * 10000;
-      parts.push('<span>spread ' + spreadBps.toFixed(1) + ' bps</span>');
-      var warn = '';
-      if (bid >= st.mid) warn = 'BID AU-DESSUS DU MID';
-      else if (offer <= st.mid) warn = 'OFFER SOUS LE MID';
-      else if (spreadBps < 3) warn = 'TROP SERRÉ';
-      else if (spreadBps > 30) warn = 'TROP LARGE';
-      if (warn) parts.push('<span class="' + (warn === 'TROP LARGE' ? '' : 'danger') + '">⚠ ' + warn + '</span>');
-    } else if (bid > 0 && offer > 0 && bid >= offer) {
+      var eb = (bid - st.rivalBid) / st.mid * 10000;
+      var eo = (st.rivalOffer - offer) / st.mid * 10000;
+      parts.push('<span>' + spreadBps.toFixed(1) + ' bps</span>');
+      parts.push('<span class="' + (eb > 0 ? 'good' : 'danger') + '">BID ' + (eb >= 0 ? '+' : '') + eb.toFixed(1) + ' vs marché</span>');
+      parts.push('<span class="' + (eo > 0 ? 'good' : 'danger') + '">OFR ' + (eo >= 0 ? '+' : '') + eo.toFixed(1) + '</span>');
+      if (bid >= st.mid) parts.push('<span class="danger">⚠ BID &gt; MID</span>');
+      else if (offer <= st.mid) parts.push('<span class="danger">⚠ OFR &lt; MID</span>');
+    } else if (bid > 0 && offer > 0) {
       parts.push('<span class="danger">⚠ BID ≥ OFFER — CROISÉ</span>');
+    } else {
+      parts.push('<span class="muted">marché ' + st.rivalBid.toFixed(2) + ' / ' + st.rivalOffer.toFixed(2) + '</span>');
     }
     parts.push('<span>mid ' + st.mid.toFixed(2) + '</span>');
-    parts.push('<span>notionnel ' + money((bv || 0) * st.mid) + '</span>');
+    if (bv > 0) parts.push('<span class="muted">' + fmt(Math.round(bv)) + ' × ' + st.mid.toFixed(2) + '</span>');
     $('#tkCalc').innerHTML = parts.join('');
-    $('#ticketHint').textContent = $('#qTicker').value + ' · ' + st.mid.toFixed(2);
+    $('#ticketHint').textContent = $('#qTicker').value + ' · ' + st.rivalSpread.toFixed(1) + ' bps marché';
   }
 
   function renderDepth(S) {
@@ -434,13 +452,11 @@
     var dAsk = E.depthFor(UI.sel, 'BUY', 0);
     var rows = ['<div class="depth-row head"><span class="dsz r">BID SZ</span><span>BID</span><span>ASK</span><span class="dsz">ASK SZ</span></div>'];
     for (var i = 0; i < 3; i++) {
-      var lvB = dBid.levels[i];
-      var lvA = dAsk.levels[i];
       rows.push('<div class="depth-row">' +
-        '<span class="dsz r">' + fmt(lvB.size) + '</span>' +
-        '<span class="dpx bid">' + lvB.px.toFixed(2) + '</span>' +
-        '<span class="dpx ask">' + lvA.px.toFixed(2) + '</span>' +
-        '<span class="dsz">' + fmt(lvA.size) + '</span></div>');
+        '<span class="dsz r">' + fmt(dBid.levels[i].size) + '</span>' +
+        '<span class="dpx bid">' + dBid.levels[i].px.toFixed(2) + '</span>' +
+        '<span class="dpx ask">' + dAsk.levels[i].px.toFixed(2) + '</span>' +
+        '<span class="dsz">' + fmt(dAsk.levels[i].size) + '</span></div>');
     }
     $('#depth').innerHTML = rows.join('');
     $('#xSell').textContent = m.bid.toFixed(2);
@@ -449,10 +465,8 @@
     if (qty > 0) {
       var bd = E.depthFor(UI.sel, 'SELL', qty);
       var ad = E.depthFor(UI.sel, 'BUY', qty);
-      $('#xImpact').textContent = 'S ' + (bd.slipBps).toFixed(1) + ' / B ' + (ad.slipBps).toFixed(1) + ' bps';
-    } else {
-      $('#xImpact').textContent = '—';
-    }
+      $('#xImpact').textContent = 'S ' + bd.slipBps.toFixed(1) + ' / B ' + ad.slipBps.toFixed(1) + ' bps';
+    } else $('#xImpact').textContent = '—';
   }
 
   /* ---------------------------------------------------------------- render: chart */
@@ -710,10 +724,10 @@
       selectTicker(next.ticker, true);
       $('#qBidVol').value = next.size;
       $('#qOfferVol').value = next.size;
-      if (settings.wheels) fillFromMid(10);
+      if (settings.wheels) fillFromMid(8);
       toast('Quote envoyée. RFQ suivante : ' + next.client + ' · ' + fmt(next.size) + ' ' + next.ticker, 'good');
     } else {
-      toast('Quote envoyée — en vie ' + $('#qValid').value + ' s.', 'good');
+      toast('Axe posté sur le board — ' + $('#qValid').value + ' s.', 'good');
     }
     setTimeout(function () { $('#qBid').focus(); }, 40);
   }
@@ -746,7 +760,7 @@
   function ringClass(v) { return v >= 70 ? '' : v >= 50 ? 'mid' : 'low'; }
   function scoreBars(sc) {
     var rows = [
-      ['COMM', sc.comm], ['P&L', sc.pnlScore], ['RISK', sc.risk], ['REL', sc.rel], ['FFC', sc.ffcScore]
+      ['NUMT', sc.numt], ['COMM', sc.comm], ['ETM', sc.etm], ['SSRM', sc.ssrm], ['FFC', sc.ffcScore]
     ];
     return rows.map(function (r) {
       var c = r[1] >= 70 ? '' : r[1] >= 45 ? 'warn' : 'bad';
@@ -754,8 +768,14 @@
     }).join('');
   }
 
+  var COHORT = 2100;                    // participants 2025 (LinkedIn finaliste) — ordre de grandeur
+  function rankFromPct(pct) {
+    return Math.max(1, Math.round((1 - pct / 100) * COHORT));
+  }
+
   function showRoundModal(data) {
     var sc = data.score, rs = data.roundStats;
+    var rank = rankFromPct(sc.percentile);
     var openTxt = rs.openLines.length
       ? '<b>' + rs.openLines.map(function (l) { return fmt(Math.abs(l.pos)) + ' ' + l.t + (l.pos > 0 ? ' long' : ' short'); }).join(', ') + '</b> clôturée(s) au mid — coût ' + money(rs.closeCost) + '.'
       : 'Aucune position ouverte à la cloche. <b>Parfait.</b>';
@@ -767,15 +787,19 @@
       '<div class="modal-h"><h3>Round ' + rs.round + ' / ' + E.get().opts.rounds + ' terminé</h3></div>' +
       '<div class="modal-b">' +
       '<div class="score-hero"><div class="score-ring ' + ringClass(sc.total) + '"><b>' + Math.round(sc.total) + '</b><span>SCORE CUMULÉ</span></div>' +
-      '<h2>' + (sc.total >= 70 ? 'Propre.' : sc.total >= 50 ? 'Correct, mais il y a du gras.' : 'Trop de points laissés.') + '</h2>' +
+      '<h2>' + (sc.total >= 85 ? 'Niveau top 100.' : sc.total >= 70 ? 'Propre, mais encore une marche.' : sc.total >= 55 ? 'Correct, il reste du gras.' : 'Trop de points laissés.') + '</h2>' +
       '<p>Ce round : ' + rs.trades + ' trades · ' + money(rs.commission) + ' de commission · ' + rs.ffc + ' FFC · ' +
-      rs.answered + '/' + rs.rfqTotal + ' RFQ répondues</p></div>' +
+      rs.answered + '/' + rs.rfqTotal + ' RFQ · percentile estimé <b>' + sc.percentile + '</b></p></div>' +
+      '<div class="rank-band"><div><label>PERCENTILE ESTIMÉ</label><b>P' + Math.round(sc.percentile) + '</b></div>' +
+      '<div><label>RANG ESTIMÉ / ' + fmt(COHORT) + '</label><b>#' + rank + '</b></div>' +
+      '<div><label>CIBLE TOP 100</label><b class="' + (rank <= 100 ? 'ok' : 'ko') + '">#100</b></div></div>' +
       '<div class="round-banner">' + openTxt + '</div>' +
-      '<div class="score-grid"><div class="score-card"><h4>COMPOSANTES DU SCORE</h4>' + scoreBars(sc) + '</div>' +
+      '<div class="score-grid"><div class="score-card"><h4>LES 5 MÉTRIQUES SELL-SIDE</h4>' + scoreBars(sc) +
+      '<div class="muted" style="font-size:10px;margin-top:8px">NUMT 25 % · COMM 25 % · ETM 20 % · SSRM 20 % · FFC 10 %</div></div>' +
       '<div class="score-card"><h4>DÉTECTION DU ROUND</h4>' +
       '<div class="srow"><span class="nm">RFQ</span><span class="bar"><i class="' + (rs.answered / Math.max(1, rs.rfqTotal) > .9 ? '' : 'warn') + '" style="width:' + Math.round(rs.answered / Math.max(1, rs.rfqTotal) * 100) + '%"></i></span><span class="vl">' + rs.answered + '/' + rs.rfqTotal + '</span></div>' +
       '<div class="srow"><span class="nm">SNIPES</span><span class="bar"><i class="' + (rs.sniped ? 'bad' : '') + '" style="width:' + Math.min(100, rs.sniped * 25) + '%"></i></span><span class="vl">' + rs.sniped + '</span></div>' +
-      '<div class="srow"><span class="nm">RISK</span><span class="bar"><i class="' + (rs.avgUtil > .6 ? 'warn' : '') + '" style="width:' + Math.round(Math.min(1, rs.avgUtil) * 100) + '%"></i></span><span class="vl">' + Math.round(rs.avgUtil * 100) + '%</span></div>' +
+      '<div class="srow"><span class="nm">RISK MAX</span><span class="bar"><i class="' + (rs.avgUtil > .6 ? 'warn' : '') + '" style="width:' + Math.round(Math.min(1, rs.avgUtil) * 100) + '%"></i></span><span class="vl">' + Math.round(rs.avgUtil * 100) + '%</span></div>' +
       '<div class="srow"><span class="nm">FFC</span><span class="bar"><i class="' + (rs.ffc ? 'bad' : '') + '" style="width:' + Math.min(100, rs.ffc * 30) + '%"></i></span><span class="vl">' + rs.ffc + '</span></div>' +
       '</div></div>' +
       '<div class="score-fixes"><h4>À corriger au prochain round</h4><ol>' +
@@ -791,56 +815,69 @@
       go('hub'); return;
     }
     var sc = E.score(), S = E.get();
+    var m = sc.metrics;
+    var rank = rankFromPct(sc.percentile);
+
     var amHtml = '';
     if (chainAM && chainAM.score) {
       var am = chainAM.score, amm = am.metrics;
       amHtml = '<div class="round-banner" style="border-left-color:var(--violet);background:linear-gradient(90deg,rgba(157,140,255,.14),transparent)">' +
         '<b>ROUND 1 — ASSET MANAGER</b> · score <b>' + Math.round(am.total) + '/100</b> (note ' + am.grade + ') · ' +
-        'return <b>' + (amm.ret >= 0 ? '+' : '') + (amm.ret * 100).toFixed(2) + '%</b> · benchmark ' +
+        'ROI <b>' + (amm.ret >= 0 ? '+' : '') + (amm.ret * 100).toFixed(2) + '%</b> · benchmark ' +
         (amm.bench >= 0 ? '+' : '') + (amm.bench * 100).toFixed(2) + '% · alpha <b>' + (amm.alpha >= 0 ? '+' : '') +
-        (amm.alpha * 100).toFixed(2) + '%</b> · drawdown ' + (amm.maxDD * 100).toFixed(1) + '% · ' + amm.trades + ' trades</div>';
+        (amm.alpha * 100).toFixed(2) + '%</b> · ' + amm.trades + ' trades</div>';
     }
-    var m = sc.metrics;
+
     var fixList = E.fixes(sc).map(function (f) { return '<li>' + f + '</li>'; }).join('');
-    var verdict = m.answeredRatio >= 0.95 ? 'Flux maîtrisé' : m.answeredRatio >= 0.7 ? 'Flux partiel' : 'Flux perdu';
+    var verdict = sc.total >= 85 ? 'Niveau top 100' : sc.total >= 70 ? 'Bon desk, pas encore top 100' : sc.total >= 55 ? 'Intermédiaire' : 'Trop de points laissés';
+
     $('#scoreContent').innerHTML =
       '<a class="back" data-go="hub">← Hub</a>' +
-      '<div class="kicker">DÉBRIEF DE SESSION</div>' + amHtml +
+      '<div class="kicker">DÉBRIEF DE SESSION — INVESTMENT BANK</div>' + amHtml +
       '<div class="score-hero">' +
       '<div class="score-ring ' + ringClass(sc.total) + '"><b>' + Math.round(sc.total) + '</b><span>SCORE / 100</span></div>' +
-      '<h2>Note ' + sc.grade + ' — ' + verdict + '</h2>' +
+      '<h2>' + verdict + ' — percentile estimé <b>P' + Math.round(sc.percentile) + '</b></h2>' +
       '<p>' + S.round + ' round(s) · ' + Math.round(S.elapsedMs / 1000) + ' s de marché · ' +
-      m.trades + ' trades client · ' + money(m.commission) + ' de commission</p></div>' +
+      m.numt + ' trades client · ' + money(m.commission) + ' de commission · ' + m.rfqTotal + ' RFQ reçues</p></div>' +
+      '<div class="rank-band"><div><label>PERCENTILE ESTIMÉ</label><b>P' + Math.round(sc.percentile) + '</b></div>' +
+      '<div><label>RANG ESTIMÉ / ' + fmt(COHORT) + '</label><b>#' + rank + '</b></div>' +
+      '<div><label>CIBLE TOP 100</label><b class="' + (rank <= 100 ? 'ok' : 'ko') + '">#100 · P95</b></div>' +
+      '<div><label>NOTE</label><b>' + sc.grade + '</b></div></div>' +
       '<div class="score-grid">' +
-      '<div class="score-card"><h4>TES 5 COMPOSANTES</h4>' + scoreBars(sc) +
-      '<div class="muted" style="font-size:10px;margin-top:8px">COMM 30 % · P&L 25 % · RISK 20 % · REL 15 % · FFC 10 %</div></div>' +
-      '<div class="score-card"><h4>LES MÉTRIQUES AMPLIFYME</h4>' +
+      '<div class="score-card"><h4>LES 5 MÉTRIQUES SELL-SIDE</h4>' + scoreBars(sc) +
+      '<div class="muted" style="font-size:10px;margin-top:8px">NUMT 25 % · COMM 25 % · ETM 20 % · SSRM 20 % · FFC 10 %</div></div>' +
+      '<div class="score-card"><h4>MÉTRIQUES BRUTES</h4>' +
       '<div class="srow"><span class="nm">NUMT</span><b style="font-family:var(--mono);font-size:15px">' + m.numt + '</b><span class="muted" style="font-size:10px;margin-left:auto">trades client</span></div>' +
       '<div class="srow"><span class="nm">COMM</span><b style="font-family:var(--mono);font-size:15px">' + money(m.commission) + '</b><span class="muted" style="font-size:10px;margin-left:auto">8 bps / trade</span></div>' +
+      '<div class="srow"><span class="nm">ETM</span><b style="font-family:var(--mono);font-size:15px">' + m.etm + '/100</b><span class="muted" style="font-size:10px;margin-left:auto">' + Math.round(m.unwound * 100) + ' % dénoué</span></div>' +
+      '<div class="srow"><span class="nm">SSRM</span><b style="font-family:var(--mono);font-size:15px">' + m.ssrm + '/100</b><span class="muted" style="font-size:10px;margin-left:auto">' + m.breachSec + ' s en breach</span></div>' +
       '<div class="srow"><span class="nm">FFC</span><b style="font-family:var(--mono);font-size:15px;color:' + (m.ffc ? 'var(--red)' : 'var(--green)') + '">' + m.ffc + '</b><span class="muted" style="font-size:10px;margin-left:auto">fat fingers</span></div>' +
-      '<div class="srow"><span class="nm">SSRM</span><b style="font-family:var(--mono);font-size:15px">' + m.ssrm + '/100</b><span class="muted" style="font-size:10px;margin-left:auto">risque sell-side</span></div>' +
       '</div></div>' +
       '<div class="score-grid">' +
-      '<div class="score-card"><h4>P&L &amp; EXÉCUTION</h4>' +
+      '<div class="score-card"><h4>P&amp;L &amp; EXÉCUTION</h4>' +
       kv('P&L total', money(m.pnl), m.pnl >= 0) +
       kv('Réalisé', money(m.realised), m.realised >= 0) +
       kv('Unrealised', money(m.unrealised), m.unrealised >= 0) +
       kv('Commission', money(m.commission), true) +
       kv('Coût de clôture', money(m.settlement), false) +
+      kv('Net exposure', money(m.netExposure), Math.abs(m.netExposure) < 1) +
       '</div>' +
       '<div class="score-card"><h4>RELATION &amp; RISQUE</h4>' +
       kv('RFQ répondues', m.answered + ' / ' + m.rfqTotal, m.answeredRatio > 0.9) +
+      kv('Blocs perdus', m.lostToRivals, m.lostToRivals === 0) +
       kv('Temps moyen', m.avgResp ? m.avgResp.toFixed(1) + ' s' : '—', m.avgResp < 10) +
       kv('Pick-offs', m.sniped, m.sniped === 0) +
       kv('Exposition moy.', Math.round(m.avgUtil * 100) + ' %', m.avgUtil < 0.5) +
       kv('Exposition max', Math.round(m.maxUtil * 100) + ' %', m.maxUtil < 1) +
       kv('Confiance clients', Math.round(m.trust) + ' / 100', m.trust > 60) +
+      kv('Part du board', Math.round(m.axeShare * 100) + ' %', m.axeShare > 0.5) +
       '</div></div>' +
-      '<div class="score-fixes" style="border-left-color:var(--teal)"><h4 style="color:var(--teal)">Objectif top 100 — la barre à passer demain</h4>' +
+      '<div class="score-fixes" style="border-left-color:var(--teal)"><h4 style="color:var(--teal)">La barre du top 100 — à passer demain</h4>' +
       '<ol style="margin-left:18px;font-size:12.5px;line-height:1.8;color:#b9cfdf">' +
-      '<li>Score ≥ <b>85/100</b> ici, avec <b>0 fat finger</b> et <b>100 % des RFQ</b> répondues.</li>' +
-      '<li><b>Flat à la cloche</b> sur toutes les lignes, à chaque round.</li>' +
-      '<li>Côté buy-side : <b>alpha positif</b> et drawdown &lt; 1 %.</li>' +
+      '<li>Ici : <b>score ≥ 89/100</b> (≈ P95) pour viser le top 100 sur ~2 100 joueurs. La finale se joue au <b>top 10 %</b> par compétition régionale.</li>' +
+      '<li><b>NUMT + COMM</b> : garde 3–4 axes en permanence sur le board. Sans quote, zéro flux — le client va chez la banque rivale.</li>' +
+      '<li><b>ETM</b> : dénoue dans les 10 s, en clips de 25–50k. Une position portée coûte 15 % de l\'ETM.</li>' +
+      '<li><b>SSRM</b> : jamais &gt; 85 % de la limite de 100k par ligne, et <kbd>X</kbd> avant chaque news.</li>' +
       '</ol></div>' +
       '<div class="score-fixes"><h4>Les 4 choses à corriger avant demain</h4><ol>' + fixList + '</ol></div>' +
       '<div class="score-actions">' +
@@ -848,7 +885,7 @@
       '<button class="btn btn-ghost btn-lg" data-go="drills">10 min de drills</button>' +
       '<button class="btn btn-ghost btn-lg" data-go="cheat">Relire la fiche</button>' +
       '</div>' +
-      '<p class="muted" style="text-align:center;font-size:11px;margin-top:24px">Score absolu calibré pour l\'entraînement — AmplifyME classe en percentile face aux autres candidats, pas sur cette échelle.</p>';
+      '<p class="muted" style="text-align:center;font-size:11px;margin-top:24px">Le percentile est une simulation : AmplifyME classe les candidats en percentiles pondérés, sans publier la formule exacte.</p>';
   }
 
   function renderAmOnlyScore(am) {
@@ -863,17 +900,24 @@
       '<div class="kicker">DÉBRIEF · ASSET MANAGER</div>' +
       '<div class="score-hero">' +
       '<div class="score-ring ' + (am.total >= 70 ? '' : am.total >= 50 ? 'mid' : 'low') + '"><b>' + Math.round(am.total) + '</b><span>SCORE BUY-SIDE</span></div>' +
-      '<h2>Note ' + am.grade + ' — ' + (m.alpha > 0.001 ? 'alpha positif' : m.alpha > -0.001 ? 'flat' : 'le marché gagne') + '</h2>' +
-      '<p>Return ' + (m.ret >= 0 ? '+' : '') + (m.ret * 100).toFixed(2) + '% · benchmark ' +
+      '<h2>Note ' + am.grade + ' — ROI score P' + Math.round(am.roi) + ' · execution ' + Math.round(am.execution) + ' · BSRM ' + Math.round(am.bsrm) + '</h2>' +
+      '<p>ROI ' + (m.ret >= 0 ? '+' : '') + (m.ret * 100).toFixed(2) + '% · benchmark ' +
       (m.bench >= 0 ? '+' : '') + (m.bench * 100).toFixed(2) + '% · alpha ' +
       (m.alpha >= 0 ? '+' : '') + (m.alpha * 100).toFixed(2) + '% · ' + m.trades + ' trades</p></div>' +
-      '<div class="score-grid"><div class="score-card"><h4>COMPOSANTES</h4>' +
-      bar('ALPHA', am.alphaScore) + bar('RISQUE', am.risk) + bar('ACTIVITÉ', am.activity) + bar('DISCIPLINE', am.discipline) + '</div>' +
+      '<div class="rank-band"><div><label>ROI SCORE</label><b>' + Math.round(am.roi) + '</b></div>' +
+      '<div><label>EXECUTION</label><b>' + Math.round(am.execution) + '</b></div>' +
+      '<div><label>BSRM</label><b>' + Math.round(am.bsrm) + '</b></div>' +
+      '<div><label>SCORE</label><b>' + Math.round(am.total) + '</b></div></div>' +
+      '<div class="score-grid"><div class="score-card"><h4>LES 3 MÉTRIQUES BUY-SIDE</h4>' +
+      bar('ROI %ile', am.roi) + bar('EXECUTION', am.execution) + bar('BSRM', am.bsrm) +
+      '<div class="muted" style="font-size:10px;margin-top:8px">ROI 40 % · EXECUTION 30 % · BSRM 30 %</div></div>' +
       '<div class="score-card"><h4>DÉTECTION</h4>' +
       kv('Valeur', money(m.value), m.pnl >= 0) + kv('P&L', signedMoney(m.pnl), m.pnl >= 0) +
-      kv('Drawdown max', (m.maxDD * 100).toFixed(1) + ' %', m.maxDD < 0.01) +
-      kv('Exposition', Math.round(m.exposure * 100) + ' %', m.exposure > 0.6) +
-      kv('Concentration', Math.round(m.concentration * 100) + ' %', m.concentration < 0.4) +
+      kv('Slip moyen', (m.avgSlip || 0).toFixed(1) + ' bps', m.avgSlip < 4) +
+      kv('Clip moyen', Math.round((m.avgClip || 0) * 100) + ' %', m.avgClip > 0.03) +
+      kv('Sous le stop', (m.breachSec || 0) + ' s', !m.breachSec) +
+      kv('Drawdown max', (m.maxDD * 100).toFixed(1) + ' %', m.maxDD < 0.015) +
+      kv('Expo moyenne', Math.round((m.expoAvg || 0) * 100) + ' %', m.expoAvg > 0.7) +
       kv('Frais', money(m.fees), m.fees < 6000) + '</div></div>' +
       '<div class="score-fixes"><h4>À corriger</h4><ol>' + fixes + '</ol></div>' +
       '<div class="score-actions">' +
@@ -1114,7 +1158,7 @@
       return;
     }
     var k = e.key.toLowerCase();
-    if (k === 'm') { fillFromMid(10); toast('Bid/offer centrés sur le mid (± 5 bps).', 'good'); }
+    if (k === 'm') { fillFromMid(8); toast('Bid/offer centrés sur le mid (± 4 bps). Vise le meilleur prix du board.', 'good'); }
     else if (k === 'x') { E.cancelAll(); UI.chatSig = ''; }
     else if (k === 'b') hedge('BUY');
     else if (k === 's') hedge('SELL');

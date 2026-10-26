@@ -144,6 +144,7 @@ kbd{
 .brief-card p{font-size:12.5px;line-height:1.6;color:#93aec2}
 .brief-card b{color:var(--txt)}
 .brief-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+.brief-metrics.five{grid-template-columns:repeat(5,1fr)}
 .bm{background:#0b1e2e;border:1px solid var(--line);border-radius:10px;padding:13px 14px}
 .bm span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--teal);display:block;margin-bottom:6px}
 .bm p{font-size:11px;line-height:1.5;color:#87a3b8}
@@ -553,6 +554,7 @@ kbd{
 @media (max-width:1340px){
   .hub-body h1{font-size:36px}
   .brief-grid,.brief-metrics{grid-template-columns:1fr 1fr}
+  .brief-metrics.five{grid-template-columns:1fr 1fr}
   .sim-grid{
     grid-template-columns:266px minmax(310px,1fr) 284px;
     grid-template-rows:minmax(0,31%) minmax(0,44%) minmax(0,25%);
@@ -681,3 +683,17 @@ kbd{
 }
 .intro-list b{color:#eaf7ff}
 .intro-list kbd{margin:0 2px}
+
+/* ---- v2 : quote board, percentile, bandeau de rang ---- */
+.axe-tag{margin-left:4px;font-size:7.5px;letter-spacing:.06em;padding:0 3px;border-radius:2px;
+  background:rgba(47,227,196,.14);color:var(--teal);border:1px solid rgba(47,227,196,.3);vertical-align:1px}
+.axe-on{color:var(--teal)!important;font-weight:600}
+.edge-good{color:var(--green)}
+.edge-bad{color:var(--dim)}
+.rank-band{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 16px}
+.rank-band>div{background:#0a1b29;border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+.rank-band label{display:block;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
+.rank-band b{font-family:var(--mono);font-size:17px;color:#eaf7ff;font-weight:500}
+.rank-band b.ok{color:var(--teal)}
+.rank-band b.ko{color:var(--amber)}
+@media (max-width:900px){.rank-band{grid-template-columns:repeat(2,1fr)}}

@@ -21,9 +21,10 @@
       <div class="hub-kicker">SIMULATION D'ENTRAÎNEMENT · HORS LIGNE · ZÉRO DONNÉE LIVE</div>
       <h1>Les bons réflexes <em>avant</em> 18:00.</h1>
       <p class="hub-lead">
-        Un clone fonctionnel du desk Sales &amp; Trading AmplifyME : tu quotes, le client tape,
-        tu hedges, tu tiens ta limite de risque. Même boucle, mêmes métriques
-        (<b>NUMT · COMM · FFC · SSRM</b>), mêmes erreurs qui coûtent des points.
+        Un clone fonctionnel du desk Sales &amp; Trading AmplifyME : tu postes tes axes sur un
+        <b>quote board</b> face à 4 banques rivales, le client tape, tu dénoues au marché.
+        Mêmes métriques que la vraie plateforme — <b>NUMT · COMM · ETM · SSRM · FFC</b> côté
+        sell-side, <b>ROI score · Execution · BSRM</b> côté asset manager.
       </p>
 
       <div class="hub-cards">
@@ -41,7 +42,7 @@
           <div class="hc-ico hc-am">◧</div>
           <div class="hc-body">
             <h3>Desk Asset Manager</h3>
-            <p>Le round buy-side : $20M, 5 lignes, news en continu. Alpha vs benchmark, drawdown, concentration.</p>
+            <p>Le round buy-side : $20M, 5 lignes, news en continu. Noté sur <b>ROI score</b> (percentile), <b>Execution</b> et <b>BSRM</b>.</p>
             <div class="hc-meta"><span class="pill pill-violet">round 1 du vrai event</span><span class="pill">240 s</span></div>
           </div>
           <div class="hc-arrow">→</div>
@@ -103,40 +104,41 @@
         <div class="brief-card">
           <div class="bc-tag">RÔLE 1</div>
           <h4>Market Maker</h4>
-          <p>Tu affiches un <b>bid</b> et un <b>offer</b> à deux sens. Tu gagnes le spread,
-          tu perds si ton prix est vieux ou trop agressif.</p>
+          <p>Tu affiches un <b>bid</b> et un <b>offer</b> sur un <b>quote board</b> face à 4 banques rivales.
+          Si ton prix est le meilleur, le client tape. Sinon, il va chez elles.</p>
         </div>
         <div class="brief-card">
           <div class="bc-tag">RÔLE 2</div>
           <h4>Sales Trader</h4>
-          <p>Les clients (HF1, HF2, …) demandent un prix. Répondre vite, serré, juste.
-          C'est ça qui génère <b>NUMT</b> et <b>COMM</b>.</p>
+          <p>Les blocs arrivent en <b>RFQ</b> dans le chat (20 s de délai). Répondre vite, serré, juste :
+          c'est ça qui génère <b>NUMT</b> et <b>COMM</b>.</p>
         </div>
         <div class="brief-card">
           <div class="bc-tag">RÔLE 3</div>
           <h4>Risk Manager</h4>
-          <p>Chaque trade te laisse une position. Tu la hedges au marché. Tu restes sous
-          <b>100 000 actions</b> par ligne, et à plat à la cloche.</p>
+          <p>Chaque trade te laisse une position à dénouer au marché <b>vite et par clips propres</b>.
+          C'est <b>l'ETM</b>. Limite : 100 000 actions par ligne.</p>
         </div>
       </div>
 
-      <div class="brief-metrics">
-        <div class="bm"><span>NUMT</span><p>Nombre de trades client. Le flux se gagne en répondant à <i>toutes</i> les RFQ.</p></div>
-        <div class="bm"><span>COMM</span><p>Commission générée. 8 bps du notionnel, uniquement sur le flux client.</p></div>
-        <div class="bm"><span>FFC</span><p>Fat Finger Count. Prix croisé, prix à 5 % du mid, volume ×10 : chaque erreur coûte.</p></div>
-        <div class="bm"><span>SSRM</span><p>Sell-Side Risk Management. Temps passé proche de la limite + positions ouvertes à la cloche.</p></div>
+      <div class="brief-metrics five">
+        <div class="bm"><span>NUMT</span><p>Nombre de trades client. Le flux se gagne en gardant <i>les meilleurs prix du board</i>.</p></div>
+        <div class="bm"><span>COMM</span><p>Commission générée : 8 bps du notionnel, uniquement sur le flux client.</p></div>
+        <div class="bm"><span>ETM</span><p>Exchange Trade Metric : part du risque client dénoué au marché, <i>vitesse</i> et <i>taille des clips</i>.</p></div>
+        <div class="bm"><span>SSRM</span><p>Sell-Side Risk Management : temps passé près de la limite de 100k par ligne.</p></div>
+        <div class="bm"><span>FFC</span><p>Fat Finger Count. Prix croisé, prix à 8 % du mid, volume ×10 : chaque erreur coûte.</p></div>
       </div>
 
       <div class="brief-loop">
-        <div class="bl-step"><b>1</b><span>RFQ arrive<br><small>chat + bannière</small></span></div>
+        <div class="bl-step"><b>1</b><span>Tu postes tes axes<br><small>board, 0–2 bps devant</small></span></div>
         <div class="bl-arr">→</div>
-        <div class="bl-step"><b>2</b><span>Tu quotes<br><small>bid &lt; mid &lt; offer</small></span></div>
+        <div class="bl-step"><b>2</b><span>Le flux tape<br><small>board ou RFQ bloc</small></span></div>
         <div class="bl-arr">→</div>
-        <div class="bl-step"><b>3</b><span>Client tape<br><small>tu prends la position</small></span></div>
+        <div class="bl-step"><b>3</b><span>Tu prends la position<br><small>et tu gagnes la COMM</small></span></div>
         <div class="bl-arr">→</div>
-        <div class="bl-step"><b>4</b><span>Tu hedges<br><small>au marché, par petits blocs</small></span></div>
+        <div class="bl-step"><b>4</b><span>Tu dénoues<br><small>25–50k, en &lt; 10 s</small></span></div>
         <div class="bl-arr">→</div>
-        <div class="bl-step"><b>5</b><span>Tu reprices<br><small>surtout après une news</small></span></div>
+        <div class="bl-step"><b>5</b><span>News → <kbd>X</kbd><br><small>puis tu repostes</small></span></div>
       </div>
 
       <div class="setup">
@@ -186,7 +188,9 @@
       <div class="top-clock" id="marketClock">13:22:62</div>
       <div class="top-metric"><label>Realised P&amp;L</label><b id="mRealised">0</b></div>
       <div class="top-metric"><label>Unrealised P&amp;L</label><b id="mUnrealised">0</b></div>
+      <div class="top-metric"><label>Net exposure</label><b id="mExposure">0</b></div>
       <div class="top-metric"><label>Commission</label><b id="mCommission" class="c-teal">0</b></div>
+      <div class="top-metric"><label>ETM</label><b id="mEtm" class="c-teal">100%</b></div>
       <div class="top-metric"><label>Total P&amp;L</label><b id="mTotal" class="c-amber">0</b></div>
       <div class="top-spacer"></div>
       <div class="round-chip" id="roundChip">
@@ -205,7 +209,7 @@
         <div class="panel-h"><span>1. EQUITIES</span><span class="ph-r" id="eqClock">·</span></div>
         <div class="panel-b">
           <table class="tbl eq-table">
-            <thead><tr><th>TICKER</th><th class="r">BID</th><th class="r">OFFER</th><th class="r">% CHG</th><th class="r">POS</th></tr></thead>
+            <thead><tr><th>TICKER</th><th class="r">BID</th><th class="r">OFFER</th><th class="r">SPRD</th><th class="r">% CHG</th><th class="r">POS</th></tr></thead>
             <tbody id="equitiesBody"></tbody>
           </table>
           <div class="eq-foot" id="eqFoot"></div>
@@ -230,7 +234,7 @@
         <div class="panel-b" id="posBodyWrap">
           <div id="positionsView">
             <table class="tbl pos-table">
-              <thead><tr><th>SECURITY</th><th class="r">NET POS</th><th class="r">AVG.</th><th class="r">UNREAL</th><th class="r">REALISED</th><th class="r">RISK</th></tr></thead>
+              <thead><tr><th>SECURITY</th><th class="r">NET POS</th><th class="r">AVG.</th><th class="r">POS VAL</th><th class="r">UNREAL</th><th class="r">REALISED</th><th class="r">NET</th></tr></thead>
               <tbody id="positionsBody"></tbody>
             </table>
             <div class="risk-block">
@@ -260,7 +264,7 @@
 
       <!-- QUOTE TICKET -->
       <section class="panel ticket" id="panelTicket" style="grid-area:ticket">
-        <div class="panel-h"><span>3. QUOTE TICKET</span><span class="ph-r" id="ticketHint">prêt</span></div>
+        <div class="panel-h"><span>3. QUOTE TICKET · AXE</span><span class="ph-r" id="ticketHint">prêt</span></div>
         <div class="rfq-banner" id="rfqBanner">
           <div class="rb-main">
             <span class="rb-dot"></span>
@@ -278,7 +282,7 @@
             </div>
             <div class="field">
               <label>Valid for seconds</label>
-              <input id="qValid" type="number" min="5" max="120" step="5" value="45">
+              <input id="qValid" type="number" min="5" max="120" step="5" value="30">
             </div>
           </div>
           <div class="tk-row">
@@ -305,14 +309,14 @@
             <span>spread —</span><span>mid —</span><span>notionnel —</span>
           </div>
           <div class="tk-actions">
-            <button class="btn btn-ghost" id="btnMid" title="M — centrer sur le mid (± 5 bps)">MID ± 5 bps</button>
+            <button class="btn btn-ghost" id="btnMid" title="M — centrer sur le mid (± 4 bps)">MID ± 4 bps</button>
             <button class="btn btn-teal btn-quote" id="btnSendQuote">SEND QUOTE <kbd>↵</kbd></button>
           </div>
         </div>
-        <div class="panel-h sub"><span>LIVE CHAT QUOTES</span><span class="ph-r" id="liveCount">0</span></div>
+        <div class="panel-h sub"><span>QUOTE BOARD · AXES</span><span class="ph-r" id="liveCount">0/5</span></div>
         <div class="live-wrap">
           <table class="tbl live-table">
-            <thead><tr><th>SEC</th><th class="r">BID VOL</th><th class="r">BID</th><th class="r">OFFER</th><th class="r">VOL</th><th class="r">VALID</th><th></th></tr></thead>
+            <thead><tr><th>SEC</th><th class="r">BID VOL</th><th class="r">BID</th><th class="r">OFFER</th><th class="r">VOL</th><th class="r">/MKT</th><th class="r">VALID</th><th></th></tr></thead>
             <tbody id="liveQuotesBody"></tbody>
           </table>
           <div class="live-empty" id="liveEmpty">Aucune quote en vie. Une quote oubliée après une news = pick-off garanti.</div>
@@ -320,7 +324,7 @@
       </section>
 
         <section class="panel exchange" style="grid-area:exch">
-          <div class="panel-h"><span>4. EXCHANGE</span><span class="ph-r">hedge au marché</span></div>
+          <div class="panel-h"><span>4. EXCHANGE · HEDGE</span><span class="ph-r">dénoue le risque · ETM</span></div>
           <div class="pb-body">
             <div class="x-head">
               <select id="xTicker"><option>BABA</option><option>MSFT</option><option>VW</option><option>HSBC</option><option selected>BP</option></select>
@@ -526,12 +530,13 @@
 
       <div class="cheat-cols">
         <div class="cheat-col">
-          <h3>① Les 4 objectifs du jeu</h3>
+          <h3>① Ce que le vrai moteur mesure</h3>
           <ol class="cheat-list">
-            <li><b>Maintenir la relation client</b> — répondre à 100 % des RFQ, vite, sans erreur.</li>
-            <li><b>Maximiser la commission</b> — plus de flux client, plus de COMM. 8 bps du notionnel.</li>
-            <li><b>Faire des prix justes</b> — au bon endroit vs le mid, pas de prix croisé, pas de stale quote.</li>
-            <li><b>Limiter l'exposition</b> — hedger après chaque trade, finir à plat.</li>
+            <li><b>NUMT</b> — combien de fois un client tape <i>ton</i> prix. Ça se gagne sur le board, pas dans le chat.</li>
+            <li><b>COMM</b> — 8 bps du notionnel de chaque trade client. Les gros blocs paient, les petits non.</li>
+            <li><b>ETM</b> — as-tu dénoué le risque au marché, vite (clips de 25–50k) ? Position ouverte = −15 %.</li>
+            <li><b>SSRM</b> — temps passé près de la limite de 100 000 actions par ligne.</li>
+            <li><b>FFC</b> — chaque fat finger (prix croisé, prix à 8 % du mid) coûte 16 points.</li>
           </ol>
 
           <h3>② La boucle, en 5 gestes</h3>
@@ -545,18 +550,18 @@
 
           <h3>③ Les 12 réflexes</h3>
           <ol class="cheat-list tight">
-            <li>Le <b>bid est toujours sous le mid</b>, l'offer toujours au-dessus. Jamais croisé.</li>
-            <li>Spread de départ : <b>8 à 12 bps</b>. 4 bps = tu te fais ramasser, 30 bps = tu ne trades pas.</li>
-            <li><b>50 000 actions</b> = volume par défaut. Pas 500 000. Jamais.</li>
-            <li>Une RFQ = <b>une réponse en moins de 10 secondes</b>. Le client va voir ailleurs.</li>
-            <li>Client achète → <b>tu es short</b> → tu <b>rachètes</b> au marché. Client vend → tu es long → tu vends.</li>
-            <li><b>Flatte tout de suite</b>, pas “après”. Le risque, c'est le temps.</li>
-            <li>Hedge en <b>petits blocs</b> (25–50k) : un gros ordre déplace le mid contre toi.</li>
-            <li><b>News = reprice.</b> Avant : annule tes quotes en vie (<kbd>X</kbd>). Après : recentre (<kbd>M</kbd>).</li>
-            <li>Une quote laissée en vie après une news est <b>sniper</b> : tu vends 1 % sous le marché.</li>
+            <li>Le <b>bid est toujours sous le mid</b>, l'offer au-dessus. Jamais croisé.</li>
+            <li><b>3–4 axes en permanence</b> sur le board. Sans quote, tu ne peux pas gagner un trade.</li>
+            <li><b>Sois 0–2 bps devant le rival</b> — pas 3 bps derrière. Le client compare, il ne négocie pas.</li>
+            <li><b>Validité 25–30 s.</b> Une quote trop longue survit à la news et se fait sniper.</li>
+            <li><b>Volume affiché 40–50k</b> : c'est ce qui déclenche les clips de 25–50k.</li>
+            <li>Une <b>RFQ bloc</b> = une réponse en <b>moins de 10 s</b> (deadline dure : 20 s).</li>
+            <li>Client achète → <b>tu es short</b> → tu rachètes au marché. Client vend → tu es long → tu vends.</li>
+            <li><b>Hedge tout de suite</b>, en clips de 25–50k : c'est l'ETM, et il pèse 20 % du score.</li>
+            <li><b>News = <kbd>X</kbd> immédiat</b>, puis tu repostes 2 s après. Quote en vie = option gratuite offerte.</li>
             <li><b>Limite 100 000 par ligne.</b> Tu ne rajoutes jamais au-delà : tu réduis d'abord.</li>
-            <li><b>Fin de round = position 0.</b> Une position ouverte est clôturée au mid + coût : points perdus.</li>
-            <li>Le client dit “too wide” ? <b>Tightens de 2–3 bps</b>, mais jamais sous 5 bps de spread.</li>
+            <li><b>Fin de round = position 0.</b> Clôture au mid + 2 bps de coût.</li>
+            <li>Le client dit “too wide” ? Tu as <b>9 s</b> pour resserrer — une seule fois.</li>
           </ol>
         </div>
 
@@ -574,13 +579,15 @@
 
           <h3>⑤ Chiffres de référence</h3>
           <table class="mini-tbl">
-            <tr><td>Spread marché</td><td>6 bps</td></tr>
-            <tr><td>Spread que TU quotes</td><td>8–12 bps</td></tr>
-            <tr><td>Commission client</td><td>8 bps</td></tr>
-            <tr><td>Volume RFQ typique</td><td>10k – 75k</td></tr>
+            <tr><td>Spread marché</td><td>±2,6 bps</td></tr>
+            <tr><td>Spread des 4 rivaux</td><td>3,2 – 6,6 bps</td></tr>
+            <tr><td>Rafraîchissement rival</td><td>toutes les ~2,5 s</td></tr>
+            <tr><td>Commission client</td><td>8 bps du notionnel</td></tr>
+            <tr><td>RFQ bloc</td><td>1k – 50k actions</td></tr>
+            <tr><td>Deadline RFQ</td><td>20 s</td></tr>
             <tr><td>Limite par ligne</td><td>100 000</td></tr>
-            <tr><td>Validité quote</td><td>45 s</td></tr>
-            <tr><td>Temps de réponse cible</td><td>&lt; 8 s</td></tr>
+            <tr><td>Validité quote</td><td>25–30 s</td></tr>
+            <tr><td>Clip de hedge propre</td><td>25–50k</td></tr>
           </table>
 
           <h3>⑥ Phrases à taper dans le chat</h3>
@@ -605,46 +612,48 @@
         </div>
       </div>
 
-      <h3 class="cheat-h3">⑧ Le round Asset Manager — la moitié du score</h3>
+      <h3 class="cheat-h3">⑧ Le round Asset Manager — les 3 métriques réelles</h3>
       <div class="cheat-cols" style="gap:24px">
         <div class="cheat-col">
           <p class="page-sub" style="margin-bottom:10px">Côté buy-side, tu ne fais pas de prix : tu <b>prends</b> le marché.
-            Tu pars avec <b>20 M$ cash</b> sur 5 lignes, et le benchmark = les 5 lignes à poids égal.
-            Ton score, c'est l'<b>alpha</b> — pas le P&amp;L brut.</p>
+            Tu pars avec <b>20 M$</b> sur 5 lignes, et le benchmark = les 5 lignes à poids égal.
+            Chez AmplifyME le classement buy-side repose sur <b>3 scores</b>, pas sur l'alpha :
+            le <b>ROI score</b> (un percentile face à la cohorte), l'<b>Execution score</b> et le
+            <b>BSRM</b> (Buy-Side Risk Management).</p>
           <div class="loop-mini" style="margin-bottom:12px">
-            <div><b>20 M$</b><span>cash au départ</span></div>
-            <div><b>5</b><span>lignes max</span></div>
-            <div><b>15–25 %</b><span>par ligne</span></div>
-            <div><b>250k–1M</b><span>par ordre</span></div>
-            <div><b>5 bps</b><span>coût + impact</span></div>
+            <div><b>20 M$</b><span>capital</span></div>
+            <div><b>5</b><span>lignes</span></div>
+            <div><b>8–12 %</b><span>par clip</span></div>
+            <div><b>&lt; 5 s</b><span>réaction news</span></div>
+            <div><b>−1,2 %</b><span>stop par ligne</span></div>
           </div>
           <ol class="cheat-list tight">
-            <li><b>Investis dans les 30 premières secondes.</b> Rester en cash = alpha négatif dès la première news macro.</li>
-            <li><b>15–25 % par ligne, 70–95 % investi.</b> Un seul nom à 60 % et un headline te sort du top 300.</li>
-            <li><b>News positive → renforce. News négative → coupe.</b> En moins de 10 secondes, sans discuter.</li>
-            <li><b>Ne chasse pas.</b> Tu achètes l'offer, pas 2 % au-dessus. Si tu es en retard, tu passes.</li>
-            <li><b>Pas de levier.</b> Le cash suffit ; l'exposition &gt; 100 % n'est jamais demandée.</li>
-            <li><b>Peu mais gros.</b> 6–12 ordres de 500k–1M battent 30 ordres de 100k après les frais.</li>
+            <li><b>ROI score = percentile.</b> 3 % de ROI peut valoir 80 si la cohorte a fait 1 %. Le 0 % est éliminatoire.</li>
+            <li><b>Réagis dans les 5 s.</b> 45 % du move est instantané, 55 % arrive sur 3 s : c'est là que la vitesse paie.</li>
+            <li><b>Clip de 8–12 % du portefeuille.</b> Plus petit : tu paies les frais pour rien. Plus gros : l'impact tue l'Execution.</li>
+            <li><b>Execution score</b> = ton slippage moyen vs le mid. Tu achètes l'offer, jamais 2 % au-dessus.</li>
+            <li><b>BSRM</b> = stop-loss tenus + risque réellement engagé. Rester en cash plafonne à ~40.</li>
+            <li><b>Coupe à −1,2 %.</b> Chaque seconde sous le stop coûte 1,2 point de BSRM.</li>
           </ol>
         </div>
         <div class="cheat-col">
           <h3 style="margin-top:0">Comment le buy-side est noté</h3>
           <table class="mini-tbl">
-            <tr><td>Alpha vs benchmark</td><td>55 %</td></tr>
-            <tr><td>Risque (drawdown, concentration)</td><td>25 %</td></tr>
-            <tr><td>Activité (nombre de décisions)</td><td>10 %</td></tr>
-            <tr><td>Discipline (cash drag, taille)</td><td>10 %</td></tr>
+            <tr><td>ROI score (percentile)</td><td>40 %</td></tr>
+            <tr><td>Execution score</td><td>30 %</td></tr>
+            <tr><td>BSRM (risque)</td><td>30 %</td></tr>
           </table>
           <p class="page-sub" style="margin:12px 0 0;font-size:12px">
-            Chez AmplifyME, le round buy-side est jugé sur le <b>rendement du portefeuille</b>,
-            la <b>gestion du risque</b> et la <b>qualité des décisions</b> face aux news — même logique.
-            Le repère à battre : les 5 lignes à poids égal, réinvesties à chaque mouvement.
+            Ce sont les 3 métriques citées par les participants AmplifyME (ROI score en percentile,
+            Execution 100 % chez les meilleurs, BSRM 100 %). Le poids exact n'est pas public :
+            le clone utilise 40/30/30 et l'affiche clairement.
           </p>
           <div class="phrase-box" style="margin-top:12px">
             <div><code>20 M$ · 5 lignes</code><span>taille du portefeuille</span></div>
-            <div><code>70–95 %</code><span>exposition cible</span></div>
+            <div><code>8–12 %</code><span>taille de clip optimale</span></div>
             <div><code>≤ 25 %</code><span>poids maximum par titre</span></div>
-            <div><code>&lt; 10 s</code><span>temps de réaction à la news</span></div>
+            <div><code>&lt; 5 s</code><span>réaction à la news</span></div>
+            <div><code>−1,2 %</code><span>stop-loss par ligne</span></div>
           </div>
         </div>
       </div>
@@ -653,18 +662,18 @@
       <div class="cheat-cols" style="gap:24px">
         <div class="cheat-col">
           <ol class="cheat-list tight">
-            <li><b>100 % des RFQ répondues.</b> C'est la métrique la plus facile à gagner et la plus facile à perdre.</li>
-            <li><b>Zéro fat finger.</b> Un prix croisé ou un volume ×10 efface dix trades propres.</li>
-            <li><b>Flat à la cloche.</b> La position ouverte est soldée au mid + coût : points gratuits perdus.</li>
-            <li><b>Spread 8–12 bps.</b> Trop serré, tu paies le hedge ; trop large, le client passe.</li>
+            <li><b>Le score est un percentile.</b> Sur ~2 100 joueurs (édition 2025), le top 100 ≈ <b>P95</b> ; la finale se joue au <b>top 10 %</b> par compétition régionale.</li>
+            <li><b>NUMT + COMM</b> : des axes en permanence sur 3–4 lignes. Une ligne sans quote, c'est du flux offert.</li>
+            <li><b>ETM</b> : dénouer dans les 10 s, en clips de 25–50k. Une position portée coûte 15 % de l'ETM.</li>
+            <li><b>SSRM</b> : rester sous 85 % de la limite, et <kbd>X</kbd> avant chaque news.</li>
           </ol>
         </div>
         <div class="cheat-col">
           <ol class="cheat-list tight" style="counter-reset:c 4">
-            <li><b>Annule avant la news.</b> Une quote en vie = une option gratuite offerte au client.</li>
-            <li><b>Hedge en petits blocs.</b> Le gros ordre déplace le mid contre toi (impact 0,22 bp / 100k).</li>
-            <li><b>Ne t'endette pas en position.</b> 100 000 max par ligne, jamais plus, même « pour un instant ».</li>
-            <li><b>Reste investi côté AM.</b> Le cash ne bat pas le marché dans une phase haussière.</li>
+            <li><b>Zéro fat finger.</b> Un prix croisé efface 16 points d'un coup.</li>
+            <li><b>100 % des RFQ.</b> Chaque bloc ignoré coupe la relation et laisse un rival prendre le flux.</li>
+            <li><b>Flat à la cloche.</b> La position ouverte est soldée au mid + 2 bps : points gratuits perdus.</li>
+            <li><b>Côté AM : ne reste pas en cash.</b> Le BSRM récompense le risque engagé ; le ROI score punit 0 %.</li>
           </ol>
         </div>
       </div>

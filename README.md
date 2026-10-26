@@ -40,8 +40,9 @@
 
 ### 3. CFA × AmplifyME — Investing Simulator Challenge (27 octobre, 18:00 GMT)
 - **Dossier** : `amplifyme-training/` (`index.html` s'ouvre directement, zéro dépendance)
-- **Objectif** : top 100 → top 300 qualifiés pour la finale mondiale du 17/11 (bourse CFA)
-- **Contenu** : round Asset Manager ($20M, 5 lignes, alpha vs benchmark) → round Investment Bank (market maker / sales trader / risk), drills clavier 60 s, fiche de bataille
+- **Objectif** : top 100 → top 10 % par compétition régionale pour la finale mondiale du 17/11 (bourse CFA)
+- **Contenu** : round Asset Manager ($20M, 5 lignes — **ROI score en percentile, Execution score, BSRM**) → round Investment Bank (**quote board** face à 4 banques rivales, RFQ blocs, **NUMT · COMM · ETM · SSRM · FFC**), drills clavier 60 s, fiche de bataille
+- **Fidélité** : format, séquence de rôles et noms de métriques vérifiés sur le net (CFA Institute, AmplifyME, retours de participants) — voir `amplifyme-training/README.md`
 - **Usage** : 2 sessions de 12 min + 10 min de drills la veille, 10 min de drills le jour J à 17:30
 
 ### 4. Candidatures banques

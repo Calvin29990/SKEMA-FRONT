@@ -364,19 +364,27 @@
       '<div class="score-hero">' +
       '<div class="score-ring ' + (sc.total >= 70 ? '' : sc.total >= 50 ? 'mid' : 'low') + '">' +
       '<b>' + Math.round(sc.total) + '</b><span>SCORE BUY-SIDE</span></div>' +
-      '<h2>' + (m.alpha > 0.001 ? 'Tu as battu le marché.' : m.alpha > -0.001 ? 'Flat vs marché.' : 'Le marché a gagné.') + '</h2>' +
-      '<p>Return ' + (m.ret >= 0 ? '+' : '') + (m.ret * 100).toFixed(2) + '% · benchmark ' +
+      '<h2>' + (m.roiPct >= 90 ? 'Niveau top 100.' : m.roiPct >= 70 ? 'Bon round, encore une marche.' : 'Le ROI score est un percentile : il faut prendre plus de risque juste.') + '</h2>' +
+      '<p>ROI <b>' + (m.ret >= 0 ? '+' : '') + (m.ret * 100).toFixed(2) + '%</b> · benchmark ' +
       (m.bench >= 0 ? '+' : '') + (m.bench * 100).toFixed(2) + '% · alpha ' +
-      (m.alpha >= 0 ? '+' : '') + (m.alpha * 100).toFixed(2) + '%</p></div>' +
-      '<div class="score-grid"><div class="score-card"><h4>COMPOSANTES</h4>' +
-      bar('ALPHA', sc.alphaScore) + bar('RISQUE', sc.risk) + bar('ACTIVITÉ', sc.activity) + bar('DISCIPLINE', sc.discipline) +
-      '<div class="muted" style="font-size:10px;margin-top:8px">ALPHA 55 % · RISQUE 25 % · ACTIVITÉ 10 % · DISCIPLINE 10 %</div></div>' +
+      (m.alpha >= 0 ? '+' : '') + (m.alpha * 100).toFixed(2) + '% · <b>percentile ' + m.roiPct + '</b></p></div>' +
+      '<div class="rank-band"><div><label>ROI SCORE</label><b>' + Math.round(sc.roi) + '</b></div>' +
+      '<div><label>EXECUTION</label><b>' + Math.round(sc.execution) + '</b></div>' +
+      '<div><label>BSRM</label><b>' + Math.round(sc.bsrm) + '</b></div>' +
+      '<div><label>SCORE</label><b>' + Math.round(sc.total) + '</b></div></div>' +
+      '<div class="score-grid"><div class="score-card"><h4>LES 3 MÉTRIQUES BUY-SIDE</h4>' +
+      bar('ROI %ile', sc.roi) + bar('EXECUTION', sc.execution) + bar('BSRM', sc.bsrm) +
+      '<div class="muted" style="font-size:10px;margin-top:8px">ROI 40 % · EXECUTION 30 % · BSRM 30 %</div></div>' +
       '<div class="score-card"><h4>DÉTECTION</h4>' +
       '<div class="srow"><span class="nm">VALEUR</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + C.money(m.value) + '</b></div>' +
       '<div class="srow"><span class="nm">P&amp;L</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px;color:' + (m.pnl >= 0 ? 'var(--green)' : 'var(--red)') + '">' + C.signedMoney(m.pnl) + '</b></div>' +
       '<div class="srow"><span class="nm">DD MAX</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + (m.maxDD * 100).toFixed(1) + '%</b></div>' +
       '<div class="srow"><span class="nm">EXPO</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + Math.round(m.exposure * 100) + '%</b></div>' +
       '<div class="srow"><span class="nm">TRADES</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + m.trades + '</b></div>' +
+      '<div class="srow"><span class="nm">SLIP MOY.</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + m.avgSlip.toFixed(1) + ' bps</b></div>' +
+      '<div class="srow"><span class="nm">CLIP MOY.</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + Math.round(m.avgClip * 100) + ' %</b></div>' +
+      '<div class="srow"><span class="nm">SOUS STOP</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + m.breachSec + ' s</b></div>' +
+      '<div class="srow"><span class="nm">EXPO MOY.</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + Math.round(m.expoAvg * 100) + ' %</b></div>' +
       '<div class="srow"><span class="nm">FRAIS</span><b style="font-family:var(--mono);margin-left:auto;font-size:12px">' + C.money(m.fees) + '</b></div>' +
       '</div></div>' +
       '<div class="score-fixes"><h4>Ce que le buy-side te reproche</h4><ol>' + fixes + '</ol></div>' +
