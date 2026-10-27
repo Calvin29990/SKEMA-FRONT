@@ -1,13 +1,12 @@
-"""One-pager individuel (A4, une page recto) - version 2 avec graphique et carte de France.
+"""Individual one-pager (A4, single side) - English version.
 
-Haut de page : question, graphique (chiffres IKEA / Ingka), carte schématique de la France,
-branches de raisonnement, thèse. Bas de page : synthèse.
+Top half: reasoning map (question, emissions chart, schematic map of France,
+three arguments, thesis). Bottom half: summary.
 
-ATTENTION : la question et la thèse sont un BROUILLON à remplacer par le point de vue
-personnel de l'étudiant (exigence du cours : l'opinion doit être la sienne).
-La carte est SCHÉMATIQUE : aucune donnée régionale vérifiée n'est affichée.
+NOTE: the question and thesis are a DRAFT. The course requires the opinion to be the student's own.
+The map is SCHEMATIC: no verified regional data is shown.
 
-Usage : python3 build_one_pager.py   (nécessite le GeoJSON fr-all.geo.json, voir MAP_GEOJSON)
+Usage: python3 build_one_pager.py   (needs the Highcharts GeoJSON, see MAP_GEOJSON)
 """
 import json
 import os
@@ -18,12 +17,11 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
-import math
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "One-page-Calvin-Minang.pdf")
 MAP_GEOJSON = os.environ.get(
-    "MAP_GEOJSON", "/tmp/mapdl/package/countries/fr/fr-all.geo.json")  # Highcharts map-collection (npm)
+    "MAP_GEOJSON", "/tmp/mapdl/package/countries/fr/fr-all.geo.json")  # @highcharts/map-collection (npm)
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -62,15 +60,15 @@ def rect(c, x, y, w, h, fill, radius=0):
 
 
 def draw_graph(c, x, y_top, w, h):
-    """Barres : réduction des émissions vs 2016 (chiffres du profil Ingka ESG)."""
+    """Bars: emissions reduction vs 2016 (figures from the Ingka ESG Profile)."""
     rect(c, x, y_top - h, w, h, LIGHT, radius=6)
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
-    c.drawString(x + 10, y_top - 16, "Réduction des émissions vs 2016")
+    c.drawString(x + 10, y_top - 16, "Emissions reduction vs 2016")
     rows = [
-        ("IKEA France, opérations", 39, BLUE),
-        ("Groupe, scopes 1 à 3", 30, BLUE),
-        ("Objectif groupe 2030", 50, HexColor("#9DB9DC")),
+        ("IKEA France, operations", 39, BLUE),
+        ("Group, scopes 1 to 3", 30, BLUE),
+        ("Group 2030 target", 50, HexColor("#9DB9DC")),
     ]
     label_w = 96
     bar_x = x + 10 + label_w
@@ -83,17 +81,17 @@ def draw_graph(c, x, y_top, w, h):
         c.setFont("DVB", 9)
         c.drawString(bar_x + bar_max * val / 50 + 5, y - 1, f"−{val} %")
         y -= 30
-    para(c, "Source : Ingka ESG Profile. Périmètres différents ; l'objectif 2030 n'est pas encore atteint.",
+    para(c, "Source: Ingka ESG Profile. Different scopes; the 2030 target has not been reached yet.",
          st("gn", 6.8, 8.6, color=GREY), x + 10, y_top - h + 26, w - 20)
 
 
 def draw_map(c, x, y_top, w, h):
-    """Carte schématique des régions de France métropolitaine ; Île-de-France en évidence.
-    Les coordonnées du GeoJSON Highcharts sont planes (projection), on les met à l'échelle directement."""
+    """Schematic map of mainland France regions; Île-de-France highlighted.
+    The Highcharts GeoJSON uses planar coordinates, so they are scaled directly."""
     rect(c, x, y_top - h, w, h, LIGHT, radius=6)
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
-    c.drawString(x + 10, y_top - 16, "Carte schématique de la France")
+    c.drawString(x + 10, y_top - 16, "Schematic map of France")
     with open(MAP_GEOJSON, encoding="utf-8") as f:
         data = json.load(f)
     feats = [ft for ft in data["features"]
@@ -101,6 +99,7 @@ def draw_map(c, x, y_top, w, h):
 
     def pts_of(geom):
         out = []
+
         def walk(a):
             if isinstance(a[0], (int, float)):
                 out.append(a)
@@ -145,7 +144,7 @@ def draw_map(c, x, y_top, w, h):
                         idf_pts.append((px, py))
                 path.close()
             c.drawPath(path, fill=1, stroke=1)
-    # étiquette Île-de-France dans la marge droite de la carte, reliée par un trait
+    # Île-de-France label in the right margin, linked by a line
     if idf_pts:
         cx = sum(p[0] for p in idf_pts) / len(idf_pts)
         cy = sum(p[1] for p in idf_pts) / len(idf_pts)
@@ -158,32 +157,32 @@ def draw_map(c, x, y_top, w, h):
         c.setFillColor(white)
         c.setFont("DVB", 7.4)
         c.drawString(lx + 5, ly + lh - 12, "Île-de-France")
-        para(c, "où se gère l'épargne", st("ml", 6.6, 8, color=white), lx + 5, ly + lh - 16, lw - 8)
-    para(c, "Schéma : aucune donnée régionale vérifiée. Idée : la décision d'allocation se prend au centre, "
-            "son effet se joue dans les régions.",
+        para(c, "where allocation decisions sit", st("ml", 6.6, 8, color=white), lx + 5, ly + lh - 16, lw - 8)
+    para(c, "Schematic only: no verified regional data. Idea: allocation decisions are taken at the centre; "
+            "their effects play out in the regions.",
          st("mn", 6.6, 8.4, color=GREY), x + 10, y_top - h + 26, w - 20)
 
 
 def build():
     c = canvas.Canvas(OUT, pagesize=A4)
-    c.setTitle("One-page - Calvin Minang - E focus finance (brouillon)")
+    c.setTitle("One-page - Calvin Minang - E focus finance (draft)")
     c.setAuthor("Calvin Minang")
 
     rect(c, 0, H - 8, W, 8, BLUE)
     c.setFillColor(GREY)
     c.setFont("DV", 7.5)
-    c.drawString(M, H - 24, "CFM · Sustainable Finance · One-pager individuel · Calvin Minang")
-    c.drawRightString(W - M, H - 24, "Recto unique")
+    c.drawString(M, H - 24, "CFM · Sustainable Finance · Individual one-pager · Calvin Minang")
+    c.drawRightString(W - M, H - 24, "Single side")
 
-    # ---------- MOITIÉ HAUTE ----------
+    # ---------- TOP HALF ----------
     y = H - 40
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
-    c.drawString(M, y - 8, "CARTE DU RAISONNEMENT")
+    c.drawString(M, y - 8, "REASONING MAP")
     y -= 18
 
-    q = ("<b>Question.</b> Les fonds Article 8 et 9 (SFDR) réduisent-ils réellement les émissions "
-         "de l'économie réelle, ou déplacent-ils seulement le problème ?")
+    q = ("<b>Question.</b> Do Article 8 and Article 9 funds (SFDR) actually reduce emissions in the real economy, "
+         "or do they only shift the problem?")
     hq = para(c, q, st("q", 10, 13.5), M + 10, y - 7, CW - 20)
     rect(c, M, y - hq - 14, CW, hq + 14, YEL, radius=6)
     para(c, q, st("q2", 10, 13.5), M + 10, y - 7, CW - 20)
@@ -196,18 +195,17 @@ def build():
     y = y - row_h - 8
 
     branches = [
-        ("1 · Transparence ≠ impact",
-         "Le SFDR impose une stratégie déclarée et des indicateurs PAI. L'Article 8 « promeut », "
-         "l'Article 9 vise un « objectif d'investissement durable ». Aucun ne fixe de baisse mesurée des émissions.",
-         "Cours, Module 2 (SFDR, PAI, DNSH)"),
-        ("2 · Coût du capital",
-         "Exclure ou pondérer un émetteur renchérit son capital. L'effet réel passe par les flux primaires : "
-         "un achat sur le marché secondaire ne finance aucun projet.",
-         "Cours, Modules 1 et 3 (exclusion, additionnalité)"),
-        ("3 · Preuve et greenwashing",
-         "La taxonomie UE mesure une éligibilité, pas une baisse d'émissions. Une même étiquette peut couvrir "
-         "des effets très différents.",
-         "Cours, Module 2 (taxonomie, greenwashing)"),
+        ("1 · Transparency ≠ impact",
+         "SFDR requires a declared strategy and PAI indicators. Article 8 'promotes' environmental or social "
+         "characteristics; Article 9 targets a 'sustainable investment objective'. Neither sets a measured emissions cut.",
+         "Course, Module 2 (SFDR, PAI, DNSH)"),
+        ("2 · Cost of capital",
+         "Excluding or down-weighting an issuer raises its cost of capital. The real effect runs through primary "
+         "flows: a secondary-market purchase finances no project.",
+         "Course, Modules 1 and 3 (exclusion, additionality)"),
+        ("3 · Greenwashing risk",
+         "The EU taxonomy measures eligibility, not an emissions cut. The same label can cover very different effects.",
+         "Course, Module 2 (taxonomy, greenwashing)"),
     ]
     gap = 8
     bw = (CW - 2 * gap) / 3
@@ -221,14 +219,13 @@ def build():
         para(c, src, st("bs", 6.6, 8, color=GREY), x + 8, y - 30 - hb, bw - 16)
     y = y - bh - 6
 
-    thesis = ("<b>Ma thèse.</b> Non, pas automatiquement. Le SFDR améliore la transparence, pas l'impact. "
-              "L'effet environnemental dépend de l'engagement actionnarial et de l'additionnalité du financement.")
+    thesis = ("<b>My thesis.</b> No, not automatically. SFDR improves transparency, not impact. "
+              "The environmental effect depends on shareholder engagement and on the additionality of the financing.")
     ht = para(c, thesis, st("th", 8.9, 12.2, color=white), M + 12, y - 7, CW - 24)
     rect(c, M, y - ht - 14, CW, ht + 14, BLUE, radius=6)
     para(c, thesis, st("th2", 8.9, 12.2, color=white), M + 12, y - 7, CW - 24)
     y_half = y - ht - 14
 
-    # Séparateur
     c.setStrokeColor(GREY)
     c.setDash(3, 3)
     c.setLineWidth(0.6)
@@ -236,47 +233,45 @@ def build():
     c.line(M, sep_y, W - M, sep_y)
     c.setDash()
 
-    # ---------- MOITIÉ BASSE ----------
+    # ---------- BOTTOM HALF ----------
     y = sep_y - 14
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
-    c.drawString(M, y - 8, "SYNTHÈSE")
+    c.drawString(M, y - 8, "SUMMARY")
     y -= 18
 
     summary = [
-        "Un fonds classé Article 8 ou 9 ne prouve pas, à lui seul, qu'il réduit les émissions de l'économie réelle. "
-        "Le SFDR est d'abord une obligation de transparence : stratégie déclarée, principales incidences négatives (PAI) "
-        "et principe « do no significant harm » (DNSH). Cette transparence a une vraie valeur, car elle permet à "
-        "l'épargnant de comparer. Mais elle décrit ce qu'un fonds déclare faire, pas ce que son capital produit.",
+        "A fund classified as Article 8 or 9 does not, on its own, prove that it reduces real-economy emissions. "
+        "SFDR is first and foremost a transparency obligation: a declared strategy, principal adverse impact (PAI) "
+        "indicators and the 'do no significant harm' (DNSH) principle. This transparency has real value because it "
+        "lets savers compare funds. But it describes what a fund says it does, not what its capital actually achieves.",
 
-        "Mon point de vue est donc nuancé. Le levier environnemental passe moins par le label que par deux mécanismes. "
-        "Le premier est l'engagement : vote en assemblée générale, dialogue, et escalade jusqu'à la cession. "
-        "Le second est l'additionnalité : financer des projets qui n'auraient pas été financés sans ce capital. "
-        "Un portefeuille bien noté peut détenir des actions déjà cotées, dont le prix change de main sans que le "
-        "capital réel bouge. Dans ce cas, le fonds gagne en réputation sans réduire d'émissions.",
+        "My view is therefore nuanced. The environmental lever works less through the label than through two "
+        "mechanisms. The first is engagement: voting at shareholder meetings, dialogue, and escalation up to divestment. "
+        "The second is additionality: financing projects that would not have been financed without this capital. "
+        "A well-rated portfolio can hold listed shares whose price changes hands without any change in real capital. "
+        "In that case the fund gains reputation without cutting emissions.",
 
-        "Je retiens donc que le SFDR est un outil nécessaire mais insuffisant. Pour qu'il tienne sa promesse, il "
-        "faudrait relier les PAI à des trajectoires mesurées, publier des données vérifiables et distinguer le "
-        "financement primaire du secondaire. Ma position peut être contestée sur un point : si les fonds Article 8/9 "
-        "excluent finalement les émetteurs les plus émetteurs, la pression sur leur coût du capital peut suffire à "
-        "changer leur comportement, même sans engagement actif. C'est le test que je proposerais aux données.",
+        "I conclude that SFDR is a necessary but insufficient tool. To deliver on its promise, PAI indicators would need "
+        "to be linked to measured trajectories, verifiable data would need to be published, and primary financing would "
+        "need to be distinguished from secondary trading. My position could be challenged on one point: if Article 8/9 "
+        "funds end up excluding the largest emitters, pressure on their cost of capital could be enough to change their "
+        "behaviour even without active engagement. That is the test I would run on the data.",
 
-        "<b>Ce qui me ferait changer d'avis :</b> si les PAI publiés montrent, sur plusieurs années, une baisse des "
-        "émissions des portefeuilles Article 8/9 supérieure à celle des fonds classiques, vérifiable par une source publique.",
+        "<b>What would change my mind:</b> if published PAI data show, over several years, that Article 8/9 portfolios "
+        "cut emissions faster than conventional funds, verifiable from public sources.",
     ]
     s_body = st("sb", 9.4, 13.0)
     for txt in summary:
         hp = para(c, txt, s_body, M, y, CW)
         y -= hp + 6
 
-    c.setFillColor(GREY)
-    c.setFont("DV", 6.8)
-    foot = ("Sources : cours Sabrine Aouida, Modules 1 à 3 ; Ingka ESG Profile (chiffres IKEA). "
-            "Règlements à vérifier sur les textes officiels : SFDR (UE) 2019/2088 ; taxonomie (UE) 2020/852.")
+    foot = ("Sources: course by Sabrine Aouida, Modules 1 to 3; Ingka ESG Profile (IKEA figures). "
+            "Check regulations against official texts: SFDR (EU) 2019/2088; EU Taxonomy (EU) 2020/852.")
     para(c, foot, st("ft", 6.8, 8.6, color=GREY), M, 40, CW)
 
     c.save()
-    print("écrit :", OUT, "| bas de synthèse y =", round(y, 1), "| séparateur y =", round(sep_y, 1))
+    print("written:", OUT, "| end of summary y =", round(y, 1), "| separator y =", round(sep_y, 1))
 
 
 if __name__ == "__main__":
