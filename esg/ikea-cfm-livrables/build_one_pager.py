@@ -1,11 +1,12 @@
-"""Individual one-pager (A4, single side), course format.
-Top half = reasoning map: question, map of Brazil (IKEA-linked states), timeline, three arguments, thesis.
-Bottom half = summary. Numbered sources in the footer.
+"""Individual one-pager (A4, single side) - English version.
 
-NOTE: question and thesis are a DRAFT. The course requires the opinion to be the student's own.
-All dated facts were checked against the sources listed in the footer (checked 27 Oct 2026).
+Top half: reasoning map (question, emissions chart, schematic map of France,
+three arguments, thesis). Bottom half: summary.
 
-Usage: python3 build_one_pager.py   (needs the Highcharts Brazil GeoJSON, see MAP_GEOJSON)
+NOTE: the question and thesis are a DRAFT. The course requires the opinion to be the student's own.
+The map is SCHEMATIC: no verified regional data is shown.
+
+Usage: python3 build_one_pager.py   (needs the Highcharts GeoJSON, see MAP_GEOJSON)
 """
 import json
 import os
@@ -20,10 +21,7 @@ from reportlab.lib.styles import ParagraphStyle
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "One-page-Calvin-Minang.pdf")
 MAP_GEOJSON = os.environ.get(
-    "MAP_GEOJSON", "/tmp/mapdl/br-all.geo.json")  # @highcharts/map-collection, countries/br/br-all.geo.json
-SA_GEOJSON = os.environ.get(
-    "SA_GEOJSON", "/tmp/mapdl/package/custom/south-america.geo.json")  # same package, custom/south-america.geo.json
-LOGO = os.path.join(HERE, "assets", "ikea-logo.png")
+    "MAP_GEOJSON", "/tmp/mapdl/package/countries/fr/fr-all.geo.json")  # @highcharts/map-collection (npm)
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -35,12 +33,9 @@ INK = HexColor("#1A1A1A")
 GREY = HexColor("#5F6368")
 LIGHT = HexColor("#F3F5F8")
 MAPGREY = HexColor("#D9E2EF")
-RED = HexColor("#B3261E")
 M = 44
 CW = W - 2 * M
-
-# Brazilian states with an IKEA-linked fact (map keys from the Highcharts file)
-HIGHLIGHT = {"br-rs": 1, "br-pa": 2, "br-es": 2, "br-pr": 3, "br-sc": 3}
+OVERSEAS = {"La Réunion", "Mayotte", "Guyane française", "Martinique", "Guadeloupe"}
 
 
 def st(name, size, leading=None, font="DV", color=INK, **kw):
@@ -64,194 +59,108 @@ def rect(c, x, y, w, h, fill, radius=0):
         c.rect(x, y, w, h, stroke=0, fill=1)
 
 
-def badge(c, x, y, n):
-    c.setFillColor(BLUE)
-    c.circle(x, y, 6.5, stroke=0, fill=1)
-    c.setFillColor(white)
-    c.setFont("DVB", 7.5)
-    c.drawCentredString(x, y - 2.6, str(n))
-
-
-def draw_map_card(c, x, y_top, w, h):
-    """Map of Brazil (IKEA-linked states highlighted) with its Mercosur neighbours, cropped to a square.
-    South American countries come from the Highcharts 'custom/south-america' file, whose projection is
-    an affine rescaling of the Brazil states file (fitted on Brazil's bounding box); they are mapped onto
-    the states frame, then clipped."""
+def draw_graph(c, x, y_top, w, h):
+    """Bars: emissions reduction vs 2016 (figures from the Ingka ESG Profile)."""
     rect(c, x, y_top - h, w, h, LIGHT, radius=6)
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
-    c.drawString(x + 10, y_top - 16, "IKEA's Brazilian footprint and the Mercosur bloc")
+    c.drawString(x + 10, y_top - 16, "Emissions reduction vs 2016")
+    rows = [
+        ("IKEA France, operations", 39, BLUE),
+        ("Group, scopes 1 to 3", 30, BLUE),
+        ("Group 2030 target", 50, HexColor("#9DB9DC")),
+    ]
+    label_w = 96
+    bar_x = x + 10 + label_w
+    bar_max = w - label_w - 66
+    y = y_top - 42
+    for lbl, val, col in rows:
+        para(c, lbl, st("gl", 7.6, 9.4), x + 10, y + 3, label_w - 6)
+        rect(c, bar_x, y - 4, bar_max * val / 50, 13, col, radius=3)
+        c.setFillColor(INK)
+        c.setFont("DVB", 9)
+        c.drawString(bar_x + bar_max * val / 50 + 5, y - 1, f"−{val} %")
+        y -= 30
+    para(c, "Source: Ingka ESG Profile. Different scopes; the 2030 target has not been reached yet.",
+         st("gn", 6.8, 8.6, color=GREY), x + 10, y_top - h + 26, w - 20)
 
+
+def draw_map(c, x, y_top, w, h):
+    """Schematic map of mainland France regions; Île-de-France highlighted.
+    The Highcharts GeoJSON uses planar coordinates, so they are scaled directly."""
+    rect(c, x, y_top - h, w, h, LIGHT, radius=6)
+    c.setFillColor(BLUE)
+    c.setFont("DVB", 9)
+    c.drawString(x + 10, y_top - 16, "Schematic map of France")
     with open(MAP_GEOJSON, encoding="utf-8") as f:
-        br = json.load(f)
-    with open(SA_GEOJSON, encoding="utf-8") as f:
-        sa = json.load(f)
+        data = json.load(f)
+    feats = [ft for ft in data["features"]
+             if ft["properties"].get("name") and ft["properties"]["name"] not in OVERSEAS]
 
-    # square frame in states coordinates (covers Brazil; Mercosur neighbours are cropped at its edges)
-    side = h - 46
-    FX0 = FY0 = -1000.0
-    span = 10900.0
-    s = side / span
-    x0 = x + 10
-    y0 = y_top - h + 24
+    def pts_of(geom):
+        out = []
+
+        def walk(a):
+            if isinstance(a[0], (int, float)):
+                out.append(a)
+            else:
+                for b in a:
+                    walk(b)
+        walk(geom["coordinates"])
+        return out
+
+    allp = [q for ft in feats for q in pts_of(ft["geometry"])]
+    xmin, xmax = min(q[0] for q in allp), max(q[0] for q in allp)
+    ymin, ymax = min(q[1] for q in allp), max(q[1] for q in allp)
+    area_w, area_h = 183, h - 40
+    sc = min(area_w / (xmax - xmin), area_h / (ymax - ymin))
+    ox = x + 6
+    oy = y_top - h + 22
 
     def P(px, py):
-        return x0 + (px - FX0) * s, y0 + (py - FY0) * s
+        return ox + (px - xmin) * sc, oy + (py - ymin) * sc
 
-    # fitted affine map South America file -> states file (Brazil bounding box)
-    AX, BX = 0.5606, 777.1
-    AY, BY = 0.5598, 3159.2
-
-    def sa2br(px, py):
-        return (px - BX) / AX, (py - BY) / AY
-
-    def polys_of(geom):
-        return geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
-
-    def draw_polys(geom, fill, stroke_col, lw, transform):
-        c.setFillColor(fill)
-        c.setStrokeColor(stroke_col)
-        c.setLineWidth(lw)
-        for poly in polys_of(geom):
+    idf_pts = []
+    for ft in feats:
+        name = ft["properties"]["name"]
+        is_idf = name == "Île-de-France"
+        geom = ft["geometry"]
+        polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+        if is_idf:
+            c.setFillColor(YEL)
+            c.setStrokeColor(BLUE)
+            c.setLineWidth(0.9)
+        else:
+            c.setFillColor(MAPGREY)
+            c.setStrokeColor(white)
+            c.setLineWidth(0.5)
+        for poly in polys:
             path = c.beginPath()
             for ring in poly:
-                for i, (a, b) in enumerate(ring):
-                    px, py = transform(a, b)
-                    qx, qy = P(px, py)
-                    (path.moveTo if i == 0 else path.lineTo)(qx, qy)
+                for i, (px0, py0) in enumerate(ring):
+                    px, py = P(px0, py0)
+                    (path.moveTo if i == 0 else path.lineTo)(px, py)
+                    if is_idf:
+                        idf_pts.append((px, py))
                 path.close()
             c.drawPath(path, fill=1, stroke=1)
-
-    c.saveState()
-    clip = c.beginPath()
-    clip.rect(x0, y0, side, side)
-    c.clipPath(clip, stroke=0, fill=0)
-
-    MERC = {"ar": "Argentina", "py": "Paraguay", "uy": "Uruguay"}
-    centres = {}
-    for ft in sa["features"]:
-        key = ft["properties"].get("hc-key")
-        if key == "br":
-            continue  # Brazil is drawn from the states file
-        fill = HexColor("#B7CDE8") if key in MERC else HexColor("#EEF1F5")
-        draw_polys(ft["geometry"], fill, white, 0.5, sa2br)
-        pts = []
-        for poly in polys_of(ft["geometry"]):
-            for ring in poly:
-                for a, b in ring:
-                    pts.append(sa2br(a, b))
-        if pts:
-            centres[key] = (sum(q[0] for q in pts) / len(pts), sum(q[1] for q in pts) / len(pts))
-
-    for ft in br["features"]:
-        key = ft["properties"].get("hc-key")
-        hl = key in HIGHLIGHT
-        ident = lambda a, b: (a, b)
-        if hl:
-            draw_polys(ft["geometry"], YEL, BLUE, 0.9, ident)
-        else:
-            draw_polys(ft["geometry"], MAPGREY, white, 0.4, ident)
-
-    c.restoreState()
-
-    # country labels (grey, small) at approximate centres
-    c.setFillColor(GREY)
-    c.setFont("DV", 5.6)
-    for key, name in MERC.items():
-        if key in centres:
-            lx, ly = P(*centres[key])
-            if x0 + 4 < lx < x0 + side - 4 and y0 + 4 < ly < y0 + side - 4:
-                c.drawCentredString(lx, ly, name.upper())
-
-    # numbered markers at the centroid of each highlighted state
-    centroids = {}
-    for ft in br["features"]:
-        key = ft["properties"].get("hc-key")
-        if key not in HIGHLIGHT:
-            continue
-        pts = []
-        for poly in polys_of(ft["geometry"]):
-            for ring in poly:
-                for a, b in ring:
-                    pts.append(P(a, b))
-        centroids[key] = (sum(q[0] for q in pts) / len(pts), sum(q[1] for q in pts) / len(pts))
-    for key, n in HIGHLIGHT.items():
-        if key in centroids:
-            mx, my = centroids[key]
-            badge(c, mx, my, n)
-
-    # legend and caveat
-    lg_y = y_top - h + 12
-    c.setFont("DV", 6.2)
-    c.setFillColor(HexColor("#B7CDE8"))
-    c.rect(x + 10, lg_y - 1, 7, 6, stroke=0, fill=1)
-    c.setFillColor(GREY)
-    c.drawString(x + 20, lg_y, "Mercosur members")
-    c.setFillColor(YEL)
-    c.rect(x + 100, lg_y - 1, 7, 6, stroke=0, fill=1)
-    c.setFillColor(GREY)
-    c.drawString(x + 110, lg_y, "IKEA-linked states")
-
-    # callouts (right)
-    rx = x + 10 + side + 14
-    rw = w - (rx - x) - 8
-    items = [
-        (1, "Nova Prata (RS): supplier Artemobili",
-         "Fined in 2018 and 2022 for environmental offences. IKEA = 66% of the supplier's Brazilian orders in 2023 [1]"),
-        (2, "Tapajós basin (PA) and Atlantic Forest hub (ES)",
-         "WWF projects with IKEA; partnership renewed to 2030 [3]"),
-        (3, "Paraná and Santa Catarina",
-         "BTG Pactual project: about 4,000 ha, announced 6 Nov 2025 [4]"),
-        (4, "Mercosur: Argentina, Brazil, Paraguay, Uruguay",
-         "EU–Mercosur interim deal applied since 1 May 2026 [6]. Any link to forest loss is my inference, not tested."),
-    ]
-    ty = y_top - 26
-    for n, head, body in items:
-        ch = 50
-        rect(c, rx, ty - ch, rw, ch, white, radius=5)
-        badge(c, rx + 11, ty - 12, n)
-        hh = para(c, f"<b>{head}</b>", st("ch", 7.3, 9), rx + 22, ty - 5, rw - 28)
-        para(c, body, st("cb", 6.8, 8.4), rx + 22, ty - 5 - hh - 3, rw - 28)
-        ty -= ch + 4
-
-
-def draw_timeline(c, x, y_top, w, h):
-    """Timeline of IKEA-linked events and the EU rules that apply to them."""
-    rect(c, x, y_top - h, w, h, LIGHT, radius=6)
-    events = [
-        ("2018", "Supplier fined", 0),
-        ("2022", "Second fine", 1),
-        ("27 Feb 2024", "Disclose / ARTE investigation [1]", 0),
-        ("12 Mar 2024", "IKEA: supplier not supplying now [2]", 1),
-        ("24 Sep 2025", "WWF partnership renewed to 2030 [3]", 0),
-        ("6 Nov 2025", "BTG Pactual, 4,000 ha [4]", 1),
-        ("1 May 2026", "EU–Mercosur interim deal applied [6]", 0),
-        ("30 Dec 2026", "EUDR applies to wood furniture (large firms) [5]", 1),
-    ]
-    line_y = y_top - 37
-    x0, x1 = x + 24, x + w - 24
-    c.setStrokeColor(BLUE)
-    c.setLineWidth(1.2)
-    c.line(x0, line_y, x1, line_y)
-    step = (x1 - x0) / (len(events) - 1)
-    for i, (date, label, pos) in enumerate(events):
-        px = x0 + i * step
-        c.setFillColor(YEL if i >= 6 else BLUE)
-        c.circle(px, line_y, 3.2, stroke=0, fill=1)
-        lw = 92
-        lx = min(max(px - lw / 2, x + 4), x + w - lw - 4)
-        if pos == 0:
-            ly_top = line_y + 16
-        else:
-            ly_top = line_y - 8
-        c.setFillColor(BLUE)
-        c.setFont("DVB", 6.6)
-        if pos == 0:
-            c.drawCentredString(px, ly_top + 4, date)
-            para(c, label, st("tl", 5.9, 6.9, color=INK), lx, ly_top, lw)
-        else:
-            c.drawCentredString(px, ly_top - 14, date)
-            para(c, label, st("tl2", 5.9, 6.9, color=INK), lx, ly_top - 18, lw)
+    # Île-de-France label in the right margin, linked by a line
+    if idf_pts:
+        cx = sum(p[0] for p in idf_pts) / len(idf_pts)
+        cy = sum(p[1] for p in idf_pts) / len(idf_pts)
+        lx, lw, lh = x + 194, w - 200, 44
+        ly = cy - lh / 2
+        c.setStrokeColor(BLUE)
+        c.setLineWidth(0.7)
+        c.line(cx + 3, cy, lx, cy)
+        rect(c, lx, ly, lw, lh, BLUE, radius=4)
+        c.setFillColor(white)
+        c.setFont("DVB", 7.4)
+        c.drawString(lx + 5, ly + lh - 12, "Île-de-France")
+        para(c, "where allocation decisions sit", st("ml", 6.6, 8, color=white), lx + 5, ly + lh - 16, lw - 8)
+    para(c, "Schematic only: no verified regional data. Idea: allocation decisions are taken at the centre; "
+            "their effects play out in the regions.",
+         st("mn", 6.6, 8.4, color=GREY), x + 10, y_top - h + 26, w - 20)
 
 
 def build():
@@ -263,7 +172,7 @@ def build():
     c.setFillColor(GREY)
     c.setFont("DV", 7.5)
     c.drawString(M, H - 24, "CFM · Sustainable Finance · Individual one-pager · Calvin Minang")
-    c.drawImage(LOGO, W - M - 36, H - 33, width=36, height=25.7, mask="auto")
+    c.drawRightString(W - M, H - 24, "Single side")
 
     # ---------- TOP HALF ----------
     y = H - 40
@@ -272,107 +181,97 @@ def build():
     c.drawString(M, y - 8, "REASONING MAP")
     y -= 18
 
-    q = ("<b>Question.</b> Should an ESG investor count IKEA's forest projects in Brazil as risk reduction, "
-         "when its main Brazilian supplier has been fined for environmental offences?")
-    hq = Paragraph(q, st("q", 9.6, 12.8)).wrap(CW - 20, 1000)[1]
-    rect(c, M, y - hq - 12, CW, hq + 12, YEL, radius=6)
-    para(c, q, st("q2", 9.6, 12.8), M + 10, y - 6, CW - 20)
-    y = y - hq - 12 - 7
+    q = ("<b>Question.</b> Do Article 8 and Article 9 funds (SFDR) actually reduce emissions in the real economy, "
+         "or do they only shift the problem?")
+    hq = para(c, q, st("q", 10, 13.5), M + 10, y - 7, CW - 20)
+    rect(c, M, y - hq - 14, CW, hq + 14, YEL, radius=6)
+    para(c, q, st("q2", 10, 13.5), M + 10, y - 7, CW - 20)
+    y = y - hq - 14 - 8
 
-    map_h = 240
-    draw_map_card(c, M, y, CW, map_h)
-    y = y - map_h - 6
-
-    tl_h = 78
-    draw_timeline(c, M, y, CW, tl_h)
-    y = y - tl_h - 6
+    row_h = 182
+    gw = 232
+    draw_graph(c, M, y, gw, row_h)
+    draw_map(c, M + gw + 10, y, CW - gw - 10, row_h)
+    y = y - row_h - 8
 
     branches = [
-        ("1 · Projects are elsewhere",
-         "The forest projects sit in the Tapajós basin and the Atlantic Forest. The supplier sits in Rio Grande do Sul. "
-         "No public source links the two.",
-         "[1][3][4]; my inference on the link"),
-        ("2 · Risk sits at the supplier",
-         "IKEA says the supplier breached its code and no longer supplies it [2]. The EUDR tests supplier-level "
-         "traceability for wood furniture from 30 Dec 2026 [5].",
-         "[2][5]"),
-        ("3 · What to price",
-         "Supplier-level traceability and deforestation PAI data, not project headlines. Under SFDR, a project "
-         "claim alone does not show lower risk.",
-         "PAI and controversy framework of the course (my reading)"),
+        ("1 · Transparency ≠ impact",
+         "SFDR requires a declared strategy and PAI indicators. Article 8 'promotes' environmental or social "
+         "characteristics; Article 9 targets a 'sustainable investment objective'. Neither sets a measured emissions cut.",
+         "Course, Module 2 (SFDR, PAI, DNSH)"),
+        ("2 · Cost of capital",
+         "Excluding or down-weighting an issuer raises its cost of capital. The real effect runs through primary "
+         "flows: a secondary-market purchase finances no project.",
+         "Course, Modules 1 and 3 (exclusion, additionality)"),
+        ("3 · Greenwashing risk",
+         "The EU taxonomy measures eligibility, not an emissions cut. The same label can cover very different effects.",
+         "Course, Module 2 (taxonomy, greenwashing)"),
     ]
-    gap = 7
+    gap = 8
     bw = (CW - 2 * gap) / 3
-    bh = 90
+    bh = 112
     for i, (ttl, body, src) in enumerate(branches):
         x = M + i * (bw + gap)
         rect(c, x, y - bh, bw, bh, LIGHT, radius=6)
         rect(c, x, y - 4, bw, 4, BLUE, radius=2)
-        ht_ = para(c, ttl, st("bt", 8.4, 10.6, font="DVB", color=BLUE), x + 8, y - 12, bw - 16)
-        hb = para(c, body, st("bb", 7.3, 9.4), x + 8, y - 12 - ht_ - 4, bw - 16)
-        para(c, src, st("bs", 6.2, 7.6, color=GREY), x + 8, y - 12 - ht_ - 4 - hb - 4, bw - 16)
+        para(c, ttl, st("bt", 8.8, 11, font="DVB", color=BLUE), x + 8, y - 13, bw - 16)
+        hb = para(c, body, st("bb", 7.6, 10), x + 8, y - 28, bw - 16)
+        para(c, src, st("bs", 6.6, 8, color=GREY), x + 8, y - 30 - hb, bw - 16)
     y = y - bh - 6
 
-    thesis = ("<b>My thesis (draft).</b> No, not on current evidence. Forest projects elsewhere do not offset supplier risk. "
-              "The risk must be priced where the wood is harvested and processed.")
-    ht = Paragraph(thesis, st("th", 8.4, 11.4, color=white)).wrap(CW - 24, 1000)[1]
-    rect(c, M, y - ht - 12, CW, ht + 12, BLUE, radius=6)
-    para(c, thesis, st("th2", 8.4, 11.4, color=white), M + 12, y - 6, CW - 24)
-    y_half = y - ht - 12
+    thesis = ("<b>My thesis.</b> No, not automatically. SFDR improves transparency, not impact. "
+              "The environmental effect depends on shareholder engagement and on the additionality of the financing.")
+    ht = para(c, thesis, st("th", 8.9, 12.2, color=white), M + 12, y - 7, CW - 24)
+    rect(c, M, y - ht - 14, CW, ht + 14, BLUE, radius=6)
+    para(c, thesis, st("th2", 8.9, 12.2, color=white), M + 12, y - 7, CW - 24)
+    y_half = y - ht - 14
 
     c.setStrokeColor(GREY)
     c.setDash(3, 3)
     c.setLineWidth(0.6)
-    sep_y = y_half - 8
+    sep_y = y_half - 12
     c.line(M, sep_y, W - M, sep_y)
     c.setDash()
 
     # ---------- BOTTOM HALF ----------
-    y = sep_y - 11
+    y = sep_y - 14
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
     c.drawString(M, y - 8, "SUMMARY")
-    y -= 16
+    y -= 18
 
     summary = [
-        "IKEA funds forest work in Brazil: WWF projects in the Tapajós basin and the Atlantic Forest [3], and a "
-        "4,000-hectare BTG Pactual project in Paraná and Santa Catarina [4]. Its main Brazilian supplier, Artemobili "
-        "(Nova Prata, RS), was fined in 2018 and 2022, and IKEA accounted for 66% of its Brazilian orders in 2023 [1]. "
-        "In March 2024, IKEA said the incidents breached its supplier code and that the supplier no longer supplied it [2].",
+        "A fund classified as Article 8 or 9 does not, on its own, prove that it reduces real-economy emissions. "
+        "SFDR is first and foremost a transparency obligation: a declared strategy, principal adverse impact (PAI) "
+        "indicators and the 'do no significant harm' (DNSH) principle. This transparency has real value because it "
+        "lets savers compare funds. But it describes what a fund says it does, not what its capital actually achieves.",
 
-        "My view: the projects are a reputational buffer, not risk reduction. They sit elsewhere and do not change how "
-        "the supplier's wood is audited. The EUDR tests supplier-level traceability for wood furniture from 30 December "
-        "2026 [5], so that is where an investor should look. The EU–Mercosur interim deal [6] is a second concern: more "
-        "trade can shift deforestation elsewhere (my inference, not tested).",
+        "My view is therefore nuanced. The environmental lever works less through the label than through two "
+        "mechanisms. The first is engagement: voting at shareholder meetings, dialogue, and escalation up to divestment. "
+        "The second is additionality: financing projects that would not have been financed without this capital. "
+        "A well-rated portfolio can hold listed shares whose price changes hands without any change in real capital. "
+        "In that case the fund gains reputation without cutting emissions.",
 
-        "<b>What would change my mind:</b> independent evidence that IKEA's Brazilian wood is traced to the plot, and that "
-        "its forest projects measurably reduce deforestation linked to its own supply.",
+        "I conclude that SFDR is a necessary but insufficient tool. To deliver on its promise, PAI indicators would need "
+        "to be linked to measured trajectories, verifiable data would need to be published, and primary financing would "
+        "need to be distinguished from secondary trading. My position could be challenged on one point: if Article 8/9 "
+        "funds end up excluding the largest emitters, pressure on their cost of capital could be enough to change their "
+        "behaviour even without active engagement. That is the test I would run on the data.",
+
+        "<b>What would change my mind:</b> if published PAI data show, over several years, that Article 8/9 portfolios "
+        "cut emissions faster than conventional funds, verifiable from public sources.",
     ]
-    s_body = st("sb", 8.3, 10.9)
+    s_body = st("sb", 9.4, 13.0)
     for txt in summary:
         hp = para(c, txt, s_body, M, y, CW)
-        y -= hp + 4
+        y -= hp + 6
 
-    # ---------- SOURCES ----------
-    src_lines = [
-        "[1] Disclose, 'Au Brésil, le principal fournisseur d'Ikea accusé d'atteintes à l'environnement', 26 Feb 2024: disclose.ngo/fr/article/au-bresil-le-principal-fournisseur-dikea-accuse-datteintes-a-lenvironnement (USD 34.4 m in 2023, customs data).",
-        "[2] Business & Human Rights Resource Centre, 'IKEA's response on allegations of main manufacturer' (12 Mar 2024): business-humanrights.org/en/latest-news/ikeas-response-on-allegations-of-main-manufacturer-being-responsible-for-environmental-crimes/",
-        "[3] IKEA Global: WWF projects in Colombia and Brazil (7 Dec 2023): ikea.com/global/en/newsroom/sustainability/wwf-ikea-forest-degradation-colombia-brazil-231207/ ; WWF–IKEA renewal to 2030 (24 Sep 2025): ikea.com/global/en/newsroom/sustainability/wwf-and-ikea-announce-the-next-phase-of-their-year-long-partnership-250924/",
-        "[4] IKEA Global, forest investment in Brazil with BTG Pactual (6 Nov 2025): ikea.com/global/en/newsroom/corporate/inter-ikea-group-announces-forest-investment-in-brazil-251106/",
-        "[5] European Commission, EUDR application dates (30 Dec 2026, large and medium operators): environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en ; wood furniture HS 9403 in Annex I (secondary source, check the Annex): saral.ro/en/blog/eudr-timber-furniture-deadline-2026/",
-        "[6] Intereconomics, 'From Signature to Standstill' (21 Oct 2026): intereconomics.eu/contents/year/2026/number/3/article/from-signature-to-standstill-the-future-of-the-eu-mercosur-agreement.html",
-        "Map: schematic, state-level positions only; basemap from Highcharts map collection 2.3.3 (npm, @highcharts/map-collection).",
-    ]
-    fy = y - 4
-    c.setFillColor(BLUE)
-    c.setFont("DVB", 6.8)
-    c.drawString(M, fy - 6, "SOURCES")
-    fy -= 11
-    for ln in src_lines:
-        fy -= para(c, ln, st("src", 5.4, 6.6, color=GREY), M, fy, CW) + 0.6
+    foot = ("Sources: course by Sabrine Aouida, Modules 1 to 3; Ingka ESG Profile (IKEA figures). "
+            "Check regulations against official texts: SFDR (EU) 2019/2088; EU Taxonomy (EU) 2020/852.")
+    para(c, foot, st("ft", 6.8, 8.6, color=GREY), M, 40, CW)
 
     c.save()
-    print("written:", OUT, "| summary end y =", round(y, 1), "| sources end y =", round(fy, 1))
+    print("written:", OUT, "| end of summary y =", round(y, 1), "| separator y =", round(sep_y, 1))
 
 
 if __name__ == "__main__":
