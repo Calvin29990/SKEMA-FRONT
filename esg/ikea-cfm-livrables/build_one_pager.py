@@ -1,10 +1,9 @@
-"""Individual one-pager (A4, single side) - English version.
-
-Top half: reasoning map (question, emissions chart, schematic map of France,
-three arguments, thesis). Bottom half: summary.
+"""Individual one-pager (A4, single side), course format:
+top half = reasoning map (question, large schematic map of France with key figures, three arguments, thesis);
+bottom half = summary. Sources are numbered and listed in the footer.
 
 NOTE: the question and thesis are a DRAFT. The course requires the opinion to be the student's own.
-The map is SCHEMATIC: no verified regional data is shown.
+Figures are dated (as of 27 Oct 2026) and were checked against the sources listed in the footer.
 
 Usage: python3 build_one_pager.py   (needs the Highcharts GeoJSON, see MAP_GEOJSON)
 """
@@ -59,39 +58,14 @@ def rect(c, x, y, w, h, fill, radius=0):
         c.rect(x, y, w, h, stroke=0, fill=1)
 
 
-def draw_graph(c, x, y_top, w, h):
-    """Bars: emissions reduction vs 2016 (figures from the Ingka ESG Profile)."""
+def draw_map_card(c, x, y_top, w, h):
+    """Large schematic map of mainland France (left) + three key figures and a spread mini-chart (right)."""
     rect(c, x, y_top - h, w, h, LIGHT, radius=6)
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
-    c.drawString(x + 10, y_top - 16, "Emissions reduction vs 2016")
-    rows = [
-        ("IKEA France, operations", 39, BLUE),
-        ("Group, scopes 1 to 3", 30, BLUE),
-        ("Group 2030 target", 50, HexColor("#9DB9DC")),
-    ]
-    label_w = 96
-    bar_x = x + 10 + label_w
-    bar_max = w - label_w - 66
-    y = y_top - 42
-    for lbl, val, col in rows:
-        para(c, lbl, st("gl", 7.6, 9.4), x + 10, y + 3, label_w - 6)
-        rect(c, bar_x, y - 4, bar_max * val / 50, 13, col, radius=3)
-        c.setFillColor(INK)
-        c.setFont("DVB", 9)
-        c.drawString(bar_x + bar_max * val / 50 + 5, y - 1, f"−{val} %")
-        y -= 30
-    para(c, "Source: Ingka ESG Profile. Different scopes; the 2030 target has not been reached yet.",
-         st("gn", 6.8, 8.6, color=GREY), x + 10, y_top - h + 26, w - 20)
+    c.drawString(x + 10, y_top - 16, "France at a glance, as of 27 Oct 2026")
 
-
-def draw_map(c, x, y_top, w, h):
-    """Schematic map of mainland France regions; Île-de-France highlighted.
-    The Highcharts GeoJSON uses planar coordinates, so they are scaled directly."""
-    rect(c, x, y_top - h, w, h, LIGHT, radius=6)
-    c.setFillColor(BLUE)
-    c.setFont("DVB", 9)
-    c.drawString(x + 10, y_top - 16, "Schematic map of France")
+    # ---- map (left) ----
     with open(MAP_GEOJSON, encoding="utf-8") as f:
         data = json.load(f)
     feats = [ft for ft in data["features"]
@@ -112,10 +86,11 @@ def draw_map(c, x, y_top, w, h):
     allp = [q for ft in feats for q in pts_of(ft["geometry"])]
     xmin, xmax = min(q[0] for q in allp), max(q[0] for q in allp)
     ymin, ymax = min(q[1] for q in allp), max(q[1] for q in allp)
-    area_w, area_h = 183, h - 40
-    sc = min(area_w / (xmax - xmin), area_h / (ymax - ymin))
-    ox = x + 6
-    oy = y_top - h + 22
+    map_w = 252
+    map_h = h - 52
+    sc = min(map_w / (xmax - xmin), map_h / (ymax - ymin))
+    ox = x + 8
+    oy = y_top - h + 26
 
     def P(px, py):
         return ox + (px - xmin) * sc, oy + (py - ymin) * sc
@@ -129,11 +104,11 @@ def draw_map(c, x, y_top, w, h):
         if is_idf:
             c.setFillColor(YEL)
             c.setStrokeColor(BLUE)
-            c.setLineWidth(0.9)
+            c.setLineWidth(1.0)
         else:
             c.setFillColor(MAPGREY)
             c.setStrokeColor(white)
-            c.setLineWidth(0.5)
+            c.setLineWidth(0.6)
         for poly in polys:
             path = c.beginPath()
             for ring in poly:
@@ -144,23 +119,51 @@ def draw_map(c, x, y_top, w, h):
                         idf_pts.append((px, py))
                 path.close()
             c.drawPath(path, fill=1, stroke=1)
-    # Île-de-France label in the right margin, linked by a line
     if idf_pts:
         cx = sum(p[0] for p in idf_pts) / len(idf_pts)
         cy = sum(p[1] for p in idf_pts) / len(idf_pts)
-        lx, lw, lh = x + 194, w - 200, 44
-        ly = cy - lh / 2
-        c.setStrokeColor(BLUE)
-        c.setLineWidth(0.7)
-        c.line(cx + 3, cy, lx, cy)
-        rect(c, lx, ly, lw, lh, BLUE, radius=4)
-        c.setFillColor(white)
-        c.setFont("DVB", 7.4)
-        c.drawString(lx + 5, ly + lh - 12, "Île-de-France")
-        para(c, "where allocation decisions sit", st("ml", 6.6, 8, color=white), lx + 5, ly + lh - 16, lw - 8)
-    para(c, "Schematic only: no verified regional data. Idea: allocation decisions are taken at the centre; "
-            "their effects play out in the regions.",
-         st("mn", 6.6, 8.4, color=GREY), x + 10, y_top - h + 26, w - 20)
+        c.setFillColor(BLUE)
+        c.circle(cx, cy, 2.2, stroke=0, fill=1)
+        c.setFillColor(BLUE)
+        c.setFont("DVB", 6.8)
+        c.drawString(cx - 22, cy - 12, "Paris")
+    para(c, "Schematic only. Île-de-France (yellow): where allocation decisions are taken; their effects play out in the regions.",
+         st("mn", 6.4, 8.0, color=GREY), x + 10, y_top - h + 22, map_w)
+
+    # ---- key figures (right) ----
+    rx = x + 268
+    rw = w - 268 - 10
+    tiles = [
+        ("Aa3 · outlook negative", "Moody's rating on France, affirmed 23 Oct 2026 [1]"),
+        ("≈ 155 bp", "OAT–Bund 10-year spread on 26 Oct 2026 [2]"),
+        ("1 May 2026", "EU–Mercosur interim trade deal applied provisionally [3]"),
+    ]
+    ty = y_top - 28
+    for big, small in tiles:
+        rect(c, rx, ty - 46, rw, 46, white, radius=5)
+        rect(c, rx, ty - 46, 4, 46, BLUE)
+        c.setFillColor(BLUE)
+        c.setFont("DVB", 11.5)
+        c.drawString(rx + 11, ty - 19, big)
+        para(c, small, st("tl", 7.0, 8.8), rx + 11, ty - 25, rw - 18)
+        ty -= 52
+
+    # mini chart: OAT–Bund spread history (sources [2])
+    c.setFillColor(BLUE)
+    c.setFont("DVB", 7.6)
+    c.drawString(rx, ty - 8, "OAT–Bund 10-year spread (bp) [2]")
+    bars = [("Mid-Sep", 96), ("22 Oct", 175), ("26 Oct", 156)]
+    by = ty - 20
+    bmax = rw - 82
+    for lbl, val in bars:
+        c.setFillColor(GREY)
+        c.setFont("DV", 6.8)
+        c.drawString(rx, by + 1, lbl)
+        rect(c, rx + 48, by, bmax * val / 180, 9, BLUE if lbl != "22 Oct" else YEL, radius=2)
+        c.setFillColor(INK)
+        c.setFont("DVB", 6.8)
+        c.drawString(rx + 48 + bmax * val / 180 + 4, by + 1, f"{val}")
+        by -= 13
 
 
 def build():
@@ -174,7 +177,7 @@ def build():
     c.drawString(M, H - 24, "CFM · Sustainable Finance · Individual one-pager · Calvin Minang")
     c.drawRightString(W - M, H - 24, "Single side")
 
-    # ---------- TOP HALF ----------
+    # ---------- TOP HALF: reasoning map ----------
     y = H - 40
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
@@ -188,90 +191,100 @@ def build():
     para(c, q, st("q2", 10, 13.5), M + 10, y - 7, CW - 20)
     y = y - hq - 14 - 8
 
-    row_h = 182
-    gw = 232
-    draw_graph(c, M, y, gw, row_h)
-    draw_map(c, M + gw + 10, y, CW - gw - 10, row_h)
-    y = y - row_h - 8
+    map_h = 236
+    draw_map_card(c, M, y, CW, map_h)
+    y = y - map_h - 8
 
     branches = [
         ("1 · Transparency ≠ impact",
-         "SFDR requires a declared strategy and PAI indicators. Article 8 'promotes' environmental or social "
-         "characteristics; Article 9 targets a 'sustainable investment objective'. Neither sets a measured emissions cut.",
+         "SFDR sets disclosure rules, not emissions targets. Article 8 'promotes' environmental or social "
+         "characteristics; Article 9 targets a 'sustainable investment objective'.",
          "Course, Module 2 (SFDR, PAI, DNSH)"),
         ("2 · Cost of capital",
-         "Excluding or down-weighting an issuer raises its cost of capital. The real effect runs through primary "
-         "flows: a secondary-market purchase finances no project.",
-         "Course, Modules 1 and 3 (exclusion, additionality)"),
-        ("3 · Greenwashing risk",
-         "The EU taxonomy measures eligibility, not an emissions cut. The same label can cover very different effects.",
-         "Course, Module 2 (taxonomy, greenwashing)"),
+         "French sovereign risk moved from about 96 bp to about 175 bp in five weeks [2]. Prices react fast, "
+         "but only additional capital changes real projects.",
+         "[2]; course, Module 3 (additionality)"),
+        ("3 · Displacement",
+         "EU–Mercosur has applied provisionally since 1 May 2026; France voted against in the Council [3]. "
+         "Emissions may move abroad: my inference, not yet tested.",
+         "[3] (inference is mine)"),
     ]
     gap = 8
     bw = (CW - 2 * gap) / 3
-    bh = 112
+    bh = 100
     for i, (ttl, body, src) in enumerate(branches):
         x = M + i * (bw + gap)
         rect(c, x, y - bh, bw, bh, LIGHT, radius=6)
         rect(c, x, y - 4, bw, 4, BLUE, radius=2)
         para(c, ttl, st("bt", 8.8, 11, font="DVB", color=BLUE), x + 8, y - 13, bw - 16)
-        hb = para(c, body, st("bb", 7.6, 10), x + 8, y - 28, bw - 16)
-        para(c, src, st("bs", 6.6, 8, color=GREY), x + 8, y - 30 - hb, bw - 16)
+        hb = para(c, body, st("bb", 7.5, 9.8), x + 8, y - 28, bw - 16)
+        para(c, src, st("bs", 6.4, 7.8, color=GREY), x + 8, y - 30 - hb, bw - 16)
     y = y - bh - 6
 
-    thesis = ("<b>My thesis.</b> No, not automatically. SFDR improves transparency, not impact. "
-              "The environmental effect depends on shareholder engagement and on the additionality of the financing.")
-    ht = para(c, thesis, st("th", 8.9, 12.2, color=white), M + 12, y - 7, CW - 24)
+    thesis = ("<b>My thesis.</b> No, not automatically. SFDR improves transparency, not impact. The effect on emissions "
+              "depends on additionality, shareholder engagement, and whether trade policy moves emissions elsewhere.")
+    ht = para(c, thesis, st("th", 8.6, 11.8, color=white), M + 12, y - 7, CW - 24)
     rect(c, M, y - ht - 14, CW, ht + 14, BLUE, radius=6)
-    para(c, thesis, st("th2", 8.9, 12.2, color=white), M + 12, y - 7, CW - 24)
+    para(c, thesis, st("th2", 8.6, 11.8, color=white), M + 12, y - 7, CW - 24)
     y_half = y - ht - 14
 
     c.setStrokeColor(GREY)
     c.setDash(3, 3)
     c.setLineWidth(0.6)
-    sep_y = y_half - 12
+    sep_y = y_half - 10
     c.line(M, sep_y, W - M, sep_y)
     c.setDash()
 
-    # ---------- BOTTOM HALF ----------
-    y = sep_y - 14
+    # ---------- BOTTOM HALF: summary ----------
+    y = sep_y - 12
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
     c.drawString(M, y - 8, "SUMMARY")
-    y -= 18
+    y -= 17
 
     summary = [
         "A fund classified as Article 8 or 9 does not, on its own, prove that it reduces real-economy emissions. "
-        "SFDR is first and foremost a transparency obligation: a declared strategy, principal adverse impact (PAI) "
-        "indicators and the 'do no significant harm' (DNSH) principle. This transparency has real value because it "
-        "lets savers compare funds. But it describes what a fund says it does, not what its capital actually achieves.",
+        "SFDR is first a transparency obligation: a declared strategy, principal adverse impact (PAI) indicators and the "
+        "'do no significant harm' (DNSH) principle. This helps savers compare funds, but it describes what a fund says "
+        "it does, not what its capital changes.",
 
-        "My view is therefore nuanced. The environmental lever works less through the label than through two "
-        "mechanisms. The first is engagement: voting at shareholder meetings, dialogue, and escalation up to divestment. "
-        "The second is additionality: financing projects that would not have been financed without this capital. "
-        "A well-rated portfolio can hold listed shares whose price changes hands without any change in real capital. "
-        "In that case the fund gains reputation without cutting emissions.",
+        "The strongest case for a real effect runs through the cost of capital. The OAT–Bund spread rose from about "
+        "96 bp in mid-September to about 175 bp on 22 October [2], and Moody's kept France at Aa3 with a negative outlook [1]. "
+        "A premium of this size changes what borrowers pay. But it only helps the climate if the money is additional: buying "
+        "listed shares moves a price, not a project.",
 
-        "I conclude that SFDR is a necessary but insufficient tool. To deliver on its promise, PAI indicators would need "
-        "to be linked to measured trajectories, verifiable data would need to be published, and primary financing would "
-        "need to be distinguished from secondary trading. My position could be challenged on one point: if Article 8/9 "
-        "funds end up excluding the largest emitters, pressure on their cost of capital could be enough to change their "
-        "behaviour even without active engagement. That is the test I would run on the data.",
+        "The second argument is displacement, which is the heart of the question. The EU–Mercosur interim agreement has "
+        "applied provisionally since 1 May 2026 [3]. My inference, which I have not tested: if cheaper imports replace "
+        "domestic production, part of the emissions moves abroad, so a portfolio can look greener while the problem is "
+        "only relocated.",
 
-        "<b>What would change my mind:</b> if published PAI data show, over several years, that Article 8/9 portfolios "
-        "cut emissions faster than conventional funds, verifiable from public sources.",
+        "<b>My view:</b> SFDR is a necessary but insufficient tool. It makes claims comparable, but an effect on emissions "
+        "needs additional capital, engagement and PAI data tied to measured trajectories. <b>What would change my mind:</b> "
+        "if published PAI data show, over several years, that Article 8/9 portfolios cut emissions faster than conventional "
+        "funds, after allowing for displacement through trade.",
     ]
-    s_body = st("sb", 9.4, 13.0)
+    s_body = st("sb", 8.7, 11.7)
     for txt in summary:
         hp = para(c, txt, s_body, M, y, CW)
-        y -= hp + 6
+        y -= hp + 4
 
-    foot = ("Sources: course by Sabrine Aouida, Modules 1 to 3; Ingka ESG Profile (IKEA figures). "
-            "Check regulations against official texts: SFDR (EU) 2019/2088; EU Taxonomy (EU) 2020/852.")
-    para(c, foot, st("ft", 6.8, 8.6, color=GREY), M, 40, CW)
+    # ---------- SOURCES (footer) ----------
+    src_lines = [
+        "[1] Moody's affirms France at Aa3, negative outlook (23 Oct 2026): cnbc.com/2026/10/23/moodys-holds-steady-on-frances-credit-rating-as-country-grapples-with-turmoil-and-higher-yields.html",
+        "[2] OAT–Bund spread: ideal-investisseur.fr/en/markets/oat-bund-spread.html (156.4 bp, 26 Oct 2026); fxstreet.com/analysis/france-tests-the-euros-nerve-what-the-oat-spread-is-telling-fx-traders-202610270406 (about 96 bp mid-Sep; 174.6 bp close 22 Oct). Sources differ by a few bp.",
+        "[3] Intereconomics, 'From Signature to Standstill' (21 Oct 2026): intereconomics.eu/contents/year/2026/number/3/article/from-signature-to-standstill-the-future-of-the-eu-mercosur-agreement.html ; Council vote, 9 Jan 2026: intereconomics.eu/contents/year/2026/number/3/article/eu-mercosur-trade-agreement-from-negotiations-to-application.html",
+        "Course: Sabrine Aouida, 'Skema Module 1 Sustainable Finance and impact investing', Modules 1 to 3. Check SFDR (EU) 2019/2088 against the official text.",
+    ]
+    fy = y - 6
+    c.setFillColor(BLUE)
+    c.setFont("DVB", 7)
+    c.drawString(M, fy - 7, "SOURCES")
+    fy -= 12
+    for ln in src_lines:
+        fy -= para(c, ln, st("src", 5.9, 7.2, color=GREY), M, fy, CW) + 1
 
     c.save()
-    print("written:", OUT, "| end of summary y =", round(y, 1), "| separator y =", round(sep_y, 1))
+    print("written:", OUT, "| summary end y =", round(y, 1), "| sources end y =", round(fy, 1))
 
 
 if __name__ == "__main__":
