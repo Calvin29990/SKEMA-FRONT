@@ -21,6 +21,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "One-page-Calvin-Minang.pdf")
 MAP_GEOJSON = os.environ.get(
     "MAP_GEOJSON", "/tmp/mapdl/br-all.geo.json")  # @highcharts/map-collection, countries/br/br-all.geo.json
+SA_GEOJSON = os.environ.get(
+    "SA_GEOJSON", "/tmp/mapdl/package/custom/south-america.geo.json")  # same package, custom/south-america.geo.json
+LOGO = os.path.join(HERE, "assets", "ikea-logo.png")
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 pdfmetrics.registerFont(TTFont("DV", os.path.join(FONT_DIR, "DejaVuSans.ttf")))
 pdfmetrics.registerFont(TTFont("DVB", os.path.join(FONT_DIR, "DejaVuSans-Bold.ttf")))
@@ -70,79 +73,128 @@ def badge(c, x, y, n):
 
 
 def draw_map_card(c, x, y_top, w, h):
-    """Map of Brazil (states) with IKEA-linked states highlighted and numbered; callouts on the right."""
+    """Map of Brazil (IKEA-linked states highlighted) with its Mercosur neighbours, cropped to a square.
+    South American countries come from the Highcharts 'custom/south-america' file, whose projection is
+    an affine rescaling of the Brazil states file (fitted on Brazil's bounding box); they are mapped onto
+    the states frame, then clipped."""
     rect(c, x, y_top - h, w, h, LIGHT, radius=6)
     c.setFillColor(BLUE)
     c.setFont("DVB", 9)
-    c.drawString(x + 10, y_top - 16, "IKEA's Brazilian footprint: supplier and forest projects")
+    c.drawString(x + 10, y_top - 16, "IKEA's Brazilian footprint and the Mercosur bloc")
 
     with open(MAP_GEOJSON, encoding="utf-8") as f:
-        data = json.load(f)
-    feats = data["features"]
+        br = json.load(f)
+    with open(SA_GEOJSON, encoding="utf-8") as f:
+        sa = json.load(f)
 
-    def pts_of(geom):
-        out = []
-
-        def walk(a):
-            if isinstance(a[0], (int, float)):
-                out.append(a)
-            else:
-                for b in a:
-                    walk(b)
-        walk(geom["coordinates"])
-        return out
-
-    allp = [q for ft in feats for q in pts_of(ft["geometry"])]
-    xmin, xmax = min(q[0] for q in allp), max(q[0] for q in allp)
-    ymin, ymax = min(q[1] for q in allp), max(q[1] for q in allp)
-    map_w, map_h = 296, h - 46
-    sc = min(map_w / (xmax - xmin), map_h / (ymax - ymin))
-    ox = x + 6
-    oy = y_top - h + 24
+    # square frame in states coordinates (covers Brazil; Mercosur neighbours are cropped at its edges)
+    side = h - 46
+    FX0 = FY0 = -1000.0
+    span = 10900.0
+    s = side / span
+    x0 = x + 10
+    y0 = y_top - h + 24
 
     def P(px, py):
-        return ox + (px - xmin) * sc, oy + (py - ymin) * sc
+        return x0 + (px - FX0) * s, y0 + (py - FY0) * s
 
-    centroids = {}
-    for ft in feats:
-        key = ft["properties"].get("hc-key")
-        geom = ft["geometry"]
-        polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
-        hl = key in HIGHLIGHT
-        if hl:
-            c.setFillColor(YEL)
-            c.setStrokeColor(BLUE)
-            c.setLineWidth(0.9)
-        else:
-            c.setFillColor(MAPGREY)
-            c.setStrokeColor(white)
-            c.setLineWidth(0.4)
-        cx_pts = []
-        for poly in polys:
+    # fitted affine map South America file -> states file (Brazil bounding box)
+    AX, BX = 0.5606, 777.1
+    AY, BY = 0.5598, 3159.2
+
+    def sa2br(px, py):
+        return (px - BX) / AX, (py - BY) / AY
+
+    def polys_of(geom):
+        return geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+
+    def draw_polys(geom, fill, stroke_col, lw, transform):
+        c.setFillColor(fill)
+        c.setStrokeColor(stroke_col)
+        c.setLineWidth(lw)
+        for poly in polys_of(geom):
             path = c.beginPath()
             for ring in poly:
-                for i, (px0, py0) in enumerate(ring):
-                    px, py = P(px0, py0)
-                    (path.moveTo if i == 0 else path.lineTo)(px, py)
-                    cx_pts.append((px, py))
+                for i, (a, b) in enumerate(ring):
+                    px, py = transform(a, b)
+                    qx, qy = P(px, py)
+                    (path.moveTo if i == 0 else path.lineTo)(qx, qy)
                 path.close()
             c.drawPath(path, fill=1, stroke=1)
-        if cx_pts:
-            centroids[key] = (sum(p[0] for p in cx_pts) / len(cx_pts), sum(p[1] for p in cx_pts) / len(cx_pts))
+
+    c.saveState()
+    clip = c.beginPath()
+    clip.rect(x0, y0, side, side)
+    c.clipPath(clip, stroke=0, fill=0)
+
+    MERC = {"ar": "Argentina", "py": "Paraguay", "uy": "Uruguay"}
+    centres = {}
+    for ft in sa["features"]:
+        key = ft["properties"].get("hc-key")
+        if key == "br":
+            continue  # Brazil is drawn from the states file
+        fill = HexColor("#B7CDE8") if key in MERC else HexColor("#EEF1F5")
+        draw_polys(ft["geometry"], fill, white, 0.5, sa2br)
+        pts = []
+        for poly in polys_of(ft["geometry"]):
+            for ring in poly:
+                for a, b in ring:
+                    pts.append(sa2br(a, b))
+        if pts:
+            centres[key] = (sum(q[0] for q in pts) / len(pts), sum(q[1] for q in pts) / len(pts))
+
+    for ft in br["features"]:
+        key = ft["properties"].get("hc-key")
+        hl = key in HIGHLIGHT
+        ident = lambda a, b: (a, b)
+        if hl:
+            draw_polys(ft["geometry"], YEL, BLUE, 0.9, ident)
+        else:
+            draw_polys(ft["geometry"], MAPGREY, white, 0.4, ident)
+
+    c.restoreState()
+
+    # country labels (grey, small) at approximate centres
+    c.setFillColor(GREY)
+    c.setFont("DV", 5.6)
+    for key, name in MERC.items():
+        if key in centres:
+            lx, ly = P(*centres[key])
+            if x0 + 4 < lx < x0 + side - 4 and y0 + 4 < ly < y0 + side - 4:
+                c.drawCentredString(lx, ly, name.upper())
 
     # numbered markers at the centroid of each highlighted state
+    centroids = {}
+    for ft in br["features"]:
+        key = ft["properties"].get("hc-key")
+        if key not in HIGHLIGHT:
+            continue
+        pts = []
+        for poly in polys_of(ft["geometry"]):
+            for ring in poly:
+                for a, b in ring:
+                    pts.append(P(a, b))
+        centroids[key] = (sum(q[0] for q in pts) / len(pts), sum(q[1] for q in pts) / len(pts))
     for key, n in HIGHLIGHT.items():
         if key in centroids:
             mx, my = centroids[key]
             badge(c, mx, my, n)
-    c.setFillColor(GREY)
+
+    # legend and caveat
+    lg_y = y_top - h + 12
     c.setFont("DV", 6.2)
-    c.drawString(x + 10, y_top - h + 12,
-                 "Schematic, state-level positions only (not exact sites). Basemap: Highcharts map collection.")
+    c.setFillColor(HexColor("#B7CDE8"))
+    c.rect(x + 10, lg_y - 1, 7, 6, stroke=0, fill=1)
+    c.setFillColor(GREY)
+    c.drawString(x + 20, lg_y, "Mercosur members")
+    c.setFillColor(YEL)
+    c.rect(x + 100, lg_y - 1, 7, 6, stroke=0, fill=1)
+    c.setFillColor(GREY)
+    c.drawString(x + 110, lg_y, "IKEA-linked states")
 
     # callouts (right)
-    rx = x + 314
-    rw = w - 314 - 8
+    rx = x + 10 + side + 14
+    rw = w - (rx - x) - 8
     items = [
         (1, "Nova Prata (RS): supplier Artemobili",
          "Fined in 2018 and 2022 for environmental offences. IKEA = 66% of the supplier's Brazilian orders in 2023 [1]"),
@@ -150,14 +202,17 @@ def draw_map_card(c, x, y_top, w, h):
          "WWF projects with IKEA; partnership renewed to 2030 [3]"),
         (3, "Paraná and Santa Catarina",
          "BTG Pactual project: about 4,000 ha, announced 6 Nov 2025 [4]"),
+        (4, "Mercosur: Argentina, Brazil, Paraguay, Uruguay",
+         "EU–Mercosur interim deal applied since 1 May 2026 [6]. Any link to forest loss is my inference, not tested."),
     ]
     ty = y_top - 26
     for n, head, body in items:
-        rect(c, rx, ty - 52, rw, 52, white, radius=5)
+        ch = 50
+        rect(c, rx, ty - ch, rw, ch, white, radius=5)
         badge(c, rx + 11, ty - 12, n)
         hh = para(c, f"<b>{head}</b>", st("ch", 7.3, 9), rx + 22, ty - 5, rw - 28)
         para(c, body, st("cb", 6.8, 8.4), rx + 22, ty - 5 - hh - 3, rw - 28)
-        ty -= 56
+        ty -= ch + 4
 
 
 def draw_timeline(c, x, y_top, w, h):
@@ -173,7 +228,7 @@ def draw_timeline(c, x, y_top, w, h):
         ("1 May 2026", "EU–Mercosur interim deal applied [6]", 0),
         ("30 Dec 2026", "EUDR applies to wood furniture (large firms) [5]", 1),
     ]
-    line_y = y_top - 40
+    line_y = y_top - 37
     x0, x1 = x + 24, x + w - 24
     c.setStrokeColor(BLUE)
     c.setLineWidth(1.2)
@@ -208,7 +263,7 @@ def build():
     c.setFillColor(GREY)
     c.setFont("DV", 7.5)
     c.drawString(M, H - 24, "CFM · Sustainable Finance · Individual one-pager · Calvin Minang")
-    c.drawRightString(W - M, H - 24, "Single side")
+    c.drawImage(LOGO, W - M - 36, H - 33, width=36, height=25.7, mask="auto")
 
     # ---------- TOP HALF ----------
     y = H - 40
@@ -224,11 +279,11 @@ def build():
     para(c, q, st("q2", 9.6, 12.8), M + 10, y - 6, CW - 20)
     y = y - hq - 12 - 7
 
-    map_h = 196
+    map_h = 240
     draw_map_card(c, M, y, CW, map_h)
     y = y - map_h - 6
 
-    tl_h = 84
+    tl_h = 78
     draw_timeline(c, M, y, CW, tl_h)
     y = y - tl_h - 6
 
@@ -248,7 +303,7 @@ def build():
     ]
     gap = 7
     bw = (CW - 2 * gap) / 3
-    bh = 96
+    bh = 90
     for i, (ttl, body, src) in enumerate(branches):
         x = M + i * (bw + gap)
         rect(c, x, y - bh, bw, bh, LIGHT, radius=6)
@@ -281,16 +336,14 @@ def build():
 
     summary = [
         "IKEA funds forest work in Brazil: WWF projects in the Tapajós basin and the Atlantic Forest [3], and a "
-        "4,000-hectare project with BTG Pactual in Paraná and Santa Catarina [4]. Its main Brazilian supplier, Artemobili, "
-        "in Nova Prata (Rio Grande do Sul), was fined in 2018 and 2022, and IKEA accounted for 66% of that supplier's orders in Brazil in 2023 [1]. "
-        "IKEA told the NGO that the incidents breached its supplier code and that the supplier was not supplying it as of "
-        "March 2024 [2].",
+        "4,000-hectare BTG Pactual project in Paraná and Santa Catarina [4]. Its main Brazilian supplier, Artemobili "
+        "(Nova Prata, RS), was fined in 2018 and 2022, and IKEA accounted for 66% of its Brazilian orders in 2023 [1]. "
+        "In March 2024, IKEA said the incidents breached its supplier code and that the supplier no longer supplied it [2].",
 
-        "My view: the projects are a reputational buffer, not risk reduction. They sit in other places and do not change "
-        "how the supplier's wood is audited. Supplier risk is what the EUDR will test for wood furniture from 30 December "
-        "2026 [5], and this is where an investor should look. The EU–Mercosur interim deal, applied since 1 May 2026 [6], "
-        "adds a second concern: more trade in commodities can move deforestation to other places, which is my inference, "
-        "not a tested result.",
+        "My view: the projects are a reputational buffer, not risk reduction. They sit elsewhere and do not change how "
+        "the supplier's wood is audited. The EUDR tests supplier-level traceability for wood furniture from 30 December "
+        "2026 [5], so that is where an investor should look. The EU–Mercosur interim deal [6] is a second concern: more "
+        "trade can shift deforestation elsewhere (my inference, not tested).",
 
         "<b>What would change my mind:</b> independent evidence that IKEA's Brazilian wood is traced to the plot, and that "
         "its forest projects measurably reduce deforestation linked to its own supply.",
@@ -302,13 +355,13 @@ def build():
 
     # ---------- SOURCES ----------
     src_lines = [
-        "[1] Disclose, 'Au Brésil, le principal fournisseur d'Ikea accusé d'atteintes à l'environnement' (26 Feb 2024): disclose.ngo/fr/article/au-bresil-le-principal-fournisseur-dikea-accuse-datteintes-a-lenvironnement (fines 2018 and 2022; IKEA = 66% of supplier's orders; USD 34.4 m in 2023, customs data).",
+        "[1] Disclose, 'Au Brésil, le principal fournisseur d'Ikea accusé d'atteintes à l'environnement', 26 Feb 2024: disclose.ngo/fr/article/au-bresil-le-principal-fournisseur-dikea-accuse-datteintes-a-lenvironnement (USD 34.4 m in 2023, customs data).",
         "[2] Business & Human Rights Resource Centre, 'IKEA's response on allegations of main manufacturer' (12 Mar 2024): business-humanrights.org/en/latest-news/ikeas-response-on-allegations-of-main-manufacturer-being-responsible-for-environmental-crimes/",
         "[3] IKEA Global: WWF projects in Colombia and Brazil (7 Dec 2023): ikea.com/global/en/newsroom/sustainability/wwf-ikea-forest-degradation-colombia-brazil-231207/ ; WWF–IKEA renewal to 2030 (24 Sep 2025): ikea.com/global/en/newsroom/sustainability/wwf-and-ikea-announce-the-next-phase-of-their-year-long-partnership-250924/",
         "[4] IKEA Global, forest investment in Brazil with BTG Pactual (6 Nov 2025): ikea.com/global/en/newsroom/corporate/inter-ikea-group-announces-forest-investment-in-brazil-251106/",
         "[5] European Commission, EUDR application dates (30 Dec 2026, large and medium operators): environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en ; wood furniture HS 9403 in Annex I (secondary source, check the Annex): saral.ro/en/blog/eudr-timber-furniture-deadline-2026/",
         "[6] Intereconomics, 'From Signature to Standstill' (21 Oct 2026): intereconomics.eu/contents/year/2026/number/3/article/from-signature-to-standstill-the-future-of-the-eu-mercosur-agreement.html",
-        "Map basemap: Highcharts map collection 2.3.3 (npm, @highcharts/map-collection).",
+        "Map: schematic, state-level positions only; basemap from Highcharts map collection 2.3.3 (npm, @highcharts/map-collection).",
     ]
     fy = y - 4
     c.setFillColor(BLUE)
