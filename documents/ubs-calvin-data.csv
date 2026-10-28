@@ -1,13 +1,22 @@
-﻿mois,pnl_standard_usd_m,exposition_standard_pct_limite,pnl_agressif_sans_fraude_usd_m,exposition_agressif_sans_fraude_pct_limite,pnl_agressif_avec_dissimulation_usd_m,exposition_agressif_avec_dissimulation_pct_limite
-Jan,1,25,5,40,4,35
-Fév,2,28,12,65,14,60
-Mar,4,30,20,95,25,90
-Avr,3,29,35,120,40,130
-Mai,5,32,42,145,55,170
-Juin,6,35,50,170,70,220
-Juil,8,33,30,125,90,270
-Août,7,36,12,80,115,310
-Sep,9,38,-10,40,130,350
-Oct,10,37,-20,20,45,380
-Nov,11,40,-12,15,-90,400
-Déc,12,42,-5,10,-175,100
+profil,ordre_point_scenario,risk_exposure_pct_limite,pnl_usd_millions_fictif
+Trader normal UBS,1,20,0
+Trader normal UBS,2,35,8
+Trader normal UBS,3,50,14
+Trader normal UBS,4,65,10
+Trader normal UBS,5,80,22
+Trader normal UBS,6,90,18
+Trader fou sans fraude,1,25,0
+Trader fou sans fraude,2,60,18
+Trader fou sans fraude,3,100,45
+Trader fou sans fraude,4,150,65
+Trader fou sans fraude,5,200,20
+Trader fou sans fraude,6,130,-10
+Trader fou sans fraude,7,80,-25
+Trader fou falsifié,1,20,0
+Trader fou falsifié,2,70,15
+Trader fou falsifié,3,120,45
+Trader fou falsifié,4,180,80
+Trader fou falsifié,5,240,120
+Trader fou falsifié,6,320,40
+Trader fou falsifié,7,380,-180
+Trader fou falsifié,8,30,-180
