@@ -1,11 +1,9 @@
-# UBS Adoboli Case — P&L and Risk Exposure
+# UBS Adoboli Case — Japanese Candlestick P&L Chart
 
-![12-month educational chart showing cumulative P&L and risk exposure for three trader profiles](ubs-calvin-main.svg)
+![Bloomberg-inspired candlestick chart for three trader profiles; risk exposure is printed in parentheses](ubs-calvin-main.svg)
 
-**How to read it:** months run from M1 to M12. The left axis is cumulative P&L in USD millions; the right axis is risk exposure as a percentage of the internal risk limit. Solid lines show P&L; dashed lines show exposure. Colors identify the trader profile.
+Each row is one trader profile. Japanese candlesticks show the monthly P&L: **body = open-to-close**, **wick = high-to-low**. Green means P&L rose during that month; red means it fell. Risk exposure is shown as a number in parentheses under each month; **100 is the bank’s illustrative internal limit**, and values above 100 are highlighted. The M11 marker shows the illustrative fraud-discovery point.
 
-**Classroom takeaway:** losses can happen in ordinary trading. The operational-risk failure in the Adoboli case was that concealed positions and failed controls allowed exposure to grow unchecked. The M11 annotation marks the stylized discovery point.
+> **Teaching illustration:** OHLC values and exposure numbers are invented to explain the operational-risk mechanism, not precise historical data, UBS internal data, or a reconstruction of Adoboli’s positions.
 
-[Download the illustrative chart data (CSV)](ubs-calvin-data.csv) · [Open the standalone HTML chart](ubs-pnl-risk-calvin.html)
-
-> **Teaching illustration:** all plotted values are invented to explain the mechanism, not precise historical figures, UBS internal data, or a reconstruction of Adoboli’s positions. M1–M12 are schematic sequence labels.
+[Download OHLC and exposure values for Excel (CSV)](ubs-calvin-data.csv) · [Open standalone HTML](ubs-pnl-risk-calvin.html)
