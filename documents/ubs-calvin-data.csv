@@ -11,18 +11,18 @@ Normal Trader,M9,18,20,13,15,30
 Normal Trader,M10,15,22,13,20,33
 Normal Trader,M11,20,22,16,18,31
 Normal Trader,M12,18,25,16,23,32
-Aggressive Trader (No Fraud),M1,0,3,-3,0,35
-Aggressive Trader (No Fraud),M2,0,9,-4,5,55
-Aggressive Trader (No Fraud),M3,5,17,0,12,75
-Aggressive Trader (No Fraud),M4,12,26,6,20,95
-Aggressive Trader (No Fraud),M5,20,35,13,28,115
-Aggressive Trader (No Fraud),M6,28,42,20,34,130
-Aggressive Trader (No Fraud),M7,34,42,17,25,90
-Aggressive Trader (No Fraud),M8,25,32,11,18,60
-Aggressive Trader (No Fraud),M9,18,24,6,12,40
-Aggressive Trader (No Fraud),M10,12,17,3,8,30
-Aggressive Trader (No Fraud),M11,8,12,2,6,25
-Aggressive Trader (No Fraud),M12,6,9,2,5,20
+Aggressive Trader (Controls Working),M1,0,3,-3,0,35
+Aggressive Trader (Controls Working),M2,0,9,-4,5,55
+Aggressive Trader (Controls Working),M3,5,17,0,12,75
+Aggressive Trader (Controls Working),M4,12,26,6,20,95
+Aggressive Trader (Controls Working),M5,20,35,13,28,115
+Aggressive Trader (Controls Working),M6,28,42,20,34,130
+Aggressive Trader (Controls Working),M7,34,42,17,25,90
+Aggressive Trader (Controls Working),M8,25,32,11,18,60
+Aggressive Trader (Controls Working),M9,18,24,6,12,40
+Aggressive Trader (Controls Working),M10,12,17,3,8,30
+Aggressive Trader (Controls Working),M11,8,12,2,6,25
+Aggressive Trader (Controls Working),M12,6,9,2,5,20
 Kweku Adoboli (Fraud),M1,0,4,-4,0,30
 Kweku Adoboli (Fraud),M2,0,11,-5,6,65
 Kweku Adoboli (Fraud),M3,6,21,-1,14,110
@@ -31,7 +31,7 @@ Kweku Adoboli (Fraud),M5,24,50,12,38,220
 Kweku Adoboli (Fraud),M6,38,70,23,55,290
 Kweku Adoboli (Fraud),M7,55,93,37,75,350
 Kweku Adoboli (Fraud),M8,75,120,55,100,410
-Kweku Adoboli (Fraud),M9,100,147,78,125,470
-Kweku Adoboli (Fraud),M10,125,175,100,150,520
-Kweku Adoboli (Fraud),M11,150,185,-165,-130,560
+Kweku Adoboli (Fraud),M9,100,147,78,125,520
+Kweku Adoboli (Fraud),M10,125,175,100,150,640
+Kweku Adoboli (Fraud),M11,150,185,-165,-130,680
 Kweku Adoboli (Fraud),M12,-130,-112,-178,-160,80

@@ -1,9 +1,12 @@
-# UBS Adoboli Case — Japanese Candlestick P&L Chart
+# UBS Investment Bank (2011)
+## Hidden Exposure and Control Failure
 
-![Bloomberg-inspired candlestick chart for three trader profiles; risk exposure is printed in parentheses](ubs-calvin-main.svg)
+**Operational Risk Escalation from Unauthorized ETF Trading Activity**
 
-Each row is one trader profile. Japanese candlesticks show the monthly P&L: **body = open-to-close**, **wick = high-to-low**. Green means P&L rose during that month; red means it fell. Risk exposure is shown as a number in parentheses under each month; **100 is the bank’s illustrative internal limit**, and values above 100 are highlighted. The M11 marker shows the illustrative fraud-discovery point.
+![Three-panel institutional risk dashboard: monthly P&L candlesticks and secondary-axis risk exposure for normal, aggressive and Kweku Adoboli profiles](ubs-calvin-main.svg)
 
-> **Teaching illustration:** OHLC values and exposure numbers are invented to explain the operational-risk mechanism, not precise historical data, UBS internal data, or a reconstruction of Adoboli’s positions.
+P&L candlesticks use green for positive months and red for negative months. Dashed risk exposure is grey below the internal limit, orange above 100%, and red above 250%. The Adoboli panel marks fraud discovery and exposure above 600% of the internal limit.
 
-[Download OHLC and exposure values for Excel (CSV)](ubs-calvin-data.csv) · [Open standalone HTML](ubs-pnl-risk-calvin.html)
+> **Data note:** Illustrative teaching data, not actual UBS desk records or a precise historical reconstruction.
+
+[Download the monthly OHLC and exposure data (CSV)](ubs-calvin-data.csv) · [Open standalone HTML](ubs-pnl-risk-calvin.html)
