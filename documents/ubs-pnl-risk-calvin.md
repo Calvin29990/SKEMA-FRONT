@@ -1,12 +1,12 @@
 # UBS Investment Bank (2011)
-## Hidden Exposure and Control Failure
+## ETF Delta One Desk Risk Escalation
 
-**Operational Risk Escalation from Unauthorized ETF Trading Activity**
+**Operational Risk, Hidden Exposure and Control Failure**
 
-![Three-panel institutional risk dashboard: monthly P&L candlesticks and secondary-axis risk exposure for normal, aggressive and Kweku Adoboli profiles](ubs-calvin-main.svg)
+![Dark institutional risk-committee dashboard with aligned monthly candlestick P&L and dashed risk-exposure panels for a normal trader, aggressive trader with controls working, and Kweku Adoboli control failure](ubs-calvin-main.svg)
 
-P&L candlesticks use green for positive months and red for negative months. Dashed risk exposure is grey below the internal limit, orange above 100%, and red above 250%. The Adoboli panel marks fraud discovery and exposure above 600% of the internal limit.
+The three panels use monthly P&L candlesticks and a secondary risk-exposure scale. Risk is grey below 100%, orange from 100% to 250%, and red above 250%. Horizontal markers show the internal limit, warning, and critical thresholds. The Adoboli panel marks fraud discovery and calls out peak exposure of 680% and the USD 2.3 billion final trading loss.
 
-> **Data note:** Illustrative teaching data, not actual UBS desk records or a precise historical reconstruction.
+> **Data note:** the monthly path and exposure series are schematic for teaching; the USD 2.3 billion figure is the reported case total. Do not present the illustrative monthly values as actual desk records.
 
-[Download the monthly OHLC and exposure data (CSV)](ubs-calvin-data.csv) · [Open standalone HTML](ubs-pnl-risk-calvin.html)
+[Download monthly OHLC and exposure data (CSV)](ubs-calvin-data.csv) · [Open standalone HTML](ubs-pnl-risk-calvin.html)

@@ -1,37 +1,37 @@
-﻿profile,month,pnl_open_usd_m_illustrative,pnl_high_usd_m_illustrative,pnl_low_usd_m_illustrative,pnl_close_usd_m_illustrative,risk_exposure_pct_internal_limit_illustrative
-Normal Trader,M1,0,2,-2,0,25
-Normal Trader,M2,0,7,-2,5,28
-Normal Trader,M3,5,11,3,9,27
-Normal Trader,M4,9,11,5,7,30
-Normal Trader,M5,7,14,5,12,28
-Normal Trader,M6,12,18,10,16,31
-Normal Trader,M7,16,18,11,13,29
-Normal Trader,M8,13,20,11,18,32
-Normal Trader,M9,18,20,13,15,30
-Normal Trader,M10,15,22,13,20,33
-Normal Trader,M11,20,22,16,18,31
-Normal Trader,M12,18,25,16,23,32
-Aggressive Trader (Controls Working),M1,0,3,-3,0,35
-Aggressive Trader (Controls Working),M2,0,9,-4,5,55
-Aggressive Trader (Controls Working),M3,5,17,0,12,75
-Aggressive Trader (Controls Working),M4,12,26,6,20,95
-Aggressive Trader (Controls Working),M5,20,35,13,28,115
-Aggressive Trader (Controls Working),M6,28,42,20,34,130
-Aggressive Trader (Controls Working),M7,34,42,17,25,90
-Aggressive Trader (Controls Working),M8,25,32,11,18,60
-Aggressive Trader (Controls Working),M9,18,24,6,12,40
-Aggressive Trader (Controls Working),M10,12,17,3,8,30
-Aggressive Trader (Controls Working),M11,8,12,2,6,25
-Aggressive Trader (Controls Working),M12,6,9,2,5,20
-Kweku Adoboli (Fraud),M1,0,4,-4,0,30
-Kweku Adoboli (Fraud),M2,0,11,-5,6,65
-Kweku Adoboli (Fraud),M3,6,21,-1,14,110
-Kweku Adoboli (Fraud),M4,14,33,5,24,160
-Kweku Adoboli (Fraud),M5,24,50,12,38,220
-Kweku Adoboli (Fraud),M6,38,70,23,55,290
-Kweku Adoboli (Fraud),M7,55,93,37,75,350
-Kweku Adoboli (Fraud),M8,75,120,55,100,410
-Kweku Adoboli (Fraud),M9,100,147,78,125,520
-Kweku Adoboli (Fraud),M10,125,175,100,150,640
-Kweku Adoboli (Fraud),M11,150,185,-165,-130,680
-Kweku Adoboli (Fraud),M12,-130,-112,-178,-160,80
+﻿profile,month,pnl_open_usd_m_schematic,pnl_high_usd_m_schematic,pnl_low_usd_m_schematic,pnl_close_usd_m_schematic,risk_exposure_pct_internal_limit_schematic
+NORMAL TRADER,M1,0,2,-2,0,25
+NORMAL TRADER,M2,0,7,-2,5,28
+NORMAL TRADER,M3,5,11,3,9,27
+NORMAL TRADER,M4,9,11,5,7,30
+NORMAL TRADER,M5,7,14,5,12,28
+NORMAL TRADER,M6,12,18,10,16,31
+NORMAL TRADER,M7,16,18,11,13,29
+NORMAL TRADER,M8,13,20,11,18,32
+NORMAL TRADER,M9,18,20,13,15,30
+NORMAL TRADER,M10,15,22,13,20,33
+NORMAL TRADER,M11,20,22,16,18,31
+NORMAL TRADER,M12,18,25,16,23,32
+AGGRESSIVE TRADER,M1,0,3,-3,0,35
+AGGRESSIVE TRADER,M2,0,9,-4,5,55
+AGGRESSIVE TRADER,M3,5,17,0,12,75
+AGGRESSIVE TRADER,M4,12,26,6,20,95
+AGGRESSIVE TRADER,M5,20,35,13,28,115
+AGGRESSIVE TRADER,M6,28,42,20,34,130
+AGGRESSIVE TRADER,M7,34,42,17,25,90
+AGGRESSIVE TRADER,M8,25,32,11,18,60
+AGGRESSIVE TRADER,M9,18,24,6,12,40
+AGGRESSIVE TRADER,M10,12,17,3,8,30
+AGGRESSIVE TRADER,M11,8,12,2,6,25
+AGGRESSIVE TRADER,M12,6,9,2,5,20
+KWEKU ADOBOLI,M1,0,4,-4,0,30
+KWEKU ADOBOLI,M2,0,11,-5,6,65
+KWEKU ADOBOLI,M3,6,21,-1,14,110
+KWEKU ADOBOLI,M4,14,33,5,24,160
+KWEKU ADOBOLI,M5,24,50,12,38,220
+KWEKU ADOBOLI,M6,38,70,23,55,290
+KWEKU ADOBOLI,M7,55,93,37,75,350
+KWEKU ADOBOLI,M8,75,120,55,100,410
+KWEKU ADOBOLI,M9,100,147,78,125,520
+KWEKU ADOBOLI,M10,125,175,100,150,640
+KWEKU ADOBOLI,M11,150,250,-2400,-2300,680
+KWEKU ADOBOLI,M12,-2300,-2220,-2380,-2300,80
