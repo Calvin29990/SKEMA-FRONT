@@ -1,79 +1,35 @@
 <!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Deux graphiques pédagogiques comparant le P&L et l'exposition au risque de trois profils de trader dans un scénario inspiré de l'affaire UBS de 2011.">
-<title>UBS — P&amp;L et exposition au risque | Calvin</title>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UBS · P&amp;L et risque — support Calvin</title>
 <style>
-  :root{color-scheme:dark;--bg:#0b1018;--panel:#121a25;--panel2:#172230;--line:#293747;--muted:#9aabbd;--text:#f3f6fa;--red:#f05b62;--blue:#60a5fa;--green:#56d6a0;--amber:#f5bd58}
-  *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 88% 0%,#182438 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-  main{max-width:1140px;margin:0 auto;padding:44px 28px 56px}.eyebrow{color:var(--red);font-size:12px;letter-spacing:.17em;font-weight:800;text-transform:uppercase}.heading{display:flex;gap:24px;justify-content:space-between;align-items:flex-end;margin:8px 0 26px}.heading h1{font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.04em;margin:0;max-width:740px}.heading p{margin:12px 0 0;color:var(--muted);max-width:720px}.badge{flex:none;border:1px solid #4b2c35;color:#ffb5b5;background:#2b1920;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700}
-  .key{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.key article{background:linear-gradient(140deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:15px 17px;min-height:100px}.key strong{display:block;font-size:14px;margin:0 0 5px}.key p{color:var(--muted);font-size:12px;margin:0}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}.green{background:var(--green)}.blue{background:var(--blue)}.red{background:var(--red)}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:linear-gradient(145deg,#141e2a,#101720);border:1px solid var(--line);border-radius:17px;padding:20px 18px 14px;min-width:0;box-shadow:0 12px 35px #0002}.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.card h2{font-size:18px;margin:0;letter-spacing:-.02em}.unit{color:var(--muted);font-size:11px;white-space:nowrap;padding-top:4px}.sub{color:var(--muted);font-size:12px;margin:4px 0 12px}.chart{width:100%;height:auto;overflow:visible;display:block}.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:3px 0 0;color:#c5d0dc;font-size:11px}.legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:0;border-top:2px solid}.swatch.dashed{border-top-style:dashed}.takeaway{margin:16px 0 12px;border-left:3px solid var(--amber);background:#171d24;border-radius:0 10px 10px 0;padding:13px 16px;color:#d8e0e8;font-size:13px}.takeaway b{color:#fff}.note{font-size:11px;color:#91a0b0;margin-top:13px;padding-top:12px;border-top:1px solid var(--line)}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:17px;color:#718195;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
-  @media(max-width:760px){main{padding:28px 16px 36px}.heading{display:block}.badge{display:inline-block;margin-top:16px}.key{grid-template-columns:1fr}.key article{min-height:0}.grid{grid-template-columns:1fr}.card{padding:17px 13px 12px}.unit{white-space:normal;text-align:right;max-width:120px}}
-  @media print{body{background:#fff;color:#17212e}.card,.key article{background:#fff;box-shadow:none;border-color:#ccd4dd}.heading p,.sub,.key p,.note,.footer,.unit{color:#526173}.takeaway{background:#f7f4ea;color:#26323e}.takeaway b,.key strong,.card h2{color:#17212e}main{max-width:none;padding:10mm}.badge{color:#9a2332;background:#fff;border-color:#d8aab0}}
-</style>
-</head>
-<body>
-<main>
-  <div class="eyebrow">Analyse de l’incident · section Calvin</div>
-  <header class="heading">
-    <div><h1>Quand le risque caché transforme le P&amp;L</h1><p>Comparaison de trois trajectoires de trading : activité normale, spéculation non dissimulée et spéculation dissimulée. L’idée centrale : le P&amp;L seul ne révèle pas toujours le risque réellement pris.</p></div>
-    <div class="badge">Illustration pédagogique · UBS</div>
-  </header>
-  <section class="key" aria-label="Profils comparés">
-    <article><strong><i class="dot green"></i>Trader standard</strong><p>P&amp;L régulier ; positions maintenues dans les limites de risque.</p></article>
-    <article><strong><i class="dot blue"></i>Trader agressif, sans fraude</strong><p>Positions volatiles mais visibles ; les contrôles peuvent déclencher une réduction.</p></article>
-    <article><strong><i class="dot red"></i>Trader agressif, avec dissimulation</strong><p>Exposition réelle croissante, tandis que le risque déclaré paraît artificiellement contenu.</p></article>
-  </section>
-  <section class="grid">
-    <article class="card">
-      <div class="card-head"><h2>01 · P&amp;L cumulé</h2><span class="unit">USD · millions (fictifs)</span></div>
-      <p class="sub">Trajectoire indicative sur 12 semaines — le gain temporaire peut précéder une perte brutale.</p>
-      <svg id="pnl-chart" class="chart" viewBox="0 0 560 300" role="img" aria-label="Graphique du P&L cumulé illustratif des trois profils de trader"></svg>
-      <div class="legend" id="pnl-legend"></div>
-    </article>
-    <article class="card">
-      <div class="card-head"><h2>02 · Exposition au risque</h2><span class="unit">% d’une limite illustrative</span></div>
-      <p class="sub">Au-dessus de 100 %, la limite est dépassée. La ligne pointillée montre le risque déclaré dans le scénario dissimulé.</p>
-      <svg id="risk-chart" class="chart" viewBox="0 0 560 300" role="img" aria-label="Graphique de l'exposition au risque déclarée et réelle des trois profils"></svg>
-      <div class="legend" id="risk-legend"></div>
-    </article>
-  </section>
-  <aside class="takeaway"><b>À retenir pour l’analyse :</b> sans dissimulation, une exposition excessive peut être repérée et réduite par les contrôles. Avec dissimulation, l’écart entre exposition réelle et exposition déclarée retarde l’alerte ; les gains apparents ne compensent pas le risque de perte extrême.</aside>
-  <p class="note"><b>Précaution méthodologique :</b> valeurs, semaines, limites et courbes entièrement fictives, créées pour illustrer les mécanismes ; elles ne représentent ni les données internes d’UBS ni une reconstitution historique de l’affaire. À présenter comme un schéma analytique, pas comme des résultats observés.</p>
-  <div class="footer"><span>Support de présentation · Calvin</span><span>Scénarios stylisés · données non historiques</span></div>
-</main>
-<script>
-const weeks=['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12'];
-const palette={normal:'#56d6a0',open:'#60a5fa',concealed:'#f05b62',muted:'#8b9bad',grid:'#293747',zero:'#647487',amber:'#f5bd58'};
-const pnl=[
- {name:'Trader standard',color:palette.normal,data:[1,2,1,3,2,4,3,4,5,4,6,5]},
- {name:'Trader agressif · sans fraude',color:palette.open,data:[3,8,14,20,27,18,8,-4,-10,-8,-6,-5]},
- {name:'Trader agressif · avec fraude',color:palette.concealed,data:[5,12,20,35,48,62,78,95,110,45,-85,-175]}
-];
-const risk=[
- {name:'Trader standard',color:palette.normal,data:[25,28,24,32,29,35,31,38,34,41,36,40]},
- {name:'Trader agressif · sans fraude',color:palette.open,data:[35,55,75,90,105,115,95,60,25,10,8,5]},
- {name:'Exposition réelle · avec fraude',color:palette.concealed,data:[35,60,85,120,155,190,230,270,310,350,380,100]},
- {name:'Risque déclaré · avec fraude',color:'#ffb0aa',data:[35,42,48,50,52,55,58,60,62,64,66,35],dash:true}
-];
-function drawChart(id,legendId,series,min,max,ticks,unit,zeroLine=false,limitLine=false,eventIndex=null){
- const svg=document.getElementById(id), W=560,H=300,m={l:49,r:16,t:17,b:39},pw=W-m.l-m.r,ph=H-m.t-m.b;
- const x=i=>m.l+i*pw/(weeks.length-1), y=v=>m.t+(max-v)*ph/(max-min);
- let s='';
- ticks.forEach(t=>{const yy=y(t);s+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="${palette.grid}" stroke-width="1"/><text x="${m.l-9}" y="${yy+4}" text-anchor="end" fill="${palette.muted}" font-size="10">${t}${unit}</text>`});
- weeks.forEach((w,i)=>{s+=`<text x="${x(i)}" y="${H-13}" text-anchor="middle" fill="${palette.muted}" font-size="9">${w}</text>`});
- if(zeroLine){const yy=y(0);s+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="${palette.zero}" stroke-width="1.5"/>`}
- if(limitLine){const yy=y(100);s+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="${palette.amber}" stroke-width="1.5" stroke-dasharray="5 5"/><text x="${W-m.r-2}" y="${yy-6}" text-anchor="end" fill="${palette.amber}" font-size="9">Limite indicative · 100 %</text>`}
- if(eventIndex!==null){const xx=x(eventIndex);s+=`<line x1="${xx}" y1="${m.t}" x2="${xx}" y2="${H-m.b}" stroke="#f5bd58" stroke-width="1" stroke-dasharray="3 5" opacity=".8"/><text x="${Math.min(xx+5,W-98)}" y="${m.t+12}" fill="#f5bd58" font-size="9">Détection / débouclage</text>`}
- series.forEach(d=>{const points=d.data.map((v,i)=>`${x(i)},${y(v)}`).join(' ');s+=`<polyline points="${points}" fill="none" stroke="${d.color}" stroke-width="${d.dash?2:2.7}" stroke-linecap="round" stroke-linejoin="round" ${d.dash?'stroke-dasharray="6 5"':''}/>`;d.data.forEach((v,i)=>{s+=`<circle cx="${x(i)}" cy="${y(v)}" r="2.5" fill="${d.color}" stroke="#111923" stroke-width="1"><title>${d.name} — ${weeks[i]} : ${v}${unit}</title></circle>`})});
- svg.innerHTML=s;
- document.getElementById(legendId).innerHTML=series.map(d=>`<span><i class="swatch ${d.dash?'dashed':''}" style="border-color:${d.color}"></i>${d.name}</span>`).join('');
-}
-drawChart('pnl-chart','pnl-legend',pnl,-200,150,[-200,-150,-100,-50,0,50,100,150],'',true,false,8);
-drawChart('risk-chart','risk-legend',risk,0,400,[0,100,200,300,400],'% ',false,true,8);
-</script>
-</body>
-</html>
+:root{color-scheme:dark;--bg:#0b1018;--panel:#141e2a;--line:#293747;--muted:#9aabbd;--text:#f3f6fa;--red:#f05b62;--blue:#60a5fa;--green:#56d6a0;--amber:#f5bd58}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#182438 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:1100px;margin:auto;padding:36px 24px 54px}.tag{color:var(--red);font-size:12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}h1{font-size:clamp(30px,5vw,46px);letter-spacing:-.04em;line-height:1.08;margin:7px 0 9px}header p{color:var(--muted);max-width:780px;margin:0 0 24px}.card{background:linear-gradient(145deg,#15202d,#101720);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 12px 35px #0002}.card h2{font-size:18px;margin:0}.desc{font-size:12px;color:var(--muted);margin:4px 0 10px}.chart{width:100%;height:auto;display:block}.note{border-left:3px solid var(--amber);background:#171d24;padding:12px 15px;border-radius:0 9px 9px 0;font-size:12px;color:#d8e0e8;margin:15px 0}.talk{background:#182638;border:1px solid #2b425c;border-radius:12px;padding:15px 17px}.talk b{color:#9fc8ff}.talk p{margin:6px 0 0;font-size:13px}.links{color:var(--muted);font-size:12px}.links a{color:#9fc8ff}.legend{display:flex;flex-wrap:wrap;gap:8px 17px;color:#c4cfdb;font-size:11px;margin:5px 0 0}.legend span{display:flex;align-items:center;gap:6px}.line{width:22px;border-top:2px solid}.dash{border-top-style:dashed}.footer{color:#748397;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-top:18px}@media(max-width:650px){main{padding:25px 13px}.card{padding:13px 9px}.unit{font-size:9px}}@media print{body{background:#fff;color:#17212e}.card{background:#fff;box-shadow:none;border-color:#ccd4dd}.desc,header p,.links,.footer{color:#526173}.note{background:#f8f3e8;color:#26323e}.talk{background:#f1f6fc;color:#17212e}}
+</style></head><body><main>
+<div class="tag">UBS · Analyse illustrative · section Calvin</div><header><h1>Le P&amp;L ne raconte pas toute l’histoire</h1><p>Un graphique principal à deux axes, puis deux mini-graphiques pédagogiques pour expliquer le mécanisme en moins de 45 secondes.</p></header>
+<section class="card"><h2>1 · Comparer P&amp;L et exposition au risque</h2><p class="desc">Même période · axe gauche : P&amp;L cumulé estimatif (USD m) · axe droit : exposition (en % d’une limite hypothétique).</p><svg id="main" class="chart" viewBox="0 0 1000 465" role="img" aria-label="Comparaison P&L cumulé et exposition au risque pour trois profils illustratifs"></svg><div class="legend" id="legend"></div></section>
+<section class="card"><h2>2 · Comment lire deux axes ?</h2><p class="desc">Les unités sont différentes : les hauteurs des deux lignes ne se comparent pas. On compare leur évolution dans le temps.</p><svg id="axes" class="chart" viewBox="0 0 1000 300" role="img" aria-label="Explication du double axe avec P&L et exposition"></svg></section>
+<section class="card"><h2>3 · Le signal d’alerte : l’exposition dépasse la limite</h2><p class="desc">Exemple schématique du profil dissimulé : l’exposition grossit pendant que le P&amp;L semble favorable, puis la perte apparaît.</p><svg id="signal" class="chart" viewBox="0 0 1000 310" role="img" aria-label="Exemple pédagogique de dépassement de la limite et retournement du P&L"></svg></section>
+<div class="note"><b>À dire clairement :</b> chiffres et limite hypothétiques, utilisés uniquement pour expliquer le mécanisme. Ce ne sont pas des données internes d’UBS ni une reconstitution historique. Les références pourront être ajoutées après validation de la source.</div>
+<div class="talk"><b>Texte oral — environ 45 secondes</b><p>« Ce graphique compare trois comportements. Le trader normal garde un P&amp;L et une exposition plutôt stables. Le trader très agressif sans fraude dépasse la limite, mais ses positions restent visibles : le contrôle peut donc intervenir. Dans le troisième cas, le P&amp;L continue d’abord à monter tandis que l’exposition réelle explose. La fraude retarde la détection ; le gain affiché ne veut donc pas dire que le risque est maîtrisé. Attention aux deux axes : à gauche, le P&amp;L en millions ; à droite, l’exposition en pourcentage d’une limite fictive. Les chiffres sont estimatifs et pédagogiques, pas des données UBS. »</p></div>
+<p class="links">Données éditables pour Excel : <a href="ubs-calvin-data.csv">CSV</a> · Graphiques statiques : <a href="ubs-calvin-main.svg">principal</a> · <a href="ubs-calvin-explainer-axes.svg">double axe</a> · <a href="ubs-calvin-explainer-signal.svg">signal d’alerte</a></p><div class="footer">Scénario illustratif · données à sourcer avant présentation comme faits</div>
+</main><script>
+const W=1000,H=465, weeks=['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12'];
+const colors={normal:'#56d6a0',open:'#60a5fa',fraud:'#f05b62',amber:'#f5bd58',muted:'#9aabbd',grid:'#293747'};
+const profiles=[
+ {name:'Normal · P&L',color:colors.normal,style:'solid',data:[1,2,1,3,2,4,3,4,5,4,6,5],axis:'pnl'},
+ {name:'Normal · exposition',color:colors.normal,style:'dash',data:[25,28,24,32,29,35,31,38,34,41,36,40],axis:'risk'},
+ {name:'Agressif sans fraude · P&L',color:colors.open,style:'solid',data:[3,8,14,20,27,18,8,-4,-10,-8,-6,-5],axis:'pnl'},
+ {name:'Agressif sans fraude · exposition',color:colors.open,style:'dash',data:[35,55,75,90,105,115,95,60,25,10,8,5],axis:'risk'},
+ {name:'Agressif avec fraude · P&L',color:colors.fraud,style:'solid',data:[5,12,20,35,48,62,78,95,110,45,-85,-175],axis:'pnl'},
+ {name:'Agressif avec fraude · exposition réelle',color:colors.fraud,style:'dash',data:[35,60,85,120,155,190,230,270,310,350,380,100],axis:'risk'}];
+function makeChart(){const svg=document.getElementById('main'),l=67,r=66,t=34,b=43,pw=W-l-r,ph=H-t-b, xmin=0,xmax=11;const xp=i=>l+i*pw/11, yp=v=>t+(150-v)*ph/350, yr=v=>t+(400-v)*ph/400;let s='';
+[-200,-100,0,100].forEach(v=>{let yy=yp(v);s+=`<line x1="${l}" y1="${yy}" x2="${W-r}" y2="${yy}" stroke="${colors.grid}"/><text x="${l-10}" y="${yy+4}" text-anchor="end" fill="${colors.muted}" font-size="12">${v}</text>`});
+[0,100,200,300,400].forEach(v=>{let yy=yr(v);s+=`<text x="${W-r+11}" y="${yy+4}" fill="${colors.muted}" font-size="12">${v}%</text>`});
+weeks.forEach((w,i)=>s+=`<text x="${xp(i)}" y="${H-17}" text-anchor="middle" fill="${colors.muted}" font-size="11">${w}</text>`);
+s+=`<text x="${l}" y="18" fill="#dce5ee" font-size="12" font-weight="700">P&amp;L cumulé · USD m</text><text x="${W-r}" y="18" text-anchor="end" fill="#dce5ee" font-size="12" font-weight="700">Exposition · % limite</text>`;
+let yl=yr(100);s+=`<line x1="${l}" y1="${yl}" x2="${W-r}" y2="${yl}" stroke="${colors.amber}" stroke-dasharray="5 6"/><text x="${W-r-5}" y="${yl-7}" text-anchor="end" fill="${colors.amber}" font-size="10">limite indicative</text>`;
+let ex=xp(8);s+=`<line x1="${ex}" y1="${t}" x2="${ex}" y2="${H-b}" stroke="${colors.amber}" stroke-dasharray="3 6"/><text x="${ex+6}" y="${t+12}" fill="${colors.amber}" font-size="10">détection / débouclage</text>`;
+profiles.forEach(d=>{let y=d.axis==='pnl'?yp:yr,points=d.data.map((v,i)=>`${xp(i)},${y(v)}`).join(' '),dash=d.style==='dash'?'stroke-dasharray="6 5"':'';s+=`<polyline points="${points}" fill="none" stroke="${d.color}" stroke-width="${d.style==='dash'?2.2:3}" ${dash} stroke-linecap="round" stroke-linejoin="round"/>`;d.data.forEach((v,i)=>s+=`<circle cx="${xp(i)}" cy="${y(v)}" r="2.7" fill="${d.color}"/>`)});svg.innerHTML=s;document.getElementById('legend').innerHTML=profiles.map(d=>`<span><i class="line ${d.style==='dash'?'dash':''}" style="border-color:${d.color}"></i>${d.name}</span>`).join('')}
+function drawSimple(id,series,options={}){const svg=document.getElementById(id),vb=svg.viewBox.baseVal,W=vb.width,H=vb.height,l=67,r=68,t=35,b=40,pw=W-l-r,ph=H-t-b,x=i=>l+i*pw/11, yL=v=>t+(options.lmax-v)*ph/(options.lmax-options.lmin),yR=v=>t+(options.rmax-v)*ph/(options.rmax-options.rmin);let s='';(options.lticks||[]).forEach(v=>{let yy=yL(v);s+=`<line x1="${l}" y1="${yy}" x2="${W-r}" y2="${yy}" stroke="${colors.grid}"/><text x="${l-9}" y="${yy+4}" text-anchor="end" fill="${colors.muted}" font-size="11">${v}</text>`});(options.rticks||[]).forEach(v=>{let yy=yR(v);s+=`<text x="${W-r+10}" y="${yy+4}" fill="${colors.muted}" font-size="11">${v}%</text>`});weeks.forEach((w,i)=>s+=`<text x="${x(i)}" y="${H-12}" text-anchor="middle" fill="${colors.muted}" font-size="10">${w}</text>`);s+=`<text x="${l}" y="16" fill="#dce5ee" font-size="11" font-weight="700">${options.leftLabel}</text><text x="${W-r}" y="16" text-anchor="end" fill="#dce5ee" font-size="11" font-weight="700">${options.rightLabel}</text>`;if(options.threshold!==undefined){let yy=yR(options.threshold);s+=`<line x1="${l}" y1="${yy}" x2="${W-r}" y2="${yy}" stroke="${colors.amber}" stroke-dasharray="5 5"/><text x="${W-r-4}" y="${yy-6}" text-anchor="end" fill="${colors.amber}" font-size="10">limite ${options.threshold}%</text>`}series.forEach(d=>{let y=d.axis==='right'?yR:yL,pts=d.data.map((v,i)=>`${x(i)},${y(v)}`).join(' '),dash=d.dash?'stroke-dasharray="7 6"':'';s+=`<polyline points="${pts}" fill="none" stroke="${d.color}" stroke-width="3" ${dash} stroke-linejoin="round" stroke-linecap="round"/>`});svg.innerHTML=s}
+makeChart();
+drawSimple('axes',[{data:[5,12,20,35,48,62,78,95,110,45,-85,-175],color:colors.blue,axis:'left'},{data:[35,60,85,120,155,190,230,270,310,350,380,100],color:colors.fraud,axis:'right'}],{lmin:-200,lmax:150,rmin:0,rmax:400,lticks:[-200,-100,0,100],rticks:[0,100,200,300,400],leftLabel:'P&L · USD m',rightLabel:'Risque · % limite'});
+drawSimple('signal',[{data:[5,12,20,35,48,62,78,95,110,45,-85,-175],color:colors.blue,axis:'left'},{data:[35,60,85,120,155,190,230,270,310,350,380,100],color:colors.fraud,axis:'right'}],{lmin:-200,lmax:150,rmin:0,rmax:400,lticks:[-200,0,100],rticks:[0,100,200,300,400],leftLabel:'P&L · USD m',rightLabel:'Risque · % limite',threshold:100});
+</script></body></html>

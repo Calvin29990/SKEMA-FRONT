@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="380" viewBox="0 0 1000 380">
+<rect width="100%" height="100%" rx="20" fill="#101720"/>
+<text x="38" y="42" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="23" font-weight="700">Pédagogie 2 · Le risque grimpe avant la perte</text>
+<text x="38" y="65" fill="#9aabbd" font-family="Arial,sans-serif" font-size="13">Dans ce scénario fictif, les positions dépassent la limite alors que le P&amp;L paraît encore positif.</text>
+<line x1="75" y1="320.0" x2="926" y2="320.0" stroke="#293747"/>
+<text x="65" y="324.0" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">-200</text>
+<line x1="75" y1="247.1" x2="926" y2="247.1" stroke="#293747"/>
+<text x="65" y="251.1" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">-100</text>
+<line x1="75" y1="174.3" x2="926" y2="174.3" stroke="#293747"/>
+<text x="65" y="178.3" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">0</text>
+<line x1="75" y1="101.4" x2="926" y2="101.4" stroke="#293747"/>
+<text x="65" y="105.4" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">100</text>
+<text x="937" y="324.0" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">0%</text>
+<text x="937" y="260.2" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">100%</text>
+<text x="937" y="196.5" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">200%</text>
+<text x="937" y="132.8" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">300%</text>
+<text x="937" y="69.0" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">400%</text>
+<text x="75.0" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S1</text>
+<text x="152.4" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S2</text>
+<text x="229.7" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S3</text>
+<text x="307.1" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S4</text>
+<text x="384.5" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S5</text>
+<text x="461.8" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S6</text>
+<text x="539.2" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S7</text>
+<text x="616.5" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S8</text>
+<text x="693.9" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S9</text>
+<text x="771.3" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S10</text>
+<text x="848.6" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S11</text>
+<text x="926.0" y="343" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S12</text>
+<line x1="75" y1="256.25" x2="926" y2="256.25" stroke="#f5bd58" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="921" y="249.25" text-anchor="end" fill="#f5bd58" font-family="Arial,sans-serif" font-size="11">limite 100 %</text>
+<polyline points="75.0,170.6 152.4,165.5 229.7,159.7 307.1,148.8 384.5,139.3 461.8,129.1 539.2,117.5 616.5,105.1 693.9,94.1 771.3,141.5 848.6,236.2 926.0,301.8" fill="none" stroke="#60a5fa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="75.0,297.7 152.4,281.8 229.7,265.8 307.1,243.5 384.5,221.2 461.8,198.9 539.2,173.4 616.5,147.9 693.9,122.4 771.3,96.9 848.6,77.8 926.0,256.2" fill="none" stroke="#f05b62" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="461.8" y="112.1" text-anchor="middle" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="11">P&amp;L encore positif</text>
+<text x="771.3" y="165.5" text-anchor="middle" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="11">Perte reconnue</text>
+<text x="539.2" y="160.4" text-anchor="middle" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="11">Risque &gt; limite</text>
+<text x="500" y="352" text-anchor="middle" fill="#dce5ee" font-family="Arial,sans-serif" font-size="12">Le contrôle suit les positions et les limites — pas seulement les gains du jour.</text>
+</svg>
