@@ -1,49 +1,170 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="530" viewBox="0 0 1000 530">
-<rect width="100%" height="100%" fill="#ffffff"/>
-<text x="28" y="34" fill="#172433" font-family="Arial,sans-serif" font-weight="700" font-size="20">P&amp;L et exposition · un trader sur 6 mois</text>
-<text x="28" y="56" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">Scénario fictif · axe gauche : USD m · axe droit : % d’une limite indicative</text>
-<line x1="85" y1="450.0" x2="910" y2="450.0" stroke="#dce3ea"/>
-<text x="73" y="454.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">-150</text>
-<line x1="85" y1="378.0" x2="910" y2="378.0" stroke="#dce3ea"/>
-<text x="73" y="382.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">-100</text>
-<line x1="85" y1="306.0" x2="910" y2="306.0" stroke="#dce3ea"/>
-<text x="73" y="310.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">-50</text>
-<line x1="85" y1="234.0" x2="910" y2="234.0" stroke="#dce3ea"/>
-<text x="73" y="238.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">0</text>
-<line x1="85" y1="162.0" x2="910" y2="162.0" stroke="#dce3ea"/>
-<text x="73" y="166.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">50</text>
-<line x1="85" y1="90.0" x2="910" y2="90.0" stroke="#dce3ea"/>
-<text x="73" y="94.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">100</text>
-<text x="922" y="454.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">0%</text>
-<text x="922" y="364.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">100%</text>
-<text x="922" y="274.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">200%</text>
-<text x="922" y="184.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">300%</text>
-<text x="922" y="94.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">400%</text>
-<text x="85.0" y="474" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M1</text>
-<text x="250.0" y="474" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M2</text>
-<text x="415.0" y="474" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M3</text>
-<text x="580.0" y="474" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M4</text>
-<text x="745.0" y="474" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M5</text>
-<text x="910.0" y="474" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M6</text>
-<text x="85" y="78" fill="#2468b4" font-family="Arial,sans-serif" font-size="12" font-weight="700">P&amp;L cumulé · USD millions</text>
-<text x="910" y="78" text-anchor="end" fill="#d47721" font-family="Arial,sans-serif" font-size="12" font-weight="700">Exposition · % limite</text>
-<line x1="85" y1="360.0" x2="910" y2="360.0" stroke="#c4ccd4" stroke-width="1.5" stroke-dasharray="5 6"/>
-<text x="906" y="353.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">limite de référence · 100%</text>
-<polyline points="85.0,226.8 250.0,212.4 415.0,190.8 580.0,154.8 745.0,198.0 910.0,406.8" fill="none" stroke="#2468b4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="85.0" cy="226.8" r="5" fill="#2468b4" stroke="#ffffff" stroke-width="2"/>
-<circle cx="250.0" cy="212.4" r="5" fill="#2468b4" stroke="#ffffff" stroke-width="2"/>
-<circle cx="415.0" cy="190.8" r="5" fill="#2468b4" stroke="#ffffff" stroke-width="2"/>
-<circle cx="580.0" cy="154.8" r="5" fill="#2468b4" stroke="#ffffff" stroke-width="2"/>
-<circle cx="745.0" cy="198.0" r="5" fill="#2468b4" stroke="#ffffff" stroke-width="2"/>
-<circle cx="910.0" cy="406.8" r="5" fill="#2468b4" stroke="#ffffff" stroke-width="2"/>
-<polyline points="85.0,409.5 250.0,369.0 415.0,315.0 580.0,252.0 745.0,153.0 910.0,378.0" fill="none" stroke="#d47721" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="85.0" cy="409.5" r="5" fill="#d47721" stroke="#ffffff" stroke-width="2"/>
-<circle cx="250.0" cy="369.0" r="5" fill="#d47721" stroke="#ffffff" stroke-width="2"/>
-<circle cx="415.0" cy="315.0" r="5" fill="#d47721" stroke="#ffffff" stroke-width="2"/>
-<circle cx="580.0" cy="252.0" r="5" fill="#d47721" stroke="#ffffff" stroke-width="2"/>
-<circle cx="745.0" cy="153.0" r="5" fill="#d47721" stroke="#ffffff" stroke-width="2"/>
-<circle cx="910.0" cy="378.0" r="5" fill="#d47721" stroke="#ffffff" stroke-width="2"/>
-<text x="415.0" y="299.0" text-anchor="middle" fill="#c44747" font-family="Arial,sans-serif" font-size="11" font-weight="700">limite dépassée</text>
-<text x="905.0" y="392.8" text-anchor="end" fill="#2468b4" font-family="Arial,sans-serif" font-size="11" font-weight="700">perte</text>
-<text x="500.0" y="515" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="11">Semestre</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="970" viewBox="0 0 1100 970">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="34" y="40" fill="#172433" font-family="Arial,sans-serif" font-size="23" font-weight="700">P&amp;L et exposition · trois profils sur un an</text>
+<text x="34" y="64" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="13">Même calendrier et mêmes échelles dans chaque panneau · valeurs illustratives, non historiques</text>
+<line x1="45" y1="91" x2="78" y2="91" stroke="#2468b4" stroke-width="3"/><text x="86" y="95" fill="#172433" font-family="Arial,sans-serif" font-size="12">P&amp;L cumulé (trait plein)</text>
+<line x1="310" y1="91" x2="343" y2="91" stroke="#d47721" stroke-width="3" stroke-dasharray="7 5"/><text x="351" y="95" fill="#172433" font-family="Arial,sans-serif" font-size="12">Exposition (tirets)</text>
+<rect x="28" y="125" width="1044" height="235" rx="10" fill="#fbfcfd" stroke="#dce3ea"/>
+<text x="92" y="148" fill="#24825c" font-family="Arial,sans-serif" font-size="14" font-weight="700">Trader standard</text>
+<line x1="92" y1="323.0" x2="1028" y2="323.0" stroke="#e1e6eb"/>
+<text x="82" y="327.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">-200</text>
+<line x1="92" y1="276.4" x2="1028" y2="276.4" stroke="#e1e6eb"/>
+<text x="82" y="280.4" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">-100</text>
+<line x1="92" y1="229.9" x2="1028" y2="229.9" stroke="#e1e6eb"/>
+<text x="82" y="233.9" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">0</text>
+<line x1="92" y1="183.3" x2="1028" y2="183.3" stroke="#e1e6eb"/>
+<text x="82" y="187.3" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">100</text>
+<text x="1038" y="327.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">0%</text>
+<text x="1038" y="286.2" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">100%</text>
+<text x="1038" y="245.5" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">200%</text>
+<text x="1038" y="204.8" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">300%</text>
+<text x="1038" y="164.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">400%</text>
+<line x1="92" y1="282.2" x2="1028" y2="282.2" stroke="#9aa6b2" stroke-width="1" stroke-dasharray="4 6"/>
+<polyline points="92.0,229.4 177.1,228.9 262.2,228.0 347.3,228.5 432.4,227.5 517.5,227.1 602.5,226.1 687.6,226.6 772.7,225.7 857.8,225.2 942.9,224.7 1028.0,224.3" fill="none" stroke="#24825c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="92.0" cy="229.4" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="177.1" cy="228.9" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="262.2" cy="228.0" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="347.3" cy="228.5" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="432.4" cy="227.5" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="517.5" cy="227.1" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="602.5" cy="226.1" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="687.6" cy="226.6" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="772.7" cy="225.7" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="857.8" cy="225.2" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="942.9" cy="224.7" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="1028.0" cy="224.3" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<polyline points="92.0,312.8 177.1,311.6 262.2,310.8 347.3,311.2 432.4,310.0 517.5,308.7 602.5,309.6 687.6,308.3 772.7,307.5 857.8,307.9 942.9,306.7 1028.0,305.9" fill="none" stroke="#24825c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<circle cx="92.0" cy="312.8" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="177.1" cy="311.6" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="262.2" cy="310.8" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="347.3" cy="311.2" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="432.4" cy="310.0" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="517.5" cy="308.7" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="602.5" cy="309.6" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="687.6" cy="308.3" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="772.7" cy="307.5" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="857.8" cy="307.9" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="942.9" cy="306.7" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<circle cx="1028.0" cy="305.9" r="3" fill="#24825c" stroke="white" stroke-width="1"/>
+<text x="92.0" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Jan</text>
+<text x="177.1" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Fév</text>
+<text x="262.2" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Mar</text>
+<text x="347.3" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Avr</text>
+<text x="432.4" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Mai</text>
+<text x="517.5" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Juin</text>
+<text x="602.5" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Juil</text>
+<text x="687.6" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Août</text>
+<text x="772.7" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Sep</text>
+<text x="857.8" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Oct</text>
+<text x="942.9" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Nov</text>
+<text x="1028.0" y="341" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Déc</text>
+<rect x="28" y="405" width="1044" height="235" rx="10" fill="#fbfcfd" stroke="#dce3ea"/>
+<text x="92" y="428" fill="#2468b4" font-family="Arial,sans-serif" font-size="14" font-weight="700">Trader agressif · sans fraude</text>
+<line x1="92" y1="603.0" x2="1028" y2="603.0" stroke="#e1e6eb"/>
+<text x="82" y="607.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">-200</text>
+<line x1="92" y1="556.4" x2="1028" y2="556.4" stroke="#e1e6eb"/>
+<text x="82" y="560.4" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">-100</text>
+<line x1="92" y1="509.9" x2="1028" y2="509.9" stroke="#e1e6eb"/>
+<text x="82" y="513.9" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">0</text>
+<line x1="92" y1="463.3" x2="1028" y2="463.3" stroke="#e1e6eb"/>
+<text x="82" y="467.3" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">100</text>
+<text x="1038" y="607.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">0%</text>
+<text x="1038" y="566.2" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">100%</text>
+<text x="1038" y="525.5" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">200%</text>
+<text x="1038" y="484.8" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">300%</text>
+<text x="1038" y="444.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">400%</text>
+<line x1="92" y1="562.2" x2="1028" y2="562.2" stroke="#9aa6b2" stroke-width="1" stroke-dasharray="4 6"/>
+<polyline points="92.0,507.5 177.1,504.3 262.2,500.5 347.3,493.6 432.4,490.3 517.5,486.6 602.5,495.9 687.6,504.3 772.7,514.5 857.8,519.2 942.9,515.4 1028.0,512.2" fill="none" stroke="#2468b4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="92.0" cy="507.5" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="177.1" cy="504.3" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="262.2" cy="500.5" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="347.3" cy="493.6" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="432.4" cy="490.3" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="517.5" cy="486.6" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="602.5" cy="495.9" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="687.6" cy="504.3" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="772.7" cy="514.5" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="857.8" cy="519.2" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="942.9" cy="515.4" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="1028.0" cy="512.2" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<polyline points="92.0,586.7 177.1,576.5 262.2,564.3 347.3,554.1 432.4,543.9 517.5,533.7 602.5,552.1 687.6,570.4 772.7,586.7 857.8,594.9 942.9,596.9 1028.0,598.9" fill="none" stroke="#2468b4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<circle cx="92.0" cy="586.7" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="177.1" cy="576.5" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="262.2" cy="564.3" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="347.3" cy="554.1" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="432.4" cy="543.9" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="517.5" cy="533.7" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="602.5" cy="552.1" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="687.6" cy="570.4" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="772.7" cy="586.7" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="857.8" cy="594.9" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="942.9" cy="596.9" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<circle cx="1028.0" cy="598.9" r="3" fill="#2468b4" stroke="white" stroke-width="1"/>
+<text x="92.0" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Jan</text>
+<text x="177.1" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Fév</text>
+<text x="262.2" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Mar</text>
+<text x="347.3" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Avr</text>
+<text x="432.4" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Mai</text>
+<text x="517.5" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Juin</text>
+<text x="602.5" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Juil</text>
+<text x="687.6" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Août</text>
+<text x="772.7" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Sep</text>
+<text x="857.8" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Oct</text>
+<text x="942.9" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Nov</text>
+<text x="1028.0" y="621" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Déc</text>
+<rect x="28" y="685" width="1044" height="235" rx="10" fill="#fbfcfd" stroke="#dce3ea"/>
+<text x="92" y="708" fill="#c44747" font-family="Arial,sans-serif" font-size="14" font-weight="700">Trader agressif · avec dissimulation</text>
+<line x1="92" y1="883.0" x2="1028" y2="883.0" stroke="#e1e6eb"/>
+<text x="82" y="887.0" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">-200</text>
+<line x1="92" y1="836.4" x2="1028" y2="836.4" stroke="#e1e6eb"/>
+<text x="82" y="840.4" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">-100</text>
+<line x1="92" y1="789.9" x2="1028" y2="789.9" stroke="#e1e6eb"/>
+<text x="82" y="793.9" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">0</text>
+<line x1="92" y1="743.3" x2="1028" y2="743.3" stroke="#e1e6eb"/>
+<text x="82" y="747.3" text-anchor="end" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">100</text>
+<text x="1038" y="887.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">0%</text>
+<text x="1038" y="846.2" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">100%</text>
+<text x="1038" y="805.5" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">200%</text>
+<text x="1038" y="764.8" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">300%</text>
+<text x="1038" y="724.0" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="10">400%</text>
+<line x1="92" y1="842.2" x2="1028" y2="842.2" stroke="#9aa6b2" stroke-width="1" stroke-dasharray="4 6"/>
+<polyline points="92.0,788.0 177.1,783.3 262.2,778.2 347.3,771.2 432.4,764.2 517.5,757.3 602.5,747.9 687.6,736.3 772.7,729.3 857.8,768.9 942.9,831.8 1028.0,871.4" fill="none" stroke="#c44747" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="92.0" cy="788.0" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="177.1" cy="783.3" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="262.2" cy="778.2" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="347.3" cy="771.2" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="432.4" cy="764.2" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="517.5" cy="757.3" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="602.5" cy="747.9" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="687.6" cy="736.3" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="772.7" cy="729.3" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="857.8" cy="768.9" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="942.9" cy="831.8" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="1028.0" cy="871.4" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<polyline points="92.0,868.7 177.1,858.5 262.2,846.3 347.3,830.0 432.4,813.7 517.5,793.4 602.5,773.0 687.6,756.7 772.7,740.4 857.8,728.1 942.9,720.0 1028.0,842.2" fill="none" stroke="#c44747" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<circle cx="92.0" cy="868.7" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="177.1" cy="858.5" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="262.2" cy="846.3" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="347.3" cy="830.0" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="432.4" cy="813.7" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="517.5" cy="793.4" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="602.5" cy="773.0" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="687.6" cy="756.7" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="772.7" cy="740.4" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="857.8" cy="728.1" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="942.9" cy="720.0" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<circle cx="1028.0" cy="842.2" r="3" fill="#c44747" stroke="white" stroke-width="1"/>
+<text x="92.0" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Jan</text>
+<text x="177.1" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Fév</text>
+<text x="262.2" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Mar</text>
+<text x="347.3" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Avr</text>
+<text x="432.4" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Mai</text>
+<text x="517.5" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Juin</text>
+<text x="602.5" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Juil</text>
+<text x="687.6" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Août</text>
+<text x="772.7" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Sep</text>
+<text x="857.8" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Oct</text>
+<text x="942.9" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Nov</text>
+<text x="1028.0" y="901" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="9">Déc</text>
+<text x="28" y="957" fill="#8a5a10" font-family="Arial,sans-serif" font-size="11">P&amp;L : axe gauche (USD millions) · Exposition : axe droit (% d’une limite hypothétique de 100%) · données estimées pédagogiques</text>
 </svg>

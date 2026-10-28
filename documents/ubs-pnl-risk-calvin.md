@@ -1,25 +1,25 @@
-# UBS — P&L et exposition au risque sur un semestre
+# UBS — P&L et exposition au risque sur un an
 
-**Une seule trajectoire de trader, deux données, fond blanc.** Les nombres sont des estimations pédagogiques fictives, à remplacer/valider avec des sources avant toute présentation comme données UBS.
+**Trois profils, de janvier à décembre.** Pour éviter six courbes entremêlées, chaque trader a son propre panneau : trait plein = P&L, tirets = exposition au risque. Les panneaux utilisent les mêmes échelles.
 
-## 1 · Le graphique principal
+## 1 · Les trois profils sur l’année
 
-![P&L et exposition d'un trader fictif sur six mois](ubs-calvin-main.svg)
+![P&L et exposition pour trois profils sur 12 mois](ubs-calvin-main.svg)
 
-- Axe horizontal : semestre (M1 à M6)
-- Axe vertical gauche : P&L cumulé, en millions USD
-- Axe vertical droit : exposition, en % d’une limite de référence hypothétique
+L’axe horizontal représente les mois. L’axe vertical gauche donne le P&L cumulé estimatif en millions USD ; l’axe droit, l’exposition en pourcentage d’une limite indicative.
 
-## 2 · Lire les axes
+## 2 · Lire les deux axes
 
-![Explication des deux axes et de leurs unités](ubs-calvin-explainer-axes.svg)
+![Explication pédagogique des axes](ubs-calvin-explainer-axes.svg)
 
-## 3 · Repérer le signal d’alerte
+## 3 · Comprendre la limite de risque
 
-![Exposition comparée à une limite indicative](ubs-calvin-explainer-signal.svg)
+![Exposition des trois profils comparée au seuil de 100 %](ubs-calvin-explainer-signal.svg)
 
-## Texte oral (~45 secondes)
+## Script oral (~45 secondes)
 
-> « Ici, je suis un seul trader sur six mois. La ligne bleue montre son P&L en millions ; la ligne orange montre son exposition par rapport à une limite théorique. Attention, ce sont deux échelles différentes. À partir du troisième mois, l’exposition dépasse la limite, alors que le P&L reste positif et continue même à monter. Au dernier mois, la position est débouclée : le risque baisse, mais une forte perte apparaît. C’est pour cela qu’une banque doit surveiller les positions et les limites, pas seulement les gains. Ces chiffres sont illustratifs, pas des données UBS vérifiées. »
+> « Ce visuel suit trois profils sur un an : un trader standard, un trader agressif dont les positions restent visibles, et un trader agressif qui dissimule son exposition. Pour éviter de mélanger les courbes, chaque profil a son propre panneau. Dans chaque panneau, le trait plein est le P&L cumulé, en millions de dollars, et les tirets sont l’exposition en pourcentage d’une limite théorique. On voit que le profil standard reste contenu ; les deux autres prennent davantage de risque. La limite à 100 % sert de repère : la dépasser devrait déclencher une vérification. Les chiffres sont des estimations pédagogiques, pas des données UBS confirmées. »
 
-**Données modifiables dans Excel :** [CSV](ubs-calvin-data.csv) · [Version HTML autonome](ubs-pnl-risk-calvin.html).
+**Données modifiables dans Excel :** [CSV](ubs-calvin-data.csv) · [Version HTML](ubs-pnl-risk-calvin.html).
+
+> **Précaution :** toutes les valeurs sont fictives et servent à illustrer les mécanismes. Elles ne sont ni des données internes d’UBS ni une reconstitution historique.

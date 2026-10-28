@@ -1,24 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" viewBox="0 0 1000 300">
-<rect width="100%" height="100%" fill="#ffffff"/>
-<text x="28" y="34" fill="#172433" font-family="Arial,sans-serif" font-weight="700" font-size="20">Comment lire les deux axes ?</text>
-<text x="28" y="56" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">Même période, deux mesures différentes : on suit leur évolution, on ne compare pas la hauteur des lignes.</text>
-<line x1="95" y1="140" x2="905" y2="140" stroke="#9aa8b6" stroke-width="3"/>
-<circle cx="95.0" cy="140" r="7" fill="#2468b4"/>
-<text x="95.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M1</text>
-<circle cx="257.0" cy="140" r="7" fill="#2468b4"/>
-<text x="257.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M2</text>
-<circle cx="419.0" cy="140" r="7" fill="#2468b4"/>
-<text x="419.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M3</text>
-<circle cx="581.0" cy="140" r="7" fill="#2468b4"/>
-<text x="581.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M4</text>
-<circle cx="743.0" cy="140" r="7" fill="#2468b4"/>
-<text x="743.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M5</text>
-<circle cx="905.0" cy="140" r="7" fill="#2468b4"/>
-<text x="905.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M6</text>
-<rect x="70" y="70" width="355" height="48" rx="8" fill="#eef5fc" stroke="#c8d9ea"/>
-<text x="247" y="99" text-anchor="middle" fill="#2468b4" font-family="Arial,sans-serif" font-size="16" font-weight="700">Axe gauche : P&amp;L (USD millions)</text>
-<rect x="575" y="70" width="355" height="48" rx="8" fill="#fff5e9" stroke="#efd5b7"/>
-<text x="752" y="99" text-anchor="middle" fill="#d47721" font-family="Arial,sans-serif" font-size="16" font-weight="700">Axe droit : exposition (% limite)</text>
-<rect x="174" y="204" width="652" height="48" rx="8" fill="#fff8e9" stroke="#ead6a9"/>
-<text x="500" y="233" text-anchor="middle" fill="#172433" font-family="Arial,sans-serif" font-size="14">Deux unités ≠ même échelle : lis les valeurs de l’axe, pas la hauteur seule.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="260" viewBox="0 0 1000 260">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="34" y="40" fill="#172433" font-family="Arial,sans-serif" font-size="23" font-weight="700">Lire les deux axes en 10 secondes</text>
+<text x="34" y="64" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="13">Le temps est horizontal ; chaque indicateur garde sa propre unité.</text>
+<rect x="35" y="92" width="450" height="110" rx="10" fill="#eef5fc" stroke="#cbdced"/>
+<text x="57" y="129" fill="#172433" font-family="Arial,sans-serif" font-size="18" font-weight="700">Axe gauche · P&amp;L</text>
+<text x="57" y="160" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="14">Résultat cumulé, en millions USD.</text>
+<rect x="515" y="92" width="450" height="110" rx="10" fill="#fff5e9" stroke="#efdbc2"/>
+<text x="537" y="129" fill="#172433" font-family="Arial,sans-serif" font-size="18" font-weight="700">Axe droit · exposition</text>
+<text x="537" y="160" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="14">Risque pris, en % de la limite.</text>
+<text x="500" y="235" text-anchor="middle" fill="#37485a" font-family="Arial,sans-serif" font-size="12">Comparer l’évolution dans le temps, pas la hauteur des lignes entre deux axes.</text>
 </svg>
