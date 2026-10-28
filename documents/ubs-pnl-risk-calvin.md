@@ -1,13 +1,11 @@
-# P&L vs Risk Exposure — trois traders fictifs
+# UBS Adoboli Case — P&L and Risk Exposure
 
-**Axe horizontal : exposition au risque. Axe vertical : P&L.** Pas d’axe annuel ni de date ; les lignes représentent des trajectoires stylisées dans l’espace risque/P&L.
+![12-month educational chart showing cumulative P&L and risk exposure for three trader profiles](ubs-calvin-main.svg)
 
-![P&L en fonction de l’exposition pour trois profils fictifs](ubs-calvin-main.svg)
+**How to read it:** months run from M1 to M12. The left axis is cumulative P&L in USD millions; the right axis is risk exposure as a percentage of the internal risk limit. Solid lines show P&L; dashed lines show exposure. Colors identify the trader profile.
 
-- **Trader normal UBS** : exposition et P&L contenus.
-- **Trader fou sans fraude** : prise de risque visible, puis réduction après dépassement du repère.
-- **Trader fou falsifié** : l’exposition continue de monter alors que le P&L apparent est positif, puis le P&L se retourne fortement.
+**Classroom takeaway:** losses can happen in ordinary trading. The operational-risk failure in the Adoboli case was that concealed positions and failed controls allowed exposure to grow unchecked. The M11 annotation marks the stylized discovery point.
 
-**Données fictives à ouvrir dans Excel :** [CSV](ubs-calvin-data.csv) · [Version HTML](ubs-pnl-risk-calvin.html).
+[Download the illustrative chart data (CSV)](ubs-calvin-data.csv) · [Open the standalone HTML chart](ubs-pnl-risk-calvin.html)
 
-> Les profils, valeurs et limite sont entièrement hypothétiques et pédagogiques ; ils ne décrivent pas les données internes ni l’historique réel d’UBS.
+> **Teaching illustration:** all plotted values are invented to explain the mechanism, not precise historical figures, UBS internal data, or a reconstruction of Adoboli’s positions. M1–M12 are schematic sequence labels.

@@ -1,22 +1,37 @@
-profil,ordre_point_scenario,risk_exposure_pct_limite,pnl_usd_millions_fictif
-Trader normal UBS,1,20,0
-Trader normal UBS,2,35,8
-Trader normal UBS,3,50,14
-Trader normal UBS,4,65,10
-Trader normal UBS,5,80,22
-Trader normal UBS,6,90,18
-Trader fou sans fraude,1,25,0
-Trader fou sans fraude,2,60,18
-Trader fou sans fraude,3,100,45
-Trader fou sans fraude,4,150,65
-Trader fou sans fraude,5,200,20
-Trader fou sans fraude,6,130,-10
-Trader fou sans fraude,7,80,-25
-Trader fou falsifié,1,20,0
-Trader fou falsifié,2,70,15
-Trader fou falsifié,3,120,45
-Trader fou falsifié,4,180,80
-Trader fou falsifié,5,240,120
-Trader fou falsifié,6,320,40
-Trader fou falsifié,7,380,-180
-Trader fou falsifié,8,30,-180
+﻿profile,month,cumulative_pnl_usd_m_illustrative,risk_exposure_pct_internal_limit_illustrative
+Normal Trader,M1,0,25
+Normal Trader,M2,2,28
+Normal Trader,M3,4,27
+Normal Trader,M4,3,30
+Normal Trader,M5,5,28
+Normal Trader,M6,7,31
+Normal Trader,M7,6,29
+Normal Trader,M8,8,32
+Normal Trader,M9,9,30
+Normal Trader,M10,8,33
+Normal Trader,M11,10,31
+Normal Trader,M12,11,32
+Aggressive Trader (No Fraud),M1,0,35
+Aggressive Trader (No Fraud),M2,5,55
+Aggressive Trader (No Fraud),M3,12,75
+Aggressive Trader (No Fraud),M4,20,95
+Aggressive Trader (No Fraud),M5,28,115
+Aggressive Trader (No Fraud),M6,34,130
+Aggressive Trader (No Fraud),M7,25,90
+Aggressive Trader (No Fraud),M8,18,60
+Aggressive Trader (No Fraud),M9,12,40
+Aggressive Trader (No Fraud),M10,8,30
+Aggressive Trader (No Fraud),M11,6,25
+Aggressive Trader (No Fraud),M12,5,20
+Kweku Adoboli (Fraud),M1,0,30
+Kweku Adoboli (Fraud),M2,6,65
+Kweku Adoboli (Fraud),M3,14,110
+Kweku Adoboli (Fraud),M4,24,160
+Kweku Adoboli (Fraud),M5,38,220
+Kweku Adoboli (Fraud),M6,55,290
+Kweku Adoboli (Fraud),M7,75,350
+Kweku Adoboli (Fraud),M8,100,410
+Kweku Adoboli (Fraud),M9,125,470
+Kweku Adoboli (Fraud),M10,150,520
+Kweku Adoboli (Fraud),M11,-130,560
+Kweku Adoboli (Fraud),M12,-160,80
