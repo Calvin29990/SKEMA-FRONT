@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Deux graphiques pédagogiques comparant le P&L et l'exposition au risque de trois profils de trader dans un scénario inspiré de l'affaire UBS de 2011.">
+<title>UBS — P&amp;L et exposition au risque | Calvin</title>
+<style>
+  :root{color-scheme:dark;--bg:#0b1018;--panel:#121a25;--panel2:#172230;--line:#293747;--muted:#9aabbd;--text:#f3f6fa;--red:#f05b62;--blue:#60a5fa;--green:#56d6a0;--amber:#f5bd58}
+  *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 88% 0%,#182438 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+  main{max-width:1140px;margin:0 auto;padding:44px 28px 56px}.eyebrow{color:var(--red);font-size:12px;letter-spacing:.17em;font-weight:800;text-transform:uppercase}.heading{display:flex;gap:24px;justify-content:space-between;align-items:flex-end;margin:8px 0 26px}.heading h1{font-size:clamp(30px,5vw,48px);line-height:1.06;letter-spacing:-.04em;margin:0;max-width:740px}.heading p{margin:12px 0 0;color:var(--muted);max-width:720px}.badge{flex:none;border:1px solid #4b2c35;color:#ffb5b5;background:#2b1920;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700}
+  .key{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.key article{background:linear-gradient(140deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:15px 17px;min-height:100px}.key strong{display:block;font-size:14px;margin:0 0 5px}.key p{color:var(--muted);font-size:12px;margin:0}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}.green{background:var(--green)}.blue{background:var(--blue)}.red{background:var(--red)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:linear-gradient(145deg,#141e2a,#101720);border:1px solid var(--line);border-radius:17px;padding:20px 18px 14px;min-width:0;box-shadow:0 12px 35px #0002}.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.card h2{font-size:18px;margin:0;letter-spacing:-.02em}.unit{color:var(--muted);font-size:11px;white-space:nowrap;padding-top:4px}.sub{color:var(--muted);font-size:12px;margin:4px 0 12px}.chart{width:100%;height:auto;overflow:visible;display:block}.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:3px 0 0;color:#c5d0dc;font-size:11px}.legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:0;border-top:2px solid}.swatch.dashed{border-top-style:dashed}.takeaway{margin:16px 0 12px;border-left:3px solid var(--amber);background:#171d24;border-radius:0 10px 10px 0;padding:13px 16px;color:#d8e0e8;font-size:13px}.takeaway b{color:#fff}.note{font-size:11px;color:#91a0b0;margin-top:13px;padding-top:12px;border-top:1px solid var(--line)}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:17px;color:#718195;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+  @media(max-width:760px){main{padding:28px 16px 36px}.heading{display:block}.badge{display:inline-block;margin-top:16px}.key{grid-template-columns:1fr}.key article{min-height:0}.grid{grid-template-columns:1fr}.card{padding:17px 13px 12px}.unit{white-space:normal;text-align:right;max-width:120px}}
+  @media print{body{background:#fff;color:#17212e}.card,.key article{background:#fff;box-shadow:none;border-color:#ccd4dd}.heading p,.sub,.key p,.note,.footer,.unit{color:#526173}.takeaway{background:#f7f4ea;color:#26323e}.takeaway b,.key strong,.card h2{color:#17212e}main{max-width:none;padding:10mm}.badge{color:#9a2332;background:#fff;border-color:#d8aab0}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Analyse de l’incident · section Calvin</div>
+  <header class="heading">
+    <div><h1>Quand le risque caché transforme le P&amp;L</h1><p>Comparaison de trois trajectoires de trading : activité normale, spéculation non dissimulée et spéculation dissimulée. L’idée centrale : le P&amp;L seul ne révèle pas toujours le risque réellement pris.</p></div>
+    <div class="badge">Illustration pédagogique · UBS</div>
+  </header>
+  <section class="key" aria-label="Profils comparés">
+    <article><strong><i class="dot green"></i>Trader standard</strong><p>P&amp;L régulier ; positions maintenues dans les limites de risque.</p></article>
+    <article><strong><i class="dot blue"></i>Trader agressif, sans fraude</strong><p>Positions volatiles mais visibles ; les contrôles peuvent déclencher une réduction.</p></article>
+    <article><strong><i class="dot red"></i>Trader agressif, avec dissimulation</strong><p>Exposition réelle croissante, tandis que le risque déclaré paraît artificiellement contenu.</p></article>
+  </section>
+  <section class="grid">
+    <article class="card">
+      <div class="card-head"><h2>01 · P&amp;L cumulé</h2><span class="unit">USD · millions (fictifs)</span></div>
+      <p class="sub">Trajectoire indicative sur 12 semaines — le gain temporaire peut précéder une perte brutale.</p>
+      <svg id="pnl-chart" class="chart" viewBox="0 0 560 300" role="img" aria-label="Graphique du P&L cumulé illustratif des trois profils de trader"></svg>
+      <div class="legend" id="pnl-legend"></div>
+    </article>
+    <article class="card">
+      <div class="card-head"><h2>02 · Exposition au risque</h2><span class="unit">% d’une limite illustrative</span></div>
+      <p class="sub">Au-dessus de 100 %, la limite est dépassée. La ligne pointillée montre le risque déclaré dans le scénario dissimulé.</p>
+      <svg id="risk-chart" class="chart" viewBox="0 0 560 300" role="img" aria-label="Graphique de l'exposition au risque déclarée et réelle des trois profils"></svg>
+      <div class="legend" id="risk-legend"></div>
+    </article>
+  </section>
+  <aside class="takeaway"><b>À retenir pour l’analyse :</b> sans dissimulation, une exposition excessive peut être repérée et réduite par les contrôles. Avec dissimulation, l’écart entre exposition réelle et exposition déclarée retarde l’alerte ; les gains apparents ne compensent pas le risque de perte extrême.</aside>
+  <p class="note"><b>Précaution méthodologique :</b> valeurs, semaines, limites et courbes entièrement fictives, créées pour illustrer les mécanismes ; elles ne représentent ni les données internes d’UBS ni une reconstitution historique de l’affaire. À présenter comme un schéma analytique, pas comme des résultats observés.</p>
+  <div class="footer"><span>Support de présentation · Calvin</span><span>Scénarios stylisés · données non historiques</span></div>
+</main>
+<script>
+const weeks=['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12'];
+const palette={normal:'#56d6a0',open:'#60a5fa',concealed:'#f05b62',muted:'#8b9bad',grid:'#293747',zero:'#647487',amber:'#f5bd58'};
+const pnl=[
+ {name:'Trader standard',color:palette.normal,data:[1,2,1,3,2,4,3,4,5,4,6,5]},
+ {name:'Trader agressif · sans fraude',color:palette.open,data:[3,8,14,20,27,18,8,-4,-10,-8,-6,-5]},
+ {name:'Trader agressif · avec fraude',color:palette.concealed,data:[5,12,20,35,48,62,78,95,110,45,-85,-175]}
+];
+const risk=[
+ {name:'Trader standard',color:palette.normal,data:[25,28,24,32,29,35,31,38,34,41,36,40]},
+ {name:'Trader agressif · sans fraude',color:palette.open,data:[35,55,75,90,105,115,95,60,25,10,8,5]},
+ {name:'Exposition réelle · avec fraude',color:palette.concealed,data:[35,60,85,120,155,190,230,270,310,350,380,100]},
+ {name:'Risque déclaré · avec fraude',color:'#ffb0aa',data:[35,42,48,50,52,55,58,60,62,64,66,35],dash:true}
+];
+function drawChart(id,legendId,series,min,max,ticks,unit,zeroLine=false,limitLine=false,eventIndex=null){
+ const svg=document.getElementById(id), W=560,H=300,m={l:49,r:16,t:17,b:39},pw=W-m.l-m.r,ph=H-m.t-m.b;
+ const x=i=>m.l+i*pw/(weeks.length-1), y=v=>m.t+(max-v)*ph/(max-min);
+ let s='';
+ ticks.forEach(t=>{const yy=y(t);s+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="${palette.grid}" stroke-width="1"/><text x="${m.l-9}" y="${yy+4}" text-anchor="end" fill="${palette.muted}" font-size="10">${t}${unit}</text>`});
+ weeks.forEach((w,i)=>{s+=`<text x="${x(i)}" y="${H-13}" text-anchor="middle" fill="${palette.muted}" font-size="9">${w}</text>`});
+ if(zeroLine){const yy=y(0);s+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="${palette.zero}" stroke-width="1.5"/>`}
+ if(limitLine){const yy=y(100);s+=`<line x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}" stroke="${palette.amber}" stroke-width="1.5" stroke-dasharray="5 5"/><text x="${W-m.r-2}" y="${yy-6}" text-anchor="end" fill="${palette.amber}" font-size="9">Limite indicative · 100 %</text>`}
+ if(eventIndex!==null){const xx=x(eventIndex);s+=`<line x1="${xx}" y1="${m.t}" x2="${xx}" y2="${H-m.b}" stroke="#f5bd58" stroke-width="1" stroke-dasharray="3 5" opacity=".8"/><text x="${Math.min(xx+5,W-98)}" y="${m.t+12}" fill="#f5bd58" font-size="9">Détection / débouclage</text>`}
+ series.forEach(d=>{const points=d.data.map((v,i)=>`${x(i)},${y(v)}`).join(' ');s+=`<polyline points="${points}" fill="none" stroke="${d.color}" stroke-width="${d.dash?2:2.7}" stroke-linecap="round" stroke-linejoin="round" ${d.dash?'stroke-dasharray="6 5"':''}/>`;d.data.forEach((v,i)=>{s+=`<circle cx="${x(i)}" cy="${y(v)}" r="2.5" fill="${d.color}" stroke="#111923" stroke-width="1"><title>${d.name} — ${weeks[i]} : ${v}${unit}</title></circle>`})});
+ svg.innerHTML=s;
+ document.getElementById(legendId).innerHTML=series.map(d=>`<span><i class="swatch ${d.dash?'dashed':''}" style="border-color:${d.color}"></i>${d.name}</span>`).join('');
+}
+drawChart('pnl-chart','pnl-legend',pnl,-200,150,[-200,-150,-100,-50,0,50,100,150],'',true,false,8);
+drawChart('risk-chart','risk-legend',risk,0,400,[0,100,200,300,400],'% ',false,true,8);
+</script>
+</body>
+</html>
