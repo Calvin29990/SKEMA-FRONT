@@ -1,29 +1,25 @@
-# UBS — P&L et exposition au risque
+# UBS — P&L et exposition au risque sur un semestre
 
-**Support de Calvin · 3 graphiques simples · présentation en ~45 secondes**
+**Une seule trajectoire de trader, deux données, fond blanc.** Les nombres sont des estimations pédagogiques fictives, à remplacer/valider avec des sources avant toute présentation comme données UBS.
 
-## 1 · Graphique principal à deux axes
+## 1 · Le graphique principal
 
-![Trois profils : P&L cumulé et exposition au risque](ubs-calvin-main.svg)
+![P&L et exposition d'un trader fictif sur six mois](ubs-calvin-main.svg)
 
-Plein = P&L (axe de gauche, USD millions) ; tirets = exposition (axe de droite, % d’une limite hypothétique). Les couleurs distinguent les trois profils.
+- Axe horizontal : semestre (M1 à M6)
+- Axe vertical gauche : P&L cumulé, en millions USD
+- Axe vertical droit : exposition, en % d’une limite de référence hypothétique
 
-## 2 · Comprendre le double axe
+## 2 · Lire les axes
 
-![Comment lire deux axes de mesure différents](ubs-calvin-explainer-axes.svg)
+![Explication des deux axes et de leurs unités](ubs-calvin-explainer-axes.svg)
 
-**Message débutant :** les unités diffèrent ; on compare le moment et le sens des variations, pas la hauteur des courbes.
+## 3 · Repérer le signal d’alerte
 
-## 3 · Comprendre le signal d’alerte
+![Exposition comparée à une limite indicative](ubs-calvin-explainer-signal.svg)
 
-![L’exposition peut dépasser la limite avant le retournement du P&L](ubs-calvin-explainer-signal.svg)
+## Texte oral (~45 secondes)
 
-**Message débutant :** les gains apparents ne prouvent pas que le risque est maîtrisé ; les positions peuvent déjà dépasser la limite.
+> « Ici, je suis un seul trader sur six mois. La ligne bleue montre son P&L en millions ; la ligne orange montre son exposition par rapport à une limite théorique. Attention, ce sont deux échelles différentes. À partir du troisième mois, l’exposition dépasse la limite, alors que le P&L reste positif et continue même à monter. Au dernier mois, la position est débouclée : le risque baisse, mais une forte perte apparaît. C’est pour cela qu’une banque doit surveiller les positions et les limites, pas seulement les gains. Ces chiffres sont illustratifs, pas des données UBS vérifiées. »
 
-## Script oral (~45 secondes)
-
-> « Ce graphique compare trois comportements. Le trader normal garde un P&L et une exposition plutôt stables. Le trader très agressif sans fraude dépasse la limite, mais ses positions restent visibles : le contrôle peut intervenir. Dans le troisième cas, le P&L continue d’abord à monter tandis que l’exposition réelle explose. La fraude retarde la détection ; le gain affiché ne veut donc pas dire que le risque est maîtrisé. Attention aux deux axes : à gauche, le P&L en millions ; à droite, l’exposition en pourcentage d’une limite fictive. Les chiffres sont estimatifs et pédagogiques, pas des données UBS. »
-
-**Données éditables pour Excel :** [CSV](ubs-calvin-data.csv). [Version HTML autonome](ubs-pnl-risk-calvin.html).
-
-> **Précaution méthodologique :** les valeurs, trajectoires, semaines et limite sont des hypothèses pédagogiques, non des faits UBS. Il faut les sourcer et les valider avant de les présenter comme des données observées. Le scénario fraude montre l’exposition réelle supposée ; le CSV inclut aussi une colonne d’exposition déclarée fictive à titre d’explication.
+**Données modifiables dans Excel :** [CSV](ubs-calvin-data.csv) · [Version HTML autonome](ubs-pnl-risk-calvin.html).

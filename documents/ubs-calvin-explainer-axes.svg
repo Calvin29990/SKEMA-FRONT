@@ -1,35 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360">
-<rect width="100%" height="100%" rx="20" fill="#101720"/>
-<text x="38" y="42" fill="#f3f6fa" font-family="Arial,sans-serif" font-size="23" font-weight="700">Pédagogie 1 · Pourquoi deux axes ?</text>
-<text x="38" y="65" fill="#9aabbd" font-family="Arial,sans-serif" font-size="13">On suit le même calendrier, mais chaque indicateur garde sa propre unité.</text>
-<line x1="75" y1="302.0" x2="926" y2="302.0" stroke="#293747"/>
-<text x="65" y="306.0" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">-200</text>
-<line x1="75" y1="234.3" x2="926" y2="234.3" stroke="#293747"/>
-<text x="65" y="238.3" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">-100</text>
-<line x1="75" y1="166.6" x2="926" y2="166.6" stroke="#293747"/>
-<text x="65" y="170.6" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">0</text>
-<line x1="75" y1="98.9" x2="926" y2="98.9" stroke="#293747"/>
-<text x="65" y="102.9" text-anchor="end" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">100</text>
-<text x="937" y="306.0" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">0%</text>
-<text x="937" y="246.8" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">100%</text>
-<text x="937" y="187.5" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">200%</text>
-<text x="937" y="128.2" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">300%</text>
-<text x="937" y="69.0" fill="#9aabbd" font-family="Arial,sans-serif" font-size="11">400%</text>
-<text x="75.0" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S1</text>
-<text x="152.4" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S2</text>
-<text x="229.7" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S3</text>
-<text x="307.1" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S4</text>
-<text x="384.5" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S5</text>
-<text x="461.8" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S6</text>
-<text x="539.2" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S7</text>
-<text x="616.5" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S8</text>
-<text x="693.9" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S9</text>
-<text x="771.3" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S10</text>
-<text x="848.6" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S11</text>
-<text x="926.0" y="325" text-anchor="middle" fill="#9aabbd" font-family="Arial,sans-serif" font-size="10">S12</text>
-<text x="75" y="53" fill="#60a5fa" font-family="Arial,sans-serif" font-size="12" font-weight="700">P&amp;L · USD m (axe gauche)</text>
-<text x="926" y="53" text-anchor="end" fill="#f05b62" font-family="Arial,sans-serif" font-size="12" font-weight="700">Exposition · % (axe droit)</text>
-<polyline points="75.0,163.2 152.4,158.4 229.7,153.0 307.1,142.9 384.5,134.1 461.8,124.6 539.2,113.8 616.5,102.2 693.9,92.1 771.3,136.1 848.6,224.1 926.0,285.1" fill="none" stroke="#60a5fa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="75.0,281.3 152.4,266.4 229.7,251.6 307.1,230.9 384.5,210.2 461.8,189.4 539.2,165.7 616.5,142.0 693.9,118.3 771.3,94.6 848.6,76.8 926.0,242.8" fill="none" stroke="#f05b62" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="500" y="325" text-anchor="middle" fill="#dce5ee" font-family="Arial,sans-serif" font-size="12">À retenir : comparer la direction et le moment des variations, pas la hauteur des lignes.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" viewBox="0 0 1000 300">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="28" y="34" fill="#172433" font-family="Arial,sans-serif" font-weight="700" font-size="20">Comment lire les deux axes ?</text>
+<text x="28" y="56" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">Même période, deux mesures différentes : on suit leur évolution, on ne compare pas la hauteur des lignes.</text>
+<line x1="95" y1="140" x2="905" y2="140" stroke="#9aa8b6" stroke-width="3"/>
+<circle cx="95.0" cy="140" r="7" fill="#2468b4"/>
+<text x="95.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M1</text>
+<circle cx="257.0" cy="140" r="7" fill="#2468b4"/>
+<text x="257.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M2</text>
+<circle cx="419.0" cy="140" r="7" fill="#2468b4"/>
+<text x="419.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M3</text>
+<circle cx="581.0" cy="140" r="7" fill="#2468b4"/>
+<text x="581.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M4</text>
+<circle cx="743.0" cy="140" r="7" fill="#2468b4"/>
+<text x="743.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M5</text>
+<circle cx="905.0" cy="140" r="7" fill="#2468b4"/>
+<text x="905.0" y="169" text-anchor="middle" fill="#5c6c7c" font-family="Arial,sans-serif" font-size="12">M6</text>
+<rect x="70" y="70" width="355" height="48" rx="8" fill="#eef5fc" stroke="#c8d9ea"/>
+<text x="247" y="99" text-anchor="middle" fill="#2468b4" font-family="Arial,sans-serif" font-size="16" font-weight="700">Axe gauche : P&amp;L (USD millions)</text>
+<rect x="575" y="70" width="355" height="48" rx="8" fill="#fff5e9" stroke="#efd5b7"/>
+<text x="752" y="99" text-anchor="middle" fill="#d47721" font-family="Arial,sans-serif" font-size="16" font-weight="700">Axe droit : exposition (% limite)</text>
+<rect x="174" y="204" width="652" height="48" rx="8" fill="#fff8e9" stroke="#ead6a9"/>
+<text x="500" y="233" text-anchor="middle" fill="#172433" font-family="Arial,sans-serif" font-size="14">Deux unités ≠ même échelle : lis les valeurs de l’axe, pas la hauteur seule.</text>
 </svg>
