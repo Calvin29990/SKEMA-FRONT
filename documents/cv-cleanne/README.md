@@ -11,7 +11,32 @@ racine du repo), qui reste en place mais n'est plus à jour.
 | `CV_Cleanne_MINANG.pdf` | **le livrable** — A4, une page, prêt à envoyer |
 | `build_cv.py` | génère le PDF (fpdf2) ; tout le contenu éditable est dedans |
 | `fonts/` | Lora + Source Sans 3, SIL Open Font License |
-| `../linkedin-cleanne/LINKEDIN-CLEANNE-EN.md` | profil LinkedIn en anglais, prêt à copier-coller |
+| `../linkedin-cleanne/A-COLLER-LINKEDIN.md` | **le texte à envoyer à Cléanne** — section par section, prêt à coller |
+| `../linkedin-cleanne/LINKEDIN-CLEANNE-EN.md` | version détaillée : stratégie, ce qui a été retiré et pourquoi |
+
+## Optimisation ATS (filtres type Deloitte / cabinets)
+
+Le PDF est contrôlé par script : texte extractible, **aucune image**, ordre de lecture linéaire,
+polices embarquées, une page. Couverture mots-clés d'une offre conseil en stratégie : **28/28**
+(analyse, stratégie, résolution de problème, gestion de projet, Excel, PowerPoint, synthèse,
+recherche, veille, risque, international, conseil, coordination, planification, rédaction,
+sources, restitution, recommandation, géopolitique, équipe, données, statistiques, McKinsey,
+Nations unies…).
+
+Vérifier après toute modification :
+
+```bash
+python3 -c "
+import pymupdf, re, unicodedata
+t = pymupdf.open('documents/cv-cleanne/CV_Cleanne_MINANG.pdf')[0].get_text()
+n = re.sub(r'\s+',' ', unicodedata.normalize('NFD', t.lower()))
+print('mots-clés', sum(k in n for k in ['analyse','strateg','resolution de probleme']), '/3')
+print('images', len(pymupdf.open('documents/cv-cleanne/CV_Cleanne_MINANG.pdf')[0].get_images()))
+"
+```
+
+Deux règles ATS respectées : pas de tableau, pas de colonne, pas d'en-tête graphique. Les seuls
+éléments non textuels sont deux carrés de couleur et un filet — sans impact sur l'extraction.
 
 ## Régénérer le PDF
 

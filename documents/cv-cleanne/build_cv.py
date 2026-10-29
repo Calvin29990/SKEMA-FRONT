@@ -54,8 +54,8 @@ S_META = 7.9
 S_BODY = 9.15
 S_BULLET = 8.95
 
-SCALE = float(os.environ.get("CV_SCALE", "0.99"))
-VSCALE = float(os.environ.get("CV_VSCALE", "0.955"))
+SCALE = float(os.environ.get("CV_SCALE", "0.97"))
+VSCALE = float(os.environ.get("CV_VSCALE", "0.92"))
 
 NBSP = "\u00a0"
 
@@ -75,7 +75,7 @@ def ty(txt: str) -> str:
 # CONTENU — modifier ici
 # ----------------------------------------------------------------------------
 NAME = "Cléanne MINANG"
-TAGLINE = "Économie & gestion · analyse, gestion des risques et communication"
+TAGLINE = "Économie & gestion · analyse, stratégie et affaires internationales"
 SUBLINE = (
     "Licence à l'Université de Lille · McKinsey Skills for Success 2026 · "
     "MUNDUS, simulation des Nations unies de l'Université de Lille"
@@ -88,11 +88,12 @@ CONTACT = [
 ]
 
 PROFIL = (
-    "Étudiante en Licence Économie & Gestion à l'Université de Lille, après une année de "
-    "classe préparatoire ECG. Suit l'actualité internationale et contribue aux publications "
-    "de MUNDUS, la simulation des Nations unies de l'Université de Lille, où elle participe à "
-    "la coordination éditoriale. Retenue en 2026 pour le programme Skills for Success de "
-    "McKinsey & Company. Goût marqué pour l'analyse chiffrée, la rigueur et le travail en équipe."
+    "Étudiante en Licence Économie & Gestion à l'Université de Lille, après une classe "
+    "préparatoire ECG (économie, mathématiques, culture générale). Sélectionnée en 2026 pour le "
+    "programme Skills for Success de McKinsey & Company : résolution de problèmes, structuration "
+    "d'analyse, gestion des risques et résilience. Rédaction hebdomadaire d'une analyse d'actualité "
+    "internationale au sein de MUNDUS, simulation des Nations unies de l'Université de Lille. "
+    "Orientation : conseil en stratégie, affaires publiques et organisations internationales."
 )
 
 EXPERIENCES = [
@@ -102,10 +103,13 @@ EXPERIENCES = [
         "meta": "Programme de développement · 4 sessions · à distance",
         "date": "Oct. 2026",
         "bullets": [
-            "Sélectionnée pour un programme du cabinet destiné aux étudiants et jeunes diplômés en "
-            "Europe : quatre sessions entre octobre et novembre 2026, à distance.",
-            "Méthodes de résolution de problèmes, structuration d'une analyse et communication, "
-            "appliquées aux métiers du conseil ; gestion des risques et résilience.",
+            "Sélectionnée sur candidature pour un programme du cabinet destiné aux étudiants et "
+            "jeunes diplômés en Europe : quatre sessions entre octobre et novembre 2026.",
+            "Résolution de problèmes structurée : décomposition d'une problématique, construction "
+            "d'arbres d'analyse et priorisation des hypothèses.",
+            "Restitution d'une analyse et d'une recommandation en temps limité ; échanges avec des "
+            "consultants du cabinet sur les métiers du conseil, la gestion des risques et la "
+            "résilience.",
         ],
     },
     {
@@ -114,11 +118,13 @@ EXPERIENCES = [
         "meta": "Association · actualité internationale et décryptages",
         "date": "2026",
         "bullets": [
-            "Rédaction hebdomadaire d'une actualité internationale pour « Le Monde en 7 actus », "
-            "le rendez-vous éditorial de l'association.",
-            "Contribution aux décryptages, à « Carte sur table » et aux articles de l'association.",
-            "Planification éditoriale : découpage des sujets, calendrier de publication et "
-            "coordination entre les pôles.",
+            "Rédaction hebdomadaire d'une analyse d'actualité internationale pour « Le Monde en "
+            "7 actus » : choix du sujet, recherche et vérification des sources, rédaction, mise en "
+            "page.",
+            "Veille géopolitique et contribution aux formats éditoriaux de l'association : "
+            "décryptages, « Carte sur table », articles de fond.",
+            "Coordination éditoriale : découpage des sujets, calendrier de publication, répartition "
+            "entre contributeurs et suivi des délais.",
         ],
     },
     {
@@ -127,7 +133,7 @@ EXPERIENCES = [
         "meta": "Intérim · jours de match",
         "date": "Avr. — Oct. 2026",
         "bullets": [
-            "Accueil et orientation de plus de 3 500 spectateurs par jour de match — information, "
+            "Accueil et orientation de plus de 3 500 spectateurs par jour de match : information, "
             "gestion des flux et traitement des demandes en temps réel.",
             "Application des consignes de sécurité et de présentation ; mission renouvelée en "
             "octobre 2026 au vu de la qualité du service rendu.",
@@ -155,7 +161,7 @@ FORMATION = [
         "meta": "Parcours Économie et Management des Entreprises · en cours",
         "date": "2024 — en cours",
         "bullets": [
-            "Économie, gestion d'entreprise, comptabilité, statistiques et analyse chiffrée.",
+            "Économie, gestion d'entreprise, comptabilité, statistiques et analyse de données.",
         ],
     },
     {
@@ -164,22 +170,22 @@ FORMATION = [
         "meta": "Formation intensive et sélective",
         "date": "2023 — 2024",
         "bullets": [
-            "Mathématiques, économie, culture générale et langues vivantes ; entraînement quotidien "
-            "à l'analyse rapide et à l'expression écrite comme orale.",
+            "Économie, mathématiques appliquées, culture générale et langues vivantes ; entraînement "
+            "quotidien à l'analyse rapide et à l'expression écrite comme orale.",
             "Admise après un baccalauréat général série ES — Lycée Nelson Mandela, Libreville (2023).",
         ],
     },
 ]
 
 COMPETENCES = [
-    ("Analyse & gestion",
-     "analyse chiffrée, calcul mental, suivi d'indicateurs, gestion de flux, synthèse de données"),
-    ("Outils",
-     "Excel, Word, PowerPoint ; outils de mise en page et de publication"),
-    ("Communication",
-     "rédaction et synthèse, prise de parole, relation client, coordination d'équipe"),
+    ("Analyse & stratégie",
+     "structuration de problème, analyse et synthèse, analyse chiffrée, recherche documentaire, veille"),
     ("Gestion de projet",
-     "planification, organisation d'événements, coordination multi-équipes"),
+     "planification, coordination d'équipes, suivi des délais, organisation d'événements"),
+    ("Outils & data",
+     "Excel, Word, PowerPoint, outils de mise en page et de publication"),
+    ("Communication",
+     "rédaction analytique, prise de parole, relation client, animation de réunions"),
 ]
 
 LANGUES = (
@@ -187,8 +193,8 @@ LANGUES = (
     "Espagnol — B1 (intermédiaire) · Italien — notions"
 )
 INTERETS = (
-    "Course à pied et natation · Chant · Actualité internationale et géopolitique · "
-    "Lecture et vie associative"
+    "Géopolitique et actualité internationale · Débats et simulation des Nations unies (MUNDUS) · "
+    "Course à pied et natation · Chant et vie associative"
 )
 
 
