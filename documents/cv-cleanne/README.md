@@ -11,7 +11,8 @@ racine du repo), qui reste en place mais n'est plus à jour.
 | `CV_Cleanne_MINANG.pdf` | **le livrable** — A4, une page, prêt à envoyer |
 | `build_cv.py` | génère le PDF (fpdf2) ; tout le contenu éditable est dedans |
 | `fonts/` | Lora + Source Sans 3, SIL Open Font License |
-| `../linkedin-cleanne/A-COLLER-LINKEDIN.md` | **le texte à envoyer à Cléanne** — section par section, prêt à coller |
+| `../linkedin-cleanne/LINKEDIN-CLEANNE-EN.pdf` | **le PDF à envoyer à Cléanne** — 5 pages, section par section, blocs à copier |
+| `../linkedin-cleanne/A-COLLER-LINKEDIN.md` | version éditable du même contenu (source) |
 | `../linkedin-cleanne/LINKEDIN-CLEANNE-EN.md` | version détaillée : stratégie, ce qui a été retiré et pourquoi |
 
 ## Optimisation ATS (filtres type Deloitte / cabinets)

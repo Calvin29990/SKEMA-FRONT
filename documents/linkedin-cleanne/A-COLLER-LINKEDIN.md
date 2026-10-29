@@ -3,6 +3,10 @@
 _Anglais · mots-clés conseil en stratégie, affaires publiques, organisations internationales_
 _Mis à jour le 29 octobre 2026_
 
+> **Version PDF à envoyer : `LINKEDIN-CLEANNE-EN.pdf`** (5 pages, même contenu que cette fiche,
+> avec les blocs gris à copier directement). Ce fichier Markdown reste la version éditable.
+> Régénération : `python3 documents/linkedin-cleanne/build_linkedin_pdf.py`
+
 Chaque bloc ci-dessous se copie **tel quel**. Les blocs sont délimités par ```
 pour éviter les guillemets parasites. L'ordre de saisie est en fin de document (§9).
 
