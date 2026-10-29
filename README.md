@@ -16,6 +16,8 @@
 | `entretien/` | Questions entretien, fiches, guides (Jane Street, Optiver) | Préparation entretiens banques |
 | `livres/` | 35+ livres de finance (options, quant, fixed income...) | Recherche, approfondissement |
 | `documents/` | CV, Portfolio, conventions de stage, LinkedIn | Candidatures, admin |
+| `documents/cv-cleanne/` | **CV Cléanne MINANG (2026, une page, français)** + script de génération | Candidatures Cléanne |
+| `documents/linkedin-cleanne/` | **Profil LinkedIn de Cléanne (anglais), prêt à copier-coller** | Remplissage LinkedIn |
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
