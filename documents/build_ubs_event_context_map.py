@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageColor
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / 'assets'
@@ -46,16 +46,11 @@ def fit(image, max_width, max_height):
     scale = min(max_width / image.width, max_height / image.height)
     return image.resize((max(1, round(image.width * scale)), max(1, round(image.height * scale))), Image.Resampling.LANCZOS)
 
-def paste_logo_floating(canvas, logo, center, max_size, halo=True):
-    """Transparent wordmark directly over its city marker; white edge is only a logo keyline."""
+def paste_logo_floating(canvas, logo, center, max_size):
+    """Place the logo directly on the map, with no badge, circle or keyline."""
     mark = fit(logo, *max_size)
     x = round(center[0] - mark.width / 2)
     y = round(center[1] - mark.height / 2)
-    if halo:
-        alpha = mark.getchannel('A').filter(ImageFilter.MaxFilter(5))
-        keyline = Image.new('RGBA', mark.size, (255, 255, 255, 0))
-        keyline.putalpha(alpha)
-        canvas.alpha_composite(keyline, (x, y))
     canvas.alpha_composite(mark, (x, y))
     return mark.size
 
@@ -111,67 +106,53 @@ logos = {
     'PICTET': load_logo('pictet-logo.png'),
 }
 
-# Draw a soft coloured glow, then the solid city circle. No white logo cards or rectangular badges.
-def city_circle(center, radius, color, glow=8, strength=70):
-    rgb = ImageColor.getrgb(color)
-    pad = radius + glow * 2
-    size = pad * 2
-    halo = Image.new('RGBA', (size, size), (0, 0, 0, 0))
-    hd = ImageDraw.Draw(halo)
-    hd.ellipse((glow, glow, glow + radius * 2, glow + radius * 2), fill=(*rgb, strength))
-    halo = halo.filter(ImageFilter.GaussianBlur(glow))
-    im.alpha_composite(halo, (round(center[0] - pad), round(center[1] - pad)))
-    d = ImageDraw.Draw(im)
-    d.ellipse((center[0] - radius, center[1] - radius,
-               center[0] + radius, center[1] + radius), fill=color, outline=PAPER, width=2)
-    return d
-
-def city_mark(key, city, center, color, radius=27, logo_size=(78, 28), city_y=None, lloyds=False):
+# Logos float directly on the map; city names sit beneath them in bank colours.
+def city_mark(key, city, center, color, logo_size=(78, 28), city_y=None,
+              lloyds=False, city_font_size=11, city_color=None):
     global d
-    d = city_circle(center, radius, color, glow=10 if radius < 45 else 16,
-                    strength=65 if radius < 45 else 95)
     if lloyds:
         paste_logo_floating(im, logos[key], (center[0] - 20, center[1] - 1), (34, 31))
         d = ImageDraw.Draw(im)
-        text(d, (center[0] + 19, center[1]), 'LLOYDS', 10, '#00843D', bold=True,
+        text(d, (center[0] + 19, center[1]), 'LLOYDS', 10, color, bold=True,
              anchor='mm', stroke_width=1)
     else:
         paste_logo_floating(im, logos[key], center, logo_size)
     d = ImageDraw.Draw(im)
-    label_y = city_y if city_y is not None else center[1] + radius + 13
-    text(d, (center[0], label_y), city.upper(), 11, INK, bold=True, anchor='mm', stroke_width=2)
+    label_y = city_y if city_y is not None else center[1] + logo_size[1] // 2 + 13
+    text(d, (center[0], label_y), city.upper(), city_font_size,
+         city_color or color, bold=True, anchor='mm', stroke_width=2)
 
-# UK — city markers use the requested bank colours.
-city_mark('NATWEST', 'Edinburgh', (458, 192), '#5E2750', 27, (80, 24), 231)
-city_mark('BARCLAYS', 'Manchester', (490, 282), '#00AEEF', 28, (68, 31), 323)
-city_mark('LLOYDS', 'Birmingham', (520, 365), '#00843D', 28, (78, 30), 407, lloyds=True)
-city_mark('HSBC', 'London', (605, 330), '#DB0011', 30, (82, 25), 372)
+# UK — coloured city labels sit directly beneath the transparent bank marks.
+city_mark('NATWEST', 'Edinburgh', (458, 192), '#5E2750', (80, 24), 231)
+city_mark('BARCLAYS', 'Manchester', (490, 282), '#00AEEF', (68, 31), 323)
+city_mark('LLOYDS', 'Birmingham', (520, 365), '#00843D', (78, 30), 407, lloyds=True)
+city_mark('HSBC', 'London', (605, 330), '#DB0011', (82, 25), 372)
 
-# France — keep the four city/logo pairs distinct and legible.
-city_mark('BNP', 'Lille', (780, 340), '#00965E', 28, (74, 34), 299)
-city_mark('SG', 'Paris', (725, 490), '#E30613', 48, (91, 32), 548)
-city_mark('CA', 'Lyon', (840, 615), '#006B54', 28, (88, 24), 657)
-city_mark('NATIXIS', 'Marseille', (873, 710), '#003A70', 28, (90, 25), 752)
+# France — no logo circles; the city names remain clearly associated below each logo.
+city_mark('BNP', 'Lille', (780, 340), '#00965E', (74, 34), 373)
+city_mark('SG', 'Paris', (725, 490), '#E30613', (91, 32), 525)
+city_mark('CA', 'Lyon', (840, 615), '#006B54', (88, 24), 657)
+city_mark('NATIXIS', 'Marseille', (873, 710), '#003A70', (130, 38), 752,
+          city_font_size=14, city_color='#6F2DA8')
 
-# Switzerland — separated markers for four banking centres; UBS is the largest.
-city_mark('CS', 'Geneva', (900, 560), '#005EB8', 28, (88, 25), 602)
-city_mark('JULIUS', 'Basel', (970, 435), '#B89D4F', 28, (84, 25), 477)
-city_mark('UBS', 'Zurich', (1080, 500), '#E00000', 64, (108, 40), 571)
-city_mark('PICTET', 'Lugano', (1050, 640), '#006A52', 28, (88, 25), 682)
+# Switzerland — the four bank wordmarks are shown directly on the map.
+city_mark('CS', 'Geneva', (900, 560), '#005EB8', (88, 25), 602)
+city_mark('JULIUS', 'Basel', (970, 435), '#B89D4F', (84, 25), 477)
+city_mark('UBS', 'Zurich', (1080, 500), '#E00000', (108, 40), 541)
+city_mark('PICTET', 'Lugano', (1050, 640), '#006A52', (88, 25), 682)
 
-# Event highlights: text floats next to the city halo, without containers.
+# Event highlights use floating type only, without circles or containers.
 def event_text(x, y, label, amount, color, label_size, amount_size):
     global d
     d = ImageDraw.Draw(im)
     text(d, (x, y), label, label_size, color, bold=True, stroke_width=3)
     text(d, (x, y + label_size + 5), amount, amount_size, color, bold=True, stroke_width=3)
 
-# Barings 1995 — third in the visual hierarchy, gold marker and type.
-city_circle((640, 420), 32, '#D4A017', glow=14, strength=85)
+# Barings 1995 — third in the visual hierarchy, with gold event type near London.
 event_text(680, 385, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
 # Kerviel 2008 — second-largest red event emphasis beside the Paris / SG marker.
 event_text(550, 560, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 38)
-# Adoboli 2011 — largest callout, with the requested UBS-red halo at Zurich.
+# Adoboli 2011 — largest callout, with the requested UBS-red accent by Zurich.
 event_text(1170, 472, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 42)
 
 # Minimal footnote retains the factual distinction between Zurich HQ and the London desk.

@@ -27,7 +27,7 @@ The minus signs on the slide explicitly indicate losses. The amounts are nominal
 
 The infographic shows the 12 requested logo-and-city pairings, once each:
 
-| City | Bank | Marker colour |
+| City | Bank | City-label colour |
 |---|---|---|
 | London | HSBC | `#DB0011` |
 | Manchester | Barclays | `#00AEEF` |
@@ -36,13 +36,13 @@ The infographic shows the 12 requested logo-and-city pairings, once each:
 | Lille | BNP Paribas | `#00965E` |
 | Paris | Société Générale | `#E30613` |
 | Lyon | Crédit Agricole | `#006B54` |
-| Marseille | Natixis | `#003A70` |
+| Marseille | Natixis | `#6F2DA8` (violet, as requested) |
 | Zurich | UBS | `#E00000` |
 | Geneva | Credit Suisse | `#005EB8` |
 | Basel | Julius Baer | `#B89D4F` |
 | Lugano | Pictet | `#006A52` |
 
-The European land base is light grey with understated borders. Each bank mark floats directly over a coloured circular city marker with a restrained halo; the map uses no white rectangular logo cards. The three event highlights follow the requested hierarchy: largest red UBS/Adoboli callout, second red Kerviel callout, and third gold Barings callout. Circle sizes are visual emphasis only, not a quantitative encoding of the loss.
+The European land base is light grey with understated borders. Bank wordmarks float directly on the map without circular markers, halos or white logo cards; each city name appears underneath its logo in the associated colour. Natixis is slightly enlarged as a visual example, and **MARSEILLE** is highlighted in violet. The three event highlights remain in the requested hierarchy: largest red UBS/Adoboli callout, second red Kerviel callout, and third gold Barings callout.
 
 ## Logo asset references
 
