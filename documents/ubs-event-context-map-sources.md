@@ -6,7 +6,7 @@
 
 ## What the slide says
 
-This is a selected context set, not a comprehensive league table. The UK, France and Switzerland are highlighted; other countries remain light grey. Bank logos and loss values appear directly over the map in a clean regional-infographic style. The map has no pins, proportional circles, callout boxes or leader lines; values remain in their reported currencies. The event names and years are printed adjacent to the marks.
+This is a selected context set, not a comprehensive league table. The UK, France and Switzerland remain grey except for small, schematic local banking-hub patches; no whole country is filled. The map has no pins or proportional circles. A compact Power BI-style panel places bank logos beside large loss values, while additional CIB / major-bank logos are shown as context only. No loss figure is assigned to a context bank unless a comparable benchmark case is included.
 
 The examples are all major bank trading / positions-unwind loss events, but their causes and accounting bases are not identical: UBS, Société Générale and Barings involved unauthorized or concealed trading; JPMorgan's London Whale was a synthetic-credit portfolio loss; Credit Suisse's Archegos loss was a prime-brokerage counterparty exposure. The slide does not imply those causal mechanisms are equivalent.
 
@@ -26,19 +26,26 @@ The examples are all major bank trading / positions-unwind loss events, but thei
    An accessible USD-equivalent summary: https://www.investopedia.com/ask/answers/08/nick-leeson-barings-bank.asp
 ## Identity marks
 
-Institution logos appear directly on the map and retain their visual identities. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom period-neutral text wordmark—not the contemporary Barings asset-management logo. Brand marks remain their owners' trademarks.
+Event logos appear beside the reported loss values; peer-bank logos appear in a separate context group. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom period-neutral text wordmark—not the contemporary Barings asset-management logo. Peer marks are used for identification only. Brand marks remain their owners' trademarks.
 
 - Credit Suisse logo: https://commons.wikimedia.org/wiki/File:Credit_Suisse_Logo.svg
 - Société Générale logo: https://commons.wikimedia.org/wiki/File:Logo-SG-Soci%C3%A9t%C3%A9-G%C3%A9n%C3%A9rale.svg
 - JPMorgan Chase wordmark: https://seekvectors.com/post/jpmorgan-chase-logo-vector
 - Barings' historical crest context: https://content.time.com/time/specials/packages/article/0,28804,1937349_1937350_1937488,00.html
+- BNP Paribas logo: https://www.pngplay.com/image/59723
+- Crédit Agricole CIB logo: https://seeklogo.com/free-vector-logos/credit-agricole
+- Natixis logo: https://seeklogo.com/free-vector-logos/natixis
+- HSBC logo: https://www.pngitem.com/middle/oJTbwo_hsbc-bank-logo-png-transparent-png/
+- Barclays logo: https://1000logos.net/barclays-logo/
+- Lloyds Banking Group logo: https://companieslogo.com/lloyds-banking-group/logo/
+- NatWest logo: https://www.vhv.rs/viewpic/TioTmix_natwest-bank-logo-transparent-background-image-natwest-bank/
 
 ## Map fills and annotations
 
-- The United Kingdom, France and Switzerland are the only highlighted territories; other mapped European countries remain light grey. Country fills are schematic geographic emphasis, not administrative or bank-ownership boundaries.
-- Logos, reported loss values and event years are placed directly over the map in the style of the supplied regional-map reference. No circles, pins, callout boxes or leader lines are used.
-- Amounts remain in the reported display currency: USD for UBS, Credit Suisse, JPMorgan and Barings; EUR for Société Générale. Barings’ USD 1.4bn is approximate; the official inquiry reports GBP 827m cumulative losses and GBP 927m including close-out costs.
-- The map identifies institutional hubs, not necessarily precise trading locations: UBS and Credit Suisse are shown in Switzerland (Zurich headquarters); Société Générale in France (Paris); JPMorgan in the UK (London Whale); Barings in the UK (London headquarters). The UBS loss-making desk was in London, and Leeson traded in Singapore. Footer text clarifies these distinctions; logo placements are offset within highlighted countries only for readability.
+- Whole countries are shown in neutral grey. Only small schematic banking-hub areas are coloured: London (Barings/JPMorgan/UBS), Paris / Île-de-France (Société Générale), and Zurich (UBS/Credit Suisse). They are not administrative regions or claims of bank ownership.
+- The right-hand table shows the five retained benchmark events and their large reported loss amounts. Additional French CIB peers—BNP Paribas, Crédit Agricole CIB and Natixis—and UK peers—HSBC, Barclays, Lloyds Bank and NatWest—are shown as logos only. No additional loss values are assigned to these peers in this selected comparison.
+- There are no proportional circles or pin markers. Event values stay in their reported currencies: USD for UBS, Credit Suisse, JPMorgan and Barings; EUR for Société Générale. Barings’ USD 1.4bn is approximate; the official inquiry reports GBP 827m cumulative losses and GBP 927m including close-out costs.
+- The map identifies institutional hubs, not necessarily precise trading locations: UBS and Credit Suisse are shown at their Zurich headquarters; Société Générale at Paris; JPMorgan's London Whale at London; Barings at its London headquarters. UBS's loss-making desk was in London, and Leeson traded in Singapore. The footer clarifies these distinctions.
 - No event loss is inflation-adjusted; the slide compares nominal headline impacts across years, not present-value purchasing power.
 
 ## Executive takeaway
