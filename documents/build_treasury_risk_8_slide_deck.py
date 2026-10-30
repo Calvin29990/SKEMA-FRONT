@@ -368,47 +368,50 @@ def make_deck():
     txt(s,"Sources: FINMA 2012 §§11–18; FSA 2012 §§23–25. The chart is conceptual; it is not a historical exposure series.",
         .66,6.68,12.0,.22,7.0,MUTED)
 
-    # Slide 3: a circular causal process with a control-improvement feedback loop.
+    # Slide 3 — branching cash-transmission map with a feedback loop to controls.
     s=prs.slides.add_slide(blank)
     header(s,"FROM CONTROL FAILURE TO TREASURY IMPACT",
            "SECTION 1.3  ·  OPERATIONAL RISK → CASH → FUNDING",3,
-           "THE CASH CONSEQUENCE DEPENDS ON DUE DATES, COLLATERAL AND HEADROOM")
-    # Loop nodes are labels on a continuous cycle, not a stack of SmartArt cards.
-    nodes=[
-        (1.62,1.73,"CONTROL FAILURES","Operational",RED),
-        (5.00,1.73,"HIDDEN POSITIONS","Concealed",RED),
-        (8.55,2.32,"MARKET LOSSES","Trading P&L",RED),
-        (8.55,4.43,"COLLATERAL &\nSETTLEMENT","Cash due",GOLD),
-        (5.00,5.23,"LIQUIDITY PRESSURE","Buffer at risk",GOLD),
-        (1.62,4.43,"TREASURY FUNDING\nRESPONSE","Cash sources",TEAL),
-    ]
-    # Draw loop connectors first, so labels sit cleanly above them.
-    line(s,3.05,2.13,5.00,2.13,RED,2.0)
-    rect(s,4.70,2.03,.18,.18,RED,shape=MSO_SHAPE.CHEVRON)
-    line(s,6.95,2.20,8.82,2.65,RED,2.0)
-    rect(s,8.02,2.32,.18,.18,RED,shape=MSO_SHAPE.CHEVRON).rotation=20
-    line(s,9.60,3.18,9.60,4.32,GOLD,2.0)
-    rect(s,9.51,3.75,.18,.18,GOLD,shape=MSO_SHAPE.CHEVRON).rotation=90
-    line(s,8.55,4.93,6.96,5.54,GOLD,2.0)
-    rect(s,7.46,5.20,.18,.18,GOLD,shape=MSO_SHAPE.CHEVRON).rotation=160
-    line(s,5.00,5.65,3.05,4.97,TEAL,2.0)
-    rect(s,3.94,5.23,.18,.18,TEAL,shape=MSO_SHAPE.CHEVRON).rotation=200
-    # Return path denotes controls redesigned after the funding response.
-    line(s,2.55,4.40,2.55,2.64,TEAL,2.0)
-    rect(s,2.46,3.03,.18,.18,TEAL,shape=MSO_SHAPE.CHEVRON).rotation=270
-    txt(s,"ENHANCED CONTROLS",.68,3.37,1.58,.28,7.2,TEAL,True,align=PP_ALIGN.CENTER)
-    for i,(x,y,title,sub,color) in enumerate(nodes):
-        rect(s,x,y,2.38,.82,WHITE,GRID,.8)
-        rect(s,x,y,.055,.82,color)
-        txt(s,title,x+.15,y+.11,2.08,.34,8.6,NAVY,True,align=PP_ALIGN.CENTER)
-        txt(s,sub,x+.15,y+.52,2.08,.17,7.3,color,True,align=PP_ALIGN.CENTER)
-    # Central bridge in the cycle
+           "FOLLOW THE EXPOSURE AS IT SPLITS INTO SETTLEMENT AND COLLATERAL NEEDS")
+    txt(s,"A process map: one control failure creates market exposure, then two cash channels converge on liquidity.",
+        .68,1.18,12.0,.28,9.5,NAVY,True)
+    # Nodes are circles with labels; split/merge paths make the causal logic visible.
+    def node(cx,cy,num,title,sub,color,label_y=None,label_x=None,label_w=1.75):
+        rect(s,cx-.37,cy-.37,.74,.74,color,shape=MSO_SHAPE.OVAL)
+        txt(s,num,cx-.37,cy-.16,.74,.28,13,WHITE,True,align=PP_ALIGN.CENTER)
+        if label_y is None: label_y=cy+.43
+        if label_x is None: label_x=cx-label_w/2
+        txt(s,title,label_x,label_y,label_w,.36,8.5,NAVY,True,align=PP_ALIGN.CENTER)
+        if sub:
+            txt(s,sub,label_x,label_y+.36,label_w,.25,7.4,color,True,align=PP_ALIGN.CENTER)
+    def arrow(x1,y1,x2,y2,color,angle):
+        line(s,x1,y1,x2,y2,color,2.1)
+        tri=rect(s,x2-.10,y2-.10,.20,.20,color,shape=MSO_SHAPE.ISOSCELES_TRIANGLE)
+        tri.rotation=angle
+    # Main sequence
+    node(1.24,3.02,"1","CONTROL FAILURE","Verification gap",RED,label_w=1.85)
+    node(3.42,3.02,"2","HIDDEN POSITIONS","False offsets",RED,label_w=1.90)
+    node(5.63,3.02,"3","TRADING LOSS","USD 2.3bn",RED,label_w=1.75)
+    # Branch into the two cash-transmission channels.
+    node(7.40,2.08,"4A","SETTLEMENT","Cash due",GOLD,label_y=2.47,label_w=1.68)
+    node(7.40,4.02,"4B","COLLATERAL","Calls / delayed returns",GOLD,label_y=4.43,label_w=1.90)
+    node(9.50,3.02,"5","LIQUIDITY PRESSURE","Buffer at risk",GOLD,label_w=2.05)
+    node(11.73,3.02,"6","TREASURY RESPONSE","Funding action",TEAL,label_w=2.00)
+    arrow(1.62,3.02,3.02,3.02,RED,90)
+    arrow(3.80,3.02,5.23,3.02,RED,90)
+    arrow(5.97,2.82,7.00,2.25,RED,45)
+    arrow(5.97,3.22,7.00,3.83,RED,135)
+    arrow(7.78,2.24,9.12,2.83,GOLD,135)
+    arrow(7.78,3.84,9.12,3.22,GOLD,45)
+    arrow(9.88,3.02,11.35,3.02,TEAL,90)
+    # Feedback path: funding response leads to redesigned controls.
+    line(s,11.73,3.42,11.73,5.76,TEAL,1.8)
+    line(s,11.73,5.76,1.24,5.76,TEAL,1.8)
+    left_tri=rect(s,1.14,5.66,.20,.20,TEAL,shape=MSO_SHAPE.ISOSCELES_TRIANGLE);left_tri.rotation=270
+    txt(s,"ENHANCED CONTROLS & MONITORING",4.42,5.46,4.62,.22,8.1,TEAL,True,align=PP_ALIGN.CENTER)
     txt(s,"A trading loss becomes a Treasury issue only when it generates cash obligations through settlements, collateral requirements or funding constraints.",
-        3.73,3.22,5.48,.72,10.2,NAVY,True,align=PP_ALIGN.CENTER)
-    txt(s,"Settlement cash · collateral calls · delayed receipts · accessible funding",3.85,3.98,5.24,.25,8.0,MUTED,align=PP_ALIGN.CENTER)
-    rect(s,.68,6.28,11.96,.48,LIGHT)
-    txt(s,"Central question: preserve liquidity and meet payments throughout the three-month response horizon.",
-        .90,6.38,11.52,.26,9.0,NAVY,True,align=PP_ALIGN.CENTER)
+        .68,6.20,12.0,.52,9.8,NAVY,True,align=PP_ALIGN.CENTER)
+
 
     # Slide 4: timeline with Dalton metaphor and fuller event interpretation.
     s=prs.slides.add_slide(blank)
@@ -493,107 +496,125 @@ def make_deck():
     txt(s,"Cash bridge formula: opening accessible cash + receipts − payments − settlement outflow + signed collateral movement − costs. Funding gap = max(0, buffer − cash before funding).",
         .68,6.63,12.0,.25,7.0,MUTED)
 
-    # Slide 6: waterfall-style stress equation and funding-arrival test.
+    # Slide 6 — stress test waterfall, quantified and visually tied to the buffer.
     s=prs.slides.add_slide(blank)
-    header(s,"WHAT IF THE SITUATION WORSENS?","SECTION 2.3  ·  STRESS TEST",6,
-           "COMBINED SCENARIO INPUTS ARE ASSUMPTIONS, NOT HISTORICAL OUTCOMES")
-    txt(s,"30 NOVEMBER CASH BRIDGE  ·  USDm",.68,1.25,5.0,.22,9,NAVY,True)
-    eq=[("$849m","Incident-base\nNovember close",NAVY),
-        ("−$50m","Settlement\naccelerated",GOLD),
-        ("−$100m","Collateral\nreturn delayed",GOLD),
-        ("−$100m","Additional\nwithdrawals",RED),
-        ("−$50m","Rollover not\nrenewed",RED),
-        ("$549m","Stress cash\n30 November",RED)]
-    xpos=[.72,2.75,4.70,6.72,8.72,10.75]
-    for i,(value,label,color) in enumerate(eq):
-        x=xpos[i]
-        txt(s,value,x,1.72,1.65,.42,18,color,True,align=PP_ALIGN.CENTER)
-        line(s,x+.08,2.24,x+1.57,2.24,color,1.7)
-        txt(s,label,x,2.35,1.65,.48,7.6,MUTED,True,align=PP_ALIGN.CENTER)
-        if i<5:
-            txt(s,"−" if i<5 else "=",x+1.66,1.79,.24,.28,13,SOFT,True,align=PP_ALIGN.CENTER)
-    # Waterfall chart: steps descend from 849 to 549 against a 700 buffer.
-    wx0,wy0,ww,wh=.75,3.22,7.40,2.50
-    rect(s,wx0,wy0,ww,wh,WHITE,GRID,.8)
-    l,r=wx0+.55,wx0+ww-.20;top,bottom=wy0+.28,wy0+2.00
-    def yv(v):return bottom-(v-450)/(900-450)*(bottom-top)
-    for v in (500,600,700,800,900):
-        yy=yv(v);line(s,l,yy,r,yy,GOLD if v==700 else "E6E9E6",1.1 if v==700 else .5)
-    txt(s,"700 buffer",r-.92,yv(700)-.20,.85,.15,6.8,GOLD,True,align=PP_ALIGN.RIGHT)
-    steps=[(1.48,849,849,"BASE",TEAL),(2.72,849,799,"SETTLEMENT",GOLD),
-           (3.95,799,699,"COLLATERAL",GOLD),(5.18,699,599,"WITHDRAWALS",RED),
-           (6.40,599,549,"ROLLOVER",RED)]
-    for i,(x,before,after,label,color) in enumerate(steps):
-        topv=max(before,after);lowv=min(before,after)
-        bh=(bottom-yv(before)) if i==0 else (yv(lowv)-yv(topv))
-        by=yv(topv) if i>0 else yv(before)
-        if i==0: bh=bottom-yv(before)
-        rect(s,x,by,.54,max(.08,bh),color)
-        txt(s,label,x-.25,bottom+.12,1.08,.22,6.6,NAVY,True,align=PP_ALIGN.CENTER)
-        if i<len(steps)-1:line(s,x+.55,yv(after),steps[i+1][0],yv(after),MUTED,.7)
-    # Funding timing, shortfall and peak gap.
-    rect(s,8.43,3.22,4.20,2.50,LIGHT)
-    txt(s,"BUFFER / FUNDING TEST",8.68,3.43,3.70,.21,8.7,NAVY,True)
-    txt(s,"$700m",8.68,3.87,1.18,.32,15,GOLD,True)
-    txt(s,"minimum buffer",9.88,3.92,1.32,.22,7.5,MUTED)
-    txt(s,"$151m",11.27,3.87,1.08,.32,14,RED,True,align=PP_ALIGN.RIGHT)
-    txt(s,"30 Nov shortfall",11.09,4.20,1.28,.20,6.8,MUTED,align=PP_ALIGN.RIGHT)
-    line(s,8.68,4.53,12.39,4.53,GRID,.7)
-    txt(s,"$524m on 14 Dec  →  $176m peak funding need",8.68,4.72,3.72,.28,8.5,RED,True)
-    txt(s,"T+2 liquidity source: trigger 25 Nov → arrival 29 Nov → first breach 30 Nov. If late, it cannot prevent the breach.",
-        .72,6.08,12.0,.33,9.0,NAVY,True)
-    txt(s,"Assumed $200m line and timing; verify availability, eligible collateral and actual settlement dates. Stress inputs are scenario shocks, not actual UBS cash flows.",
-        .72,6.60,12.0,.22,7.0,MUTED)
+    header(s,"STRESS TEST: WHEN DOES CASH FALL BELOW THE BUFFER?",
+           "SECTION 2.3  ·  COMBINED SCENARIO",6,
+           "ILLUSTRATIVE USDm · STRESS INPUTS ARE ASSUMPTIONS, NOT UBS ACTUAL CASH FLOWS")
+    txt(s,"$849m   −   $50m   −   $100m   −   $100m   −   $50m   =   $549m",
+        .72,1.18,12.0,.46,18,NAVY,True,align=PP_ALIGN.CENTER)
+    # Waterfall occupies most of the slide; the horizontal buffer line makes the breach immediate.
+    px,py,pw,ph=.70,1.83,8.67,3.52
+    rect(s,px,py,pw,ph,WHITE,GRID,.8)
+    left,right=px+.62,px+pw-.22
+    top,bottom=py+.32,py+2.72
+    vmin,vmax=450,900
+    def yv(v): return bottom-(v-vmin)/(vmax-vmin)*(bottom-top)
+    for value in (500,600,700,800,900):
+        yy=yv(value)
+        line(s,left,yy,right,yy,RED if value==700 else "E2E6E3",1.45 if value==700 else .55)
+        txt(s,str(value),px+.06,yy-.08,.42,.16,6.8,RED if value==700 else MUTED,
+            value==700,align=PP_ALIGN.RIGHT)
+    steps=[
+        (1.32,849,849,"INCIDENT BASE","$849m",BLUE),
+        (2.47,849,799,"SETTLEMENT","−$50m",GOLD),
+        (3.62,799,699,"COLLATERAL","−$100m",GOLD),
+        (4.77,699,599,"WITHDRAWALS","−$100m",RED),
+        (5.92,599,549,"ROLLOVER","−$50m",RED),
+    ]
+    barw=.62
+    for i,(x,before,after,label,value,color) in enumerate(steps):
+        if i==0:
+            by=yv(before);height=bottom-by
+        else:
+            by=yv(before);height=yv(after)-yv(before)
+        rect(s,x,by,barw,max(height,.075),color)
+        txt(s,value,x-.16,by-.26,.94,.18,8.0,color,True,align=PP_ALIGN.CENTER)
+        txt(s,label,x-.28,bottom+.11,1.18,.26,6.5,NAVY,True,align=PP_ALIGN.CENTER)
+        if i<len(steps)-1:
+            line(s,x+barw,yv(after),steps[i+1][0],yv(after),MUTED,.8)
+    # End-state cash column and visible gap to buffer.
+    fx=7.58
+    rect(s,fx,yv(549),.72,bottom-yv(549),RED)
+    txt(s,"$549m",fx-.15,yv(549)-.27,1.02,.20,9,RED,True,align=PP_ALIGN.CENTER)
+    txt(s,"STRESS CLOSE",fx-.25,bottom+.11,1.22,.26,6.5,NAVY,True,align=PP_ALIGN.CENTER)
+    line(s,fx+.80,yv(700),fx+.80,yv(549),RED,2.0)
+    txt(s,"$151m\nshortfall",fx+.89,yv(700)+.02,.82,.38,7.2,RED,True)
+    # Right callout: what the breach means.
+    rect(s,9.62,1.83,3.02,3.52,PALE_RED,GRID,.8)
+    txt(s,"30 NOVEMBER",9.86,2.08,2.54,.20,8.0,RED,True)
+    txt(s,"$549m",9.86,2.43,2.54,.48,24,RED,True)
+    txt(s,"vs. $700m buffer",9.86,2.93,2.54,.23,9.2,NAVY,True)
+    line(s,9.86,3.31,12.40,3.31,RED,1.2)
+    txt(s,"14 DECEMBER",9.86,3.52,2.54,.19,7.7,MUTED,True)
+    txt(s,"$524m cash  ·  $176m peak funding need",9.86,3.81,2.54,.46,9.2,NAVY,True)
+    txt(s,"ASSUMED FUNDING TIMING",9.86,4.46,2.54,.18,7.0,MUTED,True)
+    # T+2 timing strip
+    txt(s,"Assumed $200m T+2 source",.78,5.73,2.20,.20,8.0,NAVY,True)
+    line(s,3.15,5.86,11.70,5.86,GRID,2.0)
+    timeline=[(3.42,"25 NOV","Trigger",GOLD),(7.05,"29 NOV","Arrival",TEAL),(10.92,"30 NOV","First breach",RED)]
+    for x,date,label,color in timeline:
+        rect(s,x-.10,5.76,.20,.20,color,shape=MSO_SHAPE.OVAL)
+        txt(s,date,x-.43,6.05,.86,.18,7.4,color,True,align=PP_ALIGN.CENTER)
+        txt(s,label,x-.52,6.28,1.05,.18,7.0,MUTED,align=PP_ALIGN.CENTER)
+    txt(s,"If the source arrives after the breach, it cannot prevent the first shortfall. Verify facility access, collateral eligibility and settlement dates.",
+        .72,6.68,12.0,.22,7.0,MUTED)
 
-    # Slide 7: heatmap with full risk names directly in their matrix cells.
+
+    # Slide 7 — full heatmap, with the risk names written directly in their cells.
     s=prs.slides.add_slide(blank)
     header(s,"RISK MATRIX","SECTION 3.1  ·  LIKELIHOOD × IMPACT",7,
            "RESIDUAL RATINGS ARE ANALYST JUDGEMENTS FOR THE THREE-MONTH HORIZON")
-    mx,my,cw,ch=.93,1.67,2.20,1.28
-    # High likelihood at top; impact rises left to right.
-    fills=[["F5DCDD","EFC9C9","E5B3B7"],
-           ["F4E8C7","EFDBA9","EACB9B"],
-           ["E4EEE5","E8EDDD","F1E6C8"]]
-    labels=[
-        ["", "", ""],
-        ["", "Market (4)\nCounterparty (4)\nLegal / regulatory (4)", "Operational (6)\nLiquidity (6)\nFunding (6)"],
-        ["", "Reputational (2)", ""],
+    mx,my,cw,ch=.88,1.65,2.30,1.42
+    # Rows: likely / possible / unlikely; columns: low / medium / high impact.
+    fills=[["F1C9CD","E9AEB4","DD8E99"],
+           ["F4E6BE","F0D998","E9C56F"],
+           ["D7E9DC","E4ECD8","F0E6C7"]]
+    cell_text=[
+        ["","",""],
+        ["","Market · 4\nCounterparty · 4\nLegal / regulatory · 4",
+         "Operational · 6\nLiquidity · 6\nFunding · 6"],
+        ["","Reputational · 2",""]
     ]
     for r in range(3):
         for c in range(3):
             x=mx+c*cw;y=my+r*ch
-            rect(s,x,y,cw-.05,ch-.05,fills[r][c],WHITE,1)
+            rect(s,x,y,cw-.05,ch-.05,fills[r][c],WHITE,1.4)
             score=(3-r)*(c+1)
-            txt(s,str(score),x+.08,y+.05,.22,.16,6.8,MUTED)
-            if labels[r][c]:
+            txt(s,str(score),x+.10,y+.07,.25,.18,7.2,MUTED,True)
+            if cell_text[r][c]:
                 color=RED if c==2 else (GOLD if c==1 else GREEN)
-                txt(s,labels[r][c],x+.18,y+.25,cw-.40,ch-.40,8.0,color,True,
+                txt(s,cell_text[r][c],x+.14,y+.31,cw-.33,ch-.43,9.0,color,True,
                     align=PP_ALIGN.CENTER)
-    for r,lab in enumerate(["LIKELY","POSSIBLE","UNLIKELY"]):
-        txt(s,lab,.10,my+r*ch+.48,.76,.20,7.1,NAVY,True,align=PP_ALIGN.RIGHT)
-    for c,lab in enumerate(["LOW","MEDIUM","HIGH"]):
-        txt(s,lab,mx+c*cw,my+3*ch+.03,cw-.05,.19,7.3,NAVY,True,align=PP_ALIGN.CENTER)
-    txt(s,"LIKELIHOOD",.11,1.40,.75,.18,6.8,MUTED,True,align=PP_ALIGN.RIGHT)
-    txt(s,"IMPACT",mx+1.95,my+3*ch+.31,1.0,.18,7.0,MUTED,True,align=PP_ALIGN.CENTER)
-    # Right-hand key, not a second coded table.
-    tx=8.12
-    txt(s,"PRIORITY RISKS",tx,1.78,4.55,.24,9.6,NAVY,True)
-    line(s,tx,2.11,12.73,2.11,RED,1.6)
-    priorities=[
-        ("01","Operational","Unreconciled breaks may hide open positions.",RED),
-        ("02","Liquidity","Dated settlement / collateral needs can breach buffer.",RED),
-        ("03","Funding","Maturing sources may not roll before cash is due.",RED),
+    for r,label in enumerate(["LIKELY","POSSIBLE","UNLIKELY"]):
+        txt(s,label,.08,my+r*ch+.53,.70,.20,7.5,NAVY,True,align=PP_ALIGN.RIGHT)
+    txt(s,"LIKELIHOOD",.08,1.38,.70,.18,7.0,MUTED,True,align=PP_ALIGN.RIGHT)
+    for c,label in enumerate(["LOW","MEDIUM","HIGH"]):
+        txt(s,label,mx+c*cw,my+3*ch+.03,cw-.05,.20,7.7,NAVY,True,align=PP_ALIGN.CENTER)
+    txt(s,"IMPACT",mx+2.15,my+3*ch+.32,1.0,.18,7.0,MUTED,True,align=PP_ALIGN.CENTER)
+    # Right-side priority logic adds meaning without repeating a coded legend.
+    tx=8.25
+    txt(s,"PRIORITY EXPOSURES",tx,1.72,4.35,.25,10,NAVY,True)
+    line(s,tx,2.08,12.66,2.08,RED,1.8)
+    priority_rows=[
+        ("01","OPERATIONAL","Unreconciled breaks can hide open positions."),
+        ("02","LIQUIDITY","Dated settlement and collateral needs can breach the buffer."),
+        ("03","FUNDING","Maturing sources may not roll before cash is due."),
     ]
-    for i,(num,title,desc,color) in enumerate(priorities):
-        y=2.36+i*1.04
-        txt(s,num,tx,y,.42,.23,8,color,True)
-        txt(s,title,tx+.52,y,3.88,.23,9,NAVY,True)
-        txt(s,desc,tx+.52,y+.30,3.88,.43,7.8,MUTED,valign=MSO_ANCHOR.TOP)
-        if i<2:line(s,tx+.52,y+.82,12.65,y+.82,GRID,.6)
-    txt(s,"Other exposures: market · counterparty · reputational · legal / regulatory.",
-        tx,5.62,4.55,.40,8.0,NAVY,True)
-    txt(s,"Score = likelihood × impact (1–3). Illustrative analyst ratings, not UBS / regulator scores; calibrate impact to the approved buffer and re-score after containment.",
-        .62,6.61,12.0,.27,7.0,MUTED)
+    for i,(num,title,desc) in enumerate(priority_rows):
+        yy=2.34+i*1.03
+        txt(s,num,tx,yy,.42,.22,8.4,RED,True)
+        txt(s,title,tx+.52,yy,3.80,.22,8.8,NAVY,True)
+        txt(s,desc,tx+.52,yy+.30,3.80,.44,8.0,MUTED,valign=MSO_ANCHOR.TOP)
+        if i<2:line(s,tx+.52,yy+.84,12.64,yy+.84,GRID,.65)
+    txt(s,"No risk is currently scored likely in the base assessment.",tx,5.54,4.30,.36,8.2,NAVY,True)
+    # Explicit color key for an audience new to heatmaps.
+    rect(s,.88,6.38,.22,.18,GREEN);txt(s,"Lower",1.17,6.36,.72,.20,7.2,MUTED)
+    rect(s,2.05,6.38,.22,.18,GOLD);txt(s,"Monitor",2.34,6.36,.88,.20,7.2,MUTED)
+    rect(s,3.38,6.38,.22,.18,RED);txt(s,"Priority",3.67,6.36,.92,.20,7.2,MUTED)
+    txt(s,"Score = likelihood × impact (1–3). Analyst ratings, not UBS / regulator scores; calibrate impact to the approved buffer and re-score after containment.",
+        5.08,6.32,7.56,.32,7.0,MUTED)
+
 
     # Slide 8: consulting-style 3-pillar roadmap.
     s=prs.slides.add_slide(blank)
