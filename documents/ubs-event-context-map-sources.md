@@ -2,7 +2,7 @@
 
 **Slide:** `ubs-event-context-map.png`  
 **Generator:** `build_ubs_event_context_map.py`  
-**Map geometry:** `assets/natural-earth-50m-western-europe-context.geojson` (Natural Earth 1:50m, public domain).
+**Map geometry:** Natural Earth 1:50m country outlines (`assets/natural-earth-50m-western-europe-context.geojson`), metropolitan France regions (`assets/france-regions.geojson`, [gregoiredavid/france-geojson](https://github.com/gregoiredavid/france-geojson)), and the London region (`assets/uk-london-region.geojson`, UK-GeoJSON / ONS NUTS1, [martinjc/UK-GeoJSON](https://github.com/martinjc/UK-GeoJSON)).
 
 ## What the slide says
 
@@ -42,8 +42,9 @@ Event logos appear beside the reported loss values; peer-bank logos appear in a 
 
 ## Map fills and annotations
 
-- Whole countries are shown in neutral grey. Only small schematic banking-hub areas are coloured: London (Barings/JPMorgan/UBS), Paris / Île-de-France (Société Générale), and Zurich (UBS/Credit Suisse). They are not administrative regions or claims of bank ownership.
-- The right-hand table shows the five retained benchmark events and their large reported loss amounts. Additional French CIB peers—BNP Paribas, Crédit Agricole CIB and Natixis—and UK peers—HSBC, Barclays, Lloyds Bank and NatWest—are shown as logos only. No additional loss values are assigned to these peers in this selected comparison.
+- The country base is neutral grey. French administrative regions are outlined; Île-de-France is red for Société Générale and Hauts-de-France is Crédit Agricole green. The remaining French regions stay grey.
+- In the UK, only the London region is light blue for Barclays; the Barings London-hub marker is brown. Switzerland stays grey except for the UBS-red and Credit Suisse-teal Zurich hub areas. These highlights are regional/hub emphasis, not bank-owned territory.
+- The right-hand table shows the five retained benchmark events and their large reported loss amounts. BNP Paribas, Crédit Agricole CIB, Natixis, HSBC, Barclays, Lloyds Bank and NatWest appear as peer logos only; no additional loss values are assigned to them in this comparison.
 - There are no proportional circles or pin markers. Event values stay in their reported currencies: USD for UBS, Credit Suisse, JPMorgan and Barings; EUR for Société Générale. Barings’ USD 1.4bn is approximate; the official inquiry reports GBP 827m cumulative losses and GBP 927m including close-out costs.
 - The map identifies institutional hubs, not necessarily precise trading locations: UBS and Credit Suisse are shown at their Zurich headquarters; Société Générale at Paris; JPMorgan's London Whale at London; Barings at its London headquarters. UBS's loss-making desk was in London, and Leeson traded in Singapore. The footer clarifies these distinctions.
 - No event loss is inflation-adjusted; the slide compares nominal headline impacts across years, not present-value purchasing power.

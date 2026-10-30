@@ -68,8 +68,8 @@ d.line((42, 88, 1558, 88), fill=GRID, width=1)
 
 # Main map area: neutral countries, with only local banking hubs filled.
 mx, my, mw, mh = 35, 105, 1025, 635
-lon0, lon1 = -11.0, 15.0
-lat0, lat1 = 43.0, 58.0
+lon0, lon1 = -8.5, 13.5
+lat0, lat1 = 42.0, 58.0
 
 def xy(lon, lat):
     return (mx + (lon - lon0) / (lon1 - lon0) * mw,
@@ -103,24 +103,52 @@ countries = [
 for country in countries:
     draw_country(country)
 
+def draw_region_feature(feature, fill, stroke=PAPER, width=1):
+    geometry = feature['geometry']
+    polygons = geometry['coordinates'] if geometry['type'] == 'MultiPolygon' else [geometry['coordinates']]
+    for polygon in polygons:
+        for ring in polygon[:1]:
+            if not ring:
+                continue
+            xs = [pt[0] for pt in ring]
+            ys = [pt[1] for pt in ring]
+            if max(xs) < lon0 or min(xs) > lon1 or max(ys) < lat0 or min(ys) > lat1:
+                continue
+            points = [xy(lon, lat) for lon, lat in ring]
+            d.polygon(points, fill=fill)
+            d.line(points + [points[0]], fill=stroke, width=width, joint='curve')
+
+# Accurate French administrative regions: IDF in Société Générale red,
+# Hauts-de-France in Crédit Agricole green, all other regions neutral grey.
+france_regions = json.loads((ASSETS / 'france-regions.geojson').read_text(encoding='utf-8'))
+for feature in france_regions['features']:
+    region = feature['properties']['nom']
+    fill = SG_RED if region == 'Île-de-France' else ('#16804A' if region == 'Hauts-de-France' else LAND)
+    draw_region_feature(feature, fill, PAPER, 2)
+
+# London is the only UK region coloured (Barclays sky blue); the rest of the UK remains grey.
+uk_london = json.loads((ASSETS / 'uk-london-region.geojson').read_text(encoding='utf-8'))
+for feature in uk_london['features']:
+    draw_region_feature(feature, '#69C6EA', PAPER, 2)
+
+# Barings is also a London-headquartered event: a small brown/gold hub patch sits within London.
 def hub_patch(points, color):
     polygon = [xy(lon, lat) for lon, lat in points]
     d.polygon(polygon, fill=color)
-    d.line(polygon + [polygon[0]], fill=PAPER, width=2, joint='curve')
+    d.line(polygon + [polygon[0]], fill=PAPER, width=1, joint='curve')
+hub_patch([(-0.30, 51.48), (-0.24, 51.59), (-0.09, 51.63), (0.02, 51.56), (-0.05, 51.43), (-0.22, 51.40)], BARINGS_GOLD)
 
-# London: three small local zones, not a coloured UK. These offsets separate shared hubs.
-hub_patch([(-0.96, 51.28), (-0.86, 51.58), (-0.62, 51.75), (-0.30, 51.69), (-0.10, 51.49), (-0.34, 51.24)], BARINGS_GOLD)
-hub_patch([(-0.10, 51.49), (-0.30, 51.69), (0.02, 51.76), (0.34, 51.59), (0.28, 51.31), (-0.34, 51.24)], JPM_BLUE)
-hub_patch([(0.28, 51.31), (0.34, 51.59), (0.02, 51.76), (0.56, 51.74), (0.90, 51.58), (0.82, 51.35), (0.62, 51.22)], UBS_RED)
-# Paris / Île-de-France: only the local metropolitan area is highlighted.
-hub_patch([(1.42, 48.35), (1.55, 48.06), (1.98, 47.95), (2.35, 48.06), (2.80, 48.00), (3.26, 48.23), (3.53, 48.56), (3.50, 48.91), (3.25, 49.17), (2.87, 49.27), (2.48, 49.15), (2.08, 49.24), (1.72, 49.05), (1.50, 48.72)], SG_RED)
-# Zurich: UBS and Credit Suisse are shown as separate hub patches.
+# Zurich: the two Swiss main-bank hubs are shown as separate, small patches.
 hub_patch([(7.82, 47.10), (7.95, 47.53), (8.18, 47.78), (8.48, 47.70), (8.58, 47.43), (8.42, 47.13), (8.12, 47.00)], UBS_RED)
 hub_patch([(8.58, 47.43), (8.62, 47.72), (8.94, 47.80), (9.24, 47.62), (9.32, 47.30), (9.09, 47.04), (8.78, 47.08), (8.55, 47.25)], CS_TEAL)
 
-# Small city/country labels in conventional map style.
+# City and regional labels: compact, legible, and tied to the coloured admin areas.
 text(d, xy(-0.12, 51.05), 'LONDON', 9, INK, bold=True, anchor='mm')
+text(d, xy(-0.12, 51.88), 'BARINGS', 8, BARINGS_GOLD, bold=True, anchor='mm')
+text(d, xy(0.03, 51.24), 'BARCLAYS', 7, '#1478A6', bold=True, anchor='mm')
 text(d, xy(2.35, 47.72), 'PARIS', 9, INK, bold=True, anchor='mm')
+text(d, xy(2.45, 48.70), 'ÎLE-DE-FRANCE', 7, PAPER, bold=True, anchor='mm')
+text(d, xy(2.8, 50.55), 'CA CIB', 8, PAPER, bold=True, anchor='mm')
 text(d, xy(8.54, 46.82), 'ZURICH', 9, INK, bold=True, anchor='mm')
 text(d, xy(-4.1, 54.0), 'UNITED KINGDOM', 8, MUTED, bold=True, anchor='mm')
 text(d, xy(0.0, 45.8), 'FRANCE', 8, MUTED, bold=True, anchor='mm')
