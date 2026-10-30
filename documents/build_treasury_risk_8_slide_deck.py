@@ -1,14 +1,18 @@
 from pathlib import Path
 from PIL import Image
+import xlsxwriter
 from pptx import Presentation
+from pptx.chart.data import CategoryChartData
 from pptx.dml.color import RGBColor
+from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION
 from pptx.enum.shapes import MSO_SHAPE, MSO_CONNECTOR
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / "assets"
-OUT = ROOT / "ubs-treasury-risk-presentation-8-slides.pptx"
+PPTX_OUT = ROOT / "ubs-treasury-risk-presentation-8-slides.pptx"
+XLSX_OUT = ROOT / "ubs-illustrative-liquidity-model.xlsx"
 MAP_SLIDE = ASSETS / "approved-map-slide-report-order.png"
 NORMAL_HIDDEN_SLIDE = ASSETS / "approved-three-panel-slide.png"
 DALTONS = ASSETS / "daltons-illustration.png"
@@ -17,23 +21,33 @@ SKEMA_LOGO = ASSETS / "skema-logo.png"
 
 SW, SH = 13.333333, 7.5
 BG = "F7F7F3"
-PANEL = "101315"
-PANEL2 = "191E21"
 NAVY = "18232B"
-WHITE = "F7F8F6"
-MUTED = "737B80"
+BLACK = "101315"
+DARK = "252B2F"
+WHITE = "FFFFFF"
+MUTED = "68747B"
 SOFT = "A9B0B2"
 RED = "C82036"
-TEAL = "00A985"
-GOLD = "D6A600"
-BLUE = "2E91C1"
-GREEN = "42A878"
-BORDER = "CFD3D0"
-GRID = "343B3E"
+TEAL = "008F72"
+GOLD = "C49500"
+BLUE = "287FA8"
+GREEN = "4F8A64"
+GRID = "C9CECB"
+LIGHT = "E8ECE8"
+PALE_RED = "F6E2E3"
+PALE_AMBER = "F8F0D9"
+PALE_GREEN = "E6F0E9"
+FONT = "Arial"
+
+DATES = ["14 Sep", "15", "16", "17", "18", "19", "20", "30 Sep", "Oct", "Nov", "14 Dec"]
+NO_INCIDENT = [1000, 990, 985, 990, 985, 987, 984, 1004, 1104, 1054, 1024]
+INCIDENT_BASE = [1000, 915, 805, 775, 765, 772, 774, 769, 909, 849, 824]
+COMBINED_STRESS = [1000, 915, 805, 775, 765, 772, 774, 769, 909, 549, 524]
+BUFFER = 700
 
 
-def C(hex_color):
-    return RGBColor.from_string(hex_color)
+def C(value):
+    return RGBColor.from_string(value)
 
 
 def rect(slide, x, y, w, h, fill, line_color=None, line_width=0.8,
@@ -49,7 +63,7 @@ def rect(slide, x, y, w, h, fill, line_color=None, line_width=0.8,
     return sh
 
 
-def line(slide, x1, y1, x2, y2, color=BORDER, width=1.0):
+def line(slide, x1, y1, x2, y2, color=GRID, width=1.0):
     sh = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT,
                                     Inches(x1), Inches(y1), Inches(x2), Inches(y2))
     sh.line.color.rgb = C(color)
@@ -72,7 +86,7 @@ def txt(slide, value, x, y, w, h, size=12, color=NAVY, bold=False,
     p.space_after = Pt(0)
     r = p.add_run()
     r.text = value
-    r.font.name = "Arial"
+    r.font.name = FONT
     r.font.size = Pt(size)
     r.font.bold = bold
     r.font.color.rgb = C(color)
@@ -80,378 +94,544 @@ def txt(slide, value, x, y, w, h, size=12, color=NAVY, bold=False,
 
 
 def add_img_fit(slide, path, x, y, w, h):
-    """Fit the entire image into a box while preserving its exact aspect ratio."""
+    """Fit the complete image without crop or distortion."""
     with Image.open(path) as im:
         iw, ih = im.size
-    aspect = iw / ih
-    box_aspect = w / h
+    aspect, box_aspect = iw/ih, w/h
     if aspect > box_aspect:
-        dw, dh = w, w / aspect
-        dx, dy = x, y + (h-dh)/2
+        dw, dh = w, w/aspect
+        dx, dy = x, y+(h-dh)/2
     else:
         dh, dw = h, h*aspect
-        dx, dy = x + (w-dw)/2, y
+        dx, dy = x+(w-dw)/2, y
     return slide.shapes.add_picture(str(path), Inches(dx), Inches(dy),
                                     width=Inches(dw), height=Inches(dh))
 
 
-def add_header(slide, title, kicker, page, section):
+def header(slide, title, kicker, page, section):
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = C(BG)
-    slide.shapes.add_picture(str(UBS_LOGO), Inches(0.42), Inches(0.13),
-                             width=Inches(1.38), height=Inches(0.49))
-    txt(slide, title, 2.02, 0.15, 9.65, 0.31, 17, NAVY, True)
-    txt(slide, kicker, 2.02, 0.47, 9.65, 0.20, 9.3, RED, True)
-    txt(slide, section, 2.02, 0.71, 9.65, 0.16, 7.4, MUTED)
-    slide.shapes.add_picture(str(SKEMA_LOGO), Inches(12.35), Inches(0.12),
-                             width=Inches(0.52), height=Inches(0.55))
-    rect(slide, 0.42, 0.97, 12.48, 0.012, BORDER)
-    rect(slide, 0.42, 7.17, 12.48, 0.010, BORDER)
-    txt(slide, f"UBS  ×  SKEMA   /   {page:02d}", 11.40, 7.22, 1.45, 0.12,
+    slide.shapes.add_picture(str(UBS_LOGO), Inches(.42), Inches(.13),
+                             width=Inches(1.38), height=Inches(.49))
+    txt(slide, title, 2.02, .15, 9.65, .31, 17, NAVY, True)
+    txt(slide, kicker, 2.02, .47, 9.65, .20, 9.3, RED, True)
+    txt(slide, section, 2.02, .71, 9.65, .16, 7.4, MUTED)
+    slide.shapes.add_picture(str(SKEMA_LOGO), Inches(12.35), Inches(.12),
+                             width=Inches(.52), height=Inches(.55))
+    line(slide, .42, .97, 12.90, .97, GRID, .9)
+    line(slide, .42, 7.17, 12.90, 7.17, GRID, .7)
+    txt(slide, f"UBS  ×  SKEMA   /   {page:02d}", 11.40, 7.22, 1.45, .12,
         6.4, MUTED, True, align=PP_ALIGN.RIGHT)
 
 
 def add_user_slide(prs, image):
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
-    slide.background.fill.solid()
-    slide.background.fill.fore_color.rgb = C(BG)
-    add_img_fit(slide, image, 0, 0, SW, SH)
-    return slide
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    s.background.fill.solid()
+    s.background.fill.fore_color.rgb = C(BG)
+    add_img_fit(s, image, 0, 0, SW, SH)
+    return s
+
+
+def build_model_workbook():
+    wb = xlsxwriter.Workbook(str(XLSX_OUT))
+    wb.set_properties({
+        "title": "UBS 2011 illustrative Treasury liquidity model",
+        "subject": "Cash bridge and stress assumptions; not historical UBS Treasury data",
+        "author": "Corporate Treasury Management Team",
+    })
+    navy = "18232B"
+    red = "C82036"
+    teal = "008F72"
+    gold = "C49500"
+    muted = "68747B"
+    grid = "D9DEDB"
+    pale = "F1F4F1"
+    fmt_title = wb.add_format({"bold": True, "font_size": 16, "font_color": navy})
+    fmt_sub = wb.add_format({"font_color": muted, "font_size": 10, "text_wrap": True})
+    fmt_head = wb.add_format({"bold": True, "font_color": "FFFFFF", "bg_color": navy,
+                              "border": 1, "border_color": "FFFFFF", "text_wrap": True,
+                              "valign": "vcenter"})
+    fmt_input = wb.add_format({"bg_color": "FFF2CC", "border": 1, "border_color": grid,
+                               "num_format": '#,##0;[Red](#,##0);–'})
+    fmt_num = wb.add_format({"border": 1, "border_color": grid,
+                             "num_format": '#,##0;[Red](#,##0);–'})
+    fmt_num_bold = wb.add_format({"bold": True, "border": 1, "border_color": grid,
+                                  "num_format": '#,##0;[Red](#,##0);–'})
+    fmt_label = wb.add_format({"border": 1, "border_color": grid})
+    fmt_note = wb.add_format({"font_color": muted, "italic": True, "text_wrap": True})
+    fmt_section = wb.add_format({"bold": True, "font_color": "FFFFFF", "bg_color": teal})
+    fmt_red = wb.add_format({"bold": True, "font_color": red, "border": 1, "border_color": grid,
+                             "num_format": '#,##0;[Red](#,##0);–'})
+
+    # README / evidence classification
+    ws = wb.add_worksheet("Read me")
+    ws.set_column("A:A", 27); ws.set_column("B:B", 94)
+    ws.write("A1", "UBS 2011 · Treasury liquidity model", fmt_title)
+    ws.merge_range("A2:B2", "Illustrative teaching model built in Python / Excel. It is not UBS historical Treasury data.", fmt_sub)
+    notes = [
+        ("Central question", "How should UBS Treasury preserve liquidity and meet payment obligations over the three months after concealed trading losses are discovered?"),
+        ("Model horizon", "14 Sep–14 Dec 2011; daily in the first week, then period-end snapshots."),
+        ("Evidence: public", "Incident dates, unauthorised trading, reported USD 2.3bn loss and control findings."),
+        ("Inputs: assumed", "Opening cash USD 1,000m; minimum buffer USD 700m; receipts, payments, settlements, collateral, costs and stress shocks."),
+        ("Outputs: calculated", "Scenario closing cash, first buffer breach, and peak funding need. Reproduce from the Cash Bridge formulas."),
+        ("Cash balance", "Accessible opening cash + receipts − payments − settlement outflow + signed collateral movement − costs + confirmed funding."),
+        ("Funding gap", "max(0, minimum buffer − cash before funding). A trading loss is not automatically a same-day cash payment."),
+        ("Use limitation", "Replace all yellow inputs with dated, entity-level Treasury ledger records before treating any funding gap as a UBS result."),
+        ("Sources", "FINMA 2012; FSA 2012; UBS Q3 2011 disclosures. Model schema follows the illustrative cash bridge in the presentation."),
+    ]
+    for i,(a,b) in enumerate(notes,4):
+        ws.write(i-1,0,a,fmt_head if i==4 else fmt_label)
+        ws.write(i-1,1,b,fmt_sub if i==4 else fmt_label)
+        ws.set_row(i-1,36 if len(b)>85 else 26)
+    ws.freeze_panes(3,0)
+
+    # Cash bridge with visible formulas and model inputs.
+    cash = wb.add_worksheet("Cash Bridge")
+    cash.freeze_panes(3,1)
+    cash.set_column("A:A", 16)
+    cash.set_column("B:K", 18)
+    cash.merge_range("A1:K1", "Cash bridge · illustrative USD millions", fmt_title)
+    cash.merge_range("A2:K2", "Yellow cells are assumed inputs. Closing cash is formula-driven; positive collateral movement is cash returned to UBS.", fmt_sub)
+    headers=["Period","Base receipts","Base payments","Incident settlement\noutflow","Collateral\nmovement (+/−)","Incident costs","No-incident\nclose","Incident-base\nclose","Stress\nadjustment","Stress\nclose","Minimum\nbuffer"]
+    for c,h in enumerate(headers): cash.write(2,c,h,fmt_head)
+    cash.set_row(2,36)
+    rows=[
+        ("14 Sep · open",0,0,0,0,0),
+        ("15 Sep",120,130,55,-20,0),
+        ("16 Sep",90,95,80,-25,0),
+        ("17 Sep",110,105,45,10,0),
+        ("18 Sep",100,105,20,15,0),
+        ("19 Sep",90,88,5,10,0),
+        ("20 Sep",95,98,15,20,0),
+        ("30 Sep",500,480,50,30,5),
+        ("October",1800,1700,50,100,10),
+        ("November",1600,1650,20,20,10),
+        ("1–14 Dec",800,830,0,10,5),
+    ]
+    expected_no=[1000,990,985,990,985,987,984,1004,1104,1054,1024]
+    expected_base=[1000,915,805,775,765,772,774,769,909,849,824]
+    expected_stress=[1000,915,805,775,765,772,774,769,909,549,524]
+    for idx,row in enumerate(rows,3):
+        period,receipts,payments,settlement,collateral,costs=row
+        cash.write(idx,0,period,fmt_label)
+        vals=[receipts,payments,settlement,collateral,costs]
+        for j,v in enumerate(vals,1): cash.write_number(idx,j,v,fmt_input)
+        cash.write_number(idx,10,700,fmt_input)
+        if idx==3:
+            cash.write_formula(idx,6,"=1000",fmt_num_bold,1000)
+            cash.write_formula(idx,7,"=1000",fmt_num_bold,1000)
+            cash.write_number(idx,8,0,fmt_input)
+            cash.write_formula(idx,9,"=H4+I4",fmt_num_bold,1000)
+        else:
+            prev=idx-1
+            excelrow=idx+1
+            cash.write_formula(idx,6,f"=G{excelrow-1}+B{excelrow}-C{excelrow}",fmt_num,expected_no[idx-3])
+            cash.write_formula(idx,7,f"=H{excelrow-1}+B{excelrow}-C{excelrow}-D{excelrow}+E{excelrow}-F{excelrow}",fmt_num,expected_base[idx-3])
+            stress_adj=-300 if period=="November" else 0
+            cash.write_number(idx,8,stress_adj,fmt_input)
+            cash.write_formula(idx,9,f"=J{excelrow-1}+B{excelrow}-C{excelrow}-D{excelrow}+E{excelrow}-F{excelrow}+I{excelrow}",fmt_num_bold,expected_stress[idx-3])
+    cash.write("A16","Assumptions",fmt_section)
+    cash.write("B16","Opening cash",fmt_label); cash.write_number("C16",1000,fmt_input)
+    cash.write("D16","Minimum buffer",fmt_label); cash.write_number("E16",700,fmt_input)
+    cash.merge_range("F16:K16","Opening cash and buffer are teaching assumptions, not published UBS Treasury data.",fmt_note)
+    cash.write("A18","Peak gap",fmt_label)
+    cash.write_formula("B18","=MAX(0,E16-MIN(J4:J14))",fmt_red,176)
+    cash.write("C18","Peak gap = buffer less minimum stress close",fmt_note)
+    # Excel chart
+    chart=wb.add_chart({"type":"line"})
+    chart.add_series({"name":"No incident","categories":"='Cash Bridge'!$A$4:$A$14","values":"='Cash Bridge'!$G$4:$G$14","line":{"color":teal,"width":2.25},"marker":{"type":"circle","size":4,"border":{"color":teal},"fill":{"color":teal}}})
+    chart.add_series({"name":"Incident base","categories":"='Cash Bridge'!$A$4:$A$14","values":"='Cash Bridge'!$H$4:$H$14","line":{"color":"287FA8","width":2.25},"marker":{"type":"circle","size":4,"border":{"color":"287FA8"},"fill":{"color":"287FA8"}}})
+    chart.add_series({"name":"Combined stress","categories":"='Cash Bridge'!$A$4:$A$14","values":"='Cash Bridge'!$J$4:$J$14","line":{"color":red,"width":2.5},"marker":{"type":"circle","size":4,"border":{"color":red},"fill":{"color":red}}})
+    chart.add_series({"name":"Minimum buffer","categories":"='Cash Bridge'!$A$4:$A$14","values":"='Cash Bridge'!$K$4:$K$14","line":{"color":gold,"width":1.5,"dash_type":"dash"},"marker":{"type":"none"}})
+    chart.set_title({"name":"Scenario closing cash vs minimum buffer"})
+    chart.set_y_axis({"name":"USD millions","min":500,"max":1200,"major_unit":100,"major_gridlines":{"visible":True,"line":{"color":"D9DEDB"}}})
+    chart.set_x_axis({"label_position":"low","num_font":{"size":8}})
+    chart.set_legend({"position":"bottom","font":{"size":8}})
+    chart.set_size({"width":920,"height":420})
+    chart.set_chartarea({"border":{"none":True},"fill":{"color":"FFFFFF"}})
+    chart.set_plotarea({"border":{"none":True},"fill":{"color":"FFFFFF"}})
+    cash.insert_chart("A20",chart)
+    cash.freeze_panes(3,1)
+
+    stress=wb.add_worksheet("Stress Tests")
+    stress.set_column("A:A",30); stress.set_column("B:B",17); stress.set_column("C:C",67)
+    stress.merge_range("A1:C1","Combined stress · 30 Nov 2011 (illustrative)",fmt_title)
+    stress.merge_range("A2:C2","Scenario inputs are assumed; the $2.3bn public loss is not entered as a single cash outflow.",fmt_sub)
+    for c,h in enumerate(["Shock","Cash impact (USDm)","Illustrative timing / explanation"]): stress.write(2,c,h,fmt_head)
+    shocks=[("Accelerated / increased settlement",-50,"Cash outflow brought forward or increased on 30 Nov."),
+            ("Collateral return delayed",-100,"Expected collateral receipt falls beyond the model horizon."),
+            ("Additional withdrawals",-100,"Incremental customer outflow in the stress period."),
+            ("Funding maturity not renewed",-50,"Scheduled funding rollover unavailable on 30 Nov.")]
+    for i,(a,b,c) in enumerate(shocks,3): stress.write(i,0,a,fmt_label); stress.write_number(i,1,b,fmt_input); stress.write(i,2,c,fmt_label)
+    stress.write("A8","Total shock",fmt_head); stress.write_formula("B8","=SUM(B4:B7)",fmt_num_bold,-300); stress.write("C8","Additional delayed-liquidity-source timing is tested separately below.",fmt_label)
+    stress.write("A10","Incident-base November close",fmt_label); stress.write_number("B10",849,fmt_input)
+    stress.write("A11","Stress November close",fmt_label); stress.write_formula("B11","=B10+B8",fmt_red,549)
+    stress.write("A12","Buffer",fmt_label); stress.write_number("B12",700,fmt_input)
+    stress.write("A13","30 Nov shortfall",fmt_label); stress.write_formula("B13","=MAX(0,B12-B11)",fmt_red,151)
+    stress.write("A14","14 Dec stress close",fmt_label); stress.write_number("B14",524,fmt_input)
+    stress.write("A15","Peak funding need",fmt_label); stress.write_formula("B15","=MAX(0,B12-B14)",fmt_red,176)
+    stress.merge_range("A17:C17","Funding timing test",fmt_section)
+    for i,(a,b,c) in enumerate([("Assumed line","USD 200m","Availability / collateral conditions must be verified."),("Trigger","25 Nov","Trigger at least T+2 business days before the modeled breach."),("Illustrative arrival","29 Nov","T+2 assumption; not a historical UBS commitment."),("First breach","30 Nov","If the source arrives later, it cannot prevent the first shortfall.")],18):
+        stress.write(i-1,0,a,fmt_label); stress.write(i-1,1,b,fmt_label); stress.write(i-1,2,c,fmt_label)
+
+    risk=wb.add_worksheet("Risk Register")
+    risk.set_column("A:A",25); risk.set_column("B:C",15); risk.set_column("D:D",15); risk.set_column("E:E",57)
+    risk.merge_range("A1:E1","Residual risk register · illustrative ratings",fmt_title)
+    risk.merge_range("A2:E2","Likelihood and impact are analyst assumptions for the 14 Sep–14 Dec horizon; re-score after containment.",fmt_sub)
+    for c,h in enumerate(["Risk","Likelihood (1–3)","Impact (1–3)","Score","Why it matters"]): risk.write(2,c,h,fmt_head)
+    risk_rows=[("Operational",2,3,"Unreconciled breaks could hide open positions."),
+               ("Liquidity",2,3,"Settlement / collateral peak versus approved buffer."),
+               ("Market",2,2,"Adverse price movement before positions close."),
+               ("Counterparty",2,2,"Collateral return or receivable may be delayed."),
+               ("Funding",2,3,"A maturity inside the horizon may not roll."),
+               ("Reputational",1,2,"Outflows or tighter terms in a confidence stress."),
+               ("Legal / regulatory",2,2,"Investigation and remediation timing / cost.")]
+    for i,(name,l,impact,why) in enumerate(risk_rows,3):
+        risk.write(i,0,name,fmt_label); risk.write_number(i,1,l,fmt_input); risk.write_number(i,2,impact,fmt_input)
+        risk.write_formula(i,3,f"=B{i+1}*C{i+1}",fmt_num_bold,l*impact); risk.write(i,4,why,fmt_label)
+    risk.merge_range("A12:E12","Scoring key",fmt_section)
+    risk.merge_range("A13:E13","Likelihood: 1 unlikely · 2 possible · 3 likely. Impact: 1 headroom erosion <25% · 2 ≥25% without breach · 3 cash below buffer. The 25% cutoff is proposed, not UBS policy.",fmt_note)
+
+    actions=wb.add_worksheet("CFO Actions")
+    actions.set_column("A:A",29); actions.set_column("B:B",30); actions.set_column("C:C",29); actions.set_column("D:D",48); actions.set_column("E:E",45)
+    actions.merge_range("A1:E1","CFO action plan · owners, timing and decision output",fmt_title)
+    for c,h in enumerate(["Pillar","Owner","Deadline","Expected benefit / deliverable","Constraint / fallback"]): actions.write(2,c,h,fmt_head)
+    action_rows=[
+        ("Immediate liquidity protection","Group Treasurer","Initial view in 24h; daily to 14 Dec","Verified accessible cash, dated 13-week forecast and pre-positioned funding.","Confirm facility access, collateral eligibility and arrival; fallback only if independently verified."),
+        ("Exposure containment","IB COO + Market Risk + Treasury","Start now; daily until reconciled","Independently reconcile open positions, settlements and collateral breaks.","Close-out cost / cash release only when confirmed; keep conservative overlay until then."),
+        ("Governance & controls","CRO + IB COO; Internal Audit validates","Interim controls now; programme by 14 Dec","Dual verification, clear ownership and timely escalation of exceptions.","Manual dual sign-off until system controls are remediated."),
+    ]
+    for i,row in enumerate(action_rows,3):
+        for c,val in enumerate(row): actions.write(i,c,val,fmt_label)
+        actions.set_row(i,54)
+    actions.freeze_panes(3,0)
+    wb.close()
 
 
 def make_deck():
-    prs = Presentation()
-    prs.slide_width = Inches(SW)
-    prs.slide_height = Inches(SH)
-    blank = prs.slide_layouts[6]
+    prs=Presentation()
+    prs.slide_width=Inches(SW); prs.slide_height=Inches(SH)
+    blank=prs.slide_layouts[6]
 
-    # 1 — European context. Exact user-approved slide, no overlays or edits.
-    add_user_slide(prs, MAP_SLIDE)
+    # 1–2: the user's approved slides remain intact as single picture objects.
+    add_user_slide(prs,MAP_SLIDE)
+    add_user_slide(prs,NORMAL_HIDDEN_SLIDE)
 
-    # 2 — Concealment mechanism. Exact user-approved slide, no overlays or edits.
-    add_user_slide(prs, NORMAL_HIDDEN_SLIDE)
-
-    # 3 — Causal bridge from failed controls to Treasury funding.
-    s = prs.slides.add_slide(blank)
-    add_header(s, "FROM CONTROL FAILURE TO TREASURY IMPACT",
-               "SECTION 1.3  ·  FAILED CONTROLS & CASH TRANSMISSION", 3,
-               "THE BRIDGE: HIDDEN POSITIONS → CASH IMPACT → LIQUIDITY PRESSURE")
-    txt(s, "CENTRAL TREASURY QUESTION", 0.62, 1.28, 3.10, 0.22, 8.5, TEAL, True)
-    txt(s, "How can UBS preserve liquidity and meet payments over the next three months?",
-        3.48, 1.25, 9.12, 0.27, 10.4, NAVY, True)
-
-    nodes = [
-        ("CONTROL\nFAILURES", "Verification gaps", RED),
-        ("HIDDEN\nPOSITIONS", "False offsets", GOLD),
-        ("TRADING\nLOSSES", "USD 2.3bn", RED),
-        ("SETTLEMENT\nOBLIGATIONS", "Dated cash due", BLUE),
-        ("COLLATERAL\nCALLS", "Calls / delayed returns", GOLD),
-        ("LIQUIDITY\nPRESSURE", "Buffer erosion", RED),
-        ("FUNDING\nREQUIREMENT", "Timing gap", TEAL),
+    # 3 — The causal bridge between operational failure and Treasury.
+    s=prs.slides.add_slide(blank)
+    header(s,"FROM CONTROL FAILURE TO TREASURY IMPACT",
+           "SECTION 1.3  ·  FAILED CONTROLS & CASH TRANSMISSION",3,
+           "THE BRIDGE FROM OPERATIONAL RISK TO THE CENTRAL TREASURY QUESTION")
+    txt(s,"Control failure",.62,1.30,2.20,.22,9,RED,True)
+    txt(s,"How can UBS preserve liquidity and meet payment obligations over the next three months?",
+        3.05,1.29,9.50,.24,10,NAVY,True)
+    steps=[
+        ("CONTROL\nFAILURES","verification gaps",RED),
+        ("HIDDEN\nPOSITIONS","false offsets",GOLD),
+        ("TRADING\nLOSS","USD 2.3bn",RED),
+        ("SETTLEMENT\nOBLIGATIONS","dated cash due",BLUE),
+        ("COLLATERAL\nCALLS","calls / delayed returns",GOLD),
+        ("LIQUIDITY\nPRESSURE","buffer erosion",RED),
+        ("FUNDING\nREQUIREMENT","timing gap",TEAL),
     ]
-    x0, w, gap, y, h = 0.57, 1.48, 0.26, 2.12, 2.04
-    for i, (title, sub, accent) in enumerate(nodes):
-        x = x0 + i*(w+gap)
-        rect(s, x, y, w, h, PANEL, PANEL)
-        rect(s, x, y, w, 0.06, accent)
-        rect(s, x+0.52, y+0.25, 0.50, 0.50, accent, shape=MSO_SHAPE.OVAL)
-        txt(s, f"{i+1:02d}", x+0.52, y+0.37, 0.50, 0.20, 9, WHITE, True,
-            align=PP_ALIGN.CENTER)
-        txt(s, title, x+0.12, y+0.88, w-0.24, 0.48, 9.0, WHITE, True,
-            align=PP_ALIGN.CENTER)
-        txt(s, sub, x+0.10, y+1.52, w-0.20, 0.25, 7.2, SOFT,
-            align=PP_ALIGN.CENTER)
-        if i < len(nodes)-1:
-            rect(s, x+w+0.06, y+0.93, gap-0.10, 0.22,
-                 [GOLD, RED, BLUE, GOLD, RED, TEAL][i], shape=MSO_SHAPE.CHEVRON)
+    x0,w,gap,y,h=.52,1.48,.32,2.02,2.0
+    for i,(name,detail,color) in enumerate(steps):
+        x=x0+i*(w+gap)
+        rect(s,x,y,w,h,WHITE,GRID,0.8)
+        rect(s,x,y,w,.055,color)
+        txt(s,f"{i+1:02d}",x+.12,y+.17,.36,.22,8,color,True)
+        txt(s,name,x+.12,y+.55,w-.24,.54,9,NAVY,True,align=PP_ALIGN.CENTER)
+        line(s,x+.14,y+1.29,x+w-.14,y+1.29,GRID,.65)
+        txt(s,detail,x+.11,y+1.43,w-.22,.28,7.4,MUTED,align=PP_ALIGN.CENTER)
+        if i<len(steps)-1:
+            rect(s,x+w+.08,y+.83,gap-.13,.20,color,shape=MSO_SHAPE.CHEVRON)
+    # A clear three-stage grouping, not a repeated panel stack.
+    groups=[(.62,3.65,"OPERATIONAL EVENT","control failure → hidden positions",RED),
+            (4.83,3.65,"CASH TRANSMISSION","loss → settlement / collateral",BLUE),
+            (9.04,3.65,"TREASURY RESPONSE","liquidity pressure → funding",TEAL)]
+    for x,ww,title,sub,color in groups:
+        txt(s,title,x,4.53,ww,.20,8,color,True,align=PP_ALIGN.CENTER)
+        line(s,x,4.81,x+ww,4.81,color,1.8)
+        txt(s,sub,x,4.94,ww,.25,8.1,NAVY,True,align=PP_ALIGN.CENTER)
+    rect(s,.62,5.62,12.02,.60,"E9ECE8")
+    txt(s,"The USD 2.3bn headline is a loss figure; the Treasury need depends on when cash is due, recoverable collateral and accessible liquidity.",
+        .82,5.77,11.62,.28,9.5,NAVY,True,align=PP_ALIGN.CENTER)
+    txt(s,"Potential cash channels are analytical, not asserted historical UBS cash movements. Sources: FINMA 2012 §§23–41; FSA 2012 §§26–42.",
+        .64,6.55,12.0,.22,7.0,MUTED)
 
-    # Process bar makes the report sequence explicit.
-    rect(s, 0.62, 4.72, 12.05, 0.78, "E8ECE8", None)
-    phases = [
-        (0.82, 2.52, "OPERATIONAL EVENT", "control failure"),
-        (4.30, 2.52, "CASH TRANSMISSION", "settlement + collateral"),
-        (8.02, 2.52, "TREASURY RESPONSE", "forecast + funding"),
+    # 4 — Timeline with sourced event sequence and requested humorous illustration.
+    s=prs.slides.add_slide(blank)
+    header(s,"INCIDENT TIMELINE","SECTION 1.2  ·  DISCOVERY, ANNOUNCEMENT & RESPONSE",4,
+           "DATES ARE MILESTONES; CONTAINMENT AND REMEDIATION CONTINUE AFTER DISCOVERY")
+    # Main timeline occupies left ~9 inches; sourced milestones are explicit.
+    line(s,.78,2.05,9.28,2.05,GRID,2.2)
+    events=[
+        (.72,RED,"14 SEP 2011","Discovery","Unauthorised futures positions identified."),
+        (2.91,GOLD,"15 SEP 2011","Public announcement","Initial loss estimate communicated."),
+        (5.10,BLUE,"FOLLOWING DAYS","Containment & hedging","Positions managed; exposure reviewed."),
+        (7.29,TEAL,"FOLLOWING WEEKS","Investigation & remediation","Control failures examined."),
     ]
-    for i, (x, ww, title, sub) in enumerate(phases):
-        txt(s, title, x, 4.84, ww, 0.18, 7.7, [RED, BLUE, TEAL][i], True,
-            align=PP_ALIGN.CENTER)
-        txt(s, sub, x, 5.11, ww, 0.19, 8.1, NAVY, True, align=PP_ALIGN.CENTER)
-    txt(s, "A headline trading loss is not itself the day-one cash need; the Treasury problem is the timing and location of obligations.",
-        0.66, 6.02, 12.0, 0.40, 10.0, NAVY, True, align=PP_ALIGN.CENTER)
-    txt(s, "Sources: FINMA 2012 §§23–41; FSA 2012 §§26–42. Potential channels are not asserted historical cash movements.",
-        0.66, 6.68, 12.0, 0.19, 7.0, MUTED)
+    for x,color,date,title,desc in events:
+        mid=x+.92
+        rect(s,mid-.10,1.95,.20,.20,color,shape=MSO_SHAPE.OVAL)
+        txt(s,date,x,2.31,1.86,.23,8,color,True)
+        txt(s,title,x,2.64,1.86,.42,9.2,NAVY,True)
+        txt(s,desc,x,3.13,1.86,.56,7.8,MUTED,valign=MSO_ANCHOR.TOP)
+    # Cartoon replaces an archival trader portrait; fitted without distortion.
+    rect(s,9.72,1.47,3.12,2.08,WHITE,GRID,.8)
+    add_img_fit(s,DALTONS,9.81,1.56,2.94,1.65)
+    txt(s,"ILLUSTRATIVE CARTOON",9.84,3.28,2.85,.17,6.8,MUTED,True,align=PP_ALIGN.RIGHT)
+    # timeline interpretation / source line
+    line(s,.68,4.12,12.68,4.12,GRID,.8)
+    txt(s,"TREASURY LENS",.72,4.39,1.55,.20,8,RED,True)
+    txt(s,"Discovery establishes the control event; it does not by itself identify the dated cash outflow or funding gap.",
+        2.42,4.34,9.94,.33,10,NAVY,True)
+    # Small date strip helps M1/M2 presenters anchor the 3-month horizon.
+    rect(s,.72,5.12,11.96,.88,PALE_AMBER)
+    txt(s,"DECISION WINDOW",.95,5.28,1.72,.20,7.8,GOLD,True)
+    txt(s,"14 September",2.72,5.25,2.05,.24,9,NAVY,True)
+    line(s,4.72,5.39,9.50,5.39,GOLD,2)
+    rect(s,4.62,5.29,.20,.20,GOLD,shape=MSO_SHAPE.OVAL)
+    rect(s,9.40,5.29,.20,.20,RED,shape=MSO_SHAPE.OVAL)
+    txt(s,"3-month Treasury response horizon",5.10,5.48,3.80,.18,7.2,MUTED,align=PP_ALIGN.CENTER)
+    txt(s,"14 December",9.78,5.25,1.96,.24,9,NAVY,True)
+    txt(s,"Sources: FINMA 2012; FSA 2012; UBS disclosures. Cartoon is illustrative, not an incident photograph.",
+        .72,6.53,11.95,.20,7,MUTED)
 
-    # 4 — Incident timeline with requested Dalton illustration, not a trader portrait.
-    s = prs.slides.add_slide(blank)
-    add_header(s, "INCIDENT TIMELINE",
-               "SECTION 1.2  ·  DISCOVERY, CONTAINMENT & FOLLOW-THROUGH", 4,
-               "FOUR PHASES FROM 14 SEPTEMBER 2011")
-    line(s, 0.78, 2.14, 9.32, 2.14, BORDER, 3)
-    events = [
-        (0.62, RED, "14 SEP 2011", "Discovery", "Unauthorised futures positions identified."),
-        (2.84, GOLD, "15 SEP 2011", "Public announcement", "Initial loss estimate communicated."),
-        (5.06, BLUE, "FOLLOWING DAYS", "Containment & hedging", "Positions managed; exposure reviewed."),
-        (7.28, TEAL, "FOLLOWING WEEKS", "Investigation & remediation", "Control failures examined."),
-    ]
-    for x, accent, date, title, desc in events:
-        center=x+0.95
-        rect(s, center-0.13, 2.01, 0.26, 0.26, accent, shape=MSO_SHAPE.OVAL)
-        rect(s, x, 2.50, 1.92, 1.57, PANEL, PANEL)
-        rect(s, x, 2.50, 1.92, 0.05, accent)
-        txt(s, date, x+0.12, 2.71, 1.68, 0.20, 7.8, accent, True)
-        txt(s, title, x+0.12, 3.00, 1.68, 0.33, 9.0, WHITE, True)
-        txt(s, desc, x+0.12, 3.43, 1.68, 0.48, 7.4, SOFT, valign=MSO_ANCHOR.TOP)
-    # Dalton illustration, fit without distortion.
-    rect(s, 9.72, 1.55, 3.12, 2.12, WHITE, BORDER)
-    add_img_fit(s, DALTONS, 9.82, 1.63, 2.92, 1.64)
-    txt(s, "ILLUSTRATIVE CARTOON", 9.84, 3.34, 2.87, 0.17,
-        7.0, MUTED, True, align=PP_ALIGN.RIGHT)
-    rect(s, 9.72, 4.02, 3.12, 0.91, PANEL, PANEL)
-    txt(s, "UBS INVESTMENT BANK · LONDON ETF DESK", 9.91, 4.19, 2.72, 0.32,
-        8.1, WHITE, True, align=PP_ALIGN.CENTER)
-    txt(s, "Public announcement and subsequent response are distinct milestones.",
-        0.66, 5.43, 8.75, 0.35, 9.0, NAVY, True)
-    txt(s, "Dates and descriptions follow the incident chronology in FINMA, FSA and UBS disclosures.",
-        0.66, 6.04, 8.75, 0.22, 7.3, MUTED)
-
-    # 5 — Bloomberg-style model cash bridge.
-    s = prs.slides.add_slide(blank)
-    add_header(s, "TREASURY LIQUIDITY EVOLUTION",
-               "SECTION 2.2  ·  CASH BRIDGE", 5,
-               "ILLUSTRATIVE SCENARIO PATHS · USDm · NOT UBS ACTUAL CASH")
-    # Dark Bloomberg-like plotting area.
-    px, py, pw, ph = 0.62, 1.40, 9.70, 5.45
-    rect(s, px, py, pw, ph, PANEL, PANEL)
-    txt(s, "CASH POSITION  /  USD MILLIONS", px+0.20, py+0.16, 4.4, 0.20,
-        8.2, WHITE, True)
-    # Chart domain and grid
-    left, right, top, bottom = px+0.72, px+9.40, py+0.75, py+4.70
-    vmin, vmax = 500, 1200
-    def ymap(v): return bottom - (v-vmin)/(vmax-vmin)*(bottom-top)
-    for v in range(500, 1201, 100):
-        yy=ymap(v)
-        line(s, left, yy, right, yy, GOLD if v==700 else GRID,
-             1.5 if v==700 else 0.55)
-        txt(s, str(v), px+0.10, yy-0.09, 0.48, 0.17, 6.9,
-            GOLD if v==700 else SOFT, v==700, align=PP_ALIGN.RIGHT)
-    txt(s, "BUFFER 700", right-1.03, ymap(700)-0.23, 0.98, 0.17,
-        6.8, GOLD, True, align=PP_ALIGN.RIGHT)
-    labels=["14 Sep","15","16","17","18","19","20","30 Sep","Oct","Nov","14 Dec"]
-    n=len(labels)
-    xs=[left+i*(right-left)/(n-1) for i in range(n)]
-    for i,lab in enumerate(labels):
-        txt(s, lab, xs[i]-0.31, bottom+0.10, 0.62, 0.18, 6.3, SOFT,
-            align=PP_ALIGN.CENTER)
-    series=[
-        ("NO INCIDENT", [1000,990,985,990,985,987,984,1004,1104,1054,1024], TEAL),
-        ("INCIDENT BASE", [1000,915,805,775,765,772,774,769,909,849,824], BLUE),
-        ("COMBINED STRESS", [1000,915,805,775,765,772,774,769,909,549,524], RED),
-    ]
-    for name,vals,color in series:
-        pts=[(xs[i],ymap(v)) for i,v in enumerate(vals)]
-        for (x1,y1),(x2,y2) in zip(pts,pts[1:]): line(s,x1,y1,x2,y2,color,2.0)
-        for x,ypt in pts:
-            rect(s,x-0.045,ypt-0.045,0.09,0.09,color,shape=MSO_SHAPE.OVAL)
-    # Legend
-    lx=px+0.80
-    for name, _, color in series:
-        line(s,lx,py+5.14,lx+0.28,py+5.14,color,2.2)
-        txt(s,name,lx+0.34,py+5.04,1.45,0.20,6.8,WHITE,True)
-        lx+=2.32
-    # Funding-gap annotation on final stress point.
-    xlast=xs[-1]
-    line(s,xlast+0.12,ymap(524),xlast+0.12,ymap(700),RED,1.7)
-    txt(s,"$176m\npeak gap",xlast-0.63,ymap(524)-0.55,0.70,0.44,7.0,RED,True,
-        align=PP_ALIGN.CENTER)
-
-    # Right-hand facts panel
-    rect(s, 10.55, 1.40, 2.30, 5.45, PANEL2, GRID)
-    rect(s, 10.55, 1.40, 2.30, 0.05, TEAL)
-    txt(s,"MODEL INPUTS",10.74,1.63,1.92,0.22,8.8,WHITE,True)
-    for i,(value,label,color) in enumerate([
-        ("$1,000m","opening cash*",TEAL),
-        ("$700m","minimum buffer*",GOLD),
-        ("$765m","incident-base low",BLUE),
-    ]):
-        yy=2.14+i*0.83
-        txt(s,value,10.74,yy,1.88,0.30,14,color,True)
-        txt(s,label,10.74,yy+0.32,1.88,0.20,7.3,SOFT)
-        if i<2: line(s,10.74,yy+0.66,12.64,yy+0.66,GRID,0.7)
-    line(s,10.74,4.72,12.64,4.72,GRID,0.7)
-    txt(s,"STRESS",10.74,4.92,1.88,0.18,7.7,RED,True)
-    txt(s,"$549m on 30 Nov\n$524m on 14 Dec",10.74,5.17,1.88,0.53,8.5,WHITE,True)
-    txt(s,"*Assumptions; replace with UBS Treasury ledger.",10.74,6.16,1.88,0.42,6.8,SOFT)
-    txt(s,"Base case stays above buffer; stress falls below it. Funding need is measured against the assumed $700m buffer.",
-        0.66,6.93,12.0,0.15,6.8,MUTED)
-
-    # 6 — Stress scenarios and delayed funding source.
-    s = prs.slides.add_slide(blank)
-    add_header(s, "STRESS TESTS: RED & AMBER CASH SHOCKS",
-               "SECTION 2.3  ·  COMBINED SENSITIVITY", 6,
-               "SCENARIOS ARE ILLUSTRATIVE · USDm · NOT HISTORICAL UBS OUTCOMES")
-    txt(s,"COMBINED STRESS INPUTS",0.64,1.29,4.0,0.22,8.8,MUTED,True)
-    shocks=[
-        (0.66,RED,"−100","Additional withdrawals"),
-        (3.12,GOLD,"−100","Collateral return delayed"),
-        (5.58,RED,"−50","Settlement accelerated"),
-        (8.04,GOLD,"−50","Funding rollover fails"),
-    ]
-    for x,color,value,label in shocks:
-        rect(s,x,1.67,2.18,1.08,PANEL,PANEL)
-        rect(s,x,1.67,2.18,0.05,color)
-        txt(s,value,x+0.16,1.91,0.80,0.35,18,color,True)
-        txt(s,label,x+0.94,1.89,1.08,0.48,8.4,WHITE,True)
-    # Simple waterfall of the combined hit, 849 -> 549.
-    rect(s,10.50,1.67,2.24,1.08,"F4E9D0",None)
-    txt(s,"−$300m",10.68,1.88,1.88,0.33,16,RED,True,align=PP_ALIGN.CENTER)
-    txt(s,"combined cash shock",10.68,2.25,1.88,0.20,7.6,NAVY,True,align=PP_ALIGN.CENTER)
-    # Bridge / outcome visualization
-    rect(s,0.66,3.17,7.85,2.55,PANEL,PANEL)
-    txt(s,"NOVEMBER CASH BRIDGE",0.88,3.35,4.0,0.21,8.5,WHITE,True)
-    bx0, bybase, charttop=1.12,5.28,3.95
-    lo,hi=450,900
-    def yb(v): return bybase-(v-lo)/(hi-lo)*(bybase-charttop)
-    for v in (500,600,700,800,900):
-        yy=yb(v)
-        line(s,bx0,yy,8.22,yy,GOLD if v==700 else GRID,1.25 if v==700 else 0.55)
-        if v==700: txt(s,"BUFFER $700m",6.94,yy-0.22,1.18,0.17,6.8,GOLD,True,align=PP_ALIGN.RIGHT)
-    points=[(1.55,849,"BASE\n$849m",TEAL),(3.04,799,"SETTLEMENT\n−$50m",RED),
-            (4.48,699,"COLLATERAL\n−$100m",GOLD),(5.92,599,"WITHDRAWALS\n−$100m",RED),
-            (7.30,549,"ROLLOVER\n−$50m",GOLD)]
-    for i,(x,val,label,color) in enumerate(points):
-        if i==0: top=yb(val); height=bybase-top
+    # 5 — Native editable PowerPoint line chart, same data as the Excel model.
+    s=prs.slides.add_slide(blank)
+    header(s,"TREASURY LIQUIDITY EVOLUTION","SECTION 2.2  ·  CASH BRIDGE",5,
+           "ILLUSTRATIVE MODEL · USDm · CASH PATHS ARE NOT HISTORICAL UBS TREASURY DATA")
+    txt(s,"Cash balance by scenario",.60,1.24,6.0,.24,10,NAVY,True)
+    cats=CategoryChartData(); cats.categories=DATES
+    cats.add_series("No incident",NO_INCIDENT)
+    cats.add_series("Incident base",INCIDENT_BASE)
+    cats.add_series("Combined stress",COMBINED_STRESS)
+    cats.add_series("Minimum buffer",[BUFFER]*len(DATES))
+    chart=s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.55), Inches(1.53),
+                             Inches(9.2), Inches(4.98), cats).chart
+    chart.has_title=False
+    chart.has_legend=True
+    chart.legend.position=XL_LEGEND_POSITION.BOTTOM
+    chart.legend.include_in_layout=False
+    chart.legend.font.name=FONT
+    chart.legend.font.size=Pt(8)
+    plot=chart.plots[0]
+    plot.has_data_labels=False
+    va=chart.value_axis
+    va.minimum_scale=500; va.maximum_scale=1200; va.major_unit=100
+    va.has_major_gridlines=True
+    va.tick_labels.font.name=FONT; va.tick_labels.font.size=Pt(8)
+    va.tick_labels.font.color.rgb=C(MUTED)
+    ca=chart.category_axis
+    ca.tick_labels.font.name=FONT; ca.tick_labels.font.size=Pt(8)
+    ca.tick_labels.font.color.rgb=C(MUTED)
+    ca.major_tick_mark=2
+    colors=[TEAL,BLUE,RED,GOLD]
+    for i,ser in enumerate(chart.series):
+        ser.format.line.color.rgb=C(colors[i])
+        ser.format.line.width=Pt(2 if i<3 else 1.4)
+        if i<3:
+            ser.marker.style=2
+            ser.marker.size=5
+            ser.marker.format.fill.solid(); ser.marker.format.fill.fore_color.rgb=C(colors[i])
+            ser.marker.format.line.color.rgb=C(colors[i])
         else:
-            prev=points[i-1][1]
-            top=yb(prev); height=yb(val)-yb(prev)
-        rect(s,x,top,0.70,max(0.08,height),color)
-        txt(s,label,x-0.26,bybase+0.12,1.25,0.36,6.7,WHITE,True,align=PP_ALIGN.CENTER)
-        if i<len(points)-1:
-            nextx=points[i+1][0]
-            line(s,x+0.71,yb(val),nextx,yb(val),SOFT,0.65)
-    # Delayed liquidity source timeline and result
-    rect(s,8.78,3.17,4.06,2.55,WHITE,BORDER)
-    txt(s,"LIQUIDITY SOURCE TIMING",9.02,3.38,3.58,0.22,9.0,NAVY,True)
-    txt(s,"Assumed $200m T+2 line",9.02,3.74,3.58,0.22,8.2,MUTED)
-    line(s,9.35,4.52,12.34,4.52,TEAL,2.5)
-    for x,date,caption,color in [(9.42,"25 NOV","Trigger",GOLD),(10.87,"29 NOV","Arrives",TEAL),(12.20,"30 NOV","First breach",RED)]:
-        rect(s,x-0.09,4.43,0.18,0.18,color,shape=MSO_SHAPE.OVAL)
-        txt(s,date,x-0.40,4.74,0.80,0.18,7.2,NAVY,True,align=PP_ALIGN.CENTER)
-        txt(s,caption,x-0.44,4.97,0.90,0.24,6.8,MUTED,align=PP_ALIGN.CENTER)
-    txt(s,"If source arrives late: $549m cash on 30 Nov, $151m below buffer; peak need $176m by 14 Dec.",
-        0.68,6.09,12.0,0.36,9.0,NAVY,True)
-    txt(s,"Facility availability and timing are assumptions. Test delayed liquidity arrival separately; do not count an unconfirmed source as cash.",
-        0.68,6.61,12.0,0.25,7.1,MUTED)
+            ser.marker.style=1
+            ser.format.line.dash_style=4
+    # Key results, in a compact analyst-style table rather than decorative cards.
+    rect(s,9.95,1.56,2.88,4.88,WHITE,GRID,.8)
+    rect(s,9.95,1.56,2.88,.055,RED)
+    txt(s,"KEY MODEL OUTPUTS",10.14,1.79,2.50,.22,8.4,NAVY,True)
+    rows=[("Opening cash*","$1,000m",TEAL),
+          ("Minimum buffer*","$700m",GOLD),
+          ("Incident-base minimum","$765m",BLUE),
+          ("First stress breach","30 Nov · $549m",RED),
+          ("Peak stress funding","$176m · 14 Dec",RED)]
+    for i,(label,value,color) in enumerate(rows):
+        yy=2.19+i*.69
+        txt(s,label,10.14,yy,1.50,.22,7.1,MUTED)
+        txt(s,value,11.56,yy-.02,1.10,.30,8.6,color,True,align=PP_ALIGN.RIGHT)
+        if i<4: line(s,10.14,yy+.42,12.64,yy+.42,GRID,.6)
+    txt(s,"*Teaching assumptions. Base case stays above the buffer; combined stress falls below it.",
+        10.14,5.82,2.48,.43,7.0,MUTED)
+    txt(s,"Formula: closing cash = opening + receipts − payments − settlement outflow + signed collateral movement − costs. Funding gap = max(0, buffer − cash before funding).",
+        .64,6.70,12.0,.28,7.0,MUTED)
 
-    # 7 — Risk matrix, all categories from report
-    s = prs.slides.add_slide(blank)
-    add_header(s, "RISK MATRIX: LIKELIHOOD × IMPACT",
-               "SECTION 3.1  ·  RESIDUAL EXPOSURE", 7,
-               "ILLUSTRATIVE ANALYST SCORES · REASSESS AFTER CONTAINMENT")
-    mx,my,cell=1.15,1.80,1.30
-    # rows top to bottom: likely, possible, unlikely; columns low, medium, high impact.
-    fill_rows=[["F1DCDD","F2D1C5","E8B8BC"],
-               ["F1E9CB","EADBAB","E8C7A3"],
-               ["E4EEE4","ECEDDB","F1E6D0"]]
-    for row in range(3):
-        for col in range(3):
-            rect(s,mx+col*cell,my+row*cell,cell-0.04,cell-0.04,fill_rows[row][col],WHITE,1)
-            score=(3-row)*(col+1)
-            txt(s,str(score),mx+col*cell+0.06,my+row*cell+0.04,0.20,0.16,6.8,MUTED)
-    for row,label in enumerate(["LIKELY","POSSIBLE","UNLIKELY"]):
-        txt(s,label,0.28,my+row*cell+0.47,0.78,0.20,7.0,NAVY,True,align=PP_ALIGN.RIGHT)
-    for col,label in enumerate(["LOW","MEDIUM","HIGH"]):
-        txt(s,label,mx+col*cell,my+3*cell+0.03,cell-0.04,0.18,7.1,NAVY,True,align=PP_ALIGN.CENTER)
-    txt(s,"LIKELIHOOD",0.22,1.49,1.0,0.18,7.0,MUTED,True,align=PP_ALIGN.RIGHT)
-    txt(s,"IMPACT",mx+0.86,my+3*cell+0.28,1.48,0.18,7.2,MUTED,True,align=PP_ALIGN.CENTER)
-    # Compact colored markers by score cell.
-    markers=[
-        (2,3,"O",RED), (2,3,"L",BLUE), (2,2,"M",GOLD),
-        (2,2,"C",TEAL), (2,3,"F",RED), (1,2,"R",GREEN), (2,2,"G",GOLD),
+    # 6 — A transparent stress table and funding-arrival test.
+    s=prs.slides.add_slide(blank)
+    header(s,"STRESS TESTS","SECTION 2.3  ·  CASH SHOCKS & FUNDING TIMING",6,
+           "COMBINED SCENARIO INPUTS ARE ASSUMPTIONS, NOT HISTORICAL OUTCOMES")
+    txt(s,"Combined shock to November incident-base cash",.62,1.22,7.2,.22,10,NAVY,True)
+    # Spreadsheet-like data table
+    x0,y0= .62,1.63
+    widths=[3.05,1.42,4.38]
+    headers=["Stress input","Cash impact\n(USDm)","What changes in the scenario"]
+    xx=x0
+    for i,(head,wid) in enumerate(zip(headers,widths)):
+        rect(s,xx,y0,wid,.55,NAVY,NAVY)
+        txt(s,head,xx+.10,y0+.07,wid-.20,.40,8.0,WHITE,True,
+            align=PP_ALIGN.RIGHT if i==1 else PP_ALIGN.LEFT)
+        xx+=wid
+    stress_rows=[
+        ("Settlement accelerated / increased",-50,"More cash is due on 30 Nov."),
+        ("Collateral return delayed",-100,"Expected return shifts beyond the horizon."),
+        ("Additional withdrawals",-100,"Incremental customer outflow on 30 Nov."),
+        ("Funding rollover not renewed",-50,"A maturing source is unavailable."),
     ]
-    # use cell map: likelihood 3 top, 2 middle, 1 bottom; impact 1..3 left-right
-    offsets={ (2,3):[(-0.28,-0.12),(0.0,-0.12),(0.28,-0.12)],
-              (2,2):[(-0.27,0.18),(0,0.18),(0.27,0.18)],
-              (1,2):[(0,0)] }
-    taken={}
-    for likelihood,impact,letter,color in markers:
-        row=3-likelihood; col=impact-1
-        cx=mx+col*cell+0.63; cy=my+row*cell+0.63
-        key=(likelihood,impact); idx=taken.get(key,0); taken[key]=idx+1
-        dx,dy=offsets[key][idx]
-        rect(s,cx+dx-0.13,cy+dy-0.13,0.26,0.26,color,shape=MSO_SHAPE.OVAL)
-        txt(s,letter,cx+dx-0.13,cy+dy-0.09,0.26,0.16,7.0,WHITE,True,align=PP_ALIGN.CENTER)
-    # Risk legend / priorities
-    rect(s,5.62,1.55,7.20,4.98,PANEL,PANEL)
-    rect(s,5.62,1.55,7.20,0.05,RED)
-    txt(s,"RISK REGISTER",5.87,1.78,3.0,0.22,10,WHITE,True)
-    txt(s,"Likelihood × impact = score",9.10,1.80,3.43,0.18,7.8,SOFT,align=PP_ALIGN.RIGHT)
-    items=[
-        ("O","Operational","2 × 3 = 6",RED),
-        ("L","Liquidity","2 × 3 = 6",BLUE),
-        ("M","Market","2 × 2 = 4",GOLD),
-        ("C","Counterparty","2 × 2 = 4",TEAL),
-        ("F","Funding","2 × 3 = 6",RED),
-        ("R","Reputational","1 × 2 = 2",GREEN),
-        ("G","Legal / regulatory","2 × 2 = 4",GOLD),
-    ]
-    for i,(code,name,score,color) in enumerate(items):
-        col=i//4; row=i%4
-        x=5.88+col*3.33; y=2.24+row*0.72
-        rect(s,x,y,0.32,0.32,color,shape=MSO_SHAPE.OVAL)
-        txt(s,code,x,y+0.05,0.32,0.19,7.8,WHITE,True,align=PP_ALIGN.CENTER)
-        txt(s,name,x+0.45,y,1.90,0.22,8.4,WHITE,True)
-        txt(s,score,x+2.17,y,0.84,0.22,7.9,color,True,align=PP_ALIGN.RIGHT)
-    line(s,5.88,5.28,12.54,5.28,GRID,0.8)
-    txt(s,"TOP PRIORITIES",5.88,5.48,1.55,0.19,7.6,TEAL,True)
-    txt(s,"O  ·  L  ·  F",7.50,5.43,1.70,0.27,10,WHITE,True)
-    txt(s,"Operational control · buffer breach · funding rollover",9.08,5.47,3.39,0.25,7.6,SOFT)
-    txt(s,"Scores are analyst assumptions, not UBS / regulator ratings; calibrate against approved Treasury buffer and reconciled positions.",
-        0.64,6.78,12.0,0.20,7.0,MUTED)
+    for r,row in enumerate(stress_rows):
+        yy=y0+.55+r*.58
+        fill=WHITE if r%2==0 else "F0F2EF"
+        xx=x0
+        for i,(val,wid) in enumerate(zip(row,widths)):
+            rect(s,xx,yy,wid,.58,fill,GRID,.55)
+            txt(s,f"{val:,}" if i==1 else str(val),xx+.10,yy+.08,wid-.20,.40,
+                8.2,RED if i==1 else NAVY,i==1,align=PP_ALIGN.RIGHT if i==1 else PP_ALIGN.LEFT)
+            xx+=wid
+    yy=y0+.55+4*.58
+    xx=x0
+    total=["TOTAL CASH SHOCK",-300,"Applied to assumed November incident-base close of $849m → $549m." ]
+    for i,(val,wid) in enumerate(zip(total,widths)):
+        rect(s,xx,yy,wid,.58,PALE_RED,GRID,.55)
+        txt(s,f"{val:,}" if i==1 else str(val),xx+.10,yy+.08,wid-.20,.40,
+            8.5,RED,True,align=PP_ALIGN.RIGHT if i==1 else PP_ALIGN.LEFT)
+        xx+=wid
+    # Funding timing table / chronology
+    rect(s,10.05,1.63,2.76,3.45,PALE_AMBER,GRID,.8)
+    txt(s,"LIQUIDITY SOURCE TEST",10.23,1.84,2.40,.27,8.5,NAVY,True)
+    txt(s,"Assumed line",10.23,2.31,1.10,.18,7.2,MUTED)
+    txt(s,"$200m · T+2",11.27,2.29,1.20,.22,8.3,NAVY,True,align=PP_ALIGN.RIGHT)
+    line(s,10.23,2.62,12.62,2.62,GRID,.7)
+    for i,(date,meaning,color) in enumerate([("25 Nov","Trigger",GOLD),("29 Nov","Illustrative arrival",TEAL),("30 Nov","First buffer breach",RED)]):
+        yy=2.85+i*.58
+        rect(s,10.26,yy+.05,.18,.18,color,shape=MSO_SHAPE.OVAL)
+        txt(s,date,10.57,yy, .82,.23,8,NAVY,True)
+        txt(s,meaning,11.39,yy,1.20,.25,7.1,MUTED,align=PP_ALIGN.RIGHT)
+    txt(s,"Late arrival cannot prevent the first shortfall.",10.23,4.65,2.40,.27,7.5,RED,True)
+    # Output strip
+    line(s,.62,5.47,12.81,5.47,GRID,.8)
+    outputs=[("30 NOV","$549m cash","$151m below buffer",RED),
+             ("14 DEC","$524m cash","$176m peak need",RED),
+             ("MITIGATION","Trigger by 25 Nov","Verify source / collateral",TEAL)]
+    for i,(date,value,note,color) in enumerate(outputs):
+        x=.70+i*4.12
+        txt(s,date,x,5.70,1.25,.18,7.4,color,True)
+        txt(s,value,x,5.98,2.20,.28,11,NAVY,True)
+        txt(s,note,x+2.10,5.99,1.84,.28,7.2,MUTED,align=PP_ALIGN.RIGHT)
+        if i<2: line(s,x+3.82,5.70,x+3.82,6.43,GRID,.7)
+    txt(s,"Assumed facility timing and stress inputs must be validated. A delayed funding source is tested as a timing failure, not counted as cash.",
+        .64,6.70,12.0,.24,7.0,MUTED)
 
-    # 8 — CFO action plan
-    s = prs.slides.add_slide(blank)
-    add_header(s, "CFO ACTION PLAN: THREE PILLARS",
-               "SECTION 3.2  ·  OWNERS, DEADLINES & BENEFITS", 8,
-               "PRESERVE PAYMENT CAPACITY · GATE FUNDING ON EVIDENCE")
+    # 7 — Risk matrix in conventional likelihood / impact orientation.
+    s=prs.slides.add_slide(blank)
+    header(s,"RISK MATRIX","SECTION 3.1  ·  LIKELIHOOD × IMPACT",7,
+           "RESIDUAL RATINGS ARE ANALYST JUDGEMENTS FOR THE THREE-MONTH HORIZON")
+    mx,my,cell=.98,1.72,1.34
+    # high likelihood at top; high impact at right.
+    fills=[["F7E4E3","F3D7D1","EDC4C4"],
+           ["F5EDDA","EFE2BC","E9D3B0"],
+           ["E5EEE6","E9EDDF","F3E9D2"]]
+    for r in range(3):
+        for c in range(3):
+            rect(s,mx+c*cell,my+r*cell,cell-.04,cell-.04,fills[r][c],WHITE,1.0)
+            score=(3-r)*(c+1)
+            txt(s,str(score),mx+c*cell+.07,my+r*cell+.05,.18,.15,6.8,MUTED)
+    for r,label in enumerate(["LIKELY","POSSIBLE","UNLIKELY"]):
+        txt(s,label,.16,my+r*cell+.48,.73,.20,7.1,NAVY,True,align=PP_ALIGN.RIGHT)
+    for c,label in enumerate(["LOW","MEDIUM","HIGH"]):
+        txt(s,label,mx+c*cell,my+3*cell+.02,cell-.04,.19,7.0,NAVY,True,align=PP_ALIGN.CENTER)
+    txt(s,"LIKELIHOOD",.18,1.43,.72,.18,6.8,MUTED,True,align=PP_ALIGN.RIGHT)
+    txt(s,"IMPACT",mx+.91,my+3*cell+.28,1.20,.18,7.0,MUTED,True,align=PP_ALIGN.CENTER)
+    # risk markers, codes match the editable register to the right
+    markers=[(2,3,"O",RED),(2,3,"L",BLUE),(2,3,"F",RED),
+             (2,2,"M",GOLD),(2,2,"C",TEAL),(2,2,"G",GOLD),(1,2,"R",GREEN)]
+    seen={}
+    offsets={(2,3):[(-.27,-.18),(0,-.18),(.27,-.18)],
+             (2,2):[(-.27,.17),(0,.17),(.27,.17)],(1,2):[(0,0)]}
+    for lik,impact,code,color in markers:
+        r=3-lik;c=impact-1;key=(lik,impact)
+        dx,dy=offsets[key][seen.get(key,0)];seen[key]=seen.get(key,0)+1
+        cx=mx+c*cell+.65+dx;cy=my+r*cell+.65+dy
+        rect(s,cx-.12,cy-.12,.24,.24,color,shape=MSO_SHAPE.OVAL)
+        txt(s,code,cx-.12,cy-.08,.24,.15,6.5,WHITE,True,align=PP_ALIGN.CENTER)
+    # Excel-like risk register table
+    tx,ty=5.35,1.62
+    colw=[1.80,.83,.75,.78,3.25]
+    heads=["Risk","Likelihood","Impact","Score","Why it matters"]
+    xx=tx
+    for h,wid in zip(heads,colw):
+        rect(s,xx,ty,wid,.47,NAVY,NAVY)
+        txt(s,h,xx+.08,ty+.06,wid-.16,.34,7.4,WHITE,True,
+            align=PP_ALIGN.CENTER if h!="Why it matters" else PP_ALIGN.LEFT)
+        xx+=wid
+    riskrows=[("Operational","2","3","6","Open breaks can hide positions."),
+              ("Liquidity","2","3","6","Settlement / collateral vs buffer."),
+              ("Market","2","2","4","Adverse move before close-out."),
+              ("Counterparty","2","2","4","Delayed collateral / receivable."),
+              ("Funding","2","3","6","Maturity may not roll."),
+              ("Reputational","1","2","2","Outflows or tighter terms."),
+              ("Legal / regulatory","2","2","4","Investigation / remediation." )]
+    for r,row in enumerate(riskrows):
+        yy=ty+.47+r*.48;xx=tx
+        for j,(val,wid) in enumerate(zip(row,colw)):
+            fill=WHITE if r%2==0 else "F0F2EF"
+            rect(s,xx,yy,wid,.48,fill,GRID,.5)
+            color=RED if j==3 and int(val)>=6 else NAVY
+            txt(s,val,xx+.08,yy+.06,wid-.16,.34,7.4,color,j==3,
+                align=PP_ALIGN.CENTER if j in (1,2,3) else PP_ALIGN.LEFT)
+            xx+=wid
+    txt(s,"Priorities: operational control, liquidity-buffer breach and funding rollover. Re-score after close-out.",
+        5.57,5.68,7.0,.28,8.0,RED,True)
+    txt(s,"Illustrative ratings, not UBS / regulator scores. L=likelihood; I=impact; score=L×I. Define impact using the approved buffer; the 25% threshold is proposed, not UBS policy.",
+        .62,6.61,12.0,.32,7.0,MUTED)
+
+    # 8 — CFO action plan as a compact decision table, not a card stack.
+    s=prs.slides.add_slide(blank)
+    header(s,"CFO ACTION PLAN","SECTION 3.2  ·  THREE PILLARS",8,
+           "OWNERS · DEADLINES · EXPECTED BENEFITS · PRACTICAL FALLBACKS")
+    txt(s,"Decision rule: preserve payment capacity; activate funding before a verified forecast shows a buffer breach.",
+        .64,1.20,12.0,.28,10,NAVY,True)
+    x0,y0=.62,1.72
+    widths=[2.00,2.00,1.55,3.60,2.85]
+    heads=["PILLAR","ACCOUNTABLE OWNER","DEADLINE","DELIVERABLE / BENEFIT","CONSTRAINT / FALLBACK"]
+    xx=x0
+    for title,wid in zip(heads,widths):
+        rect(s,xx,y0,wid,.56,NAVY,NAVY)
+        txt(s,title,xx+.10,y0+.08,wid-.20,.40,7.4,WHITE,True)
+        xx+=wid
     actions=[
-        (0.62,TEAL,"01","IMMEDIATE LIQUIDITY\nPROTECTION","Group Treasurer",
-         "Initial view: 24h\nDaily to 14 Dec",
-         "Verified headroom; staged funding before a modeled breach.",
-         "Check facility access, collateral eligibility and T+2 arrival."),
-        (4.66,RED,"02","EXPOSURE\nCONTAINMENT","IB COO + Market Risk + Treasury",
-         "Start now\nDaily until reconciled",
-         "Bound open positions; settle and collateral breaks independently.",
-         "Close-out cost and cash release only when confirmed."),
-        (8.70,GOLD,"03","GOVERNANCE &\nCONTROLS","CRO + IB COO\nInternal Audit validates",
-         "Interim controls now\nProgramme by 14 Dec",
-         "Dual verification; timely exception escalation; clear ownership.",
-         "Manual dual sign-off until systems are remediated."),
+        ("01 · Liquidity\nprotection","Group Treasurer","Initial view\nwithin 24h","Dated 13-week cash forecast; verify accessible headroom and stage funding ahead of breach.","Confirm availability, collateral eligibility, lead time and cost; use only verified fallback."),
+        ("02 · Exposure\ncontainment","IB COO + Market Risk\n+ Treasury","Immediate; daily\nuntil reconciled","Independent position match; resolve settlement and collateral breaks. Benefit: bound uncertainty.","Close-out cost / cash release only when confirmed; keep conservative overlay until then."),
+        ("03 · Governance\n& controls","CRO + IB COO;\nInternal Audit validates","Interim now;\nprogramme by 14 Dec","Dual verification, named break ownership and escalation. Benefit: detect exceptions earlier.","Manual dual sign-off until system controls and access are remediated."),
     ]
-    for x,color,num,title,owner,deadline,benefit,fallback in actions:
-        rect(s,x,1.54,3.76,4.78,PANEL,PANEL)
-        rect(s,x,1.54,3.76,0.06,color)
-        rect(s,x+0.20,1.83,0.58,0.58,color,shape=MSO_SHAPE.OVAL)
-        txt(s,num,x+0.20,1.99,0.58,0.22,10,WHITE,True,align=PP_ALIGN.CENTER)
-        txt(s,title,x+0.95,1.81,2.54,0.66,10.6,WHITE,True)
-        txt(s,"OWNER",x+0.22,2.77,3.25,0.17,7.1,color,True)
-        txt(s,owner,x+0.22,2.99,3.28,0.42,8.5,WHITE,True)
-        txt(s,"DEADLINE",x+0.22,3.56,3.25,0.17,7.1,color,True)
-        txt(s,deadline,x+0.22,3.78,3.28,0.40,8.0,SOFT,True)
-        line(s,x+0.22,4.32,x+3.52,4.32,GRID,0.8)
-        txt(s,"EXPECTED BENEFIT",x+0.22,4.48,3.25,0.17,7.1,color,True)
-        txt(s,benefit,x+0.22,4.70,3.28,0.63,8.2,WHITE,True,valign=MSO_ANCHOR.TOP)
-        txt(s,"CONSTRAINT / FALLBACK",x+0.22,5.47,3.25,0.17,7.0,SOFT,True)
-        txt(s,fallback,x+0.22,5.68,3.28,0.45,7.3,SOFT,valign=MSO_ANCHOR.TOP)
-    rect(s,0.62,6.55,11.84,0.42,"E8ECE8",None)
-    txt(s,"DECISION: protect cash capacity, verify every exposure and count funding only when its arrival is confirmed.",
-        0.83,6.64,11.42,0.22,9.0,NAVY,True,align=PP_ALIGN.CENTER)
+    heights=[1.15,1.15,1.15]
+    yy=y0+.56
+    for r,row in enumerate(actions):
+        hh=heights[r];xx=x0;fill=WHITE if r%2==0 else "F0F2EF"
+        for j,(value,wid) in enumerate(zip(row,widths)):
+            rect(s,xx,yy,wid,hh,fill,GRID,.65)
+            color=[RED,BLUE,TEAL][r] if j==0 else NAVY
+            txt(s,value,xx+.11,yy+.10,wid-.22,hh-.20,7.7 if j else 8.1,color,j==0,
+                valign=MSO_ANCHOR.TOP)
+            xx+=wid
+        yy+=hh
+    # 3-step monitoring strip for presenters
+    txt(s,"MONITOR",.65,6.10,1.05,.20,7.5,RED,True)
+    checks=[("Accessible cash vs buffer",1.92), ("Unmatched trades / collateral",5.42), ("Funding arrival confirmed",9.15)]
+    for label,x in checks:
+        rect(s,x,6.02,.16,.16,TEAL,shape=MSO_SHAPE.OVAL)
+        txt(s,label,x+.25,5.97,2.92,.26,7.3,NAVY,True)
+    txt(s,"Use internal Treasury records for real balances; public sources do not establish UBS’s actual daily funding gap.",
+        .64,6.55,12.0,.25,7.0,MUTED)
 
-    prs.core_properties.title = "UBS 2011 Rogue Trading — Treasury Response"
-    prs.core_properties.subject = "Eight-slide presentation aligned to report sections"
-    prs.core_properties.author = "Corporate Treasury Management Team"
-    prs.save(OUT)
-    return OUT
+    prs.core_properties.title="UBS 2011 Rogue Trading · Treasury Response"
+    prs.core_properties.subject="Eight-slide, report-aligned UBS Treasury presentation; Excel/Python-style model outputs"
+    prs.core_properties.author="Corporate Treasury Management Team"
+    prs.save(PPTX_OUT)
+    return PPTX_OUT
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
+    build_model_workbook()
     print(make_deck())
+    print(XLSX_OUT)
