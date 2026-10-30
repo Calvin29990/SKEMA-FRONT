@@ -6,7 +6,7 @@
 
 ## What the slide says
 
-UBS uses a black hub patch / figure with its red-and-black logo; Société Générale uses red, JPMorgan and Credit Suisse use blue, and Barings uses a restrained heritage-gold wordmark. This is a selected context set, not a comprehensive league table. UBS sits among the largest documented unauthorized-trading losses at a major European bank in this comparison, but it is not the largest event shown by dollar value.
+This is a selected context set, not a comprehensive league table. The UK, France and Switzerland are highlighted; other countries remain grey. Each institution has a distinct event badge colour, with UBS in red, and a logo/value label placed directly on the map. Circle area is proportional to the approximate USD-equivalent headline loss; displayed figures remain in their reported currencies. UBS is among the most significant events shown, but not the largest by nominal USD-equivalent value.
 
 The examples are all major bank trading / positions-unwind loss events, but their causes and accounting bases are not identical: UBS, Société Générale and Barings involved unauthorized or concealed trading; JPMorgan's London Whale was a synthetic-credit portfolio loss; Credit Suisse's Archegos loss was a prime-brokerage counterparty exposure. The slide does not imply those causal mechanisms are equivalent.
 
@@ -26,7 +26,7 @@ The examples are all major bank trading / positions-unwind loss events, but thei
    An accessible USD-equivalent summary: https://www.investopedia.com/ask/answers/08/nick-leeson-barings-bank.asp
 ## Identity marks
 
-Institution logos appear for identification and use their brand colours on the map patches / labels / values. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom text wordmark—not the contemporary Barings asset-management logo. Brand marks remain their owners' trademarks.
+Institution logos appear for identification. Event-specific badge and value colours are deliberately distinct, while the logos retain the banks' visual identities. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom text wordmark—not the contemporary Barings asset-management logo. Brand marks remain their owners' trademarks.
 
 - Credit Suisse logo: https://commons.wikimedia.org/wiki/File:Credit_Suisse_Logo.svg
 - Société Générale logo: https://commons.wikimedia.org/wiki/File:Logo-SG-Soci%C3%A9t%C3%A9-G%C3%A9n%C3%A9rale.svg
@@ -35,12 +35,13 @@ Institution logos appear for identification and use their brand colours on the m
 
 ## Map fills and value encoding
 
-- As requested, the previous proportional circles have been removed. Losses are written directly beside the bank marks and in the right-hand panel; no circle size or common-currency scale encodes magnitude.
+- The United Kingdom, France and Switzerland are the only highlighted territories; all other European countries are grey. Country fills are schematic geographic emphasis, not administrative or bank-ownership boundaries.
+- Distinct event colours identify the institutions: UBS red, Credit Suisse teal, JPMorgan blue, Société Générale plum and Barings heritage gold. Logos and reported amounts are placed on the map; no side panel or leader lines are used.
+- Badge-circle area is proportional to approximate USD-equivalent loss using `r = 50 × sqrt(loss / 7.18)`, where `loss` is in USD billions and 7.18bn is the largest sizing value. For Société Générale, EUR 4.9bn is converted only for sizing at the ECB reference rate of USD 1.4663 per EUR on 24 January 2008. The visible value remains EUR 4.9bn. This is a graphic comparison, not an inflation-adjusted one.
 - Amounts remain in the reported display currency: USD for UBS, Credit Suisse, JPMorgan and Barings; EUR for Société Générale. Barings’ USD 1.4bn is approximate; the official inquiry reports GBP 827m cumulative losses and GBP 927m including close-out costs.
-- Only local headquarters / metro patches are coloured: JPMorgan-blue and Barings-gold patches around London; Société Générale-red Île-de-France / Paris; and adjacent Zurich hub patches in UBS black and Credit Suisse blue. The rest of the UK, France, Switzerland and neighboring territory stays neutral grey. These small hub patches are schematic graphic markers, not administrative or bank-ownership boundaries.
-- Map locations indicate institution / hub locations, not necessarily the precise source of the loss: UBS incident desk—London; UBS and Credit Suisse—Zurich; Société Générale—Paris; JPMorgan London Whale—London; Barings HQ—London, while Leeson traded in Singapore. Duplicate London / Zurich callout cards are offset for legibility but are not moved to a different city.
+- The map locates institutions / hubs, not necessarily the precise source of loss: UBS incident desk—London; UBS and Credit Suisse—Zurich; Société Générale—Paris; JPMorgan London Whale—London; Barings HQ—London, while Leeson traded in Singapore. Badge offsets in the shared UK and Swiss hubs are only to avoid overlap; the footer clarifies institutional bases and activity locations.
 - No event loss is inflation-adjusted; the slide compares nominal headline impacts across years, not present-value purchasing power.
 
-## Treasury takeaway
+## Executive takeaway
 
-“Delta One control failure: capital headroom, funding confidence and liquidity readiness” is framed as a **Treasury lens**, not as a claim that UBS suffered a liquidity crisis. FINMA's report supports the control-failure and capital-measure context; UBS's 2011 reporting describes a material loss and its capital impact. The concise takeaway highlights preparedness and resilience.
+The requested conclusion is reproduced verbatim on the slide: “UBS's USD 2.3bn trading loss ranks among the most significant banking trading-loss events in Europe and illustrates how control failures can rapidly escalate into material financial and liquidity-management consequences.” This is framed as a lesson about control and consequence, not as a claim that UBS suffered a liquidity crisis.

@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+from math import sqrt
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT=Path(__file__).resolve().parent
@@ -7,9 +8,10 @@ ASSETS=ROOT/'assets'
 OUT=ROOT/'ubs-event-context-map.png'
 W,H=1600,900
 PAPER='#F7F7F4'; INK='#24323B'; MUTED='#68757C'; RULE='#C8CDCE'
+MAP_WATER='#FBFBF8'; MAP_LAND='#E2E4DE'; MAP_COAST='#BFC7C0'; WHITE='#FFFFFF'
 PANEL='#101519'; PANEL_RULE='#303A40'
-MAP_WATER='#F8F9F6'; MAP_LAND='#E9EDE6'; MAP_COAST='#BFC9C1'
-UBS_RED='#D71935'; UBS_BLACK='#17191C'; CS_BLUE='#2B628E'; JPM_BLUE='#287BAE'; SG_RED='#B5213D'; BARINGS_GOLD='#B19347'; WHITE='#FFFFFF'
+UBS_RED='#D71935'; CS_TEAL='#258675'; JPM_BLUE='#2476A8'; SG_PLUM='#8D3D68'; BARINGS_GOLD='#A9842E'
+UK_FILL='#BDD7E6'; FR_FILL='#E6C1C8'; CH_FILL='#BCD0E1'
 FONT='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 BOLD='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 SERIF='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf'
@@ -23,7 +25,7 @@ def text(x,y,s,size=16,color=INK,b=False,anchor=None,mono=False,serif=False):
     d.text((x,y),s,font=f(size,b,mono,serif),fill=color,anchor=anchor)
 def line(x1,y1,x2,y2,color=RULE,width=1):d.line((x1,y1,x2,y2),fill=color,width=width)
 def rect(box,fill,outline=None,width=1):d.rectangle(box,fill=fill,outline=outline,width=width)
-def rounded(box,fill,outline=None,width=1,radius=5):d.rounded_rectangle(box,radius=radius,fill=fill,outline=outline,width=width)
+def rounded(box,fill,outline=None,width=1,radius=6):d.rounded_rectangle(box,radius=radius,fill=fill,outline=outline,width=width)
 def crop_logo(path,remove_white=False):
     im=(path.copy() if isinstance(path,Image.Image) else Image.open(path)).convert('RGBA');p=im.load()
     if remove_white:
@@ -38,15 +40,15 @@ def fit(im,maxw,maxh):
     return im.resize((max(1,round(im.width*ratio)),max(1,round(im.height*ratio))),Image.Resampling.LANCZOS)
 
 im=Image.new('RGB',(W,H),PAPER);d=ImageDraw.Draw(im)
-# Established UBS header identity.
+# UBS header identity, matching the established executive presentation.
 mark=crop_logo(ASSETS/'ubs-logo.png',True);mark.thumbnail((188,66),Image.Resampling.LANCZOS);im.paste(mark,(48,23),mark)
 sk=Image.open(ASSETS/'skema-logo.png').convert('RGBA');sk.thumbnail((74,74),Image.Resampling.LANCZOS);im.paste(sk,(1475,18),sk)
-text(270,27,'WHY THE UBS EVENT MATTERS',28,INK,True)
-text(270,68,'Contextualising the 2011 UBS trading loss within European banking incidents',14,UBS_RED,True)
-text(270,98,'Treasury risk context  /  selected loss events',11,MUTED)
+text(270,27,'MAJOR EUROPEAN TRADING LOSS EVENTS',27,INK,True)
+text(270,68,'Selected benchmark trading-loss events relevant to the UBS 2011 case',14,UBS_RED,True)
+text(270,98,'European banking  /  nominal headline impacts',11,MUTED)
 line(48,133,1552,133,RULE,2)
 
-# Identity marks. Barings Bank historically used a crest; this is a custom period-neutral wordmark.
+# Bank marks. Barings Bank historically used a heraldic crest; retain a period-neutral wordmark.
 logos={
  'CS':crop_logo(ASSETS/'credit-suisse-logo.png'),
  'JPM':crop_logo(ASSETS/'jpmorgan-chase-logo.png'),
@@ -56,18 +58,14 @@ logos={
 barings=Image.new('RGBA',(460,100),(255,255,255,0));bd=ImageDraw.Draw(barings)
 bd.text((8,3),'BARINGS',font=f(68,True,serif=True),fill=BARINGS_GOLD)
 logos['BARINGS']=crop_logo(barings)
-brand={'CS':CS_BLUE,'JPM':JPM_BLUE,'SG':SG_RED,'UBS':UBS_BLACK,'BARINGS':BARINGS_GOLD}
-panel_brand={'CS':'#7BB9DE','JPM':'#76B7E0','SG':'#FF7185','UBS':UBS_BLACK,'BARINGS':'#D5B86D'}
+brand={'CS':CS_TEAL,'JPM':JPM_BLUE,'SG':SG_PLUM,'UBS':UBS_RED,'BARINGS':BARINGS_GOLD}
 
-# Map panel; retain the UBS European outline and zoom on London, Paris and Zurich.
-mx,my,mw,mh=50,155,940,540
-rect((mx,my,mx+mw,my+mh),MAP_WATER,'#D2DAD4',1)
+# Stylized western-Europe map: relevant countries in colour, all other countries grey.
+mx,my,mw,mh=150,145,1300,650
+rect((mx,my,mx+mw,my+mh),MAP_WATER)
 map_base=im.copy()
-lon0,lon1=-7.0,13.5;lat0,lat1=42.0,55.5
+lon0,lon1=-12.0,20.0;lat0,lat1=42.0,58.0
 def xy(lon,lat):return (mx+(lon-lon0)/(lon1-lon0)*mw,my+(lat1-lat)/(lat1-lat0)*mh)
-# Gentle grid and contextual land, so the map is not left blank.
-for lon in [-5,0,5,10,15]:line(xy(lon,50)[0],my,xy(lon,50)[0],my+mh,'#E5EAE4',1)
-for lat in [45,50,55]:line(mx,xy(0,lat)[1],mx+mw,xy(0,lat)[1],'#E5EAE4',1)
 with open(ASSETS/'natural-earth-50m-western-europe-context.geojson',encoding='utf-8') as fp:geo=json.load(fp)
 geometries={feature['properties']['name']:feature['geometry'] for feature in geo['features']}
 def draw_country(name,fill,stroke=MAP_COAST,width=1):
@@ -78,112 +76,77 @@ def draw_country(name,fill,stroke=MAP_COAST,width=1):
         pts=[xy(lon,lat) for lon,lat in ring]
         d.polygon(pts,fill=fill)
         d.line(pts+[pts[0]],fill=stroke,width=width,joint='curve')
-for name in ['Portugal','Spain','Ireland','Belgium','Netherlands','Germany','Denmark','Czechia','Slovakia','Slovenia','Poland','Hungary','Italy','Austria','Luxembourg','United Kingdom','France','Switzerland']:
+# Paint context first. Only UK, France and Switzerland receive event-territory fills.
+for name in ['Portugal','Spain','Ireland','Belgium','Netherlands','Germany','Denmark','Czechia','Slovakia','Slovenia','Poland','Hungary','Italy','Austria','Luxembourg']:
     if name in geometries:draw_country(name,MAP_LAND,MAP_COAST,1)
-# Only headquarters / metropolitan hubs receive colour; all surrounding territory stays grey.
-def geo_patch(points,fill,outline=WHITE,width=2):
-    pts=[xy(lon,lat) for lon,lat in points]
-    d.polygon(pts,fill=fill)
-    d.line(pts+[pts[0]],fill=outline,width=width,joint='curve')
-# Greater London: two adjacent, schematic bank-hub tiles to separate JPMorgan and Barings.
-geo_patch([(-0.58,51.28),(-0.48,51.63),(-0.20,51.82),(0.18,51.79),(0.43,51.57),(0.25,51.30),(-0.10,51.22)],JPM_BLUE)
-geo_patch([(0.21,51.30),(0.43,51.57),(0.64,51.75),(0.91,51.68),(1.00,51.43),(0.74,51.25),(0.45,51.22)],BARINGS_GOLD)
-# Paris and the Île-de-France metropolitan region only; the rest of France remains neutral.
-geo_patch([(1.38,48.36),(1.53,48.02),(1.96,47.91),(2.35,48.03),(2.82,47.98),(3.30,48.22),(3.59,48.56),(3.57,48.92),(3.30,49.20),(2.88,49.31),(2.48,49.18),(2.08,49.29),(1.69,49.08),(1.47,48.74)],SG_RED)
-# Two small adjacent Zurich city tiles avoid a logo collision without colouring Switzerland.
-geo_patch([(7.82,47.10),(7.95,47.53),(8.18,47.78),(8.48,47.70),(8.58,47.43),(8.42,47.13),(8.12,47.00)],UBS_BLACK)
-geo_patch([(8.58,47.43),(8.62,47.72),(8.94,47.80),(9.24,47.62),(9.32,47.30),(9.09,47.04),(8.78,47.08),(8.55,47.25)],CS_BLUE)
+draw_country('United Kingdom',UK_FILL,WHITE,2)
+draw_country('France',FR_FILL,WHITE,2)
+draw_country('Switzerland',CH_FILL,WHITE,2)
+# Subtle country name labels, no pins or leader lines.
+text(*xy(-3.8,54.1),'UNITED KINGDOM',9,'#64747C',True,anchor='mm')
+text(*xy(0.2,45.8),'FRANCE',10,'#78666B',True,anchor='mm')
+text(944,652,'SWITZERLAND',8,'#667583',True,anchor='mm')
 
-# Hub positions and square city points (no proportional circles).
-city={'London':xy(-0.12,51.51),'Paris':xy(2.35,48.86),'Zurich':xy(8.54,47.38)}
-lx,ly=city['London'];px,py=city['Paris'];zx,zy=city['Zurich']
-# City labels in white over the coloured host-country fills.
-d.text((lx+10,ly+9),'LONDON',font=f(8,True),fill=WHITE,stroke_width=1,stroke_fill=JPM_BLUE)
-d.text((px+77,py-4),'PARIS',font=f(8,True),fill=WHITE,stroke_width=1,stroke_fill=SG_RED)
-text(zx+8,zy+32,'ZURICH',8,INK,True)
+# Relative-loss circles are area-proportional in approximate USD equivalent.
+# EUR 4.9bn uses ECB 24-Jan-2008 reference USD 1.4663/EUR for sizing only.
+loss_usd={'CS':5.5,'JPM':6.2,'SG':4.9*1.4663,'UBS':2.3,'BARINGS':1.4}
+rmax=50.0
+radii={k:rmax*sqrt(v/max(loss_usd.values())) for k,v in loss_usd.items()}
+# Country badge anchors: both London events share the UK; both Zurich events share Switzerland.
+centres={
+ 'JPM':(xy(-0.05,52.15)[0]+18,xy(-0.05,52.15)[1]-5),
+ 'BARINGS':(xy(-1.25,51.55)[0]-45,xy(-1.25,51.55)[1]+28),
+ 'SG':xy(2.35,48.86),
+ 'CS':(xy(8.54,47.38)[0]+42,xy(8.54,47.38)[1]-9),
+ 'UBS':(xy(8.54,47.38)[0]-43,xy(8.54,47.38)[1]+17),
+}
 
-# Flat logo chips echo the club-map reference. Values use each institution's brand colour.
-def logo_chip(key,x,y,w,h):
-    rounded((x,y,x+w,y+h),WHITE,brand[key],1,4)
-    logo=fit(logos[key],w-12,h-8)
-    im.paste(logo,(round(x+(w-logo.width)/2),round(y+(h-logo.height)/2)),logo)
-    global d;d=ImageDraw.Draw(im)
-def amount(x,y,value,key,size=10):
-    box=d.textbbox((0,0),value,font=f(size,True))
-    tw=box[2]-box[0];th=box[3]-box[1]
-    rounded((x-4,y-3,x+tw+7,y+th+4),WHITE,brand[key],1,4)
-    text(x,y,value,size,brand[key],True)
-def leader(start,end,key):
-    x1,y1=start;x2,y2=end
-    line(x1,y1,x2,y2,WHITE,4);line(x1,y1,x2,y2,brand[key],2)
-# Hairline connectors tie flat logo plaques to the square hub points (no circles).
-leader(city['London'],(lx+5,ly-54),'JPM')
-leader(city['London'],(lx-122,ly+30),'BARINGS')
-leader(city['Paris'],(px,py+20),'SG')
-leader(city['Zurich'],(zx+103,zy-60),'CS')
-leader(city['Zurich'],(zx-95,zy+28),'UBS')
-# London: enlarged marks and values, with separate local patches for the two institutions.
-logo_chip('JPM',lx-75,ly-98,160,44);amount(lx-62,ly-50,'USD 6.2bn','JPM',12)
-text(lx-52,ly-119,'JPMORGAN · LONDON WHALE',8,JPM_BLUE,True)
-logo_chip('BARINGS',lx-190,ly+30,136,42);amount(lx-185,ly+76,'~USD 1.4bn','BARINGS',11)
-text(lx-184,ly+95,'LEESON¹',8,BARINGS_GOLD,True)
-# Paris / Île-de-France: Société Générale.
-logo_chip('SG',px-80,py+20,160,44);amount(px-26,py+68,'EUR 4.9bn','SG',12)
-text(px-60,py+2,'KERVIEL · 2008',8,SG_RED,True)
-# Zurich: UBS and Credit Suisse labels are deliberately offset but remain Zurich HQ.
-logo_chip('CS',zx+22,zy-82,160,44);amount(zx+35,zy-34,'USD 5.5bn','CS',12)
-text(zx+27,zy-104,'CREDIT SUISSE · ARCHEGOS',8,CS_BLUE,True)
-logo_chip('UBS',zx-165,zy+28,140,44);amount(zx-156,zy+76,'USD 2.3bn','UBS',12)
-text(zx-160,zy+8,'UBS · 2011',8,UBS_BLACK,True)
-# Map title strip and explanation of the non-circular hub colour patches.
-rect((mx+1,my+1,mx+mw-1,my+35),MAP_WATER)
-text(mx+18,my+14,'EUROPEAN FINANCIAL HUBS',9,MUTED,True)
-text(mx+mw-18,my+14,'HUB COLOURS · REPORTED LOSS VALUES',8,MUTED,True,anchor='ra',mono=True)
-# Clip map fills and logo labels to panel bounds.
+# Main map circles are event badges, not location pins: logos sit inside each selected territory.
+def event_badge(key,year,amount,event_label,amount_label_pos=None):
+    global d
+    cx,cy=centres[key];r=radii[key];col=brand[key]
+    # Country-colour disc, proportional by area to headline USD-equivalent loss.
+    d.ellipse((cx-r,cy-r,cx+r,cy+r),fill=col,outline=WHITE,width=2)
+    # White inset logo tile improves legibility while keeping the country/event hue visible.
+    inner_w=max(34,2*r-12);inner_h=max(16,int(r*.62))
+    rounded((cx-inner_w/2,cy-inner_h/2-5,cx+inner_w/2,cy+inner_h/2-5),WHITE,None,0,4)
+    logo=fit(logos[key],inner_w-8,inner_h-4)
+    im.paste(logo,(round(cx-logo.width/2),round(cy-logo.height/2-5)),logo)
+    d=ImageDraw.Draw(im)
+    # Short year and city/event label directly adjacent to the badge.
+    text(cx,cy+r*.61,year,8,WHITE,True,anchor='mm',mono=True)
+    if amount_label_pos:
+        ax,ay=amount_label_pos
+    else:
+        ax,ay=cx+r+5,cy-r*.2
+    label_w=88 if len(amount)<11 else 98
+    rounded((ax-4,ay-3,ax+label_w,ay+17),WHITE,col,1,5)
+    text(ax+2,ay,amount,9,col,True)
+    text(cx,cy-r-13,event_label,7,col,True,anchor='mm')
+
+# Place badges fully within the highlighted country silhouettes, with modest offsets in shared hubs.
+# UK: London Whale and Barings / Leeson.
+event_badge('JPM','2012','USD 6.2bn','JPMORGAN',(centres['JPM'][0]-36,centres['JPM'][1]+radii['JPM']+5))
+event_badge('BARINGS','1995','~USD 1.4bn','BARINGS',(centres['BARINGS'][0]-83,centres['BARINGS'][1]+radii['BARINGS']+1))
+# France: Paris / Île-de-France, Société Générale.
+event_badge('SG','2008','EUR 4.9bn','SOCIÉTÉ GÉNÉRALE',(centres['SG'][0]-47,centres['SG'][1]+radii['SG']+5))
+# Switzerland: UBS and Credit Suisse remain in Zurich; badge positions are offset for legibility.
+event_badge('CS','2021','USD 5.5bn','CREDIT SUISSE',(centres['CS'][0]+radii['CS']+4,centres['CS'][1]-8))
+event_badge('UBS','2011','USD 2.3bn','UBS',(centres['UBS'][0]-10,centres['UBS'][1]+radii['UBS']+4))
+# Headquarters and desk locations are clarified in the footer; badge offsets are for legibility.
+# Map title and compact scale note.
+text(mx+16,my+14,'WESTERN EUROPE  /  SELECTED BANKING EVENTS',9,MUTED,True)
+text(mx+mw-16,my+14,'CIRCLE AREA ∝ USD-EQUIVALENT LOSS',8,MUTED,True,anchor='ra',mono=True)
+# Clip the country art and badges to the map canvas.
 clip=Image.new('L',(W,H),0);ImageDraw.Draw(clip).rectangle((mx,my,mx+mw,my+mh),fill=255)
 im=Image.composite(im,map_base,clip);d=ImageDraw.Draw(im)
-rect((mx,my,mx+mw,my+mh),None,'#D2DAD4',1)
 
-# Bloomberg-style data rail with the bank marks and colour-matched values.
-rx,ry,rw,rh=1015,155,535,540
-rect((rx,ry,rx+rw,ry+rh),PANEL,'#465158',1);rect((rx,ry,rx+rw,ry+4),UBS_RED)
-text(rx+23,ry+20,'SELECTED MAJOR TRADING LOSS EVENTS',14,WHITE,True)
-text(rx+23,ry+48,'Headline loss · reported currency',9,'#A8B2B7')
-text(rx+rw-23,ry+48,'SOURCE',7,'#89959B',True,anchor='ra',mono=True)
-line(rx+22,ry+70,rx+rw-22,ry+70,PANEL_RULE,1)
-def panel_logo(key,width,height):return fit(logos[key],width,height)
-def event_row(y,key,name,event,value,source):
-    global d;d=ImageDraw.Draw(im);col=panel_brand[key]
-    if key=='UBS':
-        rect((rx+13,y-5,rx+rw-13,y+42),'#E9ECE8');rect((rx+13,y-5,rx+17,y+42),UBS_RED)
-    d.rounded_rectangle((rx+23,y-1,rx+132,y+30),radius=4,fill='#F3F4F1')
-    mark=panel_logo(key,99,22);im.paste(mark,(rx+28,y+3),mark);d=ImageDraw.Draw(im)
-    text(rx+143,y,name,10,INK if key=='UBS' else '#D5DBDD',True)
-    text(rx+143,y+18,event,8,MUTED if key=='UBS' else '#89959B')
-    text(rx+rw-52,y+5,value,11,col,True,anchor='ra',mono=True)
-    text(rx+rw-25,y+8,source,7,'#96A1A6',True,anchor='ra',mono=True)
-    if key!='UBS':line(rx+24,y+43,rx+rw-22,y+43,PANEL_RULE,1)
-event_row(ry+83,'CS','Credit Suisse (2021)','Archegos · prime brokerage','USD 5.5bn','[2]')
-event_row(ry+132,'JPM','JPMorgan (2012)','London Whale · CIO portfolio','USD 6.2bn','[3]')
-event_row(ry+181,'SG','Société Générale (2008)','Kerviel · unauthorised positions','EUR 4.9bn','[4]')
-event_row(ry+230,'UBS','UBS (2011)','ETF / Delta One · unauthorised','USD 2.3bn','[1]')
-event_row(ry+279,'BARINGS','Barings (1995)','Leeson · concealed positions','USD 1.4bn','[5]')
-line(rx+22,ry+334,rx+rw-22,ry+334,PANEL_RULE,1)
-rect((rx+23,ry+351,rx+109,ry+375),UBS_RED)
-text(rx+66,ry+356,'UBS 2011',9,WHITE,True,anchor='mm',mono=True)
-text(rx+123,ry+352,'One of the largest unauthorized trading losses',10,WHITE,True)
-text(rx+123,ry+369,'recorded by a major European banking institution.',10,WHITE,True)
-text(rx+23,ry+399,'Only HQ hub areas are coloured; all surrounding territory stays grey.',8,'#A4AEB3')
-text(rx+23,ry+439,'¹ Leeson traded in Singapore; London marks Barings HQ.',7,'#89959B')
-text(rx+23,ry+453,'UBS patch: Zurich HQ; loss-making ETF / Delta One desk was London [1].',7,'#89959B')
+# Executive takeaway: one concise line over a restrained UBS-red rule.
+line(48,808,1552,808,RULE,1)
+text(52,822,'EXECUTIVE TAKEAWAY',8,UBS_RED,True)
+text(52,839,"UBS's USD 2.3bn trading loss ranks among the most significant banking trading-loss events in Europe and illustrates how control failures can rapidly escalate into material financial and liquidity-management consequences.",10,INK,True)
+text(52,866,'Sources: FINMA [1] · Credit Suisse Board Special Committee [2] · U.S. Senate PSI [3] · Société Générale [4] · RBA / BoE inquiry [5] · ECB FX [6].',7,MUTED)
+text(1548,866,'Institutional bases: Barings—London; UBS & Credit Suisse—Zurich; Société Générale—Paris. JPMorgan event and UBS loss desk—London; Leeson traded in Singapore.',7,MUTED,False,anchor='ra')
 
-
-# Executive takeaway and primary-source references.
-line(48,728,1552,728,RULE,1)
-text(52,746,'TREASURY LENS',9,UBS_RED,True)
-text(52,768,'Delta One control failure: capital headroom, funding confidence and liquidity readiness.',16,INK,True)
-text(52,806,'Sources: FINMA [1] · Credit Suisse Board Special Committee [2] · U.S. Senate PSI [3] · Société Générale [4] · RBA / BoE inquiry [5].',8,MUTED)
-text(52,826,'Loss values are approximate headline impacts; accounting bases differ. Barings USD equivalent is approximate.',7,MUTED)
-text(1548,826,'DOCUMENTATION: documents/ubs-event-context-map-sources.md',7,MUTED,False,anchor='ra')
 im.save(OUT)
 print(OUT)
