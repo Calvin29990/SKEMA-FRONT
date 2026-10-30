@@ -67,7 +67,7 @@ page_under_map = im.copy()
 # Zoomed regional view centred on France, with the UK and Switzerland retained for context.
 mx, my, mw, mh = 190, 105, 1220, 680
 lon0, lon1 = -7.5, 14.0
-lat0, lat1 = 41.5, 57.0
+lat0, lat1 = 41.5, 61.0
 
 def xy(lon, lat):
     return (mx + (lon - lon0) / (lon1 - lon0) * mw,
@@ -92,38 +92,79 @@ def draw_geometry(geometry):
 for feature in geo['features']:
     draw_geometry(feature['geometry'])
 
-# France remains grey except for the two requested administrative areas.
-regions_path = ASSETS / 'france-regions.geojson'
-with regions_path.open(encoding='utf-8') as handle:
-    regions = json.load(handle)
-region_style = {
-    'Île-de-France': ('#E98C94', '#E30613'),
-    'Provence-Alpes-Côte d\'Azur': ('#A783C9', '#6F2DA8'),
+# Colour the administrative territory associated with each bank city, not its label.
+# Tints preserve legibility; outlines use the corresponding bank colour.
+territory_styles = {
+    'NATWEST': ('#C6ADBF', '#5E2750'),
+    'BARCLAYS': ('#B6E3F1', '#00AEEF'),
+    'LLOYDS': ('#B4D4BC', '#00843D'),
+    'HSBC': ('#E98C94', '#DB0011'),
+    'BNP': ('#A8D0BA', '#00965E'),
+    'SG': ('#E98C94', '#E30613'),
+    'CA': ('#9BC9BB', '#006B54'),
+    'NATIXIS': ('#A783C9', '#6F2DA8'),
+    'UBS': ('#B3B3B3', '#111111'),
+    'CS': ('#A9C4DE', '#005EB8'),
+    'JULIUS': ('#E1D2A4', '#B89D4F'),
+    'PICTET': ('#A1CBBF', '#006A52'),
 }
+
+region_path = ASSETS / 'france-regions.geojson'
+with region_path.open(encoding='utf-8') as handle:
+    france_regions = json.load(handle)
+france_bank_regions = {
+    'Hauts-de-France': 'BNP',
+    'Île-de-France': 'SG',
+    'Auvergne-Rhône-Alpes': 'CA',
+    'Provence-Alpes-Côte d\'Azur': 'NATIXIS',
+}
+uk_region_path = ASSETS / 'uk-bank-regions.geojson'
+with uk_region_path.open(encoding='utf-8') as handle:
+    uk_regions = json.load(handle)
+swiss_region_path = ASSETS / 'swiss-bank-cantons.geojson'
+with swiss_region_path.open(encoding='utf-8') as handle:
+    swiss_regions = json.load(handle)
+
+territories = []
+for feature in france_regions['features']:
+    bank_key = france_bank_regions.get(feature['properties']['nom'])
+    territories.append((feature, bank_key, True))
+for feature in uk_regions['features']:
+    bank_key = feature['properties']['bank_key']
+    territories.append((feature, bank_key, feature['properties'].get('outline', True)))
+for feature in swiss_regions['features']:
+    territories.append((feature, feature['properties']['bank_key'], True))
+
+def polygons_of(feature):
+    geometry = feature['geometry']
+    return geometry['coordinates'] if geometry['type'] == 'MultiPolygon' else [geometry['coordinates']]
+
+# Fill only the bank-associated areas; every other country and region stays grey.
 region_layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
 rd = ImageDraw.Draw(region_layer)
-for feature in regions['features']:
-    geometry = feature['geometry']
-    polygons = geometry['coordinates'] if geometry['type'] == 'MultiPolygon' else [geometry['coordinates']]
-    name = feature['properties']['nom']
-    fill = region_style.get(name, (LAND, '#FFFFFF'))[0]
-    for polygon in polygons:
-        ring = polygon[0]
-        points = [xy(lon, lat) for lon, lat in ring]
+for feature, bank_key, _ in territories:
+    fill = territory_styles[bank_key][0] if bank_key else LAND
+    for polygon in polygons_of(feature):
+        points = [xy(lon, lat) for lon, lat in polygon[0]]
         rd.polygon(points, fill=fill)
 im.alpha_composite(region_layer)
-# Keep boundaries legible and give the two highlighted territories a clear coloured edge.
+
+# Restore clean national borders, then outline each administrative territory.
 d = ImageDraw.Draw(im)
-for feature in regions['features']:
+for feature in geo['features']:
     geometry = feature['geometry']
     polygons = geometry['coordinates'] if geometry['type'] == 'MultiPolygon' else [geometry['coordinates']]
-    name = feature['properties']['nom']
-    outline = region_style.get(name, (LAND, '#FFFFFF'))[1]
-    width = 3 if name in region_style else 2
     for polygon in polygons:
-        ring = polygon[0]
-        points = [xy(lon, lat) for lon, lat in ring]
-        d.line(points + [points[0]], fill=outline, width=width, joint='curve')
+        points = [xy(lon, lat) for lon, lat in polygon[0]]
+        d.line(points + [points[0]], fill=BORDER, width=2, joint='curve')
+for feature, bank_key, outline in territories:
+    if not outline:
+        continue
+    color = territory_styles[bank_key][1] if bank_key else '#FFFFFF'
+    width = 3 if bank_key else 2
+    for polygon in polygons_of(feature):
+        points = [xy(lon, lat) for lon, lat in polygon[0]]
+        d.line(points + [points[0]], fill=color, width=width, joint='curve')
 
 # Clip geographic layers to the zoom window so no land spills into the title or footer.
 map_crop = im.crop((mx, my, mx + mw, my + mh))
@@ -172,10 +213,10 @@ place_bank('SG', 2.3522, 48.8566, (91, 32))
 place_bank('CA', 4.8357, 45.7640, (88, 24), dx=-57, dy=23)
 place_bank('NATIXIS', 5.3698, 43.2965, (100, 30), dx=20, dy=-20)
 # Switzerland
-place_bank('CS', 6.1432, 46.2044, (88, 25), dx=6, dy=-24)
-place_bank('JULIUS', 7.59, 47.56, (84, 25), dx=-33, dy=-39)
-place_bank('UBS', 8.5417, 47.3769, (108, 40), dx=34, dy=3)
-place_bank('PICTET', 8.95, 46.0, (88, 25), dx=5, dy=3)
+place_bank('CS', 6.1432, 46.2044, (74, 22))
+place_bank('JULIUS', 7.59, 47.56, (64, 20), dx=-18, dy=-20)
+place_bank('UBS', 8.5417, 47.3769, (82, 30), dx=28)
+place_bank('PICTET', 8.95, 46.0, (88, 25))
 
 # Event highlights use floating type only, without circles or containers.
 def event_text(x, y, label, amount, color, label_size, amount_size):
@@ -185,9 +226,9 @@ def event_text(x, y, label, amount, color, label_size, amount_size):
     text(d, (x, y + label_size + 5), amount, amount_size, color, bold=True, stroke_width=3)
 
 # Barings 1995 — third in the visual hierarchy, with gold event type near London.
-event_text(425, 365, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
+event_text(405, 455, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
 # Kerviel 2008 — second-largest red event emphasis beside the Paris / SG marker.
-event_text(560, 520, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 38)
+event_text(470, 565, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 38)
 # Adoboli 2011 — largest callout, with the requested UBS-red accent by Zurich.
 event_text(1205, 455, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 42)
 

@@ -2,7 +2,7 @@
 
 **Slide:** `ubs-event-context-map.png`
 **Generator:** `build_ubs_event_context_map.py`
-**Map geometry:** Natural Earth 1:50m Western Europe country outlines (`assets/natural-earth-50m-western-europe-context.geojson`, public domain) plus French regional boundaries (`assets/france-regions.geojson`).
+**Map geometry:** Natural Earth 1:50m Western Europe country outlines (`assets/natural-earth-50m-western-europe-context.geojson`, public domain), French regional boundaries (`assets/france-regions.geojson`), selected UK regions (`assets/uk-bank-regions.geojson`), and Swiss cantons (`assets/swiss-bank-cantons.geojson`).
 
 ## Slide copy
 
@@ -25,7 +25,29 @@ The minus signs on the slide explicitly indicate losses. The amounts are nominal
 
 ## Bank identities and map treatment
 
-The map retains the 12 requested bank logos at their city locations, but omits every city-name label. The region polygons show **Île-de-France in red** (`#E98C94`, red outline `#E30613`) and **Provence-Alpes-Côte d'Azur, including Marseille, in violet** (`#A783C9`, violet outline `#6F2DA8`); all surrounding countries and French regions remain grey. Bank wordmarks float directly on the map without circular markers, halos or white logo cards. The map is zoomed to keep France, the UK and Switzerland in context. The three event highlights retain their hierarchy: largest red UBS/Adoboli callout, second red Kerviel callout, and third gold Barings callout.
+The map retains the 12 requested bank logos at their city locations, but omits every city-name label. The administrative area associated with each city is tinted in its bank colour; all other map areas remain grey:
+
+| Bank | Highlighted territory | Colour |
+|---|---|---|
+| NatWest | Scotland | Purple |
+| Barclays | North West England | Cyan |
+| Lloyds | West Midlands | Green |
+| HSBC | Greater London | Red |
+| BNP Paribas | Hauts-de-France | Green |
+| Société Générale | Île-de-France | Red |
+| Crédit Agricole | Auvergne-Rhône-Alpes | Green |
+| Natixis | Provence-Alpes-Côte d'Azur (includes Marseille) | Violet |
+| UBS | Canton of Zürich | Black / charcoal |
+| Credit Suisse | Canton of Geneva | Blue |
+| Julius Baer | Basel-Stadt and Basel-Landschaft | Gold |
+| Pictet | Canton of Ticino | Green |
+
+Bank wordmarks float directly on the map without circular markers, halos or white logo cards. The map is zoomed to keep France, the UK and Switzerland in context. The three event highlights retain their hierarchy: largest red UBS/Adoboli callout, second red Kerviel callout, and third gold Barings callout.
+
+Territory geometry sources:
+
+- UK regions: Martin Chorley, [UK-GeoJSON](https://github.com/martinjc/UK-GeoJSON), using NUTS1 boundaries for England and Wales and NUTS2 boundaries to combine Scotland. The data is CC BY 4.0; underlying Ordnance Survey data carries Crown Copyright and database-right attribution.
+- Swiss cantons: [map-switzerland](https://github.com/severinlandolt/map-switzerland), GeoJSON canton boundaries in WGS84.
 
 ## Logo asset references
 
