@@ -2,11 +2,11 @@
 
 **Slide:** `ubs-event-context-map.png`  
 **Generator:** `build_ubs_event_context_map.py`  
-**Map geometry:** Natural Earth 1:50m country outlines (`assets/natural-earth-50m-western-europe-context.geojson`), metropolitan France regions (`assets/france-regions.geojson`, [gregoiredavid/france-geojson](https://github.com/gregoiredavid/france-geojson)), and the London region (`assets/uk-london-region.geojson`, UK-GeoJSON / ONS NUTS1, [martinjc/UK-GeoJSON](https://github.com/martinjc/UK-GeoJSON)).
+**Map geometry:** Natural Earth 1:50m country outlines (`assets/natural-earth-50m-western-europe-context.geojson`, public domain). City positions follow the supplied brief.
 
 ## What the slide says
 
-This is a selected context set, not a comprehensive league table. The UK, France and Switzerland remain grey except for small, schematic local banking-hub patches; no whole country is filled. The map has no pins or proportional circles. A compact Power BI-style panel places bank logos beside large loss values, while additional CIB / major-bank logos are shown as context only. No loss figure is assigned to a context bank unless a comparable benchmark case is included.
+The map follows the supplied football-transfer reference: a light-grey Europe base, ten bank logos placed once at the specified cities, and spacious city labels. No proportional circles are used. Numeric loss callouts are limited to the three events requested—Barings, Kerviel and Adoboli/UBS—while the other seven banks are shown as logo-only context.
 
 The examples are all major bank trading / positions-unwind loss events, but their causes and accounting bases are not identical: UBS, Société Générale and Barings involved unauthorized or concealed trading; JPMorgan's London Whale was a synthetic-credit portfolio loss; Credit Suisse's Archegos loss was a prime-brokerage counterparty exposure. The slide does not imply those causal mechanisms are equivalent.
 
@@ -26,7 +26,7 @@ The examples are all major bank trading / positions-unwind loss events, but thei
    An accessible USD-equivalent summary: https://www.investopedia.com/ask/answers/08/nick-leeson-barings-bank.asp
 ## Identity marks
 
-Event logos appear beside the reported loss values; peer-bank logos appear in a separate context group. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom period-neutral text wordmark—not the contemporary Barings asset-management logo. Peer marks are used for identification only. Brand marks remain their owners' trademarks.
+Ten bank logos appear once, directly on the map at the user-specified cities; Barings is an event text marker, not a second London bank logo. UBS is the repository's existing mark. Credit Suisse and Société Générale assets are sourced from Wikimedia Commons; BNP Paribas, Crédit Agricole CIB, Natixis, HSBC, Barclays, Lloyds and NatWest wordmarks are retained for identification. Brand marks remain their owners' trademarks.
 
 - Credit Suisse logo: https://commons.wikimedia.org/wiki/File:Credit_Suisse_Logo.svg
 - Société Générale logo: https://commons.wikimedia.org/wiki/File:Logo-SG-Soci%C3%A9t%C3%A9-G%C3%A9n%C3%A9rale.svg
@@ -42,12 +42,11 @@ Event logos appear beside the reported loss values; peer-bank logos appear in a 
 
 ## Map fills and annotations
 
-- The country base is neutral grey. French administrative regions are outlined; Île-de-France is red for Société Générale and Hauts-de-France is Crédit Agricole green. The remaining French regions stay grey.
-- In the UK, only the London region is light blue for Barclays; the Barings London-hub marker is brown. Switzerland stays grey except for the UBS-red and Credit Suisse-teal Zurich hub areas. These highlights are regional/hub emphasis, not bank-owned territory.
-- The right-hand table shows the five retained benchmark events and their large reported loss amounts. BNP Paribas, Crédit Agricole CIB, Natixis, HSBC, Barclays, Lloyds Bank and NatWest appear as peer logos only; no additional loss values are assigned to them in this comparison.
-- There are no proportional circles or pin markers. Event values stay in their reported currencies: USD for UBS, Credit Suisse, JPMorgan and Barings; EUR for Société Générale. Barings’ USD 1.4bn is approximate; the official inquiry reports GBP 827m cumulative losses and GBP 927m including close-out costs.
-- The map identifies institutional hubs, not necessarily precise trading locations: UBS and Credit Suisse are shown at their Zurich headquarters; Société Générale at Paris; JPMorgan's London Whale at London; Barings at its London headquarters. UBS's loss-making desk was in London, and Leeson traded in Singapore. The footer clarifies these distinctions.
-- No event loss is inflation-adjusted; the slide compares nominal headline impacts across years, not present-value purchasing power.
+- The base map is light grey and uses no filled country regions. City logo tiles use the requested brand colours: HSBC red in London, Barclays sky blue in Manchester, Lloyds green in Birmingham, NatWest purple in Edinburgh; Société Générale red in Paris, BNP green in Lille, Crédit Agricole green in Lyon, Natixis navy in Marseille; UBS red in Zurich and Credit Suisse blue in Geneva.
+- Only the three benchmark events carry numeric callouts: Barings (1995, USD -1.4bn), Kerviel (2008, EUR -4.9bn), and Adoboli/UBS (2011, USD -2.3bn). The UBS logo has the largest red rectangular halo, following the requested hierarchy; the amount is not encoded by marker size.
+- The Barings USD equivalent is approximate. The inquiry reports cumulative GBP 827m losses by 27 February 1995 and GBP 927m including close-out costs. The visible negative sign indicates a loss, not a separate conversion method.
+- City placements follow the supplied brief. For factual context, Adoboli's unauthorized trading took place on UBS's London desk; Zurich is UBS's headquarters. Barings is shown as the London event marker, while Leeson's trading operation was in Singapore.
+- No displayed loss is inflation-adjusted; the infographic compares nominal headline impacts across years.
 
 ## Executive takeaway
 
