@@ -2,7 +2,7 @@
 
 **Slide:** `ubs-event-context-map.png`
 **Generator:** `build_ubs_event_context_map.py`
-**Map geometry:** Natural Earth 1:50m Western Europe country outlines (`assets/natural-earth-50m-western-europe-context.geojson`, public domain).
+**Map geometry:** Natural Earth 1:50m Western Europe country outlines (`assets/natural-earth-50m-western-europe-context.geojson`, public domain) plus French regional boundaries (`assets/france-regions.geojson`).
 
 ## Slide copy
 
@@ -25,24 +25,7 @@ The minus signs on the slide explicitly indicate losses. The amounts are nominal
 
 ## Bank identities and map treatment
 
-The infographic shows the 12 requested logo-and-city pairings, once each:
-
-| City | Bank | City-label colour |
-|---|---|---|
-| London | HSBC | `#DB0011` |
-| Manchester | Barclays | `#00AEEF` |
-| Birmingham | Lloyds | `#00843D` |
-| Edinburgh | NatWest | `#5E2750` |
-| Lille | BNP Paribas | `#00965E` |
-| Paris | Société Générale | `#E30613` (red) |
-| Lyon | Crédit Agricole | `#006B54` |
-| Marseille | Natixis | `#6F2DA8` (violet, as requested) |
-| Zurich | UBS | `#111111` (black) |
-| Geneva | Credit Suisse | `#005EB8` |
-| Basel | Julius Baer | `#B89D4F` |
-| Lugano | Pictet | `#006A52` |
-
-The European land base is light grey with understated borders. Bank wordmarks float directly on the map without circular markers, halos or white logo cards; each city name appears underneath its logo in the associated colour. Natixis is slightly enlarged as a visual example, and **MARSEILLE** is highlighted in violet. The three event highlights remain in the requested hierarchy: largest red UBS/Adoboli callout, second red Kerviel callout, and third gold Barings callout.
+The map retains the 12 requested bank logos at their city locations, but omits every city-name label. The region polygons show **Île-de-France in red** (`#E98C94`, red outline `#E30613`) and **Provence-Alpes-Côte d'Azur, including Marseille, in violet** (`#A783C9`, violet outline `#6F2DA8`); all surrounding countries and French regions remain grey. Bank wordmarks float directly on the map without circular markers, halos or white logo cards. The map is zoomed to keep France, the UK and Switzerland in context. The three event highlights retain their hierarchy: largest red UBS/Adoboli callout, second red Kerviel callout, and third gold Barings callout.
 
 ## Logo asset references
 

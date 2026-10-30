@@ -61,11 +61,13 @@ d = ImageDraw.Draw(im)
 text(d, (42, 22), 'MAJOR EUROPEAN TRADING LOSS EVENTS', 24, INK, bold=True)
 text(d, (43, 56), 'Selected benchmark trading-loss events relevant to the UBS 2011 case', 13, MUTED)
 d.line((42, 88, 1558, 88), fill=GRID, width=1)
+page_under_map = im.copy()
 
 # Light-grey Europe base, with discreet national borders.
-mx, my, mw, mh = 35, 105, 1530, 680
-lon0, lon1 = -12.0, 20.0
-lat0, lat1 = 42.0, 58.0
+# Zoomed regional view centred on France, with the UK and Switzerland retained for context.
+mx, my, mw, mh = 190, 105, 1220, 680
+lon0, lon1 = -7.5, 14.0
+lat0, lat1 = 41.5, 57.0
 
 def xy(lon, lat):
     return (mx + (lon - lon0) / (lon1 - lon0) * mw,
@@ -90,6 +92,46 @@ def draw_geometry(geometry):
 for feature in geo['features']:
     draw_geometry(feature['geometry'])
 
+# France remains grey except for the two requested administrative areas.
+regions_path = ASSETS / 'france-regions.geojson'
+with regions_path.open(encoding='utf-8') as handle:
+    regions = json.load(handle)
+region_style = {
+    'Île-de-France': ('#E98C94', '#E30613'),
+    'Provence-Alpes-Côte d\'Azur': ('#A783C9', '#6F2DA8'),
+}
+region_layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+rd = ImageDraw.Draw(region_layer)
+for feature in regions['features']:
+    geometry = feature['geometry']
+    polygons = geometry['coordinates'] if geometry['type'] == 'MultiPolygon' else [geometry['coordinates']]
+    name = feature['properties']['nom']
+    fill = region_style.get(name, (LAND, '#FFFFFF'))[0]
+    for polygon in polygons:
+        ring = polygon[0]
+        points = [xy(lon, lat) for lon, lat in ring]
+        rd.polygon(points, fill=fill)
+im.alpha_composite(region_layer)
+# Keep boundaries legible and give the two highlighted territories a clear coloured edge.
+d = ImageDraw.Draw(im)
+for feature in regions['features']:
+    geometry = feature['geometry']
+    polygons = geometry['coordinates'] if geometry['type'] == 'MultiPolygon' else [geometry['coordinates']]
+    name = feature['properties']['nom']
+    outline = region_style.get(name, (LAND, '#FFFFFF'))[1]
+    width = 3 if name in region_style else 2
+    for polygon in polygons:
+        ring = polygon[0]
+        points = [xy(lon, lat) for lon, lat in ring]
+        d.line(points + [points[0]], fill=outline, width=width, joint='curve')
+
+# Clip geographic layers to the zoom window so no land spills into the title or footer.
+map_crop = im.crop((mx, my, mx + mw, my + mh))
+im = page_under_map.copy()
+im.alpha_composite(map_crop, (mx, my))
+d = ImageDraw.Draw(im)
+d.rectangle((mx, my, mx + mw, my + mh), outline=GRID, width=1)
+
 # Bank logos, one per requested city (12 total).
 logos = {
     'HSBC': load_logo('hsbc-logo.png', True),
@@ -106,42 +148,34 @@ logos = {
     'PICTET': load_logo('pictet-logo.png'),
 }
 
-# Logos float directly on the map; city names sit beneath them in bank colours.
-def city_mark(key, city, center, color, logo_size=(78, 28), city_y=None,
-              lloyds=False, city_font_size=11, city_color=None):
+# Bank logos float directly on the map; city-name labels are intentionally omitted.
+def place_bank(key, lon, lat, logo_size, dx=0, dy=0, lloyds=False):
     global d
+    anchor = xy(lon, lat)
+    center = (anchor[0] + dx, anchor[1] + dy)
     if lloyds:
-        paste_logo_floating(im, logos[key], (center[0] - 20, center[1] - 1), (34, 31))
+        paste_logo_floating(im, logos[key], (center[0] - 19, center[1]), (32, 29))
         d = ImageDraw.Draw(im)
-        text(d, (center[0] + 19, center[1]), 'LLOYDS', 10, color, bold=True,
+        text(d, (center[0] + 18, center[1]), 'LLOYDS', 11, '#00843D', bold=True,
              anchor='mm', stroke_width=1)
     else:
         paste_logo_floating(im, logos[key], center, logo_size)
-    d = ImageDraw.Draw(im)
-    label_y = city_y if city_y is not None else center[1] + logo_size[1] // 2 + 13
-    text(d, (center[0], label_y), city.upper(), city_font_size,
-         city_color or color, bold=True, anchor='mm', stroke_width=2)
 
-# UK — coloured city labels sit directly beneath the transparent bank marks.
-city_mark('NATWEST', 'Edinburgh', (458, 192), '#5E2750', (80, 24), 231)
-city_mark('BARCLAYS', 'Manchester', (490, 282), '#00AEEF', (68, 31), 323)
-city_mark('LLOYDS', 'Birmingham', (520, 365), '#00843D', (78, 30), 407, lloyds=True)
-city_mark('HSBC', 'London', (605, 330), '#DB0011', (82, 25), 372)
-
-# France — no logo circles; the city names remain clearly associated below each logo.
-city_mark('BNP', 'Lille', (780, 340), '#00965E', (74, 34), 373)
-city_mark('SG', 'Paris', (725, 490), '#E30613', (91, 32), 525,
-          city_color='#E30613')
-city_mark('CA', 'Lyon', (840, 615), '#006B54', (88, 24), 657)
-city_mark('NATIXIS', 'Marseille', (873, 710), '#003A70', (130, 38), 752,
-          city_font_size=14, city_color='#6F2DA8')
-
-# Switzerland — the four bank wordmarks are shown directly on the map.
-city_mark('CS', 'Geneva', (900, 560), '#005EB8', (88, 25), 602)
-city_mark('JULIUS', 'Basel', (970, 435), '#B89D4F', (84, 25), 477)
-city_mark('UBS', 'Zurich', (1080, 500), '#E00000', (108, 40), 541,
-          city_color='#111111')
-city_mark('PICTET', 'Lugano', (1050, 640), '#006A52', (88, 25), 682)
+# UK
+place_bank('NATWEST', -3.1883, 55.9533, (80, 24))
+place_bank('BARCLAYS', -2.2426, 53.4808, (68, 31))
+place_bank('LLOYDS', -1.8904, 52.4862, (78, 30), lloyds=True)
+place_bank('HSBC', -0.1276, 51.5072, (82, 25))
+# France
+place_bank('BNP', 3.0573, 50.6292, (74, 34))
+place_bank('SG', 2.3522, 48.8566, (91, 32))
+place_bank('CA', 4.8357, 45.7640, (88, 24), dx=-57, dy=23)
+place_bank('NATIXIS', 5.3698, 43.2965, (100, 30), dx=20, dy=-20)
+# Switzerland
+place_bank('CS', 6.1432, 46.2044, (88, 25), dx=6, dy=-24)
+place_bank('JULIUS', 7.59, 47.56, (84, 25), dx=-33, dy=-39)
+place_bank('UBS', 8.5417, 47.3769, (108, 40), dx=34, dy=3)
+place_bank('PICTET', 8.95, 46.0, (88, 25), dx=5, dy=3)
 
 # Event highlights use floating type only, without circles or containers.
 def event_text(x, y, label, amount, color, label_size, amount_size):
@@ -151,11 +185,11 @@ def event_text(x, y, label, amount, color, label_size, amount_size):
     text(d, (x, y + label_size + 5), amount, amount_size, color, bold=True, stroke_width=3)
 
 # Barings 1995 — third in the visual hierarchy, with gold event type near London.
-event_text(680, 385, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
+event_text(425, 365, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
 # Kerviel 2008 — second-largest red event emphasis beside the Paris / SG marker.
-event_text(550, 560, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 38)
+event_text(560, 520, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 38)
 # Adoboli 2011 — largest callout, with the requested UBS-red accent by Zurich.
-event_text(1170, 472, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 42)
+event_text(1205, 455, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 42)
 
 # Minimal footnote retains the factual distinction between Zurich HQ and the London desk.
 d.line((42, 806, 1558, 806), fill=GRID, width=1)
