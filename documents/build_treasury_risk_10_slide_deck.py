@@ -313,7 +313,7 @@ def make_deck():
     prs.slide_width=Inches(SW); prs.slide_height=Inches(SH)
     blank=prs.slide_layouts[6]
 
-    # Slide 1 — polished cover with presenters, supervisor and the Treasury question.
+    # Slide 1 — simple title page.
     s=prs.slides.add_slide(blank)
     s.background.fill.solid(); s.background.fill.fore_color.rgb=C(BG)
     s.shapes.add_picture(str(UBS_LOGO), Inches(.52), Inches(.31),
@@ -321,43 +321,14 @@ def make_deck():
     s.shapes.add_picture(str(SKEMA_LOGO), Inches(12.22), Inches(.26),
                          width=Inches(.60), height=Inches(.63))
     line(s,.54,1.03,12.82,1.03,GRID,1.0)
-    txt(s,"CORPORATE TREASURY MANAGEMENT  ·  2011 CASE",2.34,.38,8.8,.18,8.2,MUTED,True)
-    txt(s,"UBS 2011 ROGUE TRADING\nSCANDAL",.68,1.25,7.30,.68,24,NAVY,True)
-    txt(s,"FROM OPERATIONAL FAILURE TO TREASURY DECISIONS",.70,2.04,7.30,.30,13,RED,True)
-
-    # Research question is the visual anchor; the right-hand sequence previews the recommendation.
-    rect(s,.68,2.72,7.20,1.48,BLACK,BLACK)
-    rect(s,.68,2.72,.065,1.48,TEAL)
-    txt(s,"CENTRAL TREASURY QUESTION",.96,2.90,6.60,.20,8.3,TEAL,True)
-    txt(s,"How should UBS Treasury preserve liquidity and meet payment obligations over the following three months?",
-        .96,3.18,6.56,.79,15.5,WHITE,True)
-
-    rect(s,8.22,1.31,4.57,2.89,WHITE,GRID,.8)
-    rect(s,8.22,1.31,4.57,.055,RED)
-    txt(s,"THE TREASURY RESPONSE",8.48,1.58,4.02,.24,9.2,NAVY,True)
-    cover_steps=[("01","VERIFY","Positions",RED),("02","PROTECT","Headroom",GOLD),("03","STAGE","Funding",TEAL)]
-    for i,(num,title,sub,color) in enumerate(cover_steps):
-        yy=2.00+i*.66
-        rect(s,8.49,yy,.42,.42,color,shape=MSO_SHAPE.OVAL)
-        txt(s,num,8.49,yy+.10,.42,.20,7.4,WHITE,True,align=PP_ALIGN.CENTER)
-        txt(s,title,9.10,yy+.01,1.45,.20,9.0,color,True)
-        txt(s,sub,10.60,yy+.01,1.77,.20,8.4,NAVY,True)
-        if i<2: line(s,8.70,yy+.43,8.70,yy+.63,GRID,1.2)
-
-    line(s,.68,4.65,12.78,4.65,GRID,.8)
-    txt(s,"PRESENTERS",.72,4.91,1.40,.20,7.8,RED,True)
+    txt(s,"UBS 2011 ROGUE TRADING SCANDAL",.78,2.10,11.75,.66,31,NAVY,True)
+    txt(s,"Treasury Risk Analysis",.80,2.92,9.5,.35,16,RED,True)
+    line(s,.80,3.55,2.25,3.55,RED,2.2)
+    txt(s,"PRESENTED BY",.80,4.55,2.0,.18,8.0,MUTED,True)
     txt(s,"Paul Alain Diouf  ·  Calvin Minang  ·  Jules Métayer  ·  Elias Abou-Tayeh",
-        2.18,4.87,10.30,.30,10.3,NAVY,True)
-    txt(s,"ACADEMIC SUPERVISOR",.72,5.43,1.88,.20,7.8,RED,True)
-    txt(s,"Jamil Chaftar",2.64,5.39,3.20,.30,10,NAVY,True)
-
-    rect(s,.70,6.03,12.07,.70,LIGHT)
-    txt(s,"DECISION WINDOW",.93,6.15,1.63,.18,7.5,MUTED,True)
-    txt(s,"14 SEP 2011  ·  DISCOVERY",2.70,6.13,2.65,.20,8.2,NAVY,True)
-    line(s,5.42,6.25,9.64,6.25,TEAL,2.0)
-    rect(s,5.36,6.17,.16,.16,TEAL,shape=MSO_SHAPE.OVAL)
-    rect(s,9.56,6.17,.16,.16,RED,shape=MSO_SHAPE.OVAL)
-    txt(s,"14 DEC 2011  ·  END OF HORIZON",9.83,6.13,2.66,.20,8.2,NAVY,True)
+        .80,4.84,11.65,.32,12.0,NAVY,True)
+    txt(s,"PROFESSOR",.80,5.50,2.0,.18,8.0,MUTED,True)
+    txt(s,"Jamil Chaftar",.80,5.78,5.2,.30,12.0,NAVY,True)
 
     # Slide 2 — user's European context map remains one intact image.
     add_user_slide(prs,MAP_SLIDE)
@@ -683,35 +654,23 @@ def make_deck():
     txt(s,"Count funding only when availability, collateral and arrival time are verified.",
         .68,6.93,12.0,.15,6.9,MUTED,align=PP_ALIGN.CENTER)
 
-    # Slide 10 — answer the central question and make sources / model limits explicit.
+    # Slide 10 — brief closing page with sources.
     s=prs.slides.add_slide(blank)
-    header(s,"CONCLUSION & SOURCES","THE TREASURY DECISION",10,
-           "PROTECT PAYMENT CAPACITY · VERIFY POSITIONS · GATE FUNDING")
-    rect(s,.68,1.37,11.98,1.36,BLACK,BLACK)
-    rect(s,.68,1.37,.065,1.36,RED)
-    txt(s,"CENTRAL ANSWER",.98,1.58,2.00,.20,8.2,TEAL,True)
-    txt(s,"Preserve headroom: reconcile positions, forecast accessible cash by entity, currency and value date, then stage only verified funding before a projected buffer breach.",
-        .98,1.88,11.30,.58,14,WHITE,True)
-
-    txt(s,"PRIMARY SOURCES",.72,3.02,3.00,.24,9.5,NAVY,True)
-    line(s,.72,3.34,12.62,3.34,RED,1.6)
+    header(s,"","",10,"")
+    txt(s,"Thank you",.76,1.48,11.8,.72,34,NAVY,True)
+    txt(s,"SOURCES",.78,2.70,2.0,.22,9.5,RED,True)
+    line(s,.78,3.03,12.58,3.03,GRID,1.0)
     sources=[
-        (.78,3.57,"01  FINMA · 21 NOV 2012","Summary Report: investigation into UBS London trading losses.",RED),
-        (6.82,3.57,"02  FSA · 25 NOV 2012","Final Notice to UBS AG: unauthorised trading and control failures.",GOLD),
-        (.78,4.56,"03  UBS · 11 OCT 2011","Supplement No. 2: incident disclosures and loss estimate updates.",BLUE),
-        (6.82,4.56,"04  UBS · 25 OCT 2011","Third-quarter 2011 results and presentation materials.",TEAL),
+        "FINMA, Summary Report: Investigation into UBS London Trading Losses, 21 November 2012.",
+        "FSA, Final Notice to UBS AG, 25 November 2012.",
+        "UBS, Supplement No. 2, 11 October 2011.",
+        "UBS, Third-quarter 2011 results and presentation materials, 25 October 2011.",
     ]
-    for x,y,title,desc,color in sources:
-        txt(s,title,x,y,5.55,.21,8.1,color,True)
-        txt(s,desc,x,y+.27,5.55,.40,8.5,NAVY)
-        line(s,x,y+.78,x+5.55,y+.78,GRID,.6)
-
-    rect(s,.72,5.66,11.90,.78,PALE_AMBER)
-    txt(s,"MODEL LIMIT",.96,5.83,1.15,.18,7.8,GOLD,True)
-    txt(s,"Opening cash, minimum buffer, receipts, payments, collateral, stress shocks and facility timing are illustrative assumptions—not UBS historical Treasury records.",
-        2.17,5.78,10.15,.42,8.4,NAVY,True)
-    txt(s,"The cash bridge is a decision aid; populate it with internal Treasury data before asserting an actual funding gap.",
-        .74,6.62,11.95,.22,7.4,MUTED)
+    for i,source in enumerate(sources):
+        y=3.42+i*.63
+        txt(s,source,.80,y,11.65,.32,10.2,NAVY)
+        if i<len(sources)-1:
+            line(s,.80,y+.43,12.45,y+.43,GRID,.55)
 
     prs.core_properties.title="UBS 2011 Rogue Trading Scandal · Treasury Response"
     prs.core_properties.subject="Ten-slide Treasury presentation aligned to the report"
