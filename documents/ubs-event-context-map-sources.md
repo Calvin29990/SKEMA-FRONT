@@ -6,7 +6,7 @@
 
 ## What the slide says
 
-UBS is highlighted in its red / black identity; Société Générale uses red, JPMorgan and Credit Suisse use blue, and Barings uses a restrained heritage-gold wordmark. This is a selected context set, not a comprehensive league table. UBS sits among the largest documented unauthorized-trading losses at a major European bank in this comparison, but it is not the largest event shown by dollar value.
+UBS uses a black hub patch / figure with its red-and-black logo; Société Générale uses red, JPMorgan and Credit Suisse use blue, and Barings uses a restrained heritage-gold wordmark. This is a selected context set, not a comprehensive league table. UBS sits among the largest documented unauthorized-trading losses at a major European bank in this comparison, but it is not the largest event shown by dollar value.
 
 The examples are all major bank trading / positions-unwind loss events, but their causes and accounting bases are not identical: UBS, Société Générale and Barings involved unauthorized or concealed trading; JPMorgan's London Whale was a synthetic-credit portfolio loss; Credit Suisse's Archegos loss was a prime-brokerage counterparty exposure. The slide does not imply those causal mechanisms are equivalent.
 
@@ -37,8 +37,8 @@ Institution logos appear for identification and use their brand colours on the m
 
 - As requested, the previous proportional circles have been removed. Losses are written directly beside the bank marks and in the right-hand panel; no circle size or common-currency scale encodes magnitude.
 - Amounts remain in the reported display currency: USD for UBS, Credit Suisse, JPMorgan and Barings; EUR for Société Générale. Barings’ USD 1.4bn is approximate; the official inquiry reports GBP 827m cumulative losses and GBP 927m including close-out costs.
-- The filled UK, France and Switzerland shapes are visual hub fields, not bank ownership or jurisdiction boundaries: JPMorgan-blue UK; Société Générale-red France; Credit Suisse-blue Switzerland; an UBS-red Zurich patch; and a Barings-gold London patch. The map keeps a neutral fill for other countries.
-- Map locations indicate institution / hub locations, not necessarily the precise source of the loss: UBS incident desk—London; UBS and Credit Suisse—Zurich; Société Générale—Paris; JPMorgan London Whale—London; Barings HQ—London, while Leeson traded in Singapore.
+- Only local headquarters / metro patches are coloured: JPMorgan-blue and Barings-gold patches around London; Société Générale-red Île-de-France / Paris; and adjacent Zurich hub patches in UBS black and Credit Suisse blue. The rest of the UK, France, Switzerland and neighboring territory stays neutral grey. These small hub patches are schematic graphic markers, not administrative or bank-ownership boundaries.
+- Map locations indicate institution / hub locations, not necessarily the precise source of the loss: UBS incident desk—London; UBS and Credit Suisse—Zurich; Société Générale—Paris; JPMorgan London Whale—London; Barings HQ—London, while Leeson traded in Singapore. Duplicate London / Zurich callout cards are offset for legibility but are not moved to a different city.
 - No event loss is inflation-adjusted; the slide compares nominal headline impacts across years, not present-value purchasing power.
 
 ## Treasury takeaway

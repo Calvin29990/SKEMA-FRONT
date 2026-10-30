@@ -9,7 +9,7 @@ W,H=1600,900
 PAPER='#F7F7F4'; INK='#24323B'; MUTED='#68757C'; RULE='#C8CDCE'
 PANEL='#101519'; PANEL_RULE='#303A40'
 MAP_WATER='#F8F9F6'; MAP_LAND='#E9EDE6'; MAP_COAST='#BFC9C1'
-UBS_RED='#D71935'; CS_BLUE='#2B628E'; JPM_BLUE='#287BAE'; SG_RED='#B5213D'; BARINGS_GOLD='#B19347'; WHITE='#FFFFFF'
+UBS_RED='#D71935'; UBS_BLACK='#17191C'; CS_BLUE='#2B628E'; JPM_BLUE='#287BAE'; SG_RED='#B5213D'; BARINGS_GOLD='#B19347'; WHITE='#FFFFFF'
 FONT='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 BOLD='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 SERIF='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf'
@@ -56,13 +56,14 @@ logos={
 barings=Image.new('RGBA',(460,100),(255,255,255,0));bd=ImageDraw.Draw(barings)
 bd.text((8,3),'BARINGS',font=f(68,True,serif=True),fill=BARINGS_GOLD)
 logos['BARINGS']=crop_logo(barings)
-brand={'CS':CS_BLUE,'JPM':JPM_BLUE,'SG':SG_RED,'UBS':UBS_RED,'BARINGS':BARINGS_GOLD}
+brand={'CS':CS_BLUE,'JPM':JPM_BLUE,'SG':SG_RED,'UBS':UBS_BLACK,'BARINGS':BARINGS_GOLD}
+panel_brand={'CS':'#7BB9DE','JPM':'#76B7E0','SG':'#FF7185','UBS':UBS_BLACK,'BARINGS':'#D5B86D'}
 
 # Map panel; retain the UBS European outline and zoom on London, Paris and Zurich.
 mx,my,mw,mh=50,155,940,540
 rect((mx,my,mx+mw,my+mh),MAP_WATER,'#D2DAD4',1)
 map_base=im.copy()
-lon0,lon1=-8.0,15.5;lat0,lat1=43.0,55.5
+lon0,lon1=-7.0,13.5;lat0,lat1=42.0,55.5
 def xy(lon,lat):return (mx+(lon-lon0)/(lon1-lon0)*mw,my+(lat1-lat)/(lat1-lat0)*mh)
 # Gentle grid and contextual land, so the map is not left blank.
 for lon in [-5,0,5,10,15]:line(xy(lon,50)[0],my,xy(lon,50)[0],my+mh,'#E5EAE4',1)
@@ -77,21 +78,21 @@ def draw_country(name,fill,stroke=MAP_COAST,width=1):
         pts=[xy(lon,lat) for lon,lat in ring]
         d.polygon(pts,fill=fill)
         d.line(pts+[pts[0]],fill=stroke,width=width,joint='curve')
-for name in ['Portugal','Spain','Ireland','Belgium','Netherlands','Germany','Denmark','Czechia','Slovakia','Slovenia','Poland','Hungary','Italy','Austria','Luxembourg']:
+for name in ['Portugal','Spain','Ireland','Belgium','Netherlands','Germany','Denmark','Czechia','Slovakia','Slovenia','Poland','Hungary','Italy','Austria','Luxembourg','United Kingdom','France','Switzerland']:
     if name in geometries:draw_country(name,MAP_LAND,MAP_COAST,1)
-# Colour the host regions like the reference map; the label chips identify institutions and events.
-draw_country('United Kingdom',JPM_BLUE,WHITE,2)
-draw_country('France',SG_RED,WHITE,2)
-draw_country('Switzerland',CS_BLUE,WHITE,2)
-# Distinct non-circular hub patches for the second London and Zurich institutions.
+# Only headquarters / metropolitan hubs receive colour; all surrounding territory stays grey.
 def geo_patch(points,fill,outline=WHITE,width=2):
     pts=[xy(lon,lat) for lon,lat in points]
     d.polygon(pts,fill=fill)
     d.line(pts+[pts[0]],fill=outline,width=width,joint='curve')
-# London / Barings: gold angular hub patch within the blue UK region.
-geo_patch([(-1.15,52.05),(-0.18,52.18),(0.75,51.88),(0.86,51.20),(0.13,50.82),(-0.86,51.02)],BARINGS_GOLD)
-# Zurich / UBS: bright-red angular patch over the blue Swiss host region.
-geo_patch([(7.48,47.72),(8.22,47.82),(9.08,47.58),(9.32,46.98),(8.70,46.72),(7.88,46.88),(7.42,47.25)],UBS_RED)
+# Greater London: two adjacent, schematic bank-hub tiles to separate JPMorgan and Barings.
+geo_patch([(-0.58,51.28),(-0.48,51.63),(-0.20,51.82),(0.18,51.79),(0.43,51.57),(0.25,51.30),(-0.10,51.22)],JPM_BLUE)
+geo_patch([(0.21,51.30),(0.43,51.57),(0.64,51.75),(0.91,51.68),(1.00,51.43),(0.74,51.25),(0.45,51.22)],BARINGS_GOLD)
+# Paris and the Île-de-France metropolitan region only; the rest of France remains neutral.
+geo_patch([(1.38,48.36),(1.53,48.02),(1.96,47.91),(2.35,48.03),(2.82,47.98),(3.30,48.22),(3.59,48.56),(3.57,48.92),(3.30,49.20),(2.88,49.31),(2.48,49.18),(2.08,49.29),(1.69,49.08),(1.47,48.74)],SG_RED)
+# Two small adjacent Zurich city tiles avoid a logo collision without colouring Switzerland.
+geo_patch([(7.82,47.10),(7.95,47.53),(8.18,47.78),(8.48,47.70),(8.58,47.43),(8.42,47.13),(8.12,47.00)],UBS_BLACK)
+geo_patch([(8.58,47.43),(8.62,47.72),(8.94,47.80),(9.24,47.62),(9.32,47.30),(9.09,47.04),(8.78,47.08),(8.55,47.25)],CS_BLUE)
 
 # Hub positions and square city points (no proportional circles).
 city={'London':xy(-0.12,51.51),'Paris':xy(2.35,48.86),'Zurich':xy(8.54,47.38)}
@@ -99,7 +100,7 @@ lx,ly=city['London'];px,py=city['Paris'];zx,zy=city['Zurich']
 # City labels in white over the coloured host-country fills.
 d.text((lx+10,ly+9),'LONDON',font=f(8,True),fill=WHITE,stroke_width=1,stroke_fill=JPM_BLUE)
 d.text((px+77,py-4),'PARIS',font=f(8,True),fill=WHITE,stroke_width=1,stroke_fill=SG_RED)
-d.text((zx+9,zy+54),'ZURICH',font=f(8,True),fill=WHITE,stroke_width=1,stroke_fill=CS_BLUE)
+text(zx+8,zy+32,'ZURICH',8,INK,True)
 
 # Flat logo chips echo the club-map reference. Values use each institution's brand colour.
 def logo_chip(key,x,y,w,h):
@@ -116,24 +117,24 @@ def leader(start,end,key):
     x1,y1=start;x2,y2=end
     line(x1,y1,x2,y2,WHITE,4);line(x1,y1,x2,y2,brand[key],2)
 # Hairline connectors tie flat logo plaques to the square hub points (no circles).
-leader(city['London'],(lx+3,ly-61),'JPM')
-leader(city['London'],(lx-116,ly+39),'BARINGS')
-leader(city['Paris'],(px,py+19),'SG')
-leader(city['Zurich'],(zx+102,zy-47),'CS')
-leader(city['Zurich'],(zx-78,zy+43),'UBS')
-# London: two events share one hub, distinguished by colour and separate angular patch / wordmark.
-logo_chip('JPM',lx-61,ly-93,128,32);amount(lx-48,ly-57,'USD 6.2bn','JPM')
-text(lx-52,ly-113,'JPMORGAN · LONDON WHALE',7,JPM_BLUE,True)
-logo_chip('BARINGS',lx-165,ly+24,98,30);amount(lx-160,ly+58,'~USD 1.4bn','BARINGS',9)
-text(lx-160,ly+78,'LEESON¹',7,BARINGS_GOLD,True)
-# Paris: SocGen event
-logo_chip('SG',px-67,py+20,132,32);amount(px-20,py+57,'EUR 4.9bn','SG')
-text(px-59,py+5,'KERVIEL · 2008',7,SG_RED,True)
-# Zurich: Credit Suisse and UBS, offset and tied to the same square hub point.
-logo_chip('CS',zx+41,zy-63,126,32);amount(zx+52,zy-27,'USD 5.5bn','CS')
-text(zx+47,zy-79,'CREDIT SUISSE · ARCHEGOS',7,CS_BLUE,True)
-logo_chip('UBS',zx-121,zy+27,86,31);amount(zx-113,zy+62,'USD 2.3bn','UBS')
-text(zx-120,zy+11,'UBS · 2011',7,UBS_RED,True)
+leader(city['London'],(lx+5,ly-54),'JPM')
+leader(city['London'],(lx-122,ly+30),'BARINGS')
+leader(city['Paris'],(px,py+20),'SG')
+leader(city['Zurich'],(zx+103,zy-60),'CS')
+leader(city['Zurich'],(zx-95,zy+28),'UBS')
+# London: enlarged marks and values, with separate local patches for the two institutions.
+logo_chip('JPM',lx-75,ly-98,160,44);amount(lx-62,ly-50,'USD 6.2bn','JPM',12)
+text(lx-52,ly-119,'JPMORGAN · LONDON WHALE',8,JPM_BLUE,True)
+logo_chip('BARINGS',lx-190,ly+30,136,42);amount(lx-185,ly+76,'~USD 1.4bn','BARINGS',11)
+text(lx-184,ly+95,'LEESON¹',8,BARINGS_GOLD,True)
+# Paris / Île-de-France: Société Générale.
+logo_chip('SG',px-80,py+20,160,44);amount(px-26,py+68,'EUR 4.9bn','SG',12)
+text(px-60,py+2,'KERVIEL · 2008',8,SG_RED,True)
+# Zurich: UBS and Credit Suisse labels are deliberately offset but remain Zurich HQ.
+logo_chip('CS',zx+22,zy-82,160,44);amount(zx+35,zy-34,'USD 5.5bn','CS',12)
+text(zx+27,zy-104,'CREDIT SUISSE · ARCHEGOS',8,CS_BLUE,True)
+logo_chip('UBS',zx-165,zy+28,140,44);amount(zx-156,zy+76,'USD 2.3bn','UBS',12)
+text(zx-160,zy+8,'UBS · 2011',8,UBS_BLACK,True)
 # Map title strip and explanation of the non-circular hub colour patches.
 rect((mx+1,my+1,mx+mw-1,my+35),MAP_WATER)
 text(mx+18,my+14,'EUROPEAN FINANCIAL HUBS',9,MUTED,True)
@@ -152,13 +153,13 @@ text(rx+rw-23,ry+48,'SOURCE',7,'#89959B',True,anchor='ra',mono=True)
 line(rx+22,ry+70,rx+rw-22,ry+70,PANEL_RULE,1)
 def panel_logo(key,width,height):return fit(logos[key],width,height)
 def event_row(y,key,name,event,value,source):
-    global d;d=ImageDraw.Draw(im);col=brand[key]
+    global d;d=ImageDraw.Draw(im);col=panel_brand[key]
     if key=='UBS':
-        rect((rx+13,y-5,rx+rw-13,y+42),'#25171B');rect((rx+13,y-5,rx+17,y+42),UBS_RED)
+        rect((rx+13,y-5,rx+rw-13,y+42),'#E9ECE8');rect((rx+13,y-5,rx+17,y+42),UBS_RED)
     d.rounded_rectangle((rx+23,y-1,rx+132,y+30),radius=4,fill='#F3F4F1')
     mark=panel_logo(key,99,22);im.paste(mark,(rx+28,y+3),mark);d=ImageDraw.Draw(im)
-    text(rx+143,y,name,10,WHITE if key=='UBS' else '#D5DBDD',True)
-    text(rx+143,y+18,event,8,'#89959B')
+    text(rx+143,y,name,10,INK if key=='UBS' else '#D5DBDD',True)
+    text(rx+143,y+18,event,8,MUTED if key=='UBS' else '#89959B')
     text(rx+rw-52,y+5,value,11,col,True,anchor='ra',mono=True)
     text(rx+rw-25,y+8,source,7,'#96A1A6',True,anchor='ra',mono=True)
     if key!='UBS':line(rx+24,y+43,rx+rw-22,y+43,PANEL_RULE,1)
@@ -172,7 +173,7 @@ rect((rx+23,ry+351,rx+109,ry+375),UBS_RED)
 text(rx+66,ry+356,'UBS 2011',9,WHITE,True,anchor='mm',mono=True)
 text(rx+123,ry+352,'One of the largest unauthorized trading losses',10,WHITE,True)
 text(rx+123,ry+369,'recorded by a major European banking institution.',10,WHITE,True)
-text(rx+23,ry+399,'Hub fills are illustrative; event labels identify each institution.',8,'#A4AEB3')
+text(rx+23,ry+399,'Only HQ hub areas are coloured; all surrounding territory stays grey.',8,'#A4AEB3')
 text(rx+23,ry+439,'¹ Leeson traded in Singapore; London marks Barings HQ.',7,'#89959B')
 text(rx+23,ry+453,'UBS patch: Zurich HQ; loss-making ETF / Delta One desk was London [1].',7,'#89959B')
 
