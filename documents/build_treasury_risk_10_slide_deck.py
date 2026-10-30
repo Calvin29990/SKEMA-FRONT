@@ -17,12 +17,12 @@ MAP_SLIDE = ASSETS / "approved-map-slide-report-order.png"
 NORMAL_HIDDEN_SLIDE = ASSETS / "approved-three-panel-slide.png"
 DALTONS = ASSETS / "daltons-illustration.png"
 UBS_LOGO = ASSETS / "ubs-logo-slide.png"
+UBS_KEY = ASSETS / "ubs-key-watermark.png"
 SKEMA_LOGO = ASSETS / "skema-logo.png"
 
 SW, SH = 13.333333, 7.5
 BG = "F7F7F3"
 NAVY = "18232B"
-BLACK = "101315"
 DARK = "252B2F"
 WHITE = "FFFFFF"
 MUTED = "68747B"
@@ -313,22 +313,24 @@ def make_deck():
     prs.slide_width=Inches(SW); prs.slide_height=Inches(SH)
     blank=prs.slide_layouts[6]
 
-    # Slide 1 — simple title page.
+    # Slide 1 — restrained UBS-style cover based on the supplied reference.
     s=prs.slides.add_slide(blank)
-    s.background.fill.solid(); s.background.fill.fore_color.rgb=C(BG)
-    s.shapes.add_picture(str(UBS_LOGO), Inches(.52), Inches(.31),
-                         width=Inches(1.58), height=Inches(.56))
-    s.shapes.add_picture(str(SKEMA_LOGO), Inches(12.22), Inches(.26),
-                         width=Inches(.60), height=Inches(.63))
-    line(s,.54,1.03,12.82,1.03,GRID,1.0)
-    txt(s,"UBS 2011 ROGUE TRADING SCANDAL",.78,2.10,11.75,.66,31,NAVY,True)
-    txt(s,"Treasury Risk Analysis",.80,2.92,9.5,.35,16,RED,True)
-    line(s,.80,3.55,2.25,3.55,RED,2.2)
-    txt(s,"PRESENTED BY",.80,4.55,2.0,.18,8.0,MUTED,True)
+    s.background.fill.solid(); s.background.fill.fore_color.rgb=C(WHITE)
+    rect(s,.42,0,.065,.94,RED)
+    txt(s,"UBS Group",.72,.31,4.0,.34,16,NAVY)
+    panel=("C9C9C0")
+    rect(s,.84,1.18,11.68,5.62,panel,panel,.1)
+    # The key emblem is a watermark, not a decorative panel or card.
+    s.shapes.add_picture(str(UBS_KEY), Inches(5.38), Inches(1.70),
+                         width=Inches(2.60), height=Inches(2.70))
+    txt(s,"UBS 2011 Rogue Trading Scandal",1.16,4.78,8.70,.46,24,NAVY,True)
+    txt(s,"Treasury Risk Analysis",1.18,5.28,7.40,.25,12.0,NAVY)
     txt(s,"Paul Alain Diouf  ·  Calvin Minang  ·  Jules Métayer  ·  Elias Abou-Tayeh",
-        .80,4.84,11.65,.32,12.0,NAVY,True)
-    txt(s,"PROFESSOR",.80,5.50,2.0,.18,8.0,MUTED,True)
-    txt(s,"Jamil Chaftar",.80,5.78,5.2,.30,12.0,NAVY,True)
+        1.18,5.90,8.55,.28,10.2,NAVY)
+    txt(s,"Professor Jamil Chaftar",1.18,6.28,6.00,.28,10.2,NAVY)
+    rect(s,10.13,6.05,2.39,.75,WHITE,WHITE,.1)
+    s.shapes.add_picture(str(UBS_LOGO), Inches(10.40), Inches(6.12),
+                         width=Inches(1.84), height=Inches(.65))
 
     # Slide 2 — user's European context map remains one intact image.
     add_user_slide(prs,MAP_SLIDE)
@@ -340,7 +342,6 @@ def make_deck():
            "REAL FUTURES EXPOSURE VS THE APPARENT INTERNAL RISK VIEW")
     # Conceptual divergence chart. No invented exposure amounts or scale.
     cx,cy,cw,ch=.65,1.44,8.55,4.96
-    rect(s,cx,cy,cw,ch,WHITE,GRID,.8)
     txt(s,"RELATIVE EXPOSURE  ·  SCHEMATIC, NOT TO SCALE",cx+.20,cy+.14,5.2,.18,7.5,MUTED,True)
     left,right,top,bottom=cx+.66,cx+8.20,cy+.78,cy+4.02
     for yy in [top,top+(bottom-top)/3,top+2*(bottom-top)/3,bottom]:
@@ -414,16 +415,15 @@ def make_deck():
     line(s,2.55,4.40,2.55,2.64,TEAL,2.0)
     rect(s,2.46,3.03,.18,.18,TEAL,shape=MSO_SHAPE.CHEVRON).rotation=270
     txt(s,"ENHANCED CONTROLS",.68,3.37,1.58,.28,7.2,TEAL,True,align=PP_ALIGN.CENTER)
-    for i,(x,y,title,sub,color) in enumerate(nodes):
-        rect(s,x,y,2.38,.82,WHITE,GRID,.8)
-        rect(s,x,y,.055,.82,color)
-        txt(s,title,x+.15,y+.11,2.08,.34,8.6,NAVY,True,align=PP_ALIGN.CENTER)
-        txt(s,sub,x+.15,y+.52,2.08,.17,7.3,color,True,align=PP_ALIGN.CENTER)
+    for x,y,title,sub,color in nodes:
+        line(s,x+.18,y+.04,x+2.20,y+.04,color,1.7)
+        txt(s,title,x+.10,y+.13,2.18,.34,8.6,NAVY,True,align=PP_ALIGN.CENTER)
+        txt(s,sub,x+.10,y+.51,2.18,.17,7.3,color,True,align=PP_ALIGN.CENTER)
     # Central bridge in the cycle
     txt(s,"A trading loss becomes a Treasury issue only when it generates cash obligations through settlements, collateral requirements or funding constraints.",
         3.73,3.22,5.48,.72,10.2,NAVY,True,align=PP_ALIGN.CENTER)
     txt(s,"Settlement cash · collateral calls · delayed receipts · accessible funding",3.85,3.98,5.24,.25,8.0,MUTED,align=PP_ALIGN.CENTER)
-    rect(s,.68,6.28,11.96,.48,LIGHT)
+    line(s,.68,6.28,12.64,6.28,GRID,.7)
     txt(s,"Central question: preserve liquidity and meet payments throughout the three-month response horizon.",
         .90,6.38,11.52,.26,9.0,NAVY,True,align=PP_ALIGN.CENTER)
 
@@ -445,26 +445,14 @@ def make_deck():
         txt(s,title,x,2.57,1.86,.40,8.6,NAVY,True)
         txt(s,desc,x,3.04,1.86,.62,8.1,MUTED,valign=MSO_ANCHOR.TOP)
     # Dalton illustration supports, but does not replace, the chronology.
-    rect(s,9.57,1.48,3.25,1.91,WHITE,GRID,.8)
     add_img_fit(s,DALTONS,9.66,1.57,3.07,1.58)
     txt(s,"ILLUSTRATIVE CARTOON",9.68,3.20,3.02,.14,6.8,MUTED,True,align=PP_ALIGN.RIGHT)
     txt(s,"Hidden positions accumulated before being uncovered in September 2011.",
         9.58,3.58,3.22,.48,8.2,NAVY,True)
-    # Small escalation graphic: compact bars make the Dalton metaphor explicit.
-    bx=9.73; by=5.37
-    barh=[.22,.40,.62,.88]
-    for i,h in enumerate(barh):
-        xx=bx+i*.67
-        rect(s,xx,by-h,.48,h,[TEAL,GOLD,RED,RED][i])
-    txt(s,"SMALL",9.72,5.49,.48,.14,6.2,MUTED,True,align=PP_ALIGN.CENTER)
-    txt(s,"GROWING",10.39,5.49,.48,.14,6.2,MUTED,True,align=PP_ALIGN.CENTER)
-    txt(s,"LARGER",11.06,5.49,.48,.14,6.2,MUTED,True,align=PP_ALIGN.CENTER)
-    txt(s,"DISCOVERY",11.73,5.49,.66,.14,6.0,RED,True,align=PP_ALIGN.CENTER)
     line(s,.70,4.14,12.78,4.14,GRID,.8)
     txt(s,"TREASURY TAKEAWAY",.72,4.42,1.72,.19,7.7,RED,True)
     txt(s,"The discovery date starts the response horizon; it does not make prior losses a same-day cash payment.",
         2.55,4.37,6.55,.36,9.2,NAVY,True)
-    rect(s,.70,5.15,8.40,.79,PALE_AMBER)
     txt(s,"14 Sep 2011",.92,5.30,1.32,.20,8.2,GOLD,True)
     txt(s,"Three-month Treasury response horizon",2.40,5.28,4.80,.22,9.1,NAVY,True)
     txt(s,"FINMA 2012; FSA 2012; UBS disclosures. The Dalton image is illustrative, not an incident photograph.",
@@ -531,7 +519,6 @@ def make_deck():
             txt(s,"−" if i<5 else "=",x+1.66,1.79,.24,.28,13,SOFT,True,align=PP_ALIGN.CENTER)
     # Waterfall chart: steps descend from 849 to 549 against a 700 buffer.
     wx0,wy0,ww,wh=.75,3.22,7.40,2.50
-    rect(s,wx0,wy0,ww,wh,WHITE,GRID,.8)
     l,r=wx0+.55,wx0+ww-.20;top,bottom=wy0+.28,wy0+2.00
     def yv(v):return bottom-(v-450)/(900-450)*(bottom-top)
     for v in (500,600,700,800,900):
@@ -549,8 +536,8 @@ def make_deck():
         txt(s,label,x-.25,bottom+.12,1.08,.22,6.6,NAVY,True,align=PP_ALIGN.CENTER)
         if i<len(steps)-1:line(s,x+.55,yv(after),steps[i+1][0],yv(after),MUTED,.7)
     # Funding timing, shortfall and peak gap.
-    rect(s,8.43,3.22,4.20,2.50,LIGHT)
     txt(s,"BUFFER / FUNDING TEST",8.68,3.43,3.70,.21,8.7,NAVY,True)
+    line(s,8.68,3.70,12.39,3.70,GRID,.7)
     txt(s,"$700m",8.68,3.87,1.18,.32,15,GOLD,True)
     txt(s,"minimum buffer",9.88,3.92,1.32,.22,7.5,MUTED)
     txt(s,"$151m",11.27,3.87,1.08,.32,14,RED,True,align=PP_ALIGN.RIGHT)
@@ -564,34 +551,31 @@ def make_deck():
 
     # Slide 7: heatmap with full risk names directly in their matrix cells.
     s=prs.slides.add_slide(blank)
-    header(s,"RISK MATRIX","SECTION 3.1  ·  LIKELIHOOD × IMPACT",8,
+    header(s,"RISK ASSESSMENT","SECTION 3.1  ·  LIKELIHOOD AND IMPACT",8,
            "RESIDUAL RATINGS ARE ANALYST JUDGEMENTS FOR THE THREE-MONTH HORIZON")
-    mx,my,cw,ch=.93,1.67,2.20,1.28
-    # High likelihood at top; impact rises left to right.
-    fills=[["F5DCDD","EFC9C9","E5B3B7"],
-           ["F4E8C7","EFDBA9","EACB9B"],
-           ["E4EEE5","E8EDDD","F1E6C8"]]
-    labels=[
-        ["", "", ""],
-        ["", "Market (4)\nCounterparty (4)\nLegal / regulatory (4)", "Operational (6)\nLiquidity (6)\nFunding (6)"],
-        ["", "Reputational (2)", ""],
+    # Plain text assessment instead of a tiled heatmap.
+    x_risk,x_likely,x_impact,x_score=.80,3.65,5.05,6.40
+    txt(s,"RISK",x_risk,1.75,2.50,.20,8.0,MUTED,True)
+    txt(s,"LIKELIHOOD",x_likely,1.75,1.20,.20,7.4,MUTED,True,align=PP_ALIGN.CENTER)
+    txt(s,"IMPACT",x_impact,1.75,1.00,.20,7.4,MUTED,True,align=PP_ALIGN.CENTER)
+    txt(s,"SCORE",x_score,1.75,.70,.20,7.4,MUTED,True,align=PP_ALIGN.CENTER)
+    line(s,.80,2.08,7.28,2.08,RED,1.3)
+    ratings=[
+        ("Operational","Possible","High","6",RED),
+        ("Liquidity","Possible","High","6",RED),
+        ("Funding","Possible","High","6",RED),
+        ("Market","Possible","Medium","4",GOLD),
+        ("Counterparty","Possible","Medium","4",GOLD),
+        ("Legal / regulatory","Possible","Medium","4",GOLD),
+        ("Reputational","Unlikely","Medium","2",GREEN),
     ]
-    for r in range(3):
-        for c in range(3):
-            x=mx+c*cw;y=my+r*ch
-            rect(s,x,y,cw-.05,ch-.05,fills[r][c],WHITE,1)
-            score=(3-r)*(c+1)
-            txt(s,str(score),x+.08,y+.05,.22,.16,6.8,MUTED)
-            if labels[r][c]:
-                color=RED if c==2 else (GOLD if c==1 else GREEN)
-                txt(s,labels[r][c],x+.18,y+.25,cw-.40,ch-.40,8.0,color,True,
-                    align=PP_ALIGN.CENTER)
-    for r,lab in enumerate(["LIKELY","POSSIBLE","UNLIKELY"]):
-        txt(s,lab,.10,my+r*ch+.48,.76,.20,7.1,NAVY,True,align=PP_ALIGN.RIGHT)
-    for c,lab in enumerate(["LOW","MEDIUM","HIGH"]):
-        txt(s,lab,mx+c*cw,my+3*ch+.03,cw-.05,.19,7.3,NAVY,True,align=PP_ALIGN.CENTER)
-    txt(s,"LIKELIHOOD",.11,1.40,.75,.18,6.8,MUTED,True,align=PP_ALIGN.RIGHT)
-    txt(s,"IMPACT",mx+1.95,my+3*ch+.31,1.0,.18,7.0,MUTED,True,align=PP_ALIGN.CENTER)
+    for i,(risk,likelihood,impact,score,color) in enumerate(ratings):
+        y=2.24+i*.51
+        txt(s,risk,x_risk,y,2.50,.22,8.6,NAVY,True)
+        txt(s,likelihood,x_likely,y,1.20,.22,8.1,NAVY,align=PP_ALIGN.CENTER)
+        txt(s,impact,x_impact,y,1.00,.22,8.1,NAVY,align=PP_ALIGN.CENTER)
+        txt(s,score,x_score,y,.70,.22,8.8,color,True,align=PP_ALIGN.CENTER)
+        if i<6: line(s,.80,y+.34,7.28,y+.34,GRID,.55)
     # Right-hand key, not a second coded table.
     tx=8.12
     txt(s,"PRIORITY RISKS",tx,1.78,4.55,.24,9.6,NAVY,True)
@@ -654,12 +638,14 @@ def make_deck():
     txt(s,"Count funding only when availability, collateral and arrival time are verified.",
         .68,6.93,12.0,.15,6.9,MUTED,align=PP_ALIGN.CENTER)
 
-    # Slide 10 — brief closing page with sources.
+    # Slide 10 — quiet closing page, matching the supplied UBS back-page reference.
     s=prs.slides.add_slide(blank)
-    header(s,"","",10,"")
-    txt(s,"Thank you",.76,1.48,11.8,.72,34,NAVY,True)
-    txt(s,"SOURCES",.78,2.70,2.0,.22,9.5,RED,True)
-    line(s,.78,3.03,12.58,3.03,GRID,1.0)
+    s.background.fill.solid(); s.background.fill.fore_color.rgb=C(WHITE)
+    rect(s,.42,0,.065,.94,RED)
+    txt(s,"UBS Group",.72,.31,4.0,.34,16,NAVY)
+    line(s,.72,.91,12.58,.91,GRID,.7)
+    txt(s,"Thank you",.82,1.55,10.8,.70,34,NAVY,True)
+    txt(s,"Sources",.84,2.72,2.0,.25,11.0,RED,True)
     sources=[
         "FINMA, Summary Report: Investigation into UBS London Trading Losses, 21 November 2012.",
         "FSA, Final Notice to UBS AG, 25 November 2012.",
@@ -667,13 +653,12 @@ def make_deck():
         "UBS, Third-quarter 2011 results and presentation materials, 25 October 2011.",
     ]
     for i,source in enumerate(sources):
-        y=3.42+i*.63
-        txt(s,source,.80,y,11.65,.32,10.2,NAVY)
-        if i<len(sources)-1:
-            line(s,.80,y+.43,12.45,y+.43,GRID,.55)
+        txt(s,source,.84,3.16+i*.56,11.55,.34,10.5,NAVY)
+    s.shapes.add_picture(str(UBS_LOGO), Inches(.82), Inches(6.31),
+                         width=Inches(1.56), height=Inches(.55))
 
     prs.core_properties.title="UBS 2011 Rogue Trading Scandal · Treasury Response"
-    prs.core_properties.subject="Ten-slide Treasury presentation aligned to the report"
+    prs.core_properties.subject="Treasury risk analysis of the 2011 UBS trading incident"
     prs.core_properties.author="Paul Alain Diouf; Calvin Minang; Jules Métayer; Elias Abou-Tayeh"
     prs.save(PPTX_OUT)
     return PPTX_OUT
