@@ -29,24 +29,24 @@ The map retains the 12 requested bank logos at their city locations, but omits e
 
 | Bank | Highlighted territory | Colour |
 |---|---|---|
-| NatWest | Scotland | Purple |
+| NatWest | Eastern Scotland | Purple |
 | Barclays | North West England | Cyan |
 | Lloyds | West Midlands | Green |
-| HSBC | Greater London | Red |
+| HSBC | Greater London | Red, with a gold Barings outline |
 | BNP Paribas | Hauts-de-France | Green |
 | Société Générale | Île-de-France | Red |
 | Crédit Agricole | Auvergne-Rhône-Alpes | Green |
 | Natixis | Provence-Alpes-Côte d'Azur (includes Marseille) | Violet |
 | UBS | Canton of Zürich | Black / charcoal |
-| Credit Suisse | Canton of Geneva | Blue |
-| Julius Baer | Basel-Stadt and Basel-Landschaft | Gold |
+| Credit Suisse | Canton of Geneva | Bright blue |
+| Julius Baer | Basel-Stadt and Basel-Landschaft | Muted blue, distinct from Credit Suisse |
 | Pictet | Canton of Ticino | Green |
 
-Bank wordmarks float directly on the map without circular markers, halos or white logo cards. The map is zoomed to keep France, the UK and Switzerland in context. The three event highlights retain their hierarchy: largest red UBS/Adoboli callout, second red Kerviel callout, and third gold Barings callout.
+Bank wordmarks are enlarged and float directly on the map without circular markers, halos or white logo cards. The north-up map uses a flat equirectangular projection and is recentered on the bank territories, excluding the empty Eastern Europe / Russia area. Barings receives a gold outline around the shared Greater London territory while HSBC's territory fill remains red; the outline denotes Barings' London institutional home, not Leeson's Singapore trading activity. The event callouts sit directly below or adjacent to their source logos: Barings below HSBC/London, Kerviel below Société Générale/Paris, and Adoboli immediately below UBS/Zurich.
 
 Territory geometry sources:
 
-- UK regions: Martin Chorley, [UK-GeoJSON](https://github.com/martinjc/UK-GeoJSON), using NUTS1 boundaries for England and Wales and NUTS2 boundaries to combine Scotland. The data is CC BY 4.0; underlying Ordnance Survey data carries Crown Copyright and database-right attribution.
+- UK regions: Martin Chorley, [UK-GeoJSON](https://github.com/martinjc/UK-GeoJSON), using NUTS1 boundaries for Greater London, North West England and West Midlands, plus the Eastern Scotland NUTS2 area. The data is CC BY 4.0; underlying Ordnance Survey data carries Crown Copyright and database-right attribution.
 - Swiss cantons: [map-switzerland](https://github.com/severinlandolt/map-switzerland), GeoJSON canton boundaries in WGS84.
 
 ## Logo asset references

@@ -64,10 +64,10 @@ d.line((42, 88, 1558, 88), fill=GRID, width=1)
 page_under_map = im.copy()
 
 # Light-grey Europe base, with discreet national borders.
-# Zoomed regional view centred on France, with the UK and Switzerland retained for context.
-mx, my, mw, mh = 190, 105, 1220, 680
-lon0, lon1 = -7.5, 14.0
-lat0, lat1 = 41.5, 61.0
+# North-up, flat map projection, zoomed around the bank territories (no perspective or tilt).
+mx, my, mw, mh = 350, 105, 900, 680
+lon0, lon1 = -6.5, 10.5
+lat0, lat1 = 42.5, 57.5
 
 def xy(lon, lat):
     return (mx + (lon - lon0) / (lon1 - lon0) * mw,
@@ -104,8 +104,8 @@ territory_styles = {
     'CA': ('#9BC9BB', '#006B54'),
     'NATIXIS': ('#A783C9', '#6F2DA8'),
     'UBS': ('#B3B3B3', '#111111'),
-    'CS': ('#A9C4DE', '#005EB8'),
-    'JULIUS': ('#E1D2A4', '#B89D4F'),
+    'CS': ('#A7CDEA', '#005EB8'),
+    'JULIUS': ('#C0CEE2', '#4C6FA5'),
     'PICTET': ('#A1CBBF', '#006A52'),
 }
 
@@ -166,6 +166,14 @@ for feature, bank_key, outline in territories:
         points = [xy(lon, lat) for lon, lat in polygon[0]]
         d.line(points + [points[0]], fill=color, width=width, joint='curve')
 
+# London is shared by HSBC and Barings: red fill for HSBC, gold outer outline for Barings.
+for feature in uk_regions['features']:
+    if feature['properties'].get('region') == 'Greater London':
+        for polygon in polygons_of(feature):
+            points = [xy(lon, lat) for lon, lat in polygon[0]]
+            d.line(points + [points[0]], fill='#D4A017', width=7, joint='curve')
+            d.line(points + [points[0]], fill='#DB0011', width=2, joint='curve')
+
 # Clip geographic layers to the zoom window so no land spills into the title or footer.
 map_crop = im.crop((mx, my, mx + mw, my + mh))
 im = page_under_map.copy()
@@ -195,28 +203,28 @@ def place_bank(key, lon, lat, logo_size, dx=0, dy=0, lloyds=False):
     anchor = xy(lon, lat)
     center = (anchor[0] + dx, anchor[1] + dy)
     if lloyds:
-        paste_logo_floating(im, logos[key], (center[0] - 19, center[1]), (32, 29))
+        paste_logo_floating(im, logos[key], (center[0] - 23, center[1]), (40, 35))
         d = ImageDraw.Draw(im)
-        text(d, (center[0] + 18, center[1]), 'LLOYDS', 11, '#00843D', bold=True,
+        text(d, (center[0] + 22, center[1]), 'LLOYDS', 12, '#00843D', bold=True,
              anchor='mm', stroke_width=1)
     else:
         paste_logo_floating(im, logos[key], center, logo_size)
 
 # UK
-place_bank('NATWEST', -3.1883, 55.9533, (80, 24))
-place_bank('BARCLAYS', -2.2426, 53.4808, (68, 31))
-place_bank('LLOYDS', -1.8904, 52.4862, (78, 30), lloyds=True)
-place_bank('HSBC', -0.1276, 51.5072, (82, 25))
+place_bank('NATWEST', -3.1883, 55.9533, (90, 28))
+place_bank('BARCLAYS', -2.2426, 53.4808, (82, 36))
+place_bank('LLOYDS', -1.8904, 52.4862, (88, 32), lloyds=True)
+place_bank('HSBC', -0.1276, 51.5072, (100, 30))
 # France
-place_bank('BNP', 3.0573, 50.6292, (74, 34))
-place_bank('SG', 2.3522, 48.8566, (91, 32))
-place_bank('CA', 4.8357, 45.7640, (88, 24), dx=-57, dy=23)
-place_bank('NATIXIS', 5.3698, 43.2965, (100, 30), dx=20, dy=-20)
+place_bank('BNP', 3.0573, 50.6292, (90, 40))
+place_bank('SG', 2.3522, 48.8566, (105, 36))
+place_bank('CA', 4.8357, 45.7640, (100, 30), dx=-120, dy=-27)
+place_bank('NATIXIS', 5.3698, 43.2965, (105, 32), dx=20, dy=-20)
 # Switzerland
-place_bank('CS', 6.1432, 46.2044, (74, 22))
-place_bank('JULIUS', 7.59, 47.56, (64, 20), dx=-18, dy=-20)
-place_bank('UBS', 8.5417, 47.3769, (82, 30), dx=28)
-place_bank('PICTET', 8.95, 46.0, (88, 25))
+place_bank('CS', 6.1432, 46.2044, (88, 25), dx=-4, dy=-38)
+place_bank('JULIUS', 7.59, 47.56, (88, 25), dx=-50, dy=-25)
+place_bank('UBS', 8.5417, 47.3769, (105, 38), dx=14)
+place_bank('PICTET', 8.95, 46.0, (82, 24), dx=34, dy=12)
 
 # Event highlights use floating type only, without circles or containers.
 def event_text(x, y, label, amount, color, label_size, amount_size):
@@ -226,11 +234,11 @@ def event_text(x, y, label, amount, color, label_size, amount_size):
     text(d, (x, y + label_size + 5), amount, amount_size, color, bold=True, stroke_width=3)
 
 # Barings 1995 — third in the visual hierarchy, with gold event type near London.
-event_text(405, 455, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
-# Kerviel 2008 — second-largest red event emphasis beside the Paris / SG marker.
-event_text(470, 565, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 38)
-# Adoboli 2011 — largest callout, with the requested UBS-red accent by Zurich.
-event_text(1205, 455, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 42)
+event_text(600, 415, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
+# Kerviel 2008 — second-largest red event emphasis directly below Société Générale.
+event_text(670, 535, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 36)
+# Adoboli 2011 — largest callout directly below and close to UBS Zurich.
+event_text(900, 595, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 40)
 
 # Minimal footnote retains the factual distinction between Zurich HQ and the London desk.
 d.line((42, 806, 1558, 806), fill=GRID, width=1)
