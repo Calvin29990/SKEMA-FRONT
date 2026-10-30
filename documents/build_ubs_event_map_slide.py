@@ -8,26 +8,32 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parent
-MAP = ROOT / "assets" / "ubs-event-map-approved.png"
+ASSETS = ROOT / "assets"
+MAP = ASSETS / "ubs-event-map-approved.png"
+UBS_LOGO_SOURCE = ASSETS / "ubs-logo.png"
+UBS_LOGO = ASSETS / "ubs-logo-slide.png"
+SKEMA_LOGO = ASSETS / "skema-logo.png"
 PPTX_OUT = ROOT / "ubs-event-map-slide.pptx"
 PNG_OUT = ROOT / "ubs-event-map-slide-preview.png"
 
-# Palette
-BG = "F4F7FA"
-NAVY = "173044"
-MUTED = "647684"
-TEAL = "139B96"
-BORDER = "E1E8EE"
-WHITE = "FFFFFF"
-GOLD = "A77A00"
-RED = "C8272C"
-DARK_RED = "B82631"
+# Palette sampled to echo the user's approved UBS / SKEMA risk-slide style.
+BG = "F7F7F3"
+NAVY = "18232B"
+MUTED = "737B80"
+TEAL = "00A985"
+RED = "C82036"
+GOLD = "D6A600"
+PANEL = "101315"
+PANEL_LINE = "30373B"
+WHITE = "F7F8F6"
+SOFT = "A9B0B2"
 
 SLIDE_W, SLIDE_H = 13.333333, 7.5
+MAP_ASPECT = 867 / 651
 
 
-def rgb(hex_color):
-    return RGBColor.from_string(hex_color)
+def rgb(value):
+    return RGBColor.from_string(value)
 
 
 def add_text(slide, text, x, y, w, h, size, color, bold=False,
@@ -52,34 +58,47 @@ def add_text(slide, text, x, y, w, h, size, color, bold=False,
     return box
 
 
-def rounded_card(slide, x, y, w, h, fill=WHITE, line=BORDER, radius=MSO_SHAPE.ROUNDED_RECTANGLE):
-    shape = slide.shapes.add_shape(radius, Inches(x), Inches(y), Inches(w), Inches(h))
+def rect(slide, x, y, w, h, fill, line=None, line_width=0.8):
+    shape = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE,
+                                   Inches(x), Inches(y), Inches(w), Inches(h))
     shape.fill.solid()
     shape.fill.fore_color.rgb = rgb(fill)
-    shape.line.color.rgb = rgb(line)
-    shape.line.width = Pt(0.8)
+    if line:
+        shape.line.color.rgb = rgb(line)
+        shape.line.width = Pt(line_width)
+    else:
+        shape.line.fill.background()
     return shape
 
 
-def add_case(slide, x, y, label, year, amount, color, org=None):
-    w, h = 4.12, 1.02
-    rounded_card(slide, x, y, w, h)
-    accent = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE,
-                                    Inches(x + 0.16), Inches(y + 0.20),
-                                    Inches(0.055), Inches(0.61))
-    accent.fill.solid()
-    accent.fill.fore_color.rgb = rgb(color)
-    accent.line.fill.background()
-    add_text(slide, label, x + 0.34, y + 0.10, 2.95, 0.27, 12.5, NAVY, True)
-    add_text(slide, year, x + 3.29, y + 0.10, 0.60, 0.27, 9.5, color, True,
+def add_benchmark(slide, x, y, w, label, year, amount, color, institution=""):
+    add_text(slide, label, x, y, 2.72, 0.23, 10, WHITE, True)
+    add_text(slide, year, x + w - 0.62, y, 0.55, 0.23, 9, color, True,
              align=PP_ALIGN.RIGHT)
-    add_text(slide, amount, x + 0.34, y + 0.44, 2.30, 0.42, 19, color, True)
-    if org:
-        add_text(slide, org, x + 2.18, y + 0.52, 1.70, 0.25, 9, MUTED, False,
-                 align=PP_ALIGN.RIGHT)
+    add_text(slide, amount, x, y + 0.28, 2.58, 0.38, 18, color, True)
+    if institution:
+        add_text(slide, institution, x + 2.62, y + 0.34,
+                 w - 2.62, 0.24, 8.5, SOFT, False, align=PP_ALIGN.RIGHT)
+
+
+def prepare_logo():
+    """Remove the source logo's white matte so it sits cleanly on the ivory header."""
+    logo = Image.open(UBS_LOGO_SOURCE).convert("RGBA")
+    pixels = logo.load()
+    for y in range(logo.height):
+        for x in range(logo.width):
+            r, g, b, a = pixels[x, y]
+            whiteness = min(r, g, b)
+            if whiteness >= 248:
+                pixels[x, y] = (r, g, b, 0)
+            elif whiteness > 228 and max(r, g, b) - min(r, g, b) < 16:
+                alpha = int(a * (248 - whiteness) / 20)
+                pixels[x, y] = (r, g, b, alpha)
+    logo.save(UBS_LOGO)
 
 
 def build_pptx():
+    prepare_logo()
     prs = Presentation()
     prs.slide_width = Inches(SLIDE_W)
     prs.slide_height = Inches(SLIDE_H)
@@ -87,51 +106,79 @@ def build_pptx():
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = rgb(BG)
 
-    # Header
-    add_text(slide, "RISK CASE STUDY  /  EUROPE", 0.56, 0.23, 5.0, 0.22,
-             9, TEAL, True)
-    add_text(slide, "MAJOR EUROPEAN TRADING LOSS EVENTS", 0.56, 0.48,
-             8.0, 0.43, 24, NAVY, True)
+    # Brand header mirrors the approved slide while keeping the event map central.
+    slide.shapes.add_picture(str(UBS_LOGO), Inches(0.40), Inches(0.18),
+                             width=Inches(1.53), height=Inches(0.54))
+    add_text(slide, "UBS INVESTMENT BANK  |  2011", 2.18, 0.18,
+             8.9, 0.31, 17.5, NAVY, True)
+    add_text(slide, "EUROPEAN TRADING-LOSS BENCHMARKS", 2.18, 0.49,
+             8.9, 0.22, 10.5, RED, True)
+    add_text(slide, "Treasury Committee  /  incident overview",
+             2.18, 0.75, 8.9, 0.18, 8.3, MUTED)
+    slide.shapes.add_picture(str(SKEMA_LOGO), Inches(12.22), Inches(0.16),
+                             width=Inches(0.59), height=Inches(0.59))
+    rect(slide, 0.40, 0.99, 12.53, 0.012, "C9CDCA")
+
+    add_text(slide, "EUROPEAN LOSS EVENTS  /  MAP & BENCHMARKS",
+             0.43, 1.05, 6.1, 0.20, 7.7, MUTED, True)
+    add_text(slide, "HISTORICAL CASES  ·  LOSS FIGURES AS LABELLED",
+             7.60, 1.05, 5.25, 0.20, 7.7, MUTED, True,
+             align=PP_ALIGN.RIGHT)
+
+    # Two dark editorial panels echo the approved three-panel risk overview.
+    panel_y, panel_h = 1.31, 5.43
+    rect(slide, 0.42, panel_y, 7.20, panel_h, PANEL, PANEL_LINE, 0.8)
+    rect(slide, 0.42, panel_y, 7.20, 0.045, TEAL)
+    # Preserve the approved map's native 4:3-ish aspect ratio without cropping.
+    map_h = 5.25
+    map_w = map_h * MAP_ASPECT
+    slide.shapes.add_picture(str(MAP), Inches(0.49), Inches(1.39),
+                             width=Inches(map_w), height=Inches(map_h))
+
+    panel_x, panel_w = 7.78, 5.15
+    rect(slide, panel_x, panel_y, panel_w, panel_h, PANEL, PANEL_LINE, 0.8)
+    rect(slide, panel_x, panel_y, panel_w, 0.045, RED)
+    add_text(slide, "BENCHMARK LOSS EVENTS", 7.99, 1.56,
+             4.75, 0.25, 11, WHITE, True)
+    add_text(slide, "Selected European trading-loss cases",
+             7.99, 1.86, 4.75, 0.20, 8.2, SOFT)
+    rect(slide, 7.99, 2.15, 4.73, 0.008, PANEL_LINE)
+
+    add_benchmark(slide, 8.01, 2.36, 4.68, "BARINGS", "1995",
+                  "USD -1.4bn", GOLD)
+    rect(slide, 7.99, 3.18, 4.73, 0.008, PANEL_LINE)
+    add_benchmark(slide, 8.01, 3.38, 4.68, "KERVIEL", "2008",
+                  "EUR -4.9bn", RED, "Société Générale")
+    rect(slide, 7.99, 4.20, 4.73, 0.008, PANEL_LINE)
+    add_benchmark(slide, 8.01, 4.40, 4.68, "ADOBOLI", "2011",
+                  "USD -2.3bn", RED, "UBS")
+    rect(slide, 7.99, 5.22, 4.73, 0.008, PANEL_LINE)
+
+    add_text(slide, "LOCATION NOTE", 8.01, 5.43, 4.65, 0.20,
+             8.2, GOLD, True)
+    add_text(slide, "Adoboli's trading desk: London",
+             8.01, 5.70, 4.65, 0.24, 10, WHITE, True)
+    add_text(slide, "UBS Group headquarters: Zurich",
+             8.01, 5.99, 4.65, 0.23, 9, SOFT)
+
+    # A single bottom-line sentence, in the executive-summary position of the reference.
+    rect(slide, 0.42, 6.88, 12.51, 0.012, "C9CDCA")
+    add_text(slide, "EXECUTIVE SUMMARY", 0.44, 6.97, 1.58, 0.18,
+             7.6, RED, True)
     add_text(slide,
-             "Selected benchmark trading-loss events relevant to the UBS 2011 case",
-             0.57, 0.98, 8.4, 0.24, 10.5, MUTED)
+             "The UBS case shows how control failures can escalate into material losses and liquidity pressure.",
+             2.02, 6.95, 10.75, 0.23, 10.3, NAVY, True)
+    add_text(slide, "UBS  ×  SKEMA", 11.92, 7.26, 0.95, 0.12,
+             6.4, MUTED, True, align=PP_ALIGN.RIGHT)
 
-    # Map panel: retain the approved crop's native aspect ratio.
-    rounded_card(slide, 0.45, 1.43, 7.55, 5.66)
-    slide.shapes.add_picture(str(MAP), Inches(0.55), Inches(1.50),
-                             width=Inches(7.35), height=Inches(5.52))
-
-    # Event sidebar
-    rounded_card(slide, 8.20, 1.43, 4.68, 5.66)
-    add_text(slide, "BENCHMARK CASES", 8.48, 1.73, 3.9, 0.22,
-             9, TEAL, True)
-    add_text(slide, "Three historic losses", 8.48, 1.99, 4.1, 0.36,
-             16, NAVY, True)
-
-    add_case(slide, 8.48, 2.50, "BARINGS", "1995", "USD -1.4bn", GOLD)
-    add_case(slide, 8.48, 3.66, "KERVIEL", "2008", "EUR -4.9bn", DARK_RED,
-             "Société Générale")
-    add_case(slide, 8.48, 4.82, "ADOBOLI", "2011", "USD -2.3bn", RED, "UBS")
-
-    # Geography note distinguishes the trading desk from the bank headquarters.
-    note = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE,
-                                  Inches(8.48), Inches(6.00), Inches(4.12), Inches(0.82))
-    note.fill.solid()
-    note.fill.fore_color.rgb = rgb(NAVY)
-    note.line.fill.background()
-    add_text(slide, "LOCATION MATTERS", 8.70, 6.11, 3.65, 0.19,
-             8.5, "75D8CF", True)
-    add_text(slide, "Adoboli traded from London; UBS headquarters are in Zurich.",
-             8.70, 6.34, 3.65, 0.39, 10.5, WHITE, False)
-
-    prs.core_properties.title = "Major European Trading Loss Events"
-    prs.core_properties.subject = "One-slide map of selected European trading-loss events"
+    prs.core_properties.title = "UBS Investment Bank | European Trading-Loss Benchmarks"
+    prs.core_properties.subject = "Approved European trading-loss map with benchmark cases"
     prs.core_properties.author = "SKEMA"
     prs.save(PPTX_OUT)
 
 
 def build_preview():
-    # A faithful high-resolution visual preview of the PowerPoint layout.
+    prepare_logo()
     scale = 120
     canvas = Image.new("RGB", (int(SLIDE_W * scale), int(SLIDE_H * scale)), f"#{BG}")
     draw = ImageDraw.Draw(canvas)
@@ -139,54 +186,76 @@ def build_preview():
     bold_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
     def font(size, bold=False):
-        path = bold_path if bold else regular_path
-        return ImageFont.truetype(path, int(size * scale / 72))
+        return ImageFont.truetype(bold_path if bold else regular_path,
+                                  int(size * scale / 72))
 
     def px(v):
         return int(v * scale)
 
-    def text(s, x, y, size, color, bold=False):
-        draw.text((px(x), px(y)), s, font=font(size, bold), fill=f"#{color}")
+    def text(s, x, y, size, color, bold=False, anchor=None):
+        draw.text((px(x), px(y)), s, font=font(size, bold),
+                  fill=f"#{color}", anchor=anchor)
 
-    def card(x, y, w, h, fill=WHITE, outline=BORDER, radius=12):
-        draw.rounded_rectangle((px(x), px(y), px(x+w), px(y+h)),
-                               radius=px(radius/72), fill=f"#{fill}",
-                               outline=f"#{outline}", width=2)
+    def rectangle(x, y, w, h, fill, outline=None, width=1):
+        box = (px(x), px(y), px(x+w), px(y+h))
+        draw.rectangle(box, fill=f"#{fill}",
+                       outline=f"#{outline}" if outline else None, width=width)
 
-    text("RISK CASE STUDY  /  EUROPE", 0.56, 0.25, 9, TEAL, True)
-    text("MAJOR EUROPEAN TRADING LOSS EVENTS", 0.56, 0.52, 24, NAVY, True)
-    text("Selected benchmark trading-loss events relevant to the UBS 2011 case",
-         0.57, 1.01, 10.5, MUTED)
+    # Header logos and title.
+    ubs = Image.open(UBS_LOGO).convert("RGBA")
+    ubs = ubs.resize((px(1.53), px(0.54)), Image.Resampling.LANCZOS)
+    canvas.paste(ubs, (px(0.40), px(0.18)), ubs)
+    text("UBS INVESTMENT BANK  |  2011", 2.18, 0.22, 17.5, NAVY, True)
+    text("EUROPEAN TRADING-LOSS BENCHMARKS", 2.18, 0.52, 10.5, RED, True)
+    text("Treasury Committee  /  incident overview", 2.18, 0.77, 8.3, MUTED)
+    skema = Image.open(SKEMA_LOGO).convert("RGBA")
+    skema = skema.resize((px(0.59), px(0.59)), Image.Resampling.LANCZOS)
+    canvas.paste(skema, (px(12.22), px(0.16)), skema)
+    rectangle(0.40, 0.99, 12.53, 0.012, "C9CDCA")
+    text("EUROPEAN LOSS EVENTS  /  MAP & BENCHMARKS", 0.43, 1.08,
+         7.7, MUTED, True)
+    text("HISTORICAL CASES  ·  LOSS FIGURES AS LABELLED", 12.85, 1.08,
+         7.7, MUTED, True, anchor="ra")
 
-    card(0.45, 1.43, 7.55, 5.66)
-    img = Image.open(MAP).convert("RGB")
-    img = img.resize((px(7.35), px(5.52)), Image.Resampling.LANCZOS)
-    canvas.paste(img, (px(0.55), px(1.50)))
+    panel_y, panel_h = 1.31, 5.43
+    rectangle(0.42, panel_y, 7.20, panel_h, PANEL, PANEL_LINE, 2)
+    rectangle(0.42, panel_y, 7.20, 0.045, TEAL)
+    map_h = 5.25
+    map_w = map_h * MAP_ASPECT
+    event_map = Image.open(MAP).convert("RGB")
+    event_map = event_map.resize((px(map_w), px(map_h)), Image.Resampling.LANCZOS)
+    canvas.paste(event_map, (px(0.49), px(1.39)))
 
-    card(8.20, 1.43, 4.68, 5.66)
-    text("BENCHMARK CASES", 8.48, 1.77, 9, TEAL, True)
-    text("Three historic losses", 8.48, 2.04, 16, NAVY, True)
+    panel_x, panel_w = 7.78, 5.15
+    rectangle(panel_x, panel_y, panel_w, panel_h, PANEL, PANEL_LINE, 2)
+    rectangle(panel_x, panel_y, panel_w, 0.045, RED)
+    text("BENCHMARK LOSS EVENTS", 7.99, 1.60, 11, WHITE, True)
+    text("Selected European trading-loss cases", 7.99, 1.89, 8.2, SOFT)
+    rectangle(7.99, 2.15, 4.73, 0.008, PANEL_LINE)
 
     cases = [
-        (2.50, "BARINGS", "1995", "USD -1.4bn", GOLD, None),
-        (3.66, "KERVIEL", "2008", "EUR -4.9bn", DARK_RED, "Société Générale"),
-        (4.82, "ADOBOLI", "2011", "USD -2.3bn", RED, "UBS"),
+        (2.36, "BARINGS", "1995", "USD -1.4bn", GOLD, ""),
+        (3.38, "KERVIEL", "2008", "EUR -4.9bn", RED, "Société Générale"),
+        (4.40, "ADOBOLI", "2011", "USD -2.3bn", RED, "UBS"),
     ]
     for y, label, year, amount, color, org in cases:
-        card(8.48, y, 4.12, 1.02)
-        draw.rounded_rectangle((px(8.64), px(y+0.20), px(8.695), px(y+0.81)),
-                               radius=3, fill=f"#{color}")
-        text(label, 8.82, y+0.14, 12.5, NAVY, True)
-        text(year, 11.98, y+0.17, 9.5, color, True)
-        text(amount, 8.82, y+0.49, 19, color, True)
+        text(label, 8.01, y+0.03, 10, WHITE, True)
+        text(year, 12.69, y+0.03, 9, color, True, anchor="ra")
+        text(amount, 8.01, y+0.34, 18, color, True)
         if org:
-            text(org, 10.77, y+0.58, 8.3, MUTED)
+            text(org, 10.62, y+0.40, 8.5, SOFT)
+    for y in (3.18, 4.20, 5.22):
+        rectangle(7.99, y, 4.73, 0.008, PANEL_LINE)
 
-    draw.rounded_rectangle((px(8.48), px(6.00), px(12.60), px(6.82)),
-                           radius=px(0.08), fill=f"#{NAVY}")
-    text("LOCATION MATTERS", 8.70, 6.12, 8.5, "75D8CF", True)
-    text("Adoboli traded from London; UBS", 8.70, 6.37, 9.6, WHITE)
-    text("headquarters are in Zurich.", 8.70, 6.55, 9.6, WHITE)
+    text("LOCATION NOTE", 8.01, 5.47, 8.2, GOLD, True)
+    text("Adoboli's trading desk: London", 8.01, 5.73, 10, WHITE, True)
+    text("UBS Group headquarters: Zurich", 8.01, 6.02, 9, SOFT)
+
+    rectangle(0.42, 6.88, 12.51, 0.012, "C9CDCA")
+    text("EXECUTIVE SUMMARY", 0.44, 7.00, 7.6, RED, True)
+    text("The UBS case shows how control failures can escalate into material losses and liquidity pressure.",
+         2.02, 6.98, 10.3, NAVY, True)
+    text("UBS  ×  SKEMA", 12.87, 7.28, 6.4, MUTED, True, anchor="ra")
     canvas.save(PNG_OUT, optimize=True)
 
 
