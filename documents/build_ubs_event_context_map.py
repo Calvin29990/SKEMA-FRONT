@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageColor
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / 'assets'
@@ -143,7 +143,10 @@ def polygons_of(feature):
 region_layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
 rd = ImageDraw.Draw(region_layer)
 for feature, bank_key, _ in territories:
-    fill = territory_styles[bank_key][0] if bank_key else LAND
+    if bank_key:
+        fill = (*ImageColor.getrgb(territory_styles[bank_key][0]), 210)
+    else:
+        fill = LAND
     for polygon in polygons_of(feature):
         points = [xy(lon, lat) for lon, lat in polygon[0]]
         rd.polygon(points, fill=fill)
@@ -206,7 +209,7 @@ def place_bank(key, lon, lat, logo_size, dx=0, dy=0, lloyds=False):
 place_bank('NATWEST', -3.1883, 55.9533, (90, 28))
 place_bank('BARCLAYS', -2.2426, 53.4808, (82, 36))
 place_bank('LLOYDS', -1.8904, 52.4862, (88, 32), lloyds=True)
-place_bank('HSBC', -0.1276, 51.5072, (100, 30))
+place_bank('HSBC', -0.1276, 51.5072, (92, 28), dy=-20)
 # France
 place_bank('BNP', 3.0573, 50.6292, (90, 40))
 place_bank('SG', 2.3522, 48.8566, (105, 36))
@@ -218,17 +221,29 @@ place_bank('JULIUS', 7.59, 47.56, (88, 25), dx=-50, dy=-25)
 place_bank('UBS', 8.5417, 47.3769, (105, 38), dx=14)
 place_bank('PICTET', 8.95, 46.0, (82, 24), dx=34, dy=12)
 
-# Event highlights use floating type only, without circles or containers.
+# An angular red plot marks the actual London desk location of the Adoboli event.
+def event_plot(lon, lat, color, size=9):
+    global d
+    px, py = xy(lon, lat)
+    d = ImageDraw.Draw(im)
+    outer = [(px, py-size), (px+size, py), (px, py+size), (px-size, py)]
+    inner = [(px, py-size+2), (px+size-2, py), (px, py+size-2), (px-size+2, py)]
+    d.polygon(outer, fill=PAPER)
+    d.polygon(inner, fill=color)
+
+event_plot(-0.1276, 51.5072, '#E00000')
+
+# Event highlights use floating type only, without boxes or bank-territory fills.
 def event_text(x, y, label, amount, color, label_size, amount_size):
     global d
     d = ImageDraw.Draw(im)
     text(d, (x, y), label, label_size, color, bold=True, stroke_width=1)
     text(d, (x, y + label_size + 4), amount, amount_size, color, bold=True, stroke_width=1)
 
-# Compact event notes sit next to their source bank logos; they are events, not territory marks.
-event_text(610, 403, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 13, 24)
-event_text(760, 520, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 13, 28)
-event_text(950, 590, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 13, 30)
+# Compact event callouts remain distinct from bank territory fills.
+event_text(610, 403, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 14, 26)
+event_text(760, 520, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 14, 30)
+event_text(745, 332, 'ADOBOLI · 2011 · UBS', 'USD -2.3bn', '#E00000', 14, 32)
 
 # Minimal footnote retains the factual distinction between Zurich HQ and the London desk.
 d.line((42, 806, 1558, 806), fill=GRID, width=1)

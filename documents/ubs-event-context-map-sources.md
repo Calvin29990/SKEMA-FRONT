@@ -42,7 +42,7 @@ The map retains the 12 requested bank logos at their city locations, but omits e
 | Julius Baer | Basel-Stadt and Basel-Landschaft | Muted blue, distinct from Credit Suisse |
 | Pictet | Canton of Ticino | Green |
 
-Bank wordmarks are enlarged and float directly on the map without circular markers, halos or white logo cards. The north-up map uses a flat equirectangular projection and is recentered on the bank territories, excluding the empty Eastern Europe / Russia area. Barings is shown only as a compact gold event callout near HSBC/London; it is not treated as a bank territory, and the London placement denotes Barings' institutional home, not Leeson's Singapore trading activity. The compact event callouts sit beside their source logos: Barings near HSBC/London, Kerviel below Société Générale/Paris, and Adoboli close to UBS/Zurich.
+Bank wordmarks are enlarged and float directly on the map without circular markers, halos or white logo cards. Territory fills use slightly translucent tints so logos remain clear; their outlines retain saturated bank colours. The north-up map uses a flat equirectangular projection and is recentered on the bank territories, excluding the empty Eastern Europe / Russia area. Barings is shown only as a compact gold event callout near HSBC/London, not as a bank territory; its London placement denotes the institutional home, not Leeson's Singapore trading activity. Kerviel sits below Société Générale/Paris. Adoboli is highlighted with a small red diamond at the London desk location and a compact UBS event callout; the UBS logo remains at Zurich headquarters.
 
 Territory geometry sources:
 
