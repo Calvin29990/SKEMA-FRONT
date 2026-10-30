@@ -34,10 +34,10 @@ The infographic shows the 12 requested logo-and-city pairings, once each:
 | Birmingham | Lloyds | `#00843D` |
 | Edinburgh | NatWest | `#5E2750` |
 | Lille | BNP Paribas | `#00965E` |
-| Paris | Société Générale | `#E30613` |
+| Paris | Société Générale | `#E30613` (red) |
 | Lyon | Crédit Agricole | `#006B54` |
 | Marseille | Natixis | `#6F2DA8` (violet, as requested) |
-| Zurich | UBS | `#E00000` |
+| Zurich | UBS | `#111111` (black) |
 | Geneva | Credit Suisse | `#005EB8` |
 | Basel | Julius Baer | `#B89D4F` |
 | Lugano | Pictet | `#006A52` |

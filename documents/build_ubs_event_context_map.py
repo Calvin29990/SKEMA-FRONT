@@ -130,7 +130,8 @@ city_mark('HSBC', 'London', (605, 330), '#DB0011', (82, 25), 372)
 
 # France — no logo circles; the city names remain clearly associated below each logo.
 city_mark('BNP', 'Lille', (780, 340), '#00965E', (74, 34), 373)
-city_mark('SG', 'Paris', (725, 490), '#E30613', (91, 32), 525)
+city_mark('SG', 'Paris', (725, 490), '#E30613', (91, 32), 525,
+          city_color='#E30613')
 city_mark('CA', 'Lyon', (840, 615), '#006B54', (88, 24), 657)
 city_mark('NATIXIS', 'Marseille', (873, 710), '#003A70', (130, 38), 752,
           city_font_size=14, city_color='#6F2DA8')
@@ -138,7 +139,8 @@ city_mark('NATIXIS', 'Marseille', (873, 710), '#003A70', (130, 38), 752,
 # Switzerland — the four bank wordmarks are shown directly on the map.
 city_mark('CS', 'Geneva', (900, 560), '#005EB8', (88, 25), 602)
 city_mark('JULIUS', 'Basel', (970, 435), '#B89D4F', (84, 25), 477)
-city_mark('UBS', 'Zurich', (1080, 500), '#E00000', (108, 40), 541)
+city_mark('UBS', 'Zurich', (1080, 500), '#E00000', (108, 40), 541,
+          city_color='#111111')
 city_mark('PICTET', 'Lugano', (1050, 640), '#006A52', (88, 25), 682)
 
 # Event highlights use floating type only, without circles or containers.
