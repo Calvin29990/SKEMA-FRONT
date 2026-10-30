@@ -28,6 +28,15 @@ The examples are all major bank trading / positions-unwind loss events, but thei
    https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?startPeriod=2008-01-24&endPeriod=2008-01-24&format=csvdata  
    The historic daily reference value is also reproduced here: https://www.poundsterlinglive.com/bank-of-england-spot/historical-spot-exchange-rates/eur/EUR-to-USD-2008
 
+## Identity marks
+
+Institution logos appear for identification and use their brand colours on the circles / values. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom text wordmark—not the contemporary Barings asset-management logo. Brand marks remain their owners' trademarks.
+
+- Credit Suisse logo: https://commons.wikimedia.org/wiki/File:Credit_Suisse_Logo.svg
+- Société Générale logo: https://commons.wikimedia.org/wiki/File:Logo-SG-Soci%C3%A9t%C3%A9-G%C3%A9n%C3%A9rale.svg
+- JPMorgan Chase wordmark: https://seekvectors.com/post/jpmorgan-chase-logo-vector
+- Barings' historical crest context: https://content.time.com/time/specials/packages/article/0,28804,1937349_1937350_1937488,00.html
+
 ## Circle sizing and map geography
 
 - Circle **area**, not radius, is proportional to the headline loss in approximate USD-equivalent terms. The rendered radius follows `sqrt(loss / maximum loss)`.
