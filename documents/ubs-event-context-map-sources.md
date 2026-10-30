@@ -6,7 +6,7 @@
 
 ## What the slide says
 
-The UBS 2011 unauthorized-trading loss is highlighted in UBS red. The other four events are muted grey. This is a selected context set, not a comprehensive league table. UBS sits among the largest documented unauthorized-trading losses at a major European bank in this comparison, but it is not the largest event shown by dollar value.
+UBS is highlighted in its red / black identity; Société Générale uses red, JPMorgan and Credit Suisse use blue, and Barings uses a restrained heritage-gold wordmark. This is a selected context set, not a comprehensive league table. UBS sits among the largest documented unauthorized-trading losses at a major European bank in this comparison, but it is not the largest event shown by dollar value.
 
 The examples are all major bank trading / positions-unwind loss events, but their causes and accounting bases are not identical: UBS, Société Générale and Barings involved unauthorized or concealed trading; JPMorgan's London Whale was a synthetic-credit portfolio loss; Credit Suisse's Archegos loss was a prime-brokerage counterparty exposure. The slide does not imply those causal mechanisms are equivalent.
 
@@ -24,26 +24,22 @@ The examples are all major bank trading / positions-unwind loss events, but thei
 5. **Barings, 1995 — approximately USD 1.4bn equivalent.** The UK Board of Banking Supervision inquiry is summarized by the Reserve Bank of Australia. The inquiry records cumulative losses of GBP 827m by 27 February 1995; including close-out costs, total losses on the unauthorized trading were GBP 927m. USD 1.4bn is retained as the approximate equivalent requested for the slide, not as a precise converted accounting figure. Leeson's trading operation was in Singapore; the map marks London as Barings' institutional home, not as the trade location.  
    https://www.rba.gov.au/publications/bulletin/1995/nov/1.html  
    An accessible USD-equivalent summary: https://www.investopedia.com/ask/answers/08/nick-leeson-barings-bank.asp
-6. **FX rate used for the bubble scale.** ECB euro reference series, USD per EUR. EUR 4.9bn × 1.4663 on 24 January 2008 = approximately USD 7.18bn.  
-   https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?startPeriod=2008-01-24&endPeriod=2008-01-24&format=csvdata  
-   The historic daily reference value is also reproduced here: https://www.poundsterlinglive.com/bank-of-england-spot/historical-spot-exchange-rates/eur/EUR-to-USD-2008
-
 ## Identity marks
 
-Institution logos appear for identification and use their brand colours on the circles / values. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom text wordmark—not the contemporary Barings asset-management logo. Brand marks remain their owners' trademarks.
+Institution logos appear for identification and use their brand colours on the map patches / labels / values. The UBS mark is the repository's existing UBS asset. Credit Suisse and Société Générale marks are sourced from Wikimedia Commons, originally credited to their respective banks; JPMorgan Chase is a wordmark asset from SeekVectors. Barings Bank historically used a heraldic crest rather than a modern logo, so the slide uses a custom text wordmark—not the contemporary Barings asset-management logo. Brand marks remain their owners' trademarks.
 
 - Credit Suisse logo: https://commons.wikimedia.org/wiki/File:Credit_Suisse_Logo.svg
 - Société Générale logo: https://commons.wikimedia.org/wiki/File:Logo-SG-Soci%C3%A9t%C3%A9-G%C3%A9n%C3%A9rale.svg
 - JPMorgan Chase wordmark: https://seekvectors.com/post/jpmorgan-chase-logo-vector
 - Barings' historical crest context: https://content.time.com/time/specials/packages/article/0,28804,1937349_1937350_1937488,00.html
 
-## Circle sizing and map geography
+## Map fills and value encoding
 
-- Circle **area**, not radius, is proportional to the headline loss in approximate USD-equivalent terms. The rendered radius follows `sqrt(loss / maximum loss)`.
-- USD losses use their published headline amounts. Société Générale's EUR 4.9bn is converted at the ECB reference rate for 24 January 2008 (USD 1.4663 per EUR), solely to size its circle; the right-side panel keeps the published EUR value.
-- Barings is shown as approximately USD 1.4bn as requested; the primary inquiry's GBP 827m / GBP 927m figures remain the authoritative underlying record. Treat the USD value and resulting circle size as indicative.
-- No event loss is inflation-adjusted. The map therefore compares nominal headline amounts across years, not present-value purchasing power.
-- Map points indicate the requested institutional / financial hubs, not necessarily the precise location of the trading book: UBS incident desk—London; UBS and Credit Suisse institution—Zurich; Société Générale—Paris; JPMorgan London Whale—London; Barings HQ—London, while Leeson traded in Singapore.
+- As requested, the previous proportional circles have been removed. Losses are written directly beside the bank marks and in the right-hand panel; no circle size or common-currency scale encodes magnitude.
+- Amounts remain in the reported display currency: USD for UBS, Credit Suisse, JPMorgan and Barings; EUR for Société Générale. Barings’ USD 1.4bn is approximate; the official inquiry reports GBP 827m cumulative losses and GBP 927m including close-out costs.
+- The filled UK, France and Switzerland shapes are visual hub fields, not bank ownership or jurisdiction boundaries: JPMorgan-blue UK; Société Générale-red France; Credit Suisse-blue Switzerland; an UBS-red Zurich patch; and a Barings-gold London patch. The map keeps a neutral fill for other countries.
+- Map locations indicate institution / hub locations, not necessarily the precise source of the loss: UBS incident desk—London; UBS and Credit Suisse—Zurich; Société Générale—Paris; JPMorgan London Whale—London; Barings HQ—London, while Leeson traded in Singapore.
+- No event loss is inflation-adjusted; the slide compares nominal headline impacts across years, not present-value purchasing power.
 
 ## Treasury takeaway
 
