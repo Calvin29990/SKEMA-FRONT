@@ -1,188 +1,165 @@
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-import math
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / 'assets'
 OUT = ROOT / 'ubs-dashboard-ubs-palette.png'
 W, H = 1600, 900
 
-# Brand-led UBS palette, deliberately richer than monochrome black / white / red.
-BG = '#EAE9E4'          # warm stone canvas
-CARD = '#F8F7F3'        # soft ivory cards
-CARD_ALT = '#F1F2EF'
-INK = '#253642'         # blue-charcoal text
-MUTED = '#71808A'
-GRID = '#D3D8D6'
+# White Treasury Committee slide + dark Bloomberg-style terminal chart panels.
+PAGE = '#F7F7F4'
+INK = '#24323B'
+MUTED = '#65727A'
+RULE = '#C9CECF'
 UBS_RED = '#D71935'
-TEAL = '#147D78'
-GREEN = '#34866A'
-AMBER = '#D18A2F'
-BLUE = '#426A8A'
-PALE_RED = '#F8E8E9'
-PALE_AMBER = '#F8F0E3'
-PALE_GREEN = '#E8F1EC'
-
-REG = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+CHART = '#101417'
+CHART_RULE = '#293238'
+CHART_TEXT = '#B8C1C5'
+GREEN = '#00B386'
+RED = '#F04452'
+AMBER = '#FFB000'
+CYAN = '#48B8D0'
+WHITE = '#F3F5F5'
+FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 BOLD = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
-fonts = {}
-def font(size, bold=False):
-    key=(size,bold)
-    if key not in fonts: fonts[key] = ImageFont.truetype(BOLD if bold else REG, size)
-    return fonts[key]
+MONO = '/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf'
 
-im = Image.new('RGB', (W,H), BG)
+im = Image.new('RGB',(W,H),PAGE)
 d = ImageDraw.Draw(im)
-
-def text(x,y,s,size=16,color=INK,bold=False,anchor=None):
-    d.text((x,y), s, font=font(size,bold), fill=color, anchor=anchor)
-def line(x1,y1,x2,y2,color=GRID,width=1):
-    d.line((x1,y1,x2,y2), fill=color, width=width)
-def rounded(box,r=14,fill=CARD,outline=None,width=1):
-    d.rounded_rectangle(box, radius=r, fill=fill, outline=outline, width=width)
-def pill(x,y,label,color,bg):
-    f=font(12,True); bb=d.textbbox((0,0),label,font=f); w=bb[2]+26
-    d.rounded_rectangle((x,y,x+w,y+30),radius=15,fill=bg)
-    d.text((x+13,y+7),label,font=f,fill=color)
-    return w
-
-def draw_ubs_logo(path, box):
-    logo=Image.open(path).convert('RGBA')
-    pix=logo.load()
-    for yy in range(logo.height):
-        for xx in range(logo.width):
-            r,g,b,a=pix[xx,yy]
-            if r>246 and g>246 and b>246:
-                pix[xx,yy]=(255,255,255,0)
-    logo.thumbnail(box, Image.Resampling.LANCZOS)
-    im.paste(logo,(50,24),logo)
-
-def draw_skema_logo(path):
-    logo=Image.open(path).convert('RGBA')
-    logo.thumbnail((78,78),Image.Resampling.LANCZOS)
-    im.paste(logo,(1470,22),logo)
-
-# Header
-draw_ubs_logo(ASSETS/'ubs-logo.png',(192,72))
-draw_skema_logo(ASSETS/'skema-logo.png')
-text(275,30,'UBS INVESTMENT BANK  |  2011',31,INK,True)
-text(275,74,'ETF Delta One Desk  ·  Risk escalation',20,UBS_RED,True)
-text(275,108,'Operational risk  /  hidden exposure  /  control failure',13,MUTED)
-line(50,150,1550,150,GRID,2)
-
-# Header over the dashboard panels
-text(54,166,'THREE CONTROL STATES',12,BLUE,True)
-text(1547,166,'EXECUTIVE VIEW',12,MUTED,True,anchor='ra')
-
-# Chart utility for the two illustrative comparison panels.
-def draw_profile_card(x, title, status, status_color, status_bg, subtitle, bars, risks, control_limit=70, negative_from=None):
-    y=192; w=478; h=536
-    rounded((x,y,x+w,y+h),16,CARD,GRID,2)
-    # Accent rule and heading
-    d.rounded_rectangle((x,y,x+w,y+8),radius=5,fill=status_color)
-    text(x+24,y+26,title,18,INK,True)
-    pill(x+w-185,y+22,status,status_color,status_bg)
-    text(x+24,y+60,subtitle,12,MUTED)
-    # Chart frame
-    cx=x+60; cy=y+108; cw=w-91; ch=250
-    left=cy; bottom=cy+ch
-    d.rounded_rectangle((cx-28,cy-10,cx+cw+10,bottom+9),radius=7,fill='#F5F5F1',outline='#E2E4E0',width=1)
-    # horizontal guide lines + labels on a normalized index scale
-    for val in (0,25,50,75,100):
-        yy=bottom-(val/100)*ch
-        line(cx,yy,cx+cw,yy,'#DEE2DF',1)
-        text(cx-39,yy-8,str(val),9,MUTED,False,anchor='ra')
-    # control line
-    limy=bottom-(control_limit/100)*ch
-    line(cx,limy,cx+cw,limy,AMBER,2)
-    text(cx+5,limy-19,'CONTROL LIMIT',9,AMBER,True)
-    # bars: visual index only; no currency claim
-    n=len(bars); step=cw/n; bw=step*0.48
-    zero=bottom-(50/100)*ch
-    riskpts=[]
-    for i,(v,risk) in enumerate(zip(bars,risks)):
-        mid=cx+step*(i+.5)
-        # P&L bars are normalized around 50; label explicitly as index below.
-        yy=bottom-(max(0,min(100,v))/100)*ch
-        top=min(yy,zero); bh=max(2,abs(zero-yy))
-        if v>=50: col=TEAL if status!='RISK RISING' else (GREEN if i<6 else UBS_RED)
-        else: col=UBS_RED
-        d.rounded_rectangle((mid-bw/2,top,mid+bw/2,top+bh),radius=3,fill=col)
-        ry=bottom-(max(0,min(100,risk))/100)*ch
-        riskpts.append((mid,ry))
-        if i in (0,3,6,10): text(mid,bottom+15,f'M{i+1}',8,MUTED,False,anchor='ma')
-    # risk line with circular markers
-    if len(riskpts)>1:
-        d.line(riskpts,fill=BLUE,width=4,joint='curve')
-        for px,py in riskpts:d.ellipse((px-4,py-4,px+4,py+4),fill=BLUE,outline=CARD,width=1)
-    # chart labels + legend
-    text(x+24,y+404,'Normalized activity / risk index · illustrative',10,MUTED)
-    d.rounded_rectangle((x+25,y+438,x+38,y+451),radius=2,fill=TEAL)
-    text(x+46,y+436,'Activity index',10,INK)
-    line(x+164,y+445,x+192,y+445,BLUE,3)
-    text(x+199,y+436,'Risk index',10,INK)
-    line(x+304,y+445,x+331,y+445,AMBER,2)
-    text(x+338,y+436,'Limit',10,INK)
-    line(x+24,y+474,x+w-24,y+474,GRID,1)
-    if status=='CONTROLLED':
-        takeaway='Activity remains inside the control envelope.'
+_cache={}
+def f(size,bold=False,mono=False):
+    key=(size,bold,mono)
+    if key not in _cache:
+        _cache[key]=ImageFont.truetype(MONO if mono else (BOLD if bold else FONT),size)
+    return _cache[key]
+def txt(x,y,s,size=16,color=INK,bold=False,anchor=None,mono=False):
+    d.text((x,y),s,font=f(size,bold,mono),fill=color,anchor=anchor)
+def rule(x1,y1,x2,y2,color=RULE,width=1): d.line((x1,y1,x2,y2),fill=color,width=width)
+def box(rect,color,outline=None,width=1): d.rectangle(rect,fill=color,outline=outline,width=width)
+def dash(x1,y1,x2,y2,color,width=1,dash=7,gap=5):
+    if abs(y2-y1)<1:
+        x=x1
+        while x<x2:
+            d.line((x,y1,min(x+dash,x2),y2),fill=color,width=width);x+=dash+gap
     else:
-        takeaway='Escalating exposure calls for independent review.'
-    text(x+24,y+491,takeaway,12,INK,True)
+        y=y1
+        while y<y2:
+            d.line((x1,y,x2,min(y+dash,y2)),fill=color,width=width);y+=dash+gap
 
-# Illustrative profiles are normalized and clearly identified as teaching scenarios.
-draw_profile_card(54,'NORMAL TRADER','CONTROLLED',GREEN,PALE_GREEN,
-                  'REFERENCE SCENARIO  ·  controls operating',
-                  [53,61,58,66,62,71,68,74,69,79,73],
-                  [22,25,27,31,29,34,38,41,39,43,40])
-draw_profile_card(561,'AGGRESSIVE TRADER','RISK RISING',AMBER,PALE_AMBER,
-                  'ILLUSTRATIVE SCENARIO  ·  controls under pressure',
-                  [51,58,66,76,82,72,61,53,47,43,40],
-                  [22,28,34,42,51,62,73,84,90,82,74])
+def place_logo(src,xy,maxsize,remove_white=False):
+    logo=Image.open(src).convert('RGBA')
+    if remove_white:
+        px=logo.load()
+        for yy in range(logo.height):
+            for xx in range(logo.width):
+                r,g,b,a=px[xx,yy]
+                if r>246 and g>246 and b>246:px[xx,yy]=(255,255,255,0)
+    logo.thumbnail(maxsize,Image.Resampling.LANCZOS)
+    im.paste(logo,xy,logo)
 
-# UBS factual panel. No invented historical monthly series.
-x=1068; y=192; w=478; h=536
-rounded((x,y,x+w,y+h),16,CARD,GRID,2)
-d.rounded_rectangle((x,y,x+w,y+8),radius=5,fill=UBS_RED)
-text(x+24,y+26,'KWEKU ADOBOLI',18,INK,True)
-pill(x+w-160,y+22,'UBS · 2011',UBS_RED,PALE_RED)
-text(x+24,y+60,'SOURCED PUBLIC FACTS  ·  NOT A MONTHLY SERIES',11,MUTED,True)
-# Metric cards
-rounded((x+24,y+99,x+224,y+185),10,'#F0F2EF','#DDE1DD',1)
-rounded((x+236,y+99,x+w-24,y+185),10,PALE_RED,'#EFD4D7',1)
-text(x+39,y+112,'PEAK LONG FUTURES',9,MUTED,True)
-text(x+39,y+137,'USD 12.1bn',23,BLUE,True)
-text(x+39,y+166,'8 August  ·  gross notional',9,MUTED)
-text(x+251,y+112,'FINAL TRADING LOSS',9,UBS_RED,True)
-text(x+251,y+137,'USD 2.3bn',23,UBS_RED,True)
-text(x+251,y+166,'final reported loss',9,MUTED)
-# Separate gross-notional comparison chart
-chartx=x+55; charty=y+233; chartw=340; chartbottom=y+430; maxv=14
-for val in (0,5,10):
-    yy=chartbottom-(val/maxv)*150
-    line(chartx,yy,chartx+chartw,yy,'#DEE2DF',1)
-    text(chartx-12,yy-7,str(val),9,MUTED,False,anchor='ra')
-text(chartx,charty-13,'FUTURES POSITIONS · USD bn, GROSS NOTIONAL',9,MUTED,True)
-vals=[('LONG',12.1,BLUE,'8 AUG'),('SHORT',8.5,TEAL,'15 SEP')]
-for i,(lab,val,col,date) in enumerate(vals):
-    bx=chartx+75+i*170; bh=(val/maxv)*150
-    d.rounded_rectangle((bx,chartbottom-bh,bx+80,chartbottom),radius=6,fill=col)
-    text(bx+40,chartbottom-bh-28,f'{val:g}',13,INK,True,anchor='ma')
-    text(bx+40,chartbottom+10,lab,10,INK,True,anchor='ma')
-    text(bx+40,chartbottom+29,date,9,MUTED,False,anchor='ma')
-# Short position fact and accurate caveat
-rounded((x+24,y+475,x+w-24,y+510),8,'#EFF3F2','#DDE3E0',1)
-text(x+38,y+484,'Peak short futures: USD 8.5bn · 15 September',10,TEAL,True)
-text(x+24,y+516,'Gross notional is exposure—not P&L.',10,MUTED,True)
+# Committee-style masthead: airy white canvas, logos, fine rules.
+place_logo(ASSETS/'ubs-logo.png',(48,26),(188,66),True)
+place_logo(ASSETS/'skema-logo.png',(1471,23),(76,76),False)
+txt(270,29,'UBS INVESTMENT BANK  |  2011',28,INK,True)
+txt(270,68,'ETF DELTA ONE DESK  ·  RISK ESCALATION',16,UBS_RED,True)
+txt(270,98,'Treasury Committee briefing  /  operational risk, hidden exposure and controls',12,MUTED)
+rule(48,135,1552,135,RULE,2)
+txt(52,153,'THREE CONTROL STATES',10,MUTED,True)
+txt(1548,153,'COMMITTEE VIEW  ·  SOURCE-LED',10,MUTED,True,anchor='ra')
 
-# Bottom insight ribbon
-rounded((54,750,1546,853),14,'#DDE7E4','#CFD9D5',1)
-text(78,768,'KEY OBSERVATION',11,UBS_RED,True)
-text(78,790,'Control failure concealed positions and allowed risk to accumulate beyond effective oversight.',16,INK,True)
-text(78,823,'Teaching profiles are illustrative; UBS panel uses sourced facts. Loss and gross exposure are separate measures.',11,MUTED)
-# source/footer line
-text(54,871,'Sources: FINMA UBS investigation summary (2012); FCA Final Notice (2012). UBS positions are gross notional, not P&L.',9,MUTED)
-text(1545,871,'UBS  ×  SKEMA',9,BLUE,True,anchor='ra')
+# Terminal chart panel frame: square corners, tight typography, restrained grid.
+def panel_frame(x,title,status,status_color,subtitle):
+    y=179;w=480;h=573
+    box((x,y,x+w,y+h),CHART,'#657078',1)
+    box((x,y,x+w,y+4),UBS_RED if status=='UBS 2011' else status_color)
+    txt(x+18,y+17,title,15,WHITE,True)
+    txt(x+w-16,y+19,status,10,status_color,True,anchor='ra',mono=True)
+    txt(x+18,y+43,subtitle,9,CHART_TEXT,False,mono=True)
+    rule(x+16,y+67,x+w-16,y+67,CHART_RULE,1)
+    return y,w,h
+
+def chart_grid(x,y,w,h,labels=True):
+    for n,val in enumerate((0,25,50,75,100)):
+        yy=y+h-(val/100)*h
+        rule(x,yy,x+w,yy,CHART_RULE,1)
+        if labels:txt(x-9,yy-6,str(val),8,CHART_TEXT,False,anchor='ra',mono=True)
+
+def profile_panel(x,title,status,status_color,subtitle,bars,risks,variant='normal'):
+    y,w,h=panel_frame(x,title,status,status_color,subtitle)
+    px=x+49;py=y+99;pw=w-68;ph=300;bottom=py+ph
+    txt(x+18,y+77,'ACTIVITY INDEX   /   RISK VS LIMIT %',8,CHART_TEXT,False,mono=True)
+    chart_grid(px,py,pw,ph)
+    threshold=70;ty=bottom-(threshold/100)*ph
+    dash(px,ty,px+pw,ty,AMBER,1,7,5)
+    txt(px+5,ty-16,'LIMIT 70%',8,AMBER,True,mono=True)
+    step=pw/len(bars);barw=step*.45;zero=bottom-ph*.50;pts=[]
+    for i,(v,risk) in enumerate(zip(bars,risks)):
+        mid=px+step*(i+.5)
+        yy=bottom-(max(0,min(100,v))/100)*ph
+        top=min(yy,zero);bh=max(2,abs(zero-yy))
+        col=GREEN if v>=50 else RED
+        d.rectangle((mid-barw/2,top,mid+barw/2,top+bh),fill=col)
+        ry=bottom-(max(0,min(100,risk))/100)*ph
+        pts.append((mid,ry))
+        if i in (0,3,6,9,11):txt(mid,bottom+10,f'{i+1:02d}',7,CHART_TEXT,False,anchor='ma',mono=True)
+    if len(pts)>1:
+        d.line(pts,fill=AMBER,width=2,joint='curve')
+        for qx,qy in pts:d.ellipse((qx-2,qy-2,qx+2,qy+2),fill=AMBER)
+    # Compact terminal legend and explicit provenance label.
+    yy=y+443
+    box((x+18,yy+2,x+29,yy+10),GREEN);txt(x+35,yy-2,'P&L INDEX',8,CHART_TEXT,False,mono=True)
+    rule(x+134,yy+6,x+157,yy+6,AMBER,2);txt(x+164,yy-2,'RISK INDEX',8,CHART_TEXT,False,mono=True)
+    dash(x+280,yy+6,x+304,yy+6,AMBER,1,5,3);txt(x+311,yy-2,'LIMIT',8,CHART_TEXT,False,mono=True)
+    rule(x+18,y+470,x+w-18,y+470,CHART_RULE,1)
+    txt(x+18,y+486,'ILLUSTRATIVE PROFILE  ·  NOT UBS HISTORICAL DATA',8,AMBER,True,mono=True)
+    if variant=='normal':
+        txt(x+18,y+514,'Activity remains within the control envelope.',10,WHITE,True)
+    else:
+        txt(x+18,y+514,'Risk crosses limit; independent escalation is required.',10,WHITE,True)
+
+# Reference profiles are explicitly illustrative, not reconstructed UBS histories.
+profile_panel(52,'NORMAL TRADER','CONTROLS ON',GREEN,
+              'REFERENCE CASE  /  CONTROLLED ACTIVITY',
+              [53,61,58,66,62,71,68,74,69,79,73,76],
+              [22,25,27,31,29,34,38,41,39,43,40,42],'normal')
+profile_panel(560,'AGGRESSIVE TRADER','WARNING',AMBER,
+              'TEACHING CASE  /  CONTROL PRESSURE',
+              [51,58,66,76,82,72,61,53,47,43,40,36],
+              [22,28,34,42,51,62,73,84,90,82,74,78],'aggressive')
+
+# UBS facts panel: two sourced gross-notional peaks, not a false monthly series.
+x=1068;y,w,h=panel_frame(1068,'KWEKU ADOBOLI  /  UBS','UBS 2011',UBS_RED,
+                         'PUBLIC FACTS  /  POSITION PEAKS AND FINAL LOSS')
+# clear source labels at top of chart
+box((x+18,y+83,x+w-18,y+139),'#1B2226','#39454C',1)
+txt(x+30,y+94,'FINAL TRADING LOSS',8,CHART_TEXT,True,mono=True)
+txt(x+30,y+111,'USD 2.3bn',21,UBS_RED,True)
+txt(x+w-30,y+116,'FINAL REPORTED LOSS',8,CHART_TEXT,False,anchor='ra',mono=True)
+px=x+54;pw=w-82;bottom=y+405;ph=217
+for val in (0,5,10,15):
+    yy=bottom-(val/15)*ph
+    rule(px,yy,px+pw,yy,CHART_RULE,1)
+    txt(px-9,yy-6,str(val),8,CHART_TEXT,False,anchor='ra',mono=True)
+txt(px,y+153,'GROSS FUTURES NOTIONAL  /  USD bn',8,CHART_TEXT,False,mono=True)
+vals=[('LONG',12.1,'08 AUG',CYAN),('SHORT',8.5,'15 SEP',GREEN)]
+for i,(lab,val,date,col) in enumerate(vals):
+    bx=px+62+i*170;bh=(val/15)*ph
+    d.rectangle((bx,bottom-bh,bx+75,bottom),fill=col)
+    txt(bx+37,bottom-bh-22,f'{val:.1f}',11,WHITE,True,anchor='ma',mono=True)
+    txt(bx+37,bottom+10,lab,8,WHITE,True,anchor='ma',mono=True)
+    txt(bx+37,bottom+25,date,8,CHART_TEXT,False,anchor='ma',mono=True)
+rule(x+18,y+458,x+w-18,y+458,CHART_RULE,1)
+txt(x+18,y+475,'LONG PEAK  USD 12.1bn  /  8 AUG',9,CYAN,True,mono=True)
+txt(x+18,y+497,'SHORT PEAK  USD 8.5bn  /  15 SEP',9,GREEN,True,mono=True)
+txt(x+18,y+527,'Gross notional is exposure—not P&L.',9,WHITE,True)
+
+# Clean white committee takeaway and source line (no decorative pills or gradients).
+rule(52,780,1548,780,RULE,1)
+txt(54,798,'KEY OBSERVATION',10,UBS_RED,True)
+txt(54,819,'Control failure concealed positions and allowed risk to accumulate beyond effective oversight.',15,INK,True)
+txt(54,850,'Comparative trader profiles are illustrative. UBS position peaks are gross notional; final loss is USD 2.3bn.',10,MUTED)
+txt(54,875,'Sources: FINMA UBS investigation summary (2012); FCA Final Notice (2012).',9,MUTED)
+txt(1546,875,'UBS  ×  SKEMA',9,INK,True,anchor='ra')
 
 im.save(OUT,quality=96)
 print(OUT)
