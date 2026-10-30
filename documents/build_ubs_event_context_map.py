@@ -166,14 +166,6 @@ for feature, bank_key, outline in territories:
         points = [xy(lon, lat) for lon, lat in polygon[0]]
         d.line(points + [points[0]], fill=color, width=width, joint='curve')
 
-# London is shared by HSBC and Barings: red fill for HSBC, gold outer outline for Barings.
-for feature in uk_regions['features']:
-    if feature['properties'].get('region') == 'Greater London':
-        for polygon in polygons_of(feature):
-            points = [xy(lon, lat) for lon, lat in polygon[0]]
-            d.line(points + [points[0]], fill='#D4A017', width=7, joint='curve')
-            d.line(points + [points[0]], fill='#DB0011', width=2, joint='curve')
-
 # Clip geographic layers to the zoom window so no land spills into the title or footer.
 map_crop = im.crop((mx, my, mx + mw, my + mh))
 im = page_under_map.copy()
@@ -230,15 +222,13 @@ place_bank('PICTET', 8.95, 46.0, (82, 24), dx=34, dy=12)
 def event_text(x, y, label, amount, color, label_size, amount_size):
     global d
     d = ImageDraw.Draw(im)
-    text(d, (x, y), label, label_size, color, bold=True, stroke_width=3)
-    text(d, (x, y + label_size + 5), amount, amount_size, color, bold=True, stroke_width=3)
+    text(d, (x, y), label, label_size, color, bold=True, stroke_width=1)
+    text(d, (x, y + label_size + 4), amount, amount_size, color, bold=True, stroke_width=1)
 
-# Barings 1995 — third in the visual hierarchy, with gold event type near London.
-event_text(600, 415, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
-# Kerviel 2008 — second-largest red event emphasis directly below Société Générale.
-event_text(670, 535, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 36)
-# Adoboli 2011 — largest callout directly below and close to UBS Zurich.
-event_text(900, 595, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 40)
+# Compact event notes sit next to their source bank logos; they are events, not territory marks.
+event_text(610, 403, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 13, 24)
+event_text(760, 520, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 13, 28)
+event_text(950, 590, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 13, 30)
 
 # Minimal footnote retains the factual distinction between Zurich HQ and the London desk.
 d.line((42, 806, 1558, 806), fill=GRID, width=1)

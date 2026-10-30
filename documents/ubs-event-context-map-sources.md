@@ -32,7 +32,7 @@ The map retains the 12 requested bank logos at their city locations, but omits e
 | NatWest | Eastern Scotland | Purple |
 | Barclays | North West England | Cyan |
 | Lloyds | West Midlands | Green |
-| HSBC | Greater London | Red, with a gold Barings outline |
+| HSBC | Greater London | Red |
 | BNP Paribas | Hauts-de-France | Green |
 | Société Générale | Île-de-France | Red |
 | Crédit Agricole | Auvergne-Rhône-Alpes | Green |
@@ -42,7 +42,7 @@ The map retains the 12 requested bank logos at their city locations, but omits e
 | Julius Baer | Basel-Stadt and Basel-Landschaft | Muted blue, distinct from Credit Suisse |
 | Pictet | Canton of Ticino | Green |
 
-Bank wordmarks are enlarged and float directly on the map without circular markers, halos or white logo cards. The north-up map uses a flat equirectangular projection and is recentered on the bank territories, excluding the empty Eastern Europe / Russia area. Barings receives a gold outline around the shared Greater London territory while HSBC's territory fill remains red; the outline denotes Barings' London institutional home, not Leeson's Singapore trading activity. The event callouts sit directly below or adjacent to their source logos: Barings below HSBC/London, Kerviel below Société Générale/Paris, and Adoboli immediately below UBS/Zurich.
+Bank wordmarks are enlarged and float directly on the map without circular markers, halos or white logo cards. The north-up map uses a flat equirectangular projection and is recentered on the bank territories, excluding the empty Eastern Europe / Russia area. Barings is shown only as a compact gold event callout near HSBC/London; it is not treated as a bank territory, and the London placement denotes Barings' institutional home, not Leeson's Singapore trading activity. The compact event callouts sit beside their source logos: Barings near HSBC/London, Kerviel below Société Générale/Paris, and Adoboli close to UBS/Zurich.
 
 Territory geometry sources:
 
