@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageColor
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / 'assets'
@@ -25,8 +25,10 @@ def font(size, bold=False, serif=False):
         _fonts[key] = ImageFont.truetype(path, size)
     return _fonts[key]
 
-def text(draw, xy, value, size, color=INK, bold=False, anchor=None, serif=False):
-    draw.text(xy, value, font=font(size, bold, serif), fill=color, anchor=anchor)
+def text(draw, xy, value, size, color=INK, bold=False, anchor=None, serif=False,
+         stroke_width=0, stroke_fill=PAPER):
+    draw.text(xy, value, font=font(size, bold, serif), fill=color, anchor=anchor,
+              stroke_width=stroke_width, stroke_fill=stroke_fill)
 
 def load_logo(filename, remove_light_bg=False):
     image = Image.open(ASSETS / filename).convert('RGBA')
@@ -44,20 +46,28 @@ def fit(image, max_width, max_height):
     scale = min(max_width / image.width, max_height / image.height)
     return image.resize((max(1, round(image.width * scale)), max(1, round(image.height * scale))), Image.Resampling.LANCZOS)
 
-def paste_logo(canvas, logo, center, max_size):
+def paste_logo_floating(canvas, logo, center, max_size, halo=True):
+    """Transparent wordmark directly over its city marker; white edge is only a logo keyline."""
     mark = fit(logo, *max_size)
-    canvas.alpha_composite(mark, (round(center[0] - mark.width / 2), round(center[1] - mark.height / 2)))
+    x = round(center[0] - mark.width / 2)
+    y = round(center[1] - mark.height / 2)
+    if halo:
+        alpha = mark.getchannel('A').filter(ImageFilter.MaxFilter(5))
+        keyline = Image.new('RGBA', mark.size, (255, 255, 255, 0))
+        keyline.putalpha(alpha)
+        canvas.alpha_composite(keyline, (x, y))
+    canvas.alpha_composite(mark, (x, y))
     return mark.size
 
 im = Image.new('RGBA', (W, H), PAPER)
 d = ImageDraw.Draw(im)
 
-# Compact title area, leaving the map as the main visual.
+# Compact title area; the European map and city marks remain dominant.
 text(d, (42, 22), 'MAJOR EUROPEAN TRADING LOSS EVENTS', 24, INK, bold=True)
 text(d, (43, 56), 'Selected benchmark trading-loss events relevant to the UBS 2011 case', 13, MUTED)
 d.line((42, 88, 1558, 88), fill=GRID, width=1)
 
-# Light-grey Europe base, with unobtrusive national borders.
+# Light-grey Europe base, with discreet national borders.
 mx, my, mw, mh = 35, 105, 1530, 680
 lon0, lon1 = -12.0, 20.0
 lat0, lat1 = 42.0, 58.0
@@ -85,7 +95,7 @@ def draw_geometry(geometry):
 for feature in geo['features']:
     draw_geometry(feature['geometry'])
 
-# Ten bank identities, each used once and assigned to the requested city.
+# Bank logos, one per requested city (12 total).
 logos = {
     'HSBC': load_logo('hsbc-logo.png', True),
     'BARCLAYS': load_logo('barclays-logo.jpg', True),
@@ -97,63 +107,77 @@ logos = {
     'NATIXIS': load_logo('natixis-logo.png'),
     'UBS': load_logo('ubs-logo.png', True),
     'CS': load_logo('credit-suisse-logo.png'),
+    'JULIUS': load_logo('julius-baer-logo.png'),
+    'PICTET': load_logo('pictet-logo.png'),
 }
 
-# Small square markers and clean logo plaques echo a football map, without circular pins.
-def city_logo(key, city, lon, lat, color, offset, box_size=(116, 48), logo_size=(96, 30), halo=False, lloyds=False):
-    global d
-    x0, y0 = xy(lon, lat)
-    cx, cy = x0 + offset[0], y0 + offset[1]
-    w, h = box_size
-    outline = '#E00000' if halo else color
-    width = 3 if halo else 1
-    d.rectangle((cx - w/2, cy - h/2, cx + w/2, cy + h/2), fill=PAPER, outline=outline, width=width)
-    d.rectangle((cx - w/2, cy - h/2, cx - w/2 + 5, cy + h/2), fill=color)
-    if lloyds:
-        paste_logo(im, logos[key], (cx - 22, cy - 1), (34, 34))
-        d = ImageDraw.Draw(im)
-        text(d, (cx + 19, cy), 'LLOYDS', 10, color, bold=True, anchor='mm')
-    else:
-        paste_logo(im, logos[key], (cx + 2, cy), logo_size)
+# Draw a soft coloured glow, then the solid city circle. No white logo cards or rectangular badges.
+def city_circle(center, radius, color, glow=8, strength=70):
+    rgb = ImageColor.getrgb(color)
+    pad = radius + glow * 2
+    size = pad * 2
+    halo = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+    hd = ImageDraw.Draw(halo)
+    hd.ellipse((glow, glow, glow + radius * 2, glow + radius * 2), fill=(*rgb, strength))
+    halo = halo.filter(ImageFilter.GaussianBlur(glow))
+    im.alpha_composite(halo, (round(center[0] - pad), round(center[1] - pad)))
     d = ImageDraw.Draw(im)
-    text(d, (cx, cy + h/2 + 5), city.upper(), 8, MUTED, bold=True, anchor='ma')
-    return (cx, cy, w, h)
+    d.ellipse((center[0] - radius, center[1] - radius,
+               center[0] + radius, center[1] + radius), fill=color, outline=PAPER, width=2)
+    return d
 
-# United Kingdom. City placements are deliberately staggered for clear spacing.
-city_logo('NATWEST', 'Edinburgh', -3.1883, 55.9533, '#5E2750', (-5, 3), (108, 46), (88, 25))
-city_logo('BARCLAYS', 'Manchester', -2.2426, 53.4808, '#00AEEF', (-42, -17), (108, 46), (68, 32))
-city_logo('LLOYDS', 'Birmingham', -1.8904, 52.4862, '#00843D', (-45, 30), (108, 46), lloyds=True)
-city_logo('HSBC', 'London', -0.1276, 51.5072, '#DB0011', (42, -58), (112, 48), (88, 27))
+def city_mark(key, city, center, color, radius=27, logo_size=(78, 28), city_y=None, lloyds=False):
+    global d
+    d = city_circle(center, radius, color, glow=10 if radius < 45 else 16,
+                    strength=65 if radius < 45 else 95)
+    if lloyds:
+        paste_logo_floating(im, logos[key], (center[0] - 20, center[1] - 1), (34, 31))
+        d = ImageDraw.Draw(im)
+        text(d, (center[0] + 19, center[1]), 'LLOYDS', 10, '#00843D', bold=True,
+             anchor='mm', stroke_width=1)
+    else:
+        paste_logo_floating(im, logos[key], center, logo_size)
+    d = ImageDraw.Draw(im)
+    label_y = city_y if city_y is not None else center[1] + radius + 13
+    text(d, (center[0], label_y), city.upper(), 11, INK, bold=True, anchor='mm', stroke_width=2)
 
-# France. Société Générale and Crédit Agricole are emphasized by their marker colours.
-city_logo('BNP', 'Lille', 3.0573, 50.6292, '#00965E', (23, -34), (108, 48), (78, 36))
-city_logo('SG', 'Paris', 2.3522, 48.8566, '#E30613', (58, -22), (118, 50), (94, 34))
-city_logo('CA', 'Lyon', 4.8357, 45.7640, '#006B54', (-5, -43), (120, 48), (98, 28))
-city_logo('NATIXIS', 'Marseille', 5.3698, 43.2965, '#003A70', (28, -34), (120, 48), (98, 27))
+# UK — city markers use the requested bank colours.
+city_mark('NATWEST', 'Edinburgh', (458, 192), '#5E2750', 27, (80, 24), 231)
+city_mark('BARCLAYS', 'Manchester', (490, 282), '#00AEEF', 28, (68, 31), 323)
+city_mark('LLOYDS', 'Birmingham', (520, 365), '#00843D', 28, (78, 30), 407, lloyds=True)
+city_mark('HSBC', 'London', (605, 330), '#DB0011', 30, (82, 25), 372)
 
-# Switzerland. UBS receives the largest red halo; Credit Suisse remains a single Geneva logo.
-city_logo('CS', 'Geneva', 6.1432, 46.2044, '#005EB8', (-2, -102), (108, 46), (88, 25))
-city_logo('UBS', 'Zurich', 8.5417, 47.3769, '#E00000', (36, -50), (142, 60), (106, 39), halo=True)
+# France — keep the four city/logo pairs distinct and legible.
+city_mark('BNP', 'Lille', (780, 340), '#00965E', 28, (74, 34), 299)
+city_mark('SG', 'Paris', (725, 490), '#E30613', 48, (91, 32), 548)
+city_mark('CA', 'Lyon', (840, 615), '#006B54', 28, (88, 24), 657)
+city_mark('NATIXIS', 'Marseille', (873, 710), '#003A70', 28, (90, 25), 752)
 
-# Only the three major incident figures are shown. Text labels, not extra bank logos.
-def event_label(x, y, width, label, amount, color, amount_size=19, border=1):
-    height = 49 if amount_size < 22 else 57
-    d.rectangle((x, y, x + width, y + height), fill=PAPER, outline=color, width=border)
-    d.rectangle((x, y, x + 5, y + height), fill=color)
-    text(d, (x + 12, y + 6), label, 9, color, bold=True)
-    text(d, (x + 12, y + 22), amount, amount_size, INK, bold=True)
+# Switzerland — separated markers for four banking centres; UBS is the largest.
+city_mark('CS', 'Geneva', (900, 560), '#005EB8', 28, (88, 25), 602)
+city_mark('JULIUS', 'Basel', (970, 435), '#B89D4F', 28, (84, 25), 477)
+city_mark('UBS', 'Zurich', (1080, 500), '#E00000', 64, (108, 40), 571)
+city_mark('PICTET', 'Lugano', (1050, 640), '#006A52', 28, (88, 25), 682)
 
-# London: event tag sits below/right of the HSBC city logo; Barings itself has no second logo.
-event_label(535, 410, 130, 'BARINGS · 1995', 'USD -1.4bn', '#D4A017', 17)
-# Paris: the Kerviel event has the second-largest visual callout.
-event_label(590, 536, 166, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 21, 2)
-# Zurich: largest incident highlight, beside UBS's red-halo logo.
-event_label(1164, 526, 178, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 23, 3)
+# Event highlights: text floats next to the city halo, without containers.
+def event_text(x, y, label, amount, color, label_size, amount_size):
+    global d
+    d = ImageDraw.Draw(im)
+    text(d, (x, y), label, label_size, color, bold=True, stroke_width=3)
+    text(d, (x, y + label_size + 5), amount, amount_size, color, bold=True, stroke_width=3)
 
-# Minimal footer; the requested takeaway is retained in small type.
+# Barings 1995 — third in the visual hierarchy, gold marker and type.
+city_circle((640, 420), 32, '#D4A017', glow=14, strength=85)
+event_text(680, 385, 'BARINGS · 1995', 'USD -1.4bn', '#9A7000', 16, 30)
+# Kerviel 2008 — second-largest red event emphasis beside the Paris / SG marker.
+event_text(550, 560, 'KERVIEL · 2008', 'EUR -4.9bn', '#C1272D', 18, 38)
+# Adoboli 2011 — largest callout, with the requested UBS-red halo at Zurich.
+event_text(1170, 472, 'ADOBOLI · 2011', 'USD -2.3bn', '#E00000', 19, 42)
+
+# Minimal footnote retains the factual distinction between Zurich HQ and the London desk.
 d.line((42, 806, 1558, 806), fill=GRID, width=1)
-text(d, (45, 816), "UBS's USD 2.3bn trading loss ranks among the most significant banking trading-loss events in Europe and illustrates how control failures can rapidly escalate into material financial and liquidity-management consequences.", 8, INK, bold=True)
-text(d, (45, 841), 'Source notes: FINMA · Credit Suisse Special Committee · U.S. Senate PSI · Société Générale · RBA / BoE inquiry. Bank city positions follow the supplied brief; UBS Adoboli desk was London.', 7, MUTED)
+text(d, (45, 815), "UBS's USD 2.3bn trading loss ranks among the most significant banking trading-loss events in Europe and illustrates how control failures can rapidly escalate into material financial and liquidity-management consequences.", 10, INK, bold=True)
+text(d, (45, 841), "Source notes: FINMA · Société Générale · RBA / BoE inquiry. Adoboli's desk was London; Zurich is UBS group HQ. Barings is shown at its London home; Leeson's operation was Singapore.", 8, MUTED)
 
 im.convert('RGB').save(OUT)
 print(OUT)
