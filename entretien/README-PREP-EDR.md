@@ -12,11 +12,12 @@
 
 | Priorité | Document | Ce que tu y trouves | Quand l'ouvrir |
 |---|---|---|---|
-| 🔴 **1** | [`PERIMETRE-et-50QR-EDR-30-45s.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/PERIMETRE-et-50QR-EDR-30-45s.md) | Le périmètre du poste + **50 Q/R chronométrées 30-45 s** | **Maintenant** |
-| 🟠 **2** | [`CHEATSHEET-EDR-45min.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/CHEATSHEET-EDR-45min.md) | La fiche d'une page, les 5 chiffres, la règle des 3 phrases | 45 min avant l'entretien |
-| 🟡 **3** | [`COURS-EDR-groupe-et-distinctions.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/COURS-EDR-groupe-et-distinctions.md) | Le groupe, l'organigramme, les **5 distinctions** (Rothschild & Co, BP vs AM…) | Si tu as 20 min de plus |
-| 🟢 **4** | [`PREP-EDR-MO-Produits-Structures-2026-11-06.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/PREP-EDR-MO-Produits-Structures-2026-11-06.md) | Le dossier complet : pitchs, définitions, conjoncture, sources | Lecture de fond |
-| 🔵 **5** | [`ENTRETIEN-50Q-EDR-MO-Structures.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/ENTRETIEN-50Q-EDR-MO-Structures.md) | Les 50 mêmes questions, version longue (pour comprendre, pas pour réciter) | Si une réponse du doc 1 ne passe pas |
+| 🔴 **1** | [`GUIDE-MO-ce-que-je-dois-savoir.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/GUIDE-MO-ce-que-je-dois-savoir.md) | **Construit sur tes 3 PDF EdR** : Final Terms EMTN, chiffres EdR France 2025, Pilier III + 12 questions à 1 min | **Maintenant** |
+| 🟠 **2** | [`PERIMETRE-et-50QR-EDR-30-45s.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/PERIMETRE-et-50QR-EDR-30-45s.md) | Le périmètre du poste + **50 Q/R chronométrées 30-45 s** | **Maintenant** |
+| 🟡 **3** | [`CHEATSHEET-EDR-45min.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/CHEATSHEET-EDR-45min.md) | La fiche d'une page, les 5 chiffres, la règle des 3 phrases | 45 min avant l'entretien |
+| 🟢 **4** | [`COURS-EDR-groupe-et-distinctions.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/COURS-EDR-groupe-et-distinctions.md) | Le groupe, l'organigramme, les **5 distinctions** (Rothschild & Co, BP vs AM…) | Si tu as 20 min de plus |
+| 🔵 **5** | [`PREP-EDR-MO-Produits-Structures-2026-11-06.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/PREP-EDR-MO-Produits-Structures-2026-11-06.md) | Le dossier complet : pitchs, définitions, conjoncture, sources | Lecture de fond |
+| ⚪ **6** | [`ENTRETIEN-50Q-EDR-MO-Structures.md`](https://github.com/Calvin29990/SKEMA-FRONT/blob/arena/599be7a2-skema-front/entretien/ENTRETIEN-50Q-EDR-MO-Structures.md) | Les 50 mêmes questions, version longue (pour comprendre, pas pour réciter) | Si une réponse du doc 1 ne passe pas |
 
 > **Règle :** un seul doc ouvert à la fois. Le doc 1 est ton outil de travail, les autres sont des recours.
 
