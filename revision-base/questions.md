@@ -1,45 +1,45 @@
-# 30 questions classiques
+# 30 questions d'entraînement
 
-Répondez sans regarder les réponses, puis corrigez dans `reponses.md`.
+Répondez sans regarder les réponses, puis corrigez dans `reponses.md`. Ces questions sont originales et ne reprennent aucun contenu réel de test.
 
-## Bases de la finance (questions 1 à 8)
+## Comptabilité générale et IFRS (questions 1 à 8)
 
-1. Quelle est la valeur future de 1 000 € placés 2 ans à 4 % par an ?
-2. Quelle est la valeur actuelle de 1 100 € reçus dans 1 an, au taux de 10 % ?
-3. Un projet coûte 500 €. Il rapporte 300 € la première année et 300 € la deuxième. Le taux requis est de 10 %. Quelle est la VAN ? Faut-il accepter le projet ?
-4. Quand les taux d'intérêt augmentent, que se passe-t-il pour le prix d'une obligation à taux fixe ?
-5. Une obligation a une duration modifiée de 4. Les taux augmentent de 0,5 %. Quelle est la variation approximative du prix ?
-6. Quel est le prix d'un zéro-coupon de nominal 100 € à 5 ans, au rendement de 3 % ?
-7. Que signifie le TRI d'un projet ?
-8. Quelle est la différence entre EURIBOR et €STR ?
+1. Vous achetez des marchandises à crédit pour 1 000 € HT, TVA 20 %. Quelles sont les écritures (comptes et montants) ?
+2. Une machine coûte 10 000 €, amortie en linéaire sur 5 ans, sans valeur résiduelle. Quelle est la dotation annuelle ?
+3. Un stock comprend deux achats : 100 unités à 10 € puis 100 unités à 12 €. Vous vendez 150 unités. Quel est le coût des ventes en FIFO, puis en CMP ?
+4. Stocks : 300 €. Créances clients : 500 €. Dettes fournisseurs : 200 €. Quel est le BFR (approche simple) ?
+5. Combien d'étapes compte la comptabilisation du chiffre d'affaires selon IFRS 15 ?
+6. Qu'apparaît au bilan du preneur selon IFRS 16 pour un contrat de location ?
+7. Un groupe achète 80 % d'une filiale pour 800 €. La juste valeur des actifs nets identifiables est de 900 €. Quel est l'écart d'acquisition, en méthode simple (sans intérêts minoritaires évalués séparément) ?
+8. Quelle méthode de consolidation s'applique à une filiale contrôlée à plus de 50 % ? Et à une participation de 30 % avec influence notable ?
 
-## Produits dérivés et grecs (questions 9 à 16)
+## Excel avancé (questions 9 à 15)
 
-9. Quelle est la formule de la parité call-put, sans dividende ?
-10. Quel grec mesure la sensibilité d'une option à la volatilité ?
-11. Un put profondément dans la monnaie a un delta proche de quelle valeur ?
-12. Quel grec est maximal à la monnaie ?
-13. Quel est le signe du theta pour une option achetée ?
-14. Quelle est la valeur intrinsèque d'un call de prix d'exercice 90 € quand le sous-jacent vaut 100 € ?
-15. Quelle est la valeur initiale d'un swap de taux au moment de sa conclusion, si le taux du swap est égal au taux du marché ?
-16. Dans un CDS, qui paie la prime, et qui verse le paiement en cas de défaut ?
+9. Que renvoie la formule =SOMME.SI(A:A;"Paris";B:B) ?
+10. Dans RECHERCHEV(valeur; plage; 2; FAUX), que signifie le dernier argument FAUX ?
+11. Vous copiez vers la droite la formule contenant A1, puis celle contenant $A$1. Que devient chaque référence ?
+12. Quel raccourci permet de passer d'une référence relative à une référence absolue ?
+13. Une cellule affiche #DIV/0!. Quelle est la cause la plus probable ?
+14. Que compte la formule =NB.SI(A1:A10;">5") ?
+15. À quoi sert un tableau croisé dynamique, et quel raccourci active les filtres sur un tableau ?
 
-## Produits structurés et réglementation (questions 17 à 23)
+## Résolution de problèmes avancée (questions 16 à 23)
 
-17. Qu'est-ce qu'une option à barrière désactivante (knock-out) ?
-18. Dans un autocall, quand le produit est-il remboursé par anticipation ?
-19. Un reverse convertible combine une obligation et une position. Laquelle ?
-20. Que représente un SRI de 7 dans le document KID ?
-21. Quelle est la durée maximale du KID selon PRIIPS ?
-22. Qu'est-ce que le marché cible dans MiFID II ?
-23. Quel est l'objectif principal du reporting EMIR ?
+16. Un prix de 200 € augmente de 10 %, puis baisse de 10 %. Quel est le prix final ?
+17. Une valeur passe de 50 à 65. Quel est le pourcentage d'évolution ?
+18. Combien font les 3/5 de 250 ?
+19. Une moyenne pondérée : 60 % des éléments valent 10, et 40 % valent 15. Quelle est la moyenne ?
+20. Une distance de 300 km est parcourue à 100 km/h de moyenne. Combien de temps dure le trajet ?
+21. On lance un dé à 6 faces. Quelle est la probabilité d'obtenir un nombre pair ?
+22. Quel est le terme suivant de la suite 2, 6, 12, 20 ?
+23. Quatre ouvriers finissent un travail en 6 jours. Combien de jours faut-il à six ouvriers, au même rythme ?
 
-## Middle office, comptabilité et anglais (questions 24 à 30)
+## Anglais CECRL (questions 24 à 30)
 
-24. Quelle est la différence entre la marge initiale et la marge de variation ?
-25. Dans la hiérarchie IFRS 13, à quel niveau appartient une juste valeur fondée sur des données non observables ?
-26. Un actif financier détenu pour encaisser des flux contractuels (principal et intérêts) est évalué selon quelle méthode, sous IFRS 9 ?
-27. Selon IFRS 16, qu'est-ce qui apparaît au bilan du preneur pour un contrat de location ?
-28. Vous constatez un écart de 2 % entre votre valorisation et celle de la contrepartie. Quelles sont les étapes à suivre ?
-29. Traduisez en anglais : « Je vérifierai les données avant de corriger l'écart. »
-30. Un titre de 100 M€ est donné en garantie avec un haircut de 5 %. Quelle est sa valeur retenue pour la garantie ?
+24. Complétez : « I ___ here since 2020. » (verbe *work*)
+25. Complétez : « If we had more time, we ___ the model. » (verbe *review*)
+26. Complétez : « The report ___ approved yesterday. » (passif au passé simple)
+27. Complétez avec la bonne préposition : « The costs ___ the volume produced. » (verbe *depend*)
+28. Traduisez : « Ce rapport est conforme aux normes. »
+29. Dans un contexte financier, quel mot anglais correspond le plus souvent à « chiffre d'affaires » ?
+30. Lisez : « Revenues fell by 5%. However, margins improved. » Quel est le rôle de *however* ?
