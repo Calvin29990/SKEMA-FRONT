@@ -30,3 +30,14 @@ Ce dossier couvre les 4 épreuves de votre liste, avec des cours de base et 30 q
 
 - Les épreuves sont chronométrées. Le temps par question est court : ne restez pas bloqué plus d'une minute sur une question.
 - Pour l'anglais, travaillez aussi la compréhension à l'oral, avec des vidéos ou podcasts business en anglais.
+
+## Banques de 50 questions (niveau CDI)
+
+Chaque épreuve dispose d'une banque de 50 questions originales, avec réponses, explications détaillées et « pièges Maki » :
+
+- [50 questions : Comptabilité générale et IFRS](50-questions-comptabilite-ifrs.md)
+- [50 questions : Excel avancé](50-questions-excel.md) (tableau de référence en début de fichier)
+- [50 questions : Résolution de problèmes](50-questions-resolution-problemes.md)
+- [50 questions : Anglais CECRL](50-questions-anglais.md)
+
+Les questions sont originales et ne reproduisent aucun test réel. Les pièges sont des estimations, à vérifier par l'entraînement.
