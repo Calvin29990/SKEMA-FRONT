@@ -176,6 +176,37 @@
     </div>
 
     <div class="card">
+      <h2>⚠️ Correction de ciblage (vérifiée le 03/11/2026)</h2>
+      <p class="sub">Ce que disent les sources officielles SKEMA, contre l'intuition de départ.</p>
+      <div class="note bad">
+        <strong>Le MSc FMI n'a pas de rentrée de printemps en M2.</strong> Page officielle
+        MSc Financial Markets &amp; Investments : rentrées <em>septembre</em> (Paris, Sophia, Dubaï) et
+        <em>août</em> (Raleigh), avec la mention « Spring intake is only available for the first year of
+        the Two-year MSc ». Un étudiant FMI ne termine donc pas en décembre 2026 : ton filtre « FMI »
+        est un filtre vide.
+      </div>
+      <div class="note ok">
+        <strong>Le bon filtre, c'est « M2 CFM Spring — Lille ».</strong> Le catalogue officiel de cours
+        du campus de Lille pour le printemps 2027 contient bien des blocs
+        « <em>MSc M2 CFM SPRING LILLE</em> » : la cohorte qui termine en décembre 2026 existe, et c'est
+        la tienne. Élargis ensuite aux autres MSc à rentrée de janvier à Lille/Paris
+        (project management, sustainable finance &amp; fintech…), puisque l'interdisciplinarité est
+        explicitement encouragée.
+      </div>
+      <p class="sub" style="margin:10px 0 0">
+        Conséquence pratique : ne cherche plus « SKEMA FMI 2026 » mais
+        <strong>« SKEMA Lille » + « depuis janvier » / « January intake » + « finance »</strong>, et
+        demande la liste de la promo au responsable du programme (onglet suivant).
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Relais internes — les gens qui ont la liste de la promo</h2>
+      <p class="sub">Ils connaissent nommément les étudiants du Spring intake : un message de 5 lignes de leur part vaut 50 recherches LinkedIn.</p>
+      <div id="relais"></div>
+    </div>
+
+    <div class="card">
       <h2>8 recherches LinkedIn prêtes à coller</h2>
       <p class="sub">Chaque bouton ouvre la recherche « Personnes » pré-encodée. Ajoute ensuite le filtre <strong>Réseau : 2e et 3e</strong> pour élargir.</p>
       <div id="queries"></div>
@@ -376,6 +407,27 @@
   state.checks = state.checks || {};
   state.msgs = state.msgs || {};
 
+  /* Profils repérés publiquement le 03/11/2026 (profils LinkedIn publics).
+     Aucun n'est un binôme confirmé : soit relais, soit contact terrain, soit à vérifier. */
+  var SEED = [
+    { id: "s1", name: "Alexis Hamdi", url: "https://www.linkedin.com/in/alexis-hd/", campus: "Paris", prog: "CFM", intake: "À vérifier", interest: "4", score: "", status: "Identifié", next: "Profil type : a rejoint SKEMA « depuis janvier » en MSc CFM — vérifier son année de fin" },
+    { id: "s2", name: "Pierre Bouquet", url: "https://www.linkedin.com/in/pierrebouquet/", campus: "Lille", prog: "FMI", intake: "À vérifier", interest: "5", score: "", status: "Identifié", next: "Relais Lille + finance : lui demander qui, sur le campus, termine en décembre" },
+    { id: "s3", name: "Maewenn Le Huerou", url: "https://www.linkedin.com/in/maewenn-le-huerou-9882461a4/", campus: "Lille", prog: "PGE M1", intake: "Juin 2026 (Fall) ✗", interest: "5", score: "", status: "Identifié", next: "Relais SKEMA Finance Lille : accès direct aux étudiants finance du campus" },
+    { id: "s4", name: "Céliance Bourrellier", url: "https://www.linkedin.com/in/c%C3%A9liance-bourrellier/", campus: "Lille", prog: "PGE", intake: "À vérifier", interest: "4", score: "", status: "Identifié", next: "Relais association SKEMA Finance Lille" },
+    { id: "s5", name: "Zoé Rodriguez--Peinturier", url: "https://www.linkedin.com/in/zo%C3%A9-rodriguez-peinturier/", campus: "Lille", prog: "PGE", intake: "À vérifier", interest: "5", score: "", status: "Identifié", next: "Relais Lille (BNP Paribas, SKEMA Finance Lille)" },
+    { id: "s6", name: "Célia Ostermann", url: "https://www.linkedin.com/in/celia-ostermann/", campus: "Paris", prog: "PGE", intake: "Juin 2026 (Fall) ✗", interest: "4", score: "", status: "Identifié", next: "PGE finance 2022-2026 : pas éligible, mais bon relais vers la promo CFM" },
+    { id: "s7", name: "Alexandre Leneveu", url: "https://www.linkedin.com/in/alexandre-leneveu19", campus: "Paris", prog: "FMI", intake: "Juin 2026 (Fall) ✗", interest: "5", score: "", status: "Identifié", next: "Contact terrain : Trading Assistant equity derivatives & structured products (SGCIB) — demander 20 min" },
+    { id: "s8", name: "Eliott Madiot-Williams", url: "https://fr.linkedin.com/in/eliott-madiot-williams", campus: "Paris", prog: "FMI", intake: "Juin 2026 (Fall) ✗", interest: "5", score: "", status: "Identifié", next: "Contact terrain : FMI Asset Management Paris + SGCIB — valider l'angle du sujet" }
+  ];
+
+  if (!state.seeded) {
+    state.seeded = true;
+    var known = {};
+    state.candidates.forEach(function (c) { known[c.name] = 1; });
+    SEED.forEach(function (c) { if (!known[c.name]) state.candidates.push(c); });
+    save();
+  }
+
   /* ---------- countdown ---------- */
   (function countdown() {
     var deadline = new Date("2026-11-30T10:00:00+01:00").getTime();
@@ -398,39 +450,66 @@
 
   /* ---------- queries ---------- */
   var QUERIES = [
-    { l: "Alumni FMI · Lille + Paris",
-      k: "SKEMA \"Financial Markets and Investments\"",
-      alumni: true,
-      w: "Le plus ciblé : filtre « Études » puis lieu Lille / Paris." },
-    { l: "Alumni CFM · Lille + Paris",
+    { l: "CFM · rentrée de janvier (le filtre clé)",
+      k: "SKEMA \"Corporate Financial Management\" \"depuis janvier\"",
+      alumni: false,
+      w: "Les étudiants de l'intake de janvier l'écrivent souvent mot pour mot dans leur post d'admission." },
+    { l: "Alumni CFM · Lille",
       k: "SKEMA \"Corporate Financial Management\"",
       alumni: true,
-      w: "Ton propre programme : binôme CFM + FMI = interdisciplinarité valorisée." },
-    { l: "FMI + marchés",
-      k: "SKEMA FMI markets trading",
+      w: "Outil Alumni : ajoute le filtre Lieu = Lille. C'est la cohorte qui termine en décembre." },
+    { l: "SKEMA Lille + finance de marché",
+      k: "SKEMA Lille finance marchés dérivés structuration",
       alumni: false,
-      w: "Mots-clés larges : laisse passer un peu de bruit, le tri se fait sur le profil." },
-    { l: "CFM + marchés",
-      k: "SKEMA CFM markets sales trading",
+      w: "Le Lille CFM « International Investment » (CIIA) est la seule track finance de marché du campus." },
+    { l: "SKEMA Lille + FMI (relais, pas binôme)",
+      k: "SKEMA Lille \"Financial Markets\" student",
       alumni: false,
-      w: "Beaucoup de CFM écrivent juste « CFM » dans leur titre." },
-    { l: "MSc + 2026",
-      k: "SKEMA \"MSc\" \"2026\" markets",
+      w: "Utile pour les intros et les entretiens terrain, pas pour le binôme (FMI = rentrée septembre)." },
+    { l: "M2 CFM 2026",
+      k: "SKEMA \"M2 CFM\" 2026",
       alumni: false,
-      w: "Attrape ceux qui affichent l'année de diplôme dans le titre." },
-    { l: "Structuring / dérivés",
-      k: "SKEMA structuring derivatives Lille OR Paris",
+      w: "Beaucoup écrivent « M2 CFM » plutôt que le nom complet du programme." },
+    { l: "SKEMA Lille + January intake",
+      k: "SKEMA \"January intake\" MSc Lille",
       alumni: false,
-      w: "Cible ceux qui ont déjà un stage en structuration ou dérivés." },
-    { l: "Sales / trading Paris",
-      k: "SKEMA \"sales\" \"trading\" Paris",
+      w: "Formulation anglophone de la même chose — utile pour les profils internationaux." },
+    { l: "SKEMA Finance Lille (association)",
+      k: "SKEMA Finance Lille",
       alumni: false,
-      w: "Élargit au-delà de l'école : utile pour les intros chaudes." },
+      w: "Le vivier : les membres de l'asso finance du campus sont exactement ton public cible." },
     { l: "Étudiants SKEMA Lille",
-      k: "SKEMA Business School Lille étudiant",
+      k: "SKEMA Business School Lille étudiant finance",
       alumni: false,
-      w: "Filet large campus Lille quand le reste s'épuise." }
+      w: "Filet large quand le reste s'épuise." }
   ];
+
+  var RELAIS = [
+    { n: "Dhafer Saïdane", r: "Responsable MSc CFM Lille — il enseigne Money, Banking & Financial Markets (ton syllabus) et connaît nommément la promo Spring Lille. Ton relais n°1.", u: "https://www.linkedin.com/search/results/people/?keywords=Dhafer%20Saidane%20SKEMA" },
+    { n: "Sabrina Chikh", r: "Directrice du MSc Corporate Financial Management (tous campus). Relais officiel pour un appel à binôme.", u: "https://www.linkedin.com/in/sabrina-chikh-phd-9a023512/" },
+    { n: "Délégués MSc CFM", r: "José João, Vladimir Radin, Leonardo Bressan, Hugo Le Gal (cités dans un post de réunion des délégués MSc CFM) — relaient dans le groupe de promo.", u: "https://www.linkedin.com/search/results/people/?keywords=SKEMA%20CFM%20delegate" },
+    { n: "SKEMA Finance Lille", r: "Association finance du campus : ses membres et son groupe sont le vivier naturel d'un binôme intéressé marchés.", u: "https://www.linkedin.com/search/results/people/?keywords=SKEMA%20Finance%20Lille" }
+  ];
+
+  var relaisBox = document.getElementById("relais");
+  RELAIS.forEach(function (r) {
+    var d = document.createElement("div");
+    d.className = "q";
+    var left = document.createElement("div");
+    var lbl = document.createElement("div");
+    lbl.className = "lbl";
+    lbl.textContent = r.n;
+    var why = document.createElement("div");
+    why.className = "why";
+    why.textContent = r.r;
+    left.appendChild(lbl); left.appendChild(why);
+    var a = document.createElement("a");
+    a.className = "btn sm";
+    a.href = r.u; a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "Ouvrir";
+    d.appendChild(left); d.appendChild(a);
+    relaisBox.appendChild(d);
+  });
 
   var qBox = document.getElementById("queries");
   QUERIES.forEach(function (q) {
@@ -649,6 +728,18 @@
       title: "E · Relais par les délégués / responsables de programme",
       hint: "5 lignes maximum, la deadline en gras dans le premier paragraphe, aucune pièce jointe.",
       text: "Bonjour {Nom}, Calvin MINANG, M2 MSc CFM (Lille). Je cherche mon binôme de Master Thesis (Spring intake, jury juillet, sujet front office sales/trading/structuring). Pourriez-vous relayer ce message au groupe du M2 CFM / FMI ? Deadline du formulaire : 30/11 à 10h. Merci beaucoup !"
+    },
+    {
+      id: "prof",
+      title: "F · Message au responsable de programme (Dhafer Saïdane, CFM Lille)",
+      hint: "Le message le plus rentable de la liste : il a la liste de la promo Spring. Court, une demande précise, la deadline en clair.",
+      text: "Objet : M2 CFM Spring Lille — recherche binôme de Master Thesis (deadline 30/11)\n\nBonjour Professeur Saïdane,\n\nJe suis Calvin MINANG, étudiant du M2 MSc CFM sur le campus de Lille (Spring intake, fin des cours en décembre 2026).\n\nJe cherche mon binôme de Master Thesis sur un sujet front office — sales / trading / structuring (structurés actions, flow 0DTE, ou électronification du RFQ), avec un découpage en deux axes pour justifier la paire.\n\nPourriez-vous m'indiquer comment toucher la promo Spring (groupe, délégués) ou relayer ce message ? La deadline du formulaire est le 30/11 à 10h et je souhaite déposer avec un binôme déjà engagé.\n\nBien cordialement,\nCalvin MINANG — linkedin.com/in/calvin-minang"
+    },
+    {
+      id: "terrain",
+      title: "G · Contact terrain (FMI / juniors en desk) — entretien de 20 min",
+      hint: "Les FMI ne peuvent pas être ton binôme (rentrée septembre), mais ils valident ton angle et nourrissent la partie interviews du mémoire.",
+      text: "Bonjour {Prénom}, Calvin, M2 CFM à SKEMA Lille. Je travaille sur mon Master Thesis (front office : structurés / flow) et je cherche 3 à 4 praticiens pour challenger mon angle et mes hypothèses. Ton expérience en desk est exactement le profil que je cherche. 20 minutes en visio suffisent — je t'envoie mes 5 questions à l'avance. Merci beaucoup !"
     }
   ];
 

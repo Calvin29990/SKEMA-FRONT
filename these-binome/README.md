@@ -16,6 +16,23 @@ nominale de profils. En revanche je te donne ici : les **requêtes exactes à co
 **messages prêts à envoyer**, le **tracking**, et la **méthode** qui maximise le nombre de
 candidats contactés par heure passée — c'est le facteur limitant, pas la recherche.
 
+### 0 bis. Vérification de ciblage — 03/11/2026 (important)
+
+Recherche menée sur les **profils LinkedIn publics indexés** (LinkedIn en direct = 403 sans session).
+Deux résultats qui changent la stratégie, détaillés dans `PROFILS-REPERES.md` :
+
+1. **Le MSc FMI n'a pas de rentrée de printemps en M2.** Page officielle FMI : rentrées août (Raleigh)
+   et septembre (Paris, Sophia, Dubaï), avec la mention « *Spring intake is only available for the
+   first year of the Two-year MSc* ». Un FMI ne termine donc **pas** en décembre 2026 → le filtre
+   « FMI » est vide.
+2. **Le bon filtre est « M2 CFM Spring — Lille »** : le catalogue de cours officiel du campus Lille
+   (Spring 2027) contient des blocs « *MSc M2 CFM SPRING LILLE* ». À élargir aux autres MSc à rentrée
+   de janvier (Lille/Paris) au nom de l'interdisciplinarité encouragée.
+
+Résultat opérationnel : 8 profils repérés (déjà chargés dans le pipeline de l'outil) + 4 relais
+internes, dont **Dhafer Saïdane** (responsable CFM Lille, il enseigne Money, Banking & Financial
+Markets dans ton S1) qui **a la liste de la promo Spring**.
+
 ⚠️ **Règle à ne pas rater** (tableau officiel) : un étudiant du **Spring intake ne peut pas
 s'apparier avec un étudiant du Fall intake**. Ton binôme doit donc finir **comme toi, fin
 décembre 2026**, et la paire est présentée au **jury de juillet**. Une seule candidature par
@@ -143,7 +160,7 @@ rapports investisseurs Tradeweb/MarketAxess, comptes publics d'émetteurs, WRDS 
 
 | Jour | Action |
 |---|---|
-| J1 (03–04/11) | Post K2 + message aux délégués/responsables CFM & FMI + 10 invitations LinkedIn |
+| J1 (03–04/11) | Post K2 + message E aux délégués + **message F à Dhafer Saïdane** + 10 invitations |
 | J2 (05/11) | Alumni tool : Lille + Paris, filtres FMI/CFM → 15 profils dans le tracker |
 | J3 (06/11) | 15 invitations + 3 demandes d'intro chaude à ton réseau 1er degré |
 | J4 (07/11) | Relances J+4, premiers calls de 15 min |
@@ -159,3 +176,5 @@ rapports investisseurs Tradeweb/MarketAxess, comptes publics d'émetteurs, WRDS 
 - `binome-finder.html` — outil : 8 recherches LinkedIn pré-encodées, tracker de candidats
   (localStorage + export CSV), 5 messages avec compteur de caractères, checklist, compte à rebours.
 - `candidats.csv` — modèle de suivi si tu préfères Excel/Sheets.
+- `PROFILS-REPERES.md` — les 8 profils repérés publiquement le 03/11, leur verdict (binôme / relais /
+  contact terrain), les relais internes, et les sources sur les rentrées FMI vs CFM.
