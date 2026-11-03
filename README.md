@@ -17,6 +17,7 @@
 | `livres/` | 35+ livres de finance (options, quant, fixed income...) | Recherche, approfondissement |
 | `documents/` | CV, Portfolio, conventions de stage, LinkedIn | Candidatures, admin |
 | `planning/` | Emploi du temps, notes globales, plan S5 | Organisation semaine |
+| `these-binome/` | **Recherche binôme Master Thesis** (Spring intake, jury juillet 2027) — requêtes LinkedIn, tracker, messages, checklist | Chercher/relancer un binôme front office avant le 30/11/2026 |
 | `esg/` | Matrices ESG, données publiques | Cours/projets ESG |
 | `bnp-training/` | **Plateforme entraînement BNP Maki** (clone pixel-perfect) | Prep test BNP 7-9 octobre |
 | `skema-training/` | **Assessment Trainer v4.6** — 14 tâches de base + 16 modules bancaires, dont 3 nouveaux formats UBS | Prep Aon / cut-e / BNP Maki / UBS / Morgan Stanley |

@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Binôme Master Thesis — SKEMA Spring 2026</title>
+<style>
+  :root{
+    --navy:#0f1b2d; --navy-2:#16263d; --ink:#15202f; --muted:#5f6c80;
+    --line:#e2e7ef; --bg:#f6f8fb; --card:#ffffff;
+    --accent:#2563eb; --accent-2:#1d4ed8; --ok:#0f9d58; --warn:#d97706; --bad:#c62828;
+    --radius:14px; --shadow:0 1px 2px rgba(16,30,54,.06), 0 8px 24px rgba(16,30,54,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:var(--bg);
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  header{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff}
+  .top{display:flex;gap:24px;align-items:center;justify-content:space-between;padding:22px 0 16px;flex-wrap:wrap}
+  .brand h1{font-size:19px;margin:0 0 4px;font-weight:650;letter-spacing:.2px}
+  .brand p{margin:0;color:#a9b8cd;font-size:13px}
+  .clock{
+    display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 16px;
+  }
+  .clock .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#9fb2cb}
+  .clock .date{font-size:14px;font-weight:600}
+  .clock .num{font-size:30px;font-weight:700;line-height:1;color:#7dd3fc}
+  .clock .unit{font-size:11px;color:#9fb2cb}
+
+  nav.tabs{display:flex;gap:4px;overflow-x:auto}
+  nav.tabs button{
+    appearance:none;background:transparent;border:0;border-bottom:3px solid transparent;
+    color:#a9b8cd;font:inherit;font-size:14px;padding:12px 14px;cursor:pointer;white-space:nowrap;
+  }
+  nav.tabs button:hover{color:#fff}
+  nav.tabs button.on{color:#fff;border-bottom-color:#7dd3fc;font-weight:600}
+
+  main{padding:26px 0 70px}
+  section.tab{display:none}
+  section.tab.on{display:block}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:18px}
+  .card h2{font-size:15px;margin:0 0 4px;letter-spacing:.2px}
+  .card h2 + .sub{margin:0 0 14px;color:var(--muted);font-size:13px}
+  .card h3{font-size:13.5px;margin:16px 0 6px}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+
+  .q{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line)}
+  .q:last-child{border-bottom:0}
+  .q .lbl{font-weight:600;font-size:14px;margin-bottom:2px}
+  .q code{display:block;font-size:12px;color:var(--muted);word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .q .why{font-size:12.5px;color:var(--muted);margin-top:3px}
+
+  button.btn{
+    appearance:none;border:1px solid var(--accent);background:var(--accent);color:#fff;
+    font:inherit;font-size:13px;font-weight:600;padding:8px 13px;border-radius:9px;cursor:pointer;
+    white-space:nowrap;transition:.15s;
+  }
+  button.btn:hover{background:var(--accent-2);border-color:var(--accent-2)}
+  button.btn.ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+  button.btn.ghost:hover{background:#f1f5f9}
+  button.btn.sm{padding:5px 9px;font-size:12px;border-radius:7px}
+  button.btn.danger{background:#fff;color:var(--bad);border-color:#f2c9c9}
+  button.btn.danger:hover{background:#fdf2f2}
+
+  form.add{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
+  label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
+  input,select,textarea{
+    font:inherit;font-size:13.5px;color:var(--ink);background:#fff;
+    border:1px solid var(--line);border-radius:9px;padding:8px 10px;width:100%;
+  }
+  input:focus,select:focus,textarea:focus{outline:2px solid #bfdbfe;border-color:#93c5fd}
+  textarea{resize:vertical;line-height:1.5}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:8px 8px;border-bottom:1px solid var(--line);font-weight:700}
+  td{padding:9px 8px;border-bottom:1px solid #f1f4f9;vertical-align:middle}
+  tr:hover td{background:#fbfdff}
+  .empty{color:var(--muted);font-size:13.5px;padding:18px 0;text-align:center}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:#eef2f8;color:#42526b}
+  .pill.ok{background:#e6f4ec;color:#0b6b3c}
+  .pill.warn{background:#fdf1e0;color:#9a5b00}
+  .pill.bad{background:#fdecec;color:#a52020}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .spacer{flex:1}
+  .toolbar{display:flex;gap:10px;align-items:center;margin:0 0 -6px;flex-wrap:wrap}
+
+  .msg{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;margin-bottom:14px}
+  .msg h3{margin:0 0 2px;font-size:14px}
+  .msg .hint{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+  .msg .foot{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .count{font-size:12px;color:var(--muted);font-weight:600}
+  .count.bad{color:var(--bad)}
+  .copied{color:var(--ok);font-size:12px;font-weight:700}
+
+  ul.check{list-style:none;margin:0;padding:0}
+  ul.check li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line)}
+  ul.check li:last-child{border-bottom:0}
+  ul.check input{width:17px;height:17px;margin-top:2px;accent-color:var(--accent);flex:none}
+  ul.check .t{font-size:13.5px}
+  ul.check .d{font-size:12px;color:var(--muted)}
+  ul.check li.done .t{text-decoration:line-through;color:var(--muted)}
+
+  .kv{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:13.5px}
+  .kv dt{font-weight:700;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  .kv dd{margin:0}
+  .note{border-left:3px solid var(--warn);background:#fffbf3;padding:10px 14px;border-radius:0 10px 10px 0;font-size:13px;margin:12px 0}
+  .note.bad{border-left-color:var(--bad);background:#fdf4f4}
+  .note.ok{border-left-color:var(--ok);background:#f3fbf6}
+  table.dead{font-size:13px}
+  table.dead td:first-child{white-space:nowrap;font-weight:700}
+  .angle{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:#fcfdff}
+  .angle h4{margin:0 0 5px;font-size:13.5px}
+  .angle p{margin:0;font-size:13px;color:#3c4a5e}
+  .angle .split{margin-top:8px;font-size:12.5px;color:var(--muted)}
+  .foot-note{color:var(--muted);font-size:12px;text-align:center;padding-top:8px}
+  @media(max-width:640px){ .clock{padding:8px 12px} .clock .num{font-size:24px} }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <h1>Binôme Master Thesis — SKEMA Spring 2026</h1>
+        <p>Front office · Sales / Trading / Structuring · Lille ou Paris · MSc CFM &amp; FMI · jury juillet 2027</p>
+      </div>
+      <div class="clock">
+        <div>
+          <div class="lbl">Formulaire binôme</div>
+          <div class="date">30/11/2026 · 10:00 (Paris)</div>
+        </div>
+        <div style="text-align:center">
+          <div class="num" id="daysLeft">—</div>
+          <div class="unit">jours restants</div>
+        </div>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="recherche" class="on">1 · Recherche</button>
+      <button data-tab="candidats">2 · Candidats</button>
+      <button data-tab="messages">3 · Messages</button>
+      <button data-tab="checklist">4 · Checklist</button>
+      <button data-tab="brief">5 · Brief &amp; règles</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ RECHERCHE ============ -->
+  <section class="tab on" id="tab-recherche">
+    <div class="card">
+      <h2>Le canal officiel d'abord</h2>
+      <p class="sub">Le tableau de la thèse cite explicitement un forum dédié sur K2 : c'est là que les autres Spring intake cherchent aussi.</p>
+      <div class="row">
+        <a class="btn" href="http://k2.skema.edu" target="_blank" rel="noopener">Ouvrir K2 → forum Master Thesis</a>
+        <a class="btn ghost" href="https://www.linkedin.com/school/skema-business-school/people/" target="_blank" rel="noopener">Alumni SKEMA sur LinkedIn</a>
+        <span class="spacer"></span>
+        <span class="pill">Poster + relancer tous les 3–4 jours</span>
+      </div>
+      <div class="note">
+        Dans l'outil Alumni : filtre <strong>Lieu = Lille</strong> puis <strong>Paris</strong>, et
+        <strong>Études = Financial Markets and Investments</strong> / <strong>Corporate Financial
+        Management</strong>. C'est le seul endroit où le filtre « études » existe réellement côté LinkedIn.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>8 recherches LinkedIn prêtes à coller</h2>
+      <p class="sub">Chaque bouton ouvre la recherche « Personnes » pré-encodée. Ajoute ensuite le filtre <strong>Réseau : 2e et 3e</strong> pour élargir.</p>
+      <div id="queries"></div>
+    </div>
+
+    <div class="card">
+      <h2>Le reste du gisement</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Groupes de promo</h3>
+          <p class="sub" style="margin-bottom:0">WhatsApp / Discord / Teams du M2 CFM et M2 FMI, délégués de promo, responsables de programme MSc CFM &amp; FMI : ils relaient volontiers un message de 5 lignes (message E).</p>
+        </div>
+        <div>
+          <h3>Introductions chaudes</h3>
+          <p class="sub" style="margin-bottom:0">Ton réseau 2e degré contient déjà des profils Sales / Exotic Rates / Structured Products (SG, etc.). Une intro vaut 3 messages à froid : demande-la systématiquement.</p>
+        </div>
+      </div>
+      <div class="note ok">
+        <strong>Ordre de grandeur :</strong> 40 profils identifiés → 25 invitations → 12 réponses → 5 calls → 1 binôme.
+        Bloque 2 × 45 min dans les 3 prochains jours : c'est un jeu de volume, pas de perfectionnisme.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CANDIDATS ============ -->
+  <section class="tab" id="tab-candidats">
+    <div class="card">
+      <h2>Ajouter un profil</h2>
+      <p class="sub">Tout est enregistré dans ce navigateur (localStorage). Export CSV possible pour passer sur Excel/Sheets.</p>
+      <form class="add" id="addForm">
+        <label class="f">Nom / Prénom
+          <input id="fName" required placeholder="ex. Hugo A." />
+        </label>
+        <label class="f">LinkedIn
+          <input id="fUrl" placeholder="linkedin.com/in/…" />
+        </label>
+        <label class="f">Campus
+          <select id="fCampus"><option>Lille</option><option>Paris</option><option>Autre</option></select>
+        </label>
+        <label class="f">Programme
+          <select id="fProg"><option>FMI</option><option>CFM</option><option>Autre MSc</option></select>
+        </label>
+        <label class="f">Fin de cours
+          <select id="fIntake">
+            <option>Déc. 2026 (Spring) ✓</option>
+            <option>Juin 2026 (Fall) ✗</option>
+            <option>À vérifier</option>
+          </select>
+        </label>
+        <label class="f">Intérêt marchés /5
+          <select id="fInterest"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
+        </label>
+        <label class="f">Score /20
+          <input id="fScore" type="number" min="0" max="20" step="1" placeholder="—" />
+        </label>
+        <label class="f">Prochaine action
+          <input id="fNext" placeholder="ex. invitation, relance J+4…" />
+        </label>
+        <button class="btn" type="submit">Ajouter</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="toolbar">
+        <h2 style="margin:0">Pipeline</h2>
+        <span class="spacer"></span>
+        <span class="pill" id="stats">0 profil</span>
+        <button class="btn ghost sm" id="exportBtn">Export CSV</button>
+        <button class="btn danger sm" id="resetBtn">Vider</button>
+      </div>
+      <p class="sub" style="margin-top:10px">Statuts : Identifié → Invitation → Répondu → Call → <strong>Accord</strong> → Refus.</p>
+      <div style="overflow-x:auto">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th>Nom</th><th>Campus</th><th>Prog.</th><th>Fin</th><th>Int.</th><th>Score</th>
+              <th>Statut</th><th>Prochaine action</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="emptyMsg">Aucun profil pour l'instant — commence par les 8 recherches de l'onglet 1.</div>
+    </div>
+  </section>
+
+  <!-- ============ MESSAGES ============ -->
+  <section class="tab" id="tab-messages">
+    <div class="card">
+      <h2>Personnaliser</h2>
+      <p class="sub">Choisis un profil du pipeline : les champs <code>{Prénom}</code> / <code>{Nom}</code> sont remplacés automatiquement.</p>
+      <div class="row">
+        <select id="who" style="max-width:320px"><option value="">— aucun (champs laissés tels quels) —</option></select>
+        <span class="pill">Invitation LinkedIn = 300 caractères max</span>
+      </div>
+    </div>
+    <div id="messages"></div>
+    <div class="card">
+      <h2>Le call de 15 min — questions de screening</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Éliminatoire (2 min)</h3>
+          <p class="sub" style="margin:0">« Tu finis bien tes cours en décembre 2026 — intake Spring ? » · « Lille ou Paris ? » · « CFM ou FMI ? »</p>
+        </div>
+        <div>
+          <h3>Le reste (13 min)</h3>
+          <p class="sub" style="margin:0">Stage / expérience markets ? Produits déjà pricés (options, swaps) ? Python / Excel ? Accès données (WRDS, Bloomberg, SRP) ? Dispo 2 × 45 min/semaine janv.–avril ? Peut-il obtenir 3–5 entretiens de pros ?</p>
+        </div>
+      </div>
+      <div class="note"><strong>Sous 12/20 au screening :</strong> backup, ne bloque pas. <strong>Ne jamais arrêter la prospection avant que le formulaire soit déposé.</strong></div>
+    </div>
+  </section>
+
+  <!-- ============ CHECKLIST ============ -->
+  <section class="tab" id="tab-checklist">
+    <div class="card">
+      <h2>Checklist de dépôt</h2>
+      <p class="sub">Coché = enregistré. Le formulaire se remplit <em>même sans superviseur</em> ; l'absence coûte <strong>2 points</strong>.</p>
+      <ul class="check" id="checklist"></ul>
+    </div>
+  </section>
+
+  <!-- ============ BRIEF ============ -->
+  <section class="tab" id="tab-brief">
+    <div class="card">
+      <h2>Les contraintes du tableau officiel</h2>
+      <table class="dead">
+        <tr><td>30/11/2026 · 10:00</td><td>Formulaire : binôme + superviseur proposé + sujet. <strong>Une seule candidature par binôme.</strong></td></tr>
+        <tr><td>Spring ≠ Fall</td><td>Un étudiant du <strong>Spring intake ne peut pas s'apparier avec un Fall intake</strong> → ton binôme finit comme toi, fin décembre 2026. Paire présentée au jury de juillet.</td></tr>
+        <tr><td>Discipline</td><td>Dépôt obligatoire même sans superviseur ni binôme trouvé ; sinon <strong>−2 points</strong>.</td></tr>
+        <tr><td>Fin janvier 2027</td><td>Attribution d'un binôme et/ou superviseur par l'école si tu n'as rien trouvé.</td></tr>
+        <tr><td>10/02/2027</td><td>Revue de littérature (15–20 p., ≤15 p. si business plan) — notée /20.</td></tr>
+        <tr><td>07/04/2027</td><td>Draft préliminaire — noté /20.</td></tr>
+      </table>
+      <div class="note bad">
+        <strong>Deux exigences de fond :</strong> le volume de travail doit <em>justifier deux étudiants</em>
+        (sujet scindable en deux axes) et l'<strong>interdisciplinarité est encouragée</strong> — un binôme
+        CFM + FMI est un signal positif, pas un handicap.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Trois angles de sujet (chacun scindable en deux)</h2>
+      <div class="grid g3">
+        <div class="angle">
+          <h4>1 · Structurés &amp; chaîne sales–structuring–trading</h4>
+          <p>Pricing et couverture d'autocalls actions, coût d'émission, distribution au réseau retail / private banking en régime de taux élevés.</p>
+          <p class="split"><strong>Axe 1 :</strong> pricing + hedge + marge émetteur · <strong>Axe 2 :</strong> distribution, suitability MiFID, protection de l'investisseur.</p>
+        </div>
+        <div class="angle">
+          <h4>2 · 0DTE &amp; gamma des dealers</h4>
+          <p>Comment le flow d'options à échéance jour modifie la liquidité et la volatilité intraday des indices actions.</p>
+          <p class="split"><strong>Axe 1 :</strong> données &amp; mesure du gamma exposure · <strong>Axe 2 :</strong> effet sur la liquidité et le pricing des market makers.</p>
+        </div>
+        <div class="angle">
+          <h4>3 · Électronification du RFQ (crédit &amp; taux)</h4>
+          <p>Ce que devient le métier de sales-trader : best execution, price discovery, montée du rôle « solutions ».</p>
+          <p class="split"><strong>Axe 1 :</strong> données de marché &amp; qualité d'exécution · <strong>Axe 2 :</strong> interviews de praticiens + cadre réglementaire.</p>
+        </div>
+      </div>
+      <h3>Données mobilisables sans budget</h3>
+      <p class="sub" style="margin:0">CBOE (volumes, séries), FINRA TRACE / DTCC public, BIS Triennial, rapports investisseurs Tradeweb &amp; MarketAxess, comptes publics d'émetteurs, WRDS si SKEMA l'ouvre.</p>
+    </div>
+
+    <div class="card">
+      <h2>Plan des 10 prochains jours</h2>
+      <table class="dead">
+        <tr><td>J1 · 03–04/11</td><td>Post K2 + message aux délégués / responsables CFM &amp; FMI + 10 invitations LinkedIn.</td></tr>
+        <tr><td>J2 · 05/11</td><td>Alumni tool Lille + Paris (filtres FMI / CFM) → remplir le pipeline.</td></tr>
+        <tr><td>J3 · 06/11</td><td>15 invitations + 3 demandes d'intro chaude à ton réseau 1er degré.</td></tr>
+        <tr><td>J4 · 07/11</td><td>Relances J+4, premiers calls de 15 min.</td></tr>
+        <tr><td>J5–J6</td><td>3 calls, short-list des 2 meilleurs, envoi du one-pager du sujet.</td></tr>
+        <tr><td>J7</td><td>Short-list superviseurs K2 (liste de priorité) + mail au 1er choix.</td></tr>
+        <tr><td>J8–J9</td><td>Accord binôme + sujet, formulaire pré-rempli.</td></tr>
+        <tr><td>30/11 · 10:00</td><td><strong>Formulaire déposé</strong>, superviseur confirmé ou non.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <p class="foot-note">Outil local — aucune donnée n'est envoyée sur un serveur. Les recherches LinkedIn s'ouvrent dans un nouvel onglet.</p>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var KEY = "skema.binome.v1";
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  var state = load();
+  state.candidates = state.candidates || [];
+  state.checks = state.checks || {};
+  state.msgs = state.msgs || {};
+
+  /* ---------- countdown ---------- */
+  (function countdown() {
+    var deadline = new Date("2026-11-30T10:00:00+01:00").getTime();
+    var d = Math.floor((deadline - Date.now()) / 86400000);
+    var el = document.getElementById("daysLeft");
+    el.textContent = d >= 0 ? d : 0;
+    el.style.color = d <= 7 ? "#fca5a5" : d <= 14 ? "#fcd34d" : "#7dd3fc";
+  })();
+
+  /* ---------- tabs ---------- */
+  var tabs = document.getElementById("tabs");
+  tabs.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-tab]");
+    if (!b) return;
+    [].forEach.call(tabs.children, function (x) { x.classList.toggle("on", x === b); });
+    [].forEach.call(document.querySelectorAll("section.tab"), function (s) {
+      s.classList.toggle("on", s.id === "tab-" + b.dataset.tab);
+    });
+  });
+
+  /* ---------- queries ---------- */
+  var QUERIES = [
+    { l: "Alumni FMI · Lille + Paris",
+      k: "SKEMA \"Financial Markets and Investments\"",
+      alumni: true,
+      w: "Le plus ciblé : filtre « Études » puis lieu Lille / Paris." },
+    { l: "Alumni CFM · Lille + Paris",
+      k: "SKEMA \"Corporate Financial Management\"",
+      alumni: true,
+      w: "Ton propre programme : binôme CFM + FMI = interdisciplinarité valorisée." },
+    { l: "FMI + marchés",
+      k: "SKEMA FMI markets trading",
+      alumni: false,
+      w: "Mots-clés larges : laisse passer un peu de bruit, le tri se fait sur le profil." },
+    { l: "CFM + marchés",
+      k: "SKEMA CFM markets sales trading",
+      alumni: false,
+      w: "Beaucoup de CFM écrivent juste « CFM » dans leur titre." },
+    { l: "MSc + 2026",
+      k: "SKEMA \"MSc\" \"2026\" markets",
+      alumni: false,
+      w: "Attrape ceux qui affichent l'année de diplôme dans le titre." },
+    { l: "Structuring / dérivés",
+      k: "SKEMA structuring derivatives Lille OR Paris",
+      alumni: false,
+      w: "Cible ceux qui ont déjà un stage en structuration ou dérivés." },
+    { l: "Sales / trading Paris",
+      k: "SKEMA \"sales\" \"trading\" Paris",
+      alumni: false,
+      w: "Élargit au-delà de l'école : utile pour les intros chaudes." },
+    { l: "Étudiants SKEMA Lille",
+      k: "SKEMA Business School Lille étudiant",
+      alumni: false,
+      w: "Filet large campus Lille quand le reste s'épuise." }
+  ];
+
+  var qBox = document.getElementById("queries");
+  QUERIES.forEach(function (q) {
+    var url = q.alumni
+      ? "https://www.linkedin.com/school/skema-business-school/people/?keywords=" + encodeURIComponent(q.k)
+      : "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent(q.k) + "&origin=GLOBAL_SEARCH_HEADER";
+
+    var div = document.createElement("div");
+    div.className = "q";
+    var left = document.createElement("div");
+    var lbl = document.createElement("div");
+    lbl.className = "lbl";
+    lbl.textContent = q.l;
+    var code = document.createElement("code");
+    code.textContent = q.k;
+    var why = document.createElement("div");
+    why.className = "why";
+    why.textContent = q.w;
+    left.appendChild(lbl); left.appendChild(code); left.appendChild(why);
+
+    var right = document.createElement("div");
+    right.className = "row";
+    var open = document.createElement("a");
+    open.className = "btn sm";
+    open.href = url; open.target = "_blank"; open.rel = "noopener";
+    open.textContent = "Ouvrir";
+    var copy = document.createElement("button");
+    copy.className = "btn ghost sm";
+    copy.type = "button";
+    copy.textContent = "Copier le lien";
+    copy.onclick = function () { copyText(url, copy); };
+    right.appendChild(open); right.appendChild(copy);
+
+    div.appendChild(left); div.appendChild(right);
+    qBox.appendChild(div);
+  });
+
+  /* ---------- clipboard ---------- */
+  function copyText(txt, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copié ✓";
+      setTimeout(function () { btn.textContent = old; }, 1400);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(done, function () { fallback(txt, done); });
+    } else { fallback(txt, done); }
+  }
+  function fallback(txt, done) {
+    var ta = document.createElement("textarea");
+    ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  /* ---------- candidates ---------- */
+  var STATUSES = ["Identifié", "Invitation", "Répondu", "Call", "Accord", "Refus"];
+  var addForm = document.getElementById("addForm");
+  var tbody = document.getElementById("tbody");
+  var emptyMsg = document.getElementById("emptyMsg");
+  var stats = document.getElementById("stats");
+
+  addForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    state.candidates.push({
+      id: "c" + Date.now(),
+      name: document.getElementById("fName").value.trim(),
+      url: document.getElementById("fUrl").value.trim(),
+      campus: document.getElementById("fCampus").value,
+      prog: document.getElementById("fProg").value,
+      intake: document.getElementById("fIntake").value,
+      interest: document.getElementById("fInterest").value,
+      score: document.getElementById("fScore").value,
+      next: document.getElementById("fNext").value.trim(),
+      status: "Identifié"
+    });
+    save(); renderAll();
+    addForm.reset();
+    document.getElementById("fName").focus();
+  });
+
+  function chip(status) {
+    var cls = status === "Accord" ? "ok"
+      : status === "Refus" ? "bad"
+      : (status === "Call" || status === "Répondu") ? "warn" : "";
+    return '<span class="pill ' + cls + '">' + status + "</span>";
+  }
+
+  function renderCandidates() {
+    tbody.innerHTML = "";
+    emptyMsg.style.display = state.candidates.length ? "none" : "block";
+
+    state.candidates.forEach(function (c) {
+      var tr = document.createElement("tr");
+
+      var tdName = document.createElement("td");
+      tdName.innerHTML = c.url
+        ? '<a href="' + esc(c.url.indexOf("http") === 0 ? c.url : "https://" + c.url) + '" target="_blank" rel="noopener">' + esc(c.name) + "</a>"
+        : "<strong>" + esc(c.name) + "</strong>";
+
+      function td(txt) { var d = document.createElement("td"); d.textContent = txt || "—"; return d; }
+
+      var tdStatus = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.style.minWidth = "116px";
+      sel.style.fontSize = "12.5px";
+      STATUSES.forEach(function (s) {
+        var o = document.createElement("option");
+        o.value = s; o.textContent = s;
+        if (s === c.status) o.selected = true;
+        sel.appendChild(o);
+      });
+      sel.onchange = function () { c.status = sel.value; save(); renderCandidates(); };
+      tdStatus.appendChild(sel);
+
+      var tdAct = document.createElement("td");
+      var inp = document.createElement("input");
+      inp.value = c.next || "";
+      inp.placeholder = "prochaine action";
+      inp.style.fontSize = "12.5px";
+      inp.onchange = function () { c.next = inp.value; save(); };
+      tdAct.appendChild(inp);
+
+      var tdDel = document.createElement("td");
+      var del = document.createElement("button");
+      del.className = "btn danger sm";
+      del.type = "button";
+      del.textContent = "✕";
+      del.title = "Supprimer";
+      del.onclick = function () {
+        state.candidates = state.candidates.filter(function (x) { return x !== c; });
+        save(); renderAll();
+      };
+      tdDel.appendChild(del);
+
+      var warn = c.intake.indexOf("Fall") === 0 ? " ✗" : "";
+      tr.appendChild(tdName);
+      tr.appendChild(td(c.campus));
+      tr.appendChild(td(c.prog));
+      tr.appendChild(td(c.intake + warn));
+      tr.appendChild(td(c.interest ? c.interest + "/5" : ""));
+      tr.appendChild(td(c.score));
+      tr.appendChild(tdStatus);
+      tr.appendChild(tdAct);
+      tr.appendChild(tdDel);
+      tbody.appendChild(tr);
+    });
+
+    var counts = {};
+    state.candidates.forEach(function (c) { counts[c.status] = (counts[c.status] || 0) + 1; });
+    var txt = state.candidates.length + (state.candidates.length > 1 ? " profils" : " profil");
+    if (counts["Accord"]) txt += " · " + counts["Accord"] + " accord(s) ✓";
+    else if (counts["Call"]) txt += " · " + counts["Call"] + " en call";
+    stats.textContent = txt;
+  }
+
+  function esc(s) {
+    return String(s || "").replace(/[&<>"']/g, function (m) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[m];
+    });
+  }
+
+  document.getElementById("exportBtn").onclick = function () {
+    var head = ["nom", "linkedin", "campus", "programme", "fin_cours", "interet_marches", "score_20", "statut", "prochaine_action"];
+    var rows = state.candidates.map(function (c) {
+      return [c.name, c.url, c.campus, c.prog, c.intake, c.interest, c.score, c.status, c.next].map(function (v) {
+        v = String(v == null ? "" : v).replace(/"/g, '""');
+        return '"' + v + '"';
+      }).join(",");
+    });
+    var csv = [head.join(",")].concat(rows).join("\n");
+    var blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "binome-cesures-suivi.csv";
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+  };
+
+  document.getElementById("resetBtn").onclick = function () {
+    if (state.candidates.length && !confirm("Supprimer tous les profils du pipeline ?")) return;
+    state.candidates = []; save(); renderAll();
+  };
+
+  /* ---------- messages ---------- */
+  var MESSAGES = [
+    {
+      id: "invite",
+      title: "A · Invitation LinkedIn",
+      hint: "Limite stricte de 300 caractères pour le mot de bienvenue. Court, concret, une seule question.",
+      limit: 300,
+      text: "Bonjour {Prénom}, Calvin, M2 MSc CFM à SKEMA (Lille). Je cherche mon binôme de Master Thesis — intake Spring, fin des cours en décembre 2026 — sur un sujet front office sales/trading/structuring. Ton parcours {FMI/CFM} colle bien au sujet que j'ai en tête. 15 min de call cette semaine ?"
+    },
+    {
+      id: "pitch",
+      title: "B · Après acceptation — le pitch",
+      hint: "Le message qui décide : sujet, méthode, découpage en deux, deadline. Propose deux créneaux précis.",
+      text: "Merci pour l'acceptation ! En bref : sujet front office (structurés / flow, 3 angles possibles, je t'envoie le one-pager), données publiques + éventuellement accès WRDS, et un découpage en deux axes pour justifier la paire. La deadline du formulaire est le 30/11 à 10h — on n'a pas besoin du superviseur pour déposer. Si le courant passe, on se cale 2 × 45 min/semaine à partir de janvier.\n\nTu es dispo pour un call de 15 min jeudi ou vendredi ?"
+    },
+    {
+      id: "k2",
+      title: "C · Post sur le forum K2",
+      hint: "Titre explicite, intake annoncé, une seule question de sortie. Relance tous les 3–4 jours.",
+      text: "M2 CFM (Lille, Spring intake, fin des cours déc. 2026) cherche binôme — front office Sales / Trading / Structuring.\n\nSujet : structurés & chaîne sales–structuring–trading (ou 0DTE / gamma, ou électronification du RFQ). Découpage en 2 axes : pricing & couverture / distribution & régulation. Données publiques, encadrement visé côté finance de marché.\n\nIntake Spring obligatoire (pas de Fall). Dispo pour un call de 15 min — MP ici ou sur LinkedIn : linkedin.com/in/calvin-minang"
+    },
+    {
+      id: "relance",
+      title: "D · Relance J+4",
+      hint: "Une seule relance maximum. Une porte de sortie (« un non m'aide ») double le taux de réponse.",
+      text: "Bonjour {Prénom}, je remonte mon message au cas où il serait passé sous le radar — la deadline du formulaire binôme est le 30/11 et je cherche quelqu'un du Spring intake (CFM ou FMI) sur un sujet marchés. Même un « pas disponible » m'aide à avancer."
+    },
+    {
+      id: "relais",
+      title: "E · Relais par les délégués / responsables de programme",
+      hint: "5 lignes maximum, la deadline en gras dans le premier paragraphe, aucune pièce jointe.",
+      text: "Bonjour {Nom}, Calvin MINANG, M2 MSc CFM (Lille). Je cherche mon binôme de Master Thesis (Spring intake, jury juillet, sujet front office sales/trading/structuring). Pourriez-vous relayer ce message au groupe du M2 CFM / FMI ? Deadline du formulaire : 30/11 à 10h. Merci beaucoup !"
+    }
+  ];
+
+  var msgBox = document.getElementById("messages");
+  var whoSel = document.getElementById("who");
+
+  MESSAGES.forEach(function (m) {
+    var card = document.createElement("div");
+    card.className = "msg";
+
+    var h = document.createElement("h3");
+    h.textContent = m.title;
+    var hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = m.hint;
+
+    var ta = document.createElement("textarea");
+    ta.rows = m.limit ? 4 : 7;
+    ta.value = state.msgs[m.id] || m.text;
+    ta.dataset.base = m.text;
+    ta.dataset.id = m.id;
+
+    var foot = document.createElement("div");
+    foot.className = "foot";
+
+    var count = document.createElement("span");
+    count.className = "count";
+
+    var copy = document.createElement("button");
+    copy.className = "btn sm";
+    copy.type = "button";
+    copy.textContent = "Copier le message";
+    copy.onclick = function () { copyText(ta.value, copy); };
+
+    var reset = document.createElement("button");
+    reset.className = "btn ghost sm";
+    reset.type = "button";
+    reset.textContent = "Réinitialiser";
+    reset.onclick = function () {
+      ta.value = m.text;
+      state.msgs[m.id] = m.text;
+      save(); recount();
+    };
+
+    foot.appendChild(count);
+    foot.appendChild(copy);
+    foot.appendChild(reset);
+
+    function recount() {
+      var n = ta.value.length;
+      if (m.limit) {
+        count.textContent = n + " / " + m.limit + " caractères";
+        count.classList.toggle("bad", n > m.limit);
+      } else {
+        count.textContent = n + " caractères";
+        count.classList.remove("bad");
+      }
+    }
+
+    ta.addEventListener("input", function () {
+      state.msgs[m.id] = ta.value;
+      save(); recount();
+    });
+
+    card.appendChild(h); card.appendChild(hint); card.appendChild(ta); card.appendChild(foot);
+    msgBox.appendChild(card);
+
+    // expose for personalisation
+    m._el = ta;
+    m._recount = recount;
+    recount();
+  });
+
+  function applyWho() {
+    var c = state.candidates.filter(function (x) { return x.id === whoSel.value; })[0];
+    MESSAGES.forEach(function (m) {
+      var txt = (state.msgs[m.id] || m.text);
+      if (c) {
+        var first = c.name.trim().split(/\s+/)[0];
+        txt = txt.replace(/\{Prénom\}/g, first)
+                 .replace(/\{Nom\}/g, c.name)
+                 .replace(/\{FMI\/CFM\}/g, c.prog);
+      } else {
+        txt = txt.replace(/\{Prénom\}/g, "{Prénom}")
+                 .replace(/\{Nom\}/g, "{Nom}")
+                 .replace(/\{FMI\/CFM\}/g, "{FMI/CFM}");
+      }
+      m._el.value = txt;
+      m._recount();
+    });
+  }
+  whoSel.addEventListener("change", applyWho);
+
+  /* ---------- checklist ---------- */
+  var CHECKS = [
+    ["k2", "Post publié sur le forum K2 (Master Thesis partner)", "http://k2.skema.edu"],
+    ["group", "Message envoyé aux délégués / responsables MSc CFM & FMI", "Message E"],
+    ["net", "3 demandes d'intro chaude à mon réseau 1er degré", "Les 2e degrés Sales / Trading convertissent le mieux"],
+    ["alumni", "Alumni tool passé en revue : Lille + Paris, filtres FMI / CFM", "Onglet Recherche"],
+    ["inv", "25 invitations envoyées, profils dans le pipeline", "Onglet Candidats"],
+    ["call", "3 calls de 15 min réalisés, scores de screening remplis", "Grille /20"],
+    ["pick", "Binôme choisi + accord écrit (mail ou message)", "Confirmer l'intake Spring explicitement"],
+    ["angle", "Sujet arrêté et scindé en deux axes", "Onglet Brief"],
+    ["sup", "Superviseur short-listé sur K2 + mail envoyé", "Priorité à la liste de priorité K2"],
+    ["form", "Formulaire du 30/11 rempli (binôme + sujet, superviseur si confirmé)", "Même sans superviseur : sinon −2 points"]
+  ];
+  var cl = document.getElementById("checklist");
+  CHECKS.forEach(function (c) {
+    var li = document.createElement("li");
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state.checks[c[0]];
+    cb.onchange = function () { state.checks[c[0]] = cb.checked; li.classList.toggle("done", cb.checked); save(); };
+    li.classList.toggle("done", cb.checked);
+
+    var box = document.createElement("div");
+    var t = document.createElement("div");
+    t.className = "t"; t.textContent = c[1];
+    var d = document.createElement("div");
+    d.className = "d"; d.textContent = c[2];
+    box.appendChild(t); box.appendChild(d);
+
+    li.appendChild(cb); li.appendChild(box);
+    cl.appendChild(li);
+  });
+
+  /* ---------- render all ---------- */
+  function renderAll() {
+    renderCandidates();
+
+    var cur = whoSel.value;
+    whoSel.innerHTML = '<option value="">— aucun (champs laissés tels quels) —</option>';
+    state.candidates.forEach(function (c) {
+      var o = document.createElement("option");
+      o.value = c.id;
+      o.textContent = c.name + " · " + c.prog + " · " + c.campus;
+      whoSel.appendChild(o);
+    });
+    if (state.candidates.some(function (c) { return c.id === cur; })) whoSel.value = cur;
+    applyWho();
+  }
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
