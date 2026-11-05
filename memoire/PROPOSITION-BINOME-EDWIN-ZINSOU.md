@@ -27,20 +27,19 @@ Date du document : **05/11/2026** | Échéance K2 : **30/11/2026 à 10h00**
 - Ta réponse 19:53-20:13 : tu lui proposes + envoies ton CV
 - WhatsApp 21:00-21:39 : RDV calé **demain après-midi en vocal** pour relire ensemble les consignes
 
-**Son message clé (ton dernier screenshot) :**
-> *"Bon moi je suis intéressé par le sales FX ou latam comme tu le sais une question comme pourquoi un client acheter un produits FX chez un desk A ou Desk B ou Fintech plutôt qu'un autre ?"*
+**Son intérêt réel : À CLARIFIER au call.** Tu notes que le sujet Sales FX / LATAM c'est **toi**, pas forcément lui. Son profil LinkedIn pointe plutôt **Sustainable Finance & Fintech + ESG + FI/Trade Finance** — pas "sales FX pur". Le message *"pourquoi un client achète son FX chez A vs B vs fintech"* pourrait être ta question à lui, pas la sienne. On part donc en **mode découverte** demain.
 
-→ C'est **exactement** ton runbook CDI FX (Ebury, iBanFirst, Convera, StoneX, Monex) — voir `candidatures/CIBLE-CDI-FX-runbook-2026-09-26.md`. Vous avez un alignement naturel.
+→ Ton runbook CDI FX (Ebury, iBanFirst, Convera, StoneX, Monex) — voir `candidatures/CIBLE-CDI-FX-runbook-2026-09-26.md` — reste ta carte maîtresse, mais il faut **trouver l'intersection** avec son MS.
 
 ---
 
-## 2) Pourquoi vous êtes compatibles
+## 2) Pourquoi vous êtes compatibles (malgré intérêts pas encore alignés)
 
 | Critère | Calvin | Edwin | Verdict |
 |---------|--------|-------|---------|
 | **Programme** | MSc CFM (Corporate Financial Management) | MS Sustainable Finance & Fintech | **Interdisciplinaire encouragé par SKEMA ✅** (Guidelines p.4-5 : binôme inter-MSc recommandé) |
 | **Calendrier** | Fin 13/12, Spring 2026, jury juillet | Fin 13/12, Spring 2026, jury juillet | **Parfait — même deadline 30/11** |
-| **Intérêt** | Sales FX / Corporate dealing (runbook CDI complet, pitch front) | Sales FX / LATAM, dealer choice | **Même question de recherche** |
+| **Intérêt** | Sales FX / Corporate dealing (runbook CDI complet, pitch front) | **À découvrir** : Sustainable Finance, Fintech disruption, ESG, FI/Trade (son MS + ses stages) — LATAM est une de **tes** pistes, pas forcément la sienne | **Intersection à trouver au call** |
 | **Compétences** | Excel avancé, compta/CFP, Money & Banking (Saidane), CFM, modélisation | FI Front, Trade Finance, KYC, analyse ESG, modélisation | **Complémentaires : toi = pricing/produits, lui = relation client bancaire + ESG** |
 | **Réseau** | BPCE, Finstart, banques françaises | BFI, Palatine, Ecobank, Comoé (Afrique) | **Accès terrain doublé : PME françaises + FI africaines/LATAM** |
 
@@ -48,94 +47,92 @@ Date du document : **05/11/2026** | Échéance K2 : **30/11/2026 à 10h00**
 
 ---
 
-## 3) Trois sujets proposés (tous validables K2, avec méthode en binôme)
+## 3) Trois sujets proposés — version hybride (ton FX + son Sustainable Fintech)
 
-Chaque proposition respecte : question originale, revue de littérature 15-20p faisable, données accessibles sans NDA bancaire, méthode mixte (quant + qualit), volume = 2 étudiants.
+> ⚠️ Tu as raison : ne pitch PAS ton sujet FX en bloc demain. Commence par **écouter son intérêt**, puis propose l'intersection. Ci-dessous : 1 sujet de repli "ton FX pur" + 2 sujets hybrides qui parlent à un MS Sustainable Finance & Fintech.
 
-### **Sujet A — RECOMMANDÉ ⭐ — Le choix du dealer FX par les PME françaises**
+Chaque proposition respecte : question originale, revue de littérature 15-20p faisable, données accessibles sans NDA bancaire, méthode mixte (quant + qualit), volume = 2 étudiants. Tous justifient 2 étudiants (Guidelines p.6).
+
+### **Sujet A — Ton sujet solo (à ne sortir qu'en 2e partie du call)**
 **Titre provisoire :**
-> *Why do French SMEs choose a bank vs. a fintech for FX hedging? Price, service and trust — evidence from forwards and swaps on EUR/USD and EUR/MAD (ou EUR/XOF)*
+> *Why do French SMEs choose a bank vs. a fintech for FX hedging? Price, service and trust — evidence from forwards and swaps on EUR/USD and EUR/MAD*
 
-**Problématique (ta question d'Edwin reformulée académiquement) :**
-*Qu'est-ce qui explique qu'un client corporate achète le même produit FX (forward, swap) chez le desk A (banque) plutôt que chez le desk B (autre banque) ou une fintech (Ebury, iBanFirst, Convera) ? Le prix est-il déterminant, ou le service/relation/confiance l'emporte-t-il ?*
+**Problématique :** Même que tu avais en tête — pourquoi un corporate prend le desk A vs B vs fintech ? Prix vs relation.
+**À sortir uniquement si Edwin dit "ça me parle". Sinon, passe en B/C qui font le pont.**
 
-**Pourquoi c'est fort pour vous deux :**
-- Toi : tu vises un CDI FX Sales → tu pourras citer le mémoire en entretien ("j'ai interviewé 15 trésoriers")
-- Edwin : Trade Finance + FI → il connaît la relation bancaire corporate, peut mener les entretiens FI
-- Interdisciplinaire : Finance (pricing) + Sustainable/ESG (critère RSE dans le choix ? — question subsidiaire)
-
-**Méthode proposée (binôme = justifié) :**
-- **Calvin** : collecte **prix** — demandes de cotations anonymisées même notionnel/tenor à 3 banques + 2 fintechs (écart bid-ask, forward points). Tableau comparatif. Régression : écart de prix expliqué par taille client, devise, maturité.
-- **Edwin** : **entretiens semi-directifs** (12-15 trésoriers/Directeurs financiers PME/ETI importatrices) + 2-3 sales FX (ton réseau BPCE/Ebury) — grille sur : prix perçu, rapidité, plateforme, conseil, confiance, ESG.
-- Joint : revue de littérature (market microstructure FX, relationship banking vs fintech disruption, choice theory), discussion et limites.
-
-**Données :** pas besoin de données internes banque (évite NDA). Cotations publiques/anonymisées + interviews (RGPD OK avec consentement — voir Guidelines p.4 éthique).
-
-**Superviseurs K2 suggérés :**
-- **Bertrand GROSLAMBERT** — Banque, Finance d'Entreprise, Risques, Marchés Émergents (parfait FX corporate)
-- **Amaury GOGUEL** — Finance Internationale, Géopolitique, Marchés Financiers
-- **Dhafer SAIDANE** — Banque, Finance Durable (ton prof Money Banking — connaît ton dossier)
-- Backup : **Urszula SZCZERBOWICZ** (Banque/Finance Internationale/Géopolitique)
-
-**Livrable final :** Dissertation classique (pas Business Plan) — plus simple pour first thesis.
+**Répartition :** Toi = pricing/cotations, Edwin = interviews FI/Trade. Superviseurs : GROSLAMBERT / GOGUEL / SAIDANE. Voir détails complets dans la version précédente du doc (git history).
 
 ---
 
-### **Sujet B — Variante LATAM (si Edwin pousse LATAM)**
+### **Sujet B — RECOMMANDÉ ⭐ HYBRIDE — Fintech disruption in corporate FX (ton FX + sa Fintech)**
 **Titre :**
-> *Hedging LATAM FX for European corporates: cost and dealer choice on BRL, MXN and COP — banks vs fintechs (StoneX/Monex vs. global banks)*
+> *Fintech vs. bank in corporate FX hedging: what drives adoption by French SMEs? Evidence from Ebury, iBanFirst and traditional dealers*
 
-**Problématique :** Pourquoi les corporates européens paient-ils plus cher pour se couvrir en BRL/MXN que sur G10, et comment choisissent-ils leur dealer ?
+**Pourquoi ça lui parle :**
+- C'est **son MS Fintech** : adoption fintech, plateforme digitale, UX, confiance vs banque historique
+- Pour toi : même terrain que Sujet A, mais angle "fintech disruption" = directement employable chez Ebury/iBanFirst/Convera (ton runbook)
+- Pour SKEMA : interdisciplinaire parfait CFM (toi) + Sustainable Finance & Fintech (lui) — Guidelines p.4-5 adorent
+
+**Problématique académique :**
+*Quels facteurs (prix, rapidité, plateforme digitale, conseil humain, marque/confiance) expliquent l'adoption ou le rejet des fintechs FX par les PME françaises, et comment les banques réagissent-elles ?*
+
+**Méthode hybride (justifie 2 étudiants) :**
+- **Calvin (CFM)** : collecte quantitative — cotations anonymisées même notionnel/tenor à 2 banques + 2 fintechs (Ebury/iBanFirst) → écart bid-ask + forward points. Régression simple : prix expliqué par taille client, devise (EUR/USD vs exotique), canal.
+- **Edwin (Sustainable Finance & Fintech)** : qualitatif + ESG — 12-15 interviews trésoriers PME + 3 interviews sales (ton réseau BPCE + son réseau BFI/Palatine) sur : critères de choix, perception plateforme fintech, confiance, et **question subsidiaire ESG** : "la politique RSE du dealer compte-t-elle ?" (critère de son MS, fait la différence à SKEMA).
+- Joint : revue littérature (relationship banking vs fintech, market microstructure FX, technology adoption), discussion.
+
+**Données :** pas de NDA — cotations publiques + interviews RGPD (Guidelines p.4).
+**Superviseurs :** **Johann BARCHECHATH** (Produits Structurés/Python/Finance d'Entreprise — très fintech), **Dhafer SAIDANE** (Banque/Finance Durable — ton prof), **Bertrand GROSLAMBERT** (Banque/Risques). Backup : Ludovic LE CUNFF ? Non, **Ludovic DI BIAGGIO** (Transformation Digitale).
+
+---
+
+### **Sujet C — RECOMMANDÉ ⭐ HYBRIDE BIS — Green Trade Finance & FX (ton FX + son Trade + ESG)**
+**Titre :**
+> *Green trade finance and FX hedging for importers: do ESG-linked currency products and sustainable supply-chain finance influence corporate treasury choices? Evidence from France-LATAM/Africa corridors*
+
+**Pourquoi ça lui parle encore plus :**
+- Il a fait **Trade Finance (Palatine)** + **FI Front (BFI)** + **Analyse ESG** — ce sujet lui permet de réutiliser tout
+- Toi : tu gardes FX hedging + LATAM corridor (ton idée) mais avec twist durable
+- SKEMA : sujet ultra d'actualité (CSRD, taxonomy, ESG financing) — très bien noté
+
+**Problématique :**
+*Les PME importatrices (ex: France ↔ LATAM/Afrique) choisissent-elles leur banque/fintech FX aussi sur des critères ESG (financement vert, supply-chain durable, reporting CSRD) ou seulement prix/service ?*
 
 **Méthode :**
-- Analyse **coût de couverture** (forward points = différentiel de taux) sur 3 paires LATAM vs EUR/USD
-- Interviews : trésoriers avec filiales LATAM + desk StoneX/Monex (franchise Brésil) — tu as déjà la veille StoneX dans ton runbook
-- Edwin : apport Palatine/Ecobank sur flux documentaires LATAM-Afrique
+- **Edwin** : interviews Trade Finance + analyse offres "green trade finance" (Palatine, Ecobank, BFI) + critères ESG dans choix de la banque
+- **Calvin** : pricing FX hedging (forward) + coût du greenium vs hedging classique + interviews trésoriers avec filiales LATAM/Afrique (StoneX/Monex — ton runbook)
+- Joint : revue littérature ESG in trade finance (ICC, AfDB), FX hedging in EM, sustainable SCF
 
-**Superviseurs :** GROSLAMBERT (Marchés Émergents) + GOGUEL + SZCZERBOWICZ
-
-**Attention :** un peu plus niche (accès aux trésoriers LATAM plus dur) — garder en plan B si A est trop concurrentiel.
-
----
-
-### **Sujet C — Business Plan (seulement si vous voulez entreprendre)**
-**Titre :**
-> *Business plan d'un FX dealing desk "mid-cap LATAM" pour PME françaises — proposition de valeur vs banques et fintechs*
-
-**Format :** Business Plan Framework Guidelines p.22-36 (Executive summary, Context, Market analysis, Strategy, Marketing/Sales plan, Financials)
-**Intérêt :** vous construisez le desk que vous voulez rejoindre — très vendeur pour Ebury/iBanFirst
-**Risque :** charge plus lourde (pricing + go-to-market + prévisionnel 3-5 ans), grille de notation différente (Annexe 3) — à éviter si vous visez une note académique pure
-
-**À proposer seulement si Edwin est très entrepreneurial.**
+**Superviseurs :** **Yoann GUNTZBURGER** (Durabilité, Éthique, Gestion des Risques), **Kirsty PAOLI** (Reporting Extra-Financier), **Sylvie MATELLY** (Géopolitique + RSE), **Dhafer SAIDANE** (Finance Durable)
 
 ---
 
 ## 4) Ce que tu dis demain au call — script + message prêt à envoyer
 
-### Message WhatsApp à envoyer ce soir (après ton vocal de 21h08)
+### Message WhatsApp à envoyer ce soir (CORRIGÉ — mode écoute)
 
-> Salut Edwin, top pour demain aprem ! J'ai relu les guidelines SKEMA ce soir — deadline K2 = 30/11 à 10h, une seule candidature par binôme, noté /20 sur lit review + draft. On est pile dans les temps.
+> Salut Edwin, top pour demain aprem ! J'ai relu les guidelines ce soir — deadline K2 30/11 à 10h, une seule candidature par binôme, pas de changement après, lit review 15-20p notée. On est pile dans les temps.
 >
-> Ta question sur "pourquoi un client achète son FX chez A vs B vs fintech" m'a direct parlé — c'est exactement ce que je bosse pour mon projet pro FX Sales (Ebury, iBanFirst, StoneX). Je te propose qu'on parte là-dessus : choix du dealer FX par les PME françaises, prix vs service/confiance. On peut se partager le taf : moi côté pricing/cotations, toi côté entretiens clients FI/Trade que tu connais bien.
+> Pour le sujet, je te propose qu'on fasse simple demain : on se dit chacun en 2 min ce qu'on aimerait creuser, et on cherche l'intersection. De mon côté je bosse sales FX corporate (pourquoi une PME prend tel desk/banque vs fintech comme Ebury/iBanFirst) — mais je sais que ton MS c'est Sustainable Finance & Fintech + ESG/Trade, donc on a de quoi faire un truc hybride sympa (ex: adoption fintech FX par les PME, ou trade finance vert + hedging LATAM/Afrique). J'ai noté 2-3 pistes hybrides + superviseurs potentiels, on voit ça ensemble ?
 >
-> J'ai 3 idées de sujets + superviseurs potentiels (Groslambert, Goguel, Saidane) — on voit ça demain ? Tu es dispo vers 14h-16h ? Je t'envoie mon CV + la synthèse K2 avant l'appel si tu veux.
->
-> À demain !
+> Dispo 14h-16h demain comme prévu ? À demain !
 
-*Tu as déjà envoyé ton CV (20:13) — parfait.*
+*Tu as déjà envoyé ton CV (20:13) — parfait. Ce message évite de pitcher ton FX en bloc et montre que tu tiens compte de son MS.*
 
-### Déroulé du call (20-30 min)
+### Déroulé du call (25-30 min) — VERSION DÉCOUVERTE
 
-1. **2 min — check mutuel** : fin 13/12 confirmée des deux côtés, pas de binôme, même promo Spring 2026 (tu as vérifié K2 : 2 participants seulement, donc pas de panique)
-2. **5 min — relire ensemble les consignes** : montre ton `memoire/README.md` page Deadlines (30/11 formulaire, 10/02 lit review 15-20p, 07/04 draft, 24/05 final, 07/06 soutenance). Insiste sur : binôme définitif, pas de changement après (Guidelines p.5), travail doit justifier 2 personnes
-3. **10 min — pitch Sujet A** : explique problématique, méthode partagée, données accessibles, intérêt pour vos deux carrières. Demande son avis, écoute s'il pousse LATAM → bascule sur Sujet B
-4. **5 min — superviseur** : proposez 2-3 noms communs (Groslambert #1, Goguel #2, Saidane #3) — vous les contacterez ensemble après accord
-5. **5 min — next steps** : qui fait quoi d'ici 30/11 ? Propose : toi = ébauche 1-page problématique + revue littérature préliminaire (5 sources), lui = liste 5 contacts trésoriers + validation angle ESG. Fixez date pour remplir le formulaire K2 ensemble (ex: 25/11 pour marge)
+1. **2 min — check mutuel** : fin 13/12 confirmée, pas de binôme, Spring 2026, K2 = 2 participants seulement → pas de stress, binôme définitif après 30/11 (Guidelines p.5)
+2. **5 min — consignes** : partage écran `memoire/README.md` Deadlines (30/11 formulaire, 10/02 lit review, 07/04 draft, 24/05 final, 07/06 soutenance). Insiste sur : travail doit justifier 2 étudiants → il faut 2 terrains/méthodes
+3. **10 min — ÉCOUTE D'ABORD** : "Toi, tu partirais sur quoi ? Ton MS Sustainable Finance & Fintech, tu vois plus un sujet ESG, fintech adoption, green trade finance, ou autre ? Tu as un superviseur ou un cours qui t'a marqué ?" → **Note ses mots-clés** (ESG scoring, taxonomy, trade documentaire, plateforme, etc.)
+4. **8 min — propose l'intersection** : selon sa réponse, sors **Sujet B** (Fintech vs bank — parfait si il dit "fintech") ou **Sujet C** (Green Trade + FX LATAM/Afrique — parfait si il dit "ESG/trade"). Sujet A solo seulement si il dit "FX sales me va"
+5. **5 min — next steps** : qui fait quoi d'ici 30/11 ? Propose : toi = 1-page ébauche + 5 refs (pricing FX), lui = 5 refs côté ESG/fintech + liste contacts (BFI/Palatine). Fixez date formulaire K2 (25/11 marge)
 
-**Questions à poser à Edwin :**
-- Tu préfères rester France/EUR/USD ou partir LATAM (BRL/MXN) ? As-tu des contacts trésoriers côté Palatine/BFI ?
-- Tu es OK pour Dissertation classique (plus simple) ou tu veux Business Plan ?
-- Tu as un superviseur en tête déjà ?
+**Questions précises à poser à Edwin (note ses réponses exactes) :**
+- Ton MS Sustainable Finance & Fintech : tu kiffes plus la partie ESG (taxonomy, reporting, green finance) ou Fintech (plateformes, disruption bancaire) ?
+- Tes stages FI/Trade : tu as des contacts trésoriers ou chargés d'affaires que tu pourrais interviewer pour le mémoire (même anonymement) ?
+- Tu préfères Dissertation (académique, plus simple) ou Business Plan (créer un desk/produit — plus lourd, Annexe 3) ?
+- LATAM/Afrique corridor : t'as un intérêt perso ou c'est mon idée ? Tu as bossé sur ces zones chez Ecobank/Comoé ?
+- Superviseur : tu as déjà quelqu'un en tête à SKEMA ?
 
 ---
 
