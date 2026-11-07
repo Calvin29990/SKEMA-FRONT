@@ -1,14 +1,19 @@
 ecole,voie,places_ast_estimees,cloture_candidature,date_limite_tests,coef_dossier,coef_tage_mage,coef_anglais,oraux,dates_oraux,frais,statut,notes
-SKEMA,AST2 (M1),450-500,Session 1 : 2026-12-14,idem cloture,4,6,6,"entretien 12 / anglais 8 / LV2 2","2027-01-21 / 2027-03-17 / 2027-05-19",130,A candidater,"Gratuit boursiers. Pas de score eliminatoire. CV projectif 10 ans obligatoire."
-SKEMA,AST2 (M1),450-500,Session 2 : 2027-02-16,idem cloture,4,6,6,"entretien 12 / anglais 8 / LV2 2","2027-03-17 au 2027-03-19",130,Cible principale,Cible n1 si TM de decembre obtenu.
-SKEMA,AST2 (M1),450-500,Session 3 : 2027-04-05,2027-04-12 (transmission tests),4,6,6,"entretien 12 / anglais 8 / LV2 2","2027-05-19 au 2027-05-21",130,Filet,Accepte un TM de fevrier-mars.
-EDHEC,AST2 (M1),210,2027-02-28 (a confirmer),2027-03-31,12,10,8,"triptyque 15 / anglais 10 / LV2 5","fin mai - debut juin 2027 (Lille)",180,Cible n2,"TOEIC minimum 850. Oraux a Lille. Exonere boursiers."
-emlyon,AST (M1),365,a confirmer (dec-mars),~2027-04-30,moyen,oui,oui,"entretien + langues","2027-05-22 au 2027-06-01",180,Cible n3,Calendrier 2027 a verifier sur em-lyon.com.
-ESCP,AST2 (M1),~80,"R2 2027-01-14 / R3 2027-03-11 / R4 2027-05-04",idem cloture,"4 sur 7",1,2,30% de la note,selon tour,180,Si TM >= 370 et TOEIC >= 900,TOEIC minimum 900. R4 reserve aux etudes hors France.
-ESSEC,AST2 (M1),~250 (dont moitie ASTF),"R3 2027-02-17 / R4 a confirmer",idem cloture,"2/3 de la note",inclus,inclus,"entretien 45 min, coef eleve",fevr-juin selon tour,180,Ecarte (CAP ESSEC ferme / non boursiere),"TOEIC minimum 850. 1 candidature par an, 2 au total. Essai en anglais."
-HEC,AST2 (M1),~25,"R3 2027-02-17 / R4 2027-04-26",idem cloture,confidentiel,confidentiel,confidentiel,confidentiel,selon tour,140,Ecarte sauf TM >= 400,"Repere TM ~440. 2 lettres de reco dont 1 academique. Exonere boursiers."
-Audencia,AST (M1),~150,a verifier,a verifier,oui,oui,oui,oui,printemps 2027,~150,Filet + financement (alternance M1),A verifier sur audencia.com.
-NEOMA,AST (M1),~300,a verifier,a verifier,oui,oui,oui,oui,printemps 2027,~150,Filet,A verifier.
-KEDGE,AST (M1),~250,a verifier,a verifier,oui,oui,oui,oui,printemps 2027,~150,Filet + financement (100% pris en charge),A verifier.
-GEM (Grenoble EM),AST (M1),~200,"Session mars : 2027-02-15",idem cloture,6,8,12,"entretien 20 / anglais 10",mars 2027,~150,Filet,"TM coef 8, anglais coef 12 : l'anglais pese le plus."
-TBS Education,AST2 (M1),~380,a verifier,a verifier,6,4,5,"entretien 10 / anglais 5",printemps 2027,~150,Filet,AST1 = dossier coef 10 sans TM.
+SKEMA,AST2 (M1),450-500,Session 1 : 2026-12-14,idem cloture,4,6,6,entretien 12 / anglais 8 / LV2 2,2027-01-21 / 2027-03-17 / 2027-05-19,130,A candidater,Gratuit boursiers. Pas de score eliminatoire. CV projectif 10 ans obligatoire.
+SKEMA,AST2 (M1),450-500,Session 2 : 2027-02-16,idem cloture,4,6,6,entretien 12 / anglais 8 / LV2 2,2027-03-17 au 2027-03-19,130,Cible principale,Cible n1 si TM de decembre obtenu.
+SKEMA,AST2 (M1),450-500,Session 3 : 2027-04-05,2027-04-12 (transmission tests),4,6,6,entretien 12 / anglais 8 / LV2 2,2027-05-19 au 2027-05-21,130,Filet,Accepte un TM de fevrier-mars.
+EDHEC,AST2 (M1),210,2027-02-28 (a confirmer),2027-03-31,12,10,8,triptyque 15 / anglais 10 / LV2 5,fin mai - debut juin 2027 (Lille),180,Cible n2,TOEIC minimum 850. Oraux a Lille. Exonere boursiers.
+emlyon,AST (M1),365,a confirmer (dec-mars),~2027-04-30,6,4,inclus dossier,entretien 25 min (oraux 52%),2027-05-22 au 2027-06-01,180,Cible n3,Dossier 60% de l'admissibilité : le plus favorable à un bon dossier du top 5. Coefs 2026.
+ESCP,AST2 (M1),~80,R2 2027-01-14 / R3 2027-03-11 / R4 2027-05-04,idem cloture,4 (57%),1 (14%),2 (29%),entretien 30% de la note,selon tour,180,Si TM >= 370 et TOEIC >= 900,TOEIC minimum 900. TM = 14% seulement. R4 reserve aux etudes hors France.
+ESSEC,AST2 (M1),~250 (dont moitie ASTF),R3 2027-02-17 / R4 a confirmer,idem cloture,"2/3 (66,7%)","1/3 (33,3%)",inclus dossier,"entretien 45 min, coef eleve",fevr-juin selon tour,180,Ecarte (CAP ESSEC ferme / non boursiere),"TOEIC minimum 850. 1 candidature par an, 2 au total. Coefs non détaillés par l'ecole."
+HEC,AST2 (M1),~25,R3 2027-02-17 / R4 2027-04-26,idem cloture,confidentiel,confidentiel,confidentiel,confidentiel,selon tour,140,Ecarte sauf TM >= 400,Repere TM ~440. 2 lettres de reco dont 1 academique. Exonere boursiers.
+Audencia,AST (M1),~150,a verifier,a verifier,7,5,4,entretien 10 / anglais 4,printemps 2027,~150,Filet + financement (alternance M1),"Dossier = 44% de l'admissibilité. Lettre de motivation supprimée depuis 2025. Coefs 2026, à revérifier."
+NEOMA,AST (M1),~300,a verifier,a verifier,4,5,3,anglais ECRICOME + entretien,printemps 2027,~150,Filet,Tests = 67% de l'admissibilité. Coefs ECRICOME 2026.
+KEDGE,AST (M1),~250,a verifier,a verifier,4,4,4,anglais + Révélateur,printemps 2027,~150,Filet + financement (100% pris en charge),Équilibre 1/3-1/3-1/3. Coefs ECRICOME 2026.
+GEM (Grenoble EM),AST (M1),~200,Session mars : 2027-02-15,idem cloture,6,8,12,entretien 20 / anglais 10,mars 2027,~150,Filet,Anglais coef 12 = le plus lourd du top 10 (46% de l'admissibilité).
+TBS Education,AST2 (M1),~380,a verifier,a verifier,6,4,5,entretien 10 / anglais 5,printemps 2027,~150,Filet,AST1 = dossier coef 10 sans TM.
+IÉSEG,AST2 (M1),~350,2027-04-20 (a confirmer),test anglais < 2 ans,8 (80%),aucun,2 (20%),entretien 8 / oral anglais 2,2027-05-25 au 2027-05-27,a verifier,Filet Lille (sans TM),AUCUN TAGE MAGE demande. Dossier = 80% de l'admissibilite. Resultats admission 2027-06-09.
+MBS (Montpellier),AST (M1),non isole,a verifier,a verifier,dossier commun ECRICOME,logique,5 a 6,anglais ECRICOME + entretien,printemps 2027,~150,Filet,"Banque ECRICOME : dossier commun, coefs par ecole. A verifier."
+Rennes SB,AST (M1),~400,a verifier,a verifier,dossier commun ECRICOME,logique,5 a 6,anglais 5,printemps 2027,~150,Filet,"Banque ECRICOME. Alternance 24 mois, +400 places."
+TBS Education (complement),AST2 (M1),~380,a verifier,a verifier,6 (40%),4 (27%),5 (33%),entretien 10 / anglais 5,printemps 2027,~150,Filet,"AST1 = dossier 10 + anglais 5, sans TM. Oraux = 50% de la note."
+HEC,AST2 (M1),~25,R3 2027-02-17 / R4 2027-04-26,idem cloture,confidentiel,confidentiel,confidentiel,confidentiel,selon tour,140,Ecarte sauf TM >= 400,Repere TM ~440. Aucun minimum d'anglais publie.
