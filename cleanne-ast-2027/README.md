@@ -6,6 +6,7 @@ Arbitrage retenu : **sécuriser le top 10 dès 2027** (SKEMA + EDHEC + emlyon + 
 | Fichier | À quoi il sert | Quand l'ouvrir |
 |---|---|---|
 | **`PLAN-ACTION-AST-2027.md`** | Le plan complet : ce que SKEMA a dit (vrai/faux), diagnostic du profil, calendrier des tours, budget, risques, checklist 48 h | **En premier** |
+| **`STAGE-ETE-2027-DUREE-ET-CABINETS.md`** | Combien de semaines de stage en 2027 (11-12, pas 6), le levier des 308 h, et quels cabinets acceptent / convertissent en alternance | Quand on parle du stage d'été |
 | **`COEFFICIENTS-AST-2027.md`** | **Qui note quoi et combien** : dossier / TAGE MAGE / anglais école par école, rendement d'un point, seuils d'anglais, poids des oraux | Avant de répartir son temps de préparation |
 | **`STAGE-L3-CALENDRIER-2027.md`** | Le stage de L3 est-il obligatoire (non, en EME), quand le placer, et pourquoi il ne bloque ni l'alternance ni la rentrée 2027 | Quand on parle de « valider la licence » |
 | **`TOP15-ECOLES-SUPERIEURES-ULILLE.md`** | **Top 15 des établissements strictement supérieurs à ULille** avec le modèle d'alternance de chacun, + le changement de scolarité pour les Gabonais (décret du 19 mai 2026) | Avant de choisir où postuler |
