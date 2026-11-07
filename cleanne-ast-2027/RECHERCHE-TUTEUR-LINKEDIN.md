@@ -25,6 +25,38 @@ Tu penses à l'équivalent de SKEMA Talent & Careers. Voilà la réalité des 5 
 
 ---
 
+## 1 bis. Profils identifiés le 7 novembre 2026 (recherche publique, à vérifier en 2 clics)
+
+> Méthode : ces profils ont été trouvés via des **publications publiques indexées** (posts d'admission), pas via une extraction LinkedIn. Les liens sont réels ; les parcours doivent être confirmés en ouvrant l'onglet **Formation** du profil (30 secondes). Ne pas en tirer une liste de prospection en masse : un message personnalisé par personne, une seule fois.
+
+### 🥇 Priorité 1 — Robin Bedel : le match quasi parfait
+**https://fr.linkedin.com/in/robin-bedel-33646a305**
+- **Parcours confirmé par son post public** : Licence de Gestion **avec option classe préparatoire ATS à l'IAE Lille (Université de Lille) et au lycée Gaston Berger** → **admis au Master in Management (PGE) de l'EDHEC, campus de Lille** (annonce de juin 2026).
+- **Pourquoi c'est le bon** : même ville, même lycée que Cléanne (**Gaston Berger**), même université (IAE Lille), même voie d'entrée, école du top 5, et il vient de vivre **le processus 2026** (dossier + tests + oraux) avec le barème actuel.
+- **Angle d'approche** : le point commun Gaston Berger + IAE Lille. C'est le message qui a le plus de chances d'aboutir.
+
+### 🥈 Priorité 2 — Antoine H. : la preuve par les scores
+**https://www.linkedin.com/in/antoinehed/**
+- EDHEC Business School, **campus de Lille** ; a publié publiquement **433/600 au TAGE MAGE** et **975/990 au TOEIC**, puis son admission en PGE.
+- **Pourquoi le contacter** : c'est exactement le niveau de score à viser, et il a documenté sa préparation. Idéal pour la partie « méthode de test et progression ».
+- ⚠️ À vérifier : ses posts mentionnent une licence Économie-Finance puis un M1 (Paris 1 / Université catholique de Lille selon les fils) — **pas l'Université de Lille**. Moins bon match sur l'école d'origine, excellent sur les scores.
+
+### 🥉 Priorité 3 — la promo IAE Lille → EDHEC Lille (3 noms, même cohorte)
+Dans l'activité publique de Robin Bedel, la même admission est annoncée par d'autres étudiants de la **même promotion ATS IAE Lille / Gaston Berger** :
+- **Salomé Messian** (post public d'admission EDHEC PGE Lille, juin 2026)
+- **Joao Ridelaire** (idem)
+- **Axel Ponthieux** (idem)
+> Leurs URL de profil ne sont pas indexées publiquement — mais ils apparaissent **dans les réactions et publications du profil de Robin Bedel** : ouvre son activité, tu les trouves en un clic. C'est aussi la meilleure façon de vérifier qui est réellement dispo.
+
+### 📌 Le lien de recherche qui fait le travail à ta place
+Une fois connecté à LinkedIn (Cléanne ou toi), ces recherches affichent la liste complète :
+- **[Recherche personnes — AST + Lille + top 5](https://www.linkedin.com/search/results/people/?keywords=%22admission%20sur%20titre%22%20%22Universit%C3%A9%20de%20Lille%22%20EDHEC%20OR%20ESSEC%20OR%20HEC)**
+- **[Recherche personnes — scores TAGE MAGE publiés](https://www.linkedin.com/search/results/people/?keywords=%22TAGE%20MAGE%22%20400%20OR%20433%20OR%20450%20%22IAE%20Lille%22)**
+- **[Recherche de publications — annonces d'admission](https://www.linkedin.com/search/results/content/?keywords=%22admission%22%20%22Programme%20Grande%20Ecole%22%20%22IAE%20de%20Lille%22)**
+- Puis filtre **Lieu = Lille** et **Établissement actuel = EDHEC / SKEMA / emlyon**.
+
+---
+
 ## 2. Les requêtes LinkedIn à copier-coller
 
 ### 2.1 Recherche de personnes (barre de recherche → onglet « Personnes »)
