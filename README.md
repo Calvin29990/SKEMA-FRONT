@@ -10,6 +10,7 @@
 | Dossier | Contenu | Quand l'utiliser |
 |---|---|---|
 | `candidatures/` | Suivi candidatures banques, debriefs, notes Arena | Candidatures, entretiens, runbooks |
+| `cleanne-ast-2027/` | **Stratégie AST 2027 de Cléanne** (plan, brief tuteur, recherche LinkedIn, audit CV, suivi) | Admissions sur titre top 10 — lire `cleanne-ast-2027/README.md` |
 | `SKEMA-DOSSIER-ARCHIVE.md` | **Dispute financière SKEMA** (bourse ANBG, €7,500) | Problème SKEMA / titre de séjour |
 | `cours/` | Cours S1 + S2 M2 CFM, syllabus, lectures | Devoirs, examens, révisions |
 | `exercices/` | Exercices Excel, CFP, comptabilité | Pratique cours |
