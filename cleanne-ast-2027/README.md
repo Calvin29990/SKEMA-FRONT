@@ -9,6 +9,7 @@ Arbitrage retenu : **sécuriser le top 10 dès 2027** (SKEMA + EDHEC + emlyon + 
 | **`FINANCEMENT-SANS-CROUS.md`** | Ce qui est fermé (CAP ESSEC, Eiffel, exonérations), ce qui reste (alternance, PEGE, ANBG), chiffrage des deux scénarios, 4 appels à passer | Dès cette semaine |
 | **`BRIEF-TUTEUR.md`** | La mission de 7,5 h à envoyer au tuteur (150-200 €), la fiche de sélection /20, l'accord type | Pour recruter le tuteur |
 | **`RECHERCHE-TUTEUR-LINKEDIN.md`** | Requêtes LinkedIn exactes, portes d'entrée (assos, plateformes), 4 messages prêts à envoyer, ressources gratuites | Avant d'écrire à qui que ce soit |
+| **`TOP10-TUTEURS-LILLE.md`** | **Top 10 vérifié** des admis AST partis de l'Université de Lille / IAE Lille (liens, scores, retours d'expérience, ordre de contact) | Pour recruter le tuteur |
 | **`FEEDBACK-CV.md`** | Audit du CV (7 corrections), version réécrite prête à copier, méthode du CV projectif SKEMA | Cette semaine |
 | **`SUIVI-CANDIDATURES.csv`** | Tableau de suivi des 13 candidatures (clôtures, coefficients, oraux, frais, statut) | Toute l'année |
 
