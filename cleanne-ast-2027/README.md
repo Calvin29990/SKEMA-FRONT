@@ -6,6 +6,7 @@ Arbitrage retenu : **sécuriser le top 10 dès 2027** (SKEMA + EDHEC + emlyon + 
 | Fichier | À quoi il sert | Quand l'ouvrir |
 |---|---|---|
 | **`PLAN-ACTION-AST-2027.md`** | Le plan complet : ce que SKEMA a dit (vrai/faux), diagnostic du profil, calendrier des tours, budget, risques, checklist 48 h | **En premier** |
+| **`UNIVERSITES-PRESTIGIEUSES.md`** | Sciences Po / Dauphine / Assas / IAE : coût réel pour une non-UE, alternance 24 mois, pièges, et liste finale tous établissements | Avant Mon Master |
 | **`ALTERNANCE-TOP15.md`** | **Quelles écoles tiennent vraiment 24 mois d'alternance** (places par promo, verdict postuler/non), + le droit au travail pour une non-UE | Avant de payer un frais de candidature |
 | **`FINANCEMENT-SANS-CROUS.md`** | Ce qui est fermé (CAP ESSEC, Eiffel, exonérations), ce qui reste (alternance, PEGE, ANBG), chiffrage des deux scénarios, 4 appels à passer | Dès cette semaine |
 | **`BRIEF-TUTEUR.md`** | La mission de 7,5 h à envoyer au tuteur (150-200 €), la fiche de sélection /20, l'accord type | Pour recruter le tuteur |
