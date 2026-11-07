@@ -6,6 +6,7 @@ Arbitrage retenu : **sécuriser le top 10 dès 2027** (SKEMA + EDHEC + emlyon + 
 | Fichier | À quoi il sert | Quand l'ouvrir |
 |---|---|---|
 | **`PLAN-ACTION-AST-2027.md`** | Le plan complet : ce que SKEMA a dit (vrai/faux), diagnostic du profil, calendrier des tours, budget, risques, checklist 48 h | **En premier** |
+| **`TOP15-ECOLES-SUPERIEURES-ULILLE.md`** | **Top 15 des établissements strictement supérieurs à ULille** avec le modèle d'alternance de chacun, + le changement de scolarité pour les Gabonais (décret du 19 mai 2026) | Avant de choisir où postuler |
 | **`UNIVERSITES-PRESTIGIEUSES.md`** | Sciences Po / Dauphine / Assas / IAE : coût réel pour une non-UE, alternance 24 mois, pièges, et liste finale tous établissements | Avant Mon Master |
 | **`ALTERNANCE-TOP15.md`** | **Quelles écoles tiennent vraiment 24 mois d'alternance** (places par promo, verdict postuler/non), + le droit au travail pour une non-UE | Avant de payer un frais de candidature |
 | **`FINANCEMENT-SANS-CROUS.md`** | Ce qui est fermé (CAP ESSEC, Eiffel, exonérations), ce qui reste (alternance, PEGE, ANBG), chiffrage des deux scénarios, 4 appels à passer | Dès cette semaine |
