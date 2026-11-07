@@ -13,7 +13,7 @@
 | 3 | **Corriger le niveau d'anglais affiché (B1)** : c'est bloquant pour 3 écoles sur 5 | ESSEC = TOEIC **850 minimum**, EDHEC = **850 minimum**, ESCP = **900 minimum**. Ce sont des seuils de **recevabilité** : là, on est éliminé. |
 | 4 | **Réorienter le budget tuteur : 150-200 € = 6 à 8 h ciblées, pas une prépa complète** | Tarif marché d'un bon tuteur TM : 25-35 €/h (moyenne Superprof). Donc la mission doit être un **sprint chirurgical**, pas un accompagnement annuel. |
 | 5 | **Viser 6 candidatures étagées, pas 2** | Chaque école a 1 à 4 sessions : ce sont des **tickets de loterie successifs**. HEC = ~25 places AST contre 400 en prépa ; SKEMA = 450-500 places. Le portefeuille fait la différence, pas le concours unique. |
-| 6 | **Vérifier l'éligibilité boursière CROUS** | Si oui : frais de candidature **gratuits** à SKEMA, HEC, EDHEC (≈ 450 € économisés) **et** accès à **CAP ESSEC**, la prépa égalité des chances de l'ESSEC (300-600 €, tutoraat par des étudiants ESSEC qui ont passé l'AST, dossier + TAGE + oraux). |
+| 6 | **Trancher le financement par l'alternance, pas par la bourse** | Cléanne n'est **pas boursière CROUS** : ni exonération des frais, ni CAP ESSEC, ni Eiffel. Le seul levier qui annule réellement le coût, c'est **l'apprentissage dès le M1** (SKEMA : 30 000 € de frais de M1-M2 pris en charge + salaire). Voir `FINANCEMENT-SANS-CROUS.md`. |
 
 ---
 
@@ -59,15 +59,15 @@ Dossier 12 · anglais 8 · TM 10 → **l'anglais et les tests pèsent 18/30 de l
 
 | École | Places AST (ordre de grandeur) | Poids du dossier | Réalisme pour Cléanne | Rôle dans la stratégie |
 |---|---|---|---|---|
-| HEC | ~25 | très lourd + 2 lettres de reco dont 1 académique | **très faible** (repère TM ~440) | ticket « rêve », uniquement si TM ≥ 400 et dossier excellent |
-| ESSEC | ~250 (dont moitié ASTF) | **2/3 de la note** | faible-moyen | à jouer via **CAP ESSEC** (voie gratuite et fléchée) |
-| ESCP | ~80 | **57 %** | faible-moyen | 1 tour tardif, si TM ≥ 370 et TOEIC ≥ 900 |
-| **EDHEC** | **~210** | 40 % de l'écrit | **réaliste** | **cible n°2** (oraux à Lille) |
-| **SKEMA** | **450-500** | 25 % de l'écrit | **très réaliste** | **cible n°1 / sécurité haute** |
+| HEC | ~25 | très lourd + 2 lettres de reco dont 1 académique | **très faible** (repère TM ~440) | **à écarter** sauf TM ≥ 400 : pas d'alternance, aucun filet financier |
+| ESSEC | ~250 (dont moitié ASTF) | **2/3 de la note** | faible-moyen | **à écarter** : CAP ESSEC fermé (non boursière), dossier 2/3, alternance marginale |
+| ESCP | ~80 | **57 %** | faible-moyen | 1 tour tardif, **seulement** si TM ≥ 370 et TOEIC ≥ 900 |
+| **EDHEC** | **~210** | 40 % de l'écrit | **réaliste** | **cible n°2** (oraux à Lille, apprentissage possible dès janvier du M1) |
+| **SKEMA** | **450-500** | 25 % de l'écrit | **très réaliste** | **cible n°1** : 500 places, tests = 75 % de l'écrit, **apprentissage dès le M1 = 30 000 € annulés** |
 | emlyon | ~365 | moyen | réaliste | cible n°3 |
-| Audencia / NEOMA / KEDGE / GEM / TBS | 100-400 | variable | très réaliste | filet de sécurité (top 10 par les classements) |
+| Audencia / NEOMA / KEDGE / GEM / TBS | 100-400 | variable | très réaliste | filet **et** financement : l'alternance y est ouverte en PGE (KEDGE et Audencia la prennent en charge à 100 %) |
 
-**Conclusion stratégique :** la seule façon sérieuse d'aller « dans le top 10 » sans dossier de major, c'est **(a) deux scores très au-dessus de la moyenne, (b) 6 candidatures étagées sur les 4 tours disponibles, (c) un oral travaillé comme une épreuve à part entière.** C'est exactement le contre-pied de « je candidate à HEC et SKEMA et j'attends ».
+**Conclusion stratégique (choix retenu : sécuriser le top 10 dès 2027) :** la seule façon sérieuse d'y arriver sans dossier de major, c'est **(a) deux scores au-dessus de la moyenne, (b) 6 candidatures étagées sur les tours disponibles, (c) un oral travaillé comme une épreuve à part entière, (d) des écoles où l'alternance finance les deux ans.** Concrètement : **SKEMA + EDHEC + emlyon + 3 filets (Audencia, NEOMA, KEDGE/GEM/TBS)**, et les parisiennes seulement si le TAGE MAGE dépasse 400 — sinon les 500 € de frais partent dans des dossiers perdus d'avance. C'est exactement le contre-pied de « je candidate à HEC et SKEMA et j'attends ».
 
 ---
 
@@ -153,17 +153,18 @@ Note finale = 47 % écrit + 53 % oraux
 
 ## 5. Budget total du plan
 
-| Poste | Coût | Optimisé (si boursière CROUS) |
+| Poste | Coût | Scénario « alternance dès le M1 » |
 |---|---|---|
 | TAGE MAGE × 2 passages | 152 € | 152 € |
 | TOEIC × 1 (Université de Lille, 65 €) + 1 retake éventuel | 65-130 € | 65-130 € |
 | **Tuteur (sprint 6-8 h)** | **150-200 €** | **150-200 €** |
 | Annales / livres TM + plateforme d'entraînement | 30-100 € | 30-100 € |
-| Frais de candidature (SKEMA + EDHEC + emlyon + ESCP + 2 filets) | 130+180+180+180+2×100 = **870 €** | **~200 €** (SKEMA/HEC/EDHEC exonérés boursiers) |
+| Frais de candidature (SKEMA + EDHEC + emlyon + 3 filets) | 130+180+180+3×150 = **940 €** | idem (aucune exonération : non boursière) |
 | Déplacements oraux (EDHEC/SKEMA = Lille, donc ~0) | 0-80 € | 0-80 € |
-| **TOTAL** | **≈ 1 300 - 1 500 €** | **≈ 600 - 750 €** |
+| **TOTAL CAMPAGNE** | **≈ 1 350 - 1 600 €** | **≈ 1 350 - 1 600 €** |
+| **Frais de scolarité M1-M2** | 30 000 - 40 000 € | **0 €** (contrat d'apprentissage) |
 
-> À comparer aux **15 000-20 000 €/an** de frais de scolarité d'un PGE. La question du financement de l'école (alternance, bourse, prêt) doit être posée **avant** de candidater, pas après l'admission.
+> Le vrai enjeu financier n'est pas la campagne (1 500 €), c'est **les deux années d'école**. Il se règle par l'**alternance**, pas par la bourse : voir `FINANCEMENT-SANS-CROUS.md` (SKEMA : apprentissage dès le M1 pour les AST, frais de M1+M2 pris en charge ; EDHEC : apprentissage à partir de janvier du M1 ; KEDGE/Audencia : 100 % pris en charge).
 
 ---
 
@@ -173,6 +174,7 @@ Note finale = 47 % écrit + 53 % oraux
 2. **Le TM de décembre est raté.** Parade : ce n'est pas grave — c'est un galop d'essai, le score n'est pas éliminatoire et le meilleur score est retenu. On réserve la session T1-2027 dès la sortie du calendrier, pour EDHEC (31 mars) et SKEMA S3.
 3. **Le dossier ne passe pas l'admissibilité des parisiennes.** C'est le scénario le plus probable : les parisiennes se jouent sur les notes et les stages, pas sur la bonne volonté. Parade : ne pas mettre plus de 2 parisiennes dans le portefeuille, et concentrer l'énergie sur **EDHEC + SKEMA + emlyon**, où les tests pèsent plus lourd et où il y a 200 à 500 places.
 4. **Le facteur temps.** Elle est en L3, avec un job étudiant. 8-10 h/semaine de préparation pendant 10 semaines est le minimum vital. Parade : le tuteur sert aussi à **imposer un rythme** (rendez-vous fixes, blancs chronométrés, corrections).
+5. **L'admission sans financement.** Être admise à SKEMA sans contrat d'apprentissage, c'est 15 000 €/an à trouver. Parade : chercher le contrat **en même temps** que les candidatures (févr.-juin), demander par écrit les aides accessibles aux non-boursières, et **ne jamais accepter une admission sans plan de financement validé** — un désistement coûte moins cher qu'un abandon en M2. Voir `FINANCEMENT-SANS-CROUS.md`.
 
 ---
 
@@ -183,9 +185,10 @@ Note finale = 47 % écrit + 53 % oraux
 - [ ] Faire un **TAGE MAGE blanc chronométré** ce week-end et noter les 6 sous-tests (c'est le document qui sert à recruter le tuteur)
 - [ ] Rassembler les **relevés de notes L1/L2/L3** + moyennes + rangs
 - [ ] Envoyer le **brief tuteur** (fichier `BRIEF-TUTEUR.md`) à 5-8 profils identifiés via `RECHERCHE-TUTEUR-LINKEDIN.md`
-- [ ] Écrire à **CAP ESSEC** (contact public : olivia.sambath@essec.edu) pour la promotion 2027-2028 : conditions, calendrier, format distanciel
 - [ ] Créer `prenom.nom@gmail.com` et refaire le CV selon `FEEDBACK-CV.md`
-- [ ] Vérifier son statut **boursière CROUS** (ouvre l'exonération des frais + CAP ESSEC)
+- [ ] **Ne pas perdre de temps** : CAP ESSEC et la bourse Eiffel sont **fermés** (non boursière / déjà dans le système français)
+- [ ] Passer les 4 appels du `FINANCEMENT-SANS-CROUS.md` (CROUS Lille, une banque PEGE, les admissions SKEMA, l'ANBG) : 30 minutes qui peuvent valoir 20 000 €
+- [ ] Poser la question de l'alternance dans chaque dossier : « l'apprentissage est-il ouvert aux AST dès le M1, et quel est le taux de placement ? »
 
 ---
 

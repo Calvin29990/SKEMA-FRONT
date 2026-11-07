@@ -70,17 +70,24 @@ Puis **commente ou écrit en message privé** à l'auteur. Ces personnes sont en
 
 ---
 
-## 3. La voie gratuite à ne pas rater : CAP ESSEC
+## 3. CAP ESSEC : fermé pour Cléanne — et ce qui reste gratuit
 
-**CAP ESSEC** est la prépa « égalité des chances » de l'ESSEC pour son concours **AST français**. C'est, de très loin, le meilleur rapport qualité/prix du marché :
+**CAP ESSEC** est la prépa « égalité des chances » de l'ESSEC pour son concours AST français : tutorat hebdomadaire par un **étudiant ESSEC qui a passé l'AST**, préparation TAGE MAGE par un professeur certifié, dossier, entretiens, pour **300-600 € l'année**.
 
-- **Public** : en **3ᵉ année de Licence** ou M1/M2, **boursière CROUS**, dossier solide, **anglais ≥ 850 TOEIC**, présent(e) en Île-de-France pendant la préparation (format **hybride distanciel + présentiel**, cours le samedi, campus La Défense/Cergy).
-- **Contenu** : tutorat hebdomadaire par un **étudiant ESSEC qui a passé l'AST** (exactement le profil que tu cherches), préparation TAGE MAGE par un professeur certifié, dossier, entretiens.
-- **Coût** : **300 à 600 €** selon la promotion. Calendrier : **octobre → mars**, candidatures au printemps/été précédent.
-- **Contact public** (publié par l'équipe recrutement) : `olivia.sambath@essec.edu` — demande la réunion d'info de la promotion **2027-2028**.
-- ⚠️ **La contrainte** : il faut déjà **850 au TOEIC** pour être éligible. D'où la priorité absolue du TOEIC de décembre dans le plan.
+> ❌ **Non accessible** : la condition d'entrée est d'être **boursier(e) CROUS** (ou équivalent). Cléanne ne l'est pas, et la bourse Eiffel est également exclue (réservée aux candidats qui ne sont pas déjà dans le système français). **Ne pas y consacrer une heure.**
+> 🔁 **À re-tester uniquement si** un DSE déposé en janvier-mai 2027 lui donne un statut boursier pour 2027-2028 (voir `FINANCEMENT-SANS-CROUS.md`) — dans ce cas, la campagne CAP ESSEC se joue au printemps/été 2027.
 
-Si elle est boursière, **c'est le plan A** : CAP ESSEC fournit gratuitement le tutorat que tu comptais payer 150-200 €, et elle garde son budget pour les frais de candidature.
+### Ce qui reste gratuit ou presque, et qui suffit pour le TAGE MAGE
+| Ressource | Ce que ça vaut | Coût |
+|---|---|---|
+| **Annales officielles FNEGE** (TAGE MAGE blancs) | la seule référence de calibrage fiable | 0-40 € |
+| **« Le Grand Manuel du TAGE MAGE »** (Pinto/Sévigné) | la méthode de référence, très utilisée en prépa AST | ~30 € |
+| **Chaînes YouTube de prépa AST** (méthode calcul mental, logique, conditions minimales) | les mêmes techniques qu'en cours, en gratuit | 0 € |
+| **TAGE MAGE blanc en conditions réelles** (2 h chrono, une fois par semaine) | ce qui fait réellement progresser | 0 € |
+| **Les annales TOEIC** + 500 mots de vocabulaire business | un TOEIC de 850 → 950 se joue presque uniquement là | 0-25 € |
+| **Bibliothèque universitaire / BU de Lille** | manuels de préparation, parfois gratuits en prêt | 0 € |
+
+**Conclusion :** le budget de 150-200 € ne doit pas acheter du *contenu* (il est gratuit ou à 30 €), mais du **diagnostic et de la correction personnalisée** — c'est exactement ce que le `BRIEF-TUTEUR.md` cadence.
 
 ---
 
