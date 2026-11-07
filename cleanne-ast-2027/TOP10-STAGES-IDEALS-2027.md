@@ -2,6 +2,8 @@
 ### Fenêtre : 15 juin → 31 août 2027 (8 à 11 semaines) · Lille et Hauts-de-France · objectif réel : **décrocher le contrat d'apprentissage EDHEC/KEDGE**
 **7 novembre 2026**
 
+> 🔄 **Version révisée (7 nov. 2026)** : Cléanne étant en difficulté en maths, la liste de référence est désormais **`TOP10-STAGES-CONSEIL-2027.md`** (conseil / management / PMO, sans Excel lourd). Ce fichier reste utile pour les cibles « finance chiffrée » et le trio Mazars / Decathlon / cabinet comptable.
+
 ---
 
 ## 0. La règle qui commande les 10 choix

@@ -6,6 +6,7 @@ Arbitrage retenu : **sécuriser le top 10 dès 2027** (SKEMA + EDHEC + emlyon + 
 | Fichier | À quoi il sert | Quand l'ouvrir |
 |---|---|---|
 | **`PLAN-ACTION-AST-2027.md`** | Le plan complet : ce que SKEMA a dit (vrai/faux), diagnostic du profil, calendrier des tours, budget, risques, checklist 48 h | **En premier** |
+| **`TOP10-STAGES-CONSEIL-2027.md`** | **La liste de référence des stages** : conseil en organisation, PMO, conduite du changement — sans maths — + ce que la difficulté en maths change au plan (TM, écoles, majeure) | Pour chasser le stage de juin 2027 |
 | **`TOP10-STAGES-IDEALS-2027.md`** | **10 stages nommés** à Lille (Decathlon, Forvis Mazars, Bonduelle, Cofidis…), le trio idéal, et pourquoi chacun colle à son profil | Pour chasser le stage de juin 2027 |
 | **`STAGE-ETE-2027-DUREE-ET-CABINETS.md`** | Combien de semaines de stage en 2027 (11-12, pas 6), le levier des 308 h, et quels cabinets acceptent / convertissent en alternance | Quand on parle du stage d'été |
 | **`COEFFICIENTS-AST-2027.md`** | **Qui note quoi et combien** : dossier / TAGE MAGE / anglais école par école, rendement d'un point, seuils d'anglais, poids des oraux | Avant de répartir son temps de préparation |
