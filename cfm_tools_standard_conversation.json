@@ -1,0 +1,740 @@
+{
+  "agent": "tools",
+  "scenario": "standard",
+  "memory": false,
+  "thread_id": "cfm-tools-c0f550e765ce4737b3a54c83e71c5a0c",
+  "turns": [
+    {
+      "role": "user",
+      "content": "hello"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello! How can I assist you today?",
+      "details": {
+        "answer": "Hello! How can I assist you today?",
+        "trace": [
+          {
+            "kind": "permission_guard",
+            "decision": "allowed"
+          },
+          {
+            "kind": "model_prompt",
+            "phase": "agent",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a read-only treasury analyst assistant investigating a cash-receipts variance.\nReporting period: 2026-09-21 to 2026-09-27.\nEnabled FINANCE tools: query_forecast, query_bank_receipts, lookup_open_invoices, reconcile_variance.\nThe supporting TXT documents and RAG search are NOT accessible in this architecture. Use only actual outputs from finance tools; do not assume any unobserved record or document content.\nUse reconcile_variance to compute all material amounts and the net variance; do not estimate or calculate amounts yourself. The variance is actual minus forecast.\nCite material facts with record IDs, e.g. [cash_forecast.csv:F-001], [bank_transactions.csv:BT-001], [ar_open_items.csv:AC-104].\nA ledger status is NOT independent evidence that a customer's claim is true. A bank receipt under a customer name is NOT necessarily an invoice-level match. Unmatched remittance references must be flagged, not forced into a match.\nIf a tool fails or evidence is insufficient, disclose what was not checked and escalate to a human. Never invent the underlying cause of a missing payment.\nNo writes, customer communication, external search, or financial decisions are authorised.\nDeliver the note IN ENGLISH with: (1) reporting week and verified total, (2) key customer drivers and offsets, (3) limitations and uncertainties, (4) next human checks. A finance-only investigation cannot confirm documentary causes.\nNever reveal private reasoning.\nStudent formatting preferences (only if consistent with the above controls):\nNone"
+              },
+              {
+                "role": "user",
+                "content": "hello"
+              }
+            ]
+          },
+          {
+            "kind": "model_response",
+            "phase": "agent",
+            "content": "Hello! How can I assist you today?",
+            "tool_calls": []
+          }
+        ],
+        "retrieved": [],
+        "finance": [],
+        "review": {},
+        "status": {},
+        "used": 0,
+        "stop_reason": "model_finished"
+      }
+    },
+    {
+      "role": "user",
+      "content": "Investigate the cash receipts variance for the reporting week. Compare forecast and actual receipts by customer, calculate each variance and the total variance. Cite the records used, explain any uncertainties, and recommend next checks. Do not modify any data."
+    },
+    {
+      "role": "assistant",
+      "content": "### Cash Receipts Variance Investigation Note\n\n**Reporting Week:** 2026-09-21 to 2026-09-27  \n**Verified Total Actual Receipts:** €410,000  \n**Verified Total Forecast Receipts:** €500,000  \n**Total Variance:** -€90,000\n\n#### Key Customer Drivers and Offsets:\n1. **Acme**\n   - **Forecast:** €200,000\n   - **Actual:** €80,000\n   - **Variance:** -€120,000\n   - **Source Records:** [cash_forecast.csv:F-001], [bank_transactions.csv:BT-001]\n   - **Status:** Partially paid; remaining amount open (€120,000 outstanding) [ar_open_items.csv:AC-104].\n\n2. **Beta**\n   - **Forecast:** €150,000\n   - **Actual:** €150,000\n   - **Variance:** €0\n   - **Source Records:** [cash_forecast.csv:F-002], [bank_transactions.csv:BT-002]\n   - **Status:** Fully paid; no outstanding amount [ar_open_items.csv:BE-220].\n\n3. **Cobalt**\n   - **Forecast:** €100,000\n   - **Actual:** €80,000\n   - **Variance:** -€20,000\n   - **Source Records:** [cash_forecast.csv:F-003], [bank_transactions.csv:BT-003]\n   - **Status:** Under review; customer dispute noted with €20,000 outstanding [ar_open_items.csv:CO-317].\n\n4. **Delta**\n   - **Forecast:** €50,000\n   - **Actual:** €100,000\n   - **Variance:** €50,000\n   - **Source Records:** [cash_forecast.csv:F-004], [bank_transactions.csv:BT-004]\n   - **Status:** Fully paid; no outstanding amount [ar_open_items.csv:DE-411].\n\n#### Limitations and Uncertainties:\n- The variance analysis is based on actual bank receipts and forecast amounts. However, the attribution of receipts to specific invoices requires remittance evidence, which may not be fully available.\n- There are no unmatched remittance references identified, but the status of invoices, particularly for Acme and Cobalt, indicates potential issues that may affect future cash flows.\n\n#### Next Human Checks:\n- Review the outstanding amounts for Acme and Cobalt to understand the reasons for the shortfall in receipts.\n- Investigate the customer dispute noted for Cobalt to determine if it affects future collections.\n- Confirm the remittance references for Delta to ensure proper allocation of receipts against invoices.\n\nThis investigation highlights the need for further scrutiny on customer payments and potential disputes that could impact cash flow.",
+      "details": {
+        "answer": "### Cash Receipts Variance Investigation Note\n\n**Reporting Week:** 2026-09-21 to 2026-09-27  \n**Verified Total Actual Receipts:** €410,000  \n**Verified Total Forecast Receipts:** €500,000  \n**Total Variance:** -€90,000\n\n#### Key Customer Drivers and Offsets:\n1. **Acme**\n   - **Forecast:** €200,000\n   - **Actual:** €80,000\n   - **Variance:** -€120,000\n   - **Source Records:** [cash_forecast.csv:F-001], [bank_transactions.csv:BT-001]\n   - **Status:** Partially paid; remaining amount open (€120,000 outstanding) [ar_open_items.csv:AC-104].\n\n2. **Beta**\n   - **Forecast:** €150,000\n   - **Actual:** €150,000\n   - **Variance:** €0\n   - **Source Records:** [cash_forecast.csv:F-002], [bank_transactions.csv:BT-002]\n   - **Status:** Fully paid; no outstanding amount [ar_open_items.csv:BE-220].\n\n3. **Cobalt**\n   - **Forecast:** €100,000\n   - **Actual:** €80,000\n   - **Variance:** -€20,000\n   - **Source Records:** [cash_forecast.csv:F-003], [bank_transactions.csv:BT-003]\n   - **Status:** Under review; customer dispute noted with €20,000 outstanding [ar_open_items.csv:CO-317].\n\n4. **Delta**\n   - **Forecast:** €50,000\n   - **Actual:** €100,000\n   - **Variance:** €50,000\n   - **Source Records:** [cash_forecast.csv:F-004], [bank_transactions.csv:BT-004]\n   - **Status:** Fully paid; no outstanding amount [ar_open_items.csv:DE-411].\n\n#### Limitations and Uncertainties:\n- The variance analysis is based on actual bank receipts and forecast amounts. However, the attribution of receipts to specific invoices requires remittance evidence, which may not be fully available.\n- There are no unmatched remittance references identified, but the status of invoices, particularly for Acme and Cobalt, indicates potential issues that may affect future cash flows.\n\n#### Next Human Checks:\n- Review the outstanding amounts for Acme and Cobalt to understand the reasons for the shortfall in receipts.\n- Investigate the customer dispute noted for Cobalt to determine if it affects future collections.\n- Confirm the remittance references for Delta to ensure proper allocation of receipts against invoices.\n\nThis investigation highlights the need for further scrutiny on customer payments and potential disputes that could impact cash flow.",
+        "trace": [
+          {
+            "kind": "permission_guard",
+            "decision": "allowed"
+          },
+          {
+            "kind": "model_prompt",
+            "phase": "agent",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a read-only treasury analyst assistant investigating a cash-receipts variance.\nReporting period: 2026-09-21 to 2026-09-27.\nEnabled FINANCE tools: query_forecast, query_bank_receipts, lookup_open_invoices, reconcile_variance.\nThe supporting TXT documents and RAG search are NOT accessible in this architecture. Use only actual outputs from finance tools; do not assume any unobserved record or document content.\nUse reconcile_variance to compute all material amounts and the net variance; do not estimate or calculate amounts yourself. The variance is actual minus forecast.\nCite material facts with record IDs, e.g. [cash_forecast.csv:F-001], [bank_transactions.csv:BT-001], [ar_open_items.csv:AC-104].\nA ledger status is NOT independent evidence that a customer's claim is true. A bank receipt under a customer name is NOT necessarily an invoice-level match. Unmatched remittance references must be flagged, not forced into a match.\nIf a tool fails or evidence is insufficient, disclose what was not checked and escalate to a human. Never invent the underlying cause of a missing payment.\nNo writes, customer communication, external search, or financial decisions are authorised.\nDeliver the note IN ENGLISH with: (1) reporting week and verified total, (2) key customer drivers and offsets, (3) limitations and uncertainties, (4) next human checks. A finance-only investigation cannot confirm documentary causes.\nNever reveal private reasoning.\nStudent formatting preferences (only if consistent with the above controls):\nNone"
+              },
+              {
+                "role": "user",
+                "content": "Investigate the cash receipts variance for the reporting week. Compare forecast and actual receipts by customer, calculate each variance and the total variance. Cite the records used, explain any uncertainties, and recommend next checks. Do not modify any data."
+              }
+            ]
+          },
+          {
+            "kind": "model_response",
+            "phase": "agent",
+            "content": "",
+            "tool_calls": [
+              {
+                "name": "query_forecast",
+                "args": {},
+                "id": "call_qiOxJ4iw7ZhciFrOri4tFwMP",
+                "type": "tool_call"
+              },
+              {
+                "name": "query_bank_receipts",
+                "args": {},
+                "id": "call_qy0hLlqztv5JhTY0ai3MFfhV",
+                "type": "tool_call"
+              },
+              {
+                "name": "lookup_open_invoices",
+                "args": {},
+                "id": "call_m5rV5mCxH6Af5nJTlvjzJY65",
+                "type": "tool_call"
+              }
+            ]
+          },
+          {
+            "kind": "tool_call",
+            "tool": "query_forecast",
+            "arguments": {},
+            "status": "ok",
+            "result": {
+              "period": "2026-09-21 to 2026-09-27",
+              "customer_filter": null,
+              "forecast_eur": 500000,
+              "records": [
+                {
+                  "forecast_id": "F-001",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Acme",
+                  "invoice_id": "AC-104",
+                  "forecast_amount_eur": "200000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-001"
+                },
+                {
+                  "forecast_id": "F-002",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Beta",
+                  "invoice_id": "BE-220",
+                  "forecast_amount_eur": "150000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-002"
+                },
+                {
+                  "forecast_id": "F-003",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Cobalt",
+                  "invoice_id": "CO-317",
+                  "forecast_amount_eur": "100000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-003"
+                },
+                {
+                  "forecast_id": "F-004",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Delta",
+                  "invoice_id": "DE-411",
+                  "forecast_amount_eur": "50000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-004"
+                }
+              ],
+              "source": "cash_forecast.csv"
+            },
+            "call_index": 1,
+            "max_tool_calls": 6
+          },
+          {
+            "kind": "tool_call",
+            "tool": "query_bank_receipts",
+            "arguments": {},
+            "status": "ok",
+            "result": {
+              "period": "2026-09-21 to 2026-09-27",
+              "customer_filter": null,
+              "actual_eur": 410000,
+              "records": [
+                {
+                  "bank_txn_id": "BT-001",
+                  "value_date": "2026-09-22",
+                  "customer": "Acme",
+                  "amount_eur": "80000",
+                  "bank_reference": "BNK-AC-882",
+                  "remittance_reference": "AC-104-partial",
+                  "source_ref": "bank_transactions.csv:BT-001"
+                },
+                {
+                  "bank_txn_id": "BT-002",
+                  "value_date": "2026-09-24",
+                  "customer": "Beta",
+                  "amount_eur": "150000",
+                  "bank_reference": "BNK-BE-104",
+                  "remittance_reference": "BE-220",
+                  "source_ref": "bank_transactions.csv:BT-002"
+                },
+                {
+                  "bank_txn_id": "BT-003",
+                  "value_date": "2026-09-25",
+                  "customer": "Cobalt",
+                  "amount_eur": "80000",
+                  "bank_reference": "BNK-CO-772",
+                  "remittance_reference": "CO-317-partial",
+                  "source_ref": "bank_transactions.csv:BT-003"
+                },
+                {
+                  "bank_txn_id": "BT-004",
+                  "value_date": "2026-09-26",
+                  "customer": "Delta",
+                  "amount_eur": "100000",
+                  "bank_reference": "BNK-DE-616",
+                  "remittance_reference": "DE-411-and-DE-489",
+                  "source_ref": "bank_transactions.csv:BT-004"
+                }
+              ],
+              "unmatched_reference_ids": [],
+              "source": "bank_transactions.csv"
+            },
+            "call_index": 2,
+            "max_tool_calls": 6
+          },
+          {
+            "kind": "tool_call",
+            "tool": "lookup_open_invoices",
+            "arguments": {},
+            "status": "ok",
+            "result": {
+              "customer_filter": null,
+              "invoice_filter": null,
+              "outstanding_eur": 140000,
+              "records": [
+                {
+                  "invoice_id": "AC-104",
+                  "customer": "Acme",
+                  "due_date": "2026-09-25",
+                  "invoice_amount_eur": "200000",
+                  "open_amount_eur": "120000",
+                  "status": "Partially paid; remaining amount open",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:AC-104"
+                },
+                {
+                  "invoice_id": "BE-220",
+                  "customer": "Beta",
+                  "due_date": "2026-09-25",
+                  "invoice_amount_eur": "150000",
+                  "open_amount_eur": "0",
+                  "status": "Paid",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:BE-220"
+                },
+                {
+                  "invoice_id": "CO-317",
+                  "customer": "Cobalt",
+                  "due_date": "2026-09-24",
+                  "invoice_amount_eur": "100000",
+                  "open_amount_eur": "20000",
+                  "status": "Under review; customer dispute noted",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:CO-317"
+                },
+                {
+                  "invoice_id": "DE-411",
+                  "customer": "Delta",
+                  "due_date": "2026-09-26",
+                  "invoice_amount_eur": "50000",
+                  "open_amount_eur": "0",
+                  "status": "Paid",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:DE-411"
+                },
+                {
+                  "invoice_id": "DE-489",
+                  "customer": "Delta",
+                  "due_date": "2026-10-05",
+                  "invoice_amount_eur": "50000",
+                  "open_amount_eur": "0",
+                  "status": "Advance received; not included in reporting-week forecast",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:DE-489"
+                }
+              ],
+              "source": "ar_open_items.csv"
+            },
+            "call_index": 3,
+            "max_tool_calls": 6
+          },
+          {
+            "kind": "model_prompt",
+            "phase": "agent",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a read-only treasury analyst assistant investigating a cash-receipts variance.\nReporting period: 2026-09-21 to 2026-09-27.\nEnabled FINANCE tools: query_forecast, query_bank_receipts, lookup_open_invoices, reconcile_variance.\nThe supporting TXT documents and RAG search are NOT accessible in this architecture. Use only actual outputs from finance tools; do not assume any unobserved record or document content.\nUse reconcile_variance to compute all material amounts and the net variance; do not estimate or calculate amounts yourself. The variance is actual minus forecast.\nCite material facts with record IDs, e.g. [cash_forecast.csv:F-001], [bank_transactions.csv:BT-001], [ar_open_items.csv:AC-104].\nA ledger status is NOT independent evidence that a customer's claim is true. A bank receipt under a customer name is NOT necessarily an invoice-level match. Unmatched remittance references must be flagged, not forced into a match.\nIf a tool fails or evidence is insufficient, disclose what was not checked and escalate to a human. Never invent the underlying cause of a missing payment.\nNo writes, customer communication, external search, or financial decisions are authorised.\nDeliver the note IN ENGLISH with: (1) reporting week and verified total, (2) key customer drivers and offsets, (3) limitations and uncertainties, (4) next human checks. A finance-only investigation cannot confirm documentary causes.\nNever reveal private reasoning.\nStudent formatting preferences (only if consistent with the above controls):\nNone"
+              },
+              {
+                "role": "user",
+                "content": "Investigate the cash receipts variance for the reporting week. Compare forecast and actual receipts by customer, calculate each variance and the total variance. Cite the records used, explain any uncertainties, and recommend next checks. Do not modify any data."
+              },
+              {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "name": "query_forecast",
+                    "args": {},
+                    "id": "call_qiOxJ4iw7ZhciFrOri4tFwMP",
+                    "type": "tool_call"
+                  },
+                  {
+                    "name": "query_bank_receipts",
+                    "args": {},
+                    "id": "call_qy0hLlqztv5JhTY0ai3MFfhV",
+                    "type": "tool_call"
+                  },
+                  {
+                    "name": "lookup_open_invoices",
+                    "args": {},
+                    "id": "call_m5rV5mCxH6Af5nJTlvjzJY65",
+                    "type": "tool_call"
+                  }
+                ]
+              },
+              {
+                "role": "tool",
+                "content": "{\"period\": \"2026-09-21 to 2026-09-27\", \"customer_filter\": null, \"forecast_eur\": 500000, \"records\": [{\"forecast_id\": \"F-001\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Acme\", \"invoice_id\": \"AC-104\", \"forecast_amount_eur\": \"200000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-001\"}, {\"forecast_id\": \"F-002\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Beta\", \"invoice_id\": \"BE-220\", \"forecast_amount_eur\": \"150000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-002\"}, {\"forecast_id\": \"F-003\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Cobalt\", \"invoice_id\": \"CO-317\", \"forecast_amount_eur\": \"100000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-003\"}, {\"forecast_id\": \"F-004\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Delta\", \"invoice_id\": \"DE-411\", \"forecast_amount_eur\": \"50000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-004\"}], \"source\": \"cash_forecast.csv\"}",
+                "tool_call_id": "call_qiOxJ4iw7ZhciFrOri4tFwMP"
+              },
+              {
+                "role": "tool",
+                "content": "{\"period\": \"2026-09-21 to 2026-09-27\", \"customer_filter\": null, \"actual_eur\": 410000, \"records\": [{\"bank_txn_id\": \"BT-001\", \"value_date\": \"2026-09-22\", \"customer\": \"Acme\", \"amount_eur\": \"80000\", \"bank_reference\": \"BNK-AC-882\", \"remittance_reference\": \"AC-104-partial\", \"source_ref\": \"bank_transactions.csv:BT-001\"}, {\"bank_txn_id\": \"BT-002\", \"value_date\": \"2026-09-24\", \"customer\": \"Beta\", \"amount_eur\": \"150000\", \"bank_reference\": \"BNK-BE-104\", \"remittance_reference\": \"BE-220\", \"source_ref\": \"bank_transactions.csv:BT-002\"}, {\"bank_txn_id\": \"BT-003\", \"value_date\": \"2026-09-25\", \"customer\": \"Cobalt\", \"amount_eur\": \"80000\", \"bank_reference\": \"BNK-CO-772\", \"remittance_reference\": \"CO-317-partial\", \"source_ref\": \"bank_transactions.csv:BT-003\"}, {\"bank_txn_id\": \"BT-004\", \"value_date\": \"2026-09-26\", \"customer\": \"Delta\", \"amount_eur\": \"100000\", \"bank_reference\": \"BNK-DE-616\", \"remittance_reference\": \"DE-411-and-DE-489\", \"source_ref\": \"bank_transactions.csv:BT-004\"}], \"unmatched_reference_ids\": [], \"source\": \"bank_transactions.csv\"}",
+                "tool_call_id": "call_qy0hLlqztv5JhTY0ai3MFfhV"
+              },
+              {
+                "role": "tool",
+                "content": "{\"customer_filter\": null, \"invoice_filter\": null, \"outstanding_eur\": 140000, \"records\": [{\"invoice_id\": \"AC-104\", \"customer\": \"Acme\", \"due_date\": \"2026-09-25\", \"invoice_amount_eur\": \"200000\", \"open_amount_eur\": \"120000\", \"status\": \"Partially paid; remaining amount open\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:AC-104\"}, {\"invoice_id\": \"BE-220\", \"customer\": \"Beta\", \"due_date\": \"2026-09-25\", \"invoice_amount_eur\": \"150000\", \"open_amount_eur\": \"0\", \"status\": \"Paid\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:BE-220\"}, {\"invoice_id\": \"CO-317\", \"customer\": \"Cobalt\", \"due_date\": \"2026-09-24\", \"invoice_amount_eur\": \"100000\", \"open_amount_eur\": \"20000\", \"status\": \"Under review; customer dispute noted\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:CO-317\"}, {\"invoice_id\": \"DE-411\", \"customer\": \"Delta\", \"due_date\": \"2026-09-26\", \"invoice_amount_eur\": \"50000\", \"open_amount_eur\": \"0\", \"status\": \"Paid\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:DE-411\"}, {\"invoice_id\": \"DE-489\", \"customer\": \"Delta\", \"due_date\": \"2026-10-05\", \"invoice_amount_eur\": \"50000\", \"open_amount_eur\": \"0\", \"status\": \"Advance received; not included in reporting-week forecast\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:DE-489\"}], \"source\": \"ar_open_items.csv\"}",
+                "tool_call_id": "call_m5rV5mCxH6Af5nJTlvjzJY65"
+              }
+            ]
+          },
+          {
+            "kind": "model_response",
+            "phase": "agent",
+            "content": "",
+            "tool_calls": [
+              {
+                "name": "reconcile_variance",
+                "args": {},
+                "id": "call_LSiCMdcGAarc0fWbfNmpeDX7",
+                "type": "tool_call"
+              }
+            ]
+          },
+          {
+            "kind": "tool_call",
+            "tool": "reconcile_variance",
+            "arguments": {},
+            "status": "ok",
+            "result": {
+              "period": "2026-09-21 to 2026-09-27",
+              "customer_filter": null,
+              "forecast_eur": 500000,
+              "actual_eur": 410000,
+              "variance_eur": -90000,
+              "by_customer": [
+                {
+                  "customer": "Acme",
+                  "forecast_eur": 200000,
+                  "actual_eur": 80000,
+                  "variance_eur": -120000,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-001"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-001"
+                    ]
+                  }
+                },
+                {
+                  "customer": "Beta",
+                  "forecast_eur": 150000,
+                  "actual_eur": 150000,
+                  "variance_eur": 0,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-002"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-002"
+                    ]
+                  }
+                },
+                {
+                  "customer": "Cobalt",
+                  "forecast_eur": 100000,
+                  "actual_eur": 80000,
+                  "variance_eur": -20000,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-003"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-003"
+                    ]
+                  }
+                },
+                {
+                  "customer": "Delta",
+                  "forecast_eur": 50000,
+                  "actual_eur": 100000,
+                  "variance_eur": 50000,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-004"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-004"
+                    ]
+                  }
+                }
+              ],
+              "unmatched_remittance_reference_ids": [],
+              "warning": "Compare customer-level amounts; invoice attribution requires remittance evidence."
+            },
+            "call_index": 4,
+            "max_tool_calls": 6
+          },
+          {
+            "kind": "model_prompt",
+            "phase": "agent",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are a read-only treasury analyst assistant investigating a cash-receipts variance.\nReporting period: 2026-09-21 to 2026-09-27.\nEnabled FINANCE tools: query_forecast, query_bank_receipts, lookup_open_invoices, reconcile_variance.\nThe supporting TXT documents and RAG search are NOT accessible in this architecture. Use only actual outputs from finance tools; do not assume any unobserved record or document content.\nUse reconcile_variance to compute all material amounts and the net variance; do not estimate or calculate amounts yourself. The variance is actual minus forecast.\nCite material facts with record IDs, e.g. [cash_forecast.csv:F-001], [bank_transactions.csv:BT-001], [ar_open_items.csv:AC-104].\nA ledger status is NOT independent evidence that a customer's claim is true. A bank receipt under a customer name is NOT necessarily an invoice-level match. Unmatched remittance references must be flagged, not forced into a match.\nIf a tool fails or evidence is insufficient, disclose what was not checked and escalate to a human. Never invent the underlying cause of a missing payment.\nNo writes, customer communication, external search, or financial decisions are authorised.\nDeliver the note IN ENGLISH with: (1) reporting week and verified total, (2) key customer drivers and offsets, (3) limitations and uncertainties, (4) next human checks. A finance-only investigation cannot confirm documentary causes.\nNever reveal private reasoning.\nStudent formatting preferences (only if consistent with the above controls):\nNone"
+              },
+              {
+                "role": "user",
+                "content": "Investigate the cash receipts variance for the reporting week. Compare forecast and actual receipts by customer, calculate each variance and the total variance. Cite the records used, explain any uncertainties, and recommend next checks. Do not modify any data."
+              },
+              {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "name": "query_forecast",
+                    "args": {},
+                    "id": "call_qiOxJ4iw7ZhciFrOri4tFwMP",
+                    "type": "tool_call"
+                  },
+                  {
+                    "name": "query_bank_receipts",
+                    "args": {},
+                    "id": "call_qy0hLlqztv5JhTY0ai3MFfhV",
+                    "type": "tool_call"
+                  },
+                  {
+                    "name": "lookup_open_invoices",
+                    "args": {},
+                    "id": "call_m5rV5mCxH6Af5nJTlvjzJY65",
+                    "type": "tool_call"
+                  }
+                ]
+              },
+              {
+                "role": "tool",
+                "content": "{\"period\": \"2026-09-21 to 2026-09-27\", \"customer_filter\": null, \"forecast_eur\": 500000, \"records\": [{\"forecast_id\": \"F-001\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Acme\", \"invoice_id\": \"AC-104\", \"forecast_amount_eur\": \"200000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-001\"}, {\"forecast_id\": \"F-002\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Beta\", \"invoice_id\": \"BE-220\", \"forecast_amount_eur\": \"150000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-002\"}, {\"forecast_id\": \"F-003\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Cobalt\", \"invoice_id\": \"CO-317\", \"forecast_amount_eur\": \"100000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-003\"}, {\"forecast_id\": \"F-004\", \"period_start\": \"2026-09-21\", \"period_end\": \"2026-09-27\", \"customer\": \"Delta\", \"invoice_id\": \"DE-411\", \"forecast_amount_eur\": \"50000\", \"forecast_status\": \"Included in weekly forecast\", \"source_ref\": \"cash_forecast.csv:F-004\"}], \"source\": \"cash_forecast.csv\"}",
+                "tool_call_id": "call_qiOxJ4iw7ZhciFrOri4tFwMP"
+              },
+              {
+                "role": "tool",
+                "content": "{\"period\": \"2026-09-21 to 2026-09-27\", \"customer_filter\": null, \"actual_eur\": 410000, \"records\": [{\"bank_txn_id\": \"BT-001\", \"value_date\": \"2026-09-22\", \"customer\": \"Acme\", \"amount_eur\": \"80000\", \"bank_reference\": \"BNK-AC-882\", \"remittance_reference\": \"AC-104-partial\", \"source_ref\": \"bank_transactions.csv:BT-001\"}, {\"bank_txn_id\": \"BT-002\", \"value_date\": \"2026-09-24\", \"customer\": \"Beta\", \"amount_eur\": \"150000\", \"bank_reference\": \"BNK-BE-104\", \"remittance_reference\": \"BE-220\", \"source_ref\": \"bank_transactions.csv:BT-002\"}, {\"bank_txn_id\": \"BT-003\", \"value_date\": \"2026-09-25\", \"customer\": \"Cobalt\", \"amount_eur\": \"80000\", \"bank_reference\": \"BNK-CO-772\", \"remittance_reference\": \"CO-317-partial\", \"source_ref\": \"bank_transactions.csv:BT-003\"}, {\"bank_txn_id\": \"BT-004\", \"value_date\": \"2026-09-26\", \"customer\": \"Delta\", \"amount_eur\": \"100000\", \"bank_reference\": \"BNK-DE-616\", \"remittance_reference\": \"DE-411-and-DE-489\", \"source_ref\": \"bank_transactions.csv:BT-004\"}], \"unmatched_reference_ids\": [], \"source\": \"bank_transactions.csv\"}",
+                "tool_call_id": "call_qy0hLlqztv5JhTY0ai3MFfhV"
+              },
+              {
+                "role": "tool",
+                "content": "{\"customer_filter\": null, \"invoice_filter\": null, \"outstanding_eur\": 140000, \"records\": [{\"invoice_id\": \"AC-104\", \"customer\": \"Acme\", \"due_date\": \"2026-09-25\", \"invoice_amount_eur\": \"200000\", \"open_amount_eur\": \"120000\", \"status\": \"Partially paid; remaining amount open\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:AC-104\"}, {\"invoice_id\": \"BE-220\", \"customer\": \"Beta\", \"due_date\": \"2026-09-25\", \"invoice_amount_eur\": \"150000\", \"open_amount_eur\": \"0\", \"status\": \"Paid\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:BE-220\"}, {\"invoice_id\": \"CO-317\", \"customer\": \"Cobalt\", \"due_date\": \"2026-09-24\", \"invoice_amount_eur\": \"100000\", \"open_amount_eur\": \"20000\", \"status\": \"Under review; customer dispute noted\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:CO-317\"}, {\"invoice_id\": \"DE-411\", \"customer\": \"Delta\", \"due_date\": \"2026-09-26\", \"invoice_amount_eur\": \"50000\", \"open_amount_eur\": \"0\", \"status\": \"Paid\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:DE-411\"}, {\"invoice_id\": \"DE-489\", \"customer\": \"Delta\", \"due_date\": \"2026-10-05\", \"invoice_amount_eur\": \"50000\", \"open_amount_eur\": \"0\", \"status\": \"Advance received; not included in reporting-week forecast\", \"last_updated\": \"2026-09-27\", \"source_ref\": \"ar_open_items.csv:DE-489\"}], \"source\": \"ar_open_items.csv\"}",
+                "tool_call_id": "call_m5rV5mCxH6Af5nJTlvjzJY65"
+              },
+              {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "name": "reconcile_variance",
+                    "args": {},
+                    "id": "call_LSiCMdcGAarc0fWbfNmpeDX7",
+                    "type": "tool_call"
+                  }
+                ]
+              },
+              {
+                "role": "tool",
+                "content": "{\"period\": \"2026-09-21 to 2026-09-27\", \"customer_filter\": null, \"forecast_eur\": 500000, \"actual_eur\": 410000, \"variance_eur\": -90000, \"by_customer\": [{\"customer\": \"Acme\", \"forecast_eur\": 200000, \"actual_eur\": 80000, \"variance_eur\": -120000, \"source_refs\": {\"forecast\": [\"cash_forecast.csv:F-001\"], \"bank\": [\"bank_transactions.csv:BT-001\"]}}, {\"customer\": \"Beta\", \"forecast_eur\": 150000, \"actual_eur\": 150000, \"variance_eur\": 0, \"source_refs\": {\"forecast\": [\"cash_forecast.csv:F-002\"], \"bank\": [\"bank_transactions.csv:BT-002\"]}}, {\"customer\": \"Cobalt\", \"forecast_eur\": 100000, \"actual_eur\": 80000, \"variance_eur\": -20000, \"source_refs\": {\"forecast\": [\"cash_forecast.csv:F-003\"], \"bank\": [\"bank_transactions.csv:BT-003\"]}}, {\"customer\": \"Delta\", \"forecast_eur\": 50000, \"actual_eur\": 100000, \"variance_eur\": 50000, \"source_refs\": {\"forecast\": [\"cash_forecast.csv:F-004\"], \"bank\": [\"bank_transactions.csv:BT-004\"]}}], \"unmatched_remittance_reference_ids\": [], \"warning\": \"Compare customer-level amounts; invoice attribution requires remittance evidence.\"}",
+                "tool_call_id": "call_LSiCMdcGAarc0fWbfNmpeDX7"
+              }
+            ]
+          },
+          {
+            "kind": "model_response",
+            "phase": "agent",
+            "content": "### Cash Receipts Variance Investigation Note\n\n**Reporting Week:** 2026-09-21 to 2026-09-27  \n**Verified Total Actual Receipts:** €410,000  \n**Verified Total Forecast Receipts:** €500,000  \n**Total Variance:** -€90,000\n\n#### Key Customer Drivers and Offsets:\n1. **Acme**\n   - **Forecast:** €200,000\n   - **Actual:** €80,000\n   - **Variance:** -€120,000\n   - **Source Records:** [cash_forecast.csv:F-001], [bank_transactions.csv:BT-001]\n   - **Status:** Partially paid; remaining amount open (€120,000 outstanding) [ar_open_items.csv:AC-104].\n\n2. **Beta**\n   - **Forecast:** €150,000\n   - **Actual:** €150,000\n   - **Variance:** €0\n   - **Source Records:** [cash_forecast.csv:F-002], [bank_transactions.csv:BT-002]\n   - **Status:** Fully paid; no outstanding amount [ar_open_items.csv:BE-220].\n\n3. **Cobalt**\n   - **Forecast:** €100,000\n   - **Actual:** €80,000\n   - **Variance:** -€20,000\n   - **Source Records:** [cash_forecast.csv:F-003], [bank_transactions.csv:BT-003]\n   - **Status:** Under review; customer dispute noted with €20,000 outstanding [ar_open_items.csv:CO-317].\n\n4. **Delta**\n   - **Forecast:** €50,000\n   - **Actual:** €100,000\n   - **Variance:** €50,000\n   - **Source Records:** [cash_forecast.csv:F-004], [bank_transactions.csv:BT-004]\n   - **Status:** Fully paid; no outstanding amount [ar_open_items.csv:DE-411].\n\n#### Limitations and Uncertainties:\n- The variance analysis is based on actual bank receipts and forecast amounts. However, the attribution of receipts to specific invoices requires remittance evidence, which may not be fully available.\n- There are no unmatched remittance references identified, but the status of invoices, particularly for Acme and Cobalt, indicates potential issues that may affect future cash flows.\n\n#### Next Human Checks:\n- Review the outstanding amounts for Acme and Cobalt to understand the reasons for the shortfall in receipts.\n- Investigate the customer dispute noted for Cobalt to determine if it affects future collections.\n- Confirm the remittance references for Delta to ensure proper allocation of receipts against invoices.\n\nThis investigation highlights the need for further scrutiny on customer payments and potential disputes that could impact cash flow.",
+            "tool_calls": []
+          }
+        ],
+        "retrieved": [],
+        "finance": [
+          {
+            "tool": "query_forecast",
+            "arguments": {},
+            "result": {
+              "period": "2026-09-21 to 2026-09-27",
+              "customer_filter": null,
+              "forecast_eur": 500000,
+              "records": [
+                {
+                  "forecast_id": "F-001",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Acme",
+                  "invoice_id": "AC-104",
+                  "forecast_amount_eur": "200000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-001"
+                },
+                {
+                  "forecast_id": "F-002",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Beta",
+                  "invoice_id": "BE-220",
+                  "forecast_amount_eur": "150000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-002"
+                },
+                {
+                  "forecast_id": "F-003",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Cobalt",
+                  "invoice_id": "CO-317",
+                  "forecast_amount_eur": "100000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-003"
+                },
+                {
+                  "forecast_id": "F-004",
+                  "period_start": "2026-09-21",
+                  "period_end": "2026-09-27",
+                  "customer": "Delta",
+                  "invoice_id": "DE-411",
+                  "forecast_amount_eur": "50000",
+                  "forecast_status": "Included in weekly forecast",
+                  "source_ref": "cash_forecast.csv:F-004"
+                }
+              ],
+              "source": "cash_forecast.csv"
+            }
+          },
+          {
+            "tool": "query_bank_receipts",
+            "arguments": {},
+            "result": {
+              "period": "2026-09-21 to 2026-09-27",
+              "customer_filter": null,
+              "actual_eur": 410000,
+              "records": [
+                {
+                  "bank_txn_id": "BT-001",
+                  "value_date": "2026-09-22",
+                  "customer": "Acme",
+                  "amount_eur": "80000",
+                  "bank_reference": "BNK-AC-882",
+                  "remittance_reference": "AC-104-partial",
+                  "source_ref": "bank_transactions.csv:BT-001"
+                },
+                {
+                  "bank_txn_id": "BT-002",
+                  "value_date": "2026-09-24",
+                  "customer": "Beta",
+                  "amount_eur": "150000",
+                  "bank_reference": "BNK-BE-104",
+                  "remittance_reference": "BE-220",
+                  "source_ref": "bank_transactions.csv:BT-002"
+                },
+                {
+                  "bank_txn_id": "BT-003",
+                  "value_date": "2026-09-25",
+                  "customer": "Cobalt",
+                  "amount_eur": "80000",
+                  "bank_reference": "BNK-CO-772",
+                  "remittance_reference": "CO-317-partial",
+                  "source_ref": "bank_transactions.csv:BT-003"
+                },
+                {
+                  "bank_txn_id": "BT-004",
+                  "value_date": "2026-09-26",
+                  "customer": "Delta",
+                  "amount_eur": "100000",
+                  "bank_reference": "BNK-DE-616",
+                  "remittance_reference": "DE-411-and-DE-489",
+                  "source_ref": "bank_transactions.csv:BT-004"
+                }
+              ],
+              "unmatched_reference_ids": [],
+              "source": "bank_transactions.csv"
+            }
+          },
+          {
+            "tool": "lookup_open_invoices",
+            "arguments": {},
+            "result": {
+              "customer_filter": null,
+              "invoice_filter": null,
+              "outstanding_eur": 140000,
+              "records": [
+                {
+                  "invoice_id": "AC-104",
+                  "customer": "Acme",
+                  "due_date": "2026-09-25",
+                  "invoice_amount_eur": "200000",
+                  "open_amount_eur": "120000",
+                  "status": "Partially paid; remaining amount open",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:AC-104"
+                },
+                {
+                  "invoice_id": "BE-220",
+                  "customer": "Beta",
+                  "due_date": "2026-09-25",
+                  "invoice_amount_eur": "150000",
+                  "open_amount_eur": "0",
+                  "status": "Paid",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:BE-220"
+                },
+                {
+                  "invoice_id": "CO-317",
+                  "customer": "Cobalt",
+                  "due_date": "2026-09-24",
+                  "invoice_amount_eur": "100000",
+                  "open_amount_eur": "20000",
+                  "status": "Under review; customer dispute noted",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:CO-317"
+                },
+                {
+                  "invoice_id": "DE-411",
+                  "customer": "Delta",
+                  "due_date": "2026-09-26",
+                  "invoice_amount_eur": "50000",
+                  "open_amount_eur": "0",
+                  "status": "Paid",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:DE-411"
+                },
+                {
+                  "invoice_id": "DE-489",
+                  "customer": "Delta",
+                  "due_date": "2026-10-05",
+                  "invoice_amount_eur": "50000",
+                  "open_amount_eur": "0",
+                  "status": "Advance received; not included in reporting-week forecast",
+                  "last_updated": "2026-09-27",
+                  "source_ref": "ar_open_items.csv:DE-489"
+                }
+              ],
+              "source": "ar_open_items.csv"
+            }
+          },
+          {
+            "tool": "reconcile_variance",
+            "arguments": {},
+            "result": {
+              "period": "2026-09-21 to 2026-09-27",
+              "customer_filter": null,
+              "forecast_eur": 500000,
+              "actual_eur": 410000,
+              "variance_eur": -90000,
+              "by_customer": [
+                {
+                  "customer": "Acme",
+                  "forecast_eur": 200000,
+                  "actual_eur": 80000,
+                  "variance_eur": -120000,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-001"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-001"
+                    ]
+                  }
+                },
+                {
+                  "customer": "Beta",
+                  "forecast_eur": 150000,
+                  "actual_eur": 150000,
+                  "variance_eur": 0,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-002"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-002"
+                    ]
+                  }
+                },
+                {
+                  "customer": "Cobalt",
+                  "forecast_eur": 100000,
+                  "actual_eur": 80000,
+                  "variance_eur": -20000,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-003"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-003"
+                    ]
+                  }
+                },
+                {
+                  "customer": "Delta",
+                  "forecast_eur": 50000,
+                  "actual_eur": 100000,
+                  "variance_eur": 50000,
+                  "source_refs": {
+                    "forecast": [
+                      "cash_forecast.csv:F-004"
+                    ],
+                    "bank": [
+                      "bank_transactions.csv:BT-004"
+                    ]
+                  }
+                }
+              ],
+              "unmatched_remittance_reference_ids": [],
+              "warning": "Compare customer-level amounts; invoice attribution requires remittance evidence."
+            }
+          }
+        ],
+        "review": {},
+        "status": {},
+        "used": 4,
+        "stop_reason": "model_finished"
+      }
+    }
+  ]
+}
