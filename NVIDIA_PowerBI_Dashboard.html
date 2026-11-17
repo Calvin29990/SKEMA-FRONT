@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NVIDIA (NVDA) — Power BI Financial Performance Dashboard</title>
+<style>
+:root{
+  --bg:#0D1117;
+  --header:#000000;
+  --panel:#141B26;
+  --panel-2:#1A2230;
+  --panel-3:#202A3B;
+  --border:#26303F;
+  --border-soft:#1F2836;
+  --text:#E9EDF5;
+  --muted:#8E99AC;
+  --muted-2:#6B7689;
+  --green:#76B900;
+  --green-bright:#8FE000;
+  --green-soft:rgba(118,185,0,.13);
+  --red:#F2555A;
+  --red-soft:rgba(242,85,90,.12);
+  --amber:#F2A93B;
+  --teal:#2DD4BF;
+  --shadow:0 10px 28px rgba(0,0,0,.45);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:radial-gradient(1200px 600px at 85% -10%, rgba(118,185,0,.10), transparent 55%), var(--bg);
+  color:var(--text);
+  font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size:14px;
+  line-height:1.45;
+  min-height:100vh;
+}
+.mono{font-family:"Cascadia Mono","SFMono-Regular",Consolas,monospace}
+
+/* ============ TOP APP BAR (Power BI style) ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--header);
+  border-bottom:3px solid var(--green);
+  height:58px;display:flex;align-items:center;gap:16px;
+  padding:0 18px;
+}
+.topbar .brand{display:flex;align-items:center;gap:12px;min-width:0}
+.topbar .divider{width:1px;height:30px;background:#2A2A2A}
+.brand-name{font-weight:800;font-size:19px;letter-spacing:.12em;color:var(--green)}
+.brand-sub{font-size:10px;letter-spacing:.08em;color:#9AA39B;text-transform:uppercase;margin-top:1px}
+.crumb{font-size:11px;color:#8A8F98;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumb b{color:#C9CDD4;font-weight:600}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;padding:5px 11px;border-radius:999px;border:1px solid #2E3A2E;background:#101606;color:#B9D989;white-space:nowrap}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+.icon-btn{background:#161616;border:1px solid #2A2A2A;color:#C9CDD4;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.icon-btn:hover{border-color:var(--green);color:var(--green-bright)}
+
+/* ============ LAYOUT ============ */
+.layout{display:grid;grid-template-columns:268px 1fr;gap:16px;padding:16px;max-width:1560px;margin:0 auto}
+
+/* ============ LEFT RAIL / SLICER PANE ============ */
+.rail{display:flex;flex-direction:column;gap:14px;position:sticky;top:74px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;padding-right:2px}
+.rail::-webkit-scrollbar{width:8px}
+.rail::-webkit-scrollbar-thumb{background:#2A3444;border-radius:8px}
+.panel{background:var(--panel);border:1px solid var(--border-soft);border-radius:var(--radius);box-shadow:var(--shadow)}
+.rail .panel{padding:14px}
+.panel-title{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:700}
+.panel-title::before{content:"";width:3px;height:14px;border-radius:2px;background:var(--green)}
+
+.slicer-label{font-size:11px;color:var(--muted);margin:12px 0 6px;font-weight:600;letter-spacing:.03em}
+.slicer-label:first-of-type{margin-top:2px}
+.company-chip{display:flex;align-items:center;gap:10px;background:var(--panel-2);border:1px solid #33402A;border-left:3px solid var(--green);border-radius:10px;padding:9px 11px}
+.company-chip .ticker{font-weight:800;font-size:15px;color:var(--green-bright);letter-spacing:.06em}
+.company-chip .nm{font-size:10.5px;color:var(--muted);line-height:1.3}
+.company-chip .lock{margin-left:auto;color:var(--muted-2);font-size:12px}
+
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{
+  cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.05em;
+  color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:8px;
+  padding:7px 12px;transition:all .18s ease;
+}
+.seg button:hover{color:var(--text);border-color:#3A4757}
+.seg button.active{background:var(--green);border-color:var(--green);color:#0A0F05;box-shadow:0 0 0 3px rgba(118,185,0,.25)}
+
+.meta-list{display:flex;flex-direction:column;gap:7px;font-size:11px}
+.meta-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed #222B39;padding-bottom:6px}
+.meta-row:last-child{border-bottom:none;padding-bottom:0}
+.meta-row .k{color:var(--muted)}
+.meta-row .v{color:var(--text);font-weight:600;text-align:right}
+
+.step-list{display:flex;flex-direction:column;gap:8px;font-size:10.5px}
+.step{display:flex;gap:8px;align-items:flex-start}
+.step .n{flex:0 0 18px;height:18px;border-radius:5px;background:var(--panel-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;margin-top:1px}
+.step.done .n{background:var(--green-soft);color:var(--green-bright);border:1px solid rgba(118,185,0,.4)}
+.step.warn .n{background:var(--red-soft);color:#FF9A93;border:1px solid rgba(242,85,90,.4)}
+.step p{color:var(--muted);line-height:1.4}
+.step p b{color:var(--text);font-weight:600}
+
+/* ============ MAIN GRID ============ */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;align-content:start}
+.tile{background:var(--panel);border:1px solid var(--border-soft);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px 12px;display:flex;flex-direction:column;min-width:0}
+.t-3{grid-column:span 3}.t-4{grid-column:span 4}.t-5{grid-column:span 5}.t-6{grid-column:span 6}.t-7{grid-column:span 7}.t-8{grid-column:span 8}.t-12{grid-column:span 12}
+.tile-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:2px}
+.tile-title{font-size:12.5px;font-weight:700;letter-spacing:.02em;color:#DCE3EE;display:flex;align-items:center;gap:8px}
+.tile-title .tag{font-size:8.5px;font-weight:800;letter-spacing:.12em;color:#0A0F05;background:var(--green);border-radius:4px;padding:2px 6px;text-transform:uppercase}
+.tile-sub{font-size:10px;color:var(--muted-2)}
+
+.interp{display:flex;gap:8px;align-items:flex-start;margin-top:8px;background:var(--panel-2);border:1px solid #223242;border-left:3px solid var(--teal);border-radius:8px;padding:7px 10px}
+.interp-tag{flex:0 0 auto;font-size:8.5px;font-weight:800;letter-spacing:.12em;color:#04261F;background:var(--teal);border-radius:4px;padding:2px 6px;text-transform:uppercase;margin-top:1px}
+.interp p{font-size:10.5px;color:#B9C6D6;line-height:1.45}
+.interp p b{color:#EAF6FF;font-weight:700}
+.interp.neg{border-left-color:var(--red)}
+.interp.neg .interp-tag{background:var(--red);color:#2B0507}
+.interp.warny{border-left-color:var(--amber)}
+.interp.warny .interp-tag{background:var(--amber);color:#2A1A03}
+
+/* ============ KPI CARDS ============ */
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;grid-column:span 12}
+.kpi{background:var(--panel);border:1px solid var(--border-soft);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px 12px 10px;position:relative;overflow:hidden;min-width:0}
+.kpi::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--kpi-accent,var(--green))}
+.kpi .kpi-label{font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .kpi-value{font-size:clamp(20px,2vw,27px);font-weight:800;margin:6px 0 2px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--kpi-color,#fff)}
+.kpi .kpi-delta{font-size:9.5px;color:var(--muted);display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.delta-up{color:var(--green-bright);font-weight:700}
+.delta-down{color:#FF8A8E;font-weight:700}
+.delta-flat{color:var(--amber);font-weight:700}
+
+/* ============ CHARTS ============ */
+.chart-wrap{position:relative;width:100%;margin-top:6px}
+svg.chart{display:block;width:100%;height:auto;overflow:visible}
+.axis-text{fill:var(--muted);font-size:9.5px;font-family:"Segoe UI",sans-serif}
+.grid-line{stroke:#222C3B;stroke-width:1}
+.zero-line{stroke:#3A4757;stroke-width:1.2;stroke-dasharray:4 4}
+.chart-line-main{fill:none;stroke:var(--green);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.chart-line-ma{fill:none;stroke:#F2C14E;stroke-width:1.8;stroke-dasharray:5 4;stroke-linecap:round}
+.area-green{fill:url(#gradGreen)}
+.crosshair{stroke:#5A6A80;stroke-width:1;stroke-dasharray:3 3;pointer-events:none}
+.hover-dot{fill:#0D1117;stroke:var(--green-bright);stroke-width:2;pointer-events:none}
+.hover-dot.red{stroke:#FF8A8E}
+.hover-dot.gold{stroke:#F2C14E}
+
+.tooltip{
+  position:fixed;z-index:80;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:#0B0F16;border:1px solid #2E3A4E;border-radius:10px;padding:8px 10px;
+  font-size:10.5px;box-shadow:0 12px 30px rgba(0,0,0,.6);min-width:130px
+}
+.tooltip .tt-date{color:var(--green-bright);font-weight:800;font-size:10px;letter-spacing:.06em;margin-bottom:4px}
+.tooltip .tt-row{display:flex;justify-content:space-between;gap:14px;color:#C7D0DE}
+.tooltip .tt-row b{color:#fff;font-variant-numeric:tabular-nums}
+
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:10px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+.sw{width:14px;height:3px;border-radius:2px;background:var(--green);display:inline-block}
+.sw.dash{background:repeating-linear-gradient(90deg,#F2C14E 0 4px,transparent 4px 7px)}
+.sw.red{background:var(--red)}
+.sw.vol{background:#33445C}
+
+/* ============ TABLE ============ */
+.tbl{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px}
+.tbl th{text-align:left;color:var(--muted);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid var(--border);padding:7px 8px}
+.tbl td{padding:7px 8px;border-bottom:1px solid #1D2532;color:#CBD4E2;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(118,185,0,.05)}
+.chip{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.07em;padding:2px 8px;border-radius:4px}
+.chip.good{background:var(--green-soft);color:var(--green-bright)}
+.chip.bad{background:var(--red-soft);color:#FF9A93}
+.chip.mid{background:rgba(242,169,59,.15);color:var(--amber)}
+
+/* ============ FOOTER ============ */
+.footer{max-width:1560px;margin:0 auto;padding:0 16px 26px;color:var(--muted-2);font-size:10px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--border-soft);padding-top:14px;margin-top:2px}
+.footer b{color:#AAB4C4}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1200px){
+  .layout{grid-template-columns:1fr}
+  .rail{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;overflow:visible}
+  .rail .panel{flex:1 1 300px}
+  .kpi-grid{grid-template-columns:repeat(3,1fr)}
+  .t-3,.t-4,.t-5,.t-6,.t-7,.t-8{grid-column:span 12}
+}
+@media(max-width:640px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.crumb{display:none}}
+
+/* ============ PRINT ============ */
+@media print{
+  body{background:#fff;color:#111;font-size:10px}
+  .topbar{position:static;background:#fff;border-bottom:2px solid #76B900}
+  .brand-name{color:#4A7A00}.brand-sub,.crumb{color:#333}
+  .layout{grid-template-columns:1fr;max-width:none}
+  .rail{display:none}
+  .tile,.kpi{box-shadow:none;border:1px solid #ccc;background:#fff;break-inside:avoid;color:#111}
+  .tile-title,.tile-head .tile-title,.kpi .kpi-value,.tbl td,.interp p{color:#111 !important}
+  .interp,.panel-2{background:#f5f5f5;border-color:#ddd}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ TOP APP BAR ════════ -->
+<header class="topbar">
+  <div class="brand">
+    <svg width="38" height="38" viewBox="0 0 64 64" role="img" aria-label="NVIDIA-style logo">
+      <rect x="2" y="2" width="60" height="60" rx="13" fill="#000" stroke="#76B900" stroke-width="2.5"/>
+      <path d="M10 40 Q22 22 32 22 Q44 22 54 38 L46 40 Q40 30 32 30 Q23 30 17 41 Z" fill="#76B900"/>
+      <rect x="28" y="34" width="9" height="9" rx="1.5" fill="#76B900"/>
+    </svg>
+    <div>
+      <div class="brand-name">NVIDIA</div>
+      <div class="brand-sub">NASDAQ: NVDA · Corp</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <nav class="crumb">SKEMA MSc · AI &amp; Power BI Assignment&nbsp; /&nbsp; <b>Financial Performance Dashboard — NVIDIA</b></nav>
+  <div class="topbar-right">
+    <span class="pill"><span class="dot"></span>Data: Yahoo Finance · Feb–May 2025</span>
+    <button class="icon-btn" title="Refresh visuals" onclick="location.reload()">⟳</button>
+    <button class="icon-btn" title="Print / export PDF" onclick="window.print()">⎙</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ════════ LEFT RAIL — FILTERS / SLICERS ════════ -->
+  <aside class="rail" aria-label="Filters and report info">
+
+    <div class="panel">
+      <div class="panel-title">Filters · Slicers</div>
+
+      <div class="slicer-label">Company</div>
+      <div class="company-chip">
+        <div>
+          <div class="ticker">NVDA</div>
+          <div class="nm">NVIDIA Corporation<br/>Semiconductors · AI compute</div>
+        </div>
+        <span class="lock" title="Single-company case study">🔒</span>
+      </div>
+
+      <div class="slicer-label">Period (slices every visual)</div>
+      <div class="seg" id="periodSlicer">
+        <button data-period="all" class="active">FULL</button>
+        <button data-period="2025-02">FEB</button>
+        <button data-period="2025-03">MAR</button>
+        <button data-period="2025-04">APR</button>
+        <button data-period="2025-05">MAY</button>
+      </div>
+
+      <div class="slicer-label">Risk-free rate (Sharpe)</div>
+      <div class="meta-row" style="border:none;padding:0"><span class="k">Annualized RF</span><span class="v mono">2.00%</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Report Info</div>
+      <div class="meta-list">
+        <div class="meta-row"><span class="k">Objective</span><span class="v">Evaluate performance, volatility &amp; risk profile</span></div>
+        <div class="meta-row"><span class="k">Audience</span><span class="v">Portfolio managers &amp; institutional investors</span></div>
+        <div class="meta-row"><span class="k">Source</span><span class="v">Yahoo Finance via yfinance</span></div>
+        <div class="meta-row"><span class="k">Window</span><span class="v">2025-02-03 → 2025-05-30</span></div>
+        <div class="meta-row"><span class="k">Sessions</span><span class="v">82 trading days</span></div>
+        <div class="meta-row"><span class="k">Dataset</span><span class="v mono">NVDA_financial_analysis.xlsx</span></div>
+        <div class="meta-row"><span class="k">Built</span><span class="v">Python → HTML (17 Nov 2026)</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Assignment · Steps 1–6</div>
+      <div class="step-list">
+        <div class="step done"><span class="n">1</span><p><b>Company</b> — NVIDIA Corporation (NVDA), Yahoo Finance OHLCV.</p></div>
+        <div class="step done"><span class="n">2</span><p><b>Objective</b> — evaluate historical performance, volatility &amp; risk profile.</p></div>
+        <div class="step done"><span class="n">3</span><p><b>Audience</b> — portfolio managers &amp; institutional investors.</p></div>
+        <div class="step warn"><span class="n">4</span><p><b>Drivers</b> — price vs MA20, volatility regime, drawdown, volume (peer drivers &amp; correlation heatmap not reproducible offline — peer download was not persisted).</p></div>
+        <div class="step done"><span class="n">5</span><p><b>KPIs</b> — total return, ann. volatility, Sharpe, max drawdown, win rate, MA20 trend.</p></div>
+        <div class="step warn"><span class="n">6</span><p><b>Dashboard</b> — delivered as this HTML report from the Python notebook export (<i>Power BI Work (4).html</i>). Importing into Power BI Desktop (.pbix) still requires the desktop app.</p></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════ MAIN CANVAS ════════ -->
+  <main class="grid">
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid" id="kpiRow">
+      <div class="kpi" style="--kpi-accent:var(--green);--kpi-color:#8FE000"><div class="kpi-label">Total Return</div><div class="kpi-value" id="kReturn">—</div><div class="kpi-delta"><span id="kReturnArrow" class="delta-up">▲</span><span id="kReturnSub">price return, period</span></div></div>
+      <div class="kpi" style="--kpi-accent:var(--amber);--kpi-color:#F2C14E"><div class="kpi-label">Volatility (Ann.)</div><div class="kpi-value" id="kVol">—</div><div class="kpi-delta"><span class="delta-flat">σ</span><span id="kVolSub">daily ×√252</span></div></div>
+      <div class="kpi" style="--kpi-accent:var(--teal);--kpi-color:#5EEAD4"><div class="kpi-label">Sharpe Ratio</div><div class="kpi-value" id="kSharpe">—</div><div class="kpi-delta"><span class="delta-up">◆</span><span>RF = 2.0% · annualized</span></div></div>
+      <div class="kpi" style="--kpi-accent:var(--red);--kpi-color:#FF8A8E"><div class="kpi-label">Max Drawdown</div><div class="kpi-value" id="kDD">—</div><div class="kpi-delta"><span class="delta-down">▼</span><span id="kDDSub">peak → trough</span></div></div>
+      <div class="kpi" style="--kpi-accent:#5B8DEF;--kpi-color:#9CC3FF"><div class="kpi-label">Win Rate</div><div class="kpi-value" id="kWin">—</div><div class="kpi-delta"><span id="kWinSub">up vs down sessions</span></div></div>
+      <div class="kpi" style="--kpi-accent:#B983FF;--kpi-color:#D3B4FF"><div class="kpi-label">Avg Daily Return</div><div class="kpi-value" id="kAvg">—</div><div class="kpi-delta"><span id="kAvgSub">mean session return</span></div></div>
+    </div>
+
+    <!-- ROW: PRICE + CUMULATIVE RETURN -->
+    <section class="tile t-8">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Price</span> NVDA Close vs 20-Day MA</div>
+        <div class="tile-sub">USD · daily</div>
+      </div>
+      <div class="chart-wrap"><svg id="chartPrice" class="chart" role="img" aria-label="NVDA closing price with 20-day moving average"></svg></div>
+      <div class="legend"><span><i class="sw"></i>Close</span><span><i class="sw dash"></i>MA20</span><span><i class="sw vol"></i>Hover for OHLC</span></div>
+      <div class="interp"><span class="interp-tag">Interpretation</span><p>Close <b>$134.79</b> vs MA20 <b>$127.77</b> — price sits <b>5.5% above</b> its 20-day average, a <b>bullish short-term setup</b>. MA20 (first print 03-Mar @ <b>$129.2</b>) capped the March–April decline as dynamic resistance, then flipped to support in May — losing it again would signal trend deterioration.</p></div>
+    </section>
+
+    <section class="tile t-4">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Returns</span> Cumulative Return</div>
+        <div class="tile-sub">from period open</div>
+      </div>
+      <div class="chart-wrap"><svg id="chartCumRet" class="chart" role="img" aria-label="Cumulative return over the period"></svg></div>
+      <div class="interp"><span class="interp-tag">Interpretation</span><p><b>+15.8%</b> over 82 sessions with a violent round trip: peak <b>+20.1%</b> (20-Feb) → trough <b>−19.2%</b> (04-Apr) → recovery. Returns are <b>path-dependent and lumpy</b>, driven by a few outsized AI-cycle sessions — not a steady grind.</p></div>
+    </section>
+
+    <!-- ROW: DRAWDOWN / DAILY RETURNS / HISTOGRAM -->
+    <section class="tile t-4">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Risk</span> Drawdown</div>
+        <div class="tile-sub">underwater curve</div>
+      </div>
+      <div class="chart-wrap"><svg id="chartDrawdown" class="chart" role="img" aria-label="Drawdown from peak"></svg></div>
+      <div class="interp neg"><span class="interp-tag">Interpretation</span><p>Max drawdown <b>−32.7%</b> (04-Apr) — <b>deep bear-market territory</b>. But the curve reclaimed to <b>−3.5%</b> by 30-May: an <b>almost full reclaim</b>. Position sizing, not conviction, is the binding constraint while the −20% breach stands in history.</p></div>
+    </section>
+
+    <section class="tile t-4">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Momentum</span> Daily Returns</div>
+        <div class="tile-sub">% per session</div>
+      </div>
+      <div class="chart-wrap"><svg id="chartDailyRet" class="chart" role="img" aria-label="Daily percentage returns"></svg></div>
+      <div class="interp warny"><span class="interp-tag">Interpretation</span><p>Mean <b>+0.26%</b>/day at 4.0% daily dispersion. Fat tails: <b>+18.7%</b> (09-Apr) vs <b>−8.7%</b> (03-Mar) — <b>event-driven tape</b> (tariff/AI headlines). Expect gaps; stops suffer slippage on this profile.</p></div>
+    </section>
+
+    <section class="tile t-4">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Shape</span> Return Distribution</div>
+        <div class="tile-sub">histogram · 3% bins</div>
+      </div>
+      <div class="chart-wrap"><svg id="chartHist" class="chart" role="img" aria-label="Histogram of daily returns"></svg></div>
+      <div class="interp warny"><span class="interp-tag">Interpretation</span><p>Mass concentrated at <b>±1.5–3%</b> with a <b>right tail</b> (+15–19% outliers). Positive skew but excess kurtosis vs normal — <b>normal models understate tail risk</b>; use historical-simulation VaR, not Gaussian.</p></div>
+    </section>
+
+    <!-- ROW: VOLUME / KPI BAR -->
+    <section class="tile t-8">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Liquidity</span> Volume</div>
+        <div class="tile-sub">shares · daily · avg 274M</div>
+      </div>
+      <div class="chart-wrap"><svg id="chartVolume" class="chart" role="img" aria-label="Daily volume"></svg></div>
+      <div class="legend"><span><i class="sw vol"></i>Volume</span><span><i class="sw red"></i>Top-3 spikes</span></div>
+      <div class="interp"><span class="interp-tag">Interpretation</span><p>Capitulation prints: <b>612.9M</b> shares on 09-Apr (+18.7%) and <b>611.0M</b> on 07-Apr — <b>high-volume reversals mark seller exhaustion</b>. Volume normalized to ~200–370M in May, consistent with a cleaner uptrend leg.</p></div>
+    </section>
+
+    <section class="tile t-4">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Score</span> KPI Snapshot</div>
+        <div class="tile-sub">return / risk / |drawdown|</div>
+      </div>
+      <div class="chart-wrap"><svg id="chartKpiBar" class="chart" role="img" aria-label="KPI comparison bar chart"></svg></div>
+      <div class="interp"><span class="interp-tag">Interpretation</span><p><b>Vol 63.5%</b> dwarfs the <b>+15.8%</b> return over the window — gains are earned through swings, not steadiness. But <b>Sharpe ≈1.0</b> says risk was <b>paid</b>, not merely endured.</p></div>
+    </section>
+
+    <!-- ════════ STANDARD SHORT INTERPRETATIONS — KPI GUIDE ════════ -->
+    <section class="tile t-7">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Guide</span> Standard KPI Interpretations — Short Read-out</div>
+        <div class="tile-sub">missing from “Power BI Work (4).html” · added here</div>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>KPI</th><th>Value (full period)</th><th>Standard interpretation (short)</th><th>Verdict</th></tr></thead>
+        <tbody id="kpiGuideBody"></tbody>
+      </table>
+      <div class="interp"><span class="interp-tag">Interpretation</span><p>Reading grid: <b>green = constructive</b>, <b>amber = watch</b>, <b>red = breach of comfort zone</b>. NVDA pays investors for risk, but the −32.7% peak-to-trough loss means <b>position size, not conviction</b>, is the binding constraint for institutional mandates.</p></div>
+    </section>
+
+    <!-- ════════ EXTREME SESSIONS TABLE ════════ -->
+    <section class="tile t-5">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Tape</span> Notable Sessions</div>
+        <div class="tile-sub">top up / down days</div>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Date</th><th>Close</th><th>Return</th><th>Volume</th><th>Read</th></tr></thead>
+        <tbody id="extremesBody"></tbody>
+      </table>
+      <div class="interp"><span class="interp-tag">Interpretation</span><p><b>09-Apr +18.7%</b> (largest up-day) arrived on <b>613M shares</b> — the classic <b>capitulation reversal</b> signature. <b>27-Feb −8.5%</b>, <b>03-Mar −8.7%</b> and <b>04-Apr −7.4%</b> cluster the drawdown — <b>a few sessions explain most of the pain</b>; concentration cuts both ways.</p></div>
+    </section>
+
+    <!-- ════════ INTERPRETATION AUDIT ════════ -->
+    <section class="tile t-12">
+      <div class="tile-head">
+        <div class="tile-title"><span class="tag">Audit</span> Interpretation Check — “Power BI Work (4).html” vs This Dashboard</div>
+        <div class="tile-sub">verification requested by the analyst</div>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Source file</th><th>What it contains</th><th>Short standard interpretations</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">Power BI Work (4).html</td><td>Jupyter notebook export: code cells, 8 chart images, raw KPI prints (Total Return 15.84 · Vol 63.51 · Sharpe 1.03 · MaxDD −32.68). No markdown narrative, no per-visual read-outs, no Steps 4/5/6 commentary.</td><td><b>0 occurrences</b> of “Interprétation/Interpretation” or analyst commentary in the rendered text</td><td><span class="chip bad">MISSING ✗</span></td></tr>
+          <tr><td class="mono">NVDA_financial_analysis.xlsx</td><td>82 daily OHLCV + Daily_Return, Cumulative_Return, MA20, Drawdown — clean data source for Power BI</td><td>n/a (data table, not a report)</td><td><span class="chip mid">DATA ONLY</span></td></tr>
+          <tr><td class="mono">This dashboard (NVIDIA_PowerBI_Dashboard.html)</td><td>KPI cards + 7 visuals, each captioned; KPI interpretation guide; slicer-driven</td><td><b>19 short standard interpretations</b> (10 captioned read-outs — one per visual &amp; section header — plus 9 KPI-guide lines)</td><td><span class="chip good">PRESENT ✓</span></td></tr>
+        </tbody>
+      </table>
+      <div class="interp"><span class="interp-tag">Interpretation</span><p><b>Verdict: the source Power BI file does NOT contain the required short standard interpretations.</b> They are supplied in this dashboard — add the same one-liners as text boxes in Power BI Desktop to fully satisfy the brief.</p></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div><b>Methodology.</b> Total return = Closeₗₐₛₜ/Close_first − 1. Daily vol = σ(returns); annualized ×√252. Sharpe = (μ×252 − 2%) / (σ×√252). Max drawdown = min(Close/cummax − 1). MA20 = 20-session rolling mean (global window). Slicing recomputes KPIs on the visible window.</div>
+  <div><b>Source.</b> Yahoo Finance (yfinance), 2025-02-03 → 2025-05-30 · 82 sessions · not investment advice. <b>Built</b> 17-Nov-2026 · SKEMA MSc — AI &amp; Power BI.</div>
+</footer>
+
+<div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+
+<script>
+/* ════════ EMBEDDED DATASET (from NVDA_financial_analysis.xlsx) ════════ */
+const ROWS = [{"date":"2025-02-03","open":114.4508,"high":118.2609,"low":112.7154,"close":116.3558,"volume":371235700,"ma20":null},{"date":"2025-02-04","open":116.655,"high":120.884,"low":116.3957,"close":118.3406,"volume":256550000,"ma20":null},{"date":"2025-02-05","open":121.4425,"high":124.6741,"low":120.4451,"close":124.5045,"volume":262230800,"ma20":null},{"date":"2025-02-06","open":127.0877,"high":128.4342,"low":124.8835,"close":128.3445,"volume":251483600,"ma20":null},{"date":"2025-02-07","open":128.8831,"high":130.0301,"low":124.6741,"close":129.5015,"volume":228186300,"ma20":null},{"date":"2025-02-10","open":129.7508,"high":134.648,"low":129.6211,"close":133.2217,"volume":216989100,"ma20":null},{"date":"2025-02-11","open":132.2343,"high":134.1294,"low":130.6784,"close":132.4538,"volume":178902400,"ma20":null},{"date":"2025-02-12","open":129.681,"high":131.8952,"low":128.7434,"close":130.7981,"volume":160278600,"ma20":null},{"date":"2025-02-13","open":131.217,"high":136.1441,"low":130.828,"close":134.9372,"volume":197430000,"ma20":null},{"date":"2025-02-14","open":136.1241,"high":138.8869,"low":135.1467,"close":138.488,"volume":195479600,"ma20":null},{"date":"2025-02-18","open":140.9017,"high":143.066,"low":137.5704,"close":139.0365,"volume":219176600,"ma20":null},{"date":"2025-02-19","open":139.1463,"high":140.9914,"low":136.8622,"close":138.867,"volume":167536000,"ma20":null},{"date":"2025-02-20","open":139.6649,"high":140.2933,"low":136.4333,"close":139.7447,"volume":143903600,"ma20":null},{"date":"2025-02-21","open":139.6749,"high":141.0912,"low":133.6805,"close":134.0795,"volume":228217600,"ma20":null},{"date":"2025-02-24","open":136.2039,"high":138.2286,"low":129.7408,"close":129.9403,"volume":251381100,"ma20":null},{"date":"2025-02-25","open":129.6411,"high":129.8605,"low":124.1156,"close":126.2998,"volume":271428700,"ma20":null},{"date":"2025-02-26","open":129.6511,"high":133.3813,"low":128.155,"close":130.9377,"volume":322553800,"ma20":null},{"date":"2025-02-27","open":134.648,"high":134.658,"low":119.6971,"close":119.8367,"volume":443175800,"ma20":null},{"date":"2025-02-28","open":117.7123,"high":124.7638,"low":116.0965,"close":124.5943,"volume":389091100,"ma20":null},{"date":"2025-03-03","open":123.188,"high":123.3775,"low":111.9873,"close":113.7626,"volume":411381400,"ma20":129.2022},{"date":"2025-03-04","open":110.3615,"high":118.9989,"low":109.8229,"close":115.6876,"volume":398163300,"ma20":129.1688},{"date":"2025-03-05","open":117.2734,"high":117.9716,"low":114.2114,"close":116.9942,"volume":284337900,"ma20":129.1015},{"date":"2025-03-06","open":113.234,"high":115.0492,"low":109.9326,"close":110.2817,"volume":321181900,"ma20":128.3904},{"date":"2025-03-07","open":110.9599,"high":113.1841,"low":107.2796,"close":112.3962,"volume":341755500,"ma20":127.593},{"date":"2025-03-10","open":109.6134,"high":111.5584,"low":105.185,"close":106.7011,"volume":366487400,"ma20":126.4529},{"date":"2025-03-11","open":106.711,"high":111.9473,"low":104.4968,"close":108.4764,"volume":354865700,"ma20":125.2157},{"date":"2025-03-12","open":113.8329,"high":116.4663,"low":112.596,"close":115.4489,"volume":323857500,"ma20":124.3654},{"date":"2025-03-13","open":116.7356,"high":117.4638,"low":113.5037,"close":115.2892,"volume":299033100,"ma20":123.59},{"date":"2025-03-14","open":118.3116,"high":121.5734,"low":117.8528,"close":121.3639,"volume":277593500,"ma20":122.9113},{"date":"2025-03-17","open":122.4312,"high":122.5809,"low":117.7331,"close":119.2293,"volume":255501500,"ma20":121.9484},{"date":"2025-03-18","open":117.7032,"high":118.7206,"low":114.2519,"close":115.1396,"volume":299686900,"ma20":120.7535},{"date":"2025-03-19","open":116.975,"high":120.147,"low":115.389,"close":117.2243,"volume":273426200,"ma20":119.6714},{"date":"2025-03-20","open":116.2568,"high":119.8976,"low":116.177,"close":118.2318,"volume":248829700,"ma20":118.5958},{"date":"2025-03-21","open":116.6458,"high":117.6932,"low":115.1296,"close":117.4039,"volume":266498500,"ma20":117.762},{"date":"2025-03-24","open":119.5784,"high":121.9125,"low":119.0398,"close":121.1046,"volume":228452500,"ma20":117.3202},{"date":"2025-03-25","open":120.2468,"high":120.9849,"low":118.6209,"close":120.3864,"volume":167447200,"ma20":117.0245},{"date":"2025-03-26","open":118.4313,"high":118.541,"low":112.4265,"close":113.4738,"volume":293463300,"ma20":116.1513},{"date":"2025-03-27","open":111.0699,"high":114.1621,"low":110.3816,"close":111.1497,"volume":236902100,"ma20":115.717},{"date":"2025-03-28","open":111.2095,"high":112.5861,"low":108.7956,"close":109.3941,"volume":229872500,"ma20":114.957},{"date":"2025-03-31","open":104.8655,"high":110.6809,"low":103.3893,"close":108.1074,"volume":299212700,"ma20":114.6742},{"date":"2025-04-01","open":108.247,"high":109.9228,"low":106.2022,"close":109.8729,"volume":222614000,"ma20":114.3835},{"date":"2025-04-02","open":107.0201,"high":111.6983,"low":106.5214,"close":110.1422,"volume":220601200,"ma20":114.0409},{"date":"2025-04-03","open":103.2496,"high":105.3643,"low":101.3444,"close":101.5439,"volume":338769400,"ma20":113.604},{"date":"2025-04-04","open":98.6612,"high":99.8781,"low":91.8783,"close":94.0728,"volume":532273800,"ma20":112.6878},{"date":"2025-04-07","open":87.24,"high":101.494,"low":86.4021,"close":97.3944,"volume":611041300,"ma20":112.2225},{"date":"2025-04-08","open":103.5489,"high":105.5837,"low":94.2224,"close":96.0578,"volume":476243400,"ma20":111.6015},{"date":"2025-04-09","open":98.6412,"high":114.8104,"low":97.2846,"close":114.0424,"volume":612918300,"ma20":111.5312},{"date":"2025-04-10","open":109.0949,"high":110.5811,"low":98.9006,"close":107.2994,"volume":437812400,"ma20":111.1317},{"date":"2025-04-11","open":108.2271,"high":111.2694,"low":107.2096,"close":110.6509,"volume":313417300,"ma20":110.5961},{"date":"2025-04-14","open":113.8229,"high":114.0025,"low":108.7956,"close":110.4315,"volume":264705000,"ma20":110.1562},{"date":"2025-04-15","open":110.6908,"high":113.3342,"low":110.222,"close":111.9177,"volume":228966900,"ma20":109.9951},{"date":"2025-04-16","open":104.287,"high":106.5214,"low":100.1973,"close":104.2271,"volume":397016900,"ma20":109.3452},{"date":"2025-04-17","open":104.1872,"high":104.2072,"low":99.7983,"close":101.2347,"volume":292517500,"ma20":108.4954},{"date":"2025-04-21","open":98.5215,"high":99.1899,"low":94.8009,"close":96.6662,"volume":288501100,"ma20":107.4585},{"date":"2025-04-22","open":98.5315,"high":99.5589,"low":97.0353,"close":98.6412,"volume":241004800,"ma20":106.3353},{"date":"2025-04-23","open":104.2571,"high":104.5364,"low":101.7634,"close":102.4516,"volume":247526000,"ma20":105.4386},{"date":"2025-04-24","open":103.2197,"high":106.272,"low":102.8506,"close":106.1623,"volume":220815000,"ma20":105.073},{"date":"2025-04-25","open":106.5812,"high":111.6385,"low":105.464,"close":110.7308,"volume":251064700,"ma20":105.0521},{"date":"2025-04-28","open":109.4141,"high":110.0923,"low":105.7533,"close":108.4565,"volume":207708500,"ma20":105.0052},{"date":"2025-04-29","open":107.3991,"high":109.9228,"low":107.1697,"close":108.7458,"volume":170444300,"ma20":105.0371},{"date":"2025-04-30","open":104.2072,"high":108.646,"low":103.8182,"close":108.646,"volume":235044600,"ma20":104.9758},{"date":"2025-05-01","open":112.7955,"high":114.6509,"low":111.02,"close":111.3292,"volume":236121500,"ma20":105.0351},{"date":"2025-05-02","open":113.8928,"high":115.1097,"low":113.0848,"close":114.212,"volume":190194800,"ma20":105.6685},{"date":"2025-05-05","open":112.626,"high":114.3815,"low":112.3766,"close":113.5337,"volume":133163200,"ma20":106.6416},{"date":"2025-05-06","open":111.1996,"high":114.4514,"low":110.5412,"close":113.2544,"volume":158525600,"ma20":107.4346},{"date":"2025-05-07","open":112.7656,"high":117.384,"low":111.9976,"close":116.7655,"volume":206758800,"ma20":108.4699},{"date":"2025-05-08","open":117.9525,"high":118.3815,"low":115.5586,"close":117.0748,"volume":198428100,"ma20":108.6216},{"date":"2025-05-09","open":117.0548,"high":117.9326,"low":114.9202,"close":116.3566,"volume":132972200,"ma20":109.0744},{"date":"2025-05-12","open":121.6632,"high":122.6906,"low":119.9774,"close":122.6906,"volume":225023300,"ma20":109.6764},{"date":"2025-05-13","open":124.6656,"high":130.8899,"low":124.1569,"close":129.6031,"volume":330430100,"ma20":110.635},{"date":"2025-05-14","open":132.8649,"high":135.0993,"low":131.3487,"close":134.9995,"volume":281180800,"ma20":111.7891},{"date":"2025-05-15","open":133.9522,"high":135.9571,"low":132.3263,"close":134.4908,"volume":226632600,"ma20":113.3023},{"date":"2025-05-16","open":135.8773,"high":136.007,"low":133.1243,"close":135.0594,"volume":226542500,"ma20":114.9935},{"date":"2025-05-19","open":132.057,"high":135.5282,"low":132.057,"close":135.229,"volume":193154600,"ma20":116.9216},{"date":"2025-05-20","open":133.9522,"high":134.2414,"low":132.2864,"close":134.0419,"volume":161514200,"ma20":118.6917},{"date":"2025-05-21","open":132.7253,"high":137.0543,"low":130.2615,"close":131.4684,"volume":270608700,"ma20":120.1425},{"date":"2025-05-22","open":131.8974,"high":133.9123,"low":131.2191,"close":132.4959,"volume":187344000,"ma20":121.4592},{"date":"2025-05-23","open":129.673,"high":132.3462,"low":128.8351,"close":130.9597,"volume":198821300,"ma20":122.4706},{"date":"2025-05-27","open":133.8125,"high":135.3187,"low":132.9746,"close":135.1591,"volume":192953600,"ma20":123.8058},{"date":"2025-05-28","open":135.6878,"high":136.9048,"low":134.4509,"close":134.4709,"volume":304021100,"ma20":125.092},{"date":"2025-05-29","open":141.8922,"high":143.1291,"low":137.5631,"close":138.8399,"volume":369241900,"ma20":126.6017},{"date":"2025-05-30","open":138.3711,"high":139.2688,"low":132.5856,"close":134.7901,"volume":333170900,"ma20":127.7748}];
+const RF_ANNUAL = 0.02;
+const FULL_RANGE = { from: ROWS[0].date, to: ROWS[ROWS.length-1].date };
+
+/* ════════ HELPERS ════════ */
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const fmt = (v, d=2) => (v===null||v===undefined||Number.isNaN(v)) ? '—' : Number(v).toFixed(d);
+const fmtPct = (v, d=2, sign=true) => (v===null||v===undefined||Number.isNaN(v)) ? '—' : (sign && v>0 ? '+' : '') + v.toFixed(d) + '%';
+const fmtDate = iso => { const [y,m,d] = iso.split('-').map(Number); const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return String(d).padStart(2,'0')+'-'+M[m-1]+'-'+y; };
+const fmtDateShort = iso => { const [y,m,d] = iso.split('-').map(Number); const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return String(d).padStart(2,'0')+'-'+M[m-1]; };
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs={}) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); return n; };
+const mean = a => a.reduce((s,x)=>s+x,0)/a.length;
+const std = a => { const m = mean(a); return Math.sqrt(a.reduce((s,x)=>s+(x-m)*(x-m),0)/(a.length-1)); };
+const sliceRows = period => period==='all' ? ROWS : ROWS.filter(r => r.date.startsWith(period));
+
+/* ════════ KPI ENGINE ════════ */
+function computeKPIs(rows){
+  const closes = rows.map(r=>r.close);
+  const rets = [];
+  for (let i=1;i<closes.length;i++) rets.push(closes[i]/closes[i-1]-1);
+  const totalReturn = (closes[closes.length-1]/closes[0]-1)*100;
+  const volAnn = rets.length ? std(rets)*Math.sqrt(252)*100 : 0;
+  const sharpe = rets.length ? (mean(rets)*252 - RF_ANNUAL)/(std(rets)*Math.sqrt(252)) : 0;
+  let peak = -Infinity, maxDD = 0;
+  for (const c of closes){ peak = Math.max(peak, c); maxDD = Math.min(maxDD, (c/peak-1)*100); }
+  const winRate = rets.length ? (rets.filter(r=>r>0).length/rets.length)*100 : 0;
+  const avgDaily = rets.length ? mean(rets)*100 : 0;
+  return { totalReturn, volAnn, sharpe, maxDD, winRate, avgDaily, rets,
+           up: rets.filter(r=>r>0).length, down: rets.filter(r=>r<=0).length,
+           from: rows[0].date, to: rows[rows.length-1].date, n: rows.length };
+}
+
+/* ════════ TOOLTIP ════════ */
+const tooltip = $('#tooltip');
+function showTooltip(evt, html){ tooltip.innerHTML = html; tooltip.style.opacity = 1; moveTooltip(evt); }
+function moveTooltip(evt){
+  const pad = 14, w = tooltip.offsetWidth, h = tooltip.offsetHeight;
+  let x = evt.clientX + pad, y = evt.clientY + pad;
+  if (x + w > innerWidth - 8) x = evt.clientX - w - pad;
+  if (y + h > innerHeight - 8) y = evt.clientY - h - pad;
+  tooltip.style.left = x+'px'; tooltip.style.top = y+'px';
+}
+const hideTooltip = () => tooltip.style.opacity = 0;
+
+/* ════════ SVG SCALE UTILITIES ════════ */
+function makeScales(rows, getY, W, H, pad){
+  const ys = rows.map(getY).filter(v=>v!==null && !Number.isNaN(v));
+  let yMin = Math.min(...ys), yMax = Math.max(...ys);
+  if (yMin === yMax){ yMin -= 1; yMax += 1; }
+  const span = yMax - yMin, yPad = span * 0.12;
+  yMin -= yPad; yMax += yPad;
+  const x = i => pad.l + (W - pad.l - pad.r) * (rows.length === 1 ? .5 : i/(rows.length-1));
+  const y = v => pad.t + (H - pad.t - pad.b) * (1 - (v - yMin)/(yMax - yMin));
+  return { x, y, yMin, yMax };
+}
+function niceTicks(yMin, yMax, count=4){
+  const span = yMax - yMin, raw = span/count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const norm = raw/mag, step = (norm>=5?10: norm>=2?5: norm>=1?2:1)*mag;
+  const start = Math.ceil(yMin/step)*step, ticks=[];
+  for (let v=start; v<=yMax; v+=step) ticks.push(v);
+  return ticks;
+}
+function drawFrame(svg, rows, yMin, yMax, W, H, pad, fmtY){
+  const y = v => pad.t + (H - pad.t - pad.b) * (1 - (v - yMin) / (yMax - yMin));
+  const xIdx = i => pad.l + (W - pad.l - pad.r) * (rows.length === 1 ? .5 : i/(rows.length-1));
+  niceTicks(yMin, yMax, 4).forEach(t => {
+    const yy = y(t);
+    svg.appendChild(el('line',{x1:pad.l, x2:W-pad.r, y1:yy, y2:yy, class:'grid-line'}));
+    const tx = el('text',{x:pad.l-6, y:yy+3.5, 'text-anchor':'end', class:'axis-text'}); tx.textContent = fmtY(t); svg.appendChild(tx);
+  });
+  if (yMin < 0 && yMax > 0) svg.appendChild(el('line',{x1:pad.l, x2:W-pad.r, y1:y(0), y2:y(0), class:'zero-line'}));
+  [0, Math.floor((rows.length-1)/2), rows.length-1].forEach(i => {
+    const tx = el('text',{x:xIdx(i), y:H-4, 'text-anchor':'middle', class:'axis-text'});
+    tx.textContent = fmtDateShort(rows[i].date); svg.appendChild(tx);
+  });
+}
+function addCrosshair(svg, rows, W, H, pad, onHover){
+  const overlay = el('rect',{x:pad.l, y:pad.t, width:W-pad.l-pad.r, height:H-pad.t-pad.b, fill:'transparent'});
+  const line = el('line',{y1:pad.t, y2:H-pad.b, class:'crosshair', visibility:'hidden'});
+  const dot = el('circle',{r:4, class:'hover-dot', visibility:'hidden'});
+  svg.appendChild(line); svg.appendChild(dot); svg.appendChild(overlay);
+  overlay.addEventListener('mousemove', e => {
+    const rect = svg.getBoundingClientRect();
+    const px = (e.clientX - rect.left) * (W / rect.width);
+    let i = Math.round((px - pad.l) / ((W - pad.l - pad.r) / (rows.length - 1)));
+    i = Math.max(0, Math.min(rows.length - 1, i));
+    const gx = pad.l + (W - pad.l - pad.r) * (rows.length===1 ? .5 : i/(rows.length-1));
+    line.setAttribute('x1', gx); line.setAttribute('x2', gx); line.setAttribute('visibility','visible');
+    dot.setAttribute('cx', gx); dot.setAttribute('visibility','visible');
+    onHover(e, i, dot, gx);
+  });
+  overlay.addEventListener('mouseleave', () => { line.setAttribute('visibility','hidden'); dot.setAttribute('visibility','hidden'); hideTooltip(); });
+}
+
+/* ════════ CHART RENDERERS ════════ */
+const W1 = 720, H1 = 250, PAD = {l:46, r:8, t:12, b:24};
+const W2 = 340, H2 = 250, PAD2 = {l:44, r:8, t:12, b:24};
+
+function renderPrice(rows){
+  const svg = $('#chartPrice'); svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${W1} ${H1}`);
+  const s = makeScales(rows, r=>r.close, W1, H1, PAD);
+  const yAll = makeScales(rows.filter(r=>r.ma20!==null), r=>r.ma20, W1, H1, PAD);
+  const yMin = Math.min(s.yMin, yAll.yMin), yMax = Math.max(s.yMax, yAll.yMax);
+  const sc = { x: s.x, y: v => PAD.t + (H1-PAD.t-PAD.b)*(1-(v-yMin)/(yMax-yMin)), yMin, yMax };
+  drawFrame(svg, rows, yMin, yMax, W1, H1, PAD, v=>'$'+v.toFixed(0));
+  const defs = el('defs');
+  defs.innerHTML = '<linearGradient id="gradGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#76B900" stop-opacity="0.35"/><stop offset="100%" stop-color="#76B900" stop-opacity="0.02"/></linearGradient>';
+  svg.appendChild(defs);
+  const pts = rows.map((r,i)=>[sc.x(i), sc.y(r.close)]);
+  const area = el('path',{ d: `M${pts[0][0]},${H1-PAD.b} ` + pts.map(p=>`L${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') + ` L${pts[pts.length-1][0]},${H1-PAD.b} Z`, class:'area-green'});
+  svg.appendChild(area);
+  svg.appendChild(el('path',{ d: pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' '), class:'chart-line-main' }));
+  const maPts = rows.map((r,i)=> r.ma20===null ? null : [sc.x(i), sc.y(r.ma20)]).filter(Boolean);
+  if (maPts.length) svg.appendChild(el('path',{ d: maPts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' '), class:'chart-line-ma' }));
+  addCrosshair(svg, rows, W1, H1, PAD, (e,i,dot) => {
+    const r = rows[i];
+    dot.setAttribute('cy', sc.y(r.close));
+    showTooltip(e, `<div class="tt-date">${fmtDate(r.date)}</div>
+      <div class="tt-row"><span>Close</span><b>$${fmt(r.close)}</b></div>
+      <div class="tt-row"><span>MA20</span><b>${r.ma20===null?'—':'$'+fmt(r.ma20)}</b></div>
+      <div class="tt-row"><span>O / H / L</span><b>$${fmt(r.open,1)} · $${fmt(r.high,1)} · $${fmt(r.low,1)}</b></div>
+      <div class="tt-row"><span>Volume</span><b>${(r.volume/1e6).toFixed(0)}M</b></div>`);
+  });
+}
+
+function renderCumRet(rows){
+  const svg = $('#chartCumRet'); svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${W2} ${H2}`);
+  const first = rows[0].close;
+  const series = rows.map(r => ({...r, cum: (r.close/first-1)*100}));
+  const sc = makeScales(series, r=>r.cum, W2, H2, PAD2);
+  drawFrame(svg, rows, sc.yMin, sc.yMax, W2, H2, PAD2, v=>v.toFixed(0)+'%');
+  const pts = series.map((r,i)=>[sc.x(i), sc.y(r.cum)]);
+  const minY = H2 - PAD2.b;
+  svg.appendChild(el('path',{ d:`M${pts[0][0]},${minY} ` + pts.map(p=>`L${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') + ` L${pts[pts.length-1][0]},${minY} Z`, fill:'url(#gradGreen)', stroke:'none' }));
+  svg.appendChild(el('path',{ d: pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' '), class:'chart-line-main' }));
+  addCrosshair(svg, rows, W2, H2, PAD2, (e,i,dot) => {
+    dot.setAttribute('cy', sc.y(series[i].cum));
+    showTooltip(e, `<div class="tt-date">${fmtDate(rows[i].date)}</div>
+      <div class="tt-row"><span>Cum. Return</span><b>${fmtPct(series[i].cum)}</b></div>
+      <div class="tt-row"><span>Close</span><b>$${fmt(rows[i].close)}</b></div>`);
+  });
+}
+
+function renderDrawdown(rows){
+  const svg = $('#chartDrawdown'); svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${W2} ${H2}`);
+  const closes = rows.map(r=>r.close);
+  let peak = -Infinity; const dd = closes.map(c => { peak = Math.max(peak,c); return (c/peak-1)*100; });
+  const series = rows.map((r,i)=>({...r, dd: dd[i]}));
+  const sc = makeScales(series, r=>r.dd, W2, H2, PAD2);
+  const yMin = Math.min(sc.yMin, -1), yMax = Math.max(sc.yMax, 1);
+  const scy = { x: sc.x, y: v => PAD2.t + (H2-PAD2.t-PAD2.b)*(1-(v-yMin)/(yMax-yMin)) };
+  drawFrame(svg, rows, yMin, yMax, W2, H2, PAD2, v=>v.toFixed(0)+'%');
+  const pts = series.map((r,i)=>[scy.x(i), scy.y(r.dd)]);
+  const zeroY = scy.y(0);
+  svg.appendChild(el('path',{ d:`M${pts[0][0]},${zeroY} ` + pts.map(p=>`L${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') + ` L${pts[pts.length-1][0]},${zeroY} Z`, fill:'rgba(242,85,90,.28)', stroke:'none' }));
+  svg.appendChild(el('path',{ d: pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' '), fill:'none', stroke:'#F2555A', 'stroke-width':2, 'stroke-linejoin':'round' }));
+  addCrosshair(svg, rows, W2, H2, PAD2, (e,i,dot) => {
+    dot.setAttribute('cy', scy.y(series[i].dd)); dot.classList.add('red');
+    showTooltip(e, `<div class="tt-date">${fmtDate(rows[i].date)}</div>
+      <div class="tt-row"><span>Drawdown</span><b>${fmtPct(series[i].dd,2,false)}</b></div>
+      <div class="tt-row"><span>Close</span><b>$${fmt(rows[i].close)}</b></div>`);
+  });
+}
+
+function renderDailyRet(rows){
+  const svg = $('#chartDailyRet'); svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${W2} ${H2}`);
+  const closes = rows.map(r=>r.close);
+  const rets = rows.map((r,i) => i===0 ? null : (closes[i]/closes[i-1]-1)*100);
+  const vals = rets.filter(v=>v!==null);
+  const maxAbs = Math.max(5, ...vals.map(Math.abs)) * 1.1;
+  const pad = {l:40, r:6, t:12, b:24};
+  const y = v => pad.t + (H2-pad.t-pad.b)*(1-(v+maxAbs)/(2*maxAbs));
+  const bw = Math.max(2, (W2-pad.l-pad.r)/rows.length*0.72);
+  const zeroY = y(0);
+  [maxAbs/1.65, 0, -maxAbs/1.65].forEach(t => {
+    const ty = y(t);
+    svg.appendChild(el('line',{x1:pad.l, x2:W2-pad.r, y1:ty, y2:ty, class: t===0?'zero-line':'grid-line'}));
+    const tx = el('text',{x:pad.l-5, y:ty+3.5, 'text-anchor':'end', class:'axis-text'}); tx.textContent = (t>0?'+':'')+t.toFixed(0)+'%'; svg.appendChild(tx);
+  });
+  rows.forEach((r,i) => {
+    if (rets[i]===null) return;
+    const x = pad.l + (W2-pad.l-pad.r)*((i+0.5)/rows.length);
+    const h = Math.abs(y(rets[i])-zeroY);
+    svg.appendChild(el('rect',{ x:x-bw/2, y: rets[i]>=0 ? zeroY-h : zeroY, width:bw, height:Math.max(h,0.8), rx:0.8, fill: rets[i]>=0 ? '#76B900' : '#F2555A', opacity:0.9 }));
+  });
+  svg.addEventListener('mousemove', e => {
+    const rect = svg.getBoundingClientRect();
+    const px = (e.clientX - rect.left) * (W2 / rect.width);
+    let i = Math.floor((px - pad.l) / ((W2-pad.l-pad.r)/rows.length));
+    i = Math.max(0, Math.min(rows.length-1, i));
+    if (rets[i]===null){ hideTooltip(); return; }
+    showTooltip(e, `<div class="tt-date">${fmtDate(rows[i].date)}</div><div class="tt-row"><span>Return</span><b>${fmtPct(rets[i])}</b></div>`);
+  });
+  svg.addEventListener('mouseleave', hideTooltip);
+}
+
+function renderHist(rows){
+  const svg = $('#chartHist'); svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${W2} ${H2}`);
+  const closes = rows.map(r=>r.close);
+  const rets = []; for (let i=1;i<closes.length;i++) rets.push((closes[i]/closes[i-1]-1)*100);
+  const BIN = 3, lo = Math.floor(Math.min(...rets)/BIN)*BIN, hi = Math.ceil(Math.max(...rets)/BIN)*BIN;
+  const nBins = Math.round((hi-lo)/BIN), bins = new Array(nBins).fill(0);
+  rets.forEach(v => { let i = Math.floor((v-lo)/BIN); if (i>=nBins) i=nBins-1; if (i<0) i=0; bins[i]++; });
+  const pad = {l:30, r:6, t:12, b:24}, maxC = Math.max(...bins);
+  const bw = (W2-pad.l-pad.r)/nBins;
+  for (let i=0;i<nBins;i++){
+    const h = (bins[i]/maxC)*(H2-pad.t-pad.b-8);
+    const mid = lo + (i+0.5)*BIN;
+    svg.appendChild(el('rect',{ x:pad.l+i*bw+1, y:H2-pad.b-h, width:bw-2, height:h, rx:2, fill: mid>=0 ? '#76B900' : '#F2555A', opacity:0.85 }));
+    const tx = el('text',{x:pad.l+i*bw+bw/2, y:H2-pad.b+11, 'text-anchor':'middle', class:'axis-text'});
+    if (i%2===0) tx.textContent = mid.toFixed(0)+'%';
+    svg.appendChild(tx);
+  }
+  const ty = el('text',{x:pad.l-4, y:pad.t+8, 'text-anchor':'end', class:'axis-text'}); ty.textContent = maxC; svg.appendChild(ty);
+  svg.addEventListener('mousemove', e => {
+    const rect = svg.getBoundingClientRect();
+    const px = (e.clientX - rect.left) * (W2 / rect.width);
+    let i = Math.floor((px-pad.l)/bw);
+    if (i<0||i>=nBins){ hideTooltip(); return; }
+    showTooltip(e, `<div class="tt-date">Bin ${fmtPct(lo+i*BIN,0)} … ${fmtPct(lo+(i+1)*BIN,0)}</div><div class="tt-row"><span>Sessions</span><b>${bins[i]}</b></div>`);
+  });
+  svg.addEventListener('mouseleave', hideTooltip);
+}
+
+function renderVolume(rows){
+  const svg = $('#chartVolume'); svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${W1} ${H1}`);
+  const pad = {l:46, r:8, t:12, b:24};
+  const maxV = Math.max(...rows.map(r=>r.volume));
+  const bw = Math.max(2.5, (W1-pad.l-pad.r)/rows.length*0.72);
+  [0, maxV/2, maxV].forEach(v => {
+    const yy = pad.t + (H1-pad.t-pad.b)*(1-v/maxV);
+    svg.appendChild(el('line',{x1:pad.l, x2:W1-pad.r, y1:yy, y2:yy, class: v===0?'zero-line':'grid-line'}));
+    const tx = el('text',{x:pad.l-6, y:yy+3.5, 'text-anchor':'end', class:'axis-text'}); tx.textContent = (v/1e6).toFixed(0)+'M'; svg.appendChild(tx);
+  });
+  const top3 = [...rows].sort((a,b)=>b.volume-a.volume).slice(0,3).map(r=>r.date);
+  rows.forEach((r,i) => {
+    const x = pad.l + (W1-pad.l-pad.r)*((i+0.5)/rows.length);
+    const h = (r.volume/maxV)*(H1-pad.t-pad.b);
+    const isTop = top3.includes(r.date);
+    svg.appendChild(el('rect',{ x:x-bw/2, y:H1-pad.b-h, width:bw, height:h, rx:1, fill: isTop ? '#F2555A' : '#33445C', opacity: isTop ? 1 : .9 }));
+  });
+  [0, Math.floor((rows.length-1)/2), rows.length-1].forEach(i => {
+    const tx = el('text',{x:pad.l + (W1-pad.l-pad.r)*((i+0.5)/rows.length), y:H1-4, 'text-anchor':'middle', class:'axis-text'});
+    tx.textContent = fmtDateShort(rows[i].date); svg.appendChild(tx);
+  });
+  svg.addEventListener('mousemove', e => {
+    const rect = svg.getBoundingClientRect();
+    const px = (e.clientX - rect.left) * (W1 / rect.width);
+    let i = Math.floor((px-pad.l)/((W1-pad.l-pad.r)/rows.length));
+    i = Math.max(0, Math.min(rows.length-1, i));
+    showTooltip(e, `<div class="tt-date">${fmtDate(rows[i].date)}</div><div class="tt-row"><span>Volume</span><b>${(rows[i].volume/1e6).toFixed(1)}M</b></div>`);
+  });
+  svg.addEventListener('mouseleave', hideTooltip);
+}
+
+function renderKpiBar(rows){
+  const svg = $('#chartKpiBar'); svg.innerHTML = '';
+  const k = computeKPIs(rows);
+  const items = [
+    {label:'Return',     w:Math.abs(k.totalReturn), color:'#76B900', display:fmtPct(k.totalReturn)},
+    {label:'Volatility', w:k.volAnn,                color:'#F2A93B', display:fmt(k.volAnn,1)+'%'},
+    {label:'|Drawdown|', w:Math.abs(k.maxDD),       color:'#F2555A', display:fmt(Math.abs(k.maxDD),1)+'%'},
+    {label:'Sharpe',     w:k.sharpe*10,             color:'#2DD4BF', display:fmt(k.sharpe,2)}
+  ];
+  const W = W2, H = H2, pad = {l:82, r:40, t:10, b:8};
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const maxV = Math.max(...items.map(i=>i.w))*1.15 || 1;
+  const bh = 30, gap = 22, y0 = pad.t + 6;
+  items.forEach((it,i) => {
+    const y = y0 + i*(bh+gap);
+    const w = it.w/maxV*(W-pad.l-pad.r);
+    const tx = el('text',{x:pad.l-8, y:y+bh/2+4, 'text-anchor':'end', class:'axis-text'}); tx.textContent = it.label; svg.appendChild(tx);
+    svg.appendChild(el('rect',{x:pad.l, y, width:W-pad.l-pad.r, height:bh, rx:6, fill:'#1A2230'}));
+    svg.appendChild(el('rect',{x:pad.l, y, width:Math.max(w,2), height:bh, rx:6, fill:it.color, opacity:.9}));
+    const vt = el('text',{x:pad.l+Math.min(w, W-pad.l-pad.r-2)+6, y:y+bh/2+4, class:'axis-text'});
+    vt.setAttribute('fill','#E9EDF5');
+    vt.textContent = it.display;
+    svg.appendChild(vt);
+  });
+}
+
+/* ════════ KPI GUIDE TABLE (full period, static standard read-outs) ════════ */
+const KPI_GUIDE = [
+  ['Total Return', '+15.84%', 'Price rose ~16% over the window — comfortably ahead of cash, well below a “straight-line” gain given the path taken.', 'good', 'Constructive'],
+  ['Cumulative Return (peak)', '+20.10% (20-Feb)', 'Best unrealized gain of the run — harvesting rules should have trimmed risk near the highs.', 'mid', 'Trim zone'],
+  ['Cumulative Return (trough)', '−19.15% (04-Apr)', 'Round trip of ~39 pts from peak — strategy must tolerate violent mean-reversion.', 'bad', 'Stress point'],
+  ['Annualized Volatility', '63.51%', 'Roughly 3× broad-equity vol (~15–20%) — high-beta AI exposure; size positions down accordingly.', 'bad', 'High risk'],
+  ['Sharpe Ratio', '1.00', '≈1 with RF at 2% means excess return per unit of volatility is just paid for — efficient, but with zero margin of safety.', 'good', 'Efficient'],
+  ['Max Drawdown', '−32.68%', 'Peak-to-trough loss beyond the common −20% institutional stop — capital impairment is the key risk.', 'bad', 'Breach'],
+  ['Win Rate', '53.1% (43/81)', 'Slightly better than a coin flip — profit comes from magnitude of wins, not frequency.', 'mid', 'Thin edge'],
+  ['Avg Daily Return', '+0.26%', 'Positive drift ≈ +65% annualized if compounded (unrealistic) — do not extrapolate linearly.', 'mid', 'Positive drift'],
+  ['MA20 Trend', 'Above (+5.5%)', 'Close > MA20 — short-term trend intact; reclaiming MA20 in May confirmed the recovery.', 'good', 'Bullish'],
+];
+function renderGuide(){
+  $('#kpiGuideBody').innerHTML = KPI_GUIDE.map(([k,v,interp,cls,verdict]) =>
+    `<tr><td><b>${k}</b></td><td class="mono">${v}</td><td>${interp}</td><td><span class="chip ${cls}">${verdict}</span></td></tr>`).join('');
+}
+
+function renderExtremes(){
+  const rows = [...ROWS];
+  const withRet = rows.map((r,i) => i===0 ? null : {...r, ret:(r.close/rows[i-1].close-1)*100}).filter(Boolean);
+  const tops = [...withRet].sort((a,b)=>b.ret-a.ret).slice(0,3);
+  const bottoms = [...withRet].sort((a,b)=>a.ret-b.ret).slice(0,3);
+  const sel = [...tops, ...bottoms].sort((a,b)=>a.date.localeCompare(b.date));
+  $('#extremesBody').innerHTML = sel.map(r =>
+    `<tr><td class="mono">${fmtDate(r.date)}</td><td class="mono">$${fmt(r.close,1)}</td><td class="mono" style="color:${r.ret>=0?'#8FE000':'#FF8A8E'}">${fmtPct(r.ret)}</td><td class="mono">${(r.volume/1e6).toFixed(0)}M</td><td><span class="chip ${r.ret>=0?'good':'bad'}">${r.ret>=0?'IMPULSE':'SHOCK'}</span></td></tr>`).join('');
+}
+
+/* ════════ UPDATE CYCLE (slicer) ════════ */
+let currentPeriod = 'all';
+function refresh(){
+  const rows = sliceRows(currentPeriod);
+  const k = computeKPIs(rows);
+  $('#kReturn').textContent = fmtPct(k.totalReturn);
+  $('#kReturn').style.color = k.totalReturn >= 0 ? '#8FE000' : '#FF8A8E';
+  const kArrow = $('#kReturnArrow');
+  kArrow.textContent = k.totalReturn >= 0 ? '▲' : '▼';
+  kArrow.className = k.totalReturn >= 0 ? 'delta-up' : 'delta-down';
+  $('#kReturnSub').textContent = `${fmtDateShort(k.from)} → ${fmtDateShort(k.to)} · ${k.n} sessions`;
+  $('#kVol').textContent = fmt(k.volAnn,1) + '%';
+  $('#kVolSub').textContent = `daily ${fmt(std(k.rets)*100,2)}% × √252`;
+  $('#kSharpe').textContent = fmt(k.sharpe,2);
+  $('#kDD').textContent = fmtPct(k.maxDD,2,false);
+  $('#kDDSub').textContent = k.maxDD <= -20 ? 'beyond −20% comfort line' : 'within −20% comfort line';
+  $('#kWin').textContent = fmt(k.winRate,1) + '%';
+  $('#kWinSub').textContent = `${k.up} up / ${k.down} down sessions`;
+  $('#kAvg').textContent = fmtPct(k.avgDaily,3);
+  $('#kAvgSub').textContent = 'mean session return';
+  renderPrice(rows); renderCumRet(rows); renderDrawdown(rows);
+  renderDailyRet(rows); renderHist(rows); renderVolume(rows); renderKpiBar(rows);
+}
+$$('#periodSlicer button').forEach(btn => btn.addEventListener('click', () => {
+  currentPeriod = btn.dataset.period;
+  $$('#periodSlicer button').forEach(b => b.classList.toggle('active', b===btn));
+  refresh();
+}));
+
+/* ════════ INIT ════════ */
+renderGuide();
+renderExtremes();
+refresh();
+</script>
+</body>
+</html>
